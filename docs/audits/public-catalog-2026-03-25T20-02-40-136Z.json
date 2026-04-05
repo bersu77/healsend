@@ -1,0 +1,321 @@
+{
+  "generatedAt": "2026-03-25T20:02:40.136Z",
+  "summary": {
+    "totalPublishedProducts": 32,
+    "publicProductCandidates": 31,
+    "readyPublicProducts": 27,
+    "excludedProducts": 1,
+    "blockedProducts": 4,
+    "missingPriceProducts": 4,
+    "genericCategoryProducts": 1,
+    "missingImageProducts": 0,
+    "suspiciousImageProducts": 1,
+    "thinCopyProducts": 1,
+    "categoriesWithoutMarketingPages": 1
+  },
+  "excludedProducts": [
+    {
+      "slug": "test-product",
+      "name": "Test product",
+      "images": [],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": null,
+      "description": "Test product",
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "treatments",
+        "name": "treatments"
+      }
+    }
+  ],
+  "blockedProducts": [
+    {
+      "slug": "glutathione",
+      "name": "Glutathione",
+      "images": [
+        "https://healsend.com/wp-content/uploads/2026/03/glutathione.png"
+      ],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": "Oxidative Guard: Neutralize the \"cellular rust\" that drives premature aging., Liver & Immune Fortress: A deep-tissue purge of heavy metals and pollutants., Dermatological Clarity: Erase dullness and even out skin tone from the inside out., Elite Recovery: Slash muscle soreness and bounce back faster from daily stress.,",
+      "description": null,
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "treatments",
+        "name": "treatments"
+      }
+    },
+    {
+      "slug": "ramalteon",
+      "name": "ramalteon",
+      "images": [],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": null,
+      "description": null,
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "treatments",
+        "name": "treatments"
+      }
+    },
+    {
+      "slug": "semaglutide-drops",
+      "name": "Semaglutide Drops",
+      "images": [],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": "Popular choice , Slightly less effective, Lower cost, Injection • Drops • Tablets",
+      "description": null,
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "weight-loss",
+        "name": "Weight Loss"
+      }
+    },
+    {
+      "slug": "semaglutide-tablets",
+      "name": "Semaglutide Tablets",
+      "images": [],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": "Popular choice , Slightly less effective, Lower cost, Injection • Drops • Tablets",
+      "description": null,
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "weight-loss",
+        "name": "Weight Loss"
+      }
+    }
+  ],
+  "missingPriceProducts": [
+    {
+      "slug": "glutathione",
+      "name": "Glutathione",
+      "images": [
+        "https://healsend.com/wp-content/uploads/2026/03/glutathione.png"
+      ],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": "Oxidative Guard: Neutralize the \"cellular rust\" that drives premature aging., Liver & Immune Fortress: A deep-tissue purge of heavy metals and pollutants., Dermatological Clarity: Erase dullness and even out skin tone from the inside out., Elite Recovery: Slash muscle soreness and bounce back faster from daily stress.,",
+      "description": null,
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "treatments",
+        "name": "treatments"
+      }
+    },
+    {
+      "slug": "ramalteon",
+      "name": "ramalteon",
+      "images": [],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": null,
+      "description": null,
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "treatments",
+        "name": "treatments"
+      }
+    },
+    {
+      "slug": "semaglutide-drops",
+      "name": "Semaglutide Drops",
+      "images": [],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": "Popular choice , Slightly less effective, Lower cost, Injection • Drops • Tablets",
+      "description": null,
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "weight-loss",
+        "name": "Weight Loss"
+      }
+    },
+    {
+      "slug": "semaglutide-tablets",
+      "name": "Semaglutide Tablets",
+      "images": [],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": "Popular choice , Slightly less effective, Lower cost, Injection • Drops • Tablets",
+      "description": null,
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "weight-loss",
+        "name": "Weight Loss"
+      }
+    }
+  ],
+  "genericCategoryProducts": [
+    {
+      "slug": "sildefanil",
+      "name": "Sildenafil",
+      "images": [
+        "https://healsend.com/wp-content/uploads/2026/02/Tirzepatide-injection.png"
+      ],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": null,
+      "description": null,
+      "subscriptionTiers": [
+        {
+          "then_price": 149,
+          "first_price": 139,
+          "plan_badges": [],
+          "promotion_id": 12,
+          "plan_priority": 0,
+          "is_recommended": "no",
+          "duration_months": 1,
+          "is_default_plan": "no",
+          "stripe_price_id": "price_1T5AqQKc7YcIzkWp2Zr2bbFL",
+          "enable_highlight": "no",
+          "plan_bullet_points": "Start anytime -- cancel anytime, Includes medication + provider care, Free 2-day shipping, Flexible month-to-month access"
+        },
+        {
+          "then_price": 129,
+          "first_price": 99,
+          "plan_badges": [],
+          "promotion_id": 4,
+          "plan_priority": 0,
+          "is_recommended": "no",
+          "duration_months": 3,
+          "is_default_plan": "no",
+          "stripe_price_id": "price_1T5AqQKc7YcIzkWpLnZy04sR",
+          "enable_highlight": "no",
+          "plan_bullet_points": "Clinician-guided 90-day protocol, Includes medication + ongoing provider care, Priority dosing & refill management, Free rapid shipping"
+        },
+        {
+          "then_price": 119,
+          "first_price": 59,
+          "plan_badges": [],
+          "promotion_id": 10,
+          "plan_priority": 0,
+          "is_recommended": "no",
+          "duration_months": 6,
+          "is_default_plan": "no",
+          "stripe_price_id": "price_1T6pLIKc7YcIzkWpieiqU6qZ",
+          "enable_highlight": "no",
+          "plan_bullet_points": "180-day comprehensive health roadmap, Reduced monthly rate for consistent care, Advanced refill synchronization, VIP shipping status, Concierge support access 24/7"
+        }
+      ],
+      "variants": [],
+      "category": {
+        "slug": "treatments",
+        "name": "treatments"
+      }
+    }
+  ],
+  "missingImageProducts": [],
+  "suspiciousImageProducts": [
+    {
+      "slug": "tirzepatide-tablets",
+      "name": "Tirzepatide Tablets",
+      "images": [
+        "https://healsend.com/wp-content/uploads/2026/02/imageUploadTest.png"
+      ],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": "Start anytime — cancel anytime, Includes medication + provider care, Free 2-day shipping, Flexible month-to-month access, Try it risk-free, Best for flexibility",
+      "description": null,
+      "subscriptionTiers": [
+        {
+          "then_price": 22,
+          "first_price": 2,
+          "plan_badges": [],
+          "promotion_id": "",
+          "plan_priority": 0,
+          "is_recommended": "no",
+          "duration_months": 1,
+          "is_default_plan": "no",
+          "stripe_price_id": "price_1T3097Kc7YcIzkWpi68rTLC0",
+          "enable_highlight": "no",
+          "plan_bullet_points": ""
+        }
+      ],
+      "variants": [],
+      "category": {
+        "slug": "weight-loss",
+        "name": "Weight Loss"
+      }
+    }
+  ],
+  "thinCopyProducts": [
+    {
+      "slug": "sildefanil",
+      "name": "Sildenafil",
+      "images": [
+        "https://healsend.com/wp-content/uploads/2026/02/Tirzepatide-injection.png"
+      ],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": null,
+      "description": null,
+      "subscriptionTiers": [
+        {
+          "then_price": 149,
+          "first_price": 139,
+          "plan_badges": [],
+          "promotion_id": 12,
+          "plan_priority": 0,
+          "is_recommended": "no",
+          "duration_months": 1,
+          "is_default_plan": "no",
+          "stripe_price_id": "price_1T5AqQKc7YcIzkWp2Zr2bbFL",
+          "enable_highlight": "no",
+          "plan_bullet_points": "Start anytime -- cancel anytime, Includes medication + provider care, Free 2-day shipping, Flexible month-to-month access"
+        },
+        {
+          "then_price": 129,
+          "first_price": 99,
+          "plan_badges": [],
+          "promotion_id": 4,
+          "plan_priority": 0,
+          "is_recommended": "no",
+          "duration_months": 3,
+          "is_default_plan": "no",
+          "stripe_price_id": "price_1T5AqQKc7YcIzkWpLnZy04sR",
+          "enable_highlight": "no",
+          "plan_bullet_points": "Clinician-guided 90-day protocol, Includes medication + ongoing provider care, Priority dosing & refill management, Free rapid shipping"
+        },
+        {
+          "then_price": 119,
+          "first_price": 59,
+          "plan_badges": [],
+          "promotion_id": 10,
+          "plan_priority": 0,
+          "is_recommended": "no",
+          "duration_months": 6,
+          "is_default_plan": "no",
+          "stripe_price_id": "price_1T6pLIKc7YcIzkWpieiqU6qZ",
+          "enable_highlight": "no",
+          "plan_bullet_points": "180-day comprehensive health roadmap, Reduced monthly rate for consistent care, Advanced refill synchronization, VIP shipping status, Concierge support access 24/7"
+        }
+      ],
+      "variants": [],
+      "category": {
+        "slug": "treatments",
+        "name": "treatments"
+      }
+    }
+  ],
+  "categoriesWithoutMarketingPages": [
+    {
+      "slug": "treatments",
+      "name": "treatments",
+      "productCount": 1,
+      "hasMarketingPage": false
+    }
+  ]
+}

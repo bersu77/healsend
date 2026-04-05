@@ -1,0 +1,235 @@
+{
+  "generatedAt": "2026-03-28T00:06:35.055Z",
+  "results": [
+    {
+      "path": "/",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/home",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 308,
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/home",
+          "status": 308,
+          "location": "https://healsend.barikhan.studio/"
+        },
+        {
+          "url": "https://healsend.barikhan.studio/",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/Quiz",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 308,
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/funnels/glp-1-eligibility",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/Quiz",
+          "status": 308,
+          "location": "https://healsend.barikhan.studio/funnels/glp-1-eligibility"
+        },
+        {
+          "url": "https://healsend.barikhan.studio/funnels/glp-1-eligibility",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/quiz",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 308,
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/funnels/glp-1-eligibility",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/quiz",
+          "status": 308,
+          "location": "https://healsend.barikhan.studio/funnels/glp-1-eligibility"
+        },
+        {
+          "url": "https://healsend.barikhan.studio/funnels/glp-1-eligibility",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/privacy-policy-3",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/privacy-policy-3",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/privacy-policy-3",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/understanding-zoloft-uses-and-side-effects",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/understanding-zoloft-uses-and-side-effects",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/understanding-zoloft-uses-and-side-effects",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/login",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/login",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/login",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/admin-login",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 308,
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/login",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/admin-login",
+          "status": 308,
+          "location": "https://healsend.barikhan.studio/login"
+        },
+        {
+          "url": "https://healsend.barikhan.studio/login",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/signup",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/signup",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/signup",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/shop",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/shop",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/shop",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/anti-aging",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/anti-aging",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/anti-aging",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/nad",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/nad",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/nad",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/consultation/local-dev?orderId=demo-123",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/consultation/local-dev?orderId=demo-123",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/consultation/local-dev?orderId=demo-123",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/account",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/account",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/account",
+          "status": 200,
+          "location": null
+        }
+      ]
+    }
+  ]
+}

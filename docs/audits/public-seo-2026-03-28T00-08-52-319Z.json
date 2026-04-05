@@ -1,0 +1,311 @@
+{
+  "generatedAt": "2026-03-28T00:08:52.319Z",
+  "results": [
+    {
+      "path": "/",
+      "ok": true,
+      "issues": [],
+      "title": "HealSend",
+      "description": "Clinician-guided treatment, onboarding, and ongoing care through HealSend.",
+      "canonical": "https://healsend.barikhan.studio/",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/"
+    },
+    {
+      "path": "/anti-aging",
+      "ok": true,
+      "issues": [],
+      "title": "Support energy, recovery, and vitality with precision care. | HealSend",
+      "description": "Compare anti-aging and longevity-focused treatments designed to support focus, resilience, metabolism, and everyday performance.",
+      "canonical": "https://healsend.barikhan.studio/anti-aging",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/anti-aging",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/anti-aging"
+    },
+    {
+      "path": "/cjc-1295-ipamorelin",
+      "ok": true,
+      "issues": [],
+      "title": "CJC-1295 + Ipamorelin | Strength And Recovery Care",
+      "description": "Explore CJC-1295 + Ipamorelin inside HealSend&#x27;s strength-and-recovery experience, with clinician-guided review and clearer next steps.",
+      "canonical": "https://healsend.barikhan.studio/cjc-1295-ipamorelin",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/cjc-1295-ipamorelin",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/cjc-1295-ipamorelin"
+    },
+    {
+      "path": "/glutathione-ldn",
+      "ok": true,
+      "issues": [],
+      "title": "Recovery-focused support for inflammation, energy, and long-term resilience. | HealSend",
+      "description": "Explore glutathione and LDN-based treatment options designed to support recovery, cellular repair, and everyday vitality.",
+      "canonical": "https://healsend.barikhan.studio/glutathione-ldn",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/glutathione-ldn",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/glutathione-ldn"
+    },
+    {
+      "path": "/nad",
+      "ok": true,
+      "issues": [],
+      "title": "NAD+ Injections | HealSend",
+      "description": "High-bioavailability NAD+ therapy built for energy, recovery, focus, and healthy aging support.",
+      "canonical": "https://healsend.barikhan.studio/nad",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/nad",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/nad"
+    },
+    {
+      "path": "/nad-nasal-spray",
+      "ok": true,
+      "issues": [],
+      "title": "NAD+ Nasal Spray | HealSend",
+      "description": "Rapid, needle-free NAD+ support focused on clarity, alertness, and daily clean energy.",
+      "canonical": "https://healsend.barikhan.studio/nad-nasal-spray",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/nad-nasal-spray",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/nad-nasal-spray"
+    },
+    {
+      "path": "/nad-patches",
+      "ok": true,
+      "issues": [],
+      "title": "NAD+ Patches | HealSend",
+      "description": "Simple transdermal NAD+ support for patients who want an easy needle-free anti-aging option.",
+      "canonical": "https://healsend.barikhan.studio/nad-patches",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/nad-patches",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/nad-patches"
+    },
+    {
+      "path": "/oxytocin-nasal-spray",
+      "ok": true,
+      "issues": [],
+      "title": "Oxytocin Nasal Spray | HealSend",
+      "description": "A needle-free option focused on connection, arousal, and confidence with discreet delivery.",
+      "canonical": "https://healsend.barikhan.studio/oxytocin-nasal-spray",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/oxytocin-nasal-spray",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/oxytocin-nasal-spray"
+    },
+    {
+      "path": "/pt-141-nasal-spray",
+      "ok": true,
+      "issues": [],
+      "title": "PT-141 Nasal Spray | HealSend",
+      "description": "Fast-acting support designed to boost desire, arousal, and confidence for men and women.",
+      "canonical": "https://healsend.barikhan.studio/pt-141-nasal-spray",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/pt-141-nasal-spray",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/pt-141-nasal-spray"
+    },
+    {
+      "path": "/semaglutide-injections",
+      "ok": true,
+      "issues": [],
+      "title": "Semaglutide Injections | HealSend",
+      "description": "Trusted GLP-1 pathway for appetite support, steady progress, and long-term weight management.",
+      "canonical": "https://healsend.barikhan.studio/semaglutide-injections",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/semaglutide-injections",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/semaglutide-injections"
+    },
+    {
+      "path": "/sermorelin-injection-2",
+      "ok": true,
+      "issues": [],
+      "title": "Sermorelin Support | Strength And Recovery Care",
+      "description": "Explore sermorelin support inside HealSend&#x27;s strength-and-recovery experience, with clinician-guided review and clearer next steps.",
+      "canonical": "https://healsend.barikhan.studio/sermorelin-injection-2",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/sermorelin-injection-2",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/sermorelin-injection-2"
+    },
+    {
+      "path": "/sexual-health",
+      "ok": true,
+      "issues": [],
+      "title": "Confidential care for intimacy, desire, and performance. | HealSend",
+      "description": "Start online, review your options with a licensed provider, and get treatment delivered discreetly to your door.",
+      "canonical": "https://healsend.barikhan.studio/sexual-health",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/sexual-health",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/sexual-health"
+    },
+    {
+      "path": "/shop",
+      "ok": true,
+      "issues": [],
+      "title": "Browse Treatments | HealSend",
+      "description": "Explore clinician-guided treatments, pricing, and care plans across the HealSend catalog.",
+      "canonical": "https://healsend.barikhan.studio/shop",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/shop",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/shop"
+    },
+    {
+      "path": "/sleep",
+      "ok": true,
+      "issues": [],
+      "title": "Deeper, more restorative sleep without guesswork. | HealSend",
+      "description": "Compare clinician-guided sleep support options designed to help with onset, staying asleep, and better next-day recovery.",
+      "canonical": "https://healsend.barikhan.studio/sleep",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/sleep",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/sleep"
+    },
+    {
+      "path": "/strength-recovery",
+      "ok": true,
+      "issues": [],
+      "title": "Recovery, performance, and hormone support built around follow-through. | HealSend",
+      "description": "Explore clinician-guided options for recovery, body composition, vitality, and sustainable performance support.",
+      "canonical": "https://healsend.barikhan.studio/strength-recovery",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/strength-recovery",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/strength-recovery"
+    },
+    {
+      "path": "/tirzepatide-drops",
+      "ok": true,
+      "issues": [],
+      "title": "Tirzepatide Drops | HealSend",
+      "description": "Needle-free appetite and craving support in a daily format built for convenience.",
+      "canonical": "https://healsend.barikhan.studio/tirzepatide-drops",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/tirzepatide-drops",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/tirzepatide-drops"
+    },
+    {
+      "path": "/tirzepatide-injections",
+      "ok": true,
+      "issues": [],
+      "title": "Tirzepatide Injections | HealSend",
+      "description": "Dual-action GLP-1 treatment built for appetite control, reduced food noise, and sustained weight loss.",
+      "canonical": "https://healsend.barikhan.studio/tirzepatide-injections",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/tirzepatide-injections",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/tirzepatide-injections"
+    },
+    {
+      "path": "/weight-loss",
+      "ok": true,
+      "issues": [],
+      "title": "Provider-guided GLP-1 care built for real life. | HealSend",
+      "description": "Explore weight loss treatments with clear pricing, clinician review, and home delivery without the usual waiting room friction.",
+      "canonical": "https://healsend.barikhan.studio/weight-loss",
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/weight-loss",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/weight-loss"
+    }
+  ]
+}

@@ -1,0 +1,297 @@
+{
+  "generatedAt": "2026-03-28T00:08:52.876Z",
+  "baseUrl": "https://healsend.barikhan.studio",
+  "totalRoutes": 18,
+  "suspiciousRouteCount": 0,
+  "missingOgImageCount": 0,
+  "results": [
+    {
+      "path": "/",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/tirzepatide.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/anti-aging",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/anti-aging",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/nad-injection.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/anti-aging",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/cjc-1295-ipamorelin",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/cjc-1295-ipamorelin",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/nad-injection.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/cjc-1295-ipamorelin",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/glutathione-ldn",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/glutathione-ldn",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/glutathione-ldn.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/glutathione-ldn",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/nad",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/nad",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/nad-injection.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/nad",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/nad-nasal-spray",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/nad-nasal-spray",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/nad-nasal.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/nad-nasal-spray",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/nad-patches",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/nad-patches",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/nad-patches.webp",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/nad-patches",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/oxytocin-nasal-spray",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/oxytocin-nasal-spray",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/oxytocin.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/oxytocin-nasal-spray",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/pt-141-nasal-spray",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/pt-141-nasal-spray",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/pt141.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/pt-141-nasal-spray",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/semaglutide-injections",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/semaglutide-injections",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/semaglutide-sermorelin.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/semaglutide-injections",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/sermorelin-injection-2",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/sermorelin-injection-2",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/nad-injection.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/sermorelin-injection-2",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/sexual-health",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/sexual-health",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/pt141.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/sexual-health",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/shop",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/shop",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/tirzepatide.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/shop",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/sleep",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/sleep",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/remeron.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/sleep",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/strength-recovery",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/strength-recovery",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/sermorelin.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/strength-recovery",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/tirzepatide-drops",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/tirzepatide-drops",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/tirzepatide.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/tirzepatide-drops",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/tirzepatide-injections",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/tirzepatide-injections",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/tirzepatide.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/tirzepatide-injections",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "path": "/weight-loss",
+      "finalStatus": 200,
+      "finalUrl": "https://healsend.barikhan.studio/weight-loss",
+      "contentType": "text/html; charset=utf-8",
+      "ogImage": "https://healsend.barikhan.studio/images/marketing/tirzepatide.png",
+      "suspiciousAssets": [],
+      "chain": [
+        {
+          "url": "https://healsend.barikhan.studio/weight-loss",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "error": null
+    }
+  ]
+}

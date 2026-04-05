@@ -1,0 +1,66 @@
+{
+  "generatedAt": "2026-03-26T06:15:52.601Z",
+  "target": "production",
+  "checkExternal": false,
+  "summary": {
+    "pass": 1,
+    "warn": 4,
+    "fail": 4
+  },
+  "checks": [
+    {
+      "name": "NEXT_PUBLIC_APP_URL",
+      "status": "fail",
+      "detail": "App URL still points at a local host (http://localhost:3000).",
+      "action": "Use the real production HTTPS origin so canonicals, OAuth callbacks, robots, and sitemap output are correct."
+    },
+    {
+      "name": "STRIPE_SECRET_KEY",
+      "status": "fail",
+      "detail": "Stripe secret key is not live-mode (test).",
+      "action": "Use a live Stripe secret key before production cutover."
+    },
+    {
+      "name": "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
+      "status": "fail",
+      "detail": "Stripe publishable key is not live-mode (test).",
+      "action": "Use a live publishable key before production cutover."
+    },
+    {
+      "name": "STRIPE_WEBHOOK_SECRET",
+      "status": "fail",
+      "detail": "Stripe webhook secret is missing or placeholder.",
+      "action": "Set the real Stripe webhook signing secret for the deployed endpoint."
+    },
+    {
+      "name": "Google OAuth",
+      "status": "warn",
+      "detail": "Google OAuth is disabled in this environment.",
+      "action": "If you want Google sign-in at cutover, set real credentials and re-enable the provider."
+    },
+    {
+      "name": "Apple OAuth",
+      "status": "warn",
+      "detail": "Apple OAuth is disabled in this environment.",
+      "action": "If you want Apple sign-in at cutover, set the full Apple OAuth config and re-enable the provider."
+    },
+    {
+      "name": "GHL_API_KEY",
+      "status": "warn",
+      "detail": "GoHighLevel sync/API is disabled in this environment.",
+      "action": "If CRM contact sync is required at cutover, set a real GHL_API_KEY and re-enable GHL sync."
+    },
+    {
+      "name": "GHL OAuth",
+      "status": "warn",
+      "detail": "GHL OAuth is disabled in this environment.",
+      "action": "If you depend on the OAuth flow, set real GHL_CLIENT_ID and GHL_CLIENT_SECRET and re-enable it."
+    },
+    {
+      "name": "Uploads",
+      "status": "pass",
+      "detail": "The app uses local filesystem uploads under public/uploads and does not require extra upload env vars.",
+      "action": "Still verify runtime upload/write permissions in the deployed environment."
+    }
+  ]
+}

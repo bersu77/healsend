@@ -1,0 +1,34 @@
+.marqueeViewport {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.marqueeSwiper {
+  height: 100%;
+}
+
+.marqueeSlide {
+  height: auto !important;
+}
+
+.marqueeSwiper :global(.swiper-wrapper) {
+  transition-timing-function: linear !important;
+}
+
+.marqueeSwiperReverse :global(.swiper-wrapper) {
+  transition-timing-function: linear !important;
+}
+
+.experienceMarquee {
+  width: 100%;
+}
+
+.experienceMarqueeSlide {
+  width: auto !important;
+}
+
+.experienceMarquee :global(.swiper-wrapper) {
+  transition-timing-function: linear !important;
+  align-items: center;
+}

@@ -1,0 +1,30 @@
+FROM node:20-bullseye-slim
+
+WORKDIR /app
+
+ARG NEXT_PUBLIC_APP_URL
+ARG NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
+ENV NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends openssl ca-certificates openssh-client \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY package.json package-lock.json ./
+RUN npm ci --legacy-peer-deps --include=dev
+
+COPY . .
+
+RUN if [ -f deploy/.env.preview ]; then cp deploy/.env.preview .env; fi
+
+RUN npx prisma generate
+RUN npm run build
+
+ENV NODE_ENV=production
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start", "--", "--hostname", "0.0.0.0", "--port", "3000"]

@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-03-28T00:06:51.814Z",
+  "baseUrl": "https://healsend.barikhan.studio",
+  "caseId": "mdi-case-1774656409784",
+  "orderId": "cmn5usz7j001q5i2vwa5ics2s",
+  "results": [
+    {
+      "name": "login",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "partner auth completion",
+      "ok": false,
+      "failure": "expected successful partner auth completion, got 200",
+      "summary": "status 200"
+    },
+    {
+      "name": "case_assigned webhook",
+      "ok": false,
+      "failure": "expected webhook success, got 401",
+      "summary": "status 401"
+    },
+    {
+      "name": "offering_submitted webhook",
+      "ok": false,
+      "failure": "expected webhook success, got 401",
+      "summary": "status 401"
+    },
+    {
+      "name": "prescription_submitted webhook",
+      "ok": false,
+      "failure": "expected webhook success, got 401",
+      "summary": "status 401"
+    },
+    {
+      "name": "user visits api",
+      "ok": true,
+      "failure": "",
+      "summary": "8 visits"
+    },
+    {
+      "name": "user messages api",
+      "ok": true,
+      "failure": "",
+      "summary": "35 messages"
+    },
+    {
+      "name": "user projection",
+      "ok": false,
+      "failure": "expected user mdiPatientId mdi-patient-1774656409784, got null",
+      "summary": "no patient id"
+    },
+    {
+      "name": "order projection",
+      "ok": false,
+      "failure": "expected order case mdi-case-1774656409784 and encounter mdi-encounter-1774656409784",
+      "summary": "case none / encounter none"
+    },
+    {
+      "name": "case snapshot projection",
+      "ok": false,
+      "failure": "expected provider, offerings, and prescriptions on case snapshot",
+      "summary": "missing case snapshot"
+    },
+    {
+      "name": "message sync projection",
+      "ok": false,
+      "failure": "expected message sync row to store mdi patient id",
+      "summary": "missing sync row"
+    },
+    {
+      "name": "webhook event log",
+      "ok": false,
+      "failure": "expected at least 3 logged webhook events, got 0",
+      "summary": "0 logged events"
+    },
+    {
+      "name": "mdi care-team messages",
+      "ok": false,
+      "failure": "expected at least one persisted MDI-derived care-team message",
+      "summary": "0 case-specific messages"
+    }
+  ]
+}

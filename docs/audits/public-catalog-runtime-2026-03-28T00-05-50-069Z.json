@@ -1,0 +1,44 @@
+{
+  "generatedAt": "2026-03-28T00:05:50.069Z",
+  "baseUrl": "https://healsend.barikhan.studio",
+  "hiddenProducts": [
+    {
+      "slug": "glutathione",
+      "finalStatus": 200,
+      "foundInShop": false,
+      "foundInApi": false,
+      "ok": false
+    },
+    {
+      "slug": "ramalteon",
+      "finalStatus": 200,
+      "foundInShop": false,
+      "foundInApi": false,
+      "ok": false
+    },
+    {
+      "slug": "semaglutide-drops",
+      "finalStatus": 200,
+      "foundInShop": false,
+      "foundInApi": false,
+      "ok": false
+    },
+    {
+      "slug": "semaglutide-tablets",
+      "finalStatus": 200,
+      "foundInShop": false,
+      "foundInApi": false,
+      "ok": false
+    },
+    {
+      "slug": "test-product",
+      "finalStatus": 200,
+      "foundInShop": false,
+      "foundInApi": false,
+      "ok": false
+    }
+  ],
+  "suspiciousImageProducts": [],
+  "shopPageClean": true,
+  "apiCatalogClean": true
+}

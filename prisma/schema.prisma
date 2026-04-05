@@ -1,0 +1,802 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Users & Auth ────────────────────────────────────────────
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String?
+  name          String?
+  phone         String?
+  dateOfBirth   DateTime?
+  role          Role      @default(CUSTOMER)
+  stripeCustomerId String?
+  authProvider  String?   // "google", "apple", or null for email/password
+  authProviderId String?  // provider-specific user ID
+  mdiPartnerCustomerId Int? @unique @default(autoincrement())
+  mdiPatientId  String?   @unique
+  mdiPatientStatus String?
+  mdiLastSyncedAt DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  addresses     Address[]
+  orders        Order[]
+  cart          Cart?
+  onboarding    Onboarding?
+  sessions      Session[]
+  paymentMethods PaymentMethod[]
+  messages      Message[]
+  onboardingSubmissions OnboardingSubmission[]
+  subscriptions Subscription[]
+  mdiWebhookEvents MdiWebhookEvent[]
+  mdiCaseSnapshots MdiCaseSnapshot[]
+  mdiPatientMessageSync MdiPatientMessageSync?
+  affiliateSessions AffiliateSession[]
+  affiliateEvents AffiliateEvent[]
+  affiliateApplication AffiliateApplication?
+  referralsAsReferrer  Referral[]       @relation("ReferralReferrer")
+  referralsAsReferred  Referral[]       @relation("ReferralReferred")
+  rewardLedger         RewardLedger[]   @relation("RewardLedgerUser")
+
+  @@unique([authProvider, authProviderId])
+}
+
+model Subscription {
+  id                 String             @id @default(cuid())
+  userId             String
+  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stripeSubscriptionId String?          @unique
+  planName           String
+  status             SubscriptionStatus @default(ACTIVE)
+  amount             Float
+  currency           String             @default("USD")
+  interval           String             @default("month")
+  intervalCount      Int                @default(1)
+  startDate          DateTime           @default(now())
+  nextBillingDate    DateTime?
+  endDate            DateTime?
+  cancelAtPeriodEnd  Boolean            @default(false)
+  notes              String?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+  affiliateEvents    AffiliateEvent[]
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  TRIALING
+  PAST_DUE
+  CANCELED
+  EXPIRED
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model PaymentMethod {
+  id            String  @id @default(cuid())
+  userId        String
+  user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stripePaymentMethodId String
+  brand         String?
+  last4         String?
+  expMonth      Int?
+  expYear       Int?
+  isDefault     Boolean @default(false)
+  createdAt     DateTime @default(now())
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subject   String?
+  body      String
+  fromAdmin Boolean  @default(false)
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Onboarding {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  goal        String?
+  motivation  String?
+  feet        Int?
+  inches      Int?
+  weight      Int?
+  bmi         Float?
+  textAlerts  Boolean  @default(false)
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+}
+
+// ─── Onboarding Templates (Admin-managed) ────────────────────
+
+model OnboardingTemplate {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id])
+  productId   String?
+  active      Boolean  @default(true)
+  styling     Json?    // colors, backgrounds, logos
+  steps       OnboardingStep[]
+  submissions OnboardingSubmission[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model OnboardingStep {
+  id          String   @id @default(cuid())
+  templateId  String
+  template    OnboardingTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  title       String
+  subtitle    String?
+  type        StepType
+  order       Int
+  config      Json     // step-specific configuration (options, fields, etc.)
+  required    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([templateId, order])
+}
+
+enum StepType {
+  QUESTION_SINGLE   // Single-choice question
+  QUESTION_MULTI    // Multi-choice question
+  BMI_CALCULATOR    // Height/weight/BMI step
+  TEXT_INPUT         // Free text input
+  ACCOUNT_CREATE    // Account creation step
+  PLAN_SELECTION    // Subscription plan selection
+  MEDICATION_SELECT // Medication/product selection
+  CHECKOUT          // Payment/checkout step
+  TEXT_ALERTS       // SMS opt-in
+  CUSTOM_FORM       // Custom form fields
+  INFO_SCREEN       // Information/education screen
+}
+
+model OnboardingSubmission {
+  id          String   @id @default(cuid())
+  templateId  String
+  template    OnboardingTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
+  data        Json     // All collected answers
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+}
+
+model Address {
+  id         String  @id @default(cuid())
+  userId     String
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  line1      String
+  line2      String?
+  city       String
+  state      String
+  zip        String
+  country    String  @default("US")
+  isDefault  Boolean @default(false)
+  orders     Order[]
+}
+
+// ─── Catalog ─────────────────────────────────────────────────
+
+model Category {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  slug        String     @unique
+  description String?
+  image       String?
+  parentId    String?
+  parent      Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryTree")
+  products    Product[]
+  onboardingTemplates OnboardingTemplate[]
+  marketingPages MarketingPage[]
+  priority    Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Brand {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  logo        String?
+  description String?
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id                  String            @id @default(cuid())
+  wcId                Int?              @unique // WooCommerce legacy ID
+  sku                 String?           @unique
+  name                String
+  slug                String            @unique
+  type                ProductType       @default(SIMPLE)
+  published           Boolean           @default(true)
+  featured            Boolean           @default(false)
+  shortDescription    String?
+  description         String?
+  regularPrice        Float?
+  salePrice           Float?
+  taxStatus           String?           @default("taxable")
+  inStock             Boolean           @default(true)
+  stock               Int?
+  weight              Float?
+  images              String[]          // array of URLs
+  stripeProductId     String?
+  categoryId          String?
+  category            Category?         @relation(fields: [categoryId], references: [id])
+  brandId             String?
+  brand               Brand?            @relation(fields: [brandId], references: [id])
+  tags                String[]
+  subscriptionTiers   Json?             // JSON blob for plan tiers
+  attributes          Json?             // flexible key-value attrs
+  variants            ProductVariant[]
+  orderItems          OrderItem[]
+  cartItems           CartItem[]
+  marketingPages      MarketingPage[]
+  priority            Int               @default(0)
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+}
+
+enum ProductType {
+  SIMPLE
+  VARIABLE
+}
+
+model MediaAsset {
+  id          String   @id @default(cuid())
+  source      String   @default("wordpress")
+  sourceId    Int?     @unique
+  slug        String?
+  title       String?
+  altText     String?
+  mimeType    String?
+  filePath    String?
+  url         String   @unique
+  metadata    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  marketingPages MarketingPage[]
+}
+
+model MarketingPage {
+  id              String            @id @default(cuid())
+  slug            String            @unique
+  title           String
+  pageType        MarketingPageType @default(CUSTOM)
+  source          String            @default("wordpress")
+  sourcePostId    Int?              @unique
+  sourcePostType  String?
+  sourceUrl       String?
+  excerpt         String?
+  seoTitle        String?
+  seoDescription  String?
+  heroImage       String?
+  contentHtml     String?
+  content         Json?
+  categoryId      String?
+  productId       String?
+  heroAssetId     String?
+  category        Category?         @relation(fields: [categoryId], references: [id])
+  product         Product?          @relation(fields: [productId], references: [id])
+  heroAsset       MediaAsset?       @relation(fields: [heroAssetId], references: [id])
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  @@index([pageType])
+}
+
+enum MarketingPageType {
+  HOME
+  CATEGORY
+  PRODUCT
+  CUSTOM
+}
+
+model ProductVariant {
+  id              String      @id @default(cuid())
+  productId       String
+  product         Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  name            String
+  sku             String?
+  price           Float
+  salePrice       Float?
+  stripePriceId   String?
+  attributes      Json?
+  inStock         Boolean     @default(true)
+  stock           Int?
+  orderItems      OrderItem[]
+  cartItems       CartItem[]
+}
+
+// ─── Cart ────────────────────────────────────────────────────
+
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     CartItem[]
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id         String          @id @default(cuid())
+  cartId     String
+  cart       Cart            @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId  String
+  product    Product         @relation(fields: [productId], references: [id])
+  variantId  String?
+  variant    ProductVariant? @relation(fields: [variantId], references: [id])
+  quantity   Int             @default(1)
+  metadata   Json?
+}
+
+// ─── Orders ──────────────────────────────────────────────────
+
+model Order {
+  id                  String      @id @default(cuid())
+  orderNumber         String      @unique @default(cuid())
+  userId              String
+  user                User        @relation(fields: [userId], references: [id])
+  status              OrderStatus @default(PENDING)
+  items               OrderItem[]
+  subtotal            Float
+  tax                 Float       @default(0)
+  shipping            Float       @default(0)
+  discount            Float       @default(0)
+  total               Float
+  checkoutFingerprint String?
+  stripePaymentId     String?
+  stripeSessionId     String?
+  stripePaymentStatus String?
+  stripePaymentMethod String?
+  paymentCapturedAt   DateTime?
+  mdiPartnerOrderId   Int?        @unique @default(autoincrement())
+  mdiOrderId          String?
+  mdiCaseId           String?
+  mdiEncounterId      String?
+  mdiOrderTag         String?
+  mdiOrderStatus      String?
+  mdiVoucherCode      String?
+  mdiWorkflowPhase    String?
+  mdiLastWebhookAt    DateTime?
+  mdiConsultationRefreshedAt DateTime?
+  mdiSubmittedAt      DateTime?
+  consultationId      String?     // MD Integrations consultation ID
+  consultationUrl     String?     // MD Integrations consultation URL
+  consultationStatus  String?     // e.g. "pending", "completed", "cancelled"
+  fulfillmentReadyAt  DateTime?
+  fulfillmentBlockedReason String?
+  addressId           String?
+  address             Address?    @relation(fields: [addressId], references: [id])
+  notes               String?
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+  mdiWebhookEvents    MdiWebhookEvent[]
+  mdiCaseSnapshots    MdiCaseSnapshot[]
+  stripeWebhookEvents StripeWebhookEvent[]
+  affiliateEvents     AffiliateEvent[]
+
+  @@index([checkoutFingerprint])
+  @@index([stripePaymentStatus])
+  @@index([paymentCapturedAt])
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  PAID
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum StripeWebhookEventStatus {
+  PROCESSING
+  PROCESSED
+  FAILED
+  IGNORED
+}
+
+model OrderItem {
+  id         String          @id @default(cuid())
+  orderId    String
+  order      Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId  String?
+  product    Product?        @relation(fields: [productId], references: [id])
+  variantId  String?
+  variant    ProductVariant? @relation(fields: [variantId], references: [id])
+  name       String
+  price      Float
+  quantity   Int
+  metadata   Json?
+}
+
+// ─── Dynamic Forms ───────────────────────────────────────────
+
+model FormTemplate {
+  id          String           @id @default(cuid())
+  name        String
+  slug        String           @unique
+  description String?
+  fields      Json             // JSON array defining form fields
+  styling     Json?            // optional styling overrides
+  active      Boolean          @default(true)
+  submissions FormSubmission[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+model FormSubmission {
+  id         String       @id @default(cuid())
+  formId     String
+  form       FormTemplate @relation(fields: [formId], references: [id], onDelete: Cascade)
+  data       Json
+  email      String?
+  createdAt  DateTime     @default(now())
+}
+
+// ─── GoHighLevel CRM Integration ─────────────────────────────
+
+model GhlContact {
+  id        String   @id @default(cuid())
+  ghlId     String   @unique
+  firstName String?
+  lastName  String?
+  email     String?
+  phone     String?
+  tags      String[]
+  userId    String?  // link to local user if applicable
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model GhlWebhookEvent {
+  id        String   @id @default(cuid())
+  eventType String
+  payload   Json
+  processed Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// GHL OAuth tokens for multi-tenant SaaS
+model GhlOAuthToken {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  locationId   String
+  accessToken  String
+  refreshToken String
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model MdiWebhookEvent {
+  id          String   @id @default(cuid())
+  deliveryId  String?  @unique
+  eventType   String
+  source      String   @default("mdi")
+  payload     Json
+  headers     Json?
+  processed   Boolean  @default(false)
+  processedAt DateTime?
+  error       String?
+  orderId     String?
+  order       Order?   @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  mdiOrderId  String?
+  mdiPatientId String?
+  mdiCaseId   String?
+  createdAt   DateTime @default(now())
+
+  @@index([orderId])
+  @@index([userId])
+  @@index([mdiOrderId])
+  @@index([mdiPatientId])
+  @@index([mdiCaseId])
+  @@index([eventType])
+}
+
+model MdiCaseSnapshot {
+  id                  String   @id @default(cuid())
+  mdiCaseId           String   @unique
+  orderId             String?
+  order               Order?   @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  userId              String?
+  user                User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  mdiOrderId          String?
+  mdiPatientId        String?
+  encounterId         String?
+  consultationId      String?
+  consultationUrl     String?
+  status              String?
+  phase               String?
+  providerId          String?
+  providerName        String?
+  offerings           Json?
+  prescriptions       Json?
+  latestEventType     String?
+  latestEventAt       DateTime?
+  notes               String?
+  rawSnapshot         Json?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@index([orderId])
+  @@index([userId])
+  @@index([mdiOrderId])
+  @@index([mdiPatientId])
+  @@index([status])
+}
+
+model MdiPatientMessageSync {
+  id          String   @id @default(cuid())
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mdiPatientId String?
+  lastCursor   String?
+  lastSyncedAt DateTime?
+  rawState     Json?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([mdiPatientId])
+}
+
+model StripeWebhookEvent {
+  id               String                   @id @default(cuid())
+  stripeEventId    String                   @unique
+  eventType        String
+  status           StripeWebhookEventStatus @default(PROCESSING)
+  payload          Json
+  objectId         String?
+  paymentIntentId  String?
+  checkoutSessionId String?
+  orderId          String?
+  order            Order?                   @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  processedAt      DateTime?
+  error            String?
+  createdAt        DateTime                 @default(now())
+  updatedAt        DateTime                 @updatedAt
+
+  @@index([eventType, status])
+  @@index([orderId])
+  @@index([paymentIntentId])
+  @@index([checkoutSessionId])
+}
+
+enum AffiliateEventType {
+  PAGE_VIEW
+  FUNNEL
+  PAYMENT
+  PATIENT
+}
+
+model AffiliateSession {
+  id                String           @id @default(cuid())
+  visitorId         String
+  sessionKey        String           @unique
+  userId            String?
+  user              User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  affiliateSource   String?
+  affiliateMedium   String?
+  affiliateCampaign String?
+  affiliateTerm     String?
+  affiliateContent  String?
+  affiliateId       String?
+  landingPath       String?
+  landingUrl        String?
+  referrer          String?
+  userAgent         String?
+  ipAddress         String?
+  startedAt         DateTime         @default(now())
+  lastSeenAt        DateTime         @default(now())
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  events            AffiliateEvent[]
+
+  @@index([visitorId, startedAt])
+  @@index([userId, startedAt])
+  @@index([affiliateSource, affiliateCampaign])
+}
+
+model AffiliateEvent {
+  id                 String             @id @default(cuid())
+  sessionId          String?
+  session            AffiliateSession?  @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  userId             String?
+  user               User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+  orderId            String?
+  order              Order?             @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  subscriptionId     String?
+  subscription       Subscription?      @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+  eventType          AffiliateEventType
+  eventName          String
+  path               String?
+  fullUrl            String?
+  referrer           String?
+  funnelSlug         String?
+  funnelStep         Int?
+  funnelStepLabel    String?
+  paymentIntentId    String?
+  stripeSessionId    String?
+  paymentStatus      String?
+  consultationStatus String?
+  mdiWorkflowPhase   String?
+  metadata           Json?
+  occurredAt         DateTime           @default(now())
+  createdAt          DateTime           @default(now())
+
+  @@index([sessionId, occurredAt])
+  @@index([userId, occurredAt])
+  @@index([orderId, occurredAt])
+  @@index([subscriptionId, occurredAt])
+  @@index([eventType, occurredAt])
+  @@index([funnelSlug, funnelStep])
+}
+
+// ─── Affiliate Partner Applications ──────────────────────────
+
+enum AffiliateApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model AffiliateApplication {
+  id              String                     @id @default(cuid())
+  userId          String                     @unique
+  user            User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status          AffiliateApplicationStatus @default(PENDING)
+  referralCode    String?                    @unique
+  firstName       String
+  lastName        String
+  phone           String
+  motivation      String?
+  website         String?
+  notes           String?
+  rejectionReason String?
+  approvedAt      DateTime?
+  totalEarnings   Float                      @default(0)
+  pendingPayout   Float                      @default(0)
+  createdAt       DateTime                   @default(now())
+  updatedAt       DateTime                   @updatedAt
+
+  affiliateLinks  AffiliateLink[]
+
+  @@index([status])
+  @@index([referralCode])
+}
+
+// ─── Affiliate Link / Referral / Reward System ───────────────
+
+enum AffiliateLinkPayoutType {
+  FIXED       // flat dollar amount per conversion
+  PERCENTAGE  // percentage of order total
+}
+
+enum ReferralStatus {
+  PENDING    // visited via link, not yet converted
+  CONVERTED  // referred user completed a signup / purchase
+  REWARDED   // reward has been issued
+  EXPIRED    // cookie window closed before conversion
+  INVALID    // self-referral or fraud flag
+}
+
+enum RewardStatus {
+  PENDING   // awaiting admin approval
+  APPROVED  // approved, not yet paid out
+  PAID      // paid out to affiliate
+  REJECTED  // denied by admin
+}
+
+/// Admin-managed affiliate links stored in the database.
+/// Replaces the legacy JSON file store in data/affiliate-program.json.
+model AffiliateLink {
+  id              String                  @id @default(cuid())
+  /// Optional link to an approved AffiliateApplication (affiliate partner).
+  /// Null = standalone campaign link without a specific partner.
+  applicationId   String?
+  application     AffiliateApplication?   @relation(fields: [applicationId], references: [id], onDelete: SetNull)
+  /// The ?ref= code embedded in the share URL.
+  code            String                  @unique
+  name            String
+  destinationPath String                  @default("/")
+  payoutType      AffiliateLinkPayoutType @default(FIXED)
+  /// For FIXED: dollar amount. For PERCENTAGE: 0–100.
+  payoutAmount    Float                   @default(35)
+  isActive        Boolean                 @default(true)
+  campaignName    String?
+  notes           String?
+  clickCount      Int                     @default(0)
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+
+  referrals       Referral[]
+
+  @@index([code])
+  @@index([applicationId])
+}
+
+/// One Referral row per unique visitor who arrived via an AffiliateLink.
+/// Created on first visit; updated to CONVERTED when they sign up / purchase.
+model Referral {
+  id             String         @id @default(cuid())
+  linkId         String
+  link           AffiliateLink  @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  /// Affiliate user (denormalised from link.application.userId for fast queries).
+  referrerId     String
+  referrer       User           @relation("ReferralReferrer", fields: [referrerId], references: [id])
+  /// Filled once the visitor creates an account.
+  referredUserId String?
+  referredUser   User?          @relation("ReferralReferred", fields: [referredUserId], references: [id])
+  status         ReferralStatus @default(PENDING)
+  /// SHA-256 of IP address (never store raw IP).
+  ipHash         String?
+  userAgent      String?
+  convertedAt    DateTime?
+  /// When the referral cookie expires (default 30 days from creation).
+  expiresAt      DateTime
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  rewards        RewardLedger[]
+
+  @@index([linkId])
+  @@index([referrerId])
+  @@index([referredUserId])
+  @@index([status])
+}
+
+/// Ledger of earned rewards. One entry per converted Referral.
+/// Admin approves / marks paid from the dashboard.
+model RewardLedger {
+  id           String       @id @default(cuid())
+  /// Affiliate user who earns this reward.
+  userId       String
+  user         User         @relation("RewardLedgerUser", fields: [userId], references: [id])
+  referralId   String       @unique  // one reward per referral
+  referral     Referral     @relation(fields: [referralId], references: [id])
+  rewardAmount Float
+  status       RewardStatus @default(PENDING)
+  notes        String?
+  paidAt       DateTime?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@index([userId, status])
+}

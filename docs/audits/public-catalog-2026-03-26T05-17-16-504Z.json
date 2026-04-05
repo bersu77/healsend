@@ -1,0 +1,166 @@
+{
+  "generatedAt": "2026-03-26T05:17:16.504Z",
+  "summary": {
+    "totalPublishedProducts": 32,
+    "publicProductCandidates": 31,
+    "readyPublicProducts": 27,
+    "excludedProducts": 1,
+    "blockedProducts": 4,
+    "missingPriceProducts": 4,
+    "genericCategoryProducts": 0,
+    "missingImageProducts": 0,
+    "suspiciousImageProducts": 0,
+    "thinCopyProducts": 0,
+    "categoriesWithoutMarketingPages": 0
+  },
+  "excludedProducts": [
+    {
+      "slug": "test-product",
+      "name": "Test product",
+      "images": [],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": null,
+      "description": "Test product",
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "treatments",
+        "name": "treatments"
+      }
+    }
+  ],
+  "blockedProducts": [
+    {
+      "slug": "glutathione",
+      "name": "Glutathione",
+      "images": [
+        "https://healsend.com/wp-content/uploads/2026/03/glutathione.png"
+      ],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": "Oxidative Guard: Neutralize the \"cellular rust\" that drives premature aging., Liver & Immune Fortress: A deep-tissue purge of heavy metals and pollutants., Dermatological Clarity: Erase dullness and even out skin tone from the inside out., Elite Recovery: Slash muscle soreness and bounce back faster from daily stress.,",
+      "description": null,
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "treatments",
+        "name": "treatments"
+      }
+    },
+    {
+      "slug": "ramalteon",
+      "name": "ramalteon",
+      "images": [],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": null,
+      "description": null,
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "treatments",
+        "name": "treatments"
+      }
+    },
+    {
+      "slug": "semaglutide-drops",
+      "name": "Semaglutide Drops",
+      "images": [],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": "Popular choice , Slightly less effective, Lower cost, Injection • Drops • Tablets",
+      "description": null,
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "weight-loss",
+        "name": "Weight Loss"
+      }
+    },
+    {
+      "slug": "semaglutide-tablets",
+      "name": "Semaglutide Tablets",
+      "images": [],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": "Popular choice , Slightly less effective, Lower cost, Injection • Drops • Tablets",
+      "description": null,
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "weight-loss",
+        "name": "Weight Loss"
+      }
+    }
+  ],
+  "missingPriceProducts": [
+    {
+      "slug": "glutathione",
+      "name": "Glutathione",
+      "images": [
+        "https://healsend.com/wp-content/uploads/2026/03/glutathione.png"
+      ],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": "Oxidative Guard: Neutralize the \"cellular rust\" that drives premature aging., Liver & Immune Fortress: A deep-tissue purge of heavy metals and pollutants., Dermatological Clarity: Erase dullness and even out skin tone from the inside out., Elite Recovery: Slash muscle soreness and bounce back faster from daily stress.,",
+      "description": null,
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "treatments",
+        "name": "treatments"
+      }
+    },
+    {
+      "slug": "ramalteon",
+      "name": "ramalteon",
+      "images": [],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": null,
+      "description": null,
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "treatments",
+        "name": "treatments"
+      }
+    },
+    {
+      "slug": "semaglutide-drops",
+      "name": "Semaglutide Drops",
+      "images": [],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": "Popular choice , Slightly less effective, Lower cost, Injection • Drops • Tablets",
+      "description": null,
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "weight-loss",
+        "name": "Weight Loss"
+      }
+    },
+    {
+      "slug": "semaglutide-tablets",
+      "name": "Semaglutide Tablets",
+      "images": [],
+      "regularPrice": null,
+      "salePrice": null,
+      "shortDescription": "Popular choice , Slightly less effective, Lower cost, Injection • Drops • Tablets",
+      "description": null,
+      "subscriptionTiers": null,
+      "variants": [],
+      "category": {
+        "slug": "weight-loss",
+        "name": "Weight Loss"
+      }
+    }
+  ],
+  "genericCategoryProducts": [],
+  "missingImageProducts": [],
+  "suspiciousImageProducts": [],
+  "thinCopyProducts": [],
+  "categoriesWithoutMarketingPages": []
+}

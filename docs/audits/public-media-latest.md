@@ -1,0 +1,42 @@
+# Public Media Audit
+
+- Generated at: `2026-03-28T00:08:52.876Z`
+- Base URL: `https://healsend.barikhan.studio`
+- Public routes checked: `18`
+- Routes with suspicious asset URLs: `0`
+- Routes missing og:image: `0`
+
+The public sitemap routes are currently clean for the tracked placeholder/test image patterns, and every checked route emitted an Open Graph image.
+
+## Top Asset Domains
+
+- `healsend.barikhan.studio` — `257` references
+
+## Suspicious Asset Routes
+
+- None
+
+## Routes Missing og:image
+
+- None
+
+## Sample Route Results
+
+- `/` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/tirzepatide.png` — / [200]
+- `/anti-aging` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/nad-injection.png` — /anti-aging [200]
+- `/cjc-1295-ipamorelin` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/nad-injection.png` — /cjc-1295-ipamorelin [200]
+- `/glutathione-ldn` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/glutathione-ldn.png` — /glutathione-ldn [200]
+- `/nad` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/nad-injection.png` — /nad [200]
+- `/nad-nasal-spray` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/nad-nasal.png` — /nad-nasal-spray [200]
+- `/nad-patches` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/nad-patches.webp` — /nad-patches [200]
+- `/oxytocin-nasal-spray` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/oxytocin.png` — /oxytocin-nasal-spray [200]
+- `/pt-141-nasal-spray` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/pt141.png` — /pt-141-nasal-spray [200]
+- `/semaglutide-injections` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/semaglutide-sermorelin.png` — /semaglutide-injections [200]
+- `/sermorelin-injection-2` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/nad-injection.png` — /sermorelin-injection-2 [200]
+- `/sexual-health` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/pt141.png` — /sexual-health [200]
+- `/shop` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/tirzepatide.png` — /shop [200]
+- `/sleep` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/remeron.png` — /sleep [200]
+- `/strength-recovery` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/sermorelin.png` — /strength-recovery [200]
+- `/tirzepatide-drops` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/tirzepatide.png` — /tirzepatide-drops [200]
+- `/tirzepatide-injections` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/tirzepatide.png` — /tirzepatide-injections [200]
+- `/weight-loss` — final `200` — og:image: `https://healsend.barikhan.studio/images/marketing/tirzepatide.png` — /weight-loss [200]

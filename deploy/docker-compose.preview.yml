@@ -1,0 +1,54 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: healsend-next-preview-postgres
+    restart: unless-stopped
+    env_file:
+      - .env.preview
+    environment:
+      POSTGRES_DB: ${PREVIEW_POSTGRES_DB:-mydb}
+      POSTGRES_USER: ${PREVIEW_POSTGRES_USER:-johndoe}
+      POSTGRES_PASSWORD: ${PREVIEW_POSTGRES_PASSWORD:-randompassword}
+    volumes:
+      - healsend-next-preview-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PREVIEW_POSTGRES_USER:-johndoe} -d ${PREVIEW_POSTGRES_DB:-mydb}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      - healsend-next-preview
+
+  app:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.preview
+      args:
+        NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-https://healsend.barikhan.studio}
+        NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:-REPLACE_ME}
+    container_name: healsend-next-preview-app
+    restart: unless-stopped
+    env_file:
+      - .env.preview
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOSTNAME: 0.0.0.0
+      DATABASE_URL: postgresql://${PREVIEW_POSTGRES_USER:-johndoe}:${PREVIEW_POSTGRES_PASSWORD:-randompassword}@postgres:5432/${PREVIEW_POSTGRES_DB:-mydb}?schema=public
+    volumes:
+      - /opt/healsend-next-preview/public/wp-content/uploads:/app/public/wp-content/uploads:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - healsend
+      - healsend-next-preview
+
+volumes:
+  healsend-next-preview-postgres-data:
+
+networks:
+  healsend:
+    external: true
+  healsend-next-preview:
+    name: healsend-next-preview

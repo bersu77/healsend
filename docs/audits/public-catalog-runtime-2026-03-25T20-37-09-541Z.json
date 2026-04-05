@@ -1,0 +1,44 @@
+{
+  "generatedAt": "2026-03-25T20:37:09.541Z",
+  "baseUrl": "http://127.0.0.1:3201",
+  "hiddenProducts": [
+    {
+      "slug": "glutathione",
+      "finalStatus": 404,
+      "foundInShop": false,
+      "foundInApi": false,
+      "ok": true
+    },
+    {
+      "slug": "ramalteon",
+      "finalStatus": 404,
+      "foundInShop": false,
+      "foundInApi": false,
+      "ok": true
+    },
+    {
+      "slug": "semaglutide-drops",
+      "finalStatus": 404,
+      "foundInShop": false,
+      "foundInApi": false,
+      "ok": true
+    },
+    {
+      "slug": "semaglutide-tablets",
+      "finalStatus": 404,
+      "foundInShop": false,
+      "foundInApi": false,
+      "ok": true
+    },
+    {
+      "slug": "test-product",
+      "finalStatus": 404,
+      "foundInShop": false,
+      "foundInApi": false,
+      "ok": true
+    }
+  ],
+  "suspiciousImageProducts": [],
+  "shopPageClean": true,
+  "apiCatalogClean": true
+}

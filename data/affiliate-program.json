@@ -1,0 +1,28 @@
+{
+  "affiliates": [
+    {
+      "id": "6570a52a-72c9-4a8c-8dc0-cd7458b1229f",
+      "name": "HealSend Admin",
+      "code": "12312",
+      "payoutAmount": 35,
+      "destinationPath": "/",
+      "isActive": true,
+      "userIds": [],
+      "notes": "",
+      "createdAt": "2026-04-03T16:33:12.664Z",
+      "updatedAt": "2026-04-03T16:33:12.664Z"
+    },
+    {
+      "id": "1346337c-ff4a-41cb-b3bb-4743d38581e8",
+      "name": "Demo Customer",
+      "code": "demo",
+      "payoutAmount": 35,
+      "destinationPath": "/",
+      "isActive": true,
+      "userIds": [],
+      "notes": "",
+      "createdAt": "2026-04-01T07:39:27.865Z",
+      "updatedAt": "2026-04-01T07:39:27.865Z"
+    }
+  ]
+}

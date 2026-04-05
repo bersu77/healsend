@@ -1,0 +1,131 @@
+# Shortcode Runtime Verification
+
+- Generated at: `2026-03-25T18:51:42.814Z`
+- Base URL: `http://127.0.0.1:3100`
+- Shortcode-backed routes checked: `79`
+- Routes passing at runtime: `40`
+- Routes failing at runtime: `39`
+
+## Runtime Failures
+
+- `adderall` — final status `200`, leaked shortcodes: trustindex
+- `adhd` — final status `200`, leaked shortcodes: trustindex
+- `ambien-zolpidem` — final status `200`, leaked shortcodes: trustindex
+- `bpc-157` — final status `200`, leaked shortcodes: trustindex
+- `cjc-1295-ipamorelin` — final status `200`, leaked shortcodes: trustindex
+- `concerta-er` — final status `200`, leaked shortcodes: trustindex
+- `dexedrine` — final status `200`, leaked shortcodes: trustindex
+- `glow-blend` — final status `200`, leaked shortcodes: trustindex
+- `glp1-weight-loss-injections-landing-page-ts` — final status `200`, leaked shortcodes: trustindex
+- `ipamorelin` — final status `200`, leaked shortcodes: trustindex
+- `junel-fe` — final status `200`, leaked shortcodes: trustindex
+- `klonopin-clonazepam` — final status `200`, leaked shortcodes: trustindex
+- `l-cartinine-injection` — final status `200`, leaked shortcodes: trustindex
+- `lipotropic` — final status `200`, leaked shortcodes: trustindex
+- `lorazepam-ativan` — final status `200`, leaked shortcodes: trustindex
+- `methylene-blue` — final status `200`, leaked shortcodes: trustindex
+- `mic-injection` — final status `200`, leaked shortcodes: trustindex
+- `oral-tirzepatide` — final status `200`, leaked shortcodes: trustindex
+- `ozempic` — final status `200`, leaked shortcodes: trustindex
+- `paxil-paroxetine` — final status `200`, leaked shortcodes: trustindex
+- `peptides-cjc-1295-injection` — final status `200`, leaked shortcodes: trustindex
+- `propranolol` — final status `200`, leaked shortcodes: trustindex
+- `retatrutide` — final status `200`, leaked shortcodes: trustindex
+- `semaglutide-b12` — final status `200`, leaked shortcodes: trustindex
+- `semaglutide-sublingual` — final status `200`, leaked shortcodes: trustindex
+- `semax-nasal` — final status `200`, leaked shortcodes: trustindex
+- `sermorelin-injection-2` — final status `200`, leaked shortcodes: trustindex
+- `sermorelin-tablets` — final status `200`, leaked shortcodes: trustindex
+- `sermorelin-troches` — final status `200`, leaked shortcodes: trustindex
+- `tb-500` — final status `200`, leaked shortcodes: trustindex
+- `tirzepatide-b12` — final status `200`, leaked shortcodes: trustindex
+- `tirzepatide-vs-semaglutide` — final status `200`, leaked shortcodes: trustindex
+- `trisprintec-sprintec` — final status `200`, leaked shortcodes: trustindex
+- `viagra-sildenafil` — final status `200`, leaked shortcodes: trustindex
+- `vyvanse-lisdexamfetamine` — final status `200`, leaked shortcodes: trustindex
+- `wegovy-semaglutide` — final status `200`, leaked shortcodes: trustindex
+- `wellbutrin-bupropion` — final status `200`, leaked shortcodes: trustindex
+- `zepbound-tirzepatide` — final status `200`, leaked shortcodes: trustindex
+- `zoloft-sertraline` — final status `200`, leaked shortcodes: trustindex
+
+## Route Results
+
+- `adapalene-and-benzoyl-peroxide` — PASS — final `200` at `/adapalene-and-benzoyl-peroxide` — /adapalene-and-benzoyl-peroxide [200]
+- `adderall` — FAIL — final `200` at `/adderall` — /adderall [200]
+- `adhd` — FAIL — final `200` at `/adhd` — /adhd [200]
+- `ambien-zolpidem` — FAIL — final `200` at `/ambien-zolpidem` — /ambien-zolpidem [200]
+- `bpc-157` — FAIL — final `200` at `/bpc-157` — /bpc-157 [200]
+- `buy-tadalafil-online` — PASS — final `200` at `/buy-tadalafil-online` — /buy-tadalafil-online [200]
+- `checkout` — PASS — final `200` at `/cart` — /checkout [308] -> /cart | /cart [200]
+- `cjc-1295-ipamorelin` — FAIL — final `200` at `/cjc-1295-ipamorelin` — /cjc-1295-ipamorelin [200]
+- `concerta-er` — FAIL — final `200` at `/concerta-er` — /concerta-er [200]
+- `dexedrine` — FAIL — final `200` at `/dexedrine` — /dexedrine [200]
+- `ed-meds` — PASS — final `200` at `/onboarding/performance-issues` — /ed-meds [308] -> /onboarding/performance-issues | /onboarding/performance-issues [200]
+- `enclomiphene-2` — PASS — final `200` at `/enclomiphene` — /enclomiphene-2 [308] -> /enclomiphene | /enclomiphene [200]
+- `enclomiphene-3` — PASS — final `200` at `/enclomiphene` — /enclomiphene-3 [308] -> /enclomiphene | /enclomiphene [200]
+- `erectile-dysfunction-prefunnel` — PASS — final `200` at `/onboarding/performance-issues` — /erectile-dysfunction-prefunnel [308] -> /onboarding/performance-issues | /onboarding/performance-issues [200]
+- `finding-affordable-cialis-tips-and-tricks` — PASS — final `200` at `/finding-affordable-cialis-tips-and-tricks` — /finding-affordable-cialis-tips-and-tricks [200]
+- `get-started` — PASS — final `200` at `/` — /get-started [308] -> / | / [200]
+- `glow-blend` — FAIL — final `200` at `/glow-blend` — /glow-blend [200]
+- `glp-1-2` — PASS — final `200` at `/weight-loss` — /glp-1-2 [308] -> /weight-loss | /weight-loss [200]
+- `glp-1-agreement-form` — PASS — final `200` at `/onboarding/glp-1-eligibility` — /glp-1-agreement-form [308] -> /onboarding/glp-1-eligibility | /onboarding/glp-1-eligibility [200]
+- `glp-1-weight-loss-2` — PASS — final `200` at `/glp-1-weight-loss-2` — /glp-1-weight-loss-2 [200]
+- `glp-1-weight-loss-intake` — PASS — final `200` at `/onboarding/glp-1-eligibility` — /glp-1-weight-loss-intake [308] -> /onboarding/glp-1-eligibility | /onboarding/glp-1-eligibility [200]
+- `glp1-weight-loss-injections-landing-page-ts` — FAIL — final `200` at `/glp1-weight-loss-injections-landing-page-ts` — /glp1-weight-loss-injections-landing-page-ts [200]
+- `hrtlite` — PASS — final `200` at `/strength-recovery` — /hrtlite [308] -> /strength-recovery | /strength-recovery [200]
+- `ipamorelin` — FAIL — final `200` at `/ipamorelin` — /ipamorelin [200]
+- `junel-fe` — FAIL — final `200` at `/junel-fe` — /junel-fe [200]
+- `klonopin-clonazepam` — FAIL — final `200` at `/klonopin-clonazepam` — /klonopin-clonazepam [200]
+- `l-cartinine-injection` — FAIL — final `200` at `/l-cartinine-injection` — /l-cartinine-injection [200]
+- `lexapro` — PASS — final `200` at `/lexapro` — /lexapro [200]
+- `lipotropic` — FAIL — final `200` at `/lipotropic` — /lipotropic [200]
+- `log-in-to-your-account` — PASS — final `200` at `/login` — /log-in-to-your-account [308] -> /login | /login [200]
+- `lorazepam-ativan` — FAIL — final `200` at `/lorazepam-ativan` — /lorazepam-ativan [200]
+- `metabolic-enhancers-initial-intake-form` — PASS — final `200` at `/onboarding/nad-injection-therapy` — /metabolic-enhancers-initial-intake-form [308] -> /onboarding/nad-injection-therapy | /onboarding/nad-injection-therapy [200]
+- `methylene-blue` — FAIL — final `200` at `/methylene-blue` — /methylene-blue [200]
+- `mic-injection` — FAIL — final `200` at `/mic-injection` — /mic-injection [200]
+- `my-account` — PASS — final `200` at `/login` — /my-account [308] -> /account | /account [307] -> /login | /login [200]
+- `nad` — PASS — final `200` at `/nad` — /nad [200]
+- `nad-form` — PASS — final `200` at `/onboarding/nad-injection-therapy` — /nad-form [308] -> /onboarding/nad-injection-therapy | /onboarding/nad-injection-therapy [200]
+- `nad-form-2` — PASS — final `200` at `/onboarding/nad-injection-therapy` — /nad-form-2 [308] -> /onboarding/nad-injection-therapy | /onboarding/nad-injection-therapy [200]
+- `nad-patches` — PASS — final `200` at `/nad-patches` — /nad-patches [200]
+- `nadglutathione` — PASS — final `200` at `/nad` — /nadglutathione [308] -> /nad | /nad [200]
+- `oral-tirzepatide` — FAIL — final `200` at `/oral-tirzepatide` — /oral-tirzepatide [200]
+- `oxytocin` — PASS — final `200` at `/oxytocin-nasal-spray` — /oxytocin [308] -> /oxytocin-nasal-spray | /oxytocin-nasal-spray [200]
+- `oxytocin-prefunnel` — PASS — final `200` at `/oxytocin-nasal-spray` — /oxytocin-prefunnel [308] -> /oxytocin-nasal-spray | /oxytocin-nasal-spray [200]
+- `ozempic` — FAIL — final `200` at `/ozempic` — /ozempic [200]
+- `patient-login` — PASS — final `200` at `/login` — /patient-login [308] -> /login | /login [200]
+- `patient-order-history` — PASS — final `200` at `/login` — /patient-order-history [308] -> /account | /account [307] -> /login | /login [200]
+- `patient-signup` — PASS — final `200` at `/signup` — /patient-signup [308] -> /signup | /signup [200]
+- `paxil-paroxetine` — FAIL — final `200` at `/paxil-paroxetine` — /paxil-paroxetine [200]
+- `peptides-cjc-1295-injection` — FAIL — final `200` at `/peptides-cjc-1295-injection` — /peptides-cjc-1295-injection [200]
+- `propranolol` — FAIL — final `200` at `/propranolol` — /propranolol [200]
+- `pt-141-form` — PASS — final `200` at `/onboarding/low-intimacy-drive` — /pt-141-form [308] -> /onboarding/low-intimacy-drive | /onboarding/low-intimacy-drive [200]
+- `pt-141-intake-form` — PASS — final `200` at `/onboarding/low-intimacy-drive` — /pt-141-intake-form [308] -> /onboarding/low-intimacy-drive | /onboarding/low-intimacy-drive [200]
+- `pt-141-oxytocin-questionnaire` — PASS — final `200` at `/pt-141-oxytocin-nasal-sprays` — /pt-141-oxytocin-questionnaire [308] -> /pt-141-oxytocin-nasal-sprays | /pt-141-oxytocin-nasal-sprays [200]
+- `pt-141-prefunnel` — PASS — final `200` at `/pt-141-nasal-spray` — /pt-141-prefunnel [308] -> /pt-141-nasal-spray | /pt-141-nasal-spray [200]
+- `resume-fluent-form-where-you-left` — PASS — final `200` at `/login` — /resume-fluent-form-where-you-left [308] -> /account | /account [307] -> /login | /login [200]
+- `retatrutide` — FAIL — final `200` at `/retatrutide` — /retatrutide [200]
+- `semaglutide-b12` — FAIL — final `200` at `/semaglutide-b12` — /semaglutide-b12 [200]
+- `semaglutide-sublingual` — FAIL — final `200` at `/semaglutide-sublingual` — /semaglutide-sublingual [200]
+- `semax-nasal` — FAIL — final `200` at `/semax-nasal` — /semax-nasal [200]
+- `sermorelin-injection-2` — FAIL — final `200` at `/sermorelin-injection-2` — /sermorelin-injection-2 [200]
+- `sermorelin-tablets` — FAIL — final `200` at `/sermorelin-tablets` — /sermorelin-tablets [200]
+- `sermorelin-troches` — FAIL — final `200` at `/sermorelin-troches` — /sermorelin-troches [200]
+- `sleep-2` — PASS — final `200` at `/glutathione-low-dose-naltrexone-ldn` — /sleep-2 [308] -> /glutathione-low-dose-naltrexone-ldn | /glutathione-low-dose-naltrexone-ldn [200]
+- `tb-500` — FAIL — final `200` at `/tb-500` — /tb-500 [200]
+- `test` — PASS — final `200` at `/login` — /test [308] -> /login | /login [200]
+- `test-funnels` — PASS — final `200` at `/enclomiphene` — /test-funnels [308] -> /enclomiphene | /enclomiphene [200]
+- `tirzepatide-b12` — FAIL — final `200` at `/tirzepatide-b12` — /tirzepatide-b12 [200]
+- `tirzepatide-injection` — PASS — final `200` at `/tirzepatide-injections` — /tirzepatide-injection [308] -> /tirzepatide-injections | /tirzepatide-injections [200]
+- `tirzepatide-sublingual` — PASS — final `200` at `/tirzepatide-sublingual` — /tirzepatide-sublingual [200]
+- `tirzepatide-vs-semaglutide` — FAIL — final `200` at `/tirzepatide-vs-semaglutide` — /tirzepatide-vs-semaglutide [200]
+- `trisprintec-sprintec` — FAIL — final `200` at `/trisprintec-sprintec` — /trisprintec-sprintec [200]
+- `trt-prefunnel` — PASS — final `200` at `/strength-recovery` — /trt-prefunnel [308] -> /strength-recovery | /strength-recovery [200]
+- `viagra-sildenafil` — FAIL — final `200` at `/viagra-sildenafil` — /viagra-sildenafil [200]
+- `vitality-core` — PASS — final `200` at `/weight-loss` — /vitality-core [308] -> /weight-loss | /weight-loss [200]
+- `vyvanse-lisdexamfetamine` — FAIL — final `200` at `/vyvanse-lisdexamfetamine` — /vyvanse-lisdexamfetamine [200]
+- `wegovy-semaglutide` — FAIL — final `200` at `/wegovy-semaglutide` — /wegovy-semaglutide [200]
+- `wellbutrin-bupropion` — FAIL — final `200` at `/wellbutrin-bupropion` — /wellbutrin-bupropion [200]
+- `zepbound-tirzepatide` — FAIL — final `200` at `/zepbound-tirzepatide` — /zepbound-tirzepatide [200]
+- `zoloft-sertraline` — FAIL — final `200` at `/zoloft-sertraline` — /zoloft-sertraline [200]

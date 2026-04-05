@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-03-25T20:01:16.332Z",
+  "baseUrl": "http://127.0.0.1:3201",
+  "hiddenProducts": [
+    {
+      "slug": "glutathione",
+      "finalStatus": 404,
+      "foundInShop": false,
+      "foundInApi": false,
+      "ok": true
+    },
+    {
+      "slug": "ramalteon",
+      "finalStatus": 404,
+      "foundInShop": false,
+      "foundInApi": false,
+      "ok": true
+    },
+    {
+      "slug": "semaglutide-drops",
+      "finalStatus": 404,
+      "foundInShop": false,
+      "foundInApi": false,
+      "ok": true
+    },
+    {
+      "slug": "semaglutide-tablets",
+      "finalStatus": 404,
+      "foundInShop": false,
+      "foundInApi": false,
+      "ok": true
+    },
+    {
+      "slug": "test-product",
+      "finalStatus": 404,
+      "foundInShop": false,
+      "foundInApi": false,
+      "ok": true
+    }
+  ],
+  "suspiciousImageProducts": [
+    {
+      "slug": "tirzepatide-tablets",
+      "suspiciousUrl": "https://healsend.com/wp-content/uploads/2026/02/imageUploadTest.png",
+      "leakedSuspiciousUrl": false,
+      "ok": true
+    }
+  ],
+  "shopPageClean": true,
+  "apiCatalogClean": true
+}

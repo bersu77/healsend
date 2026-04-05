@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-03-28T00:07:20.730Z",
+  "baseUrl": "https://healsend.barikhan.studio",
+  "orderId": "cmn5usz7j001q5i2vwa5ics2s",
+  "caseId": "mdi-payload-case-1774656436602",
+  "results": [
+    {
+      "name": "login",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "customer patch camelCase payload",
+      "ok": false,
+      "failure": "expected patient id mdi-payload-patient-1774656436602, got 401",
+      "summary": "status 401"
+    },
+    {
+      "name": "customer get route",
+      "ok": false,
+      "failure": "expected linked customer projection, got 401",
+      "summary": "status 401"
+    },
+    {
+      "name": "order patch nested payload",
+      "ok": false,
+      "failure": "expected nested order projection, got 401",
+      "summary": "status 401"
+    },
+    {
+      "name": "order get route",
+      "ok": false,
+      "failure": "expected order projection with case snapshot, got 401",
+      "summary": "status 401"
+    },
+    {
+      "name": "order tags patch alias payload",
+      "ok": false,
+      "failure": "expected updated tags/voucher, got 401",
+      "summary": "status 401"
+    },
+    {
+      "name": "order tags get route",
+      "ok": false,
+      "failure": "expected voucher/tag projection, got 401",
+      "summary": "status 401"
+    },
+    {
+      "name": "partner auth GET redirect",
+      "ok": false,
+      "failure": "expected redirect to /account, got 401",
+      "summary": "status 401"
+    },
+    {
+      "name": "webhook voucher fallback nested payload",
+      "ok": false,
+      "failure": "expected voucher fallback webhook success, got 401",
+      "summary": "status 401"
+    },
+    {
+      "name": "webhook mixed snake/camel payload",
+      "ok": false,
+      "failure": "expected mixed payload webhook success, got 401",
+      "summary": "status 401"
+    },
+    {
+      "name": "user visits reflect variant payloads",
+      "ok": false,
+      "failure": "expected visit history for case mdi-payload-case-1774656436602, got 200",
+      "summary": "8 visits"
+    },
+    {
+      "name": "user messages reflect variant payloads",
+      "ok": false,
+      "failure": "expected case-specific patient messages, got 200",
+      "summary": "35 messages"
+    },
+    {
+      "name": "database projection after variant flow",
+      "ok": false,
+      "failure": "expected user/order/case snapshot projection from variant payloads",
+      "summary": "events 0 / tag priority-review"
+    }
+  ]
+}

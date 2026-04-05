@@ -1,0 +1,3224 @@
+{
+  "generatedAt": "2026-03-26T05:21:51.890Z",
+  "baseUrl": "http://127.0.0.1:41159",
+  "totalPages": 79,
+  "passedPages": [
+    {
+      "slug": "adapalene-and-benzoyl-peroxide",
+      "shortcodes": [
+        "caption"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/adapalene-and-benzoyl-peroxide",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/adapalene-and-benzoyl-peroxide",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "adderall",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/adderall",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/adderall",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "adhd",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/adhd",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/adhd",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "ambien-zolpidem",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/ambien-zolpidem",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/ambien-zolpidem",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "bpc-157",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/bpc-157",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/bpc-157",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "buy-tadalafil-online",
+      "shortcodes": [
+        "your"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/buy-tadalafil-online",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/buy-tadalafil-online",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "checkout",
+      "shortcodes": [
+        "woocommerce_checkout"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/cart",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/checkout",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/cart"
+        },
+        {
+          "url": "http://127.0.0.1:41159/cart",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "cjc-1295-ipamorelin",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/cjc-1295-ipamorelin",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/cjc-1295-ipamorelin",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "concerta-er",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/concerta-er",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/concerta-er",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "dexedrine",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/dexedrine",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/dexedrine",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "ed-meds",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/performance-issues",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/ed-meds",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/performance-issues"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/performance-issues",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "enclomiphene-2",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/enclomiphene",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/enclomiphene-2",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/enclomiphene"
+        },
+        {
+          "url": "http://127.0.0.1:41159/enclomiphene",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "enclomiphene-3",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/enclomiphene",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/enclomiphene-3",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/enclomiphene"
+        },
+        {
+          "url": "http://127.0.0.1:41159/enclomiphene",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "erectile-dysfunction-prefunnel",
+      "shortcodes": [
+        "hld_glp_prefunnel"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/performance-issues",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/erectile-dysfunction-prefunnel",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/performance-issues"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/performance-issues",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "finding-affordable-cialis-tips-and-tricks",
+      "shortcodes": [
+        "your"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/finding-affordable-cialis-tips-and-tricks",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/finding-affordable-cialis-tips-and-tricks",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "get-started",
+      "shortcodes": [
+        "get_started"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/get-started",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/"
+        },
+        {
+          "url": "http://127.0.0.1:41159/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "glow-blend",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/glow-blend",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/glow-blend",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "glp-1-2",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/weight-loss",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/glp-1-2",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/weight-loss"
+        },
+        {
+          "url": "http://127.0.0.1:41159/weight-loss",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "glp-1-agreement-form",
+      "shortcodes": [
+        "hld_glp_prefunnel"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/glp-1-eligibility",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/glp-1-agreement-form",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/glp-1-eligibility"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/glp-1-eligibility",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "glp-1-weight-loss-2",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/weight-loss",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/glp-1-weight-loss-2",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/weight-loss"
+        },
+        {
+          "url": "http://127.0.0.1:41159/weight-loss",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "glp-1-weight-loss-intake",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/glp-1-eligibility",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/glp-1-weight-loss-intake",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/glp-1-eligibility"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/glp-1-eligibility",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "glp1-weight-loss-injections-landing-page-ts",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/weight-loss",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/glp1-weight-loss-injections-landing-page-ts",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/weight-loss"
+        },
+        {
+          "url": "http://127.0.0.1:41159/weight-loss",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "hrtlite",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/strength-recovery",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/hrtlite",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/strength-recovery"
+        },
+        {
+          "url": "http://127.0.0.1:41159/strength-recovery",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "ipamorelin",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/ipamorelin",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/ipamorelin",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "junel-fe",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/junel-fe",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/junel-fe",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "klonopin-clonazepam",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/klonopin-clonazepam",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/klonopin-clonazepam",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "l-cartinine-injection",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/l-cartinine-injection",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/l-cartinine-injection",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "lexapro",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/lexapro",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/lexapro",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "lipotropic",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/lipotropic",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/lipotropic",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "log-in-to-your-account",
+      "shortcodes": [
+        "fluentform"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/login",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/log-in-to-your-account",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/login"
+        },
+        {
+          "url": "http://127.0.0.1:41159/login",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "lorazepam-ativan",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/lorazepam-ativan",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/lorazepam-ativan",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "metabolic-enhancers-initial-intake-form",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/nad-injection-therapy",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/metabolic-enhancers-initial-intake-form",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/nad-injection-therapy"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/nad-injection-therapy",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "methylene-blue",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/methylene-blue",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/methylene-blue",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "mic-injection",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/mic-injection",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/mic-injection",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "my-account",
+      "shortcodes": [
+        "patient_dashboard"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/login?redirect=%2Faccount",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/my-account",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/account"
+        },
+        {
+          "url": "http://127.0.0.1:41159/account",
+          "status": 307,
+          "location": "http://127.0.0.1:41159/login?redirect=%2Faccount"
+        },
+        {
+          "url": "http://127.0.0.1:41159/login?redirect=%2Faccount",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "nad",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/nad",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/nad",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "nad-form",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/nad-injection-therapy",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/nad-form",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/nad-injection-therapy"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/nad-injection-therapy",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "nad-form-2",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/nad-injection-therapy",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/nad-form-2",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/nad-injection-therapy"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/nad-injection-therapy",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "nad-patches",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/nad-patches",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/nad-patches",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "nadglutathione",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/nad",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/nadglutathione",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/nad"
+        },
+        {
+          "url": "http://127.0.0.1:41159/nad",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "oral-tirzepatide",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/oral-tirzepatide",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/oral-tirzepatide",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "oxytocin",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/oxytocin-nasal-spray",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/oxytocin",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/oxytocin-nasal-spray"
+        },
+        {
+          "url": "http://127.0.0.1:41159/oxytocin-nasal-spray",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "oxytocin-prefunnel",
+      "shortcodes": [
+        "hld_glp_prefunnel"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/oxytocin-nasal-spray",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/oxytocin-prefunnel",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/oxytocin-nasal-spray"
+        },
+        {
+          "url": "http://127.0.0.1:41159/oxytocin-nasal-spray",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "ozempic",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/ozempic",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/ozempic",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "patient-login",
+      "shortcodes": [
+        "hld_custom_login_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/login",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/patient-login",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/login"
+        },
+        {
+          "url": "http://127.0.0.1:41159/login",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "patient-order-history",
+      "shortcodes": [
+        "dashboard"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/login?redirect=%2Faccount",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/patient-order-history",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/account"
+        },
+        {
+          "url": "http://127.0.0.1:41159/account",
+          "status": 307,
+          "location": "http://127.0.0.1:41159/login?redirect=%2Faccount"
+        },
+        {
+          "url": "http://127.0.0.1:41159/login?redirect=%2Faccount",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "patient-signup",
+      "shortcodes": [
+        "hld_custom_signup_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/signup",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/patient-signup",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/signup"
+        },
+        {
+          "url": "http://127.0.0.1:41159/signup",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "paxil-paroxetine",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/paxil-paroxetine",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/paxil-paroxetine",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "peptides-cjc-1295-injection",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/peptides-cjc-1295-injection",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/peptides-cjc-1295-injection",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "propranolol",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/propranolol",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/propranolol",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "pt-141-form",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/low-intimacy-drive",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/pt-141-form",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/low-intimacy-drive"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/low-intimacy-drive",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "pt-141-intake-form",
+      "shortcodes": [
+        "hld_glp_prefunnel"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/low-intimacy-drive",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/pt-141-intake-form",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/low-intimacy-drive"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/low-intimacy-drive",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "pt-141-oxytocin-questionnaire",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/pt-141-oxytocin-nasal-sprays",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/pt-141-oxytocin-questionnaire",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/pt-141-oxytocin-nasal-sprays"
+        },
+        {
+          "url": "http://127.0.0.1:41159/pt-141-oxytocin-nasal-sprays",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "pt-141-prefunnel",
+      "shortcodes": [
+        "hld_glp_prefunnel"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/pt-141-nasal-spray",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/pt-141-prefunnel",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/pt-141-nasal-spray"
+        },
+        {
+          "url": "http://127.0.0.1:41159/pt-141-nasal-spray",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "resume-fluent-form-where-you-left",
+      "shortcodes": [
+        "fluentform-resume"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/login?redirect=%2Faccount",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/resume-fluent-form-where-you-left",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/account"
+        },
+        {
+          "url": "http://127.0.0.1:41159/account",
+          "status": 307,
+          "location": "http://127.0.0.1:41159/login?redirect=%2Faccount"
+        },
+        {
+          "url": "http://127.0.0.1:41159/login?redirect=%2Faccount",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "retatrutide",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/retatrutide",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/retatrutide",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "semaglutide-b12",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/semaglutide-b12",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/semaglutide-b12",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "semaglutide-sublingual",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/semaglutide-sublingual",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/semaglutide-sublingual",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "semax-nasal",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/semax-nasal",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/semax-nasal",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "sermorelin-injection-2",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/sermorelin-injection-2",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/sermorelin-injection-2",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "sermorelin-tablets",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/sermorelin-tablets",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/sermorelin-tablets",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "sermorelin-troches",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/sermorelin-troches",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/sermorelin-troches",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "sleep-2",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/glutathione-low-dose-naltrexone-ldn",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/sleep-2",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/glutathione-low-dose-naltrexone-ldn"
+        },
+        {
+          "url": "http://127.0.0.1:41159/glutathione-low-dose-naltrexone-ldn",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "tb-500",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/tb-500",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/tb-500",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "test",
+      "shortcodes": [
+        "hld_custom_login_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/login",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/test",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/login"
+        },
+        {
+          "url": "http://127.0.0.1:41159/login",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "test-funnels",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/enclomiphene",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/test-funnels",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/enclomiphene"
+        },
+        {
+          "url": "http://127.0.0.1:41159/enclomiphene",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "tirzepatide-b12",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/tirzepatide-b12",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/tirzepatide-b12",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "tirzepatide-injection",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/tirzepatide-injections",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/tirzepatide-injection",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/tirzepatide-injections"
+        },
+        {
+          "url": "http://127.0.0.1:41159/tirzepatide-injections",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "tirzepatide-sublingual",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/tirzepatide-sublingual",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/tirzepatide-sublingual",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "tirzepatide-vs-semaglutide",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/tirzepatide-vs-semaglutide",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/tirzepatide-vs-semaglutide",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "trisprintec-sprintec",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/trisprintec-sprintec",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/trisprintec-sprintec",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "trt-prefunnel",
+      "shortcodes": [
+        "hld_glp_prefunnel"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/strength-recovery",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/trt-prefunnel",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/strength-recovery"
+        },
+        {
+          "url": "http://127.0.0.1:41159/strength-recovery",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "viagra-sildenafil",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/viagra-sildenafil",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/viagra-sildenafil",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "vitality-core",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/weight-loss",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/vitality-core",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/weight-loss"
+        },
+        {
+          "url": "http://127.0.0.1:41159/weight-loss",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "vyvanse-lisdexamfetamine",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/vyvanse-lisdexamfetamine",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/vyvanse-lisdexamfetamine",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "wegovy-semaglutide",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/wegovy-semaglutide",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/wegovy-semaglutide",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "wellbutrin-bupropion",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/wellbutrin-bupropion",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/wellbutrin-bupropion",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "zepbound-tirzepatide",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/zepbound-tirzepatide",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/zepbound-tirzepatide",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "zoloft-sertraline",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/zoloft-sertraline",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/zoloft-sertraline",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    }
+  ],
+  "failedPages": [],
+  "results": [
+    {
+      "slug": "adapalene-and-benzoyl-peroxide",
+      "shortcodes": [
+        "caption"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/adapalene-and-benzoyl-peroxide",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/adapalene-and-benzoyl-peroxide",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "adderall",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/adderall",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/adderall",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "adhd",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/adhd",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/adhd",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "ambien-zolpidem",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/ambien-zolpidem",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/ambien-zolpidem",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "bpc-157",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/bpc-157",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/bpc-157",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "buy-tadalafil-online",
+      "shortcodes": [
+        "your"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/buy-tadalafil-online",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/buy-tadalafil-online",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "checkout",
+      "shortcodes": [
+        "woocommerce_checkout"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/cart",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/checkout",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/cart"
+        },
+        {
+          "url": "http://127.0.0.1:41159/cart",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "cjc-1295-ipamorelin",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/cjc-1295-ipamorelin",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/cjc-1295-ipamorelin",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "concerta-er",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/concerta-er",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/concerta-er",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "dexedrine",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/dexedrine",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/dexedrine",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "ed-meds",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/performance-issues",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/ed-meds",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/performance-issues"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/performance-issues",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "enclomiphene-2",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/enclomiphene",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/enclomiphene-2",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/enclomiphene"
+        },
+        {
+          "url": "http://127.0.0.1:41159/enclomiphene",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "enclomiphene-3",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/enclomiphene",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/enclomiphene-3",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/enclomiphene"
+        },
+        {
+          "url": "http://127.0.0.1:41159/enclomiphene",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "erectile-dysfunction-prefunnel",
+      "shortcodes": [
+        "hld_glp_prefunnel"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/performance-issues",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/erectile-dysfunction-prefunnel",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/performance-issues"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/performance-issues",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "finding-affordable-cialis-tips-and-tricks",
+      "shortcodes": [
+        "your"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/finding-affordable-cialis-tips-and-tricks",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/finding-affordable-cialis-tips-and-tricks",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "get-started",
+      "shortcodes": [
+        "get_started"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/get-started",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/"
+        },
+        {
+          "url": "http://127.0.0.1:41159/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "glow-blend",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/glow-blend",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/glow-blend",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "glp-1-2",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/weight-loss",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/glp-1-2",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/weight-loss"
+        },
+        {
+          "url": "http://127.0.0.1:41159/weight-loss",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "glp-1-agreement-form",
+      "shortcodes": [
+        "hld_glp_prefunnel"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/glp-1-eligibility",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/glp-1-agreement-form",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/glp-1-eligibility"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/glp-1-eligibility",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "glp-1-weight-loss-2",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/weight-loss",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/glp-1-weight-loss-2",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/weight-loss"
+        },
+        {
+          "url": "http://127.0.0.1:41159/weight-loss",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "glp-1-weight-loss-intake",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/glp-1-eligibility",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/glp-1-weight-loss-intake",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/glp-1-eligibility"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/glp-1-eligibility",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "glp1-weight-loss-injections-landing-page-ts",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/weight-loss",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/glp1-weight-loss-injections-landing-page-ts",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/weight-loss"
+        },
+        {
+          "url": "http://127.0.0.1:41159/weight-loss",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "hrtlite",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/strength-recovery",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/hrtlite",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/strength-recovery"
+        },
+        {
+          "url": "http://127.0.0.1:41159/strength-recovery",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "ipamorelin",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/ipamorelin",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/ipamorelin",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "junel-fe",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/junel-fe",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/junel-fe",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "klonopin-clonazepam",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/klonopin-clonazepam",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/klonopin-clonazepam",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "l-cartinine-injection",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/l-cartinine-injection",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/l-cartinine-injection",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "lexapro",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/lexapro",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/lexapro",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "lipotropic",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/lipotropic",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/lipotropic",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "log-in-to-your-account",
+      "shortcodes": [
+        "fluentform"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/login",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/log-in-to-your-account",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/login"
+        },
+        {
+          "url": "http://127.0.0.1:41159/login",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "lorazepam-ativan",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/lorazepam-ativan",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/lorazepam-ativan",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "metabolic-enhancers-initial-intake-form",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/nad-injection-therapy",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/metabolic-enhancers-initial-intake-form",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/nad-injection-therapy"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/nad-injection-therapy",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "methylene-blue",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/methylene-blue",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/methylene-blue",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "mic-injection",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/mic-injection",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/mic-injection",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "my-account",
+      "shortcodes": [
+        "patient_dashboard"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/login?redirect=%2Faccount",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/my-account",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/account"
+        },
+        {
+          "url": "http://127.0.0.1:41159/account",
+          "status": 307,
+          "location": "http://127.0.0.1:41159/login?redirect=%2Faccount"
+        },
+        {
+          "url": "http://127.0.0.1:41159/login?redirect=%2Faccount",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "nad",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/nad",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/nad",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "nad-form",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/nad-injection-therapy",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/nad-form",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/nad-injection-therapy"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/nad-injection-therapy",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "nad-form-2",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/nad-injection-therapy",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/nad-form-2",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/nad-injection-therapy"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/nad-injection-therapy",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "nad-patches",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/nad-patches",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/nad-patches",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "nadglutathione",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/nad",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/nadglutathione",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/nad"
+        },
+        {
+          "url": "http://127.0.0.1:41159/nad",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "oral-tirzepatide",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/oral-tirzepatide",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/oral-tirzepatide",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "oxytocin",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/oxytocin-nasal-spray",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/oxytocin",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/oxytocin-nasal-spray"
+        },
+        {
+          "url": "http://127.0.0.1:41159/oxytocin-nasal-spray",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "oxytocin-prefunnel",
+      "shortcodes": [
+        "hld_glp_prefunnel"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/oxytocin-nasal-spray",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/oxytocin-prefunnel",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/oxytocin-nasal-spray"
+        },
+        {
+          "url": "http://127.0.0.1:41159/oxytocin-nasal-spray",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "ozempic",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/ozempic",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/ozempic",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "patient-login",
+      "shortcodes": [
+        "hld_custom_login_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/login",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/patient-login",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/login"
+        },
+        {
+          "url": "http://127.0.0.1:41159/login",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "patient-order-history",
+      "shortcodes": [
+        "dashboard"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/login?redirect=%2Faccount",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/patient-order-history",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/account"
+        },
+        {
+          "url": "http://127.0.0.1:41159/account",
+          "status": 307,
+          "location": "http://127.0.0.1:41159/login?redirect=%2Faccount"
+        },
+        {
+          "url": "http://127.0.0.1:41159/login?redirect=%2Faccount",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "patient-signup",
+      "shortcodes": [
+        "hld_custom_signup_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/signup",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/patient-signup",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/signup"
+        },
+        {
+          "url": "http://127.0.0.1:41159/signup",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "paxil-paroxetine",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/paxil-paroxetine",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/paxil-paroxetine",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "peptides-cjc-1295-injection",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/peptides-cjc-1295-injection",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/peptides-cjc-1295-injection",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "propranolol",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/propranolol",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/propranolol",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "pt-141-form",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/low-intimacy-drive",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/pt-141-form",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/low-intimacy-drive"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/low-intimacy-drive",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "pt-141-intake-form",
+      "shortcodes": [
+        "hld_glp_prefunnel"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/onboarding/low-intimacy-drive",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/pt-141-intake-form",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/onboarding/low-intimacy-drive"
+        },
+        {
+          "url": "http://127.0.0.1:41159/onboarding/low-intimacy-drive",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "pt-141-oxytocin-questionnaire",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/pt-141-oxytocin-nasal-sprays",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/pt-141-oxytocin-questionnaire",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/pt-141-oxytocin-nasal-sprays"
+        },
+        {
+          "url": "http://127.0.0.1:41159/pt-141-oxytocin-nasal-sprays",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "pt-141-prefunnel",
+      "shortcodes": [
+        "hld_glp_prefunnel"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/pt-141-nasal-spray",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/pt-141-prefunnel",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/pt-141-nasal-spray"
+        },
+        {
+          "url": "http://127.0.0.1:41159/pt-141-nasal-spray",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "resume-fluent-form-where-you-left",
+      "shortcodes": [
+        "fluentform-resume"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/login?redirect=%2Faccount",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/resume-fluent-form-where-you-left",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/account"
+        },
+        {
+          "url": "http://127.0.0.1:41159/account",
+          "status": 307,
+          "location": "http://127.0.0.1:41159/login?redirect=%2Faccount"
+        },
+        {
+          "url": "http://127.0.0.1:41159/login?redirect=%2Faccount",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "retatrutide",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/retatrutide",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/retatrutide",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "semaglutide-b12",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/semaglutide-b12",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/semaglutide-b12",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "semaglutide-sublingual",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/semaglutide-sublingual",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/semaglutide-sublingual",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "semax-nasal",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/semax-nasal",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/semax-nasal",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "sermorelin-injection-2",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/sermorelin-injection-2",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/sermorelin-injection-2",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "sermorelin-tablets",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/sermorelin-tablets",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/sermorelin-tablets",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "sermorelin-troches",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/sermorelin-troches",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/sermorelin-troches",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "sleep-2",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/glutathione-low-dose-naltrexone-ldn",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/sleep-2",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/glutathione-low-dose-naltrexone-ldn"
+        },
+        {
+          "url": "http://127.0.0.1:41159/glutathione-low-dose-naltrexone-ldn",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "tb-500",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/tb-500",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/tb-500",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "test",
+      "shortcodes": [
+        "hld_custom_login_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/login",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/test",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/login"
+        },
+        {
+          "url": "http://127.0.0.1:41159/login",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "test-funnels",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/enclomiphene",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/test-funnels",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/enclomiphene"
+        },
+        {
+          "url": "http://127.0.0.1:41159/enclomiphene",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "tirzepatide-b12",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/tirzepatide-b12",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/tirzepatide-b12",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "tirzepatide-injection",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/tirzepatide-injections",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/tirzepatide-injection",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/tirzepatide-injections"
+        },
+        {
+          "url": "http://127.0.0.1:41159/tirzepatide-injections",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "tirzepatide-sublingual",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/tirzepatide-sublingual",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/tirzepatide-sublingual",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "tirzepatide-vs-semaglutide",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/tirzepatide-vs-semaglutide",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/tirzepatide-vs-semaglutide",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "trisprintec-sprintec",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/trisprintec-sprintec",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/trisprintec-sprintec",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "trt-prefunnel",
+      "shortcodes": [
+        "hld_glp_prefunnel"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/strength-recovery",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/trt-prefunnel",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/strength-recovery"
+        },
+        {
+          "url": "http://127.0.0.1:41159/strength-recovery",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "viagra-sildenafil",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/viagra-sildenafil",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/viagra-sildenafil",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "vitality-core",
+      "shortcodes": [
+        "healsend_form"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/weight-loss",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/vitality-core",
+          "status": 308,
+          "location": "http://127.0.0.1:41159/weight-loss"
+        },
+        {
+          "url": "http://127.0.0.1:41159/weight-loss",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "vyvanse-lisdexamfetamine",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/vyvanse-lisdexamfetamine",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/vyvanse-lisdexamfetamine",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "wegovy-semaglutide",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/wegovy-semaglutide",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/wegovy-semaglutide",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "wellbutrin-bupropion",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/wellbutrin-bupropion",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/wellbutrin-bupropion",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "zepbound-tirzepatide",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/zepbound-tirzepatide",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/zepbound-tirzepatide",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    },
+    {
+      "slug": "zoloft-sertraline",
+      "shortcodes": [
+        "trustindex"
+      ],
+      "ok": true,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:41159/zoloft-sertraline",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:41159/zoloft-sertraline",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "shortcodeLeaks": [],
+      "error": null
+    }
+  ]
+}

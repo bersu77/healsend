@@ -1,0 +1,46 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+/dist
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+healsend-docs-*.zip
+
+# local env files
+.env
+.env.*
+!.env.example
+.env*.local
+
+# local artifacts
+.codex
+backups/
+
+# sensitive — never push
+healsend-live-ssh-access/
+prod-envs/
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts

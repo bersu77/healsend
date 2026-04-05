@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-03-26T06:18:34.088Z",
+  "baseUrl": "http://127.0.0.1:42075",
+  "overallStatus": "PASS",
+  "steps": [
+    {
+      "name": "lint",
+      "ok": true,
+      "durationMs": 2584,
+      "reportPath": "",
+      "summary": "exit 0",
+      "extraSummary": ""
+    },
+    {
+      "name": "build",
+      "ok": true,
+      "durationMs": 10978,
+      "reportPath": "",
+      "summary": "exit 0",
+      "extraSummary": ""
+    },
+    {
+      "name": "catalog audit",
+      "ok": true,
+      "durationMs": 232,
+      "reportPath": "docs/audits/public-catalog-latest.md",
+      "summary": "exit 0",
+      "extraSummary": "27 ready products"
+    },
+    {
+      "name": "catalog runtime verification",
+      "ok": true,
+      "durationMs": 559,
+      "reportPath": "docs/audits/public-catalog-runtime-latest.md",
+      "summary": "exit 0",
+      "extraSummary": "0 failures"
+    },
+    {
+      "name": "shortcode audit",
+      "ok": true,
+      "durationMs": 496,
+      "reportPath": "docs/audits/shortcode-pages-latest.md",
+      "summary": "exit 0",
+      "extraSummary": ""
+    },
+    {
+      "name": "shortcode runtime verification",
+      "ok": true,
+      "durationMs": 3300,
+      "reportPath": "docs/audits/shortcode-runtime-latest.md",
+      "summary": "exit 0",
+      "extraSummary": "0 failed"
+    },
+    {
+      "name": "public SEO audit",
+      "ok": true,
+      "durationMs": 16006,
+      "reportPath": "docs/audits/public-seo-latest.md",
+      "summary": "exit 0",
+      "extraSummary": "714 routes • 0 weak descriptions"
+    },
+    {
+      "name": "public media audit",
+      "ok": true,
+      "durationMs": 14879,
+      "reportPath": "docs/audits/public-media-latest.md",
+      "summary": "exit 0",
+      "extraSummary": "714 routes • 0 suspicious media routes"
+    },
+    {
+      "name": "upload runtime verification",
+      "ok": true,
+      "durationMs": 187,
+      "reportPath": "docs/audits/upload-runtime-latest.md",
+      "summary": "exit 0",
+      "extraSummary": ""
+    },
+    {
+      "name": "non-MDI runtime verification",
+      "ok": true,
+      "durationMs": 361,
+      "reportPath": "docs/audits/non-mdi-runtime-latest.md",
+      "summary": "exit 0",
+      "extraSummary": "14 checks • 0 failed"
+    },
+    {
+      "name": "commerce runtime verification",
+      "ok": true,
+      "durationMs": 252,
+      "reportPath": "docs/audits/commerce-runtime-latest.md",
+      "summary": "exit 0",
+      "extraSummary": "8 checks • 0 failed"
+    }
+  ]
+}

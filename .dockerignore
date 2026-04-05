@@ -1,0 +1,15 @@
+.git
+.next
+node_modules
+npm-debug.log
+.env
+.env.local
+.env.production
+.env.production.local
+Dockerfile*
+docker-compose*.yml
+docs/audits/*.json
+docs/audits/*-latest.md
+.codex
+public/Healsend Landing Pages images & icons-20260329T160701Z-3-001
+public/images/asset-library

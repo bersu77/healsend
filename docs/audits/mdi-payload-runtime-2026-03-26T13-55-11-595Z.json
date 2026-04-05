@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-03-26T13:55:11.595Z",
+  "baseUrl": "http://127.0.0.1:3213",
+  "orderId": "cmn5usz7j001q5i2vwa5ics2s",
+  "caseId": "mdi-payload-case-1774533311124",
+  "results": [
+    {
+      "name": "login",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "customer patch camelCase payload",
+      "ok": false,
+      "failure": "expected patient id mdi-payload-patient-1774533311124, got 404",
+      "summary": "status 404"
+    },
+    {
+      "name": "customer get route",
+      "ok": false,
+      "failure": "expected linked customer projection, got 404",
+      "summary": "status 404"
+    },
+    {
+      "name": "order patch nested payload",
+      "ok": false,
+      "failure": "expected nested order projection, got 404",
+      "summary": "status 404"
+    },
+    {
+      "name": "order get route",
+      "ok": false,
+      "failure": "expected order projection with case snapshot, got 404",
+      "summary": "status 404"
+    },
+    {
+      "name": "order tags patch alias payload",
+      "ok": false,
+      "failure": "expected updated tags/voucher, got 404",
+      "summary": "status 404"
+    },
+    {
+      "name": "order tags get route",
+      "ok": false,
+      "failure": "expected voucher/tag projection, got 404",
+      "summary": "status 404"
+    },
+    {
+      "name": "partner auth GET redirect",
+      "ok": true,
+      "failure": "",
+      "summary": "status 307"
+    },
+    {
+      "name": "webhook voucher fallback nested payload",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "webhook mixed snake/camel payload",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "user visits reflect variant payloads",
+      "ok": true,
+      "failure": "",
+      "summary": "4 visits"
+    },
+    {
+      "name": "user messages reflect variant payloads",
+      "ok": true,
+      "failure": "",
+      "summary": "14 messages"
+    },
+    {
+      "name": "database projection after variant flow",
+      "ok": true,
+      "failure": "",
+      "summary": "events 2 / tag none"
+    }
+  ]
+}
