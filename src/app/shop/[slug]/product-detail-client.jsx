@@ -44,6 +44,271 @@ const BADGES = [
   { icon: "support_agent", label: "24/7 Provider Support" },
 ];
 
+const DEFAULT_SAFETY_ITEMS = [
+  {
+    icon: "warning",
+    colorClass: "text-amber-500",
+    title: "Important Safety Information",
+    body: "This treatment requires a prescription. A licensed healthcare provider will review your health information and determine if this medication is right for you. Do not use if you are pregnant, nursing, or have a known allergy to any of the listed ingredients.",
+  },
+  {
+    icon: "info",
+    colorClass: "text-blue-500",
+    title: "Side Effects",
+    body: "Common side effects may include nausea, headache, or mild discomfort at the injection site. Consult your healthcare provider if you experience any adverse reactions.",
+  },
+  {
+    icon: "verified_user",
+    colorClass: "text-emerald-500",
+    title: "Quality Assurance",
+    body: "All medications are sourced from licensed US pharmacies and undergo rigorous quality testing. Our compounding pharmacies are FDA-registered and follow strict cGMP guidelines.",
+  },
+];
+
+function asObject(value) {
+  return value && typeof value === "object" && !Array.isArray(value)
+    ? value
+    : {};
+}
+
+function parseBenefitFallback(product) {
+  const raw = String(product?.shortDescription || "").trim();
+  if (!raw) {
+    return [
+      "Clinically guided treatment pathway",
+      "Personalized to your health profile",
+      "Compounded by US pharmacies",
+      "Support throughout your care journey",
+    ];
+  }
+
+  const list = raw
+    .split(/[,\n]+/)
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .slice(0, 8);
+
+  return list.length > 0 ? list : [raw];
+}
+
+function normalizeDetailConfig(product) {
+  const attrs = asObject(product?.attributes);
+  const detail = asObject(attrs.detailPage);
+
+  const benefits = Array.isArray(detail.benefits)
+    ? detail.benefits.map((item) => String(item || "").trim()).filter(Boolean)
+    : parseBenefitFallback(product);
+
+  const howSteps =
+    Array.isArray(detail.howSteps) && detail.howSteps.length > 0
+      ? detail.howSteps
+          .map((step, index) => {
+            const normalized = asObject(step);
+            return {
+              title:
+                String(normalized.title || "").trim() || `Step ${index + 1}`,
+              desc: String(
+                normalized.desc || normalized.description || "",
+              ).trim(),
+              icon: String(normalized.icon || "medical_services").trim(),
+            };
+          })
+          .filter((step) => step.desc)
+      : STEPS.map((step) => ({
+          title: step.title,
+          desc: step.desc,
+          icon: step.icon,
+        }));
+
+  const safetyItems =
+    Array.isArray(detail.safetyItems) && detail.safetyItems.length > 0
+      ? detail.safetyItems
+          .map((item) => {
+            const normalized = asObject(item);
+            return {
+              icon: String(normalized.icon || "info").trim(),
+              colorClass:
+                String(normalized.colorClass || "").trim() || "text-blue-500",
+              title: String(normalized.title || "").trim(),
+              body: String(normalized.body || "").trim(),
+            };
+          })
+          .filter((item) => item.title && item.body)
+      : DEFAULT_SAFETY_ITEMS;
+
+  const beforeAfterSlides = Array.isArray(detail.beforeAfterSlides)
+    ? detail.beforeAfterSlides
+        .map((slide, index) => {
+          const normalized = asObject(slide);
+          return {
+            image: String(normalized.image || "").trim(),
+            label:
+              String(normalized.label || "").trim() || `Result ${index + 1}`,
+            caption: String(normalized.caption || "").trim(),
+          };
+        })
+        .filter((slide) => slide.image)
+    : [];
+
+  return {
+    overviewTitle:
+      String(detail.overviewTitle || "").trim() || "About This Treatment",
+    overviewBody:
+      String(detail.overviewBody || "").trim() ||
+      String(product?.description || "").trim(),
+    benefitsTitle: String(detail.benefitsTitle || "").trim() || "Key Benefits",
+    benefits,
+    beforeAfterTitle:
+      String(detail.beforeAfterTitle || "").trim() || "Before & After Results",
+    beforeAfterAutoMs: Number.parseInt(detail.beforeAfterAutoMs || "3000", 10),
+    beforeAfterSlides,
+    howTitle: String(detail.howTitle || "").trim() || "How It Works",
+    howSteps,
+    safetyTitle:
+      String(detail.safetyTitle || "").trim() || "Safety Information",
+    safetyItems,
+  };
+}
+
+function BeforeAfterSlider({ title, slides, autoMs = 3000 }) {
+  const [current, setCurrent] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const syncViewport = () => {
+      if (typeof window === "undefined") return;
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    syncViewport();
+    window.addEventListener("resize", syncViewport);
+    return () => window.removeEventListener("resize", syncViewport);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile || slides.length <= 1) {
+      return undefined;
+    }
+
+    const intervalId = setInterval(
+      () => {
+        setCurrent((value) => (value + 1) % slides.length);
+      },
+      Math.max(1800, autoMs || 3000),
+    );
+
+    return () => clearInterval(intervalId);
+  }, [isMobile, slides.length, autoMs]);
+
+  if (!Array.isArray(slides) || slides.length === 0) {
+    return null;
+  }
+
+  const prev = () => {
+    setCurrent((value) => (value - 1 + slides.length) % slides.length);
+  };
+
+  const next = () => {
+    setCurrent((value) => (value + 1) % slides.length);
+  };
+
+  const desktopSlides = [
+    slides[current],
+    slides[(current + 1) % slides.length],
+  ].filter(Boolean);
+
+  return (
+    <div className="bg-white rounded-2xl border border-[#c9c4d8]/15 p-6 md:p-8">
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <h3 className="font-headline font-bold text-xl text-[#1c1a24]">
+          {title}
+        </h3>
+        {slides.length > 1 ? (
+          <div className="hidden items-center gap-2 md:flex">
+            <button
+              type="button"
+              onClick={prev}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#c9c4d8]/40 text-[#484555] transition-colors hover:bg-[#f4f1ff]"
+            >
+              <AppIcon name="chevron_left" className="text-[18px]" />
+            </button>
+            <button
+              type="button"
+              onClick={next}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#c9c4d8]/40 text-[#484555] transition-colors hover:bg-[#f4f1ff]"
+            >
+              <AppIcon name="chevron_right" className="text-[18px]" />
+            </button>
+          </div>
+        ) : null}
+      </div>
+
+      <div className="md:hidden">
+        <article className="overflow-hidden rounded-xl border border-[#c9c4d8]/20 bg-[#fdfcff]">
+          <div className="aspect-[4/5] w-full bg-[#f6f4ff]">
+            <img
+              src={slides[current].image}
+              alt={slides[current].label}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="px-4 py-3">
+            <p className="text-sm font-semibold text-[#1c1a24]">
+              {slides[current].label}
+            </p>
+            {slides[current].caption ? (
+              <p className="mt-1 text-xs text-[#6b6778]">
+                {slides[current].caption}
+              </p>
+            ) : null}
+          </div>
+        </article>
+
+        {slides.length > 1 ? (
+          <div className="mt-3 flex items-center justify-center gap-2">
+            {slides.map((slide, index) => (
+              <button
+                key={`${slide.label}-${index}`}
+                type="button"
+                onClick={() => setCurrent(index)}
+                className={`h-2 rounded-full transition-all ${
+                  index === current ? "w-6 bg-[#5b3cdd]" : "w-2 bg-[#d7d2e7]"
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+        ) : null}
+      </div>
+
+      <div className="hidden gap-4 md:grid md:grid-cols-2">
+        {desktopSlides.map((slide, index) => (
+          <article
+            key={`${slide.label}-${index}`}
+            className="overflow-hidden rounded-xl border border-[#c9c4d8]/20 bg-[#fdfcff]"
+          >
+            <div className="aspect-[4/5] w-full bg-[#f6f4ff]">
+              <img
+                src={slide.image}
+                alt={slide.label}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="px-4 py-3">
+              <p className="text-sm font-semibold text-[#1c1a24]">
+                {slide.label}
+              </p>
+              {slide.caption ? (
+                <p className="mt-1 text-xs text-[#6b6778]">{slide.caption}</p>
+              ) : null}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function resolveProjectedPlanTotal(plan) {
   const firstMonth = Number(plan?.firstMonthPrice || 0);
   const thenPrice = Number(plan?.thenPrice || firstMonth || 0);
@@ -86,6 +351,7 @@ export default function ProductDetailClient({ product }) {
   const [added, setAdded] = useState(false);
   const [cartError, setCartError] = useState("");
   const [activeTab, setActiveTab] = useState("overview");
+  const detailConfig = useMemo(() => normalizeDetailConfig(product), [product]);
 
   useEffect(() => {
     setSelectedVariant(product.variants?.[0] || null);
@@ -502,48 +768,46 @@ export default function ProductDetailClient({ product }) {
         {activeTab === "overview" && (
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-6">
-              {product.description && (
+              {(detailConfig.overviewBody || product.description) && (
                 <div className="bg-white rounded-2xl border border-[#c9c4d8]/15 p-8">
                   <h3 className="font-headline font-bold text-xl text-[#1c1a24] mb-4">
-                    About This Treatment
+                    {detailConfig.overviewTitle}
                   </h3>
                   <div className="text-[15px] text-[#484555] whitespace-pre-line leading-relaxed">
-                    {product.description}
+                    {detailConfig.overviewBody || product.description}
                   </div>
                 </div>
               )}
 
+              <BeforeAfterSlider
+                title={detailConfig.beforeAfterTitle}
+                slides={detailConfig.beforeAfterSlides}
+                autoMs={detailConfig.beforeAfterAutoMs}
+              />
+
               <div className="bg-white rounded-2xl border border-[#c9c4d8]/15 p-8">
                 <h3 className="font-headline font-bold text-xl text-[#1c1a24] mb-4">
-                  Key Benefits
+                  {detailConfig.benefitsTitle}
                 </h3>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  {[
-                    {
-                      icon: "science",
-                      text: "Clinically proven ingredients",
-                    },
-                    {
-                      icon: "schedule",
-                      text: "Results in as few as 2-4 weeks",
-                    },
-                    {
-                      icon: "person",
-                      text: "Personalized to your health profile",
-                    },
-                    {
-                      icon: "local_pharmacy",
-                      text: "Compounded by US pharmacies",
-                    },
-                  ].map((benefit) => (
-                    <div key={benefit.text} className="flex items-start gap-3">
+                  {detailConfig.benefits.map((benefit, index) => (
+                    <div
+                      key={`${benefit}-${index}`}
+                      className="flex items-start gap-3"
+                    >
                       <AppIcon
-                        name={benefit.icon}
+                        name={
+                          index % 4 === 0
+                            ? "science"
+                            : index % 4 === 1
+                              ? "schedule"
+                              : index % 4 === 2
+                                ? "person"
+                                : "local_pharmacy"
+                        }
                         className="text-[22px] text-[#5b3cdd] mt-0.5"
                       />
-                      <span className="text-sm text-[#484555]">
-                        {benefit.text}
-                      </span>
+                      <span className="text-sm text-[#484555]">{benefit}</span>
                     </div>
                   ))}
                 </div>
@@ -590,10 +854,10 @@ export default function ProductDetailClient({ product }) {
         {activeTab === "how" && (
           <div className="space-y-6">
             <h3 className="font-headline font-bold text-2xl text-[#1c1a24]">
-              How It Works
+              {detailConfig.howTitle}
             </h3>
             <div className="grid md:grid-cols-3 gap-6">
-              {STEPS.map((step, index) => (
+              {detailConfig.howSteps.map((step, index) => (
                 <div
                   key={step.title}
                   className="bg-white rounded-2xl border border-[#c9c4d8]/15 p-8 text-center relative"
@@ -618,56 +882,25 @@ export default function ProductDetailClient({ product }) {
         {activeTab === "safety" && (
           <div className="max-w-3xl space-y-6">
             <h3 className="font-headline font-bold text-2xl text-[#1c1a24]">
-              Safety Information
+              {detailConfig.safetyTitle}
             </h3>
             <div className="bg-white rounded-2xl border border-[#c9c4d8]/15 p-8 space-y-4">
-              <div className="flex items-start gap-3">
-                <AppIcon
-                  name="warning"
-                  className="text-[22px] text-amber-500"
-                />
-                <div>
-                  <h4 className="font-semibold text-[#1c1a24] mb-1">
-                    Important Safety Information
-                  </h4>
-                  <p className="text-sm text-[#484555] leading-relaxed">
-                    This treatment requires a prescription. A licensed
-                    healthcare provider will review your health information and
-                    determine if this medication is right for you. Do not use if
-                    you are pregnant, nursing, or have a known allergy to any of
-                    the listed ingredients.
-                  </p>
+              {detailConfig.safetyItems.map((item) => (
+                <div key={item.title} className="flex items-start gap-3">
+                  <AppIcon
+                    name={item.icon}
+                    className={`text-[22px] ${item.colorClass}`}
+                  />
+                  <div>
+                    <h4 className="font-semibold text-[#1c1a24] mb-1">
+                      {item.title}
+                    </h4>
+                    <p className="text-sm text-[#484555] leading-relaxed">
+                      {item.body}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <AppIcon name="info" className="text-[22px] text-blue-500" />
-                <div>
-                  <h4 className="font-semibold text-[#1c1a24] mb-1">
-                    Side Effects
-                  </h4>
-                  <p className="text-sm text-[#484555] leading-relaxed">
-                    Common side effects may include nausea, headache, or mild
-                    discomfort at the injection site. Consult your healthcare
-                    provider if you experience any adverse reactions.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <AppIcon
-                  name="verified_user"
-                  className="text-[22px] text-emerald-500"
-                />
-                <div>
-                  <h4 className="font-semibold text-[#1c1a24] mb-1">
-                    Quality Assurance
-                  </h4>
-                  <p className="text-sm text-[#484555] leading-relaxed">
-                    All medications are sourced from licensed US pharmacies and
-                    undergo rigorous quality testing. Our compounding pharmacies
-                    are FDA-registered and follow strict cGMP guidelines.
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         )}

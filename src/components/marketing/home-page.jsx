@@ -1008,7 +1008,9 @@ function HeroCategories({ hero = defaultHeroContent }) {
           </h1>
 
           <p className="[font-family:'Open_Sans',sans-serif] mt-4 max-w-[34rem] text-lg leading-relaxed text-[#5d6169] sm:text-xl">
-            {description}
+            {description === "Personalized Medications for You"
+              ? null
+              : description}
           </p>
         </div>
 
@@ -1055,11 +1057,7 @@ function HeroCategories({ hero = defaultHeroContent }) {
                 </p>
               </div>
 
-              <div className="relative z-10 mt-auto flex items-end justify-between gap-4">
-                <span className="[font-family:'Open_Sans',sans-serif] ml-auto text-xs font-medium uppercase tracking-[0.22em] text-[#464c5d]">
-                  Rx only
-                </span>
-              </div>
+              <div className="relative z-10 mt-auto flex items-end justify-between gap-4" />
 
               <div className="pointer-events-none absolute inset-y-0 right-0 z-0 flex w-[50%] items-end justify-end overflow-hidden pr-3 sm:pr-4">
                 <div
@@ -1099,12 +1097,6 @@ function HeroCategories({ hero = defaultHeroContent }) {
                 </p>
               </div>
 
-              <div className="relative z-10 flex flex-col items-end gap-4">
-                <span className="[font-family:'Open_Sans',sans-serif] text-[11px] font-medium uppercase tracking-[0.22em] text-[#464c5d] sm:text-xs">
-                  Rx only
-                </span>
-              </div>
-
               <div className="pointer-events-none absolute inset-y-0 right-2 flex w-[44%] items-center justify-end overflow-hidden sm:right-3 sm:w-[46%]">
                 <div className="relative h-[66%] w-[66%] sm:h-[72%] sm:w-[72%]">
                   <Image
@@ -1119,6 +1111,171 @@ function HeroCategories({ hero = defaultHeroContent }) {
               </div>
             </Link>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const MEDIA_LOGOS = [
+  { name: "Yahoo!", style: "font-black text-[1.1rem] tracking-tight" },
+  { name: "USA TODAY", style: "font-black text-[0.9rem] tracking-[0.08em]" },
+  { name: "AXIOS", style: "font-black text-[1.05rem] tracking-[0.12em]" },
+  { name: "Forbes", style: "font-bold italic text-[1.1rem]" },
+  {
+    name: "Business Insider",
+    style: "font-black text-[0.85rem] tracking-[0.04em]",
+  },
+  { name: "Reuters", style: "font-bold text-[1rem] tracking-[0.06em]" },
+];
+
+function MediaLogosBanner() {
+  return (
+    <div className="overflow-hidden bg-[#5b3cdd] py-3.5">
+      <div className="flex animate-[mediaLogoScroll_22s_linear_infinite]">
+        {[0, 1].map((copy) => (
+          <div
+            key={copy}
+            aria-hidden={copy === 1 ? true : undefined}
+            className="flex shrink-0 items-center gap-16 px-8"
+          >
+            {MEDIA_LOGOS.map((logo, i) => (
+              <span
+                key={i}
+                className={`whitespace-nowrap text-white ${logo.style}`}
+              >
+                {logo.name}
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const NEGATIVE_SELL_CARDS = [
+  {
+    title: "The hunger that never shuts off.",
+    image: "/images/home/reference/weight-loss-band.jpeg",
+    bullets: [
+      "You just ate — and you're already thinking about food again.",
+      "The mental load of tracking, restricting, and starting over is exhausting.",
+    ],
+  },
+  {
+    title: "Your metabolism turned on you.",
+    image: "/images/home/reference/tirzepatide-safely.jpg",
+    bullets: [
+      "Postpartum weight, stress eating, hormonal changes — it all adds up.",
+      "Slower metabolism means doing everything right and still not seeing results.",
+    ],
+  },
+  {
+    title: "Lose 20. Gain 25 back. Every diet makes it worse.",
+    image: "/images/home/reference/guide-card.jpg",
+    bullets: [
+      "You've lost and regained the same weight more than once.",
+      "Each restart is harder, and your body fights you more every time.",
+    ],
+  },
+  {
+    title: "This was never about discipline.",
+    image: "/images/home/reference/nad-cellular-energy.jpeg",
+    bullets: [
+      "Feeling like you should be able to do this alone keeps you stuck.",
+      "You've looked into this before — you just needed the right support.",
+    ],
+  },
+];
+
+function NegativeSellSection() {
+  return (
+    <section className="bg-white py-20 md:py-28">
+      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
+        <div className="mb-4 text-center">
+          <span className="inline-block rounded-full bg-[#f0eeff] px-4 py-1.5 text-sm font-semibold text-[#5b3cdd]">
+            Sound familiar?
+          </span>
+        </div>
+        <h2 className="mb-4 text-center text-3xl font-bold tracking-tight text-[#1c1a24] md:text-4xl lg:text-5xl">
+          Weight loss isn&apos;t just about{" "}
+          <span className="italic text-[#5b3cdd]">eating less.</span>
+        </h2>
+        <p className="mx-auto mb-12 max-w-[42rem] text-center text-lg leading-relaxed text-[#5d6169]">
+          It&apos;s about understanding why your body holds on to weight.
+          Whether it&apos;s food noise, hormonal confusion, or weight resistance
+          from years of yo-yo dieting — this is why GLP-1 therapy exists.
+        </p>
+
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {NEGATIVE_SELL_CARDS.map((card) => (
+            <div
+              key={card.title}
+              className="flex flex-col overflow-hidden rounded-[1.5rem] border border-[#ebebeb] bg-white shadow-sm"
+            >
+              <div className="relative h-48 w-full overflow-hidden bg-[#f5f5f5]">
+                <Image
+                  src={card.image}
+                  alt={card.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="mb-4 text-base font-bold leading-snug text-[#1c1a24]">
+                  {card.title}
+                </h3>
+                <ul className="flex flex-col gap-3">
+                  {card.bullets.map((bullet) => (
+                    <li
+                      key={bullet}
+                      className="flex items-start gap-2.5 text-sm leading-snug text-[#5d6169]"
+                    >
+                      <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#ffe4e4] text-[#e53e3e]">
+                        <svg
+                          width="8"
+                          height="8"
+                          viewBox="0 0 10 10"
+                          fill="none"
+                        >
+                          <line
+                            x1="2"
+                            y1="2"
+                            x2="8"
+                            y2="8"
+                            stroke="#e53e3e"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                          />
+                          <line
+                            x1="8"
+                            y1="2"
+                            x2="2"
+                            y2="8"
+                            stroke="#e53e3e"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </span>
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12 flex justify-center">
+          <Link
+            href={getFunnelPath("glp-1-eligibility")}
+            className="rounded-full bg-[#1c1a24] px-10 py-4 text-base font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#2d2a3a] hover:shadow-xl"
+          >
+            See if GLP-1 is right for you
+          </Link>
         </div>
       </div>
     </section>
@@ -2157,6 +2314,9 @@ export default function MarketingHomePage({
         <div className="hidden md:block">
           <HeroCategories hero={activeHero} />
         </div>
+
+        <NegativeSellSection />
+        <MediaLogosBanner />
 
         {/* Keep these optional sections behind a flag so we can restore them quickly if needed. */}
         {showDeferredHomeSections ? (

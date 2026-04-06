@@ -1,0 +1,668 @@
+{
+  "generatedAt": "2026-04-06T12:15:00.012Z",
+  "results": [
+    {
+      "path": "/",
+      "ok": true,
+      "issues": [],
+      "title": "HealSend",
+      "description": "Clinician-guided treatment, onboarding, and ongoing care through HealSend.",
+      "canonical": "https://healsend.com/",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/"
+    },
+    {
+      "path": "/anti-aging",
+      "ok": true,
+      "issues": [],
+      "title": "Support energy, recovery, and vitality with precision care. | HealSend",
+      "description": "Compare anti-aging and longevity-focused treatments designed to support focus, resilience, metabolism, and everyday performance.",
+      "canonical": "https://healsend.com/anti-aging",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/anti-aging",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/anti-aging"
+    },
+    {
+      "path": "/cjc-1295-ipamorelin",
+      "ok": true,
+      "issues": [],
+      "title": "CJC-1295 + Ipamorelin | Strength And Recovery Care",
+      "description": "Explore CJC-1295 + Ipamorelin inside HealSend&#x27;s strength-and-recovery experience, with clinician-guided review and clearer next steps.",
+      "canonical": "https://healsend.com/cjc-1295-ipamorelin",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/cjc-1295-ipamorelin",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/cjc-1295-ipamorelin"
+    },
+    {
+      "path": "/enclomiphene",
+      "ok": true,
+      "issues": [],
+      "title": "Enclomiphene | HealSend",
+      "description": "Increase testosterone (2-3x), Increase energy and drive., Preserve Fertility, Less side effects &amp; safer than TRT.",
+      "canonical": "https://healsend.com/enclomiphene",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/enclomiphene",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/enclomiphene"
+    },
+    {
+      "path": "/generic-cialis",
+      "ok": true,
+      "issues": [],
+      "title": "Generic Cialis® | HealSend",
+      "description": "Explore Generic Cialis with supporting information, clearer navigation, and the right next step into private sexual-wellness care.",
+      "canonical": "https://healsend.com/generic-cialis",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/generic-cialis",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/generic-cialis"
+    },
+    {
+      "path": "/generic-remeron-mirtazapine",
+      "ok": true,
+      "issues": [],
+      "title": "Generic Remeron® (Mirtazapine) | HealSend",
+      "description": "The Deep Rest Protocol — Best for Staying Asleep., Maintenance Master: Stop waking up at 3 AM.",
+      "canonical": "https://healsend.com/generic-remeron-mirtazapine",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/generic-remeron-mirtazapine",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/generic-remeron-mirtazapine"
+    },
+    {
+      "path": "/generic-trazodone",
+      "ok": true,
+      "issues": [],
+      "title": "Generic Trazodone | HealSend",
+      "description": "The Nightly Reset — Best for Falling Asleep., Rapid Onset: Quiet a racing mind and drift into natural sleep within minutes., Uninterrupted Rest: Stay in deep, restorative sleep cycles all night long., Zero Grogginess: Wake up feeling sharp and alert without the \\&quot;pill...",
+      "canonical": "https://healsend.com/generic-trazodone",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/generic-trazodone",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/generic-trazodone"
+    },
+    {
+      "path": "/glutathione",
+      "ok": true,
+      "issues": [],
+      "title": "Glutathione | HealSend",
+      "description": "Oxidative Guard: Neutralize the \\&quot;cellular rust\\&quot; that drives premature aging., Liver &amp; Immune Fortress: A deep-tissue purge of heavy metals and pollutants., Dermatological Clarity: Erase dullness and even out skin tone from the inside out., Elite Recovery: Slash muscle soreness...",
+      "canonical": "https://healsend.com/glutathione",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/glutathione",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/glutathione"
+    },
+    {
+      "path": "/glutathione-injection",
+      "ok": true,
+      "issues": [],
+      "title": "Glutathione Injection | HealSend",
+      "description": "Neutralize the oxidative stress, Speed up muscle recovery, Reduce systemic inflammation, Brighten and even out skin tone, neutralizing systemic toxins.",
+      "canonical": "https://healsend.com/glutathione-injection",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/glutathione-injection",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/glutathione-injection"
+    },
+    {
+      "path": "/glutathione-ldn",
+      "ok": true,
+      "issues": [],
+      "title": "Recovery-focused support for inflammation, energy, and long-term resilience. | HealSend",
+      "description": "Explore glutathione and LDN-based treatment options designed to support recovery, cellular repair, and everyday vitality.",
+      "canonical": "https://healsend.com/glutathione-ldn",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/glutathione-ldn",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/glutathione-ldn"
+    },
+    {
+      "path": "/glutathione-low-dose-naltrexone-ldn",
+      "ok": true,
+      "issues": [],
+      "title": "Glutathione &amp; Low Dose Naltrexone (LDN) | HealSend",
+      "description": "Dual-Action Reset: Simultaneously flush systemic toxins and extinguish inflammation., Chronic Fatigue Solution: Reclaim all-day energy by lowering the body’s total stress load., Cellular Purity: Even out skin tone while repairing internal systemic damage., Immune Optimization:...",
+      "canonical": "https://healsend.com/glutathione-low-dose-naltrexone-ldn",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/glutathione-low-dose-naltrexone-ldn",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/glutathione-low-dose-naltrexone-ldn"
+    },
+    {
+      "path": "/low-dose-naltrexone-ldn",
+      "ok": true,
+      "issues": [],
+      "title": "Low Dose Naltrexone (LDN) | HealSend",
+      "description": "Extinguish Inflammation: Targeted relief for chronic systemic pain and joint discomfort., Metabolic &amp; Mood Boost: Erase persistent fatigue and stabilize mental clarity., Immune Harmony: Rebalance your natural defense system for daily wellness., Neuro-Protection: Calm the central...",
+      "canonical": "https://healsend.com/low-dose-naltrexone-ldn",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/low-dose-naltrexone-ldn",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/low-dose-naltrexone-ldn"
+    },
+    {
+      "path": "/nad",
+      "ok": true,
+      "issues": [],
+      "title": "NAD+ Injections | HealSend",
+      "description": "Personalized treatment options from HealSend.",
+      "canonical": "https://healsend.com/nad",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/nad",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/nad"
+    },
+    {
+      "path": "/nad-nasal-glutathione-injection",
+      "ok": true,
+      "issues": [],
+      "title": "NAD Nasal + Glutathione Injection | HealSend",
+      "description": "DNA Shield: Repair cellular wear and neutralize oxidative stress., Cognitive Fuel: Instant brain clarity via rapid nasal delivery., Deep Purge: Injectable detox to flush liver and blood toxins., Tone &amp; Recovery: Reduce inflammation and even out skin clarity.",
+      "canonical": "https://healsend.com/nad-nasal-glutathione-injection",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/nad-nasal-glutathione-injection",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/nad-nasal-glutathione-injection"
+    },
+    {
+      "path": "/nad-nasal-spray",
+      "ok": true,
+      "issues": [],
+      "title": "Buy NAD Nasal Spray Online | NAD+ Brain &amp;amp; Energy Support",
+      "description": "Boost cognitive clarity and cellular energy with NAD+ nasal spray. Explore telehealth-prescribed therapy delivered discreetly to your door by HealSend!",
+      "canonical": "https://healsend.com/nad-nasal-spray",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/nad-nasal-spray",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/nad-nasal-spray"
+    },
+    {
+      "path": "/nad-patches",
+      "ok": true,
+      "issues": [],
+      "title": "NAD+ Patches | HealSend",
+      "description": "Simple transdermal NAD+ support for patients who want an easy needle-free anti-aging option.",
+      "canonical": "https://healsend.com/nad-patches",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/nad-patches",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/nad-patches"
+    },
+    {
+      "path": "/oxytocin-nasal-spray",
+      "ok": true,
+      "issues": [],
+      "title": "Oxytocin Nasal Spray | HealSend",
+      "description": "A needle-free option focused on connection, arousal, and confidence with discreet delivery.",
+      "canonical": "https://healsend.com/oxytocin-nasal-spray",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/oxytocin-nasal-spray",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/oxytocin-nasal-spray"
+    },
+    {
+      "path": "/pt-141-funnel-him-her",
+      "ok": true,
+      "issues": [],
+      "title": "Pt-141 + Surge® (2 in 1) | HealSend",
+      "description": "Pt-141 + Surge® (2 in 1) ( Him | Her) (For your own notes Tadalafil + Sildenafil Combo), Total desire (Brain) + Total performance (Body)., Our most potent male sexual wellness protocol.",
+      "canonical": "https://healsend.com/pt-141-funnel-him-her",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/pt-141-funnel-him-her",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/pt-141-funnel-him-her"
+    },
+    {
+      "path": "/pt-141-nasal-spray",
+      "ok": true,
+      "issues": [],
+      "title": "Buy PT-141 Nasal Spray Online | Increased Libido Support",
+      "description": "Improve desire and performance with PT-141 nasal spray. A safe, doctor-prescribed peptide for men and women. Order online today with discreet shipping!",
+      "canonical": "https://healsend.com/pt-141-nasal-spray",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/pt-141-nasal-spray",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/pt-141-nasal-spray"
+    },
+    {
+      "path": "/pt-141-nasal-spray-2",
+      "ok": true,
+      "issues": [],
+      "title": "Buy PT-141 Nasal Spray Online | Increased Libido Support",
+      "description": "Improve desire and performance with PT-141 nasal spray. A safe, doctor-prescribed peptide for men and women. Order online today with discreet shipping!",
+      "canonical": "https://healsend.com/pt-141-nasal-spray-2",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/pt-141-nasal-spray-2",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/pt-141-nasal-spray-2"
+    },
+    {
+      "path": "/pt-141-surge-2-in-1",
+      "ok": true,
+      "issues": [],
+      "title": "PT-141 + Oxytocin Nasal Sprays | HealSend",
+      "description": "Targets brain arousal centers for a direct libido boost. Total mental desire meets deeper emotional bonding with clinician-guided follow-through.",
+      "canonical": "https://healsend.com/pt-141-surge-2-in-1",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/pt-141-surge-2-in-1",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/pt-141-surge-2-in-1"
+    },
+    {
+      "path": "/ramalteon",
+      "ok": true,
+      "issues": [],
+      "title": "ramalteon | HealSend",
+      "description": "HealSend pairs ramalteon with clinician-guided review, transparent monthly pricing, and follow-up support tailored to your goals.",
+      "canonical": "https://healsend.com/ramalteon",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/ramalteon",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/ramalteon"
+    },
+    {
+      "path": "/semaglutide-drops",
+      "ok": true,
+      "issues": [],
+      "title": "Semaglutide Drops | HealSend",
+      "description": "Popular choice , Slightly less effective, Lower cost, Injection • Drops • Tablets",
+      "canonical": "https://healsend.com/semaglutide-drops",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/semaglutide-drops",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/semaglutide-drops"
+    },
+    {
+      "path": "/semaglutide-injections",
+      "ok": true,
+      "issues": [],
+      "title": "Semaglutide Injections Online | GLP-1 | Weight Loss &amp;amp; Diabetes",
+      "description": "Get Semaglutide Injections online with HealSend. GLP-1 receptors work well for diabetes management and long-term weight loss therapy. See if you qualify!",
+      "canonical": "https://healsend.com/semaglutide-injections",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/semaglutide-injections",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/semaglutide-injections"
+    },
+    {
+      "path": "/semaglutide-tablets",
+      "ok": true,
+      "issues": [],
+      "title": "Buy Semaglutide Tablets for Weight Loss | Doctor-Prescribed",
+      "description": "Buy Semaglutide tablets for medical weight loss with telehealth consultations. Contact us for discreet, doctor-prescribed tablets, delivered to your door.",
+      "canonical": "https://healsend.com/semaglutide-tablets",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/semaglutide-tablets",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/semaglutide-tablets"
+    },
+    {
+      "path": "/sermorelin-enclomiphene",
+      "ok": true,
+      "issues": [],
+      "title": "Sermorelin | Enclomiphene | HealSend",
+      "description": "Increase Testosterone (2-3x) &amp; Growth Hormone, Better Sleep &amp; Elite Recovery, Increase Muscle &amp; Shred Fat, All-day Mental &amp; Physical Stamina",
+      "canonical": "https://healsend.com/sermorelin-enclomiphene",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/sermorelin-enclomiphene",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/sermorelin-enclomiphene"
+    },
+    {
+      "path": "/sermorelin-enclomiphene-capsules-him",
+      "ok": true,
+      "issues": [],
+      "title": "Sermorelin | Enclomiphene Capsules (Him) | HealSend",
+      "description": "Increase Testosterone (2-3x) &amp; Growth Hormone, Improve Recovery and Increase Muscle Mass, Shred Fat &amp; Increase Metabolism, Deep Restorative Sleep, All-day Mental &amp; Physical Stamina",
+      "canonical": "https://healsend.com/sermorelin-enclomiphene-capsules-him",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/sermorelin-enclomiphene-capsules-him",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/sermorelin-enclomiphene-capsules-him"
+    },
+    {
+      "path": "/sermorelin-injection",
+      "ok": true,
+      "issues": [],
+      "title": "Sermorelin Injection | HealSend",
+      "description": "Natural GH support for body composition, Faster recovery &amp; improved muscle tone, Deeper more restorative sleep, Strong boost in daily energy &amp; vitality",
+      "canonical": "https://healsend.com/sermorelin-injection",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/sermorelin-injection",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/sermorelin-injection"
+    },
+    {
+      "path": "/sermorelin-injection-2",
+      "ok": true,
+      "issues": [],
+      "title": "Sermorelin Support | Strength And Recovery Care",
+      "description": "Explore sermorelin support inside HealSend&#x27;s strength-and-recovery experience, with clinician-guided review and clearer next steps.",
+      "canonical": "https://healsend.com/sermorelin-injection-2",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/sermorelin-injection-2",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/sermorelin-injection-2"
+    },
+    {
+      "path": "/sermorelin-injection-him-her",
+      "ok": true,
+      "issues": [],
+      "title": "Sermorelin Injection ( Him | Her) | HealSend",
+      "description": "Stimulate natural Growth Hormone, Improve Recovery and Increase Muscle Mass, Deep restorative sleep",
+      "canonical": "https://healsend.com/sermorelin-injection-him-her",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/sermorelin-injection-him-her",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/sermorelin-injection-him-her"
+    },
+    {
+      "path": "/sexual-health",
+      "ok": true,
+      "issues": [],
+      "title": "Confidential care for intimacy, desire, and performance. | HealSend",
+      "description": "Start online, review your options with a licensed provider, and get treatment delivered discreetly to your door.",
+      "canonical": "https://healsend.com/sexual-health",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/sexual-health",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/sexual-health"
+    },
+    {
+      "path": "/shop",
+      "ok": true,
+      "issues": [],
+      "title": "Browse Treatments | HealSend",
+      "description": "Explore clinician-guided treatments, pricing, and care plans across the HealSend catalog.",
+      "canonical": "https://healsend.com/shop",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/shop",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/shop"
+    },
+    {
+      "path": "/sleep",
+      "ok": true,
+      "issues": [],
+      "title": "Deeper, more restorative sleep without guesswork. | HealSend",
+      "description": "Compare clinician-guided sleep support options designed to help with onset, staying asleep, and better next-day recovery.",
+      "canonical": "https://healsend.com/sleep",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/sleep",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/sleep"
+    },
+    {
+      "path": "/strength-recovery",
+      "ok": true,
+      "issues": [],
+      "title": "Recovery, performance, and hormone support built around follow-through. | HealSend",
+      "description": "Explore clinician-guided options for recovery, body composition, vitality, and sustainable performance support.",
+      "canonical": "https://healsend.com/strength-recovery",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/strength-recovery",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/strength-recovery"
+    },
+    {
+      "path": "/tirzepatide-drops",
+      "ok": true,
+      "issues": [],
+      "title": "Tirzepatide Drops | HealSend",
+      "description": "Needle-free appetite and craving support in a daily format built for convenience.",
+      "canonical": "https://healsend.com/tirzepatide-drops",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/tirzepatide-drops",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/tirzepatide-drops"
+    },
+    {
+      "path": "/tirzepatide-injections",
+      "ok": true,
+      "issues": [],
+      "title": "Tirzepatide Injections | HealSend",
+      "description": "Dual-action GLP-1 treatment built for appetite control, reduced food noise, and sustained weight loss.",
+      "canonical": "https://healsend.com/tirzepatide-injections",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/tirzepatide-injections",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/tirzepatide-injections"
+    },
+    {
+      "path": "/tirzepatide-tablets",
+      "ok": true,
+      "issues": [],
+      "title": "Tirzepatide Tablets | HealSend",
+      "description": "Start anytime — cancel anytime, Includes medication + provider care, Free 2-day shipping, Flexible month-to-month access, Try it risk-free, Best for flexibility",
+      "canonical": "https://healsend.com/tirzepatide-tablets",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/tirzepatide-tablets",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/tirzepatide-tablets"
+    },
+    {
+      "path": "/viagra-sildenafil",
+      "ok": true,
+      "issues": [],
+      "title": "Sildenafil guidance for private, clinician-reviewed ED care. | HealSend",
+      "description": "Review how sildenafil-based ED treatment is presented, what the private care path looks like, and how to continue with clinician guidance.",
+      "canonical": "https://healsend.com/viagra-sildenafil",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/viagra-sildenafil",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/viagra-sildenafil"
+    },
+    {
+      "path": "/weight-loss",
+      "ok": true,
+      "issues": [],
+      "title": "Provider-guided GLP-1 care built for real life. | HealSend",
+      "description": "Explore weight loss treatments with clear pricing, clinician review, and home delivery without the usual waiting room friction.",
+      "canonical": "https://healsend.com/weight-loss",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:56517/weight-loss",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:56517/weight-loss"
+    }
+  ]
+}

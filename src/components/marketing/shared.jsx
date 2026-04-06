@@ -9,7 +9,9 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronDown,
+  LogOut,
   Menu,
+  User,
   X,
 } from "lucide-react";
 import LoginPageClient from "@/components/auth/LoginPageClient";
@@ -39,22 +41,36 @@ const MARKETING_NAV_SECTIONS = [
   {
     label: "Weight Loss",
     href: ROUTES.weightLoss,
-    sectionTitle: "Treatments",
-    sectionSubtitle:
-      "Clinician-guided options built around appetite, cravings, and sustainable progress.",
-    links: [
-      { label: "Weight Loss Overview", href: ROUTES.weightLoss },
+    groups: [
       {
-        label: "Semaglutide Injections Rx",
-        href: "/semaglutide-injections",
+        title: "The GLP-1 Essentials",
+        links: [
+          { label: "Tirzepatide Injections", href: "/tirzepatide-injections" },
+          { label: "Semaglutide Injections", href: "/semaglutide-injections" },
+          { label: "Triple-R Weight Loss", href: ROUTES.weightLoss },
+        ],
       },
       {
-        label: "Tirzepatide Injections Rx",
-        href: "/tirzepatide-injections",
+        title: "Precision Recomposition",
+        links: [
+          { label: "Tesamorelin", href: ROUTES.shop },
+          { label: "Lipo-C (MIC/B12)", href: "/mic-injection" },
+          { label: "Neuro-Metabolic", href: ROUTES.shop },
+        ],
       },
-      { label: "Tirzepatide Drops Rx", href: "/tirzepatide-drops" },
-      { label: "Tirzepatide Tablets Rx", href: "/tirzepatide-tablets" },
+      {
+        title: "Daily Maintenance",
+        links: [
+          { label: "Tirzepatide Drops", href: "/tirzepatide-drops" },
+          { label: "Tirzepatide Tablets", href: "/tirzepatide-tablets" },
+          { label: "Semaglutide Tablets", href: "/semaglutide-tablets" },
+          { label: "Microdose GLP-1", href: "/semaglutide-drops" },
+        ],
+      },
     ],
+    get links() {
+      return this.groups.flatMap((g) => g.links);
+    },
     promo: {
       eyebrow: "Get started",
       headline: "Personalized GLP-1. Lose weight.",
@@ -65,17 +81,140 @@ const MARKETING_NAV_SECTIONS = [
     },
   },
   {
-    label: "Anti-aging",
-    href: ROUTES.antiAging,
-    sectionTitle: "Longevity, recovery, energy",
-    sectionSubtitle:
-      "Support focus, vitality, and daily performance with precision anti-aging care.",
-    links: [
-      { label: "NAD+ Injection Rx", href: ROUTES.nad },
-      { label: "NAD+ Nasal Spray Rx", href: "/nad-nasal-spray" },
-      { label: "NAD+ Patches Rx", href: "/nad-patches" },
-      { label: "MICC+B12 Shots Rx", href: "/mic-injection" },
+    label: "Hormones",
+    href: ROUTES.strength,
+    groups: [
+      {
+        title: "Testosterone Therapy",
+        links: [
+          { label: "TRT Injections", href: ROUTES.shop },
+          { label: "Enclomiphene", href: "/enclomiphene" },
+          { label: "HCG", href: ROUTES.shop },
+        ],
+      },
+      {
+        title: "Growth Hormone Secretagogues",
+        links: [
+          { label: "Next-Gen GH Peptides", href: "/cjc-1295-ipamorelin" },
+          { label: "Oral GH Booster", href: ROUTES.shop },
+          { label: "Sermorelin Injections", href: "/sermorelin-injection-2" },
+        ],
+      },
     ],
+    get links() {
+      return this.groups.flatMap((g) => g.links);
+    },
+    promo: {
+      eyebrow: "Hormone support",
+      headline: "Build strength. Recover faster.",
+      price: "From $159 per month",
+      href: "/sermorelin-injection-2",
+      gradient: "from-[#eef6ff] via-[#f5fbff] to-[#f3f3ff]",
+      image: DESKTOP_NAV_PROMO_IMAGES.strengthRecovery,
+    },
+  },
+  {
+    label: "Recovery",
+    href: ROUTES.strength,
+    groups: [
+      {
+        title: "Healing & Recovery",
+        links: [
+          { label: "The Wolverine Protocol", href: ROUTES.strength },
+          { label: "Advanced Regenerative", href: ROUTES.strength },
+          { label: "Total Body Reconstruction", href: ROUTES.strength },
+        ],
+      },
+      {
+        title: "Growth Hormone Secretagogues",
+        links: [
+          { label: "Next-Gen GH Peptides", href: "/cjc-1295-ipamorelin" },
+          { label: "Oral GH Booster", href: ROUTES.shop },
+          { label: "Sermorelin Injections", href: "/sermorelin-injection-2" },
+        ],
+      },
+    ],
+    get links() {
+      return this.groups.flatMap((g) => g.links);
+    },
+    promo: {
+      eyebrow: "Recovery plans",
+      headline: "Recover faster. Perform stronger.",
+      price: "From $159 per month",
+      href: ROUTES.strength,
+      gradient: "from-[#eef6ff] via-[#f5fbff] to-[#f3f3ff]",
+      image: DESKTOP_NAV_PROMO_IMAGES.strengthRecovery,
+    },
+  },
+  {
+    label: "Sexual Health",
+    href: ROUTES.sexualHealth,
+    groups: [
+      {
+        title: "Desire & Connection",
+        links: [
+          { label: "PT-141 Nasal Spray", href: "/pt-141-nasal-spray" },
+          { label: "Oxytocin Nasal Spray", href: "/oxytocin-nasal-spray" },
+        ],
+      },
+      {
+        title: "Physical Performance",
+        links: [
+          {
+            label: "Surge\u00ae (Tadalafil + Sildenafil)",
+            href: "/pt-141-surge-2-in-1",
+          },
+          { label: "Cialis\u00ae", href: "/generic-cialis" },
+          { label: "Viagra\u00ae", href: "/viagra-sildenafil" },
+        ],
+      },
+    ],
+    get links() {
+      return this.groups.flatMap((g) => g.links);
+    },
+    promo: {
+      eyebrow: "Confidential care",
+      headline: "Private support for desire and performance.",
+      price: "From $129 per month",
+      href: "/pt-141-nasal-spray",
+      gradient: "from-[#fff5f5] via-[#fff9fb] to-[#f5f3ff]",
+      image: DESKTOP_NAV_PROMO_IMAGES.sexualHealth,
+    },
+  },
+  {
+    label: "Longevity",
+    href: ROUTES.antiAging,
+    groups: [
+      {
+        title: "Cellular Longevity",
+        links: [
+          { label: "Systemic NAD+ Reset", href: ROUTES.nad },
+          { label: "Telomere Lengthening", href: ROUTES.shop },
+          { label: "Mitochondrial Repair", href: ROUTES.shop },
+          { label: "Cellular Clearance", href: ROUTES.shop },
+        ],
+      },
+      {
+        title: "Photo-Aging Recovery",
+        links: [
+          { label: "Glutathione", href: "/glutathione" },
+          { label: "Glow Blend", href: ROUTES.shop },
+          { label: "GHK-Cu", href: ROUTES.shop },
+        ],
+      },
+      {
+        title: "Increase Energy",
+        links: [
+          { label: "NAD+ Injections", href: ROUTES.nad },
+          { label: "NAD+ Nasal Spray", href: "/nad-nasal-spray" },
+          { label: "Sermorelin Injections", href: "/sermorelin-injection-2" },
+          { label: "MIC+", href: "/mic-injection" },
+        ],
+      },
+    ],
+    get links() {
+      return this.groups.flatMap((g) => g.links);
+    },
     promo: {
       eyebrow: "Most popular",
       headline: "Personalized NAD treatments.",
@@ -86,64 +225,95 @@ const MARKETING_NAV_SECTIONS = [
     },
   },
   {
-    label: "Strength & Recovery",
-    href: ROUTES.strength,
-    sectionTitle: "Performance support",
-    sectionSubtitle:
-      "Recovery and hormone-support programs designed for strength, resilience, and momentum.",
-    links: [
+    label: "Skin & Hair",
+    href: ROUTES.antiAging,
+    groups: [
       {
-        label: "Strength & Recovery Overview",
-        href: ROUTES.strength,
-      },
-      {
-        label: "Sermorelin Injection Rx",
-        href: "/sermorelin-injection-2",
-      },
-      {
-        label: "CJC-1295 + Ipamorelin Rx",
-        href: "/cjc-1295-ipamorelin",
-      },
-      {
-        label: "Enclomiphene Rx",
-        href: "/enclomiphene",
+        title: "Aesthetics",
+        links: [
+          { label: "Master Antioxidant", href: "/glutathione" },
+          { label: "Glow Blend", href: ROUTES.shop },
+          { label: "GHK-Cu Protocol", href: ROUTES.shop },
+          { label: "NAD+ Reset", href: ROUTES.nad },
+        ],
       },
     ],
+    get links() {
+      return this.groups.flatMap((g) => g.links);
+    },
     promo: {
-      eyebrow: "Recovery plans",
-      headline: "Build strength. Recover faster.",
-      price: "From $159 per month",
-      href: "/sermorelin-injection-2",
-      gradient: "from-[#eef6ff] via-[#f5fbff] to-[#f3f3ff]",
-      image: DESKTOP_NAV_PROMO_IMAGES.strengthRecovery,
+      eyebrow: "Aesthetics",
+      headline: "Skin & Hair with NAD+.",
+      price: "From $129 first month*",
+      href: ROUTES.nad,
+      gradient: "from-[#fff5f5] via-[#fff9fb] to-[#f5f3ff]",
+      image: DESKTOP_NAV_PROMO_IMAGES.antiAging,
     },
   },
   {
-    label: "Sexual Health",
-    href: ROUTES.sexualHealth,
-    sectionTitle: "Sexual wellness",
-    sectionSubtitle:
-      "Private online care for desire, confidence, stamina, and connection.",
-    links: [
+    label: "Brain Health",
+    href: ROUTES.shop,
+    groups: [
       {
-        label: "Sexual Health Overview",
-        href: ROUTES.sexualHealth,
+        title: "Neuro-Regeneration",
+        links: [
+          { label: "BDNF & Brain Fog", href: ROUTES.shop },
+          { label: "Anxiety-Free Focus", href: ROUTES.shop },
+          { label: "Neuronal Growth", href: ROUTES.shop },
+          { label: "Intranasal NAD+", href: "/nad-nasal-spray" },
+        ],
       },
-      { label: "PT-141 Nasal Spray Rx", href: "/pt-141-nasal-spray" },
-      { label: "Oxytocin Nasal Spray Rx", href: "/oxytocin-nasal-spray" },
       {
-        label: "PT-141 + Oxytocin Rx",
-        href: "/pt-141-surge-2-in-1",
+        title: "Insomnia & Sleep",
+        links: [
+          { label: "Delta-Sleep Protocol", href: ROUTES.shop },
+          { label: "Trazodone", href: "/generic-trazodone" },
+          { label: "Ramelteon", href: "/ramalteon" },
+        ],
       },
-      { label: "Viagra | Sildenafil Rx", href: "/viagra-sildenafil" },
+      {
+        title: "Anxiety & Social Calm",
+        links: [
+          { label: "Propranolol", href: ROUTES.shop },
+          { label: "Anxiolytic Peptide", href: ROUTES.shop },
+        ],
+      },
     ],
+    get links() {
+      return this.groups.flatMap((g) => g.links);
+    },
     promo: {
-      eyebrow: "Confidential care",
-      headline: "Private support for desire and performance.",
+      eyebrow: "Cognitive support",
+      headline: "Sharper Mind treatments.",
+      price: "From $129 first month*",
+      href: ROUTES.nad,
+      gradient: "from-[#f7f2ea] via-[#fff8ef] to-[#eef5ff]",
+      image: DESKTOP_NAV_PROMO_IMAGES.antiAging,
+    },
+  },
+  {
+    label: "Gut Health",
+    href: ROUTES.shop,
+    groups: [
+      {
+        title: "Total Gut Reset",
+        links: [
+          { label: "Leaky Gut Repair", href: ROUTES.shop },
+          { label: "Deep Inflammation Calm", href: ROUTES.shop },
+          { label: "Stomach Lining Support", href: ROUTES.shop },
+        ],
+      },
+    ],
+    get links() {
+      return this.groups.flatMap((g) => g.links);
+    },
+    promo: {
+      eyebrow: "Gut care",
+      headline: "Total Gut Reset.",
       price: "From $129 per month",
-      href: "/pt-141-nasal-spray",
-      gradient: "from-[#fff5f5] via-[#fff9fb] to-[#f5f3ff]",
-      image: DESKTOP_NAV_PROMO_IMAGES.sexualHealth,
+      href: ROUTES.shop,
+      gradient: "from-[#eef6ff] via-[#f5fbff] to-[#f3f3ff]",
+      image: DESKTOP_NAV_PROMO_IMAGES.weightLoss,
     },
   },
 ];
@@ -207,7 +377,7 @@ const MOBILE_EXPLORE_ITEMS = [
     key: "power-every-cell",
     label: "Power Every Cell",
     href: ROUTES.nad,
-    links: MARKETING_NAV_SECTIONS[1].links,
+    links: MARKETING_NAV_SECTIONS[4].links,
   },
   {
     key: "sexual-health",
@@ -223,9 +393,9 @@ const MOBILE_EXPLORE_ITEMS = [
   },
   {
     key: "anti-aging",
-    label: "Anti-Aging",
+    label: "Longevity",
     href: ROUTES.antiAging,
-    links: MARKETING_NAV_SECTIONS[1].links,
+    links: MARKETING_NAV_SECTIONS[4].links,
   },
 ];
 
@@ -262,10 +432,10 @@ const MOBILE_TOP_TREATMENTS = [
 
 const MOBILE_SECTION_TO_NAV_LABEL = Object.freeze({
   "weight-loss-fast": "Weight Loss",
-  "power-every-cell": "Anti-aging",
+  "power-every-cell": "Longevity",
   "sexual-health": "Sexual Health",
-  "strength-recovery": "Strength & Recovery",
-  "anti-aging": "Anti-aging",
+  "strength-recovery": "Recovery",
+  "anti-aging": "Longevity",
 });
 
 const MOBILE_CATEGORY_ITEMS = [
@@ -277,39 +447,53 @@ const MOBILE_CATEGORY_ITEMS = [
     promo: MARKETING_NAV_SECTIONS[0].promo,
   },
   {
-    key: "cat-strength",
-    label: "Strength",
+    key: "cat-hormones",
+    label: "Hormones",
+    href: ROUTES.strength,
+    links: MARKETING_NAV_SECTIONS[1].links,
+    promo: MARKETING_NAV_SECTIONS[1].promo,
+  },
+  {
+    key: "cat-recovery",
+    label: "Recovery",
     href: ROUTES.strength,
     links: MARKETING_NAV_SECTIONS[2].links,
     promo: MARKETING_NAV_SECTIONS[2].promo,
   },
   {
-    key: "cat-anti-aging",
-    label: "Anti-Aging",
+    key: "cat-sexual-health",
+    label: "Sexual Health",
+    href: ROUTES.sexualHealth,
+    links: MARKETING_NAV_SECTIONS[3].links,
+    promo: MARKETING_NAV_SECTIONS[3].promo,
+  },
+  {
+    key: "cat-longevity",
+    label: "Longevity",
     href: ROUTES.antiAging,
-    links: MARKETING_NAV_SECTIONS[1].links,
-    promo: MARKETING_NAV_SECTIONS[1].promo,
+    links: MARKETING_NAV_SECTIONS[4].links,
+    promo: MARKETING_NAV_SECTIONS[4].promo,
   },
   {
-    key: "cat-hair-growth",
-    label: "Hair Growth",
-    href: ROUTES.shop,
-    links: [],
-    promo: null,
+    key: "cat-skin-hair",
+    label: "Skin & Hair",
+    href: ROUTES.antiAging,
+    links: MARKETING_NAV_SECTIONS[5].links,
+    promo: MARKETING_NAV_SECTIONS[5].promo,
   },
   {
-    key: "cat-mood",
-    label: "Mood",
+    key: "cat-brain-health",
+    label: "Brain Health",
     href: ROUTES.shop,
-    links: [],
-    promo: null,
+    links: MARKETING_NAV_SECTIONS[6].links,
+    promo: MARKETING_NAV_SECTIONS[6].promo,
   },
   {
-    key: "cat-more",
-    label: "More",
+    key: "cat-gut-health",
+    label: "Gut Health",
     href: ROUTES.shop,
-    links: [],
-    promo: null,
+    links: MARKETING_NAV_SECTIONS[7].links,
+    promo: MARKETING_NAV_SECTIONS[7].promo,
   },
 ];
 
@@ -387,7 +571,7 @@ function MarketingFooterSection({ title, links }) {
 export function MarketingNavbar() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
   const [activeMenu, setActiveMenu] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileSection, setMobileSection] = useState(null);
@@ -639,11 +823,6 @@ export function MarketingNavbar() {
                         }`}
                       >
                         <span>{section.label}</span>
-                        <ChevronDown
-                          className={`h-4 w-4 text-[#6b7280] transition-transform ${
-                            isActive ? "rotate-180" : ""
-                          }`}
-                        />
                       </Link>
                     );
                   })}
@@ -719,33 +898,35 @@ export function MarketingNavbar() {
           <div className="mx-auto max-w-[1340px] px-4 py-4 md:px-8">
             <div className="grid overflow-hidden rounded-[1.55rem] md:grid-cols-[1.12fr_0.88fr]">
               <div className="px-5 py-5">
-                <div className="mb-4 max-w-xl">
-                  <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.26em] text-[#6f63c7]">
-                    {dropdownSection.sectionTitle}
-                  </p>
-                  <p className="text-[15px] leading-relaxed text-[#596273]">
-                    {dropdownSection.sectionSubtitle}
-                  </p>
-                </div>
-
-                <div className="space-y-0.5">
-                  {dropdownSection.links.map((item) => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      className="group flex items-center justify-between rounded-[0.9rem] px-3 py-2.5 text-[14px] font-semibold text-[#111827] transition-colors duration-200 hover:bg-white/85 hover:text-[#5a43d6]"
-                    >
-                      <span>{item.label}</span>
-                      <ChevronRight className="h-4 w-4 text-[#9aa3b2] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-[#5a43d6]" />
-                    </Link>
+                <div
+                  className={`${(dropdownSection.groups || []).length > 2 ? "grid grid-cols-2 gap-x-6 gap-y-5" : "space-y-5"}`}
+                >
+                  {(dropdownSection.groups || []).map((group) => (
+                    <div key={group.title}>
+                      <p className="mb-1.5 px-3 text-[10px] font-bold uppercase tracking-[0.26em] text-[#6f63c7]">
+                        {group.title}
+                      </p>
+                      <div className="space-y-0.5">
+                        {group.links.map((item) => (
+                          <Link
+                            key={item.label}
+                            href={item.href}
+                            className="group flex items-center justify-between rounded-[0.9rem] px-3 py-2 text-[14px] font-semibold text-[#111827] transition-colors duration-200 hover:bg-white/85 hover:text-[#5a43d6]"
+                          >
+                            <span>{item.label}</span>
+                            <ChevronRight className="h-4 w-4 text-[#9aa3b2] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-[#5a43d6]" />
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>
 
-              <div className="border-t border-[#e8edf4] bg-[linear-gradient(180deg,rgba(249,250,252,0.96),rgba(240,244,250,0.96))] px-5 py-5 md:border-l md:border-t-0">
+              <div className="border-t border-[#e8edf4] px-5 py-5 md:border-l md:border-t-0">
                 <Link
                   href={dropdownSection.promo.href}
-                  className={`group relative block min-h-[17rem] overflow-hidden rounded-[1.35rem] border border-[#e2e8f0] bg-gradient-to-br ${dropdownSection.promo.gradient} shadow-[0_14px_34px_rgba(15,23,42,0.08)]`}
+                  className={`group relative block min-h-[22rem] overflow-hidden rounded-[1.35rem] bg-gradient-to-br ${dropdownSection.promo.gradient} shadow-[0_14px_34px_rgba(15,23,42,0.08)]`}
                 >
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,14,24,0.08)_0%,rgba(10,14,24,0.2)_38%,rgba(10,14,24,0.58)_100%)]" />
                   <Image
@@ -755,7 +936,7 @@ export function MarketingNavbar() {
                     sizes="(min-width: 768px) 28rem, 100vw"
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   />
-                  <div className="relative flex min-h-[17rem] flex-col justify-end p-5 text-white">
+                  <div className="relative flex min-h-[22rem] flex-col justify-end p-5 text-white">
                     <div className="max-w-[15rem]">
                       <h3 className="text-[1.55rem] font-semibold leading-[1.02] tracking-tight text-white">
                         {dropdownSection.promo.headline}
@@ -790,8 +971,36 @@ export function MarketingNavbar() {
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Close button */}
-        <div className="flex items-center justify-end px-5 pt-5 pb-4">
+        {/* Close button row */}
+        <div className="flex items-center justify-between px-5 pt-5 pb-4">
+          {isAuthenticated ? (
+            <div className="flex items-center gap-2">
+              <Link
+                href={user?.role === "ADMIN" ? "/dashboard" : "/account"}
+                onClick={closeMobileMenu}
+                className="flex items-center gap-2 rounded-full border border-[#e8edf5] bg-[#f5f7fd] px-3 py-1.5 text-sm font-semibold text-[#1c1a24] hover:bg-[#eef0fa] transition-colors"
+              >
+                <User className="h-4 w-4 text-[#5d62f3]" />
+                <span className="max-w-[120px] truncate">
+                  {user?.email ?? "Account"}
+                </span>
+              </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  logout();
+                  closeMobileMenu();
+                }}
+                className="flex items-center gap-1.5 rounded-full border border-[#e8edf5] bg-[#f5f7fd] px-3 py-1.5 text-sm font-semibold text-[#e05252] hover:bg-[#fff0f0] transition-colors"
+                aria-label="Log out"
+              >
+                <LogOut className="h-4 w-4" />
+                <span>Logout</span>
+              </button>
+            </div>
+          ) : (
+            <div />
+          )}
           <button
             type="button"
             onClick={closeMobileMenu}

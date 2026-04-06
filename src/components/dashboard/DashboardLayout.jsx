@@ -14,6 +14,11 @@ const NAV = [
   { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
   { label: "Homepage", href: "/dashboard/homepage", icon: "home" },
   { label: "Products", href: "/dashboard/products", icon: "inventory_2" },
+  {
+    label: "Product Detail Pages",
+    href: "/dashboard/product-pages",
+    icon: "view_carousel",
+  },
   { label: "Categories", href: "/dashboard/categories", icon: "category" },
   { label: "Brands", href: "/dashboard/brands", icon: "branding_watermark" },
   {

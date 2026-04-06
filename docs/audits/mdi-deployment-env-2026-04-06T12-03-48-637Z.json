@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-04-06T12:03:48.637Z",
+  "target": "production",
+  "checks": [
+    {
+      "name": "NEXT_PUBLIC_APP_URL",
+      "status": "pass",
+      "detail": "Using https://healsend.com.",
+      "action": ""
+    },
+    {
+      "name": "MD_API_BASE_URL",
+      "status": "pass",
+      "detail": "Using https://api.mdintegrations.com.",
+      "action": ""
+    },
+    {
+      "name": "MD_WEBHOOK_URL",
+      "status": "pass",
+      "detail": "Using https://api.mdintegrations.com/woocommerce/orders.",
+      "action": ""
+    },
+    {
+      "name": "MD_CLIENT_ID",
+      "status": "pass",
+      "detail": "MDI client id is set.",
+      "action": ""
+    },
+    {
+      "name": "MD_CLIENT_SECRET",
+      "status": "pass",
+      "detail": "MDI client secret is set.",
+      "action": ""
+    },
+    {
+      "name": "MD_WEBHOOK_SECRET",
+      "status": "fail",
+      "detail": "MDI webhook secret is missing or placeholder.",
+      "action": "Set the real inbound webhook secret so provider callbacks can be authenticated safely."
+    },
+    {
+      "name": "MD_LOCAL_DEV_FALLBACK",
+      "status": "pass",
+      "detail": "MDI local fallback is disabled.",
+      "action": ""
+    },
+    {
+      "name": "MD_IFRAME_URL",
+      "status": "warn",
+      "detail": "No explicit iframe URL override is set.",
+      "action": "This is fine if the provider returns auth links directly. Set MD_IFRAME_URL only if your provider requires a fixed embed URL."
+    },
+    {
+      "name": "MD_PATIENT_ID / MD_DEFAULT_PATIENT_ID",
+      "status": "pass",
+      "detail": "No fixed patient id override is set.",
+      "action": ""
+    }
+  ],
+  "summary": {
+    "pass": 7,
+    "warn": 1,
+    "fail": 1
+  }
+}

@@ -50,7 +50,7 @@ export async function POST(request) {
       { status: 400 },
     );
   }
-  const { email, password, name, phone } = body;
+  const { email, password, name, phone, dateOfBirth } = body;
 
   if (!email || !password) {
     return NextResponse.json(
@@ -102,12 +102,18 @@ export async function POST(request) {
   }
 
   const passwordHash = hashPassword(password);
+  let parsedDob = null;
+  if (dateOfBirth) {
+    const d = new Date(dateOfBirth);
+    if (!isNaN(d.getTime())) parsedDob = d;
+  }
   const user = await prisma.user.create({
     data: {
       email: email.toLowerCase().trim(),
       passwordHash,
       name: name.trim(),
       phone: phone.trim(),
+      dateOfBirth: parsedDob,
       role: "CUSTOMER",
     },
   });

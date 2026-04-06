@@ -1025,19 +1025,27 @@ export async function getMdiAccessToken({
     throw new Error("Missing MD client credentials");
   }
 
-  const tokenResponse = await fetch(`${baseUrl}/v1/partner/auth/token`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      grant_type: "client_credentials",
-      client_id: clientId,
-      client_secret: clientSecret,
-      scope: "*",
-    }),
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 15000);
+  let tokenResponse;
+  try {
+    tokenResponse = await fetch(`${baseUrl}/v1/partner/auth/token`, {
+      method: "POST",
+      signal: controller.signal,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        grant_type: "client_credentials",
+        client_id: clientId,
+        client_secret: clientSecret,
+        scope: "*",
+      }),
+    });
+  } finally {
+    clearTimeout(timeoutId);
+  }
 
   if (!tokenResponse.ok) {
     const errorText = await tokenResponse.text();

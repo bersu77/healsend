@@ -81,11 +81,12 @@ export async function createGhlContact({
   lastName,
   email,
   phone,
+  dateOfBirth,
   tags,
 }) {
   return ghlRequest("/contacts/", {
     method: "POST",
-    body: { firstName, lastName, email, phone, tags },
+    body: { firstName, lastName, email, phone, dateOfBirth, tags },
   });
 }
 

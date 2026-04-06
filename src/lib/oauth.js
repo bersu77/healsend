@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { generateToken } from "@/lib/auth";
+import { syncNewUserToGhl } from "@/lib/ghl-sync";
+import { linkMdiPatientOnSignup } from "@/lib/mdi-client";
 import { NextResponse } from "next/server";
 
 /**
@@ -78,6 +80,10 @@ export async function handleOAuthUser({ provider, providerId, email, name }) {
           role: "CUSTOMER",
         },
       });
+
+      // Sync new OAuth user to GHL and link any existing MDI patient (non-blocking)
+      syncNewUserToGhl(user).catch(() => {});
+      linkMdiPatientOnSignup(user.id, user.email).catch(() => {});
     }
   }
 

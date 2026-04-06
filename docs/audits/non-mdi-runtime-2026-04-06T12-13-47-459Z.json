@@ -1,0 +1,235 @@
+{
+  "generatedAt": "2026-04-06T12:13:47.459Z",
+  "results": [
+    {
+      "path": "/",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:3000/",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:3000/",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/home",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 308,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:3000/",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:3000/home",
+          "status": 308,
+          "location": "http://127.0.0.1:3000/"
+        },
+        {
+          "url": "http://127.0.0.1:3000/",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/Quiz",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 308,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:3000/funnels/glp-1-eligibility",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:3000/Quiz",
+          "status": 308,
+          "location": "http://127.0.0.1:3000/funnels/glp-1-eligibility"
+        },
+        {
+          "url": "http://127.0.0.1:3000/funnels/glp-1-eligibility",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/quiz",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 308,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:3000/funnels/glp-1-eligibility",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:3000/quiz",
+          "status": 308,
+          "location": "http://127.0.0.1:3000/funnels/glp-1-eligibility"
+        },
+        {
+          "url": "http://127.0.0.1:3000/funnels/glp-1-eligibility",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/privacy-policy-3",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:3000/privacy-policy-3",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:3000/privacy-policy-3",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/understanding-zoloft-uses-and-side-effects",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:3000/understanding-zoloft-uses-and-side-effects",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:3000/understanding-zoloft-uses-and-side-effects",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/login",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:3000/login",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:3000/login",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/admin-login",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 308,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:3000/login",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:3000/admin-login",
+          "status": 308,
+          "location": "http://127.0.0.1:3000/login"
+        },
+        {
+          "url": "http://127.0.0.1:3000/login",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/signup",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:3000/signup",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:3000/signup",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/shop",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:3000/shop",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:3000/shop",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/anti-aging",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:3000/anti-aging",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:3000/anti-aging",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/nad",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:3000/nad",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:3000/nad",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/consultation/local-dev?orderId=demo-123",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:3000/consultation/local-dev?orderId=demo-123",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:3000/consultation/local-dev?orderId=demo-123",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
+    {
+      "path": "/account",
+      "ok": true,
+      "failureReason": "",
+      "initialStatus": 200,
+      "finalStatus": 200,
+      "finalUrl": "http://127.0.0.1:3000/account",
+      "chain": [
+        {
+          "url": "http://127.0.0.1:3000/account",
+          "status": 200,
+          "location": null
+        }
+      ]
+    }
+  ]
+}

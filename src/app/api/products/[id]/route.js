@@ -81,6 +81,12 @@ export async function PUT(request, { params }) {
       ...(body.priority !== undefined && {
         priority: normalizeInt(body.priority) || 0,
       }),
+      ...(body.telehealthProvider !== undefined && {
+        telehealthProvider: body.telehealthProvider,
+      }),
+      ...(body.olaServiceKey !== undefined && {
+        olaServiceKey: body.olaServiceKey || null,
+      }),
     },
     include: { category: true, brand: true, variants: true },
   });

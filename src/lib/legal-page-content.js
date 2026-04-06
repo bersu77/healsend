@@ -18,164 +18,346 @@ export const LEGAL_PAGE_DATA = {
         id: "pp-intro",
         title: "1. Introduction & Roles",
         summary: null,
-        html: `<p><strong>Last Updated: January 1, 2025 | Effective Date: January 1, 2025</strong></p>
-<p>Healsend LLC ("Healsend," "we," "us," "our") operates as a Management Services Organization (MSO). We provide technology infrastructure and administrative services to a network of licensed independent Professional Entities — physician groups and other healthcare providers — that deliver clinical care to patients.</p>
-<p><strong>We are a technology and administrative services company, not a medical provider.</strong> Healsend does not practice medicine, does not employ licensed clinicians in a clinical capacity, and is not a covered entity under HIPAA with respect to most data processing activities. The Professional Entities we support may be covered entities or business associates subject to HIPAA, and we serve as a business associate under those arrangements.</p>
-<p>This Privacy Policy applies to information collected through healsend.com and all associated applications, platforms, and services (collectively, the "Platform").</p>`,
+        html: `<p><strong>Effective Date: October 5, 2025</strong></p>
+<p>Healsend Inc. ("Healsend," "we," "us," "our") operates as a Management Services Organization (MSO). We provide technology infrastructure, administrative services, billing coordination, and platform management to a network of licensed independent Professional Entities — physician groups, professional corporations, and other licensed healthcare providers — that independently deliver clinical care to patients through the Platform.</p>
+<p><strong>We are a technology and administrative services company, not a medical provider.</strong> Healsend does not practice medicine, does not diagnose or treat patients, does not employ licensed clinicians in a clinical capacity, and does not function as a covered entity under HIPAA with respect to its own platform operations. The Professional Entities we support are independent licensed entities that may be covered entities or business associates under HIPAA, and Healsend serves as a Business Associate under those arrangements.</p>
+<p>This Privacy Policy applies to all information collected through healsend.com and all associated applications, platforms, portals, and services (collectively, the "Platform"). Our mailing address is 30 N Gould St Ste R, Sheridan WY 82801. Contact: <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> | <a href="https://healsend.com">https://healsend.com</a>.</p>`,
       },
       {
         id: "pp-scope",
-        title: "2. Scope & Applicability",
+        title: "2. Scope; U.S.-Only Audience",
         summary: null,
-        html: `<p>This Policy applies to all individuals who:</p>
-<ul>
-<li>Visit or interact with our website or Platform</li>
-<li>Create an account or register as a patient</li>
-<li>Complete health intake questionnaires or consultations</li>
-<li>Purchase or use any service or product through the Platform</li>
-<li>Contact us for support or information</li>
-</ul>
-<p>This Policy does <strong>not</strong> apply to information processed exclusively by Professional Entities in their independent capacity as covered entities. Patients seeking access to their Protected Health Information (PHI) held by their treating provider should contact that provider directly or submit a HIPAA request to Healsend's Privacy Officer (see Section 10).</p>
-<p>Our services are available only to residents of the United States who are 18 years of age or older.</p>`,
+        html: `<p>This Policy applies to all individuals who: visit or interact with healsend.com or the Platform; create an account or register as a patient; complete health intake questionnaires or consultations; purchase or use any service through the Platform; or contact us for support or information.</p>
+<p>This Policy does <strong>not</strong> apply to information processed exclusively by Professional Entities in their capacity as independent covered entities. Patients seeking access to their Protected Health Information (PHI) held by a treating Professional Entity should contact that entity directly or submit a HIPAA request to Healsend's Privacy Officer (see Section 28).</p>
+<p><strong>Our Platform and services are available only to residents of the United States who are 18 years of age or older.</strong> We do not knowingly market to or process information of non-U.S. residents or individuals under 18.</p>`,
       },
       {
         id: "pp-definitions",
         title: "3. Key Definitions",
         summary: null,
-        html: `<p>The following terms are used throughout this Policy:</p>
-<ul>
-<li><strong>Personal Information (PI):</strong> Any information that identifies, relates to, or could reasonably be linked to you directly or indirectly.</li>
-<li><strong>Consumer Health Data (CHD):</strong> Personal information that identifies your past, present, or future physical or mental health condition, including health history, diagnoses, medications, and related data regulated under state consumer health data laws such as Washington's My Health My Data Act.</li>
-<li><strong>Sensitive Personal Information (SPI):</strong> A subset of PI including SSN/government ID, financial account details, health information, sexual orientation/gender identity, biometric data, and precise geolocation. SPI receives the highest level of protection under this Policy.</li>
-<li><strong>Protected Health Information (PHI):</strong> Health information created or received by a HIPAA-covered entity or business associate that is identifiable and relates to health condition, care, or payment.</li>
-<li><strong>Professional Entity:</strong> Licensed physician groups and healthcare providers supported by Healsend's MSO services that independently provide clinical care to patients.</li>
-<li><strong>Service Provider / Business Associate:</strong> Entities that process data on behalf of Healsend or Professional Entities under contractual obligations limiting their use of data.</li>
+        html: `<ul>
+<li><strong>Personal Information (PI):</strong> Any information that identifies, relates to, describes, is reasonably capable of being associated with, or could reasonably be linked to a particular individual or household.</li>
+<li><strong>Consumer Health Data (CHD):</strong> Personal information that identifies your past, present, or future physical or mental health condition, including health history, diagnoses, medications, treatment, and related data. Where collected outside a HIPAA business associate context, CHD is regulated under state consumer health data laws such as Washington's My Health My Data Act (MHMDA) and Nevada SB 370.</li>
+<li><strong>Sensitive Personal Information (SPI):</strong> A subset of PI that includes: Social Security Number or government ID; precise geolocation; racial or ethnic origin; religious beliefs; union membership; content of personal communications; genetic or biometric data; health information; sexual orientation or gender identity; and financial account credentials. SPI receives the highest level of protection under this Policy.</li>
+<li><strong>Protected Health Information (PHI):</strong> Individually identifiable health information created, received, maintained, or transmitted by a HIPAA-covered entity or Business Associate that relates to health condition, provision of care, or payment.</li>
+<li><strong>Professional Entity:</strong> Independent licensed physician groups, professional corporations, PLLCs, and other licensed healthcare providers that contract with Healsend's MSO and independently deliver clinical care to patients.</li>
+<li><strong>Service Provider / Business Associate:</strong> Third parties that process data on behalf of Healsend or Professional Entities under Data Processing Agreements (DPAs) or Business Associate Agreements (BAAs) that contractually limit their use of data.</li>
 </ul>`,
       },
       {
         id: "pp-data-collection",
-        title: "4. Data We Collect",
+        title: "4. Categories of Personal Information Collected",
         summary: null,
-        html: `<p>We collect the following categories of information depending on how you interact with the Platform:</p>
-<h3>Identifiers & Contact Information</h3>
+        html: `<p>We collect the following categories of personal information depending on how you interact with the Platform:</p>
+<h3>Identifiers &amp; Contact Information</h3>
 <ul>
-<li>Name, email address, phone number, mailing address, date of birth</li>
-<li>Username and account credentials (passwords stored as salted hashes)</li>
-<li>IP address, device ID, session tokens</li>
+<li>Name, email, phone, mailing address, date of birth</li>
+<li>Username and account credentials (passwords stored as salted hashes; we never store plaintext passwords)</li>
+<li>IP address, device identifier, session tokens, browser fingerprint</li>
 </ul>
-<h3>Health & Medical Information</h3>
+<h3>Health &amp; Clinical Intake</h3>
 <ul>
-<li>Health intake questionnaire responses (symptoms, medical history, medications, allergies)</li>
-<li>Consultation notes and treatment preferences entered on the Platform</li>
-<li>Lab results or medical records you upload or authorize providers to share</li>
-<li>Weight, body measurements, and other biometric data you provide</li>
+<li>Responses to health intake questionnaires (symptoms, medical history, medications, allergies, surgical history, family history)</li>
+<li>Consultation notes, clinical determinations, and treatment preferences</li>
+<li>Lab results, imaging reports, or medical records you upload or authorize providers to share</li>
+<li>Weight, height, BMI, body measurements, and self-reported biometric data</li>
 </ul>
-<h3>Financial Information</h3>
+<h3>Financial &amp; Transaction</h3>
 <ul>
-<li>Payment card details (processed by PCI-DSS compliant third-party processors; we store only tokenized card references)</li>
-<li>Billing address, transaction history</li>
+<li>Payment card details (processed by PCI-DSS-compliant third-party processors; we store only payment tokens)</li>
+<li>Billing address, transaction history, subscription status</li>
 </ul>
-<h3>Technical & Usage Data</h3>
+<h3>Internet &amp; Network Activity</h3>
 <ul>
 <li>Browser type, operating system, referring URLs</li>
-<li>Pages visited, features used, time on Platform, click patterns</li>
-<li>Cookie and tracking pixel data (see Section 9)</li>
+<li>Pages visited, features used, time on Platform, click patterns, search queries within Platform</li>
+<li>Cookie identifiers and tracking pixel data (see Section 12)</li>
+</ul>
+<h3>Geolocation</h3>
+<ul>
+<li>State and ZIP code (required for provider licensing compliance); city-level IP-inferred location</li>
 </ul>
 <h3>Communications</h3>
 <ul>
-<li>Messages you send to support, providers, or pharmacies through the Platform</li>
-<li>Survey responses and feedback submissions</li>
+<li>Messages you send to support, providers, or through Platform messaging</li>
+<li>Survey responses, feedback submissions, and call recordings (where disclosed)</li>
+</ul>
+<h3>Images &amp; Media</h3>
+<ul>
+<li>Profile photos or identification images uploaded for identity verification</li>
+<li>Clinical photos uploaded at provider request (e.g., skin condition images)</li>
+</ul>
+<h3>Inferences</h3>
+<ul>
+<li>Treatment eligibility inferences drawn from intake data</li>
+<li>Risk or wellness scores derived from self-reported health information (used only for platform routing, not for denial of care)</li>
+</ul>
+<h3>Biometric (where collected)</h3>
+<ul>
+<li>Face geometry for identity verification (where applicable; subject to state biometric law disclosures — see Section 10)</li>
 </ul>`,
       },
       {
         id: "pp-purposes",
-        title: "5. How We Use Your Information",
+        title: "5. Sources of Personal Information",
         summary: null,
-        html: `<p>We process your information for the following purposes:</p>
+        html: `<p>We collect personal information from the following sources:</p>
 <ul>
-<li><strong>Account Management:</strong> Creating and maintaining your account, authenticating your identity, processing account changes.</li>
-<li><strong>Facilitating Telehealth Services:</strong> Routing your intake data to the appropriate Professional Entity, enabling asynchronous or synchronous consultations, coordinating care pathways.</li>
-<li><strong>Payment Processing:</strong> Billing subscription fees, processing one-time charges, managing refunds and payment disputes.</li>
-<li><strong>Prescription Coordination:</strong> Transmitting prescriptions to partner pharmacies (including compounding pharmacies), tracking order and shipment status.</li>
-<li><strong>Platform Improvement & Analytics:</strong> Analyzing usage patterns to improve user experience, debugging technical issues, testing new features.</li>
-<li><strong>Marketing & Communications:</strong> Sending appointment reminders, treatment updates, and (where consented) promotional content. You may opt out of marketing communications at any time.</li>
-<li><strong>Legal Compliance & Fraud Prevention:</strong> Fulfilling regulatory obligations, defending legal claims, detecting and preventing fraudulent or unauthorized activity.</li>
-<li><strong>Safety Monitoring:</strong> Monitoring for adverse events related to prescribed treatments and escalating safety concerns to appropriate providers.</li>
+<li><strong>Directly from you:</strong> Account registration, health intake forms, consultations, payment, support contacts, survey responses, and profile updates.</li>
+<li><strong>Automatically:</strong> Cookies, pixels, server logs, analytics SDKs, and similar technologies when you interact with the Platform (see Section 12).</li>
+<li><strong>From Professional Entities &amp; Pharmacies:</strong> Clinical determinations, prescription confirmations, dispensing records, lab results, and treatment notes created during the care delivery process.</li>
+<li><strong>From Payment Processors:</strong> Transaction status, fraud signals, and tokenized payment information.</li>
+<li><strong>From Public Sources:</strong> Publicly available directories or records used to verify licensure or validate contact information.</li>
+</ul>`,
+      },
+      {
+        id: "pp-processing-purposes",
+        title: "6. Purposes of Processing",
+        summary: null,
+        html: `<ul>
+<li><strong>Account Creation &amp; Authentication:</strong> Creating and maintaining your account, verifying identity, and securing access.</li>
+<li><strong>Telehealth Facilitation:</strong> Routing intake data to the appropriate Professional Entity, enabling asynchronous or synchronous consultations, and coordinating care pathways.</li>
+<li><strong>Prescription &amp; Pharmacy Coordination:</strong> Transmitting prescriptions to partner pharmacies (including compounding pharmacies) and tracking order/shipment status.</li>
+<li><strong>Payment Processing:</strong> Billing subscription and one-time fees, managing refunds and payment disputes.</li>
+<li><strong>Customer Support:</strong> Responding to inquiries and resolving issues.</li>
+<li><strong>Fraud Prevention &amp; Security:</strong> Detecting unauthorized access, fraudulent transactions, and malicious activity.</li>
+<li><strong>Analytics &amp; Platform Improvement:</strong> Understanding usage patterns, debugging technical issues, and testing new features using de-identified or aggregated data wherever possible.</li>
+<li><strong>Legal Compliance &amp; Regulatory Obligations:</strong> Fulfilling recordkeeping, reporting, and response obligations under applicable law.</li>
+<li><strong>Internal Audits:</strong> Records of consent, privacy requests, and processing activities for legal defensibility.</li>
+<li><strong>Consent-Based Purposes:</strong> Marketing, research, or personalization activities performed only where you have given separate explicit consent.</li>
 </ul>`,
       },
       {
         id: "pp-disclosures",
-        title: "6. How We Share Your Information",
+        title: "7. Our Role as MSO/Technology Provider; Provider Role",
         summary: null,
-        html: `<p>We do not sell your personal information. We share information only in the following circumstances:</p>
-<ul>
-<li><strong>Professional Entities:</strong> Your intake information and health data is shared with the licensed provider group assigned to review your case. The Professional Entity may retain this data as PHI under their own HIPAA obligations.</li>
-<li><strong>Pharmacies & Fulfillment Partners:</strong> Prescription details are transmitted to licensed compounding or retail pharmacies to fulfill your treatment plan.</li>
-<li><strong>Service Providers:</strong> Third-party vendors who provide infrastructure, payment processing, identity verification, analytics, customer support, or marketing services operate under contractual obligations restricting their use of your data to performing services for us.</li>
-<li><strong>Affiliates:</strong> We may share information with corporate affiliates under this same Privacy Policy.</li>
-<li><strong>Legal & Regulatory Authorities:</strong> We may disclose information to comply with valid legal process (subpoenas, court orders), to prevent imminent harm, or to report suspected illegal activity.</li>
-<li><strong>Business Transfers:</strong> In the event of a merger, acquisition, or sale of assets, your information may be transferred to the successor entity subject to the same protections described here.</li>
-</ul>`,
+        html: `<p>Healsend acts as a Management Services Organization and technology platform. We do not practice medicine, diagnose conditions, or write prescriptions. All clinical care, diagnoses, prescriptions, and treatment decisions are made exclusively by the independent licensed Professional Entities and their associated providers.</p>
+<p>Professional Entities are solely responsible for the clinical quality of care they deliver and for compliance with their own HIPAA obligations, state medical licensing laws, and professional conduct standards. Healsend is not liable for clinical decisions made by Professional Entities.</p>
+<p>Healsend's administrative role includes: platform hosting, patient intake routing, secure messaging infrastructure, billing coordination, customer support, and logistics facilitation. None of these administrative functions constitute the practice of medicine.</p>`,
       },
       {
-        id: "pp-rights",
-        title: "7. Your Privacy Rights",
+        id: "pp-hipaa",
+        title: "8. HIPAA/HITECH Boundary; Business Associate Arrangements",
         summary: null,
-        html: `<p>Depending on your state of residence, you may have the following rights with respect to your personal information:</p>
+        html: `<p>Where a Professional Entity is a HIPAA-covered entity, Healsend serves as a Business Associate (BA) under 45 CFR §160.103 and §164.502(e). In that capacity, Healsend signs a Business Associate Agreement (BAA) with each Professional Entity before receiving, creating, or transmitting any Protected Health Information (PHI) on the Professional Entity's behalf.</p>
+<p>PHI processed under a BAA is governed by HIPAA's Privacy and Security Rules and HITECH's breach notification provisions. Healsend implements the safeguards required by 45 CFR §164.308 (administrative), §164.310 (physical), and §164.312 (technical).</p>
+<p>For personal information Healsend manages outside a BAA context — such as data collected from Platform visitors, prospective patients, or non-clinical account management — this Privacy Policy and applicable state consumer privacy laws govern.</p>`,
+      },
+      {
+        id: "pp-consumer-health",
+        title: "9. Consumer Health Data (WA MHMDA; NV SB370)",
+        summary: null,
+        html: `<p>Where we collect or process Consumer Health Data (CHD) outside of a HIPAA BAA context (e.g., data collected from Platform interactions or health intake forms before a clinical relationship is established), we comply with the Washington My Health My Data Act (RCW 19.373) and Nevada SB 370 (NRS 603A), as applicable.</p>
+<p>We obtain separate, explicit consent before collecting CHD for purposes beyond direct care delivery. We do not sell CHD. Washington residents may request a list of all third parties with whom their CHD has been shared. See our <a href="/consumer-health-data">Consumer Health Data Policy</a> for full details.</p>`,
+      },
+      {
+        id: "pp-biometric",
+        title: "10. Biometric &amp; Sensor Data",
+        summary: null,
+        html: `<p>Where Healsend collects biometric identifiers or biometric information (as defined by Illinois BIPA (740 ILCS 14), Texas Capture or Use of Biometric Identifier Act (Tex. Bus. &amp; Com. Code §503.001), or Washington RCW 19.375), Healsend: (a) provides a written policy governing retention and destruction; (b) obtains informed written consent before collection; (c) does not sell or profit from biometric data; and (d) destroys biometric data within 3 years of collection or within 1 year of your last interaction, whichever is earlier. Illinois residents may request biometric deletion within 30 days.</p>`,
+      },
+      {
+        id: "pp-sensitive-pi",
+        title: "11. Sensitive Personal Information",
+        summary: null,
+        html: `<p>We use and disclose Sensitive Personal Information (SPI) only for the following purposes: (a) providing the services you requested; (b) preventing and detecting fraud and security incidents; (c) ensuring safety of persons or property; (d) short-term transient use that does not include building profiles or altering experiences; (e) performing services for us (e.g., maintaining accounts, providing customer service); (f) verifying quality or safety of our services; and (g) as required by law.</p>
+<p>We do not use SPI to infer characteristics about you unrelated to the telehealth services you requested. California residents may exercise the right to limit use of SPI at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>.</p>`,
+      },
+      {
+        id: "pp-cookies",
+        title: "12. Cookies, Tracking, and Global Privacy Control (GPC)",
+        summary: null,
+        html: `<p>We use the following categories of cookies and tracking technologies (see Appendix F for full details):</p>
 <ul>
-<li><strong>Right to Know / Access:</strong> Request a copy of the personal information we hold about you and how it is used.</li>
-<li><strong>Right to Correction:</strong> Request that we correct inaccurate personal information.</li>
-<li><strong>Right to Deletion:</strong> Request deletion of your personal information, subject to legal retention obligations.</li>
-<li><strong>Right to Data Portability:</strong> Request your information in a structured, machine-readable format.</li>
-<li><strong>Right to Opt Out of Sale / Sharing:</strong> We do not sell or share personal information for cross-context behavioral advertising. If this changes, you will be notified and provided an opt-out mechanism.</li>
-<li><strong>Right to Restrict Sensitive Data Processing:</strong> Request that we limit use of your sensitive personal information to strictly necessary purposes.</li>
-<li><strong>Right to Non-Discrimination:</strong> We will not deny services, charge different prices, or provide a lower quality of service because you exercised a privacy right.</li>
-<li><strong>Right to Appeal:</strong> If we deny your request, you may appeal to our Privacy Officer within 45 days.</li>
+<li><strong>Strictly Necessary:</strong> Session management, authentication, security tokens — cannot be disabled.</li>
+<li><strong>Functional:</strong> Language preferences, saved form state — enabled by default, disable via browser settings.</li>
+<li><strong>Analytics:</strong> Aggregate usage data to improve Platform performance — opt out via our cookie banner or browser.</li>
+<li><strong>Advertising/Retargeting:</strong> Interest-based ads — opt out via cookie banner, NAI/DAA tools, or GPC signal.</li>
 </ul>
-<p>To exercise these rights, contact us at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> or submit a request through our Platform settings. We will verify your identity before processing requests.</p>`,
+<p>We honor Global Privacy Control (GPC) signals as opt-out requests for sale and sharing of personal information. You may also manage cookie preferences through our cookie consent manager or your browser's cookie settings.</p>`,
       },
       {
-        id: "pp-state-rights",
-        title: "8. State-Specific Rights",
+        id: "pp-targeted-ads",
+        title: "13. Targeted Advertising, Analytics, and Opt-Outs",
         summary: null,
-        html: `<h3>California (CCPA / CPRA)</h3>
-<p>California residents have the rights described in Section 7 plus the right to opt out of sharing for cross-context behavioral advertising. We do not have actual knowledge that we sell or share the personal information of consumers under 16 years of age. California residents may contact our Privacy Officer to exercise CCPA rights.</p>
-<h3>Washington (My Health My Data Act)</h3>
-<p>Washington residents have additional rights regarding Consumer Health Data. We obtain explicit consent before collecting, sharing, or selling consumer health data unless a legal exemption applies. Washington residents may request a list of all third parties with whom their consumer health data has been shared. See our <a href="/consumer-health-data">Consumer Health Data Policy</a> for details.</p>
-<h3>Other States</h3>
-<p>Residents of Colorado, Connecticut, Iowa, Montana, Oregon, Texas, Utah, and Virginia have rights including access, correction, deletion, portability, and opt-out of targeted advertising, profiling, and sale of personal data. To exercise these rights, contact us at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>.</p>`,
+        html: `<p>We may use third-party advertising networks and analytics providers to deliver interest-based advertising and measure Platform performance. These services may set cookies or pixels that allow them to recognize your browser across sites.</p>
+<p><strong>We do not sell your personal information</strong> for monetary consideration. Some data sharing with advertising partners for targeted advertising may constitute "sharing" under California law. You may opt out of this sharing by: (1) using our cookie consent manager; (2) sending a GPC signal; (3) contacting us at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>; or (4) using the NAI opt-out tool at <a href="https://optout.networkadvertising.org" rel="noopener noreferrer">optout.networkadvertising.org</a>.</p>`,
+      },
+      {
+        id: "pp-sharing",
+        title:
+          "14. Disclosures to Providers, Pharmacies, Service Providers, and Others",
+        summary: null,
+        html: `<p>We share personal information only in the following circumstances:</p>
+<ul>
+<li><strong>Professional Entities:</strong> Intake and health data is routed to the licensed provider group assigned to your case. The Professional Entity retains this data as PHI under their own HIPAA obligations.</li>
+<li><strong>Pharmacies:</strong> Prescription details are transmitted to licensed compounding or retail pharmacies to fulfill authorized treatment plans.</li>
+<li><strong>Service Providers:</strong> Third-party vendors (infrastructure, payment processing, identity verification, analytics, customer support, email/SMS delivery) operate under DPAs that restrict use to performing services on our behalf.</li>
+<li><strong>Corporate Affiliates:</strong> We may share information with corporate affiliates subject to this Privacy Policy.</li>
+<li><strong>Legal &amp; Regulatory Authorities:</strong> In response to valid legal process (subpoenas, court orders, regulatory requests), to prevent imminent harm, or to report suspected illegal activity.</li>
+<li><strong>Business Transfers:</strong> In a merger, acquisition, or sale of assets, your information may be transferred to the successor entity subject to equivalent protections.</li>
+</ul>
+<p><strong>We do not sell personal information for monetary consideration. We do not share PHI for marketing purposes.</strong></p>`,
+      },
+      {
+        id: "pp-retention",
+        title: "15. Retention &amp; Disposal",
+        summary: null,
+        html: `<p>We retain personal information for as long as necessary to fulfill the purposes described in this Policy and our legal obligations. Our retention schedule (see Appendix B):</p>
+<ul>
+<li><strong>Account data &amp; identifiers:</strong> Account life + 7 years</li>
+<li><strong>Health intake (non-PHI context):</strong> 7 years from last activity</li>
+<li><strong>Payment tokens:</strong> 7 years from last transaction</li>
+<li><strong>Server/application logs:</strong> 12–24 months (anonymized after)</li>
+<li><strong>Privacy requests &amp; consent records:</strong> 24 months minimum</li>
+</ul>
+<p>Upon expiration of applicable retention periods, we securely delete, anonymize, or destroy personal information using industry-standard methods (NIST SP 800-88 media sanitization). You may request deletion of your personal information subject to legal retention obligations.</p>`,
       },
       {
         id: "pp-security",
-        title: "9. Data Security & Retention",
+        title: "16. Security Program",
         summary: null,
-        html: `<h3>Security Program</h3>
-<p>We maintain a comprehensive information security program that includes:</p>
+        html: `<p>We maintain a comprehensive information security program aligned with NIST Cybersecurity Framework and HIPAA Security Rule standards:</p>
 <ul>
-<li>TLS 1.3 encryption for all data in transit</li>
-<li>AES-256 encryption for data at rest</li>
-<li>Multi-factor authentication (MFA) for administrative access</li>
-<li>Role-based access controls limiting data access to personnel with a legitimate need</li>
-<li>Annual third-party penetration testing and vulnerability assessments</li>
-<li>Security incident response plan with 72-hour breach notification capability</li>
+<li><strong>Administrative Safeguards:</strong> Privacy Officer and Security Officer roles; annual security training for all personnel; workforce access management; vendor risk assessments; incident response plan.</li>
+<li><strong>Technical Safeguards:</strong> TLS 1.3 encryption in transit; AES-256 encryption at rest (FIPS 140-2 validated modules); multi-factor authentication (MFA) for administrative access; role-based access controls; continuous vulnerability scanning; annual third-party penetration testing; 12-month immutable audit logs.</li>
+<li><strong>Physical Safeguards:</strong> Access-controlled facilities; certified media destruction; U.S.-based data centers with SOC 2 certifications.</li>
+</ul>`,
+      },
+      {
+        id: "pp-breach",
+        title: "17. Incident Response &amp; Breach Notification",
+        summary: null,
+        html: `<p>In the event of a security incident affecting your personal information, we will:</p>
+<ul>
+<li>Notify affected individuals promptly and in compliance with applicable state breach notification laws</li>
+<li>Notify HHS within 60 days of discovery for HIPAA breaches affecting 500 or more individuals</li>
+<li>Notify the Washington Attorney General within 30 days for MHMDA breaches</li>
+<li>Provide notification that includes: description of data involved, timeline of the incident, steps taken to mitigate, and recommended protective measures for affected individuals</li>
 </ul>
-<h3>Cookies & Tracking</h3>
-<p>We use essential cookies for Platform functionality, analytics cookies to understand usage, and (with consent) marketing cookies to personalize communications. You may manage cookie preferences through our cookie banner or browser settings. We honor Global Privacy Control (GPC) signals as opt-out requests.</p>
-<h3>Retention</h3>
-<p>We retain personal information for as long as your account is active, plus a reasonable period to fulfill legal obligations, resolve disputes, and enforce agreements. Health-related records are generally retained for 7 years after last activity or as required by applicable state law. You may request deletion subject to these obligations.</p>`,
+<p>To report a suspected security incident, contact us immediately at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>.</p>`,
+      },
+      {
+        id: "pp-rights",
+        title: "18. Patient/Consumer Privacy Rights",
+        summary: null,
+        html: `<p>Depending on your state of residence, you may have the following rights with respect to your personal information:</p>
+<ul>
+<li><strong>Right to Access/Know:</strong> Obtain a copy of, and information about, the personal information we hold about you.</li>
+<li><strong>Right to Correct:</strong> Request correction of inaccurate personal information.</li>
+<li><strong>Right to Delete:</strong> Request deletion of your personal information, subject to legal retention obligations.</li>
+<li><strong>Right to Opt Out of Profiling:</strong> Opt out of profiling in furtherance of decisions that produce legal or similarly significant effects.</li>
+<li><strong>Right to Appeal:</strong> If we deny your request, you may appeal to our Privacy Officer within 45 days of receiving our denial.</li>
+</ul>
+<p>To exercise these rights, submit a verifiable request to <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> or write to 30 N Gould St Ste R, Sheridan WY 82801. We respond within 45 days (extendable by 45 days with written notice).</p>`,
+      },
+      {
+        id: "pp-california",
+        title: "19. California Privacy Rights (CCPA/CPRA)",
+        summary: null,
+        html: `<p>California residents have the following rights under the California Consumer Privacy Act (CCPA) as amended by the California Privacy Rights Act (CPRA):</p>
+<ul>
+<li><strong>Right to Know/Access:</strong> Request disclosure of the categories and specific pieces of personal information collected about you, sources, business purpose, and categories of third parties with whom we share information.</li>
+<li><strong>Right to Delete:</strong> Request deletion of personal information we collected from you, subject to exceptions.</li>
+<li><strong>Right to Correct:</strong> Request correction of inaccurate personal information.</li>
+<li><strong>Right to Portability:</strong> Receive your personal information in a portable format.</li>
+<li><strong>Right to Opt Out of Sale/Sharing:</strong> Opt out of the sale or sharing of personal information for cross-context behavioral advertising.</li>
+<li><strong>Right to Limit Use of SPI:</strong> Limit Healsend's use and disclosure of Sensitive Personal Information to necessary purposes.</li>
+<li><strong>Right to Non-Discrimination:</strong> We will not discriminate against you for exercising CCPA rights.</li>
+</ul>
+<p>California residents may submit requests to <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>. We verify identity before processing. For the 12 months preceding the date of this Policy, we did not knowingly sell or share the personal information of consumers under 16 years of age.</p>`,
+      },
+      {
+        id: "pp-other-states",
+        title: "20. Other State Privacy Rights",
+        summary: null,
+        html: `<p>Residents of the following states have rights to access, correct, delete, and port their personal data, as well as to opt out of targeted advertising, profiling, and sale of personal data, under their respective state privacy laws: Colorado (CPA), Connecticut (CTDPA), Delaware (DPDPA), Iowa (ICDPA), Montana (MCDPA), Nebraska (NDPA), New Hampshire (NHPA), New Jersey (NJDPA), Nevada (NPICICA/SB370), Oregon (OCPA), Texas (TDPSA), Utah (UCPA), Virginia (VCDPA).</p>
+<p>To exercise these rights, contact us at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>. The strongest applicable consumer protection under any law in your state of residence will be applied to your request.</p>`,
+      },
+      {
+        id: "pp-children",
+        title: "21. Children's &amp; Minors' Privacy",
+        summary: null,
+        html: `<p>Our Platform is intended for individuals 18 years of age and older. We do not knowingly collect personal information from individuals under 18. If we discover that we have inadvertently collected information from someone under 18, we will promptly delete it. If you believe we may have inadvertently collected information from a minor, please contact us at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>.</p>`,
+      },
+      {
+        id: "pp-marketing",
+        title: "22. Marketing, SMS/Text, and Email Communications",
+        summary: null,
+        html: `<p>We send two categories of communications:</p>
+<ul>
+<li><strong>Transactional/Service Messages:</strong> Account confirmations, appointment notifications, prescription updates, billing statements. These are necessary for service delivery and do not require separate consent.</li>
+<li><strong>Marketing Messages:</strong> Promotional offers, health tips, and new service announcements. These require your explicit opt-in consent and include an easy opt-out mechanism in every message.</li>
+</ul>
+<p>To opt out of marketing emails, click "Unsubscribe" in any marketing email. To opt out of marketing SMS, reply STOP to any marketing text message. We process opt-outs within 10 business days. Opting out of marketing will not affect transactional messages required to deliver your services.</p>`,
+      },
+      {
+        id: "pp-financial",
+        title: "23. Financial &amp; PCI Matters",
+        summary: null,
+        html: `<p>All payment processing is handled by PCI-DSS-compliant third-party payment processors. Healsend does not store full payment card numbers. We store only payment tokens provided by the processor. Your card data is transmitted directly to the processor over encrypted channels. For questions about a specific charge, contact us at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>.</p>`,
+      },
+      {
+        id: "pp-controlled-substances",
+        title: "24. Controlled Substances; 42 CFR Part 2",
+        summary: null,
+        html: `<p>Where applicable, information related to substance use disorder treatment is protected under 42 CFR Part 2 and is not disclosed without your separate written consent except in narrow circumstances permitted by law (e.g., medical emergency). Prescriptions for controlled substances may have additional recordkeeping requirements under the Drug Enforcement Administration (DEA) and applicable state pharmacy laws.</p>`,
+      },
+      {
+        id: "pp-accessibility",
+        title: "25. Accessibility &amp; Non-Discrimination",
+        summary: null,
+        html: `<p>We are committed to making this Privacy Policy accessible. If you need this Policy in an alternative format due to a disability, please contact us at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>. We comply with the Americans with Disabilities Act (ADA) and Section 508 of the Rehabilitation Act with respect to our Platform's accessibility. We will not discriminate against you based on a protected characteristic in how we process your personal information.</p>`,
+      },
+      {
+        id: "pp-ai",
+        title: "26. Automated Decision-Making &amp; AI Use",
+        summary: null,
+        html: `<p>Healsend may use automated algorithms to: route intake forms to appropriate provider queues; detect potential fraud or account anomalies; and suggest relevant Platform content. These automated processes do not make final clinical determinations, diagnoses, or treatment decisions — all such decisions are made by licensed Providers. We do not use automated profiling to deny access to medical care or services based on protected characteristics.</p>`,
+      },
+      {
+        id: "pp-telehealth-data",
+        title: '27. Telehealth "Store and Forward"; Cross-Entity Data Flows',
+        summary: null,
+        html: `<p>Our primary telehealth modality is asynchronous "store and forward" — you submit intake data through the Platform, it is stored on our secure servers, and then forwarded to a licensed Provider for review. This means your health information may reside in Healsend's systems before being reviewed by a Provider. This data flow is governed by our BAA with the Professional Entity and by this Privacy Policy.</p>
+<p>Where multiple Professional Entities or pharmacies are involved in your care (e.g., a prescribing provider and a compounding pharmacy), data is shared between them only to the extent necessary for your treatment. Each entity is contractually bound to protect your information under BAAs or DPAs.</p>`,
+      },
+      {
+        id: "pp-dsr",
+        title: "28. Data Subject Request Process &amp; Verification",
+        summary: null,
+        html: `<p>To exercise any privacy right described in this Policy:</p>
+<ol>
+<li>Submit a request to <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> with subject line "Privacy Request."</li>
+<li>We will acknowledge your request within 10 business days.</li>
+<li>We will verify your identity before processing (typically by confirming your account email and one additional identifier).</li>
+<li>We will respond within 45 days. Complex requests may be extended by an additional 45 days with written notice.</li>
+<li>If you are dissatisfied with our response, you may appeal by replying to our response email within 30 days.</li>
+</ol>
+<p>We do not charge a fee for the first request in any 12-month period. Subsequent requests may incur a reasonable fee to cover costs of compliance.</p>`,
+      },
+      {
+        id: "pp-changes",
+        title: "29. Changes to This Policy",
+        summary: null,
+        html: `<p>We may update this Policy from time to time. We will post a revised version with a new effective date. Material changes will be communicated via a prominent notice on the Platform homepage and, where required by law, by direct email notification. Continued use of the Platform after the effective date of any revision constitutes your acceptance of the revised Policy. We maintain a 7-year archive of prior policy versions available upon request.</p>`,
       },
       {
         id: "pp-contact",
-        title: "10. Contact & Updates",
+        title: "30. Contact Information",
         summary: null,
-        html: `<p>To exercise privacy rights, ask questions, or submit complaints, contact our Privacy Officer:</p>
+        html: `<p>To exercise privacy rights, ask questions, file a complaint, or request an alternative-format copy of this Policy:</p>
 <ul>
+<li><strong>Privacy Officer</strong><br>Healsend Inc.<br>30 N Gould St Ste R<br>Sheridan, WY 82801</li>
 <li><strong>Email:</strong> <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a></li>
-<li><strong>Mail:</strong> Privacy Officer, Healsend LLC, 30 N Gould St Ste R, Sheridan, WY 82801</li>
 </ul>
-<p>We respond to verifiable requests within 45 days. For complex requests, we may extend this period by an additional 45 days with written notice.</p>
-<h3>Policy Updates</h3>
-<p>We may update this Policy from time to time. Material changes will be communicated by posting a prominent notice on the Platform and updating the "Last Updated" date at the top of this Policy. Continued use of the Platform after notice constitutes acceptance of the revised Policy.</p>`,
+<p>We acknowledge requests within 5 business days and provide a substantive response within the statutory timeframe applicable to your state (generally 45 days).</p>
+<p><strong>Appendix A — Data Inventory &amp; Categories:</strong> Available upon request.</p>
+<p><strong>Appendix B — Retention Schedule:</strong> Account + IDs: account life +7 yr; Health intake non-PHI: 7 yr; Payment tokens: 7 yr; Logs: 12–24 mo; Privacy requests: 24 mo.</p>
+<p><strong>Appendix C — State Privacy Rights Summary:</strong> Access/Know • Correct • Delete • Portability • Opt-Out Targeted Ads • Appeal — rights honored for all applicable states listed in Sections 19–20.</p>
+<p><strong>Appendix D — Incident Response &amp; Notification Workflow:</strong> Available upon request.</p>
+<p><strong>Appendix E — Service Provider/Subprocessor Standards:</strong> All service providers processing personal information on our behalf are subject to DPAs requiring NIST SP 800-53 security safeguards and HIPAA-equivalent protections where applicable.</p>
+<p><strong>Appendix F — Cookies &amp; Tracking Technologies:</strong> Strictly Necessary (session/auth) | Functional (preferences) | Analytics (13 mo) | Advertising/Retargeting (opt-out via cookie banner or GPC).</p>`,
       },
     ],
   },
@@ -192,11 +374,11 @@ export const LEGAL_PAGE_DATA = {
     sectionBlocks: [
       {
         id: "tele-purpose",
-        title: "1. Purpose & Scope",
+        title: "1. Purpose and Scope",
         summary: null,
-        html: `<p><strong>Last Updated: January 1, 2025</strong></p>
-<p>This Consent to Telehealth ("Consent") governs your use of telehealth services facilitated by Healsend LLC ("Healsend"), a Management Services Organization (MSO). Healsend does not practice medicine. Licensed Professional Entities — independent physician groups and other clinicians — deliver all clinical care. By accessing the Platform and requesting a consultation, you acknowledge reading and agreeing to this Consent.</p>
-<p>This Consent should be read alongside our <a href="/privacy-policy">Privacy Policy</a>, <a href="/terms-of-service-2">Terms of Service</a>, and any state-specific notices provided during enrollment.</p>`,
+        html: `<p><strong>Effective Date: October 5, 2025</strong></p>
+<p>This Comprehensive Consent to Telehealth ("Consent") is issued by Healsend Inc. ("Healsend"), a Management Services Organization (MSO). Healsend does not practice medicine, does not provide medical advice, and is not a covered entity under HIPAA in its own right. All clinical care is delivered by independent, state-licensed Professional Entities and their associated Providers.</p>
+<p>This Consent applies to all telehealth services facilitated through the Healsend Platform and supplements our <a href="/privacy-policy">Privacy Policy</a>, <a href="/consumer-health-data">Consumer Health Data Policy</a>, and <a href="/terms-of-service-2">Terms of Service</a>. By creating an account, completing intake, or scheduling a consultation, you acknowledge reading and agreeing to this Consent.</p>`,
       },
       {
         id: "tele-nature",
@@ -224,118 +406,173 @@ export const LEGAL_PAGE_DATA = {
       },
       {
         id: "tele-benefits-risks",
-        title: "4. Benefits, Limitations & Risks",
+        title: "4. Benefits, Limitations, and Risks of Telehealth",
         summary: null,
         html: `<h3>Benefits</h3>
 <ul>
-<li>Expanded access to care without geographic barriers</li>
-<li>Convenient asynchronous consultations that fit your schedule</li>
-<li>Continuity of care for ongoing treatment plans</li>
-<li>Reduced time and cost compared to in-person visits</li>
+<li>Expanded access to licensed healthcare without geographic barriers</li>
+<li>Shorter wait times compared to traditional in-person visits</li>
+<li>Lower costs and no travel requirements</li>
+<li>Secure follow-up communication with your care team</li>
+<li>Ongoing monitoring for chronic condition management</li>
 </ul>
 <h3>Limitations</h3>
 <ul>
-<li>Telehealth does not replace an in-person physical examination</li>
-<li>Not all medical conditions are appropriate for telehealth assessment</li>
-<li>Technical failures may interrupt or delay care</li>
-<li>Certain diagnostic tools (blood tests, imaging) require in-person services not available through this Platform</li>
+<li>Telehealth cannot replace an in-person physical examination; some conditions require in-person evaluation</li>
+<li>Not all medical conditions are appropriate for telehealth assessment; your Provider may require in-person care</li>
+<li>Technical interruptions (internet outages, device failures) may delay consultations</li>
+<li>Certain diagnostic tools (imaging, blood draws, physical labs) are not available through the Platform</li>
 </ul>
 <h3>Risks</h3>
 <ul>
 <li>Incomplete medical information may affect clinical decision-making</li>
-<li>Transmission errors or technology failures could delay treatment</li>
-<li>Privacy risks inherent in electronic transmission of health data, mitigated by our security program</li>
+<li>Transmission errors or platform failures could delay treatment</li>
+<li>Electronic transmission of health data involves inherent security risks, which we mitigate through our security program</li>
 </ul>
-<p>By proceeding, you acknowledge these limitations and confirm that telehealth is an acceptable modality for your current healthcare needs.</p>`,
+<p>By proceeding, you acknowledge this information and confirm that telehealth is an acceptable modality for your current healthcare needs. You retain the right to seek in-person care at any time.</p>`,
       },
       {
         id: "tele-representations",
-        title: "5. Patient Representations & Provider Responsibilities",
+        title: "5. Patient Representations; Provider Responsibilities",
         summary: null,
-        html: `<h3>You Represent That You:</h3>
+        html: `<h3>Patient Representations</h3>
+<p>By using the Platform and requesting a consultation, you represent that you:</p>
 <ul>
-<li>Are at least 18 years old and located in a U.S. state where services are offered</li>
-<li>Will provide complete, accurate, and truthful responses to all health intake questions</li>
-<li>Understand that your clinical outcome depends on the accuracy of information you provide</li>
-<li>Have a primary care provider and will not use telehealth services as a replacement for emergency care</li>
-<li>Will notify your provider of any changes in your health status, new medications, or adverse reactions</li>
+<li>Are at least 18 years old and located in a U.S. state where the applicable Professional Entity's Providers are licensed</li>
+<li>Will provide complete, accurate, and truthful responses to all health intake questions; you understand that clinical decisions depend on this accuracy</li>
+<li>Are not using this Platform as a substitute for emergency care</li>
+<li>Will not record consultations without the explicit written consent of all parties</li>
+<li>Will comply with your Provider's instructions, follow-up recommendations, and safety guidance</li>
 </ul>
 <h3>Provider Responsibilities</h3>
-<p>Your licensed provider will:</p>
+<p>Your assigned licensed Provider will:</p>
 <ul>
+<li>Maintain active professional licensure in your state of residence</li>
+<li>Carry malpractice insurance in amounts required by applicable professional standards</li>
 <li>Review your intake information before making any clinical determination</li>
-<li>Issue prescriptions only when clinically appropriate under applicable professional standards</li>
-<li>Coordinate with compounding or retail pharmacies in compliance with applicable law</li>
-<li>Maintain clinical records in accordance with HIPAA and state recordkeeping requirements</li>
+<li>Maintain clinical records in an EHR system in compliance with HIPAA and state medical recordkeeping requirements</li>
+<li>Provide referrals to in-person or emergency care when clinically appropriate</li>
+<li>Have the discretion to decline to prescribe or treat if telehealth is not clinically suitable for your situation</li>
 </ul>`,
       },
       {
-        id: "tele-privacy",
-        title: "6. Privacy, Security & Patient Rights",
+        id: "tele-pharmacy",
+        title: "6. Pharmacy, Laboratory, and Third-Party Coordination",
         summary: null,
-        html: `<p>Your health information is protected under our <a href="/privacy-policy">Privacy Policy</a> and, where the Professional Entity is a HIPAA covered entity, under the HIPAA Privacy and Security Rules.</p>
-<h3>Security Measures</h3>
+        html: `<p>Healsend facilitates electronic transmission of prescriptions and lab orders to licensed third-party pharmacies and laboratories chosen by you or your Provider. Healsend does not own, operate, or control any pharmacy or laboratory, does not compound or manufacture medications, and does not make pharmacy pricing decisions.</p>
+<p>You may request copies of your prescription records and lab results at any time by contacting <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>. Pharmacies and laboratories are independent entities responsible for their own compliance with applicable licensure, quality, and safety requirements.</p>`,
+      },
+      {
+        id: "tele-privacy",
+        title: "7. Privacy and Security",
+        summary: null,
+        html: `<p>Your health information is protected under our <a href="/privacy-policy">Privacy Policy</a> and <a href="/consumer-health-data">Consumer Health Data Policy</a>. Where the Professional Entity is a HIPAA-covered entity, PHI is governed by HIPAA Privacy and Security Rules and the applicable Business Associate Agreement.</p>
 <ul>
-<li>All transmissions are encrypted using TLS 1.3</li>
-<li>Health data at rest is protected with AES-256 encryption</li>
-<li>Access is limited to your treating provider, authorized care team members, and administrative staff on a need-to-know basis</li>
+<li><strong>In Transit:</strong> All Platform communications use TLS 1.3 encryption.</li>
+<li><strong>At Rest:</strong> Health data is encrypted using AES-256 FIPS 140-2 validated modules.</li>
+<li><strong>Access Controls:</strong> Data access is limited to your treating Provider, authorized care team members, and administrative staff on a strict need-to-know basis.</li>
 </ul>
-<h3>Your Patient Rights</h3>
+<p>Your health information collected through the Platform is used only for: treatment and care coordination; billing and payment; legal and regulatory compliance; and de-identified platform improvement (with all direct identifiers removed). We do not sell your health information.</p>`,
+      },
+      {
+        id: "tele-patient-rights",
+        title: "8. Patient Rights",
+        summary: null,
+        html: `<p>You have the following rights in connection with telehealth services:</p>
 <ul>
-<li>Right to access your medical records</li>
-<li>Right to request amendments to your health information</li>
-<li>Right to an accounting of disclosures</li>
-<li>Right to request restrictions on use and disclosure</li>
-<li>Right to receive communications through alternative means</li>
-<li>Right to complain to HHS Office for Civil Rights if you believe your HIPAA rights have been violated</li>
+<li>To be treated with respect and dignity at all times</li>
+<li>To receive clear explanations of your diagnosis, treatment options, and expected outcomes in plain language</li>
+<li>To ask questions and seek a second opinion before accepting any treatment</li>
+<li>To access your medical records and request copies in compliance with applicable law</li>
+<li>To revoke this Consent at any time (see Section 16)</li>
+<li>To file a complaint without fear of retaliation (see Section 9)</li>
 </ul>`,
       },
       {
         id: "tele-complaints",
-        title: "7. Emergencies, Complaints & Costs",
+        title: "9. Complaints and Grievances",
         summary: null,
-        html: `<h3>Emergencies</h3>
-<p><strong>If you are experiencing a medical emergency, call 911 immediately or go to the nearest emergency room.</strong> Healsend and associated providers do not provide emergency services. The Platform is not monitored 24/7 for urgent communications.</p>
-<h3>Complaints</h3>
-<p>To file a complaint about your telehealth experience or a provider's conduct:</p>
+        html: `<p>You may file a complaint or grievance through the following channels without fear of retaliation:</p>
 <ul>
-<li>Contact Healsend Patient Support at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a></li>
-<li>Contact your state medical board</li>
-<li>File a complaint with HHS OCR at <a href="https://www.hhs.gov/ocr" rel="noopener noreferrer">hhs.gov/ocr</a></li>
+<li><strong>Clinical Complaints (quality of care, Provider conduct):</strong> Contact the Professional Entity directly or write to <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> with subject line "Clinical Complaint." We will route your complaint to the appropriate Professional Entity.</li>
+<li><strong>Technical or Administrative Complaints (Platform issues, billing, data handling):</strong> Email <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>. We respond within 5 business days.</li>
+<li><strong>Serious Clinical Complaints:</strong> Contact your state medical board, nursing board, or pharmacy board, as applicable. HHS Office for Civil Rights for HIPAA concerns: <a href="https://www.hhs.gov/ocr" rel="noopener noreferrer">hhs.gov/ocr</a>.</li>
+</ul>`,
+      },
+      {
+        id: "tele-emergencies",
+        title: "10. Emergencies",
+        summary: null,
+        html: `<p><strong>DO NOT USE THIS PLATFORM FOR MEDICAL EMERGENCIES.</strong> If you experience any of the following, call 911 or go to the nearest emergency room immediately:</p>
+<ul>
+<li>Chest pain or pressure</li>
+<li>Shortness of breath or difficulty breathing</li>
+<li>Severe or uncontrolled bleeding</li>
+<li>Suicidal thoughts or intent to harm yourself or others</li>
+<li>Sudden vision loss, severe headache, or signs of stroke</li>
 </ul>
-<h3>Costs</h3>
-<p>Services are provided on a self-pay basis. We do not bill insurance. All fees are disclosed prior to checkout. Your subscription or one-time payment covers access to consultations and, where prescribed, treatment plans. Medication costs, when applicable, are itemized separately.</p>`,
+<p>The Platform is not monitored 24/7 for urgent clinical communications. In a life-threatening situation, always call 911 first.</p>`,
+      },
+      {
+        id: "tele-retention",
+        title: "11. Data Retention and Recordkeeping",
+        summary: null,
+        html: `<p>Your Provider and their Professional Entity maintain clinical records (including telehealth encounter notes and prescriptions) for a minimum of 7 years as required by federal and applicable state medical recordkeeping laws. Healsend retains platform data (intake forms, communications, transaction records) per our retention schedule described in our <a href="/privacy-policy">Privacy Policy</a>.</p>
+<p>You may request copies of your platform records at any time by contacting <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>.</p>`,
+      },
+      {
+        id: "tele-electronic-comms",
+        title: "12. Consent to Electronic Communications",
+        summary: null,
+        html: `<p>By using the Platform, you consent to receive communications from Healsend and your Provider via email, SMS, and secure patient portal messages. These include: appointment notifications, prescription updates, billing statements, clinical instructions, and important safety alerts.</p>
+<p>To withdraw consent to electronic communications or to change your communication preferences, email <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>. Withdrawing consent may limit Platform functionality and require paper-based communication for certain records.</p>`,
+      },
+      {
+        id: "tele-costs",
+        title: "13. Acknowledgment of Potential Costs",
+        summary: null,
+        html: `<p>Services are offered on a self-pay basis. We do not bill insurance, Medicare, or Medicaid. You are responsible for all fees disclosed at the time of enrollment or purchase. Medication costs are determined independently by the dispensing pharmacy and are separate from Platform fees. Healsend does not control pharmacy pricing.</p>`,
       },
       {
         id: "tele-state",
-        title: "8. State-Specific Notices",
+        title: "14. Multi-State Legal Disclosures",
         summary: null,
-        html: `<h3>California</h3>
-<p>California patients have the right to receive an itemized statement of charges within a reasonable time. You may request copies of all records maintained in connection with your telehealth services. The Medical Board of California can be reached at (800) 633-2322.</p>
-<h3>Florida</h3>
-<p>Florida law requires that telehealth providers inform patients of the limitations of telehealth services and provide a referral to an in-person provider when clinically appropriate.</p>
-<h3>Texas</h3>
-<p>Texas patients must have a valid patient-provider relationship before controlled substances may be prescribed via telehealth. Texas Medical Board at (512) 305-7010.</p>
-<h3>Washington</h3>
-<p>Washington patients have consumer health data rights described in the <a href="/consumer-health-data">Consumer Health Data Policy</a>. You must provide explicit written consent before consumer health data may be shared with third parties.</p>
-<h3>New York</h3>
-<p>New York requires that telehealth practitioners maintain a patient record for each telehealth encounter in accordance with the same standards as in-person care.</p>
-<h3>Colorado & Virginia</h3>
-<p>Patients in these states have additional rights under their respective Consumer Data Protection Acts. Contact us to exercise these rights.</p>`,
+        html: `<ul>
+<li><strong>California (Bus. &amp; Prof. Code §2290.5):</strong> Providers must obtain consent to telehealth before each telehealth consultation. You have the right to receive an itemized statement of charges within 5 business days of request.</li>
+<li><strong>Florida (F.S. §456.47):</strong> Providers using telehealth must inform patients of limitations and provide referrals to in-person care where clinically indicated.</li>
+<li><strong>Texas (TMB Rule §174):</strong> A valid patient-provider relationship must be established before prescribing via telehealth. Providers comply with Texas Medical Board telehealth standards.</li>
+<li><strong>Washington (RCW 70.41.230):</strong> Patients must renew informed consent to telehealth annually for ongoing treatment relationships.</li>
+<li><strong>New York (Public Health Law §2999-cc):</strong> Telehealth records must be maintained for 6 years.</li>
+<li><strong>Virginia &amp; Colorado:</strong> Patients have rights to access and correct their health records under state consumer data protection laws.</li>
+<li><strong>Illinois (BIPA):</strong> Biometric data (if collected for verification) is subject to BIPA protections; see our <a href="/privacy-policy">Privacy Policy</a>.</li>
+</ul>`,
+      },
+      {
+        id: "tele-tech",
+        title: "15. Technology Requirements and Security Warnings",
+        summary: null,
+        html: `<p>To use the Platform, you need a compatible device (smartphone, tablet, or computer) with an up-to-date browser or the Healsend mobile app, and a reliable internet connection. For video consultations, a working camera and microphone are required.</p>
+<p><strong>Security Warnings:</strong> Do not use public or unsecured Wi-Fi networks for telehealth consultations. Do not share your login credentials. Healsend employs end-to-end encryption and multi-factor authentication to protect your sessions, but your security also depends on your device and network environment.</p>`,
       },
       {
         id: "tele-withdrawal",
-        title: "9. Acknowledgment & Withdrawal",
+        title: "16. Withdrawal of Consent",
         summary: null,
-        html: `<p>By accessing the Platform and completing the enrollment process, you acknowledge that:</p>
+        html: `<p>You may withdraw this Consent at any time by providing written notice to Healsend at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> or directly to your Provider. Withdrawal stops future telehealth services but does not affect care already provided or prescriptions already dispensed. Outstanding prescription shipments may continue processing if already sent to the pharmacy before your withdrawal notice is received.</p>`,
+      },
+      {
+        id: "tele-acknowledgment",
+        title: "17. Acknowledgment and Signature",
+        summary: null,
+        html: `<p>By clicking "I Consent" or by creating an account, completing an intake form, or scheduling a consultation through the Healsend Platform, you acknowledge that:</p>
 <ul>
-<li>You have read and understood this Consent</li>
-<li>You voluntarily agree to receive healthcare services via telehealth</li>
-<li>Your electronic acknowledgment constitutes a legally binding consent equivalent to a written signature under applicable e-signature laws (ESIGN Act, UETA)</li>
-<li>You understand the benefits, limitations, and risks described in this Consent</li>
-</ul>
-<h3>Withdrawal</h3>
-<p>You may withdraw this Consent at any time by contacting <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> or by closing your account in Platform settings. Withdrawal will prevent future telehealth consultations but will not retroactively affect care already provided. Outstanding prescription shipments may continue processing if already dispensed by the pharmacy.</p>`,
+<li>You have read and fully understand this Consent to Telehealth</li>
+<li>You understand the benefits, risks, and limitations of telehealth services described herein</li>
+<li>You voluntarily agree to receive healthcare services via telehealth through the Platform</li>
+<li>You authorize licensed Providers affiliated with the Professional Entities to review your health information and provide clinical services</li>
+<li>You agree to the <a href="/privacy-policy">Privacy Policy</a>, <a href="/consumer-health-data">Consumer Health Data Policy</a>, and <a href="/terms-of-service-2">Terms of Service</a></li>
+<li>Your electronic acceptance constitutes a legally binding signature under the Electronic Signatures in Global and National Commerce Act (ESIGN) and the Uniform Electronic Transactions Act (UETA)</li>
+</ul>`,
       },
     ],
   },
@@ -352,159 +589,207 @@ export const LEGAL_PAGE_DATA = {
     sectionBlocks: [
       {
         id: "chd-intro",
-        title: "1. Purpose & Scope",
+        title: "1. Purpose and Scope",
         summary: null,
-        html: `<p><strong>Last Updated: January 1, 2025</strong></p>
-<p>This Consumer Health Data Policy ("Policy") supplements our <a href="/privacy-policy">Privacy Policy</a> and describes how Healsend LLC collects, uses, shares, and protects Consumer Health Data (CHD) as defined under applicable state consumer health data laws.</p>
-<p>Healsend operates as a Management Services Organization. Where Healsend processes data as a business associate of a HIPAA-covered Professional Entity, that data is governed by the relevant Business Associate Agreement (BAA) and the Professional Entity's Notice of Privacy Practices. This Policy addresses CHD processed in Healsend's capacity as a technology platform and data controller under state law.</p>`,
+        html: `<p><strong>Effective Date: October 5, 2025</strong></p>
+<p>This Consumer Health Data &amp; Biometric Privacy Policy ("Policy") is issued by Healsend Inc. ("Healsend"), a Management Services Organization (MSO) and technology facilitator. Healsend is not a medical provider, does not practice medicine, and does not independently function as a HIPAA-covered entity. The Professional Entities supported by Healsend's Platform are independent licensed healthcare providers who may be covered entities or business associates under HIPAA.</p>
+<p>This Policy covers Consumer Health Data (CHD) and biometric data collected and processed by Healsend in its capacity as a technology platform and data controller — separate from PHI processed by Professional Entities under their own Notices of Privacy Practices and HIPAA Business Associate Agreements. This Policy supplements our <a href="/privacy-policy">Master Privacy Policy</a>.</p>`,
       },
       {
         id: "chd-definitions",
-        title: "2. Key Definitions",
+        title: "2. Definitions",
         summary: null,
-        html: `<p>The following definitions apply throughout this Policy:</p>
-<ul>
-<li><strong>Consumer Health Data (CHD):</strong> Personal information that identifies your past, present, or future physical or mental health status, including diagnoses, medications, health conditions, health-related payments, and bodily functions or characteristics.</li>
-<li><strong>Regulated Health Data:</strong> A subset of CHD subject to heightened protection under laws such as Washington's My Health My Data Act (MHMDA), Nevada's SB 370, or Illinois's Biometric Information Privacy Act (BIPA).</li>
-<li><strong>Biometric Data:</strong> Data generated from physiological or behavioral characteristics including fingerprints, voiceprints, iris or retinal scans, or face geometry used for identification purposes.</li>
-<li><strong>De-identified Data:</strong> Information that has been processed to remove all reasonably linkable identifiers according to recognized standards (HIPAA Expert Determination or Safe Harbor methods).</li>
-<li><strong>Business Associate (BA):</strong> An entity that creates, receives, maintains, or transmits PHI on behalf of a HIPAA covered entity under a signed BAA.</li>
-<li><strong>Controller vs. Processor:</strong> Healsend acts as a Controller for platform-level data decisions and as a Processor/Business Associate for data it handles on behalf of Professional Entities.</li>
-<li><strong>Consent:</strong> A freely given, specific, informed, and unambiguous indication of agreement, obtained separately from general Terms of Service acceptance.</li>
-<li><strong>Sale of Health Data:</strong> Exchanging consumer health data for monetary or other valuable consideration not authorized under applicable law or consent.</li>
+        html: `<ul>
+<li><strong>Consumer Health Data (CHD):</strong> Personal information that identifies your past, present, or future physical or mental health status, including diagnoses, medications, health conditions, health-related payments, bodily functions, or characteristics regulated under WA MHMDA, NV SB370, or similar state laws.</li>
+<li><strong>Biometric Data:</strong> Data generated from physiological or behavioral characteristics used for identification, including fingerprints, voiceprints, iris scans, retinal scans, face geometry, and gait patterns.</li>
+<li><strong>Sensitive Health Data:</strong> A subset of CHD that includes reproductive and sexual health information, mental health status, substance use disorder information, and genetic data.</li>
+<li><strong>Personal Information:</strong> Information that identifies, relates to, or could reasonably be linked to an individual or household.</li>
+<li><strong>Professional Entity:</strong> Independent licensed physician groups, professional corporations, or PLLCs that use the Platform to deliver clinical care.</li>
+<li><strong>Processing:</strong> Any operation performed on personal data, including collection, storage, use, disclosure, or deletion.</li>
+<li><strong>Service Provider/Contractor:</strong> Entities that process data on Healsend's behalf under contracts restricting them to performing services for us.</li>
+<li><strong>De-identified Data:</strong> Information from which all direct and reasonably linkable identifiers have been removed under HIPAA Expert Determination or Safe Harbor methods.</li>
+<li><strong>Business Associate:</strong> Healsend, in its capacity as a BA under 45 CFR §160.103, when processing PHI on behalf of a covered Professional Entity under a signed BAA.</li>
+<li><strong>Consumer Request:</strong> A verifiable request from you to exercise a privacy right listed in Section 8.</li>
 </ul>`,
       },
       {
         id: "chd-law",
-        title: "3. Applicable Legal Frameworks",
+        title: "3. Applicability of Federal and State Law",
         summary: null,
-        html: `<p>Healsend's handling of consumer health data is governed by multiple overlapping legal frameworks:</p>
-<ul>
-<li><strong>HIPAA / HITECH:</strong> Where Healsend acts as a business associate of a covered entity, PHI is governed by HIPAA Privacy and Security Rules and our BAA. HITECH breach notification obligations apply.</li>
-<li><strong>FTC Act (Section 5):</strong> Unfair or deceptive practices in health data processing are prohibited. We comply with FTC guidance on health data and the Health Breach Notification Rule.</li>
-<li><strong>Illinois BIPA:</strong> Biometric identifiers and information are collected only with informed written consent, stored for no longer than necessary, and destroyed on schedule.</li>
-<li><strong>California CCPA / CPRA:</strong> California residents have rights to know, delete, correct, and opt out of sale/sharing. Health information constitutes Sensitive Personal Information subject to use limitation.</li>
-<li><strong>Washington My Health My Data Act (MHMDA):</strong> Explicit consent is required to collect, share, or sell consumer health data. Washington residents may request a list of all third parties with whom their health data has been shared.</li>
-<li><strong>Nevada SB 370:</strong> We do not sell consumer health data to data brokers or other entities without authorization.</li>
-</ul>`,
+        html: `<p><strong>Federal Laws:</strong> HIPAA/HITECH (where Healsend acts as a BA), FTC Act §5 (unfair/deceptive practices), 21 CFR Part 11 (electronic records), ESIGN/UETA (electronic signatures), COPPA (not applicable — Platform is 18+ only), FTC Health Breach Notification Rule (for non-HIPAA PHR-related entities).</p>
+<p><strong>State Laws (stronger consumer protection prevails):</strong> California CCPA/CPRA; Washington MHMDA (RCW 19.373); Nevada SB370 (NRS 603A); Texas HB300 (Tex. H&amp;S Code §181); Illinois BIPA (740 ILCS 14); Colorado CPA; Connecticut CTDPA; Virginia VCDPA; Utah UCPA; Iowa ICDPA; Montana MCDPA.</p>
+<p>Where multiple laws apply to the same data processing activity, we apply the standard that affords the strongest consumer protection.</p>`,
       },
       {
         id: "chd-collection",
-        title: "4. Consumer Health Data We Collect",
+        title: "4. Information We Collect",
         summary: null,
-        html: `<p>Healsend collects consumer health data in the following categories:</p>
+        html: `<h3>A. Directly from You</h3>
 <ul>
-<li><strong>Patient-Provided Health Information:</strong> Symptoms, diagnoses, medical history, medications, allergies, surgical history, and other health data you enter during health intake or consultations.</li>
-<li><strong>Provider-Generated Data:</strong> Clinical notes, treatment determinations, and prescription information created by Professional Entities and transmitted through the Platform.</li>
-<li><strong>Technical Health Signals:</strong> Device data, IP address, and behavioral signals that may infer health-related interests (e.g., pages viewed related to specific treatments).</li>
-<li><strong>Biometric Data (where collected):</strong> Face geometry used for identity verification during account creation (Illinois residents: subject to BIPA consent).</li>
-<li><strong>Derived Health Inferences:</strong> Inferences drawn from the above categories to create profiles used to recommend treatments or personalize the Platform experience.</li>
+<li>Identifiers: name, contact info, date of birth, government ID for identity verification</li>
+<li>Medical intake: symptoms, diagnoses, medications, allergies, surgical history, biometric measurements</li>
+<li>Payment: billing address, transaction records (card numbers processed by third-party processors only)</li>
+<li>Support: messages, feedback, survey responses</li>
 </ul>
-<p>We collect consumer health data only for the purposes described in this Policy. We obtain separate consent where required by law before using CHD for purposes beyond direct care delivery.</p>`,
+<h3>B. From Professional Entities &amp; Pharmacies</h3>
+<ul>
+<li>Diagnosis codes, treatment plans, prescriptions, lab results, dispensing confirmations</li>
+</ul>
+<h3>C. Automatically</h3>
+<ul>
+<li>Device identifiers, IP address, cookie data, server logs, usage analytics</li>
+</ul>
+<h3>D. Biometric / Sensor Data</h3>
+<ul>
+<li>Facial geometry or voice patterns (where used for identity verification, with state-specific consent)</li>
+<li>Wearable device data you authorize to connect to the Platform</li>
+</ul>
+<h3>E. Derived / Inferred</h3>
+<ul>
+<li>Treatment eligibility inferences, risk scores derived from intake data (used only for Platform routing, not for denial of medical care); de-identified aggregate data used for research and quality improvement</li>
+</ul>
+<p><strong>We do not knowingly collect information from individuals under 18.</strong></p>`,
       },
       {
         id: "chd-use",
-        title: "5. How We Use Consumer Health Data",
+        title: "5. How We Use Consumer Health and Biometric Data",
         summary: null,
-        html: `<h3>Primary Uses (no additional consent required)</h3>
+        html: `<h3>5.1 Primary Uses (no additional consent required)</h3>
 <ul>
-<li>Routing intake information to licensed Professional Entities for clinical review</li>
-<li>Facilitating prescription transmission to pharmacies</li>
-<li>Providing customer support related to your treatment</li>
-<li>Detecting and investigating adverse events or safety concerns</li>
-<li>Maintaining records as required by law</li>
-<li>Defending legal claims and complying with court orders</li>
-<li>Detecting security incidents and preventing fraud</li>
+<li>Platform operation: account management, authentication, technical support</li>
+<li>Facilitating care delivery: routing intake to Professional Entities, care coordination</li>
+<li>Payment processing and prescription/lab fulfillment</li>
+<li>Analytics and platform improvement (using de-identified or aggregated data)</li>
+<li>Support and communication: responding to inquiries and providing service updates</li>
+<li>Regulatory compliance: recordkeeping, legal response, safety reporting</li>
+<li>Security and fraud prevention</li>
 </ul>
-<h3>Secondary Uses (require your explicit consent)</h3>
+<h3>5.2 Secondary Uses (require your explicit consent)</h3>
 <ul>
-<li>Using your health data for marketing purposes beyond your current treatment</li>
-<li>Sharing de-identified data with research partners</li>
-<li>Developing new products or services using your health profiles</li>
-<li>Combining your health data with data from third-party data brokers</li>
+<li>We do <strong>not</strong> sell, lease, or trade CHD or biometric data</li>
+<li>We do <strong>not</strong> use CHD for cross-context behavioral advertising</li>
+<li>We do <strong>not</strong> use CHD to make employment, credit, or insurance decisions</li>
+<li>We do <strong>not</strong> use automated health profiling to produce legally significant effects without your explicit, informed consent</li>
 </ul>
-<p>We will never use your consumer health data for purposes incompatible with those listed without first obtaining your explicit written consent.</p>`,
+<h3>5.3 Lawful Basis</h3>
+<ul>
+<li><strong>Service delivery:</strong> Contractual necessity (fulfilling our Terms of Service)</li>
+<li><strong>Compliance:</strong> Legal obligation (HIPAA, state recordkeeping)</li>
+<li><strong>Security:</strong> Legitimate interest in protecting the Platform and users</li>
+<li><strong>Analytics:</strong> De-identified data — no legal basis required for purely de-identified processing</li>
+<li><strong>Marketing &amp; secondary uses:</strong> Consent</li>
+</ul>`,
       },
       {
         id: "chd-sharing",
-        title: "6. When & Why We Share Your Data",
+        title: "6. When and Why We Share Data",
         summary: null,
-        html: `<p>We share consumer health data only in the following circumstances:</p>
+        html: `<h3>6.1 Categories of Recipients</h3>
 <ul>
-<li><strong>Professional Entities:</strong> Licensed provider groups who review your case and provide clinical determinations. These entities are bound by HIPAA and our BAA.</li>
-<li><strong>Pharmacies:</strong> Licensed compounding or retail pharmacies receive prescription data solely to fulfill authorized prescriptions.</li>
-<li><strong>Technology Service Providers:</strong> Vendors providing EHR integrations, cloud hosting (U.S. data centers only), payment processing, and identity verification operate under DPAs limiting their use of your health data.</li>
-<li><strong>Legal & Regulatory:</strong> We disclose data as required by law, court order, or regulatory authority.</li>
-<li><strong>Business Transfers:</strong> In a merger or acquisition, health data is transferred subject to the same protections in this Policy and applicable law.</li>
+<li><strong>Professional Entities &amp; Pharmacies:</strong> For care delivery and prescription fulfillment under BAAs or DPAs.</li>
+<li><strong>Service Providers (Contractors):</strong> Cloud hosting, payment processing, identity verification, analytics, email/SMS delivery — all bound by contracts limiting use to services on our behalf.</li>
+<li><strong>Corporate Affiliates &amp; Successors:</strong> In mergers or acquisitions, subject to equivalent privacy protections.</li>
+<li><strong>Regulators &amp; Law Enforcement:</strong> In response to valid legal process, to prevent imminent harm, or as required by law.</li>
+<li><strong>Authorized Agents:</strong> Individuals you have designated in writing to act on your behalf.</li>
 </ul>
-<p>We do not transfer your consumer health data outside the United States. All international service providers process data through U.S.-based systems under Standard Contractual Clauses or equivalent safeguards.</p>`,
+<h3>6.2 Safeguards for Vendors</h3>
+<p>All vendors handling CHD or biometric data must sign DPAs or BAAs requiring NIST SP 800-53 safeguards. Vendors must notify us of security incidents within 72 hours.</p>
+<h3>6.3 No Cross-Border Transfers</h3>
+<p>We do not transfer your consumer health data outside the United States.</p>
+<h3>6.4 No Sale of De-identified Data for Re-identification</h3>
+<p>We share de-identified or aggregate data only, never for the purpose of re-identifying individuals.</p>`,
       },
       {
         id: "chd-retention",
-        title: "7. Retention & Deletion",
+        title: "7. Retention and Deletion of Data",
         summary: null,
-        html: `<p>Consumer health data is retained according to the following schedule:</p>
+        html: `<h3>7.1 Retention Schedule</h3>
 <ul>
-<li><strong>Active Account Data:</strong> Retained for the duration of your account plus 7 years after the last clinical activity, or as required by applicable state medical recordkeeping law.</li>
-<li><strong>Prescription Records:</strong> Retained for 10 years or per state pharmacy board requirements.</li>
-<li><strong>Biometric Data:</strong> Deleted within 3 years of collection or within 1 year of your last interaction, whichever is earlier (Illinois residents within 30 days of deletion request).</li>
-<li><strong>Marketing Inferences:</strong> Deleted within 90 days of account closure or opt-out from marketing processing.</li>
-<li><strong>Technical Logs:</strong> Anonymized or deleted within 24 months.</li>
+<li><strong>Account &amp; profile data:</strong> Until account closure</li>
+<li><strong>Medical intake &amp; clinical records:</strong> 7 years from last activity (per federal/state medical recordkeeping requirements)</li>
+<li><strong>Payment tokens:</strong> 7 years from last transaction (PCI compliance)</li>
+<li><strong>Biometric identifiers:</strong> No longer than 30 days after verification is complete, or less if required by state law</li>
+<li><strong>Security logs:</strong> 12 months (immutable; then anonymized)</li>
 </ul>
-<p>To request deletion of your consumer health data, submit a request to <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>. We will verify your identity and respond within 45 days. Certain data may be retained to fulfill legal obligations, resolve disputes, or prevent fraud.</p>`,
+<h3>7.2 Deletion Requests</h3>
+<p>Submit deletion requests to <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>. We verify your identity and complete verified deletion within 45 days. Backup copies are purged within 90 days. Certain data is retained to comply with legal obligations, resolve disputes, or prevent fraud.</p>
+<h3>7.3 Annual Review</h3>
+<p>We conduct an annual review of retained data and delete data that no longer serves a legitimate purpose.</p>`,
       },
       {
         id: "chd-rights",
         title: "8. Your Privacy Rights",
         summary: null,
-        html: `<p>You have the following rights with respect to your consumer health data:</p>
+        html: `<h3>8.1 Rights Available to You</h3>
 <ul>
-<li><strong>Right to Access:</strong> Obtain a copy of the consumer health data we hold about you.</li>
-<li><strong>Right to Correction:</strong> Request correction of inaccurate data.</li>
-<li><strong>Right to Deletion:</strong> Request deletion of your consumer health data, subject to legal retention obligations.</li>
-<li><strong>Right to Data Portability:</strong> Receive your data in a structured, machine-readable format.</li>
-<li><strong>Right to Withdraw Consent:</strong> Withdraw consent to secondary uses of your health data at any time without affecting the lawfulness of prior processing.</li>
-<li><strong>Right to Restrict Processing:</strong> Request that we restrict processing of your health data in certain circumstances.</li>
-<li><strong>Right to List of Disclosures:</strong> (Washington residents) Request a list of all third parties with whom your consumer health data has been shared in the past 12 months.</li>
-<li><strong>Right to Appeal:</strong> If we deny your request, you may appeal within 45 days.</li>
+<li><strong>Access/Transparency (45 days):</strong> Obtain the categories and specific pieces of CHD we hold about you.</li>
+<li><strong>Correction/Rectification (45 days):</strong> Request correction of inaccurate data.</li>
+<li><strong>Deletion/Erasure:</strong> Request deletion of CHD, subject to legal retention obligations.</li>
+<li><strong>Portability:</strong> Receive your CHD in a structured, machine-readable format (e.g., JSON or CSV).</li>
+<li><strong>Restriction/Opt-Out:</strong> Opt out of secondary uses of your CHD, including any targeted advertising or profiling.</li>
+<li><strong>Appeal (30 days):</strong> If we deny your request, you may appeal within 30 days of our response.</li>
 </ul>
-<p>Submit rights requests to <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>. We respond within 45 days (extendable by 45 days with written notice for complex requests).</p>`,
+<h3>8.2 How to Submit a Request</h3>
+<p>Email <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> with subject line "CHD Privacy Request," or write to: Healsend Inc., 30 N Gould St Ste R, Sheridan WY 82801.</p>
+<h3>8.3 Fees</h3>
+<p>We do not charge a fee for the first verified request within any 12-month period.</p>`,
       },
       {
         id: "chd-state",
         title: "9. State-Specific Disclosures",
         summary: null,
-        html: `<h3>California (CCPA / CPRA)</h3>
-<p>Health information constitutes Sensitive Personal Information under the CPRA. We use and disclose your SPI only for the purposes described in Section 5. California residents may opt in to sharing for cross-context behavioral advertising (we do not currently engage in such sharing). Contact our Privacy Officer to exercise California rights.</p>
-<h3>Washington (My Health My Data Act)</h3>
-<p>We obtain your explicit consent before collecting consumer health data for any purpose beyond direct care delivery. Washington residents may request a complete list of third parties that have received their consumer health data. We do not sell Washington residents' consumer health data.</p>
-<h3>Nevada (SB 370)</h3>
-<p>We do not sell Nevada residents' consumer health data to third parties. We do not share Nevada residents' reproductive or sexual health information.</p>
-<h3>Texas (HB 300)</h3>
-<p>Texas residents' protected health information receives the same protections as HIPAA-covered data. We train all personnel who interact with Texas patients' health data and maintain training records for 6 years.</p>
-<h3>Illinois (BIPA)</h3>
-<p>We collect biometric identifiers only with written consent. We maintain a publicly available retention policy and destroy biometric data no later than 3 years after collection or within 30 days of a verified deletion request.</p>`,
+        html: `<h3>9.1 California (CCPA/CPRA)</h3>
+<p>CHD constitutes Sensitive Personal Information (SPI) under CPRA. We limit SPI use to purposes listed in Section 5.1. California residents may request disclosure of all categories of CHD collected, opt out of any cross-context behavioral advertising, and request deletion of CHD. Contact: <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>.</p>
+<h3>9.2 Washington (MHMDA — RCW 19.373)</h3>
+<p>We obtain your explicit opt-in consent before collecting CHD for any purpose beyond direct care delivery. A consumer health data notice is included on our Platform homepage. Washington residents may withdraw consent within 30 days and request a list of all third parties with whom their CHD has been shared.</p>
+<h3>9.3 Nevada (SB370 — NRS 603A)</h3>
+<p>We do not sell Nevada residents' consumer health data. Nevada residents may request deletion of their CHD at any time.</p>
+<h3>9.4 Texas (HB300 — Tex. H&amp;S Code §181)</h3>
+<p>We provide annual privacy training to personnel who interact with Texas patients' health data and maintain training records for 6 years. Civil and criminal penalties may apply for violations.</p>
+<h3>9.5 Illinois (BIPA — 740 ILCS 14)</h3>
+<p>We obtain written/electronic informed consent before collecting any biometric identifier. We delete biometric data within 30 days of a verified deletion request. We do not sell or profit from biometric data.</p>
+<h3>9.6 Colorado, Connecticut, Virginia, Utah, Iowa, Montana</h3>
+<p>Residents of these states have access, correction, deletion, portability, and opt-out rights that we honor on a nationwide basis. Contact <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> to exercise these rights.</p>`,
       },
       {
         id: "chd-security",
-        title: "10. Data Security & Incident Response",
+        title: "10. Data Security and Incident Response",
         summary: null,
-        html: `<h3>Security Controls</h3>
-<p>We implement security controls aligned with NIST SP 800-53:</p>
-<ul>
-<li><strong>Technical Controls:</strong> TLS 1.3 for data in transit; AES-256 for data at rest; database encryption with customer-managed keys available for enterprise accounts; automated vulnerability scanning.</li>
-<li><strong>Administrative Controls:</strong> Access control policy; privacy and security training for all personnel annually; vendor risk assessments; data classification policy.</li>
-<li><strong>Physical Controls:</strong> Data hosted in SOC 2 Type II certified data centers in the United States; physical access controls at all facilities handling health data.</li>
-</ul>
-<h3>Incident Response</h3>
-<p>In the event of a breach affecting your consumer health data:</p>
-<ul>
-<li>We will notify affected individuals within 30 days of discovery for state law purposes</li>
-<li>We will notify HHS within 60 days for HIPAA breaches affecting 500+ individuals</li>
-<li>We will notify the Washington Attorney General within 30 days for MHMDA breaches</li>
-<li>Notification will include: description of data involved, timeline, steps taken to mitigate, and protective measures for affected individuals</li>
-</ul>
-<p>To report a suspected security incident, contact <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> immediately.</p>`,
+        html: `<h3>10.1 Administrative Safeguards</h3>
+<p>Designated Privacy Officer and Security Officer; HIPAA and state privacy training for all personnel handling CHD; vendor management program with security certification requirements; least-privilege access policy.</p>
+<h3>10.2 Technical Safeguards</h3>
+<p>TLS 1.3 for all data in transit; AES-256 FIPS 140-2 at rest; MFA for administrative access; network segmentation; continuous automated vulnerability scanning; annual third-party penetration testing; 12-month immutable audit logs.</p>
+<h3>10.3 Physical Safeguards</h3>
+<p>Access-controlled facilities; cross-cut shredding for paper records; certified digital media wiping (NIST SP 800-88).</p>
+<h3>10.4 Incident Response</h3>
+<p>Upon discovery of a breach: (1) contain and assess; (2) notify affected individuals per 45 CFR §164.404 and applicable state laws; (3) conduct root cause analysis; (4) implement remediation. We maintain a documented incident response plan tested annually.</p>
+<h3>10.5 Audit</h3>
+<p>Annual internal HIPAA security audit; independent security assessment every 2 years; results shared with Covered Entity partners upon request.</p>`,
+      },
+      {
+        id: "chd-contact",
+        title: "11. Contact, Complaints, and Dispute Resolution",
+        summary: null,
+        html: `<h3>11.1 Privacy Office</h3>
+<p>Healsend Inc.<br>30 N Gould St Ste R<br>Sheridan, WY 82801<br><a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a></p>
+<h3>11.2 Officers</h3>
+<p>Healsend has designated a Privacy Officer and a Security Officer responsible for CHD compliance under this Policy.</p>
+<h3>11.3 Complaint Process</h3>
+<p>We acknowledge complaints within 10 business days and provide a substantive response within 30 days. If unresolved, you may escalate to the HHS Office for Civil Rights, the FTC, or your state Attorney General without retaliation.</p>
+<h3>11.4 No Retaliation</h3>
+<p>We will not retaliate against you for exercising your rights or filing a complaint.</p>
+<h3>11.5 Governing Law</h3>
+<p>Wyoming law governs this Policy. Disputes are subject to binding arbitration via AAA in Sheridan County, Wyoming, except that nothing in this Policy limits your right to file regulatory complaints with government authorities.</p>`,
+      },
+      {
+        id: "chd-changes",
+        title: "12. Changes to This Policy",
+        summary: null,
+        html: `<p>We review this Policy annually and update it as needed to reflect changes in applicable law, our data practices, or Platform functionality. Updated versions are posted with a new Effective Date. Material changes are announced on the Platform homepage and by email to affected users where required by law. We maintain a 7-year archive of prior policy versions. Continued use of the Platform after the effective date of a revised Policy constitutes your acceptance of the changes.</p>
+<p><strong>Appendix A — Cookies:</strong> Essential (session/auth) | Analytics (13 mo) | Preference (12 mo) | Security Tokens (90 days rolling) | Platform honors GPC signals as opt-out.</p>
+<p><strong>Appendix B — Data Classification:</strong> Tier 1 PHI (AES-256, BAA required) | Tier 2 CHD (NIST SP 800-53) | Tier 3 Operational Metadata (de-identified, 12 mo) | Tier 4 Public (review before posting).</p>
+<p><strong>Appendix C — Record Retention:</strong> User accounts: until closed/secure erase | Medical encounters: 7 yr/encrypted purge | Payment: 7 yr/PCI deletion | Biometric: ≤30 days/auto wipe | Support tickets: 24 mo/purge | Audit logs: 12 mo/immutable.</p>
+<p><strong>Appendix D — Regulatory References:</strong> HIPAA Privacy Rule 45 CFR Part 164 Subpart E | HIPAA Security Rule 45 CFR Part 164 Subpart C | FTC 16 CFR 318 | CA Civil Code §1798.100 | WA RCW 19.373 | IL 740 ILCS 14 | TX HB300 | NV NRS 603A | NIST CSF v1.1 | ISO 27001.</p>`,
       },
     ],
   },
@@ -520,59 +805,41 @@ export const LEGAL_PAGE_DATA = {
     faqItems: [],
     sectionBlocks: [
       {
-        id: "ref-overview",
-        title: "1. Overview",
+        id: "ref-intro",
+        title: "1. Introduction",
         summary: null,
-        html: `<p><strong>Last Updated: January 1, 2025</strong></p>
-<p>Healsend is committed to transparent and fair pricing. Because our services involve licensed medical professionals reviewing your case and issuing individualized clinical determinations, our refund policy reflects the unique nature of telehealth-based treatment plans.</p>
-<p>Your treatment plan is subject to availability and clinical appropriateness. In some cases, a provider may determine that a requested treatment is not appropriate for you or is not available in your state. In these situations, our refund policy ensures you receive fair compensation.</p>`,
+        html: `<p><strong>Last Updated: October 7, 2025</strong></p>
+<p>Your treatment plan is subject to availability, clinical appropriateness, pharmacy supply, and applicable regulatory requirements. If a requested treatment becomes unavailable, your provider may recommend a clinically appropriate alternative or initiate a refund as described in this Policy.</p>`,
       },
       {
         id: "ref-unavailable",
         title: "2. Refunds for Unavailable Treatments",
         summary: null,
-        html: `<p>If a provider determines that the requested treatment is medically inappropriate or unavailable for your specific case, you are entitled to a refund proportional to the unused portion of your subscription or payment:</p>
-<ul>
-<li><strong>Pre-Consultation:</strong> If no consultation has been conducted and no treatment has been issued, you are entitled to a full refund of any amounts paid for that treatment cycle.</li>
-<li><strong>Post-Consultation, Pre-Shipment:</strong> If a consultation was completed but no medication has been dispensed or shipped, you are entitled to a partial refund equal to the medication cost minus any consultation fee.</li>
-<li><strong>Partially Used Treatment:</strong> If medication has been partially dispensed or shipped, refunds will be prorated based on the unshipped or unused portion at the per-unit cost disclosed at checkout.</li>
-</ul>
-<p>We do not refund consultation or clinical review fees for completed consultations, as these represent the professional services of licensed clinicians.</p>`,
+        html: `<p>If your provider determines that a requested treatment is clinically unavailable for you, you are entitled to a prorated refund based on the unshipped or unused portion of your plan at the listed monthly price, minus the cost of medications, consultations, and other services already provided.</p>`,
       },
       {
-        id: "ref-switch",
+        id: "ref-alternative",
         title: "3. Switching to an Alternative Treatment",
         summary: null,
-        html: `<p>If your provider recommends switching to an alternative treatment within the same therapeutic category (for example, switching from one GLP-1 formulation to another), the cost difference, if any, will be:</p>
-<ul>
-<li><strong>No additional charge</strong> if the alternative treatment is at the same or lower price point.</li>
-<li><strong>Prorated adjustment</strong> applying any prepaid balance toward the alternative for the remainder of your current subscription period.</li>
-</ul>
-<p>You are under no obligation to accept an alternative treatment. If you decline the alternative, you are entitled to a refund under the terms in Section 2.</p>`,
+        html: `<p>Where clinically appropriate, your provider may recommend an alternative treatment at no additional cost for the remaining duration of your current plan, subject to provider approval. You are under no obligation to accept the alternative.</p>`,
       },
       {
         id: "ref-processing",
         title: "4. Refund Processing",
         summary: null,
-        html: `<p>Approved refunds are processed as follows:</p>
-<ul>
-<li><strong>Timeline:</strong> Refunds are initiated within 5 business days of approval and will appear on your original payment method within 5–30 days depending on your financial institution.</li>
-<li><strong>Method:</strong> Refunds are returned to the original payment method used at checkout. We do not issue refunds as store credit or in an alternative form without your written consent.</li>
-<li><strong>Currency:</strong> All refunds are issued in U.S. dollars.</li>
-</ul>
-<p>If you paid via a third-party financing provider, your refund will be applied to reduce your outstanding balance with that provider.</p>`,
+        html: `<p>Approved refunds are issued to the original payment method and processed within 30 days of approval.</p>`,
+      },
+      {
+        id: "ref-communications",
+        title: "5. Member Communications",
+        summary: null,
+        html: `<p>By purchasing a plan, you agree to receive notifications regarding your plan via email and other electronic channels. You confirm that you have read and understood this Refund Policy.</p>`,
       },
       {
         id: "ref-contact",
-        title: "5. How to Request a Refund",
+        title: "6. Contact",
         summary: null,
-        html: `<p>To request a refund, or if you have questions about a charge:</p>
-<ul>
-<li><strong>Email:</strong> <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> with subject line "Refund Request"</li>
-<li>Include your account email address, the date of purchase, and a brief description of your request</li>
-</ul>
-<p>Our support team will review your request and respond within 3 business days. Refund eligibility is determined in accordance with this Policy and the clinical facts of your case.</p>
-<p>We are committed to resolving refund requests fairly and efficiently. If you believe a refund determination is incorrect, you may escalate to our Patient Advocate team at the same email address.</p>`,
+        html: `<p>Healsend, Inc.<br><a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a></p>`,
       },
     ],
   },
@@ -589,172 +856,172 @@ export const LEGAL_PAGE_DATA = {
     sectionBlocks: [
       {
         id: "si-general",
-        title: "1. General Safety Notices",
+        title: "1. Important Safety Information",
         summary: null,
-        html: `<p><strong>Last Updated: January 1, 2025</strong></p>
-<p><strong>EMERGENCY:</strong> If you are experiencing a medical emergency, call 911 immediately or go to the nearest emergency room. Do not use the Platform for emergency communications.</p>
-<p><strong>Adverse Events:</strong> If you experience any unexpected or concerning symptoms after starting a treatment, contact your provider immediately through the Platform messaging system or call your local emergency services.</p>
-<p><strong>Not Medical Advice:</strong> The information on this page is for general educational purposes and does not constitute individualized medical advice. All clinical decisions, including whether a medication is appropriate for you, are made by your licensed provider.</p>
-<p><strong>Prescriptions Required:</strong> All medications available through Healsend require a valid prescription issued by a licensed provider following a clinical consultation. We do not dispense medications without a valid prescription.</p>
-<p><strong>Healsend's Role:</strong> Healsend is a Management Services Organization (MSO) and technology platform, not a medical provider. All clinical care is provided by independent Professional Entities.</p>`,
+        html: `<p>We encourage our patients to report negative side effects of prescription drugs to the FDA. Visit <a href="https://www.fda.gov/medwatch" target="_blank" rel="noopener noreferrer">fda.gov/medwatch</a> or call 1-800-FDA-1088. If you have a medical emergency, call 911 immediately.</p>`,
       },
       {
         id: "si-advertisements",
-        title: "2. Advertisements & Services",
+        title: "2. Healsend Advertisements",
         summary: null,
-        html: `<p><strong>Paid Advertising:</strong> Healsend may run paid advertisements on third-party platforms. These advertisements are intended to inform potential patients about available telehealth services and do not constitute medical claims or guarantees of outcomes.</p>
-<p><strong>Special Offers:</strong> Promotional pricing, free trial periods, or discounts may be available from time to time. These offers are subject to terms disclosed at the point of enrollment. Clinical determinations are not affected by promotional pricing.</p>
-<p><strong>Trademarks:</strong> "Healsend" and all associated logos are trademarks of Healsend LLC. Third-party brand names appear for informational purposes only and do not imply endorsement.</p>`,
+        html: `<p>All Healsend advertisements are paid for by Healsend. Advertisements may include paid actors. Results may vary and outcomes are not guaranteed.</p>`,
+      },
+      {
+        id: "si-services",
+        title: "3. Healsend Services",
+        summary: null,
+        html: `<p>Healsend offers and/or facilitates access to licensed medical professional consultations. Healsend is NOT a medical provider or pharmacy. Healsend provides software and technology services only.</p>`,
+      },
+      {
+        id: "si-special-offers",
+        title: "4. Special Advertising Offers",
+        summary: null,
+        html: `<p>Special advertising offers may be available for up to 24 hours after removal of the original advertisement. Healsend reserves the right to adjust pricing. "Same price per dose" offers are subject to additional terms.</p>`,
+      },
+      {
+        id: "si-prescription",
+        title: "5. Prescription Medications",
+        summary: null,
+        html: `<p>All prescription medications require a consultation and a prescription. Prescriptions are solely determined by a licensed medical professional. Access to prescription medications is not guaranteed.</p>`,
       },
       {
         id: "si-compounded",
-        title: "3. About Compounded Medications",
+        title: "6. Compounded Medications",
         summary: null,
-        html: `<p>Some medications available through Healsend are compounded by licensed 503A or 503B compounding pharmacies. Important information about compounded medications:</p>
-<ul>
-<li><strong>FDA Approval Status:</strong> Compounded medications are not evaluated, approved, or subject to the same pre-market review as commercially manufactured FDA-approved drugs. They are prepared for specific patients based on a prescription.</li>
-<li><strong>Quality Standards:</strong> Our pharmacy partners operate under USP <797> and <800> standards for sterile and hazardous compounding. 503B outsourcing facilities comply with additional FDA oversight.</li>
-<li><strong>Non-Interchangeability:</strong> Compounded medications are not generically equivalent to commercially available brand-name or generic products and should not be used interchangeably without consulting your provider.</li>
-<li><strong>Personalized Formulations:</strong> Your provider may prescribe compounded medications in dosages or delivery forms (e.g., subcutaneous injection, nasal spray) not available commercially, tailored to your specific clinical needs.</li>
-</ul>`,
+        html: `<p>Compounded medications are prepared by licensed USA-based 503A or 503B pharmacies. Compounded medications are NOT FDA-approved. They may be prescribed during periods of drug shortage or for individual patient needs.</p>`,
+      },
+      {
+        id: "si-trademarks",
+        title: "7. Trademarks",
+        summary: null,
+        html: `<p>Healsend does not claim ownership over brand-name FDA-approved medications. All trademarks belong to their respective owners.</p>`,
+      },
+      {
+        id: "si-inquiries",
+        title: "8. Inquiries",
+        summary: null,
+        html: `<p>For questions or concerns, visit <a href="https://healsend.com">Healsend.com</a>.</p>`,
       },
       {
         id: "si-semaglutide",
-        title: "4. Compounded GLP-1 (Semaglutide)",
+        title: "9. Compounded GLP-1 (Semaglutide)*",
         summary: null,
-        html: `<p><strong>WARNING:</strong> Semaglutide is indicated for chronic weight management in adults with obesity (BMI ≥30) or overweight (BMI ≥27) with at least one weight-related condition, or for glycemic control in type 2 diabetes. It is not indicated for type 1 diabetes or as a first-line therapy for all patients.</p>
-<h3>BLACK BOX WARNING — Thyroid C-Cell Tumors</h3>
-<p>GLP-1 receptor agonists, including semaglutide, cause thyroid C-cell tumors in rodents at clinically relevant exposures. It is unknown whether semaglutide causes thyroid C-cell tumors, including medullary thyroid carcinoma (MTC), in humans. This medication is contraindicated in patients with a personal or family history of MTC or in patients with Multiple Endocrine Neoplasia syndrome type 2 (MEN 2).</p>
-<h3>Common Side Effects</h3>
-<ul>
-<li>Nausea, vomiting, diarrhea, constipation</li>
-<li>Abdominal pain or discomfort</li>
-<li>Decreased appetite</li>
-<li>Headache, fatigue</li>
-<li>Injection site reactions (redness, irritation)</li>
-</ul>
-<h3>Serious Side Effects — Seek Immediate Medical Attention</h3>
-<ul>
-<li>Pancreatitis: severe persistent abdominal pain</li>
-<li>Gallbladder problems: abdominal pain, jaundice, fever</li>
-<li>Hypoglycemia (especially if combined with other diabetic medications)</li>
-<li>Acute kidney injury from dehydration due to severe GI side effects</li>
-<li>Allergic reactions: rash, itching, rapid heartbeat, difficulty breathing</li>
-</ul>
+        html: `<p><em>*This medication is not FDA-regulated as a compounded formulation.</em></p>
+<h3>WARNING</h3>
+<p>Seek emergency help if you have symptoms of a serious allergic reaction, including swelling of your face, lips, tongue, or throat; problems breathing or swallowing; severe rash or itching; fainting or feeling dizzy; very rapid heartbeat.</p>
+<p>Tell your healthcare provider if you get a lump or swelling in your neck, hoarseness, trouble swallowing, or shortness of breath. These may be symptoms of thyroid cancer.</p>
+<p>Women of childbearing age should use adequate contraception during treatment. Stop taking semaglutide at least 2 months before a planned pregnancy due to the long half-life of the drug.</p>
 <h3>Drug Interactions</h3>
-<ul>
-<li>Slows gastric emptying — may affect absorption of oral medications taken concurrently</li>
-<li>Insulin and insulin secretagogues: increased hypoglycemia risk</li>
-<li>Warfarin: monitor INR closely when starting or changing semaglutide dose</li>
-</ul>`,
+<p>Semaglutide slows gastric emptying, which may impact the absorption of concomitantly administered oral medications. Use with insulin or insulin secretagogues may increase the risk of hypoglycemia; dose reduction may be required.</p>
+<h3>BLACK BOX WARNING — Thyroid C-Cell Tumors</h3>
+<p>Semaglutide causes thyroid C-cell tumors in rodents at clinically relevant exposures. It is unknown whether semaglutide causes thyroid C-cell tumors, including medullary thyroid carcinoma (MTC), in humans, as the human relevance of semaglutide-induced rodent thyroid C-cell tumors has not been determined.</p>
+<p>Semaglutide is contraindicated in patients with a personal or family history of MTC or in patients with Multiple Endocrine Neoplasia syndrome type 2 (MEN 2). Counsel patients regarding the potential risk of MTC and the symptoms of thyroid tumors.</p>`,
       },
       {
         id: "si-tirzepatide",
-        title: "5. Compounded GLP-1+GIP (Tirzepatide)",
+        title: "10. Compounded GLP-1+GIP (Tirzepatide)*",
         summary: null,
-        html: `<p><strong>WARNING:</strong> Tirzepatide is a dual GIP and GLP-1 receptor agonist. Like semaglutide, it carries a BLACK BOX WARNING for thyroid C-cell tumors in rodents. Contraindicated in patients with personal or family history of MTC or MEN 2.</p>
-<h3>Serious Side Effects — Seek Immediate Medical Attention</h3>
+        html: `<p><em>*This medication is not FDA-regulated as a compounded formulation.</em></p>
+<h3>WARNING</h3>
+<p>Tirzepatide causes thyroid C-cell tumors in rats. It is unknown whether tirzepatide causes thyroid tumors, including medullary thyroid carcinoma (MTC), in humans. Tirzepatide is contraindicated in patients with a personal or family history of MTC or Multiple Endocrine Neoplasia syndrome type 2 (MEN 2). Counsel patients to report symptoms such as a mass in the neck, dysphagia, dysphonia, or dyspnea.</p>
+<h3>Serious Side Effects</h3>
 <ul>
-<li>Pancreatitis: persistent severe abdominal pain radiating to the back</li>
-<li>Severe hypoglycemia when used with insulin or sulfonylurea</li>
+<li>Pancreatitis: discontinue if suspected</li>
+<li>Hypoglycemia, especially when used with insulin or sulfonylureas</li>
 <li>Acute kidney injury</li>
-<li>Severe gastrointestinal events requiring hospitalization</li>
-<li>Diabetic retinopathy complications (in patients with pre-existing diabetic retinopathy)</li>
+<li>Serious hypersensitivity reactions (angioedema, anaphylaxis)</li>
+<li>Acute gallbladder disease</li>
+<li>Diabetic retinopathy complications</li>
 </ul>
 <h3>Common Side Effects</h3>
 <ul>
-<li>Nausea (most common, typically transient)</li>
-<li>Diarrhea, vomiting, constipation</li>
+<li>Nausea, diarrhea, vomiting, constipation</li>
 <li>Abdominal pain, dyspepsia</li>
 <li>Decreased appetite</li>
-<li>Injection site reactions</li>
 <li>Fatigue, dizziness</li>
+<li>Injection site reactions</li>
 </ul>
 <h3>Drug Interactions</h3>
-<ul>
-<li>Oral contraceptives: administer at least 4 weeks before initiating tirzepatide; after reaching maintenance dose, administer at the same time each day or switch to non-oral contraceptive option</li>
-<li>Insulin: dose reduction may be required; close glucose monitoring recommended</li>
-<li>Medications with narrow therapeutic windows: monitor more frequently as absorption may be affected</li>
-</ul>`,
+<p>Oral contraceptives: administer oral contraceptives at least 4 weeks before initiating tirzepatide and for 4 weeks after each dose increase, as tirzepatide may lower the effect of oral contraceptives. Consider switching to a non-oral contraceptive or adding a barrier method during dose escalation.</p>`,
       },
       {
         id: "si-nad",
-        title: "6. NAD+ (Nicotinamide Adenine Dinucleotide)",
+        title: "11. NAD+",
         summary: null,
-        html: `<h3>Available Forms</h3>
-<p>NAD+ is available as subcutaneous injection and intranasal spray. Formulations and dosages are individualized by your provider.</p>
-<h3>Common Side Effects</h3>
-<ul>
-<li><strong>Injection:</strong> Flushing, warmth, tingling or itching at injection site, nausea, fatigue, headache</li>
-<li><strong>Nasal Spray:</strong> Nasal irritation or dryness, headache, mild flushing</li>
-</ul>
+        html: `<h3>Common Side Effects</h3>
+<p><strong>Injection:</strong> Flushing, warmth, tingling, nausea, fatigue, headache, injection-site reactions.</p>
+<p><strong>Nasal Spray:</strong> Nasal irritation, headache, mild flushing.</p>
+<h3>More Serious Side Effects</h3>
+<p>Allergic reactions (rash, difficulty breathing); contact your provider immediately if these occur.</p>
 <h3>Warnings</h3>
 <ul>
-<li>Do not use if you have known hypersensitivity to NAD+ or any component of the formulation</li>
-<li>Limited long-term human safety data exists; discuss duration of therapy with your provider</li>
-<li>Not FDA-approved for any specific indication; evidence base is primarily in vitro and animal studies with limited clinical trial data</li>
+<li>Limited long-term human safety data</li>
+<li>Not FDA-approved for any specific indication</li>
+<li>Discuss duration of therapy and monitoring with your provider</li>
 </ul>
 <h3>Contraindications</h3>
 <ul>
-<li>Known allergy to NAD+ formulation components</li>
-<li>Active cancer (relative contraindication — discuss with oncologist)</li>
-<li>Pregnancy or breastfeeding (insufficient data)</li>
+<li>Known allergy to NAD+ or formulation components</li>
+<li>Active cancer (discuss with oncologist)</li>
 </ul>
 <h3>Drug Interactions</h3>
-<p>No well-established drug interactions identified. May theoretically interact with PARP inhibitors used in oncology. Inform your provider of all medications.</p>
+<p>May theoretically interact with PARP inhibitors. Inform your provider of all medications and supplements.</p>
+<h3>Pregnancy &amp; Breastfeeding</h3>
+<p>Insufficient data; avoid unless directed by your provider.</p>
 <h3>Storage</h3>
-<p>Store per pharmacy label instructions, typically refrigerated at 2–8°C. Protect from light. Do not use if discolored or particulate matter is visible.</p>`,
+<p>Refrigerate at 2–8°C; protect from light. Do not use if discolored or if particulate matter is visible.</p>
+<h3>Have Questions?</h3>
+<p>Contact your Healsend provider through the platform messaging system.</p>`,
       },
       {
         id: "si-sermorelin",
-        title: "7. Sermorelin",
+        title: "12. Sermorelin",
         summary: null,
-        html: `<p>Sermorelin is a growth hormone-releasing hormone (GHRH) analogue that stimulates the pituitary gland to produce and release growth hormone.</p>
+        html: `<h3>Safety Information</h3>
+<p>Sermorelin is a synthetic analogue of growth hormone-releasing hormone (GHRH) that stimulates the pituitary gland to produce and release growth hormone.</p>
 <h3>Common Side Effects</h3>
 <ul>
 <li>Injection site reactions (redness, pain, swelling)</li>
-<li>Flushing</li>
-<li>Headache</li>
-<li>Dizziness</li>
-<li>Nausea</li>
+<li>Flushing, headache, dizziness, nausea</li>
 </ul>
-<h3>Less Common Side Effects</h3>
+<h3>Less Common / Rare Side Effects</h3>
 <ul>
-<li>Changes in taste</li>
-<li>Hyperactivity or restlessness</li>
-<li>Somnolence</li>
+<li>Changes in taste, hyperactivity, somnolence</li>
 <li>Difficulty swallowing (rare)</li>
 </ul>
 <h3>Warnings</h3>
 <ul>
-<li>May increase IGF-1 levels; routine monitoring recommended during therapy</li>
-<li>Patients with active malignancy should not use sermorelin without oncologist guidance</li>
+<li>May increase IGF-1 levels; routine monitoring recommended</li>
 <li>Hypothyroidism may reduce response; treat underlying thyroid conditions before or during therapy</li>
 </ul>
 <h3>Contraindications</h3>
 <ul>
-<li>Known hypersensitivity to sermorelin or any formulation component</li>
+<li>Known hypersensitivity to sermorelin or formulation components</li>
 <li>Active malignancy</li>
-<li>Pregnancy (Category C; insufficient human data)</li>
 </ul>
 <h3>Drug Interactions</h3>
 <ul>
-<li>Glucocorticoids may blunt sermorelin's effect on growth hormone release</li>
-<li>Insulin and anti-diabetic agents: growth hormone elevation may alter glucose metabolism; monitor closely</li>
+<li>Glucocorticoids may blunt the effect on growth hormone release</li>
+<li>Insulin and anti-diabetic agents: monitor glucose closely</li>
 </ul>
+<h3>Pregnancy &amp; Breastfeeding</h3>
+<p>Category C; insufficient human data. Avoid unless benefits outweigh risks as determined by your provider.</p>
 <h3>Storage</h3>
-<p>Refrigerate at 2–8°C. Reconstituted solutions should be used within the timeframe specified by the compounding pharmacy, typically within 30 days.</p>`,
+<p>Refrigerate at 2–8°C. Reconstituted solutions should be used within the timeframe specified by the pharmacy, typically within 30 days.</p>
+<h3>Have Questions?</h3>
+<p>Contact your Healsend provider through the platform messaging system.</p>`,
       },
       {
         id: "si-pt141",
-        title: "8. Compounded PT-141 (Bremelanotide) Nasal Spray",
+        title: "13. Compounded PT-141 Nasal Spray (Bremelanotide)*",
         summary: null,
-        html: `<p>PT-141 (bremelanotide) is a melanocortin receptor agonist used for hypoactive sexual desire disorder (HSDD). The FDA-approved version is an autoinjector (Vyleesi®); compounded nasal spray is not FDA-approved.</p>
-<p><strong>WARNING:</strong> PT-141 can cause transient increases in blood pressure. It is contraindicated in patients with cardiovascular disease or uncontrolled hypertension.</p>
+        html: `<p><em>*This medication is not FDA-regulated as a compounded nasal spray formulation.</em></p>
+<h3>WARNING</h3>
+<p>PT-141 can cause transient increases in blood pressure. Do not use if you have cardiovascular disease or uncontrolled hypertension. Blood pressure typically returns to baseline within 12 hours.</p>
 <h3>Drug Interactions</h3>
 <ul>
-<li><strong>Naltrexone:</strong> Reduces PT-141 effectiveness; avoid co-administration</li>
-<li><strong>Antihypertensives:</strong> Blood pressure effects may interact; monitor blood pressure</li>
+<li><strong>Naltrexone:</strong> Reduces effectiveness; avoid co-administration</li>
+<li><strong>Antihypertensives:</strong> Monitor blood pressure; effects may interact</li>
 <li>Do not use with other melanocortin agonists</li>
 </ul>
 <h3>Contraindications</h3>
@@ -766,11 +1033,10 @@ export const LEGAL_PAGE_DATA = {
 <h3>Common Side Effects</h3>
 <ul>
 <li>Flushing (most common)</li>
-<li>Nausea</li>
-<li>Headache</li>
-<li>Nasal congestion or irritation (nasal spray form)</li>
+<li>Nausea, headache</li>
+<li>Nasal congestion or irritation</li>
 <li>Transient blood pressure increase</li>
-<li>Hyperpigmentation with frequent use (fades after discontinuation)</li>
+<li>Hyperpigmentation with frequent use (typically fades after discontinuation)</li>
 </ul>
 <h3>Storage</h3>
 <p>Store at room temperature (15–30°C), away from heat and light. Do not freeze. Discard per compounding pharmacy guidelines.</p>`,
@@ -790,175 +1056,207 @@ export const LEGAL_PAGE_DATA = {
     sectionBlocks: [
       {
         id: "tos-overview",
-        title: "1. Overview & Acceptance",
+        title: "1. Overview and Acceptance",
         summary: null,
-        html: `<p><strong>Last Updated: January 1, 2025 | Effective Date: January 1, 2025</strong></p>
-<p>These Terms of Service ("Terms") constitute a legally binding agreement between you ("User," "Patient," "you") and Healsend LLC ("Healsend," "we," "us," "our"). By accessing or using the Healsend platform, website, or any associated services (collectively, the "Platform"), you agree to be bound by these Terms.</p>
-<p><strong>If you do not agree to these Terms, do not use the Platform.</strong></p>
+        html: `<p><strong>Effective Date: October 5, 2025</strong></p>
+<p>These Terms of Service ("Terms") constitute a binding agreement between you and Healsend Inc. ("Healsend," "we," "us"). By accessing or using the Healsend platform ("Platform"), you agree to these Terms. If you do not agree, do not use the Platform.</p>
 <p>These Terms incorporate by reference our <a href="/privacy-policy">Privacy Policy</a>, <a href="/consent-to-telehealth-2">Telehealth Consent</a>, <a href="/refund-policy">Refund Policy</a>, and <a href="/safety-information">Safety Information</a>. In the event of a conflict between these Terms and any incorporated document, these Terms control.</p>
-<p>We reserve the right to modify these Terms at any time. Material changes will be communicated via email or a prominent notice on the Platform. Continued use after the effective date of any modification constitutes acceptance of the revised Terms.</p>`,
+<p>Healsend may assign its rights and obligations under these Terms to any successor entity or acquirer. You may not assign your rights without our written consent. We reserve the right to modify these Terms with reasonable notice; continued use after the effective date constitutes acceptance.</p>`,
       },
       {
         id: "tos-about",
         title: "2. About Healsend",
         summary: null,
-        html: `<p>Healsend is a Management Services Organization (MSO) and technology company. We provide an administrative and technology platform through which licensed healthcare professionals and Independent Professional Entities deliver telehealth services to patients.</p>
-<h3>Healsend is NOT:</h3>
-<ul>
-<li>A medical provider, hospital, or healthcare system</li>
-<li>A licensed physician group</li>
-<li>An employer of licensed clinicians in their clinical capacity</li>
-<li>A pharmacy or drug manufacturer</li>
-</ul>
-<h3>Healsend IS:</h3>
-<ul>
-<li>A technology platform connecting patients with independent licensed providers</li>
-<li>An administrative services provider to Professional Entities</li>
-<li>A business associate of HIPAA-covered Professional Entities</li>
-</ul>
-<p>All clinical decisions, diagnoses, prescriptions, and treatment determinations are made exclusively by the independent licensed professionals affiliated with the Platform's Professional Entities. These professionals exercise independent clinical judgment and are not directed by Healsend in their clinical practice.</p>`,
+        html: `<p>Healsend Inc. is a Management Services Organization (MSO) and technology company. We provide administrative, operational, and technology infrastructure to independent licensed medical practices and Professional Entities. Healsend does not practice medicine, employ physicians, or engage in the corporate practice of medicine.</p>
+<p>All clinical decisions — including diagnoses, treatment recommendations, and prescription issuance — are made solely by licensed healthcare providers affiliated with independent Professional Entities. Your use of the Platform does not create a physician-patient relationship with Healsend.</p>`,
       },
       {
         id: "tos-eligibility",
-        title: "3. Eligibility & User Responsibilities",
+        title: "3. Eligibility and User Responsibilities",
         summary: null,
-        html: `<h3>Eligibility Requirements</h3>
-<p>To use the Platform, you must:</p>
+        html: `<p>You must be at least 18 years of age and a resident of the United States to use the Platform. By creating an account, you represent that:</p>
 <ul>
-<li>Be at least 18 years of age</li>
-<li>Be a resident of a U.S. state where Healsend services are available</li>
-<li>Have legal authority to enter into binding contracts under applicable law</li>
-<li>Provide accurate, current, and complete information about yourself</li>
+<li>All information you provide is accurate, current, and complete</li>
+<li>You will maintain the security of your account credentials</li>
+<li>You will promptly update your information if it changes</li>
+<li>You will not allow others to use your account</li>
 </ul>
-<h3>Account Security</h3>
-<p>You are responsible for:</p>
-<ul>
-<li>Maintaining the confidentiality of your account credentials</li>
-<li>All activities that occur under your account</li>
-<li>Notifying us immediately at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> of any unauthorized access</li>
-</ul>
-<h3>Prohibited Conduct</h3>
-<p>You may not:</p>
-<ul>
-<li>Provide false or misleading health information</li>
-<li>Use the Platform for any unlawful purpose</li>
-<li>Attempt to access another user's account</li>
-<li>Use automated tools to scrape or extract data from the Platform</li>
-<li>Circumvent access controls or security measures</li>
-<li>Resell or transfer access to your account</li>
-</ul>`,
+<p>Prohibited uses include: impersonating another person; providing false health information; attempting to obtain controlled substances fraudulently; using automated tools to access the Platform; or any use that violates applicable law.</p>`,
       },
       {
         id: "tos-services",
         title: "4. Description of Services",
         summary: null,
-        html: `<p>Through the Platform, you may access:</p>
+        html: `<p>Through the Platform, Healsend facilitates:</p>
 <ul>
-<li><strong>Health Intake & Consultation:</strong> Complete questionnaires reviewed by licensed providers who issue clinical determinations.</li>
-<li><strong>Prescription Management:</strong> Where clinically appropriate, receive prescriptions transmitted to licensed pharmacies on your behalf.</li>
-<li><strong>Treatment Plans:</strong> Ongoing access to personalized treatment protocols developed by your assigned provider.</li>
-<li><strong>Secure Messaging:</strong> Communicate with your care team within the Platform.</li>
-<li><strong>Progress Tracking:</strong> Log health metrics and receive automated insights.</li>
+<li>Electronic health registration and clinical intake</li>
+<li>Secure video and asynchronous messaging consultations with licensed providers</li>
+<li>Electronic prescription routing to licensed pharmacies</li>
+<li>Payment processing and medication shipping coordination</li>
 </ul>
-<h3>Service Limitations</h3>
-<ul>
-<li>Services are not available in all U.S. states</li>
-<li>Not all treatments are available in all states due to state-specific regulations</li>
-<li>We do not provide emergency services, in-person care, or urgent care</li>
-<li>Availability is subject to provider capacity and clinical appropriateness</li>
-</ul>`,
+<p>The Platform is not intended for medical emergencies. If you are experiencing an emergency, call 911 immediately.</p>`,
+      },
+      {
+        id: "tos-relationship",
+        title: "5. Relationship Between You, Healsend, and Professional Entities",
+        summary: null,
+        html: `<p>Providers affiliated with Professional Entities exercise independent clinical judgment. They are not employees or agents of Healsend. All prescriptions, clinical findings, and treatment decisions are the sole responsibility of your treating Provider.</p>
+<p>Healsend does not direct or control the clinical decisions of any Provider. Healsend's role is limited to administrative support, technology services, and operational management.</p>`,
+      },
+      {
+        id: "tos-consent-telehealth",
+        title: "6. Consent to Telehealth",
+        summary: null,
+        html: `<p>By using the Platform, you consent to receive healthcare services via telehealth, including audio, video, and electronic/asynchronous communication. You may withdraw consent at any time, but withdrawal may limit or terminate your ability to receive services through the Platform.</p>
+<p>All telehealth communications are transmitted using HIPAA-compliant encryption. For full details, please review our <a href="/consent-to-telehealth-2">Consent to Telehealth Policy</a>.</p>`,
       },
       {
         id: "tos-payment",
-        title: "5. Payment, Billing & Refunds",
+        title: "7. Payment, Billing & Refunds",
         summary: null,
-        html: `<h3>Payment Authorization</h3>
-<p>By providing payment information, you authorize Healsend to charge the stated fees for services and, for subscriptions, to automatically charge your payment method on each billing cycle date until you cancel.</p>
-<h3>Subscriptions</h3>
+        html: `<p>By providing payment information, you authorize Healsend to charge the stated amount. All transactions are processed via PCI-DSS compliant payment processors. Plans are auto-renewing unless cancelled prior to the renewal date.</p>
+<p>Before initiating a chargeback or payment dispute, you agree to contact us at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>. The Platform does not accept insurance; all payments are self-pay. You are responsible for all applicable taxes.</p>
+<p>Refunds are governed by our <a href="/refund-policy">Refund Policy</a>. In summary: refunds are available when treatments are clinically unavailable for you. Consultation fees are non-refundable after clinical review is complete.</p>`,
+      },
+      {
+        id: "tos-conduct",
+        title: "8. User Conduct and Prohibited Uses",
+        summary: null,
+        html: `<p>You agree to comply with all applicable federal and state laws in your use of the Platform. Prohibited conduct includes:</p>
 <ul>
-<li>Subscriptions auto-renew until cancelled</li>
-<li>Cancel at any time through account settings or by contacting support; cancellation takes effect at the end of the current billing period</li>
-<li>We do not pro-rate partial subscription periods for voluntary cancellations</li>
+<li>Impersonation or submitting false enrollment information</li>
+<li>Unauthorized access attempts or use of automated scraping tools</li>
+<li>Uploading malware or otherwise interfering with Platform integrity</li>
+<li>Attempting to obtain prescription medications through fraudulent means</li>
 </ul>
-<h3>Refunds</h3>
-<p>Refunds are governed by our <a href="/refund-policy">Refund Policy</a>. In summary: refunds are available when treatments are clinically unavailable for you. Consultation fees are non-refundable after clinical review is complete.</p>
-<h3>Insurance & FSA/HSA</h3>
-<p>We do not bill insurance. All fees are self-pay. Telehealth consultation fees may be eligible for reimbursement from FSA or HSA accounts; consult your plan administrator. We can provide an itemized receipt upon request.</p>
-<h3>Chargebacks</h3>
-<p>Before initiating a chargeback with your financial institution, please contact us at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>. Fraudulent chargebacks may result in account suspension and collection action.</p>`,
+<p>We monitor Platform usage for compliance and reserve the right to suspend or terminate accounts for violations.</p>`,
+      },
+      {
+        id: "tos-ip",
+        title: "9. Intellectual Property Rights",
+        summary: null,
+        html: `<p>All intellectual property on the Platform — including software, designs, trademarks, and content — is owned by or licensed to Healsend. We grant you a non-exclusive, revocable, non-transferable license to use the Platform for personal healthcare purposes only.</p>
+<p>Any feedback or suggestions you provide may be used by Healsend without restriction or compensation. DMCA takedown requests should be sent to <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>.</p>`,
       },
       {
         id: "tos-privacy",
-        title: "6. Privacy & Data Handling",
+        title: "10. Privacy and Data Handling",
         summary: null,
-        html: `<p>Your use of the Platform is subject to our <a href="/privacy-policy">Privacy Policy</a> and, where applicable, our <a href="/consumer-health-data">Consumer Health Data Policy</a>. These policies describe how we collect, use, share, and protect your personal and health information.</p>
-<p>By using the Platform, you consent to the data practices described in those policies, including:</p>
-<ul>
-<li>Sharing health intake information with your assigned Professional Entity</li>
-<li>Transmitting prescriptions to licensed pharmacies</li>
-<li>Using analytics to improve the Platform</li>
-<li>Sending transactional and, with your consent, marketing communications</li>
-</ul>
-<p>Where Healsend acts as a business associate of a HIPAA-covered Professional Entity, your Protected Health Information is governed by a Business Associate Agreement and the Professional Entity's Notice of Privacy Practices.</p>`,
+        html: `<p>Your use of the Platform is subject to our <a href="/privacy-policy">Privacy Policy</a> and <a href="/consumer-health-data">Consumer Health Data Policy</a>. Health information is handled under a Business Associate Agreement (BAA) with applicable Covered Entities. We retain health records for a minimum of 7 years. All stored data is encrypted.</p>`,
+      },
+      {
+        id: "tos-communications",
+        title: "11. Communications and Electronic Records",
+        summary: null,
+        html: `<p>By creating an account, you consent to receive electronic records and disclosures, as permitted by the Electronic Signatures in Global and National Commerce Act (ESIGN) and the Uniform Electronic Transactions Act (UETA).</p>
+<p>We may send transactional communications (receipts, appointment reminders, clinical notifications) and, with consent, marketing communications. You may withdraw consent to marketing communications at any time via the unsubscribe link in any marketing email.</p>`,
       },
       {
         id: "tos-disclaimers",
-        title: "7. Disclaimers & Limitation of Liability",
+        title: "12. Disclaimers and Limitation of Liability",
         summary: null,
-        html: `<h3>No Medical Warranty</h3>
-<p>THE PLATFORM IS PROVIDED "AS IS." HEALSEND DOES NOT WARRANT THAT THE PLATFORM WILL BE ERROR-FREE, UNINTERRUPTED, OR SECURE. HEALSEND DOES NOT MAKE ANY REPRESENTATION REGARDING THE QUALITY, ACCURACY, OR APPROPRIATENESS OF ANY CLINICAL DETERMINATION MADE BY AN INDEPENDENT PROVIDER.</p>
-<h3>Limitation of Liability</h3>
-<p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, HEALSEND'S TOTAL LIABILITY TO YOU FOR ANY CLAIM ARISING OUT OF OR RELATING TO THESE TERMS OR YOUR USE OF THE PLATFORM SHALL NOT EXCEED THE TOTAL FEES YOU PAID TO HEALSEND IN THE 12 MONTHS PRECEDING THE CLAIM.</p>
-<p>IN NO EVENT SHALL HEALSEND BE LIABLE FOR INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
-<h3>Indemnification</h3>
-<p>You agree to indemnify and hold harmless Healsend, its officers, directors, and employees from any claims arising from your violation of these Terms, your use of the Platform, or your provision of false or misleading health information.</p>`,
+        html: `<p>THE PLATFORM IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND. WE DISCLAIM ALL IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT TO THE MAXIMUM EXTENT PERMITTED BY LAW.</p>
+<p>HEALSEND'S MAXIMUM LIABILITY FOR ANY CLAIM ARISING FROM YOUR USE OF THE PLATFORM IS LIMITED TO THE TOTAL FEES PAID BY YOU IN THE 12-MONTH PERIOD PRECEDING THE CLAIM. WE ARE NOT LIABLE FOR INDIRECT, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES.</p>
+<p>You agree to indemnify and hold harmless Healsend and its affiliates, officers, employees, and agents from any claims arising out of your violation of these Terms, your use of the Platform, or your provision of false information.</p>`,
       },
       {
         id: "tos-disputes",
-        title: "8. Dispute Resolution & Arbitration",
+        title: "13. Dispute Resolution and Arbitration",
         summary: null,
-        html: `<h3>Good Faith Resolution</h3>
-<p>Before initiating formal proceedings, you agree to contact Healsend at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> and attempt to resolve the dispute informally for a period of 30 days.</p>
-<h3>Binding Arbitration</h3>
-<p>If informal resolution fails, all disputes will be resolved by final and binding arbitration administered by the American Arbitration Association (AAA) under its Consumer Arbitration Rules. Arbitration will take place in Sheridan, Wyoming, or remotely at the parties' election. The Federal Arbitration Act governs the interpretation and enforcement of this clause.</p>
-<h3>Class Action Waiver</h3>
-<p><strong>YOU AND HEALSEND EXPRESSLY WAIVE ANY RIGHT TO BRING OR PARTICIPATE IN A CLASS ACTION, CONSOLIDATED ACTION, OR REPRESENTATIVE ACTION.</strong> All claims must be brought in your individual capacity.</p>
-<h3>Exceptions</h3>
-<p>Either party may seek emergency injunctive relief in any court of competent jurisdiction. Small claims court actions may be brought without arbitration if claims qualify within that court's jurisdiction.</p>
-<h3>Governing Law</h3>
-<p>These Terms are governed by the laws of the State of Wyoming, without regard to conflict of law principles.</p>`,
+        html: `<p>Before initiating arbitration, you agree to attempt informal resolution by contacting us at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> and allowing 30 days for resolution.</p>
+<p>If informal resolution fails, all disputes shall be resolved by binding individual arbitration under the AAA Consumer Arbitration Rules. You waive the right to participate in class-action litigation. Nothing in this section prevents either party from seeking injunctive relief in court for IP infringement or platform abuse.</p>`,
+      },
+      {
+        id: "tos-termination",
+        title: "14. Termination",
+        summary: null,
+        html: `<p>Healsend may suspend or terminate your access without notice for material violations of these Terms. Upon termination, your license to use the Platform ends immediately. Data will be retained and disposed of per applicable law and our Privacy Policy. Provisions that by their nature should survive termination (including dispute resolution, liability limitations, and IP rights) shall survive.</p>`,
+      },
+      {
+        id: "tos-governing-law",
+        title: "15. Governing Law and Jurisdiction",
+        summary: null,
+        html: `<p>These Terms are governed by the laws of the State of Wyoming, without regard to conflict of law principles. For matters not subject to arbitration, the parties consent to the exclusive jurisdiction of the state and federal courts located in Sheridan County, Wyoming. If any provision of these Terms is found unenforceable, the remaining provisions continue in full force.</p>`,
+      },
+      {
+        id: "tos-contact",
+        title: "16. Contact Information",
+        summary: null,
+        html: `<p>Healsend Inc.<br>30 N Gould St Ste R<br>Sheridan, WY 82801<br><a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a></p>
+<p>We acknowledge all written inquiries within 5 business days.</p>`,
+      },
+      {
+        id: "tos-updates",
+        title: "17. Updates to Terms",
+        summary: null,
+        html: `<p>We post a new Effective Date whenever we update these Terms. Material changes are communicated by email and via a notice on the Platform homepage. Prior versions of the Terms are archived for 7 years. Your continued use of the Platform after the effective date of any update constitutes acceptance of the revised Terms.</p>`,
       },
       {
         id: "tos-hipaa",
-        title: "9. HIPAA & Vendor Management",
+        title: "18. Business Associate & HIPAA Chain of Trust",
         summary: null,
-        html: `<h3>Business Associate Role</h3>
-<p>Where Healsend handles Protected Health Information on behalf of a HIPAA-covered Professional Entity, Healsend acts as a Business Associate subject to a signed Business Associate Agreement (BAA). Healsend complies with HIPAA Privacy and Security Rules in its BA capacity.</p>
-<h3>Subprocessors & Chain of Trust</h3>
-<p>Healsend maintains a chain of trust by requiring all subprocessors who handle PHI to execute BAAs. Our vendor management program includes:</p>
-<ul>
-<li>Annual security questionnaires for all vendors handling health data</li>
-<li>Written agreements containing HIPAA-required provisions</li>
-<li>Prompt notification obligations if a subprocessor discovers a breach</li>
-<li>Right to audit vendor security practices upon reasonable notice</li>
-</ul>
-<h3>Prescription Fulfillment</h3>
-<p>Prescriptions generated through the Platform are issued by licensed providers and transmitted electronically to licensed compounding or retail pharmacies. Healsend does not hold pharmaceutical licenses and does not dispense medications. The pharmacies are independent licensed entities subject to applicable state and federal pharmacy laws.</p>`,
+        html: `<p>Where Healsend functions as a Business Associate under 45 CFR Part 164, it maintains HIPAA-compliant administrative (§164.308), physical (§164.310), and technical (§164.312) safeguards. Healsend requires sub-processor BAAs from all subcontractors handling PHI and provides audit reports to applicable Covered Entities upon request.</p>`,
+      },
+      {
+        id: "tos-vendors",
+        title: "19. Vendor and Sub-Processor Management",
+        summary: null,
+        html: `<p>Third-party vendors and sub-processors are vetted prior to engagement and are contractually required to implement security measures equivalent to Healsend's standards. All patient data is processed within the United States. A list of sub-processors is available upon request.</p>`,
+      },
+      {
+        id: "tos-pharmacy",
+        title: "20. Prescription Fulfillment and Pharmacy Disclosure",
+        summary: null,
+        html: `<p>Medications are dispensed by independent licensed 503A or 503B pharmacies. Healsend does not own or control any pharmacy. Healsend does not receive ownership interests or per-prescription commissions from any pharmacy.</p>`,
+      },
+      {
+        id: "tos-refunds-chargebacks",
+        title: "21. Refunds, Chargebacks & Consumer Protections",
+        summary: null,
+        html: `<p>Administrative fees are non-refundable once services have commenced. Consultation fees are non-refundable after a clinical review is complete. Before filing a chargeback, you agree to notify us at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> at least 10 days in advance. Nothing in these Terms limits your rights under applicable state consumer protection laws or FTC regulations.</p>`,
+      },
+      {
+        id: "tos-sms-tcpa",
+        title: "22. SMS, Email & TCPA Consent",
+        summary: null,
+        html: `<p>By providing your phone number, you consent to receive transactional SMS messages related to your care (appointment reminders, prescription updates, billing notifications). Marketing SMS messages require separate opt-in consent. You may opt out of marketing messages at any time by replying STOP. Message frequency is approximately 4 messages per month for transactional communications. Consent records are retained for 4 years.</p>`,
+      },
+      {
+        id: "tos-accessibility",
+        title: "23. Accessibility",
+        summary: null,
+        html: `<p>We are committed to accessibility under ADA Section 508 and WCAG 2.1 AA standards. We conduct annual accessibility audits. To report accessibility barriers or request accommodations, contact <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>. We aim to resolve reported accessibility issues within 30 days.</p>`,
+      },
+      {
+        id: "tos-bcp",
+        title: "24. Business Continuity & Incident Response",
+        summary: null,
+        html: `<p>Healsend maintains a Business Continuity and Disaster Recovery (BC/DR) plan with redundant U.S. data centers. In the event of a HIPAA breach, we provide notification per 45 CFR §164.404. All personnel with access to PHI receive HIPAA training at least every 6 months. Our platform is designed to remain available during reasonable disruptions through automatic failover. Force majeure events (natural disasters, government actions, etc.) that prevent performance will not constitute a breach of these Terms.</p>`,
       },
       {
         id: "tos-state-addenda",
-        title: "10. State-Specific Addenda",
+        title: "25. State-Specific Addenda",
         summary: null,
         html: `<h3>California</h3>
-<p>California consumers have rights under the CCPA/CPRA as described in our <a href="/privacy-policy">Privacy Policy</a>. California law requires that certain disclosures be made regarding arbitration; the AAA Consumer Arbitration Rules govern this agreement. California Business & Professions Code § 17200 claims are subject to arbitration under these Terms.</p>
+<p>California consumers have rights under the CCPA/CPRA as described in our <a href="/privacy-policy">Privacy Policy</a>. California law requires that certain disclosures be made regarding arbitration; the AAA Consumer Arbitration Rules govern this agreement.</p>
 <h3>Washington</h3>
-<p>Washington residents have consumer health data rights under the My Health My Data Act as described in our <a href="/consumer-health-data">Consumer Health Data Policy</a>. Washington residents may bring claims under WA CPA in small claims court notwithstanding the arbitration clause.</p>
+<p>Washington residents have consumer health data rights under the My Health My Data Act (MHMDA). We fulfill deletion requests within 45 days. See our <a href="/consumer-health-data">Consumer Health Data Policy</a>.</p>
 <h3>Texas</h3>
-<p>Texas residents' health information is protected under Texas Health & Safety Code § 181 (Texas Medical Records Privacy Act). We maintain BAAs with all entities that handle Texas residents' health information and maintain training records for 6 years.</p>
-<h3>Florida & New York</h3>
-<p>Residents of these states have additional rights under state telehealth laws. State-specific service limitations may apply based on scope-of-practice or telehealth prescribing regulations in your state.</p>
+<p>Texas residents' health information is protected under Texas HB300 (Texas Medical Records Privacy Act). We maintain BAAs with all entities handling Texas residents' health information.</p>
+<h3>Florida</h3>
+<p>Florida residents have rights under Florida Statute §456.47 regarding telehealth services. State-specific service limitations may apply based on scope-of-practice regulations.</p>
+<h3>New York</h3>
+<p>New York requires 6-year retention of medical records. We comply with this requirement for all New York residents.</p>
 <h3>Colorado & Virginia</h3>
-<p>Residents of these states have data rights under their respective Consumer Data Protection Acts. These do not override the arbitration clause but supplement your privacy rights as described in our policies.</p>`,
+<p>Residents of these states have rights under their respective Consumer Data Protection Acts. Where state law provides greater protections than these Terms, the stricter rule prevails.</p>`,
+      },
+      {
+        id: "tos-entire-agreement",
+        title: "26. Entire Agreement and Execution",
+        summary: null,
+        html: `<p>These Terms, together with all incorporated policies, constitute the entire agreement between you and Healsend and supersede all prior agreements or understandings. No waiver of any term shall be deemed a continuing waiver or waiver of any other term. You may not assign your rights under these Terms without Healsend's prior written consent.</p>
+<p>Sections 9 (Intellectual Property), 12 (Disclaimers and Limitation of Liability), 13 (Dispute Resolution), 15 (Governing Law), 18 (Business Associate), and 26 (Entire Agreement) survive termination of these Terms.</p>
+<p><strong>By using the Healsend platform, you acknowledge that you have read, understood, and agree to these Terms of Service.</strong></p>`,
       },
     ],
   },

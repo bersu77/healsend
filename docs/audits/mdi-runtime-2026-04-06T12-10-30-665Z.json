@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-04-06T12:10:30.665Z",
+  "baseUrl": "http://127.0.0.1:3000",
+  "caseId": "mdi-case-1775477430418",
+  "orderId": "cmnfllubk001qmt0usfrl4wkm",
+  "results": [
+    {
+      "name": "login",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "partner auth completion",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "case_assigned webhook",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "offering_submitted webhook",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "prescription_submitted webhook",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "user visits api",
+      "ok": true,
+      "failure": "",
+      "summary": "6 visits"
+    },
+    {
+      "name": "user messages api",
+      "ok": true,
+      "failure": "",
+      "summary": "18 messages"
+    },
+    {
+      "name": "user projection",
+      "ok": true,
+      "failure": "",
+      "summary": "mdi-patient-1775477430418"
+    },
+    {
+      "name": "order projection",
+      "ok": true,
+      "failure": "",
+      "summary": "case mdi-case-1775477430418 / encounter mdi-encounter-1775477430418"
+    },
+    {
+      "name": "case snapshot projection",
+      "ok": true,
+      "failure": "",
+      "summary": "status completed"
+    },
+    {
+      "name": "message sync projection",
+      "ok": true,
+      "failure": "",
+      "summary": "mdi-patient-1775477430418"
+    },
+    {
+      "name": "webhook event log",
+      "ok": true,
+      "failure": "",
+      "summary": "3 logged events"
+    },
+    {
+      "name": "mdi care-team messages",
+      "ok": true,
+      "failure": "",
+      "summary": "4 case-specific messages"
+    }
+  ]
+}

@@ -648,13 +648,55 @@ function ProductHero({ productData }) {
                     </div>
                   )}
                 </div>
-                <div className="flex gap-1.5 pt-2">
-                  <span className="flex items-center rounded-[1rem] bg-[#ffb3c7] px-2.5 py-1 text-[10px] font-bold text-black md:text-xs">
-                    Klarna.
+                <div className="flex flex-col gap-1 pt-2">
+                  <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wide">
+                    Buy now, pay later
                   </span>
-                  <span className="flex items-center rounded-[1rem] bg-[#b2fce4] px-2.5 py-1 text-[10px] font-bold text-black md:text-xs">
-                    afterpay
-                  </span>
+                  <div className="flex gap-2">
+                    <span className="flex items-center gap-1 rounded-[0.6rem] bg-[#ffd6e5] px-3 py-1 text-[11px] font-black tracking-tight text-[#1a0030] md:text-xs">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 28 28"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="shrink-0"
+                      >
+                        <circle cx="14" cy="14" r="14" fill="#FF6BB2" />
+                        <text
+                          x="7"
+                          y="19"
+                          fontFamily="sans-serif"
+                          fontWeight="900"
+                          fontSize="16"
+                          fill="white"
+                        >
+                          k
+                        </text>
+                      </svg>
+                      Klarna
+                    </span>
+                    <span className="flex items-center gap-1 rounded-[0.6rem] bg-[#c8f7db] px-3 py-1 text-[11px] font-black tracking-tight text-[#0a2e1a] md:text-xs">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 28 28"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="shrink-0"
+                      >
+                        <circle cx="14" cy="14" r="14" fill="#39c77a" />
+                        <polyline
+                          points="7,14 12,19 21,9"
+                          stroke="white"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      Afterpay
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -1352,78 +1394,162 @@ function SimpleSteps({ productData }) {
 
 function LabTested({ productData: _productData }) {
   const content = staticLabTestedSection;
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const LAB_TESTS = [
+    {
+      name: "Potency Test",
+      description:
+        "Confirms the medication contains ±10% of the appropriate concentration of the active ingredient.",
+    },
+    {
+      name: "Sterility Test",
+      description:
+        "Ensures the medication is free from bacteria or pathogens and meets USP 797 requirements.",
+    },
+    {
+      name: "Endotoxicity",
+      description:
+        "Ensures endotoxin levels remain below USP 85 thresholds for patient safety.",
+    },
+    {
+      name: "pH Test",
+      description:
+        "Confirms acid/base balance to minimize irritation upon injection.",
+    },
+  ];
 
   return (
-    <section className="bg-[#f9f9f9] px-4 py-20 md:px-8 lg:px-16">
-      <div className="mx-auto max-w-[1200px]">
-        <div className="flex flex-col items-center gap-8 rounded-[2.5rem] bg-gradient-to-br from-[#6f68f0] to-[#8f88ff] p-6 md:p-10 lg:flex-row lg:gap-12 lg:p-12">
-          <div className="flex-1 text-white">
-            <h2 className="mb-6 text-3xl font-bold leading-[1.1] tracking-tight md:text-4xl lg:text-[2.75rem]">
-              {content.title}
+    <>
+      {/* Modal */}
+      {modalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8"
+          onClick={() => setModalOpen(false)}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+
+          {/* Panel */}
+          <div
+            className="relative z-10 w-full max-w-[680px] rounded-[2rem] bg-white p-6 shadow-2xl md:p-10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setModalOpen(false)}
+              className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-[#1c1a24] hover:bg-gray-50 transition-colors"
+              aria-label="Close"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <h2 className="mb-3 text-2xl font-bold text-[#1c1a24] md:text-3xl">
+              Lab tested for quality &amp; potency
             </h2>
-            <p className="mb-10 max-w-lg text-base leading-relaxed text-white/90 md:text-lg">
-              {content.description}
+            <p className="mb-7 text-sm leading-relaxed text-[#484555] md:text-base">
+              Our pharmacies perform third party testing through FDA and DEA
+              registered labs to run quality control checks for every compounded
+              lot.
             </p>
 
-            <div className="max-w-lg space-y-4">
-              <div className="flex items-center justify-between rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-md md:p-5">
-                <div className="flex items-center gap-4">
-                  <BadgeCheck
-                    className="h-6 w-6 text-white"
-                    strokeWidth={1.5}
-                  />
-                  <span className="text-base font-medium text-white">
-                    Third party quality control testing
-                  </span>
+            {/* Cards — 2-col on desktop, stacked on mobile */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {LAB_TESTS.map((test) => (
+                <div
+                  key={test.name}
+                  className="rounded-2xl border border-gray-100 bg-[#fafafa] p-5"
+                >
+                  <div className="mb-3 flex items-center justify-between gap-2">
+                    <span className="text-base font-bold text-[#1c1a24]">
+                      {test.name}
+                    </span>
+                    <span className="shrink-0 rounded-full bg-[#22c55e] px-3 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-white">
+                      Passed
+                    </span>
+                  </div>
+                  <p className="text-sm leading-relaxed text-[#484555]">
+                    {test.description}
+                  </p>
                 </div>
-                <button
-                  type="button"
-                  className="hs-outline-btn rounded-full px-5 py-2 text-sm font-medium transition-colors"
-                >
-                  Learn More
-                </button>
-              </div>
-              <div className="flex items-center gap-4 rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-md md:p-5">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-6 w-6 text-white"
-                >
-                  <rect x="2" y="4" width="20" height="16" rx="2" />
-                  <path d="M2 8h20" />
-                  <path d="M2 12h20" />
-                  <path d="M2 16h20" />
-                  <rect
-                    x="2"
-                    y="4"
-                    width="8"
-                    height="8"
-                    fill="currentColor"
-                    rx="1"
-                  />
-                </svg>
-                <span className="text-base font-medium text-white">
-                  Compounded in U.S. pharmacies
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="w-full lg:w-[45%]">
-            <div className="relative aspect-square overflow-hidden rounded-[2rem] shadow-2xl">
-              <img
-                src={content.image}
-                alt="Lab tested medications"
-                className="h-full w-full object-contain"
-              />
+              ))}
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      )}
+
+      <section className="bg-[#f9f9f9] px-4 py-20 md:px-8 lg:px-16">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="flex flex-col items-center gap-8 rounded-[2.5rem] bg-gradient-to-br from-[#6f68f0] to-[#8f88ff] p-6 md:p-10 lg:flex-row lg:gap-12 lg:p-12">
+            <div className="flex-1 text-white">
+              <h2 className="mb-6 text-3xl font-bold leading-[1.1] tracking-tight md:text-4xl lg:text-[2.75rem]">
+                {content.title}
+              </h2>
+              <p className="mb-10 max-w-lg text-base leading-relaxed text-white/90 md:text-lg">
+                {content.description}
+              </p>
+
+              <div className="max-w-lg space-y-4">
+                <div className="flex items-center justify-between rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-md md:p-5">
+                  <div className="flex items-center gap-4">
+                    <BadgeCheck
+                      className="h-6 w-6 text-white"
+                      strokeWidth={1.5}
+                    />
+                    <span className="text-base font-medium text-white">
+                      Third party quality control testing
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setModalOpen(true)}
+                    className="hs-outline-btn rounded-full px-5 py-2 text-sm font-medium transition-colors"
+                  >
+                    Learn More
+                  </button>
+                </div>
+                <div className="flex items-center gap-4 rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-md md:p-5">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-6 w-6 text-white"
+                  >
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="M2 8h20" />
+                    <path d="M2 12h20" />
+                    <path d="M2 16h20" />
+                    <rect
+                      x="2"
+                      y="4"
+                      width="8"
+                      height="8"
+                      fill="currentColor"
+                      rx="1"
+                    />
+                  </svg>
+                  <span className="text-base font-medium text-white">
+                    Compounded in U.S. pharmacies
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="w-full lg:w-[45%]">
+              <div className="relative aspect-square overflow-hidden rounded-[2rem] shadow-2xl">
+                <img
+                  src={content.image}
+                  alt="Lab tested medications"
+                  className="h-full w-full object-contain"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
 
@@ -1528,16 +1654,16 @@ function CleanSimpleEffective({ productData }) {
           Clean, simple, and effective
         </h2>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:grid-cols-6">
           {items.map((item) => (
             <div
               key={item.text || item.name}
-              className="flex min-h-[240px] flex-col items-center justify-center rounded-[2rem] bg-white p-6 text-center shadow-sm md:min-h-[280px] md:p-8"
+              className="flex flex-col items-center justify-center rounded-[1.5rem] bg-white p-5 text-center shadow-sm"
             >
-              <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-[#f9f9f9]">
-                <item.icon className="h-10 w-10 text-black" strokeWidth={1.5} />
+              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#f9f9f9]">
+                <item.icon className="h-7 w-7 text-black" strokeWidth={1.5} />
               </div>
-              <p className="whitespace-pre-line text-[1.05rem] font-medium leading-snug text-black md:text-lg">
+              <p className="whitespace-pre-line text-sm font-medium leading-snug text-black">
                 {item.text || item.name}
               </p>
             </div>

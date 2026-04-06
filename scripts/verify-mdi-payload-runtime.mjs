@@ -126,12 +126,17 @@ async function main() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email: DEMO_EMAIL, password: DEMO_PASSWORD }),
   });
-  const sessionCookie = (login.response.headers.get("set-cookie") || "").split(";")[0];
-  const loginOk = login.response.ok && sessionCookie.startsWith("session_token=");
+  const sessionCookie = (login.response.headers.get("set-cookie") || "").split(
+    ";",
+  )[0];
+  const loginOk =
+    login.response.ok && sessionCookie.startsWith("session_token=");
   results.push({
     name: "login",
     ok: loginOk,
-    failure: loginOk ? "" : `expected login success, got ${login.response.status}`,
+    failure: loginOk
+      ? ""
+      : `expected login success, got ${login.response.status}`,
     summary: `status ${login.response.status}`,
   });
 
@@ -139,20 +144,17 @@ async function main() {
     throw new Error("Unable to authenticate seeded demo user.");
   }
 
-  const customerPatch = await fetchJson(
-    `/api/mdi/customers/${user.id}`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        ...machineHeaders,
-      },
-      body: JSON.stringify({
-        patientId,
-        patientStatus: "linked",
-      }),
+  const customerPatch = await fetchJson(`/api/mdi/customers/${user.id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      ...machineHeaders,
     },
-  );
+    body: JSON.stringify({
+      patientId,
+      patientStatus: "linked",
+    }),
+  });
   const customerPatchOk =
     customerPatch.response.ok &&
     customerPatch.json?.customer?.mdiPatientId === patientId;
@@ -165,12 +167,9 @@ async function main() {
     summary: `status ${customerPatch.response.status}`,
   });
 
-  const customerGet = await fetchJson(
-    `/api/mdi/customers/${user.id}`,
-    {
-      headers: machineHeaders,
-    },
-  );
+  const customerGet = await fetchJson(`/api/mdi/customers/${user.id}`, {
+    headers: machineHeaders,
+  });
   const customerGetOk =
     customerGet.response.ok &&
     customerGet.json?.customer?.mdiPatientId === patientId;
@@ -183,45 +182,41 @@ async function main() {
     summary: `status ${customerGet.response.status}`,
   });
 
-  const orderPatch = await fetchJson(
-    `/api/mdi/orders/${order.id}`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        ...machineHeaders,
-      },
-      body: JSON.stringify({
-        data: {
-          eventType: "consultation_ready",
-          patient: {
-            id: patientId,
-            status: "linked",
-          },
-          order: {
-            id: mdiOrderId,
-            internalId: order.id,
-            status: "consultation_ready",
-          },
-          case: {
-            id: caseId,
-            phase: "consultation_ready",
-            provider: {
-              name: "Dr. Payload Variant",
-            },
-            offerings: [
-              { name: "Enclomiphene tablets", dosage: "25 mg" },
-            ],
-          },
-          consultation: {
-            id: consultationId,
-            url: consultationUrl,
-            status: "ready",
-          },
-        },
-      }),
+  const orderPatch = await fetchJson(`/api/mdi/orders/${order.id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      ...machineHeaders,
     },
-  );
+    body: JSON.stringify({
+      data: {
+        eventType: "consultation_ready",
+        patient: {
+          id: patientId,
+          status: "linked",
+        },
+        order: {
+          id: mdiOrderId,
+          external_id: mdiOrderId,
+          internalId: order.id,
+          status: "consultation_ready",
+        },
+        case: {
+          id: caseId,
+          phase: "consultation_ready",
+          provider: {
+            name: "Dr. Payload Variant",
+          },
+          offerings: [{ name: "Enclomiphene tablets", dosage: "25 mg" }],
+        },
+        consultation: {
+          id: consultationId,
+          url: consultationUrl,
+          status: "ready",
+        },
+      },
+    }),
+  });
   const orderPatchOk =
     orderPatch.response.ok &&
     orderPatch.json?.order?.mdiCaseId === caseId &&
@@ -236,16 +231,17 @@ async function main() {
     summary: `status ${orderPatch.response.status}`,
   });
 
-  const orderGet = await fetchJson(
-    `/api/mdi/orders/${order.id}`,
-    {
-      headers: machineHeaders,
-    },
-  );
+  const orderGet = await fetchJson(`/api/mdi/orders/${order.id}`, {
+    headers: machineHeaders,
+  });
+  const orderGetCaseId =
+    orderGet.json?.order?.mdiCaseSnapshot?.mdiCaseId ||
+    orderGet.json?.order?.mdiCaseId ||
+    null;
   const orderGetOk =
     orderGet.response.ok &&
     orderGet.json?.order?.mdiOrderId === mdiOrderId &&
-    orderGet.json?.order?.mdiCaseSnapshot?.mdiCaseId === caseId;
+    orderGetCaseId === caseId;
   results.push({
     name: "order get route",
     ok: orderGetOk,
@@ -255,23 +251,20 @@ async function main() {
     summary: `status ${orderGet.response.status}`,
   });
 
-  const tagsPatch = await fetchJson(
-    `/api/mdi/orders/${order.id}/tags`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        ...machineHeaders,
-      },
-      body: JSON.stringify({
-        tag: "priority-review",
-        voucher: voucherCode,
-        phase: "offering_review",
-        patientId,
-        caseId,
-      }),
+  const tagsPatch = await fetchJson(`/api/mdi/orders/${order.id}/tags`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      ...machineHeaders,
     },
-  );
+    body: JSON.stringify({
+      tag: "priority-review",
+      voucher: voucherCode,
+      phase: "offering_review",
+      patientId,
+      caseId,
+    }),
+  });
   const tagsPatchOk =
     tagsPatch.response.ok &&
     tagsPatch.json?.tags?.mdiOrderTag === "priority-review" &&
@@ -285,15 +278,11 @@ async function main() {
     summary: `status ${tagsPatch.response.status}`,
   });
 
-  const tagsGet = await fetchJson(
-    `/api/mdi/orders/${order.id}/tags`,
-    {
-      headers: machineHeaders,
-    },
-  );
+  const tagsGet = await fetchJson(`/api/mdi/orders/${order.id}/tags`, {
+    headers: machineHeaders,
+  });
   const tagsGetOk =
-    tagsGet.response.ok &&
-    tagsGet.json?.tags?.mdiVoucherCode === voucherCode;
+    tagsGet.response.ok && tagsGet.json?.tags?.mdiVoucherCode === voucherCode;
   results.push({
     name: "order tags get route",
     ok: tagsGetOk,

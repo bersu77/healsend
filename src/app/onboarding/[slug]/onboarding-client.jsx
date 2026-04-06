@@ -142,11 +142,35 @@ function openOAuthPopup(url) {
   const left = window.screenX + (window.outerWidth - width) / 2;
   const top = window.screenY + (window.outerHeight - height) / 2;
 
-  return window.open(
+  const popup = window.open(
     url,
     "oauth_popup",
     `width=${width},height=${height},left=${left},top=${top},toolbar=no,menubar=no`,
   );
+
+  if (!popup) return null;
+
+  // Detect popup closed without completing OAuth → reload to reset state
+  let oauthCompleted = false;
+  const onMsg = (e) => {
+    if (e.origin === window.location.origin) {
+      oauthCompleted = true;
+      clearInterval(pollTimer);
+      window.removeEventListener("message", onMsg);
+    }
+  };
+  window.addEventListener("message", onMsg);
+  const pollTimer = setInterval(() => {
+    if (popup.closed) {
+      clearInterval(pollTimer);
+      window.removeEventListener("message", onMsg);
+      if (!oauthCompleted) {
+        window.location.reload();
+      }
+    }
+  }, 500);
+
+  return popup;
 }
 
 function parseOAuthPopupPayload(data) {
@@ -1008,6 +1032,11 @@ function AccountCreateStep({
 }) {
   const v = value || { email: "", password: "", authMode: "signup" };
   const [mode, setMode] = useState(v.authMode === "login" ? "login" : "signup");
+  const [signupPhase, setSignupPhase] = useState(1);
+  const [profileFirstName, setProfileFirstName] = useState("");
+  const [profileLastName, setProfileLastName] = useState("");
+  const [profilePhone, setProfilePhone] = useState("");
+  const [profileDateOfBirth, setProfileDateOfBirth] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -1026,6 +1055,7 @@ function AccountCreateStep({
       ...v,
       authMode: mode,
     });
+    if (mode === "login") setSignupPhase(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode]);
 
@@ -1112,17 +1142,27 @@ function AccountCreateStep({
             ? fieldValue.trim().length > 0
             : Boolean(fieldValue);
         });
-  const canSubmit = emailValid && passwordValid && extraFieldsValid;
+  const phase2Valid =
+    profileFirstName.trim().length > 0 &&
+    profileLastName.trim().length > 0 &&
+    profilePhone.trim().length > 0 &&
+    profileDateOfBirth.trim().length > 0;
+  const canSubmit =
+    mode === "login"
+      ? emailValid && passwordValid
+      : signupPhase === 1
+        ? emailValid && passwordValid && extraFieldsValid
+        : phase2Valid;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!canSubmit) return;
 
     setError("");
-    setLoading(true);
 
     try {
       if (mode === "login") {
+        setLoading(true);
         const response = await fetch("/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -1150,18 +1190,17 @@ function AccountCreateStep({
         return;
       }
 
-      const firstName =
-        typeof v.firstName === "string" ? v.firstName.trim() : "";
-      const lastName = typeof v.lastName === "string" ? v.lastName.trim() : "";
-      const fullName = typeof v.fullName === "string" ? v.fullName.trim() : "";
-      const resolvedName =
-        fullName || [firstName, lastName].filter(Boolean).join(" ").trim();
-      const resolvedPhone =
-        typeof v.phone === "string"
-          ? v.phone.trim()
-          : typeof v.mobile === "string"
-            ? v.mobile.trim()
-            : "";
+      // Signup phase 1: advance to name + phone step
+      if (signupPhase === 1) {
+        setSignupPhase(2);
+        return;
+      }
+
+      // Signup phase 2: register with name + phone
+      setLoading(true);
+      const resolvedName = [profileFirstName.trim(), profileLastName.trim()]
+        .filter(Boolean)
+        .join(" ");
 
       const response = await fetch("/api/auth/register", {
         method: "POST",
@@ -1169,8 +1208,9 @@ function AccountCreateStep({
         body: JSON.stringify({
           email: v.email,
           password: v.password,
-          name: resolvedName || undefined,
-          phone: resolvedPhone || undefined,
+          name: resolvedName,
+          phone: profilePhone.trim(),
+          dateOfBirth: profileDateOfBirth || undefined,
         }),
       });
       const payload = await response.json().catch(() => null);
@@ -1248,137 +1288,234 @@ function AccountCreateStep({
           ) : null}
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {mode === "signup" && extraFields.length > 0 ? (
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                {extraFields.map((field) => {
-                  const fieldValue =
-                    field.type === "checkbox"
-                      ? Boolean(v[field.name])
-                      : v[field.name] || "";
-                  const wrapperClass =
-                    field.type === "textarea" || field.fullWidth
-                      ? "md:col-span-2"
-                      : "";
-
-                  return (
-                    <div key={field.name} className={wrapperClass}>
-                      <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
-                        {field.label}
-                      </label>
-                      {field.type === "checkbox" ? (
-                        <label className="flex items-center gap-3 rounded-[1rem] border border-[#d7d1e4] px-4 py-4 text-sm text-[#1c1a24]">
-                          <input
-                            type="checkbox"
-                            checked={fieldValue}
-                            onChange={(e) =>
-                              onChange({
-                                ...v,
-                                [field.name]: e.target.checked,
-                              })
-                            }
-                            className="h-4 w-4 rounded border-[#c9c4d8] text-[#5b3cdd] focus:ring-[#5b3cdd]"
-                          />
-                          <span>{field.placeholder || field.label}</span>
-                        </label>
-                      ) : field.type === "textarea" ? (
-                        <textarea
-                          value={fieldValue}
-                          onChange={(e) =>
-                            onChange({
-                              ...v,
-                              [field.name]: e.target.value,
-                            })
-                          }
-                          rows={4}
-                          placeholder={field.placeholder || ""}
-                          className={`${RECT_INPUT_CLASS} resize-none`}
-                        />
-                      ) : (
-                        <input
-                          type={field.type || "text"}
-                          value={fieldValue}
-                          onChange={(e) =>
-                            onChange({
-                              ...v,
-                              [field.name]: e.target.value,
-                            })
-                          }
-                          placeholder={field.placeholder || ""}
-                          className={RECT_INPUT_CLASS}
-                        />
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            ) : null}
-
-            <div>
-              <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
-                Email
-              </label>
-              <input
-                type="email"
-                value={v.email || ""}
-                onChange={(e) => onChange({ ...v, email: e.target.value })}
-                placeholder="Email"
-                required
-                className={RECT_INPUT_CLASS}
-              />
-            </div>
-
-            <div>
-              <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  value={v.password || ""}
-                  onChange={(e) => onChange({ ...v, password: e.target.value })}
-                  placeholder="Password"
-                  required
-                  className={`${RECT_INPUT_CLASS} pr-20`}
-                />
+            {mode === "signup" && signupPhase === 2 ? (
+              // Phase 2: collect first name, last name, phone
+              <>
                 <button
                   type="button"
-                  onClick={() => setShowPassword((current) => !current)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-medium text-[#484555]"
+                  onClick={() => {
+                    setSignupPhase(1);
+                    setError("");
+                  }}
+                  className="flex items-center gap-1.5 text-sm font-medium text-[#5b3cdd] hover:underline"
                 >
-                  {showPassword ? "Hide" : "Show"}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+                  Back
                 </button>
-              </div>
-              {mode === "signup" ? (
-                <p className="mt-2 px-1 text-[11px] text-[#797587]">
-                  Must be at least 8 characters with one number.
-                </p>
-              ) : null}
-            </div>
 
-            <p className="text-sm leading-6 text-[#484555]">
-              By continuing, you agree to the{" "}
-              <Link
-                href={LEGAL_ROUTE_PATHS.privacy}
-                className="text-[#5b3cdd] hover:underline"
-              >
-                Privacy Policy
-              </Link>
-              ,{" "}
-              <Link
-                href={LEGAL_ROUTE_PATHS.terms}
-                className="text-[#5b3cdd] hover:underline"
-              >
-                Terms
-              </Link>
-              , and{" "}
-              <Link
-                href={LEGAL_ROUTE_PATHS.telehealthConsent}
-                className="text-[#5b3cdd] hover:underline"
-              >
-                Telehealth Consent
-              </Link>
-              .
-            </p>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
+                      First name
+                    </label>
+                    <input
+                      type="text"
+                      value={profileFirstName}
+                      onChange={(e) => setProfileFirstName(e.target.value)}
+                      placeholder="First name"
+                      required
+                      autoFocus
+                      className={RECT_INPUT_CLASS}
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
+                      Last name
+                    </label>
+                    <input
+                      type="text"
+                      value={profileLastName}
+                      onChange={(e) => setProfileLastName(e.target.value)}
+                      placeholder="Last name"
+                      required
+                      className={RECT_INPUT_CLASS}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
+                    Phone number
+                  </label>
+                  <input
+                    type="tel"
+                    value={profilePhone}
+                    onChange={(e) => setProfilePhone(e.target.value)}
+                    placeholder="Phone number"
+                    required
+                    className={RECT_INPUT_CLASS}
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
+                    Date of birth
+                  </label>
+                  <input
+                    type="date"
+                    value={profileDateOfBirth}
+                    onChange={(e) => setProfileDateOfBirth(e.target.value)}
+                    required
+                    max={new Date(
+                      new Date().setFullYear(new Date().getFullYear() - 18),
+                    )
+                      .toISOString()
+                      .slice(0, 10)}
+                    className={RECT_INPUT_CLASS}
+                  />
+                </div>
+              </>
+            ) : (
+              // Phase 1 (signup) or login: email + password
+              <>
+                {mode === "signup" && extraFields.length > 0 ? (
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    {extraFields.map((field) => {
+                      const fieldValue =
+                        field.type === "checkbox"
+                          ? Boolean(v[field.name])
+                          : v[field.name] || "";
+                      const wrapperClass =
+                        field.type === "textarea" || field.fullWidth
+                          ? "md:col-span-2"
+                          : "";
+
+                      return (
+                        <div key={field.name} className={wrapperClass}>
+                          <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
+                            {field.label}
+                          </label>
+                          {field.type === "checkbox" ? (
+                            <label className="flex items-center gap-3 rounded-[1rem] border border-[#d7d1e4] px-4 py-4 text-sm text-[#1c1a24]">
+                              <input
+                                type="checkbox"
+                                checked={fieldValue}
+                                onChange={(e) =>
+                                  onChange({
+                                    ...v,
+                                    [field.name]: e.target.checked,
+                                  })
+                                }
+                                className="h-4 w-4 rounded border-[#c9c4d8] text-[#5b3cdd] focus:ring-[#5b3cdd]"
+                              />
+                              <span>{field.placeholder || field.label}</span>
+                            </label>
+                          ) : field.type === "textarea" ? (
+                            <textarea
+                              value={fieldValue}
+                              onChange={(e) =>
+                                onChange({
+                                  ...v,
+                                  [field.name]: e.target.value,
+                                })
+                              }
+                              rows={4}
+                              placeholder={field.placeholder || ""}
+                              className={`${RECT_INPUT_CLASS} resize-none`}
+                            />
+                          ) : (
+                            <input
+                              type={field.type || "text"}
+                              value={fieldValue}
+                              onChange={(e) =>
+                                onChange({
+                                  ...v,
+                                  [field.name]: e.target.value,
+                                })
+                              }
+                              placeholder={field.placeholder || ""}
+                              className={RECT_INPUT_CLASS}
+                            />
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : null}
+
+                <div>
+                  <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    value={v.email || ""}
+                    onChange={(e) => onChange({ ...v, email: e.target.value })}
+                    placeholder="Email"
+                    required
+                    className={RECT_INPUT_CLASS}
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
+                    Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      value={v.password || ""}
+                      onChange={(e) =>
+                        onChange({ ...v, password: e.target.value })
+                      }
+                      placeholder="Password"
+                      required
+                      className={`${RECT_INPUT_CLASS} pr-20`}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((current) => !current)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-medium text-[#484555]"
+                    >
+                      {showPassword ? "Hide" : "Show"}
+                    </button>
+                  </div>
+                  {mode === "signup" ? (
+                    <p className="mt-2 px-1 text-[11px] text-[#797587]">
+                      Must be at least 8 characters with one number.
+                    </p>
+                  ) : null}
+                </div>
+              </>
+            )}
+
+            {mode !== "signup" || signupPhase === 1 ? (
+              <p className="text-sm leading-6 text-[#484555]">
+                By continuing, you agree to the{" "}
+                <Link
+                  href={LEGAL_ROUTE_PATHS.privacy}
+                  className="text-[#5b3cdd] hover:underline"
+                >
+                  Privacy Policy
+                </Link>
+                ,{" "}
+                <Link
+                  href={LEGAL_ROUTE_PATHS.terms}
+                  className="text-[#5b3cdd] hover:underline"
+                >
+                  Terms
+                </Link>
+                , and{" "}
+                <Link
+                  href={LEGAL_ROUTE_PATHS.telehealthConsent}
+                  className="text-[#5b3cdd] hover:underline"
+                >
+                  Telehealth Consent
+                </Link>
+                .
+              </p>
+            ) : null}
 
             {mode === "login" ? (
               <div className="flex justify-end">
@@ -1407,17 +1544,20 @@ function AccountCreateStep({
                   <span className="h-4.5 w-4.5 rounded-full border-2 border-white/35 border-t-white animate-spin" />
                   {mode === "login"
                     ? "Logging in..."
-                    : "Preparing your results..."}
+                    : "Creating your account..."}
                 </span>
               ) : mode === "login" ? (
                 "Log in"
-              ) : (
+              ) : signupPhase === 1 ? (
                 "View My Results"
+              ) : (
+                "Create Account"
               )}
             </button>
           </form>
 
-          {providers.google || providers.apple ? (
+          {(providers.google || providers.apple) &&
+          !(mode === "signup" && signupPhase === 2) ? (
             <>
               <div className="flex items-center gap-3">
                 <div className="h-px flex-1 bg-gray-200" />

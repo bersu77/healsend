@@ -28,14 +28,17 @@ import {
 
 const TEST_MARKETING_ASSETS = Object.freeze({
   careSupportLifestyle: "/images/marketing/bundle/care-support-lifestyle.webp",
-  semaglutideInjections: "/images/marketing/bundle/semaglutide-injections-product.png",
-  tirzepatideInjections: "/images/marketing/bundle/tirzepatide-injections-product.png",
+  semaglutideInjections:
+    "/images/marketing/bundle/semaglutide-injections-product.png",
+  tirzepatideInjections:
+    "/images/marketing/bundle/tirzepatide-injections-product.png",
   oralTirzepatide: "/images/marketing/bundle/oral-tirzepatide-product.png",
   sermorelin: "/images/marketing/bundle/sermorelin-product.png",
   strengthLifestyle: "/images/marketing/bundle/strength-lifestyle.jpg",
   microdoseSemaglutideDrops:
     "/images/marketing/bundle/microdose-semaglutide-drops.webp",
-  oxytocinNasalSpray: "/images/marketing/bundle/oxytocin-nasal-spray-product.png",
+  oxytocinNasalSpray:
+    "/images/marketing/bundle/oxytocin-nasal-spray-product.png",
   nadInjections: "/images/marketing/bundle/nad-injections-product.png",
   micB12: "/images/marketing/bundle/mic-b12-product.png",
   weightLossLifestyle: "/images/marketing/bundle/weight-loss-lifestyle-1.png",
@@ -306,11 +309,13 @@ const STAGE_PLAN_LOOP_CARDS = [
   ...STAGE_PLAN_CARDS,
 ];
 
-const STAGE_PLAN_PAGES = Array.from({ length: STAGE_PLAN_CARDS.length }, (_, pageIndex) =>
-  Array.from({ length: 4 }, (_, offset) => {
-    const cardIndex = (pageIndex + offset) % STAGE_PLAN_CARDS.length;
-    return STAGE_PLAN_CARDS[cardIndex];
-  }),
+const STAGE_PLAN_PAGES = Array.from(
+  { length: STAGE_PLAN_CARDS.length },
+  (_, pageIndex) =>
+    Array.from({ length: 4 }, (_, offset) => {
+      const cardIndex = (pageIndex + offset) % STAGE_PLAN_CARDS.length;
+      return STAGE_PLAN_CARDS[cardIndex];
+    }),
 );
 
 const STAGE_PLAN_LOOP_PAGES = [
@@ -395,17 +400,17 @@ function ExperienceMarquee() {
             repeatType: "loop",
           }}
         >
-        {loopItems.map((item, index) => (
-          <div
-            key={`${item}-${index}`}
-            className="flex shrink-0 items-center gap-3 whitespace-nowrap text-[0.76rem] font-semibold text-[#5b4d12] md:text-[0.82rem]"
-          >
-            <span className="flex h-5 w-5 items-center justify-center rounded-full border border-[#c9b454] bg-white/50">
-              <Check className="h-3.5 w-3.5" />
-            </span>
-            <span>{item}</span>
-          </div>
-        ))}
+          {loopItems.map((item, index) => (
+            <div
+              key={`${item}-${index}`}
+              className="flex shrink-0 items-center gap-3 whitespace-nowrap text-[0.76rem] font-semibold text-[#5b4d12] md:text-[0.82rem]"
+            >
+              <span className="flex h-5 w-5 items-center justify-center rounded-full border border-[#c9b454] bg-white/50">
+                <Check className="h-3.5 w-3.5" />
+              </span>
+              <span>{item}</span>
+            </div>
+          ))}
         </motion.div>
       </div>
     </div>
@@ -459,7 +464,9 @@ function ExperienceCard({
             </p>
             <span
               className={`mt-1.5 flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full ${
-                inverse ? "bg-[#eef0f7] text-[#7a8092]" : "bg-[#99e39a] text-[#1f4426]"
+                inverse
+                  ? "bg-[#eef0f7] text-[#7a8092]"
+                  : "bg-[#99e39a] text-[#1f4426]"
               }`}
             >
               {inverse ? (
@@ -532,82 +539,143 @@ function MemberResultsCarousel() {
   return (
     <section className="relative left-1/2 w-screen -translate-x-1/2 pb-24">
       <div className="mb-6 flex items-center justify-start gap-3 px-5 md:mb-8 md:px-8 lg:px-10">
-          <button
-            type="button"
-            onClick={() => api?.scrollPrev()}
-            className="flex h-12 w-12 items-center justify-center rounded-full border border-[#e7eaf3] bg-white text-[#636a7c] shadow-[0_10px_24px_rgba(17,24,39,0.06)] transition-colors hover:bg-[#f5f7fd]"
-            aria-label="Show previous member stories"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            type="button"
-            onClick={() => api?.scrollNext()}
-            className="flex h-12 w-12 items-center justify-center rounded-full border border-[#e7eaf3] bg-white text-[#636a7c] shadow-[0_10px_24px_rgba(17,24,39,0.06)] transition-colors hover:bg-[#f5f7fd]"
-            aria-label="Show next member stories"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
-        </div>
-
-        <Carousel
-          setApi={setApi}
-          opts={{
-            align: "center",
-            containScroll: false,
-            loop: true,
-            duration: 32,
-          }}
-          className="w-full"
+        <button
+          type="button"
+          onClick={() => api?.scrollPrev()}
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-[#e7eaf3] bg-white text-[#636a7c] shadow-[0_10px_24px_rgba(17,24,39,0.06)] transition-colors hover:bg-[#f5f7fd]"
+          aria-label="Show previous member stories"
         >
-          <CarouselContent className="ml-0 items-stretch">
-            {MEMBER_RESULT_LOOP_PAGES.map((pageCards, pageIndex) => (
-              <CarouselItem
-                key={`member-page-${pageIndex}`}
-                className="basis-[calc(100%-112px)] px-3"
-              >
-                <div className="grid grid-cols-4 gap-3">
-                  {pageCards.map((card, cardIndex) => (
-                    <article
-                      key={`${card.name}-${pageIndex}-${cardIndex}`}
-                      className="flex h-full flex-col rounded-[1rem] border border-[#e9edf5] bg-white p-4 shadow-[0_16px_30px_rgba(17,24,39,0.08)]"
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+        <button
+          type="button"
+          onClick={() => api?.scrollNext()}
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-[#e7eaf3] bg-white text-[#636a7c] shadow-[0_10px_24px_rgba(17,24,39,0.06)] transition-colors hover:bg-[#f5f7fd]"
+          aria-label="Show next member stories"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+      </div>
+
+      <Carousel
+        setApi={setApi}
+        opts={{
+          align: "start",
+          containScroll: "trimSnaps",
+          loop: true,
+          duration: 32,
+        }}
+        className="w-full md:hidden"
+      >
+        <CarouselContent className="ml-0 items-stretch">
+          {MEMBER_RESULT_CARDS.map((card, cardIndex) => (
+            <CarouselItem
+              key={`member-mobile-${card.name}-${cardIndex}`}
+              className="basis-full px-3"
+            >
+              <article className="flex h-full flex-col rounded-[1rem] border border-[#e9edf5] bg-white p-4 shadow-[0_16px_30px_rgba(17,24,39,0.08)]">
+                <div className="grid grid-cols-2 gap-3">
+                  {card.images.map((image, imageIndex) => (
+                    <div
+                      key={`${image.src}-${imageIndex}`}
+                      className="flex flex-col gap-1.5"
                     >
-                      <div className="grid grid-cols-2 gap-3">
-                        {card.images.map((image, imageIndex) => (
-                          <div
-                            key={`${image.src}-${imageIndex}`}
-                            className="relative h-[340px] overflow-hidden rounded-[1rem] bg-[#eef2fb] md:h-[390px] xl:h-[430px]"
-                          >
+                      <span className="text-center text-[0.7rem] font-semibold uppercase tracking-widest text-[#7a8092]">
+                        {imageIndex === 0 ? "Before" : "After"}
+                      </span>
+                      <div className="relative aspect-[2/3] overflow-hidden rounded-[1rem] bg-[#eef2fb]">
+                        <Image
+                          src={image.src}
+                          alt={image.alt}
+                          fill
+                          sizes="45vw"
+                          className="object-cover object-center"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="px-2 pb-2 pt-5 text-center">
+                  <p className="text-[1.05rem] font-medium tracking-[-0.03em] text-[#3a4358] sm:text-[1.12rem]">
+                    {card.name} lost{" "}
+                    <span className="text-[#20c997]">{card.result}</span>
+                  </p>
+                  <div className="mt-4 flex items-center justify-center gap-1.5 text-[0.74rem] font-medium text-[#7a8092]">
+                    <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#20c997] text-white">
+                      <Check className="h-2.5 w-2.5 stroke-[3]" />
+                    </span>
+                    <span>Verified HealSend members</span>
+                  </div>
+                </div>
+              </article>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+
+      <Carousel
+        opts={{
+          align: "center",
+          containScroll: false,
+          loop: true,
+          duration: 32,
+        }}
+        className="hidden w-full md:block"
+      >
+        <CarouselContent className="ml-0 items-stretch">
+          {MEMBER_RESULT_LOOP_PAGES.map((pageCards, pageIndex) => (
+            <CarouselItem
+              key={`member-page-${pageIndex}`}
+              className="basis-[calc(100%-112px)] px-3"
+            >
+              <div className="grid grid-cols-4 gap-3">
+                {pageCards.map((card, cardIndex) => (
+                  <article
+                    key={`${card.name}-${pageIndex}-${cardIndex}`}
+                    className="flex h-full flex-col rounded-[1rem] border border-[#e9edf5] bg-white p-4 shadow-[0_16px_30px_rgba(17,24,39,0.08)]"
+                  >
+                    <div className="grid grid-cols-2 gap-3">
+                      {card.images.map((image, imageIndex) => (
+                        <div
+                          key={`${image.src}-${imageIndex}`}
+                          className="flex flex-col gap-1.5"
+                        >
+                          <span className="text-center text-[0.7rem] font-semibold uppercase tracking-widest text-[#7a8092]">
+                            {imageIndex === 0 ? "Before" : "After"}
+                          </span>
+                          <div className="relative aspect-[2/3] overflow-hidden rounded-[1rem] bg-[#eef2fb]">
                             <Image
                               src={image.src}
                               alt={image.alt}
                               fill
-                              sizes="(max-width: 640px) 42vw, (max-width: 1024px) 24vw, (max-width: 1536px) 12vw, 11.5vw"
+                              sizes="(max-width: 1024px) 24vw, (max-width: 1536px) 12vw, 11.5vw"
                               className="object-cover object-center"
                             />
                           </div>
-                        ))}
-                      </div>
-
-                      <div className="px-2 pb-2 pt-5 text-center">
-                        <p className="text-[1.05rem] font-medium tracking-[-0.03em] text-[#3a4358] sm:text-[1.12rem]">
-                          {card.name} lost{" "}
-                          <span className="text-[#20c997]">{card.result}</span>
-                        </p>
-                        <div className="mt-4 flex items-center justify-center gap-1.5 text-[0.74rem] font-medium text-[#7a8092]">
-                          <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#20c997] text-white">
-                            <Check className="h-2.5 w-2.5 stroke-[3]" />
-                          </span>
-                          <span>Verified HealSend members</span>
                         </div>
+                      ))}
+                    </div>
+
+                    <div className="px-2 pb-2 pt-5 text-center">
+                      <p className="text-[1.05rem] font-medium tracking-[-0.03em] text-[#3a4358] sm:text-[1.12rem]">
+                        {card.name} lost{" "}
+                        <span className="text-[#20c997]">{card.result}</span>
+                      </p>
+                      <div className="mt-4 flex items-center justify-center gap-1.5 text-[0.74rem] font-medium text-[#7a8092]">
+                        <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#20c997] text-white">
+                          <Check className="h-2.5 w-2.5 stroke-[3]" />
+                        </span>
+                        <span>Verified HealSend members</span>
                       </div>
-                    </article>
-                  ))}
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
     </section>
   );
 }
@@ -641,8 +709,8 @@ function OutcomesStatsSection() {
             <span className="italic">14+ lbs in 90 days*</span>
           </p>
           <p className="mt-1 max-w-[25rem] text-[0.98rem] leading-6.5 text-[#41506b]">
-            Join members nationwide moving through onboarding, treatment, check-ins,
-            and refill care with less friction and better visibility.
+            Join members nationwide moving through onboarding, treatment,
+            check-ins, and refill care with less friction and better visibility.
           </p>
         </div>
 
@@ -675,9 +743,9 @@ function OutcomesStatsSection() {
 
           <p className="mt-5 max-w-[64rem] text-[0.78rem] leading-6 text-[#65738d] md:text-[0.82rem]">
             Based on aggregated internal member progress snapshots and follow-up
-            reporting across active weight-loss programs. Outcome timelines vary by
-            protocol, adherence, and clinician adjustments, and are shown here only as
-            directional prototype content for review.
+            reporting across active weight-loss programs. Outcome timelines vary
+            by protocol, adherence, and clinician adjustments, and are shown
+            here only as directional prototype content for review.
           </p>
         </div>
       </div>
@@ -687,18 +755,19 @@ function OutcomesStatsSection() {
 
 function StagePlansSection() {
   const [api, setApi] = useState(null);
+  const [mobileApi, setMobileApi] = useState(null);
 
   useEffect(() => {
-    if (!api) {
-      return undefined;
-    }
-
-    const intervalId = window.setInterval(() => {
-      api.scrollNext();
-    }, 5200);
-
+    if (!api) return undefined;
+    const intervalId = window.setInterval(() => api.scrollNext(), 5200);
     return () => window.clearInterval(intervalId);
   }, [api]);
+
+  useEffect(() => {
+    if (!mobileApi) return undefined;
+    const intervalId = window.setInterval(() => mobileApi.scrollNext(), 5200);
+    return () => window.clearInterval(intervalId);
+  }, [mobileApi]);
 
   return (
     <section className="bg-white py-18 md:py-20">
@@ -713,9 +782,9 @@ function StagePlansSection() {
               </span>
             </h2>
             <p className="mt-5 max-w-[55rem] text-[1.04rem] leading-8 text-[#4f5566]">
-              Weight loss isn&apos;t one size fits all. Choose the path that fits
-              your starting point, your goal, and your lifestyle without adding
-              more friction than the plan already solves.
+              Weight loss isn&apos;t one size fits all. Choose the path that
+              fits your starting point, your goal, and your lifestyle without
+              adding more friction than the plan already solves.
             </p>
           </div>
 
@@ -730,7 +799,9 @@ function StagePlansSection() {
               <p className="mt-1 text-[0.96rem] text-[#4f586c]">
                 10,000+ reviews
               </p>
-              <p className="mt-1 text-[0.88rem] text-[#7a8498]">4.7 average rating</p>
+              <p className="mt-1 text-[0.88rem] text-[#7a8498]">
+                4.7 average rating
+              </p>
             </div>
             <div className="rounded-[1rem] border border-[#e9edf5] bg-white px-5 py-3 shadow-[0_12px_28px_rgba(18,26,42,0.06)]">
               <div className="flex items-center gap-2 text-[#4b6ef5]">
@@ -763,7 +834,10 @@ function StagePlansSection() {
         <div className="mt-8 flex items-center gap-3">
           <button
             type="button"
-            onClick={() => api?.scrollPrev()}
+            onClick={() => {
+              api?.scrollPrev();
+              mobileApi?.scrollPrev();
+            }}
             className="flex h-12 w-12 items-center justify-center rounded-full border border-[#e7eaf3] bg-white text-[#636a7c] shadow-[0_10px_24px_rgba(17,24,39,0.06)] transition-colors hover:bg-[#f5f7fd]"
             aria-label="Show previous weight-loss plans"
           >
@@ -771,17 +845,117 @@ function StagePlansSection() {
           </button>
           <button
             type="button"
-            onClick={() => api?.scrollNext()}
+            onClick={() => {
+              api?.scrollNext();
+              mobileApi?.scrollNext();
+            }}
             className="flex h-12 w-12 items-center justify-center rounded-full border border-[#e7eaf3] bg-white text-[#636a7c] shadow-[0_10px_24px_rgba(17,24,39,0.06)] transition-colors hover:bg-[#f5f7fd]"
             aria-label="Show next weight-loss plans"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
         </div>
-
       </div>
 
       <div className="relative left-1/2 mt-8 w-screen -translate-x-1/2">
+        <Carousel
+          setApi={setMobileApi}
+          opts={{
+            align: "start",
+            containScroll: "trimSnaps",
+            loop: true,
+            duration: 32,
+          }}
+          className="w-full md:hidden"
+        >
+          <CarouselContent className="-ml-3 items-stretch">
+            {STAGE_PLAN_LOOP_CARDS.map((card, cardIndex) => (
+              <CarouselItem
+                key={`stage-mobile-${card.title}-${cardIndex}`}
+                className="basis-full px-3"
+              >
+                <article className="flex h-full min-w-0 flex-col overflow-hidden rounded-[1rem] border border-[#e8edf5] bg-white shadow-[0_16px_30px_rgba(18,26,42,0.08)]">
+                  <div
+                    className={`relative h-[292px] overflow-hidden px-6 pb-6 pt-6 ${card.heroClass}`}
+                  >
+                    <div className="relative z-10 flex max-w-[66%] flex-col items-start gap-2">
+                      {card.chips.slice(0, 2).map((chip) => (
+                        <span
+                          key={chip}
+                          className="rounded-[0.75rem] bg-[#d9e1ea] px-3 py-1.5 text-[0.88rem] font-medium leading-[1.2] text-[#30394d]"
+                        >
+                          {chip}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="relative z-10 mt-14 max-w-[65%]">
+                      <h3
+                        className="font-headline text-[1.68rem] font-semibold leading-[1.05] tracking-[-0.04em] text-white"
+                        style={{
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 2,
+                          overflow: "hidden",
+                        }}
+                      >
+                        {card.title}
+                      </h3>
+                      <p className="mt-3 text-[0.98rem] font-medium leading-6 text-white">
+                        {card.subtitle}
+                      </p>
+                    </div>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 w-[47%]">
+                      <Image
+                        src={card.image}
+                        alt={card.title}
+                        fill
+                        sizes="47vw"
+                        className={card.imageClass}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-1 flex-col px-6 py-5">
+                    <p className="text-[0.92rem] font-semibold uppercase tracking-[0.12em] text-[#1f2839]">
+                      {card.detailLabel}
+                    </p>
+                    <div className="mt-4 flex flex-1 flex-col gap-4">
+                      {card.facts.map((fact) => (
+                        <div
+                          key={fact}
+                          className="flex items-start gap-3 text-[#4e566a]"
+                        >
+                          <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#eef1ff] text-[#5d62f3]">
+                            <Check className="h-3 w-3 stroke-[3]" />
+                          </span>
+                          <p className="text-[0.97rem] leading-7">{fact}</p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-5 border-t border-[#e6ebf4] pt-5">
+                      <Link
+                        href="/funnels/glp-1"
+                        className="hs-solid-btn inline-flex min-h-[3.2rem] w-full items-center justify-center gap-2 rounded-full px-6 text-[0.98rem] font-semibold"
+                      >
+                        {card.cta}
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                      {card.secondaryCta ? (
+                        <Link
+                          href="/weight-loss"
+                          className="hs-outline-btn mt-3 inline-flex min-h-[3.1rem] w-full items-center justify-center rounded-full px-6 text-[0.98rem] font-semibold"
+                        >
+                          {card.secondaryCta}
+                        </Link>
+                      ) : null}
+                    </div>
+                  </div>
+                </article>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+
         <Carousel
           setApi={setApi}
           opts={{
@@ -790,99 +964,102 @@ function StagePlansSection() {
             loop: true,
             duration: 32,
           }}
-          className="w-full"
+          className="hidden w-full md:block"
         >
           <CarouselContent className="-ml-3 items-stretch md:-ml-4">
-              {STAGE_PLAN_LOOP_PAGES.map((pageCards, pageIndex) => (
-                <CarouselItem
-                  key={`stage-page-${pageIndex}`}
-                  className="basis-[calc(100%-112px)] px-3"
-                >
-                  <div className="grid grid-cols-4 gap-4">
-                    {pageCards.map((card, cardIndex) => (
-                      <article
-                        key={`${card.title}-${pageIndex}-${cardIndex}`}
-                        className="flex h-full min-w-0 flex-col overflow-hidden rounded-[1rem] border border-[#e8edf5] bg-white shadow-[0_16px_30px_rgba(18,26,42,0.08)]"
+            {STAGE_PLAN_LOOP_PAGES.map((pageCards, pageIndex) => (
+              <CarouselItem
+                key={`stage-page-${pageIndex}`}
+                className="basis-[calc(100%-112px)] px-3"
+              >
+                <div className="grid grid-cols-4 gap-4">
+                  {pageCards.map((card, cardIndex) => (
+                    <article
+                      key={`${card.title}-${pageIndex}-${cardIndex}`}
+                      className="flex h-full min-w-0 flex-col overflow-hidden rounded-[1rem] border border-[#e8edf5] bg-white shadow-[0_16px_30px_rgba(18,26,42,0.08)]"
+                    >
+                      <div
+                        className={`relative h-[292px] overflow-hidden px-6 pb-6 pt-6 ${card.heroClass}`}
                       >
-                        <div
-                          className={`relative h-[292px] overflow-hidden px-6 pb-6 pt-6 ${card.heroClass}`}
-                        >
-                          <div className="relative z-10 flex max-w-[66%] flex-col items-start gap-2">
-                            {card.chips.slice(0, 2).map((chip) => (
-                              <span
-                                key={chip}
-                                className="rounded-[0.75rem] bg-[#d9e1ea] px-3 py-1.5 text-[0.88rem] font-medium leading-[1.2] text-[#30394d]"
-                              >
-                                {chip}
-                              </span>
-                            ))}
-                          </div>
-                          <div className="relative z-10 mt-14 max-w-[65%]">
-                            <h3
-                              className="font-headline text-[1.68rem] font-semibold leading-[1.05] tracking-[-0.04em] text-white md:text-[1.8rem]"
-                              style={{
-                                display: "-webkit-box",
-                                WebkitBoxOrient: "vertical",
-                                WebkitLineClamp: 2,
-                                overflow: "hidden",
-                              }}
+                        <div className="relative z-10 flex max-w-[66%] flex-col items-start gap-2">
+                          {card.chips.slice(0, 2).map((chip) => (
+                            <span
+                              key={chip}
+                              className="rounded-[0.75rem] bg-[#d9e1ea] px-3 py-1.5 text-[0.88rem] font-medium leading-[1.2] text-[#30394d]"
                             >
-                              {card.title}
-                            </h3>
-                            <p className="mt-3 text-[0.98rem] font-medium leading-6 text-white">
-                              {card.subtitle}
-                            </p>
-                          </div>
-                          <div className="pointer-events-none absolute inset-y-0 right-0 w-[47%]">
-                            <Image
-                              src={card.image}
-                              alt={card.title}
-                              fill
-                              sizes="(max-width: 1536px) 24vw, 18vw"
-                              className={card.imageClass}
-                              priority={pageIndex === 0 && cardIndex < 2}
-                            />
-                          </div>
+                              {chip}
+                            </span>
+                          ))}
                         </div>
-
-                        <div className="flex flex-1 flex-col px-6 py-5">
-                          <p className="text-[0.92rem] font-semibold uppercase tracking-[0.12em] text-[#1f2839]">
-                            {card.detailLabel}
+                        <div className="relative z-10 mt-14 max-w-[65%]">
+                          <h3
+                            className="font-headline text-[1.68rem] font-semibold leading-[1.05] tracking-[-0.04em] text-white md:text-[1.8rem]"
+                            style={{
+                              display: "-webkit-box",
+                              WebkitBoxOrient: "vertical",
+                              WebkitLineClamp: 2,
+                              overflow: "hidden",
+                            }}
+                          >
+                            {card.title}
+                          </h3>
+                          <p className="mt-3 text-[0.98rem] font-medium leading-6 text-white">
+                            {card.subtitle}
                           </p>
-                          <div className="mt-4 flex min-h-[190px] flex-1 flex-col gap-4">
-                            {card.facts.map((fact) => (
-                              <div key={fact} className="flex items-start gap-3 text-[#4e566a]">
-                                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#eef1ff] text-[#5d62f3]">
-                                  <Check className="h-3 w-3 stroke-[3]" />
-                                </span>
-                                <p className="text-[0.97rem] leading-7">{fact}</p>
-                              </div>
-                            ))}
-                          </div>
-                          <div className="mt-5 border-t border-[#e6ebf4] pt-5">
-                            <Link
-                              href="/funnels/glp-1"
-                              className="hs-solid-btn inline-flex min-h-[3.2rem] w-full items-center justify-center gap-2 rounded-full px-6 text-[0.98rem] font-semibold"
-                            >
-                              {card.cta}
-                              <ArrowRight className="h-4 w-4" />
-                            </Link>
-                            {card.secondaryCta ? (
-                              <Link
-                                href="/weight-loss"
-                                className="hs-outline-btn mt-3 inline-flex min-h-[3.1rem] w-full items-center justify-center rounded-full px-6 text-[0.98rem] font-semibold"
-                              >
-                                {card.secondaryCta}
-                              </Link>
-                            ) : null}
-                          </div>
                         </div>
-                      </article>
-                    ))}
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 w-[47%]">
+                          <Image
+                            src={card.image}
+                            alt={card.title}
+                            fill
+                            sizes="(max-width: 1536px) 24vw, 18vw"
+                            className={card.imageClass}
+                            priority={pageIndex === 0 && cardIndex < 2}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="flex flex-1 flex-col px-6 py-5">
+                        <p className="text-[0.92rem] font-semibold uppercase tracking-[0.12em] text-[#1f2839]">
+                          {card.detailLabel}
+                        </p>
+                        <div className="mt-4 flex min-h-[190px] flex-1 flex-col gap-4">
+                          {card.facts.map((fact) => (
+                            <div
+                              key={fact}
+                              className="flex items-start gap-3 text-[#4e566a]"
+                            >
+                              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#eef1ff] text-[#5d62f3]">
+                                <Check className="h-3 w-3 stroke-[3]" />
+                              </span>
+                              <p className="text-[0.97rem] leading-7">{fact}</p>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="mt-5 border-t border-[#e6ebf4] pt-5">
+                          <Link
+                            href="/funnels/glp-1"
+                            className="hs-solid-btn inline-flex min-h-[3.2rem] w-full items-center justify-center gap-2 rounded-full px-6 text-[0.98rem] font-semibold"
+                          >
+                            {card.cta}
+                            <ArrowRight className="h-4 w-4" />
+                          </Link>
+                          {card.secondaryCta ? (
+                            <Link
+                              href="/weight-loss"
+                              className="hs-outline-btn mt-3 inline-flex min-h-[3.1rem] w-full items-center justify-center rounded-full px-6 text-[0.98rem] font-semibold"
+                            >
+                              {card.secondaryCta}
+                            </Link>
+                          ) : null}
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
         </Carousel>
 
         <div className="mx-auto mt-7 max-w-[1180px] px-5 text-[11px] leading-[1.65] text-[#7b8192] md:px-8 lg:px-10">
@@ -926,7 +1103,9 @@ function CareSupportSection() {
                 <Clock3 className="h-5 w-5" />
               </span>
               <div>
-                <p className="text-[0.98rem] font-medium text-[#626b7f]">Always available</p>
+                <p className="text-[0.98rem] font-medium text-[#626b7f]">
+                  Always available
+                </p>
                 <p className="mt-1 text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d]">
                   7 days a week · 8:00am - 8:00pm ET
                 </p>
@@ -952,7 +1131,9 @@ function CareSupportSection() {
                 <Mail className="h-5 w-5" />
               </span>
               <div>
-                <p className="text-[0.98rem] font-medium text-[#626b7f]">Email us</p>
+                <p className="text-[0.98rem] font-medium text-[#626b7f]">
+                  Email us
+                </p>
                 <a
                   href="mailto:yourhealth@healsend.com"
                   className="mt-1 inline-block text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d] underline decoration-[#aeb7ca] underline-offset-4"
@@ -1058,9 +1239,15 @@ function ProjectedLossCalculatorSection() {
     maxWeight,
     Math.max(minWeight, Number.parseInt(String(sliderWeight || 0), 10) || 0),
   );
-  const bmi = Number((((safeWeight / (totalInches * totalInches)) * 703) || 0).toFixed(1));
-  const projectedLoss = Math.max(8, Math.min(65, Math.round(safeSliderWeight * 0.15)));
-  const sliderProgress = (safeSliderWeight - minWeight) / (maxWeight - minWeight);
+  const bmi = Number(
+    ((safeWeight / (totalInches * totalInches)) * 703 || 0).toFixed(1),
+  );
+  const projectedLoss = Math.max(
+    8,
+    Math.min(65, Math.round(safeSliderWeight * 0.15)),
+  );
+  const sliderProgress =
+    (safeSliderWeight - minWeight) / (maxWeight - minWeight);
   const bmiProgress = Math.min(bmi / 40, 1);
 
   const getBmiCategory = (value) => {
@@ -1127,23 +1314,342 @@ function ProjectedLossCalculatorSection() {
 
   return (
     <>
-    <section className="bg-white px-5 py-24 md:px-8 lg:px-10">
-      <div className="mx-auto max-w-[1240px]">
-        <div className="max-w-[72rem]">
-          <h2 className="font-headline text-[2.5rem] font-semibold leading-[0.96] tracking-[-0.055em] text-[#101726] sm:text-[3.1rem] lg:text-[4.25rem]">
-            Find out what you could lose{" "}
-            <span className="italic text-[#5d62f3]">with HealSend.</span>
-          </h2>
-        </div>
+      <section className="bg-white px-5 py-24 md:px-8 lg:px-10">
+        <div className="mx-auto max-w-[1240px]">
+          <div className="max-w-[72rem]">
+            <h2 className="font-headline text-[2.5rem] font-semibold leading-[0.96] tracking-[-0.055em] text-[#101726] sm:text-[3.1rem] lg:text-[4.25rem]">
+              Find out what you could lose{" "}
+              <span className="italic text-[#5d62f3]">with HealSend.</span>
+            </h2>
+          </div>
 
-        <div className="mt-8 grid gap-5 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,0.95fr)_minmax(0,0.9fr)]">
-          <article className="rounded-[1rem] border border-[#edf1f7] bg-white p-6 shadow-[0_18px_34px_rgba(20,24,34,0.08)] md:p-8">
-            <p className="text-center text-[1.15rem] font-medium tracking-[-0.03em] text-[#121726] md:text-[1.25rem]">
+          <div className="mt-8 grid gap-5 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,0.95fr)_minmax(0,0.9fr)]">
+            <article className="rounded-[1rem] border border-[#edf1f7] bg-white p-6 shadow-[0_18px_34px_rgba(20,24,34,0.08)] md:p-8">
+              <p className="text-center text-[1.15rem] font-medium tracking-[-0.03em] text-[#121726] md:text-[1.25rem]">
+                Check your eligibility.
+              </p>
+
+              <div className="relative mx-auto mt-8 h-[210px] w-[260px]">
+                <svg
+                  viewBox="0 0 280 170"
+                  className="h-full w-full overflow-visible"
+                >
+                  <path
+                    d="M 25 150 A 115 115 0 0 1 255 150"
+                    fill="none"
+                    stroke="#e5e7eb"
+                    strokeWidth="16"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M 25 150 A 115 115 0 0 1 255 150"
+                    fill="none"
+                    stroke="url(#bmiGradient)"
+                    strokeWidth="16"
+                    strokeLinecap="round"
+                    strokeDasharray={circumference}
+                    strokeDashoffset={bmiOffset}
+                  />
+                  <defs>
+                    <linearGradient
+                      id="bmiGradient"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%"
+                    >
+                      <stop offset="0%" stopColor="#6db1ff" />
+                      <stop offset="50%" stopColor="#91e2a8" />
+                      <stop offset="78%" stopColor="#ffd34d" />
+                      <stop offset="100%" stopColor="#ff845b" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div className="absolute inset-x-0 bottom-6 text-center">
+                  <div className="font-headline text-[4.6rem] font-semibold leading-none tracking-[-0.06em] text-[#0b1020]">
+                    {bmi}
+                  </div>
+                  <div className="mt-1 text-sm font-medium uppercase tracking-[0.2em] text-[#7a859c]">
+                    Your BMI
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 space-y-5">
+                <div>
+                  <label className="mb-2 block text-[1rem] font-medium text-[#313948]">
+                    Height
+                  </label>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3">
+                      <input
+                        value={feet}
+                        onChange={(event) =>
+                          setFeet(event.target.value.replace(/[^0-9]/g, ""))
+                        }
+                        className="w-full bg-transparent text-[1.02rem] text-[#172030] outline-none"
+                        inputMode="numeric"
+                        placeholder="Feet"
+                      />
+                      <span className="text-[1.02rem] font-medium text-[#68748f]">
+                        ft
+                      </span>
+                    </div>
+                    <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3">
+                      <input
+                        value={inches}
+                        onChange={(event) =>
+                          setInches(event.target.value.replace(/[^0-9]/g, ""))
+                        }
+                        className="w-full bg-transparent text-[1.02rem] text-[#172030] outline-none"
+                        inputMode="numeric"
+                        placeholder="Inches"
+                      />
+                      <span className="text-[1.02rem] font-medium text-[#68748f]">
+                        in
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-[1rem] font-medium text-[#313948]">
+                    Weight
+                  </label>
+                  <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3">
+                    <input
+                      value={weight}
+                      onChange={(event) =>
+                        setWeight(event.target.value.replace(/[^0-9]/g, ""))
+                      }
+                      className="w-full bg-transparent text-[1.02rem] text-[#172030] outline-none"
+                      inputMode="numeric"
+                      placeholder="Weight (pounds)"
+                    />
+                    <span className="text-[1.02rem] font-medium text-[#68748f]">
+                      lbs
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setShowEligibilityModal(true)}
+                className="hs-solid-btn mt-8 inline-flex min-h-[3.4rem] w-full items-center justify-center gap-2 rounded-full px-8 text-[1.02rem] font-semibold"
+              >
+                See my BMI eligibility
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </article>
+
+            <article className="overflow-hidden rounded-[1rem] border border-[#edf1f7] bg-white shadow-[0_18px_34px_rgba(20,24,34,0.08)]">
+              <div className="relative h-full min-h-[720px]">
+                <Image
+                  src="/photoroom-4.png"
+                  alt="Happy HealSend member"
+                  fill
+                  sizes="(max-width: 1280px) 100vw, 32vw"
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(255,255,255,0.88)_44%,rgba(255,255,255,1)_100%)] px-6 pb-5 pt-24">
+                  <div className="flex justify-center">
+                    <div className="flex -space-x-2.5">
+                      {CALCULATOR_AVATARS.map((src) => (
+                        <span
+                          key={src}
+                          className="relative h-10 w-10 overflow-hidden rounded-full border-[3px] border-white bg-[#edf1f8]"
+                        >
+                          <Image
+                            src={src}
+                            alt=""
+                            fill
+                            sizes="40px"
+                            className="object-cover object-center"
+                          />
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="mx-auto mt-4 max-w-[22rem] text-center text-[0.98rem] leading-7 text-[#4e5a73]">
+                    Over{" "}
+                    <span className="font-semibold text-[#141c2b]">
+                      250,000
+                    </span>{" "}
+                    members treated.{" "}
+                    <span className="font-semibold text-[#141c2b]">94.6%</span>{" "}
+                    success backed by real HealSend member progress nationwide.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <article className="rounded-[1rem] border border-[#edf1f7] bg-white p-8 shadow-[0_18px_34px_rgba(20,24,34,0.08)]">
+              <div className="text-center">
+                <p className="text-[1.3rem] font-medium leading-[1.2] tracking-[-0.03em] text-[#121726]">
+                  Your projected
+                  <br />
+                  weight loss
+                </p>
+
+                <div className="mt-10">
+                  <span className="font-headline text-[5.7rem] font-semibold leading-none tracking-[-0.08em] text-[#0b1020]">
+                    {projectedLoss}
+                  </span>
+                  <span className="ml-2 text-[3.25rem] font-medium tracking-[-0.04em] text-[#66748f]">
+                    lbs
+                  </span>
+                </div>
+
+                <p className="mx-auto mt-7 max-w-[19rem] text-[0.98rem] leading-7 text-[#4f5c76]">
+                  Based on{" "}
+                  <span className="font-semibold text-[#121726]">250,000+</span>{" "}
+                  average HealSend member results in guided weight-loss care.
+                </p>
+              </div>
+
+              <div className="mt-10 border-t border-[#d9e1ef] pt-9">
+                <p className="text-center text-[1.02rem] font-medium text-[#20283a]">
+                  Starting weight
+                </p>
+                <div className="mx-auto mt-4 flex max-w-[10.5rem] items-end justify-center gap-1 rounded-[0.9rem] bg-[#f2f5fa] px-5 py-4">
+                  <span className="font-headline text-[3.2rem] font-semibold leading-none tracking-[-0.06em] text-[#48536b]">
+                    {safeSliderWeight}
+                  </span>
+                  <span className="mb-1 text-[1.15rem] font-medium text-[#68748f]">
+                    lbs
+                  </span>
+                </div>
+
+                <div className="mt-12">
+                  <div className="relative h-4 rounded-full bg-[#dfe5f4]">
+                    <div
+                      className="absolute inset-y-0 left-0 rounded-full bg-[#5d62f3]"
+                      style={{ width: `${Math.max(8, sliderProgress * 100)}%` }}
+                    />
+                    <div
+                      className="absolute top-1/2 h-7 w-7 -translate-y-1/2 rounded-full border-2 border-[#4b55eb] bg-white shadow-[0_10px_20px_rgba(93,98,243,0.18)]"
+                      style={{
+                        left: `calc(${Math.max(8, sliderProgress * 100)}% - 14px)`,
+                      }}
+                    />
+                    <input
+                      type="range"
+                      min={minWeight}
+                      max={maxWeight}
+                      step={1}
+                      value={safeSliderWeight}
+                      onChange={(event) =>
+                        setSliderWeight(Number(event.target.value))
+                      }
+                      onPointerDown={handleSliderPointerDown}
+                      onPointerUp={handleSliderPointerUp}
+                      onMouseUp={handleSliderPointerUp}
+                      onTouchEnd={handleSliderPointerUp}
+                      onKeyUp={openProjectedModal}
+                      aria-label="Adjust starting weight"
+                      className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <ModalShell
+        open={showProjectedModal}
+        onClose={() => setShowProjectedModal(false)}
+      >
+        <div className="mt-5 grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+          <div className="rounded-[1rem] bg-[#f5f7fb] p-6 text-center md:p-8">
+            <p className="text-[1rem] font-medium text-[#101726]">
+              Lose on average:
+            </p>
+            <div className="mt-5 font-headline text-[5.3rem] font-semibold leading-none tracking-[-0.08em] text-[#0b1020]">
+              15%
+            </div>
+            <p className="mt-2 text-[1rem] leading-7 text-[#4e5a73]">
+              of your body weight with HealSend.
+            </p>
+            <button
+              type="button"
+              className="hs-solid-btn mt-6 inline-flex min-h-[3.35rem] w-full items-center justify-center gap-2 rounded-full px-8 text-[1rem] font-semibold"
+            >
+              See what&apos;s possible for you
+              <ArrowRight className="h-4 w-4" />
+            </button>
+            <div className="mt-6 flex justify-center">
+              <div className="flex -space-x-2.5">
+                {CALCULATOR_AVATARS.map((src) => (
+                  <span
+                    key={`modal-${src}`}
+                    className="relative h-10 w-10 overflow-hidden rounded-full border-[3px] border-white bg-[#edf1f8]"
+                  >
+                    <Image
+                      src={src}
+                      alt=""
+                      fill
+                      sizes="40px"
+                      className="object-cover object-center"
+                    />
+                  </span>
+                ))}
+              </div>
+            </div>
+            <p className="mx-auto mt-4 max-w-[22rem] text-[0.98rem] leading-7 text-[#4e5a73]">
+              Over <span className="font-semibold text-[#141c2b]">250,000</span>{" "}
+              members treated.
+              <span className="font-semibold text-[#141c2b]"> 94.6%</span>{" "}
+              success backed by real HealSend results nationwide.
+            </p>
+          </div>
+          <div className="rounded-[1rem] bg-[#f5f7fb] p-6 text-center md:p-8">
+            <p className="text-[1rem] font-medium text-[#101726]">
+              You could lose
+            </p>
+            <div className="mt-5">
+              <span className="font-headline text-[5.6rem] font-semibold leading-none tracking-[-0.08em] text-[#0b1020]">
+                {projectedLoss}
+              </span>
+              <span className="ml-2 text-[3rem] font-medium tracking-[-0.04em] text-[#66748f]">
+                lbs
+              </span>
+            </div>
+            <p className="mt-8 text-[1rem] font-medium text-[#20283a]">
+              Starting weight
+            </p>
+            <div className="mx-auto mt-4 flex max-w-[13rem] items-end justify-center gap-1 rounded-[0.9rem] bg-white px-5 py-4">
+              <span className="font-headline text-[3.15rem] font-semibold leading-none tracking-[-0.06em] text-[#48536b]">
+                {safeSliderWeight}
+              </span>
+              <span className="mb-1 text-[1.15rem] font-medium text-[#68748f]">
+                lbs
+              </span>
+            </div>
+          </div>
+        </div>
+        <p className="mt-5 text-[0.8rem] leading-6 text-[#67748d]">
+          Results vary by individual. Results are based on self-reported data
+          from member progress snapshots, including clinician consultations and
+          follow-up reporting over time. Individual results may vary. All
+          treatment decisions are made by a licensed healthcare provider.
+        </p>
+      </ModalShell>
+      <ModalShell
+        open={showEligibilityModal}
+        onClose={() => setShowEligibilityModal(false)}
+      >
+        <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,0.98fr)_minmax(0,1.05fr)]">
+          <div className="rounded-[1rem] bg-[#f5f7fb] p-6 text-center md:p-8">
+            <p className="text-[1rem] font-medium text-[#101726]">
               Check your eligibility.
             </p>
-
-            <div className="relative mx-auto mt-8 h-[210px] w-[260px]">
-              <svg viewBox="0 0 280 170" className="h-full w-full overflow-visible">
+            <div className="relative mx-auto mt-6 h-[220px] w-[270px]">
+              <svg
+                viewBox="0 0 280 170"
+                className="h-full w-full overflow-visible"
+              >
                 <path
                   d="M 25 150 A 115 115 0 0 1 255 150"
                   fill="none"
@@ -1154,14 +1660,20 @@ function ProjectedLossCalculatorSection() {
                 <path
                   d="M 25 150 A 115 115 0 0 1 255 150"
                   fill="none"
-                  stroke="url(#bmiGradient)"
+                  stroke="url(#bmiModalGradient)"
                   strokeWidth="16"
                   strokeLinecap="round"
                   strokeDasharray={circumference}
                   strokeDashoffset={bmiOffset}
                 />
                 <defs>
-                  <linearGradient id="bmiGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <linearGradient
+                    id="bmiModalGradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%"
+                  >
                     <stop offset="0%" stopColor="#6db1ff" />
                     <stop offset="50%" stopColor="#91e2a8" />
                     <stop offset="78%" stopColor="#ffd34d" />
@@ -1169,329 +1681,79 @@ function ProjectedLossCalculatorSection() {
                   </linearGradient>
                 </defs>
               </svg>
-              <div className="absolute inset-x-0 bottom-6 text-center">
-                <div className="font-headline text-[4.6rem] font-semibold leading-none tracking-[-0.06em] text-[#0b1020]">
+              <div className="absolute inset-x-0 bottom-5 text-center">
+                <div className="font-headline text-[4.8rem] font-semibold leading-none tracking-[-0.07em] text-[#0b1020]">
                   {bmi}
                 </div>
-                <div className="mt-1 text-sm font-medium uppercase tracking-[0.2em] text-[#7a859c]">
+                <div className="mt-2 text-[0.95rem] font-medium text-[#222b3d]">
                   Your BMI
                 </div>
               </div>
             </div>
-
-            <div className="mt-6 space-y-5">
-              <div>
-                <label className="mb-2 block text-[1rem] font-medium text-[#313948]">
-                  Height
-                </label>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3">
-                    <input
-                      value={feet}
-                      onChange={(event) => setFeet(event.target.value.replace(/[^0-9]/g, ""))}
-                      className="w-full bg-transparent text-[1.02rem] text-[#172030] outline-none"
-                      inputMode="numeric"
-                      placeholder="Feet"
-                    />
-                    <span className="text-[1.02rem] font-medium text-[#68748f]">ft</span>
-                  </div>
-                  <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3">
-                    <input
-                      value={inches}
-                      onChange={(event) => setInches(event.target.value.replace(/[^0-9]/g, ""))}
-                      className="w-full bg-transparent text-[1.02rem] text-[#172030] outline-none"
-                      inputMode="numeric"
-                      placeholder="Inches"
-                    />
-                    <span className="text-[1.02rem] font-medium text-[#68748f]">in</span>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label className="mb-2 block text-[1rem] font-medium text-[#313948]">
-                  Weight
-                </label>
-                <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3">
-                    <input
-                      value={weight}
-                      onChange={(event) => setWeight(event.target.value.replace(/[^0-9]/g, ""))}
-                    className="w-full bg-transparent text-[1.02rem] text-[#172030] outline-none"
-                    inputMode="numeric"
-                    placeholder="Weight (pounds)"
-                  />
-                  <span className="text-[1.02rem] font-medium text-[#68748f]">lbs</span>
-                </div>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setShowEligibilityModal(true)}
-              className="hs-solid-btn mt-8 inline-flex min-h-[3.4rem] w-full items-center justify-center gap-2 rounded-full px-8 text-[1.02rem] font-semibold"
-            >
-              See my BMI eligibility
-              <ArrowRight className="h-4 w-4" />
-            </button>
-          </article>
-
-          <article className="overflow-hidden rounded-[1rem] border border-[#edf1f7] bg-white shadow-[0_18px_34px_rgba(20,24,34,0.08)]">
-            <div className="relative h-full min-h-[720px]">
-              <Image
-                src="/photoroom-4.png"
-                alt="Happy HealSend member"
-                fill
-                sizes="(max-width: 1280px) 100vw, 32vw"
-                className="object-cover object-center"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(255,255,255,0.88)_44%,rgba(255,255,255,1)_100%)] px-6 pb-5 pt-24">
-                <div className="flex justify-center">
-                  <div className="flex -space-x-2.5">
-                    {CALCULATOR_AVATARS.map((src) => (
-                      <span
-                        key={src}
-                        className="relative h-10 w-10 overflow-hidden rounded-full border-[3px] border-white bg-[#edf1f8]"
-                      >
-                        <Image
-                          src={src}
-                          alt=""
-                          fill
-                          sizes="40px"
-                          className="object-cover object-center"
+            <p className="mx-auto mt-5 max-w-[20rem] text-left text-[0.98rem] leading-7 text-[#33405a] md:text-center">
+              Body Mass Index (BMI) is a measurement that uses your height and
+              weight to estimate whether your weight is in a healthy range for
+              your height.*
+            </p>
+          </div>
+          <div>
+            <div className="space-y-3">
+              {BMI_CATEGORY_ROWS.map((row) => {
+                const active = row.label === bmiCategory;
+                return (
+                  <div
+                    key={row.label}
+                    className={`rounded-[1rem] border border-transparent px-4 py-4 ${
+                      active ? row.panelClass : "bg-[#f5f7fb]"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-3">
+                        <span
+                          className={`h-3 w-3 rounded-full ${row.dotClass}`}
                         />
+                        <span className="text-[1rem] font-medium text-[#33405a]">
+                          {row.label}
+                        </span>
+                      </div>
+                      <span className="text-[1rem] font-semibold text-[#2c3648]">
+                        {row.range}
                       </span>
-                    ))}
-                  </div>
-                </div>
-                <p className="mx-auto mt-4 max-w-[22rem] text-center text-[0.98rem] leading-7 text-[#4e5a73]">
-                  Over <span className="font-semibold text-[#141c2b]">250,000</span> members
-                  treated. <span className="font-semibold text-[#141c2b]">94.6%</span> success
-                  backed by real HealSend member progress nationwide.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article className="rounded-[1rem] border border-[#edf1f7] bg-white p-8 shadow-[0_18px_34px_rgba(20,24,34,0.08)]">
-            <div className="text-center">
-              <p className="text-[1.3rem] font-medium leading-[1.2] tracking-[-0.03em] text-[#121726]">
-                Your projected
-                <br />
-                weight loss
-              </p>
-
-              <div className="mt-10">
-                <span className="font-headline text-[5.7rem] font-semibold leading-none tracking-[-0.08em] text-[#0b1020]">
-                  {projectedLoss}
-                </span>
-                <span className="ml-2 text-[3.25rem] font-medium tracking-[-0.04em] text-[#66748f]">
-                  lbs
-                </span>
-              </div>
-
-              <p className="mx-auto mt-7 max-w-[19rem] text-[0.98rem] leading-7 text-[#4f5c76]">
-                Based on <span className="font-semibold text-[#121726]">250,000+</span> average
-                HealSend member results in guided weight-loss care.
-              </p>
-            </div>
-
-            <div className="mt-10 border-t border-[#d9e1ef] pt-9">
-              <p className="text-center text-[1.02rem] font-medium text-[#20283a]">
-                Starting weight
-              </p>
-              <div className="mx-auto mt-4 flex max-w-[10.5rem] items-end justify-center gap-1 rounded-[0.9rem] bg-[#f2f5fa] px-5 py-4">
-                <span className="font-headline text-[3.2rem] font-semibold leading-none tracking-[-0.06em] text-[#48536b]">
-                  {safeSliderWeight}
-                </span>
-                <span className="mb-1 text-[1.15rem] font-medium text-[#68748f]">lbs</span>
-              </div>
-
-              <div className="mt-12">
-                <div className="relative h-4 rounded-full bg-[#dfe5f4]">
-                  <div
-                    className="absolute inset-y-0 left-0 rounded-full bg-[#5d62f3]"
-                    style={{ width: `${Math.max(8, sliderProgress * 100)}%` }}
-                  />
-                  <div
-                    className="absolute top-1/2 h-7 w-7 -translate-y-1/2 rounded-full border-2 border-[#4b55eb] bg-white shadow-[0_10px_20px_rgba(93,98,243,0.18)]"
-                    style={{ left: `calc(${Math.max(8, sliderProgress * 100)}% - 14px)` }}
-                  />
-                  <input
-                    type="range"
-                    min={minWeight}
-                    max={maxWeight}
-                    step={1}
-                    value={safeSliderWeight}
-                    onChange={(event) => setSliderWeight(Number(event.target.value))}
-                    onPointerDown={handleSliderPointerDown}
-                    onPointerUp={handleSliderPointerUp}
-                    onMouseUp={handleSliderPointerUp}
-                    onTouchEnd={handleSliderPointerUp}
-                    onKeyUp={openProjectedModal}
-                    aria-label="Adjust starting weight"
-                    className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
-                  />
-                </div>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-    <ModalShell open={showProjectedModal} onClose={() => setShowProjectedModal(false)}>
-      <div className="mt-5 grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <div className="rounded-[1rem] bg-[#f5f7fb] p-6 text-center md:p-8">
-          <p className="text-[1rem] font-medium text-[#101726]">Lose on average:</p>
-          <div className="mt-5 font-headline text-[5.3rem] font-semibold leading-none tracking-[-0.08em] text-[#0b1020]">
-            15%
-          </div>
-          <p className="mt-2 text-[1rem] leading-7 text-[#4e5a73]">
-            of your body weight with HealSend.
-          </p>
-          <button
-            type="button"
-            className="hs-solid-btn mt-6 inline-flex min-h-[3.35rem] w-full items-center justify-center gap-2 rounded-full px-8 text-[1rem] font-semibold"
-          >
-            See what&apos;s possible for you
-            <ArrowRight className="h-4 w-4" />
-          </button>
-          <div className="mt-6 flex justify-center">
-            <div className="flex -space-x-2.5">
-              {CALCULATOR_AVATARS.map((src) => (
-                <span
-                  key={`modal-${src}`}
-                  className="relative h-10 w-10 overflow-hidden rounded-full border-[3px] border-white bg-[#edf1f8]"
-                >
-                  <Image src={src} alt="" fill sizes="40px" className="object-cover object-center" />
-                </span>
-              ))}
-            </div>
-          </div>
-          <p className="mx-auto mt-4 max-w-[22rem] text-[0.98rem] leading-7 text-[#4e5a73]">
-            Over <span className="font-semibold text-[#141c2b]">250,000</span> members treated.
-            <span className="font-semibold text-[#141c2b]"> 94.6%</span> success backed by real
-            HealSend results nationwide.
-          </p>
-        </div>
-        <div className="rounded-[1rem] bg-[#f5f7fb] p-6 text-center md:p-8">
-          <p className="text-[1rem] font-medium text-[#101726]">You could lose</p>
-          <div className="mt-5">
-            <span className="font-headline text-[5.6rem] font-semibold leading-none tracking-[-0.08em] text-[#0b1020]">
-              {projectedLoss}
-            </span>
-            <span className="ml-2 text-[3rem] font-medium tracking-[-0.04em] text-[#66748f]">
-              lbs
-            </span>
-          </div>
-          <p className="mt-8 text-[1rem] font-medium text-[#20283a]">Starting weight</p>
-          <div className="mx-auto mt-4 flex max-w-[13rem] items-end justify-center gap-1 rounded-[0.9rem] bg-white px-5 py-4">
-            <span className="font-headline text-[3.15rem] font-semibold leading-none tracking-[-0.06em] text-[#48536b]">
-              {safeSliderWeight}
-            </span>
-            <span className="mb-1 text-[1.15rem] font-medium text-[#68748f]">lbs</span>
-          </div>
-        </div>
-      </div>
-      <p className="mt-5 text-[0.8rem] leading-6 text-[#67748d]">
-        Results vary by individual. Results are based on self-reported data from member progress
-        snapshots, including clinician consultations and follow-up reporting over time. Individual
-        results may vary. All treatment decisions are made by a licensed healthcare provider.
-      </p>
-    </ModalShell>
-    <ModalShell open={showEligibilityModal} onClose={() => setShowEligibilityModal(false)}>
-      <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,0.98fr)_minmax(0,1.05fr)]">
-        <div className="rounded-[1rem] bg-[#f5f7fb] p-6 text-center md:p-8">
-          <p className="text-[1rem] font-medium text-[#101726]">Check your eligibility.</p>
-          <div className="relative mx-auto mt-6 h-[220px] w-[270px]">
-            <svg viewBox="0 0 280 170" className="h-full w-full overflow-visible">
-              <path
-                d="M 25 150 A 115 115 0 0 1 255 150"
-                fill="none"
-                stroke="#e5e7eb"
-                strokeWidth="16"
-                strokeLinecap="round"
-              />
-              <path
-                d="M 25 150 A 115 115 0 0 1 255 150"
-                fill="none"
-                stroke="url(#bmiModalGradient)"
-                strokeWidth="16"
-                strokeLinecap="round"
-                strokeDasharray={circumference}
-                strokeDashoffset={bmiOffset}
-              />
-              <defs>
-                <linearGradient id="bmiModalGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#6db1ff" />
-                  <stop offset="50%" stopColor="#91e2a8" />
-                  <stop offset="78%" stopColor="#ffd34d" />
-                  <stop offset="100%" stopColor="#ff845b" />
-                </linearGradient>
-              </defs>
-            </svg>
-            <div className="absolute inset-x-0 bottom-5 text-center">
-              <div className="font-headline text-[4.8rem] font-semibold leading-none tracking-[-0.07em] text-[#0b1020]">
-                {bmi}
-              </div>
-              <div className="mt-2 text-[0.95rem] font-medium text-[#222b3d]">Your BMI</div>
-            </div>
-          </div>
-          <p className="mx-auto mt-5 max-w-[20rem] text-left text-[0.98rem] leading-7 text-[#33405a] md:text-center">
-            Body Mass Index (BMI) is a measurement that uses your height and weight to estimate
-            whether your weight is in a healthy range for your height.*
-          </p>
-        </div>
-        <div>
-          <div className="space-y-3">
-            {BMI_CATEGORY_ROWS.map((row) => {
-              const active = row.label === bmiCategory;
-              return (
-                <div
-                  key={row.label}
-                  className={`rounded-[1rem] border border-transparent px-4 py-4 ${
-                    active ? row.panelClass : "bg-[#f5f7fb]"
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                      <span className={`h-3 w-3 rounded-full ${row.dotClass}`} />
-                      <span className="text-[1rem] font-medium text-[#33405a]">{row.label}</span>
                     </div>
-                    <span className="text-[1rem] font-semibold text-[#2c3648]">{row.range}</span>
+                    {active ? (
+                      <div className="mt-4">
+                        <p className="text-[1rem] leading-7 text-[#253146]">
+                          {bmiPanelCopy.description}
+                        </p>
+                        <button
+                          type="button"
+                          className="hs-solid-btn mt-5 inline-flex min-h-[3.35rem] w-full items-center justify-center gap-2 rounded-full px-8 text-[1rem] font-semibold"
+                        >
+                          Start treatment today
+                          <ArrowRight className="h-4 w-4" />
+                        </button>
+                      </div>
+                    ) : null}
                   </div>
-                  {active ? (
-                    <div className="mt-4">
-                      <p className="text-[1rem] leading-7 text-[#253146]">
-                        {bmiPanelCopy.description}
-                      </p>
-                      <button
-                        type="button"
-                        className="hs-solid-btn mt-5 inline-flex min-h-[3.35rem] w-full items-center justify-center gap-2 rounded-full px-8 text-[1rem] font-semibold"
-                      >
-                        Start treatment today
-                        <ArrowRight className="h-4 w-4" />
-                      </button>
-                    </div>
-                  ) : null}
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="mt-6 space-y-4 text-[0.8rem] leading-6 text-[#67748d]">
-        <p>
-          *BMI doesn&apos;t directly measure body fat and may not accurately reflect health for
-          people with high muscle mass, pregnant women, children, older adults, certain ethnic
-          groups, or those with medical conditions.
-        </p>
-        <p>
-          The BMI calculator does not determine eligibility for weight-loss treatments. A licensed
-          healthcare provider must evaluate your overall health and history to decide if treatment
-          is right for you.
-        </p>
-      </div>
-    </ModalShell>
+        <div className="mt-6 space-y-4 text-[0.8rem] leading-6 text-[#67748d]">
+          <p>
+            *BMI doesn&apos;t directly measure body fat and may not accurately
+            reflect health for people with high muscle mass, pregnant women,
+            children, older adults, certain ethnic groups, or those with medical
+            conditions.
+          </p>
+          <p>
+            The BMI calculator does not determine eligibility for weight-loss
+            treatments. A licensed healthcare provider must evaluate your
+            overall health and history to decide if treatment is right for you.
+          </p>
+        </div>
+      </ModalShell>
     </>
   );
 }
@@ -1539,22 +1801,24 @@ export default function TestHeroPreviewContent() {
                       Prescriptions written
                     </p>
                     <div className="flex -space-x-2">
-                      {["/photoroom-6.png", "/photoroom-4.png", "/photoroom-3.png"].map(
-                        (src) => (
-                          <span
-                            key={src}
-                            className="relative h-9 w-9 overflow-hidden rounded-full border-2 border-white bg-[#eef0f8]"
-                          >
-                            <Image
-                              src={src}
-                              alt=""
-                              fill
-                              sizes="36px"
-                              className="object-cover object-center"
-                            />
-                          </span>
-                        ),
-                      )}
+                      {[
+                        "/photoroom-6.png",
+                        "/photoroom-4.png",
+                        "/photoroom-3.png",
+                      ].map((src) => (
+                        <span
+                          key={src}
+                          className="relative h-9 w-9 overflow-hidden rounded-full border-2 border-white bg-[#eef0f8]"
+                        >
+                          <Image
+                            src={src}
+                            alt=""
+                            fill
+                            sizes="36px"
+                            className="object-cover object-center"
+                          />
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -1569,8 +1833,8 @@ export default function TestHeroPreviewContent() {
                 </p>
                 <p className="mt-4 max-w-[29rem] text-[0.98rem] leading-6 text-[#4d5160] lg:text-[1.01rem]">
                   Personalized GLP-1 treatment. Unlimited clinician-led care.
-                  Delivered to your door with a cleaner, calmer care journey from
-                  intake to refill.
+                  Delivered to your door with a cleaner, calmer care journey
+                  from intake to refill.
                 </p>
               </div>
 

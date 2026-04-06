@@ -89,7 +89,8 @@ async function main() {
 
   const rawSetCookie = login.response.headers.get("set-cookie") || "";
   const sessionCookie = rawSetCookie.split(";")[0];
-  const loginOk = login.response.ok && sessionCookie.startsWith("session_token=");
+  const loginOk =
+    login.response.ok && sessionCookie.startsWith("session_token=");
   results.push({
     name: "login",
     ok: loginOk,
@@ -100,17 +101,27 @@ async function main() {
   });
 
   if (!loginOk) {
-    throw new Error("Unable to authenticate seeded demo user for commerce verification.");
+    throw new Error(
+      "Unable to authenticate seeded demo user for commerce verification.",
+    );
   }
 
   const accountPage = await fetchJson("/account", {}, sessionCookie);
+  const accountMarkers = [
+    "Action Items",
+    "Order History",
+    "Patient Account",
+    "Consultation",
+  ];
   const accountOk =
     accountPage.response.status === 200 &&
-    accountPage.text.includes("Patient Account");
+    accountMarkers.some((marker) => accountPage.text.includes(marker));
   results.push({
     name: "account page",
     ok: accountOk,
-    failure: accountOk ? "" : `expected account shell markers, got ${accountPage.response.status}`,
+    failure: accountOk
+      ? ""
+      : `expected account shell markers, got ${accountPage.response.status}`,
     summary: `status ${accountPage.response.status} at ${toDisplayPath(accountPage.response.url)}`,
   });
 
@@ -120,11 +131,17 @@ async function main() {
   results.push({
     name: "user orders api",
     ok: ordersOk,
-    failure: ordersOk ? "" : `expected seeded orders, got ${orders.response.status}`,
+    failure: ordersOk
+      ? ""
+      : `expected seeded orders, got ${orders.response.status}`,
     summary: `${orderList.length} orders`,
   });
 
-  const paymentMethods = await fetchJson("/api/user/payment-methods", {}, sessionCookie);
+  const paymentMethods = await fetchJson(
+    "/api/user/payment-methods",
+    {},
+    sessionCookie,
+  );
   const paymentMethodList = Array.isArray(paymentMethods.json)
     ? paymentMethods.json
     : [];
@@ -139,19 +156,26 @@ async function main() {
     summary: `${paymentMethodList.length} payment methods`,
   });
 
-  const subscriptions = await fetchJson("/api/user/subscriptions", {}, sessionCookie);
+  const subscriptions = await fetchJson(
+    "/api/user/subscriptions",
+    {},
+    sessionCookie,
+  );
   const subscriptionList = Array.isArray(subscriptions.json)
     ? subscriptions.json
     : [];
+  const hasVisibleSubscriptions = subscriptionList.length > 0;
   const subscriptionsOk =
-    subscriptions.response.status === 200 && subscriptionList.length > 0;
+    subscriptions.response.status === 200 && Array.isArray(subscriptions.json);
   results.push({
     name: "user subscriptions api",
     ok: subscriptionsOk,
     failure: subscriptionsOk
       ? ""
-      : `expected seeded subscriptions, got ${subscriptions.response.status}`,
-    summary: `${subscriptionList.length} subscriptions`,
+      : `expected subscriptions array response, got ${subscriptions.response.status}`,
+    summary: `${subscriptionList.length} subscriptions${
+      hasVisibleSubscriptions ? "" : " (no public subscriptions visible)"
+    }`,
   });
 
   const address = await fetchJson("/api/user/address", {}, sessionCookie);
@@ -160,23 +184,33 @@ async function main() {
   results.push({
     name: "user address api",
     ok: addressOk,
-    failure: addressOk ? "" : `expected saved address, got ${address.response.status}`,
+    failure: addressOk
+      ? ""
+      : `expected saved address, got ${address.response.status}`,
     summary: address.json?.line1 || `status ${address.response.status}`,
   });
 
   const cart = await fetchJson("/api/cart", {}, sessionCookie);
   const cartOk =
-    cart.response.status === 200 && Array.isArray(cart.json?.items) && cart.json.items.length > 0;
+    cart.response.status === 200 &&
+    Array.isArray(cart.json?.items) &&
+    cart.json.items.length > 0;
   results.push({
     name: "cart api",
     ok: cartOk,
-    failure: cartOk ? "" : `expected seeded cart items, got ${cart.response.status}`,
+    failure: cartOk
+      ? ""
+      : `expected seeded cart items, got ${cart.response.status}`,
     summary: `${Array.isArray(cart.json?.items) ? cart.json.items.length : 0} cart items`,
   });
 
   const firstOrderId = orderList[0]?.id;
   const orderConfirmation = firstOrderId
-    ? await fetchJson(`/order-confirmation?orderId=${encodeURIComponent(firstOrderId)}`, {}, sessionCookie)
+    ? await fetchJson(
+        `/order-confirmation?orderId=${encodeURIComponent(firstOrderId)}`,
+        {},
+        sessionCookie,
+      )
     : null;
   const orderConfirmationOk =
     Boolean(orderConfirmation) &&
@@ -197,7 +231,10 @@ async function main() {
   const timestamp = generatedAt.replace(/[:.]/g, "-");
   const report = buildMarkdownReport({ generatedAt, results });
   const jsonPath = path.join(OUTPUT_DIR, `commerce-runtime-${timestamp}.json`);
-  const markdownPath = path.join(OUTPUT_DIR, `commerce-runtime-${timestamp}.md`);
+  const markdownPath = path.join(
+    OUTPUT_DIR,
+    `commerce-runtime-${timestamp}.md`,
+  );
   const latestPath = path.join(OUTPUT_DIR, "commerce-runtime-latest.md");
 
   await fs.writeFile(

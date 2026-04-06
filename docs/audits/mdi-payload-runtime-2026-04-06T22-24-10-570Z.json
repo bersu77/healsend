@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-04-06T22:24:10.570Z",
+  "baseUrl": "http://127.0.0.1:3000",
+  "orderId": "cmnfllubk001qmt0usfrl4wkm",
+  "caseId": "mdi-payload-case-1775514248230",
+  "results": [
+    {
+      "name": "login",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "customer patch camelCase payload",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "customer get route",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "order patch nested payload",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "order get route",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "order tags patch alias payload",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "order tags get route",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "partner auth GET redirect",
+      "ok": true,
+      "failure": "",
+      "summary": "status 307"
+    },
+    {
+      "name": "webhook voucher fallback nested payload",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "webhook mixed snake/camel payload",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "user visits reflect variant payloads",
+      "ok": true,
+      "failure": "",
+      "summary": "12 visits"
+    },
+    {
+      "name": "user messages reflect variant payloads",
+      "ok": true,
+      "failure": "",
+      "summary": "10 messages"
+    },
+    {
+      "name": "database projection after variant flow",
+      "ok": true,
+      "failure": "",
+      "summary": "events 2 / tag active"
+    }
+  ]
+}

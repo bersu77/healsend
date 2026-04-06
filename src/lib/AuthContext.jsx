@@ -101,25 +101,29 @@ export const AuthProvider = ({ children, initialUser = null }) => {
     return data.user;
   }, []);
 
-  const register = useCallback(async (email, password, name, phone) => {
-    const res = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email,
-        password,
-        name: name || undefined,
-        phone: phone || undefined,
-      }),
-    });
-    const data = await readJsonResponse(res);
-    if (!res.ok) throw new Error(data?.error || "Registration failed");
-    if (!data?.user) throw new Error("Registration failed");
-    setUser(data.user);
-    setIsAuthenticated(true);
-    emitAuthChanged();
-    return data.user;
-  }, []);
+  const register = useCallback(
+    async (email, password, name, phone, dateOfBirth) => {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password,
+          name: name || undefined,
+          phone: phone || undefined,
+          dateOfBirth: dateOfBirth || undefined,
+        }),
+      });
+      const data = await readJsonResponse(res);
+      if (!res.ok) throw new Error(data?.error || "Registration failed");
+      if (!data?.user) throw new Error("Registration failed");
+      setUser(data.user);
+      setIsAuthenticated(true);
+      emitAuthChanged();
+      return data.user;
+    },
+    [],
+  );
 
   const logout = useCallback(async () => {
     await fetch("/api/auth/logout", { method: "POST" });

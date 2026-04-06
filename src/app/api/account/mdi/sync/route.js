@@ -35,7 +35,8 @@ export async function POST() {
   }
 
   const { clientId, clientSecret } = getMdiConfig();
-  if (!clientId || !clientSecret) {
+  const isPlaceholder = (v) => !v || v.toUpperCase().includes("REPLACE_ME");
+  if (isPlaceholder(clientId) || isPlaceholder(clientSecret)) {
     return NextResponse.json(
       { error: "MDI credentials not configured" },
       { status: 503 },

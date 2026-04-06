@@ -1,0 +1,13 @@
+{
+  "generatedAt": "2026-04-06T12:15:26.333Z",
+  "baseUrl": "http://127.0.0.1:3000",
+  "result": {
+    "ok": true,
+    "failure": "",
+    "apiStatus": 200,
+    "assetStatus": 200,
+    "url": "/api/uploads/a07ade7e6b38fa5454d9658c.svg",
+    "filename": "a07ade7e6b38fa5454d9658c.svg",
+    "cleanedUp": true
+  }
+}

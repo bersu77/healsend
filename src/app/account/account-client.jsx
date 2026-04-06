@@ -24,7 +24,6 @@ import { formatUsd } from "@/lib/pricing";
 const TABS = [
   { key: "action-items", label: "Action Items", icon: "info" },
   { key: "orders", label: "Orders", icon: "receipt_long" },
-  { key: "subscriptions", label: "Subscriptions", icon: "autorenew" },
   { key: "messages", label: "Messages", icon: "chat" },
   { key: "care-history", label: "Care History", icon: "medical_services" },
   { key: "affiliate", label: "Affiliate", icon: "group_add" },
@@ -445,8 +444,26 @@ function getDefaultPaymentMethod(paymentMethods = []) {
   );
 }
 
-function openConsultationTab(orderId) {
-  const consultationPath = `/consultation/${orderId}`;
+function getOrderTelehealthProvider(order) {
+  const items = order?.items || [];
+  for (const item of items) {
+    if (item?.product?.telehealthProvider) {
+      return item.product.telehealthProvider;
+    }
+  }
+  // Fallback: if OLA fields are populated, it's OLA
+  if (order?.olaOrderGuid) return "OLA";
+  return order?.telehealthProvider || "MDI";
+}
+
+function getConsultationPath(order) {
+  const provider = getOrderTelehealthProvider(order);
+  if (provider === "OLA") return `/consultation/ola/${order.id}`;
+  return `/consultation/${order.id}`;
+}
+
+function openConsultationTab(order) {
+  const consultationPath = getConsultationPath(order);
 
   if (typeof window !== "undefined") {
     window.open(consultationPath, "_blank", "noopener,noreferrer");
@@ -627,12 +644,6 @@ export default function AccountClient({
                 initialCaseSnapshots={visibleCaseSnapshots}
               />
             )}
-            {activeTab === "subscriptions" && (
-              <SubscriptionsTab
-                initialSubscriptions={initialSubscriptions}
-                initialPaymentMethods={initialPaymentMethods}
-              />
-            )}
             {activeTab === "messages" && (
               <MessagesTab
                 initialMessages={visibleMessages}
@@ -655,6 +666,7 @@ export default function AccountClient({
                 user={user}
                 initialPaymentMethods={initialPaymentMethods}
                 initialAddress={initialAddress}
+                initialSubscriptions={initialSubscriptions}
                 onUserUpdate={setUser}
               />
             )}
@@ -691,13 +703,25 @@ function ActionItemsTab({ initialOrders, initialCaseSnapshots }) {
   const handleStartReview = async (orderId) => {
     setConsultLoading(orderId);
     try {
-      const res = await fetch("/api/create-consultation", {
+      // Find the order to determine the provider
+      const targetOrder = pendingReview.find(
+        (pr) => pr.order.id === orderId,
+      )?.order;
+      const provider = targetOrder
+        ? getOrderTelehealthProvider(targetOrder)
+        : "MDI";
+      const apiUrl =
+        provider === "OLA"
+          ? "/api/ola/create-consultation"
+          : "/api/create-consultation";
+
+      const res = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ orderId }),
       });
       if (res.ok) {
-        openConsultationTab(orderId);
+        openConsultationTab(targetOrder || { id: orderId });
       }
     } catch {
       // Keep the UI calm; the consultation route can retry creation.
@@ -729,9 +753,9 @@ function ActionItemsTab({ initialOrders, initialCaseSnapshots }) {
       {pendingReview.map(({ order, item, caseSnapshot, mdiState }) => {
         const caseStatus = caseSnapshot?.status || caseSnapshot?.phase || null;
         const friendlyCaseStatus = formatStatusLabel(caseStatus, "In review");
-        const hasLiveConsultation = isUsableConsultationUrl(
-          order.consultationUrl,
-        );
+        const hasLiveConsultation =
+          isUsableConsultationUrl(order.consultationUrl) ||
+          !!order.olaOrderGuid;
 
         return (
           <div
@@ -764,7 +788,7 @@ function ActionItemsTab({ initialOrders, initialCaseSnapshots }) {
             ) : null}
             {hasLiveConsultation ? (
               <Link
-                href={`/consultation/${order.id}`}
+                href={getConsultationPath(order)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-emerald-700"
@@ -957,7 +981,7 @@ function OrdersTab({
               </div>
             ))}
 
-            {order.consultationId ? (
+            {order.consultationId || order.olaOrderGuid ? (
               <div className="flex items-center gap-3 rounded-lg bg-emerald-50 p-4">
                 <AppIcon
                   className="h-5 w-5 text-emerald-600"
@@ -965,29 +989,37 @@ function OrdersTab({
                 />
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-emerald-800">
-                    {getMdiDashboardState(
-                      order,
-                      getCaseSnapshotForOrder(order, initialCaseSnapshots),
-                    ).kind === "questionnaire"
-                      ? "Patient portal ready"
-                      : order.consultationStatus === "completed"
+                    {getOrderTelehealthProvider(order) === "OLA"
+                      ? order.olaStatus === "completed"
                         ? "Consultation completed"
-                        : "Consultation in progress"}
+                        : "OLA consultation in progress"
+                      : getMdiDashboardState(
+                            order,
+                            getCaseSnapshotForOrder(
+                              order,
+                              initialCaseSnapshots,
+                            ),
+                          ).kind === "questionnaire"
+                        ? "Patient portal ready"
+                        : order.consultationStatus === "completed"
+                          ? "Consultation completed"
+                          : "Consultation in progress"}
                   </p>
                 </div>
-                {isUsableConsultationUrl(order.consultationUrl) ? (
+                {isUsableConsultationUrl(order.consultationUrl) ||
+                order.olaOrderGuid ? (
                   <Link
-                    href={`/consultation/${order.id}`}
+                    href={getConsultationPath(order)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="rounded-full bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-emerald-700"
                   >
-                    {
-                      getMdiDashboardState(
-                        order,
-                        getCaseSnapshotForOrder(order, initialCaseSnapshots),
-                      ).ctaLabel
-                    }
+                    {getOrderTelehealthProvider(order) === "OLA"
+                      ? "View Consultation"
+                      : getMdiDashboardState(
+                          order,
+                          getCaseSnapshotForOrder(order, initialCaseSnapshots),
+                        ).ctaLabel}
                   </Link>
                 ) : null}
               </div>
@@ -1963,6 +1995,7 @@ function ProfileTab({
   user,
   initialPaymentMethods,
   initialAddress,
+  initialSubscriptions,
   onUserUpdate,
 }) {
   const { refreshUser } = useAuth();
@@ -1987,6 +2020,17 @@ function ProfileTab({
     zip: initialAddress?.zip || "",
     country: initialAddress?.country || "US",
   });
+  const [subscriptions, setSubscriptions] = useState(
+    initialSubscriptions || [],
+  );
+  const [savingSubscriptionId, setSavingSubscriptionId] = useState(null);
+  const [updatingCard, setUpdatingCard] = useState(false);
+  const [cardError, setCardError] = useState("");
+
+  const defaultPaymentMethod = useMemo(
+    () => getDefaultPaymentMethod(initialPaymentMethods),
+    [initialPaymentMethods],
+  );
 
   useEffect(() => {
     setName(user?.name || "");
@@ -2099,8 +2143,185 @@ function ProfileTab({
     }
   };
 
+  const handleUpdateCard = async () => {
+    setUpdatingCard(true);
+    setCardError("");
+    try {
+      const res = await fetch("/api/user/update-card", { method: "POST" });
+      const data = await res.json();
+      if (!res.ok || !data.sessionUrl) {
+        setCardError(
+          data.error || "Could not start card update. Please try again.",
+        );
+        return;
+      }
+      window.location.href = data.sessionUrl;
+    } catch {
+      setCardError("Could not start card update. Please try again.");
+    } finally {
+      setUpdatingCard(false);
+    }
+  };
+
+  const handleToggleRenewal = async (subscription) => {
+    setSavingSubscriptionId(subscription.id);
+    try {
+      const res = await fetch("/api/user/subscriptions", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: subscription.id,
+          cancelAtPeriodEnd: !subscription.cancelAtPeriodEnd,
+        }),
+      });
+
+      if (!res.ok) {
+        return;
+      }
+
+      const updated = await res.json();
+      setSubscriptions((currentSubscriptions) =>
+        currentSubscriptions.map((s) => (s.id === updated.id ? updated : s)),
+      );
+    } finally {
+      setSavingSubscriptionId(null);
+    }
+  };
+
   return (
     <div className="space-y-8">
+      <div>
+        <h2 className="mb-4 text-2xl font-bold text-[#1c1a24]">
+          Subscriptions
+        </h2>
+        {subscriptions.length === 0 ? (
+          <div className="space-y-5">
+            <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center sm:p-12">
+              <AppIcon
+                className="mx-auto mb-4 h-12 w-12 text-gray-300"
+                name="autorenew"
+              />
+              <h3 className="mb-2 text-xl font-bold text-[#1c1a24]">
+                No active subscriptions yet
+              </h3>
+              <p className="mb-6 text-sm text-[#484555]">
+                Once you complete a treatment checkout, your ongoing plan
+                details will appear here.
+              </p>
+            </div>
+            {defaultPaymentMethod && (
+              <SavedCardPanel
+                paymentMethod={defaultPaymentMethod}
+                onUpdateCard={handleUpdateCard}
+                updatingCard={updatingCard}
+                cardError={cardError}
+              />
+            )}
+          </div>
+        ) : (
+          <div className="space-y-6">
+            <SavedCardPanel
+              paymentMethod={defaultPaymentMethod}
+              onUpdateCard={handleUpdateCard}
+              updatingCard={updatingCard}
+              cardError={cardError}
+            />
+            {subscriptions.map((subscription) => (
+              <div
+                key={subscription.id}
+                className="rounded-2xl border border-gray-200 bg-white p-5 sm:p-6"
+              >
+                <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                  <div>
+                    <div className="mb-2 flex items-center gap-3">
+                      <span
+                        className={`rounded-full px-2.5 py-1 text-xs font-semibold ${getStatusPill(subscription.status)}`}
+                      >
+                        {subscription.status}
+                      </span>
+                      {subscription.cancelAtPeriodEnd ? (
+                        <span className="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-700">
+                          Cancels at renewal
+                        </span>
+                      ) : null}
+                    </div>
+                    <h3 className="text-xl font-bold text-[#1c1a24]">
+                      {subscription.planName}
+                    </h3>
+                    <p className="mt-1 text-sm text-[#484555]">
+                      {formatUsd(subscription.amount)} every{" "}
+                      {formatInterval(subscription)}
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={() => handleToggleRenewal(subscription)}
+                    disabled={savingSubscriptionId === subscription.id}
+                    className={`inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+                      subscription.cancelAtPeriodEnd
+                        ? "bg-[#5b3cdd] text-white hover:bg-[#4a2fc7]"
+                        : "border border-red-200 text-red-600 hover:bg-red-50"
+                    } disabled:opacity-50`}
+                  >
+                    <AppIcon
+                      className="h-4 w-4"
+                      name={subscription.cancelAtPeriodEnd ? "undo" : "cancel"}
+                    />
+                    {savingSubscriptionId === subscription.id
+                      ? "Saving..."
+                      : subscription.cancelAtPeriodEnd
+                        ? "Keep subscription"
+                        : "Cancel at renewal"}
+                  </button>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                  <div className="rounded-xl bg-[#faf9fe] p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#797587]">
+                      Started
+                    </p>
+                    <p className="mt-2 text-sm font-semibold text-[#1c1a24]">
+                      {formatDate(subscription.startDate)}
+                    </p>
+                  </div>
+                  <div className="rounded-xl bg-[#faf9fe] p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#797587]">
+                      Next billing
+                    </p>
+                    <p className="mt-2 text-sm font-semibold text-[#1c1a24]">
+                      {subscription.nextBillingDate
+                        ? formatDate(subscription.nextBillingDate)
+                        : "No future billing scheduled"}
+                    </p>
+                  </div>
+                  <div className="rounded-xl bg-[#faf9fe] p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#797587]">
+                      Billing cadence
+                    </p>
+                    <p className="mt-2 text-sm font-semibold text-[#1c1a24]">
+                      Every {formatInterval(subscription)}
+                    </p>
+                  </div>
+                </div>
+
+                <p className="mt-4 text-sm text-[#484555]">
+                  Need help with billing changes or plan questions?{" "}
+                  <a
+                    href={buildSupportMailto(
+                      `Subscription support: ${subscription.planName}`,
+                    )}
+                    className="font-medium text-[#5b3cdd] hover:underline"
+                  >
+                    Contact support
+                  </a>
+                  .
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
       <div>
         <h2 className="mb-4 text-2xl font-bold text-[#1c1a24]">
           Account Details

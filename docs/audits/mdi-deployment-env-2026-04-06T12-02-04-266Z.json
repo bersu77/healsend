@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-04-06T12:02:04.266Z",
+  "target": "production",
+  "checks": [
+    {
+      "name": "NEXT_PUBLIC_APP_URL",
+      "status": "fail",
+      "detail": "App URL still points at a local host (http://localhost:3000).",
+      "action": "Use the real deployed origin so callback URLs and public links are correct."
+    },
+    {
+      "name": "MD_API_BASE_URL",
+      "status": "fail",
+      "detail": "MDI API base URL is missing or placeholder.",
+      "action": "Set the real provider API base URL explicitly for the target environment."
+    },
+    {
+      "name": "MD_WEBHOOK_URL",
+      "status": "fail",
+      "detail": "MDI webhook/order-sync URL is missing or placeholder.",
+      "action": "Set the real provider order-submission endpoint."
+    },
+    {
+      "name": "MD_CLIENT_ID",
+      "status": "fail",
+      "detail": "MDI client id is missing or placeholder.",
+      "action": "Set the real partner client id for outbound auth and machine requests."
+    },
+    {
+      "name": "MD_CLIENT_SECRET",
+      "status": "fail",
+      "detail": "MDI client secret is missing or placeholder.",
+      "action": "Set the real partner client secret for outbound auth and machine requests."
+    },
+    {
+      "name": "MD_WEBHOOK_SECRET",
+      "status": "fail",
+      "detail": "MDI webhook secret is missing or placeholder.",
+      "action": "Set the real inbound webhook secret so provider callbacks can be authenticated safely."
+    },
+    {
+      "name": "MD_LOCAL_DEV_FALLBACK",
+      "status": "fail",
+      "detail": "MDI local fallback is still enabled.",
+      "action": "Set MD_LOCAL_DEV_FALLBACK=false before any real staging or production validation."
+    },
+    {
+      "name": "MD_IFRAME_URL",
+      "status": "warn",
+      "detail": "No explicit iframe URL override is set.",
+      "action": "This is fine if the provider returns auth links directly. Set MD_IFRAME_URL only if your provider requires a fixed embed URL."
+    },
+    {
+      "name": "MD_PATIENT_ID / MD_DEFAULT_PATIENT_ID",
+      "status": "pass",
+      "detail": "No fixed patient id override is set.",
+      "action": ""
+    }
+  ],
+  "summary": {
+    "pass": 1,
+    "warn": 1,
+    "fail": 7
+  }
+}

@@ -1,10 +1,10 @@
 import {
-  Ban,
+  Atom,
   Droplet,
   FlaskConical,
   Hourglass,
+  Leaf,
   Rabbit,
-  Sparkles,
   Syringe,
   Target,
   TrendingUp,
@@ -44,7 +44,8 @@ export const productContent = {
       sizes: [
         {
           title: "500mg (2.5mL vial)",
-          subtitle: "Great for those starting slowly\nor using NAD+ 1-3x per week",
+          subtitle:
+            "Great for those starting slowly\nor using NAD+ 1-3x per week",
           plans: [
             { name: "3-Month Plan", firstMonthPrice: 119, regularPrice: 186 },
             { name: "Monthly Plan", firstMonthPrice: 173, regularPrice: 196 },
@@ -127,7 +128,8 @@ export const productContent = {
   },
   supportSection: {
     title: "Designed to support how you feel and function.",
-    subtitle: "You may notice real differences in how you think, move, and feel.",
+    subtitle:
+      "You may notice real differences in how you think, move, and feel.",
     features: [
       {
         icon: Target,
@@ -199,9 +201,9 @@ export const productContent = {
   cleanIngredients: [
     { icon: Rabbit, name: "Cruelty Free" },
     { icon: TreePine, name: "Eco Friendly" },
-    { icon: Ban, name: "Paraben Free" },
+    { icon: Leaf, name: "Paraben Free" },
     { icon: FlaskConical, name: "Silicone Free" },
-    { icon: Sparkles, name: "Sulphate Free" },
+    { icon: Atom, name: "Sulphate Free" },
     { icon: Wheat, name: "Gluten Free" },
   ],
 };

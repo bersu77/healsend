@@ -25,11 +25,32 @@ function openOAuthPopup(url) {
   const h = 600;
   const left = window.screenX + (window.outerWidth - w) / 2;
   const top = window.screenY + (window.outerHeight - h) / 2;
-  return window.open(
+  const popup = window.open(
     url,
     "oauth_popup",
     `width=${w},height=${h},left=${left},top=${top},toolbar=no,menubar=no`,
   );
+  if (!popup) return;
+
+  // Detect popup closed without completing OAuth → reload to reset page state
+  let oauthCompleted = false;
+  const onMsg = (e) => {
+    if (e.origin === window.location.origin) {
+      oauthCompleted = true;
+      clearInterval(pollTimer);
+      window.removeEventListener("message", onMsg);
+    }
+  };
+  window.addEventListener("message", onMsg);
+  const pollTimer = setInterval(() => {
+    if (popup.closed) {
+      clearInterval(pollTimer);
+      window.removeEventListener("message", onMsg);
+      if (!oauthCompleted) {
+        window.location.reload();
+      }
+    }
+  }, 500);
 }
 
 function getPostSignupDestination(redirectPath = "") {
@@ -52,6 +73,7 @@ function SignupPageContent({
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -101,6 +123,7 @@ function SignupPageContent({
         password,
         `${firstName.trim()} ${lastName.trim()}`,
         phone.trim(),
+        dateOfBirth || undefined,
       );
       router.refresh();
 
@@ -131,13 +154,6 @@ function SignupPageContent({
       overlay={overlay}
     >
       <div className="w-full">
-        <h2 className="mb-3 text-center font-headline text-[2rem] font-bold tracking-tight text-[#1c1a24] sm:text-[2.25rem]">
-          Create your account
-        </h2>
-        <p className="mb-8 text-center text-sm leading-6 text-[#5f5b70]">
-          Set up secure access and continue with your treatment plan.
-        </p>
-
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="grid grid-cols-2 gap-3">
             <input
@@ -165,6 +181,22 @@ function SignupPageContent({
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               required
+              className="w-full rounded-[1.75rem] border border-[#d7d1e4] px-5 py-4 text-base transition-colors focus:border-[#5b3cdd] focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <input
+              type="date"
+              placeholder="Date of birth"
+              value={dateOfBirth}
+              onChange={(e) => setDateOfBirth(e.target.value)}
+              required
+              max={new Date(
+                new Date().setFullYear(new Date().getFullYear() - 18),
+              )
+                .toISOString()
+                .slice(0, 10)}
               className="w-full rounded-[1.75rem] border border-[#d7d1e4] px-5 py-4 text-base transition-colors focus:border-[#5b3cdd] focus:outline-none"
             />
           </div>

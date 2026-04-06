@@ -27,7 +27,9 @@ function toFiniteNumber(value) {
 }
 
 function isExcludedPublicCatalogSlug(slug) {
-  const normalized = String(slug || "").trim().toLowerCase();
+  const normalized = String(slug || "")
+    .trim()
+    .toLowerCase();
 
   return (
     normalized === "404-error" ||
@@ -96,6 +98,17 @@ function isSlugListedInShopHtml(shopHtml, slug) {
   return pattern.test(shopHtml);
 }
 
+function isRuntimeNotFoundResponse(response) {
+  const body = String(response?.body || "");
+
+  return (
+    response?.finalStatus === 404 ||
+    body.includes('name="next-error" content="not-found"') ||
+    body.includes("NEXT_HTTP_ERROR_FALLBACK;404") ||
+    body.includes("<title>Product Not Found | HealSend</title>")
+  );
+}
+
 async function fetchWithRedirects(urlPath, headers = {}) {
   const chain = [];
   let currentUrl = new URL(urlPath, `${BASE_URL}/`).toString();
@@ -147,7 +160,9 @@ function buildMarkdownReport({
   apiCatalogClean,
 }) {
   const hiddenFailures = hiddenSlugResults.filter((result) => !result.ok);
-  const suspiciousFailures = suspiciousImageResults.filter((result) => !result.ok);
+  const suspiciousFailures = suspiciousImageResults.filter(
+    (result) => !result.ok,
+  );
   const totalFailures =
     hiddenFailures.length +
     suspiciousFailures.length +
@@ -176,7 +191,7 @@ function buildMarkdownReport({
 
   for (const result of hiddenSlugResults) {
     lines.push(
-      `- \`${result.slug}\` — ${result.ok ? "PASS" : "FAIL"} — status \`${result.finalStatus}\`, listed in shop: \`${result.foundInShop}\`, listed in API: \`${result.foundInApi}\``,
+      `- \`${result.slug}\` — ${result.ok ? "PASS" : "FAIL"} — status \`${result.finalStatus}\`, runtime not-found: \`${result.runtimeNotFound}\`, listed in shop: \`${result.foundInShop}\`, listed in API: \`${result.foundInApi}\``,
     );
   }
 
@@ -216,7 +231,9 @@ async function main() {
     orderBy: { slug: "asc" },
   });
 
-  const hiddenProducts = products.filter((product) => !isPublicCatalogProductReady(product));
+  const hiddenProducts = products.filter(
+    (product) => !isPublicCatalogProductReady(product),
+  );
   const suspiciousImageProducts = products.filter(
     (product) =>
       isPublicCatalogProductReady(product) &&
@@ -245,16 +262,15 @@ async function main() {
     });
     const foundInShop = isSlugListedInShopHtml(shopHtml, product.slug);
     const foundInApi = apiSlugs.has(product.slug);
+    const runtimeNotFound = isRuntimeNotFoundResponse(response);
 
     hiddenSlugResults.push({
       slug: product.slug,
       finalStatus: response.finalStatus,
+      runtimeNotFound,
       foundInShop,
       foundInApi,
-      ok:
-        response.finalStatus === 404 &&
-        !foundInShop &&
-        !foundInApi,
+      ok: runtimeNotFound && !foundInShop && !foundInApi,
     });
   }
 
@@ -279,17 +295,24 @@ async function main() {
     });
   }
 
-  const shopPageClean = !hiddenProducts.some((product) =>
-    isSlugListedInShopHtml(shopHtml, product.slug),
-  ) && !/imageuploadtest/i.test(shopHtml);
+  const shopPageClean =
+    !hiddenProducts.some((product) =>
+      isSlugListedInShopHtml(shopHtml, product.slug),
+    ) && !/imageuploadtest/i.test(shopHtml);
   const apiCatalogClean =
     hiddenProducts.every((product) => !apiSlugs.has(product.slug)) &&
     !JSON.stringify(apiPayload).match(/imageuploadtest/i);
 
   const generatedAt = new Date().toISOString();
   const timestamp = generatedAt.replace(/[:.]/g, "-");
-  const jsonPath = path.join(OUTPUT_DIR, `public-catalog-runtime-${timestamp}.json`);
-  const markdownPath = path.join(OUTPUT_DIR, `public-catalog-runtime-${timestamp}.md`);
+  const jsonPath = path.join(
+    OUTPUT_DIR,
+    `public-catalog-runtime-${timestamp}.json`,
+  );
+  const markdownPath = path.join(
+    OUTPUT_DIR,
+    `public-catalog-runtime-${timestamp}.md`,
+  );
   const latestPath = path.join(OUTPUT_DIR, "public-catalog-runtime-latest.md");
 
   const payload = {

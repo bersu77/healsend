@@ -41,7 +41,11 @@ const CHECKS = [
   {
     path: "/login",
     expectStatus: 200,
-    contains: ["Welcome back to HealSend.", "Sign in"],
+    contains: [
+      'id="__next-page-redirect"',
+      "url=/?auth=login",
+      "NEXT_REDIRECT",
+    ],
   },
   {
     path: "/admin-login",
@@ -51,7 +55,11 @@ const CHECKS = [
   {
     path: "/signup",
     expectStatus: 200,
-    contains: ["Start care with a secure HealSend account.", "Sign up"],
+    contains: [
+      'id="__next-page-redirect"',
+      "url=/?auth=signup",
+      "NEXT_REDIRECT",
+    ],
   },
   {
     path: "/shop",
@@ -62,7 +70,9 @@ const CHECKS = [
   {
     path: "/anti-aging",
     expectStatus: 200,
-    contains: ["<title>Support energy, recovery, and vitality with precision care. | HealSend"],
+    contains: [
+      "<title>Support energy, recovery, and vitality with precision care. | HealSend",
+    ],
   },
   {
     path: "/nad",
@@ -77,7 +87,12 @@ const CHECKS = [
   {
     path: "/account",
     expectStatus: 200,
-    contains: ['content="1;url=/login?redirect=%2Faccount"'],
+    contains: [
+      'id="__next-page-redirect"',
+      "url=/?auth=login",
+      "redirect=%2Faccount",
+      "NEXT_REDIRECT",
+    ],
   },
 ];
 

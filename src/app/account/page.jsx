@@ -16,7 +16,9 @@ export const metadata = {
 };
 
 function normalizeMdiSignal(value) {
-  return String(value || "").trim().toLowerCase();
+  return String(value || "")
+    .trim()
+    .toLowerCase();
 }
 
 function containsInternalMarker(value) {
@@ -81,16 +83,15 @@ function isInternalSubscription(subscription) {
     return false;
   }
 
-  const rawValues = [
-    subscription.stripeSubscriptionId,
-    subscription.notes,
-  ];
+  const rawValues = [subscription.stripeSubscriptionId, subscription.notes];
 
   if (rawValues.some(containsInternalMarker)) {
     return true;
   }
 
-  return /^sub_dev_/i.test(String(subscription.stripeSubscriptionId || "").trim());
+  return /^sub_dev_/i.test(
+    String(subscription.stripeSubscriptionId || "").trim(),
+  );
 }
 
 function sanitizePatientFacingText(value, fallback = "") {
@@ -131,15 +132,26 @@ export default async function AccountPage() {
     redirect(buildLoginPath("/account"));
   }
 
-  const [orders, messages, paymentMethods, subscriptions, address, caseSnapshots] =
-    await Promise.all([
+  const [
+    orders,
+    messages,
+    paymentMethods,
+    subscriptions,
+    address,
+    caseSnapshots,
+  ] = await Promise.all([
     prisma.order.findMany({
       where: { userId: user.id },
       include: {
         items: {
           include: {
             product: {
-              select: { name: true, images: true, subscriptionTiers: true },
+              select: {
+                name: true,
+                images: true,
+                subscriptionTiers: true,
+                telehealthProvider: true,
+              },
             },
             variant: true,
           },

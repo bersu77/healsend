@@ -76,7 +76,9 @@ export async function GET(request) {
   }
 
   /** @type {Record<string, any>} */
-  const where = isAdmin ? {} : buildPublicCatalogProductWhere({ published: true });
+  const where = isAdmin
+    ? {}
+    : buildPublicCatalogProductWhere({ published: true });
   if (categoryId) where.categoryId = categoryId;
   if (brandId) where.brandId = brandId;
   if (search) {
@@ -156,6 +158,8 @@ export async function POST(request) {
       subscriptionTiers: body.subscriptionTiers || null,
       attributes: body.attributes || null,
       priority: normalizeInt(body.priority) || 0,
+      telehealthProvider: body.telehealthProvider || "MDI",
+      olaServiceKey: body.olaServiceKey || null,
     },
     include: { category: true, brand: true },
   });

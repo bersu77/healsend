@@ -23,12 +23,22 @@ export async function syncNewUserToGhl(user) {
     const [firstName, ...rest] = (user.name || "").split(" ");
     const lastName = rest.join(" ") || undefined;
 
+    // Format DOB as YYYY-MM-DD for GHL
+    let dobStr;
+    if (user.dateOfBirth) {
+      const d = new Date(user.dateOfBirth);
+      if (!isNaN(d.getTime())) {
+        dobStr = d.toISOString().slice(0, 10);
+      }
+    }
+
     // Create contact in GHL
     const result = await createGhlContact({
       firstName: firstName || undefined,
       lastName,
       email: user.email,
       phone: user.phone || undefined,
+      dateOfBirth: dobStr,
       tags: ["app-user"],
     });
 
@@ -53,6 +63,7 @@ export async function syncNewUserToGhl(user) {
         tags: ["app-user"],
         userId: user.id,
       },
+      update: { userId: user.id },
     });
 
     // Add the "app-user" tag (also sent during creation, but this ensures it)

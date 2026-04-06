@@ -1,0 +1,79 @@
+{
+  "generatedAt": "2026-04-06T12:14:02.547Z",
+  "baseUrl": "http://127.0.0.1:56381",
+  "overallStatus": "FAIL",
+  "steps": [
+    {
+      "name": "lint",
+      "ok": true,
+      "durationMs": 2367,
+      "reportPath": "",
+      "summary": "exit 0",
+      "extraSummary": ""
+    },
+    {
+      "name": "build",
+      "ok": true,
+      "durationMs": 7970,
+      "reportPath": "",
+      "summary": "exit 0",
+      "extraSummary": ""
+    },
+    {
+      "name": "catalog audit",
+      "ok": true,
+      "durationMs": 219,
+      "reportPath": "docs/audits/public-catalog-latest.md",
+      "summary": "exit 0",
+      "extraSummary": "31 ready products"
+    },
+    {
+      "name": "catalog runtime verification",
+      "ok": true,
+      "durationMs": 332,
+      "reportPath": "docs/audits/public-catalog-runtime-latest.md",
+      "summary": "exit 0",
+      "extraSummary": "0 failures"
+    },
+    {
+      "name": "shortcode audit",
+      "ok": true,
+      "durationMs": 187,
+      "reportPath": "docs/audits/shortcode-pages-latest.md",
+      "summary": "exit 0",
+      "extraSummary": ""
+    },
+    {
+      "name": "shortcode runtime verification",
+      "ok": true,
+      "durationMs": 161,
+      "reportPath": "docs/audits/shortcode-runtime-latest.md",
+      "summary": "exit 0",
+      "extraSummary": "0 failed"
+    },
+    {
+      "name": "public SEO audit",
+      "ok": true,
+      "durationMs": 1221,
+      "reportPath": "docs/audits/public-seo-latest.md",
+      "summary": "exit 0",
+      "extraSummary": "39 routes • 1 weak descriptions"
+    },
+    {
+      "name": "public media audit",
+      "ok": false,
+      "durationMs": 984,
+      "reportPath": "docs/audits/public-media-latest.md",
+      "summary": "exit 1",
+      "extraSummary": "39 routes • 31 suspicious media routes"
+    },
+    {
+      "name": "summary",
+      "ok": false,
+      "durationMs": 0,
+      "reportPath": "",
+      "summary": "public media audit failed",
+      "extraSummary": ""
+    }
+  ]
+}

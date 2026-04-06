@@ -8,10 +8,13 @@ const BASE_URL = String(
     "http://127.0.0.1:3000",
 ).replace(/\/+$/, "");
 const MAX_REDIRECTS = 5;
-const CONCURRENCY = Number.parseInt(process.env.MEDIA_AUDIT_CONCURRENCY || "8", 10);
+const CONCURRENCY = Number.parseInt(
+  process.env.MEDIA_AUDIT_CONCURRENCY || "8",
+  10,
+);
 
 const SUSPICIOUS_ASSET_PATTERN =
-  /(imageuploadtest|placeholder|dummy|sample|photoroom|wmremove|befv|product-image\.webp|via\.placeholder|unsplash)/i;
+  /(imageuploadtest|placeholder|dummy|sample|wmremove|befv|product-image\.webp|via\.placeholder|unsplash)/i;
 
 function normalizePathname(value) {
   if (!value) return "/";
@@ -45,7 +48,8 @@ async function fetchWithRedirects(urlPath) {
     const response = await fetch(currentUrl, {
       redirect: "manual",
       headers: {
-        accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        accept:
+          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         "user-agent": "HealSendPublicMediaAudit/1.0",
       },
     });
@@ -252,7 +256,9 @@ async function main() {
 
   const sitemapResponse = await fetchWithRedirects("/sitemap.xml");
   if (sitemapResponse.finalStatus !== 200) {
-    throw new Error(`Failed to fetch sitemap.xml: ${sitemapResponse.finalStatus}`);
+    throw new Error(
+      `Failed to fetch sitemap.xml: ${sitemapResponse.finalStatus}`,
+    );
   }
 
   const paths = extractLocs(sitemapResponse.body)
@@ -268,40 +274,45 @@ async function main() {
   const uniquePaths = [...new Set(paths)];
   const domainCounts = new Map();
 
-  const results = await mapWithConcurrency(uniquePaths, CONCURRENCY, async (routePath) => {
-    const response = await fetchWithRedirects(routePath);
-    const rawAssets = collectImageCandidates(response.body);
-    const normalizedAssets = rawAssets
-      .map((asset) => normalizeAssetUrl(asset, response.finalUrl))
-      .filter(Boolean);
-    const ogImage = extractOgImageUrl(response.body, response.finalUrl);
-    const suspiciousAssets = normalizedAssets.filter((asset) =>
-      SUSPICIOUS_ASSET_PATTERN.test(asset),
-    );
+  const results = await mapWithConcurrency(
+    uniquePaths,
+    CONCURRENCY,
+    async (routePath) => {
+      const response = await fetchWithRedirects(routePath);
+      const rawAssets = collectImageCandidates(response.body);
+      const normalizedAssets = rawAssets
+        .map((asset) => normalizeAssetUrl(asset, response.finalUrl))
+        .filter(Boolean);
+      const ogImage = extractOgImageUrl(response.body, response.finalUrl);
+      const suspiciousAssets = normalizedAssets.filter((asset) =>
+        SUSPICIOUS_ASSET_PATTERN.test(asset),
+      );
 
-    for (const asset of normalizedAssets) {
-      try {
-        const { host } = new URL(asset);
-        domainCounts.set(host, (domainCounts.get(host) || 0) + 1);
-      } catch {
-        // Ignore malformed assets
+      for (const asset of normalizedAssets) {
+        try {
+          const { host } = new URL(asset);
+          domainCounts.set(host, (domainCounts.get(host) || 0) + 1);
+        } catch {
+          // Ignore malformed assets
+        }
       }
-    }
 
-    return {
-      path: routePath,
-      finalStatus: response.finalStatus,
-      finalUrl: response.finalUrl,
-      contentType: response.contentType,
-      ogImage,
-      suspiciousAssets,
-      chain: response.chain,
-      error: response.error || null,
-    };
-  });
+      return {
+        path: routePath,
+        finalStatus: response.finalStatus,
+        finalUrl: response.finalUrl,
+        contentType: response.contentType,
+        ogImage,
+        suspiciousAssets,
+        chain: response.chain,
+        error: response.error || null,
+      };
+    },
+  );
 
   const suspiciousRoutes = results.filter(
-    (result) => result.finalStatus === 200 && result.suspiciousAssets.length > 0,
+    (result) =>
+      result.finalStatus === 200 && result.suspiciousAssets.length > 0,
   );
   const routesMissingOgImage = results.filter(
     (result) =>

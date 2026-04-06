@@ -1,0 +1,66 @@
+{
+  "generatedAt": "2026-04-06T12:10:00.358Z",
+  "target": "production",
+  "checkExternal": false,
+  "summary": {
+    "pass": 8,
+    "warn": 1,
+    "fail": 0
+  },
+  "checks": [
+    {
+      "name": "NEXT_PUBLIC_APP_URL",
+      "status": "pass",
+      "detail": "Using https://healsend.com.",
+      "action": ""
+    },
+    {
+      "name": "STRIPE_SECRET_KEY",
+      "status": "pass",
+      "detail": "Stripe secret key looks configured (live).",
+      "action": ""
+    },
+    {
+      "name": "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
+      "status": "pass",
+      "detail": "Stripe publishable key looks configured (live).",
+      "action": ""
+    },
+    {
+      "name": "STRIPE_WEBHOOK_SECRET",
+      "status": "pass",
+      "detail": "Stripe webhook secret is set.",
+      "action": ""
+    },
+    {
+      "name": "Google OAuth",
+      "status": "pass",
+      "detail": "Google OAuth credentials are configured.",
+      "action": ""
+    },
+    {
+      "name": "Apple OAuth",
+      "status": "pass",
+      "detail": "Apple OAuth credentials are configured.",
+      "action": ""
+    },
+    {
+      "name": "GHL_API_KEY",
+      "status": "pass",
+      "detail": "GoHighLevel API key is configured.",
+      "action": ""
+    },
+    {
+      "name": "GHL OAuth",
+      "status": "warn",
+      "detail": "GHL OAuth is disabled in this environment.",
+      "action": "If you depend on the OAuth flow, set real GHL_CLIENT_ID and GHL_CLIENT_SECRET and re-enable it."
+    },
+    {
+      "name": "Uploads",
+      "status": "pass",
+      "detail": "The app uses local filesystem uploads under public/uploads and does not require extra upload env vars.",
+      "action": "Still verify runtime upload/write permissions in the deployed environment."
+    }
+  ]
+}

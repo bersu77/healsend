@@ -1,13 +1,86 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import Stripe from "stripe";
-import {
-  isAppleOAuthEnabled,
-  isGhlApiEnabled,
-  isGhlOAuthEnabled,
-  isGoogleOAuthEnabled,
-  isPlaceholderEnvValue,
-} from "../src/lib/integration-settings.js";
+
+const TRUE_VALUES = new Set(["1", "true", "yes", "on"]);
+const FALSE_VALUES = new Set(["0", "false", "no", "off"]);
+
+function isPlaceholderEnvValue(value) {
+  const normalized = String(value || "")
+    .trim()
+    .toLowerCase();
+  return (
+    !normalized ||
+    normalized === "replace_me" ||
+    normalized.includes("replace_me") ||
+    normalized.includes("placeholder") ||
+    normalized.includes("your_") ||
+    normalized.includes("changeme")
+  );
+}
+
+function readBooleanEnv(...names) {
+  for (const name of names) {
+    const raw = String(process.env[name] || "")
+      .trim()
+      .toLowerCase();
+    if (!raw) continue;
+    if (TRUE_VALUES.has(raw)) return true;
+    if (FALSE_VALUES.has(raw)) return false;
+  }
+  return null;
+}
+
+function hasConfiguredEnv(name, { requirePrivateKey = false } = {}) {
+  const value = String(process.env[name] || "").trim();
+  if (isPlaceholderEnvValue(value)) return false;
+  if (requirePrivateKey && !value.includes("BEGIN PRIVATE KEY")) return false;
+  return true;
+}
+
+function isGoogleOAuthEnabled() {
+  const explicit = readBooleanEnv(
+    "GOOGLE_OAUTH_ENABLED",
+    "NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED",
+  );
+  if (explicit === false) return false;
+
+  return (
+    hasConfiguredEnv("GOOGLE_CLIENT_ID") &&
+    hasConfiguredEnv("GOOGLE_CLIENT_SECRET")
+  );
+}
+
+function isAppleOAuthEnabled() {
+  const explicit = readBooleanEnv(
+    "APPLE_OAUTH_ENABLED",
+    "NEXT_PUBLIC_APPLE_OAUTH_ENABLED",
+  );
+  if (explicit === false) return false;
+
+  return (
+    hasConfiguredEnv("APPLE_CLIENT_ID") &&
+    hasConfiguredEnv("APPLE_TEAM_ID") &&
+    hasConfiguredEnv("APPLE_KEY_ID") &&
+    hasConfiguredEnv("APPLE_PRIVATE_KEY", { requirePrivateKey: true })
+  );
+}
+
+function isGhlApiEnabled() {
+  const explicit = readBooleanEnv("GHL_SYNC_ENABLED", "GHL_API_ENABLED");
+  if (explicit === false) return false;
+
+  return hasConfiguredEnv("GHL_API_KEY");
+}
+
+function isGhlOAuthEnabled() {
+  const explicit = readBooleanEnv("GHL_OAUTH_ENABLED");
+  if (explicit === false) return false;
+
+  return (
+    hasConfiguredEnv("GHL_CLIENT_ID") && hasConfiguredEnv("GHL_CLIENT_SECRET")
+  );
+}
 
 const OUTPUT_DIR = path.join(process.cwd(), "docs", "audits");
 const TARGET = String(
@@ -51,16 +124,21 @@ async function verifyStripeConnectivity(secretKey) {
 }
 
 async function verifyGhlConnectivity(apiKey) {
-  const response = await fetch("https://rest.gohighlevel.com/v1/contacts/?limit=1", {
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
+  const response = await fetch(
+    "https://rest.gohighlevel.com/v1/contacts/?limit=1",
+    {
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
     },
-  });
+  );
 
   if (!response.ok) {
     const body = await response.text().catch(() => "");
-    throw new Error(`GHL responded with ${response.status}${body ? `: ${body.slice(0, 160)}` : ""}`);
+    throw new Error(
+      `GHL responded with ${response.status}${body ? `: ${body.slice(0, 160)}` : ""}`,
+    );
   }
 }
 
@@ -90,7 +168,9 @@ function buildMarkdownReport({ generatedAt, checks, summary }) {
   lines.push("", "## Checks", "");
 
   for (const check of checks) {
-    lines.push(`- [${check.status.toUpperCase()}] \`${check.name}\` — ${check.detail}`);
+    lines.push(
+      `- [${check.status.toUpperCase()}] \`${check.name}\` — ${check.detail}`,
+    );
     if (check.action) {
       lines.push(`  Action: ${check.action}`);
     }
@@ -221,7 +301,13 @@ async function main() {
       ),
     );
   } else {
-    checks.push(createCheck("STRIPE_WEBHOOK_SECRET", "pass", "Stripe webhook secret is set."));
+    checks.push(
+      createCheck(
+        "STRIPE_WEBHOOK_SECRET",
+        "pass",
+        "Stripe webhook secret is set.",
+      ),
+    );
   }
 
   const googleClientId = readEnv("GOOGLE_CLIENT_ID");
@@ -352,7 +438,13 @@ async function main() {
   if (CHECK_EXTERNAL && !isPlaceholder(stripeSecret)) {
     try {
       await verifyStripeConnectivity(stripeSecret);
-      checks.push(createCheck("Stripe connectivity", "pass", "Stripe API call succeeded."));
+      checks.push(
+        createCheck(
+          "Stripe connectivity",
+          "pass",
+          "Stripe API call succeeded.",
+        ),
+      );
     } catch (error) {
       checks.push(
         createCheck(
@@ -368,7 +460,9 @@ async function main() {
   if (CHECK_EXTERNAL && isGhlApiEnabled() && !isPlaceholder(ghlApiKey)) {
     try {
       await verifyGhlConnectivity(ghlApiKey);
-      checks.push(createCheck("GHL connectivity", "pass", "GHL API call succeeded."));
+      checks.push(
+        createCheck("GHL connectivity", "pass", "GHL API call succeeded."),
+      );
     } catch (error) {
       checks.push(
         createCheck(
@@ -392,7 +486,13 @@ async function main() {
   const generatedAt = new Date().toISOString();
   const timestamp = generatedAt.replace(/[:.]/g, "-");
   const report = buildMarkdownReport({ generatedAt, checks, summary });
-  const payload = { generatedAt, target: TARGET, checkExternal: CHECK_EXTERNAL, summary, checks };
+  const payload = {
+    generatedAt,
+    target: TARGET,
+    checkExternal: CHECK_EXTERNAL,
+    summary,
+    checks,
+  };
   const jsonPath = path.join(OUTPUT_DIR, `deployment-env-${timestamp}.json`);
   const markdownPath = path.join(OUTPUT_DIR, `deployment-env-${timestamp}.md`);
   const latestPath = path.join(OUTPUT_DIR, "deployment-env-latest.md");

@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-04-06T12:13:59.974Z",
+  "baseUrl": "http://127.0.0.1:56381",
+  "hiddenProducts": [
+    {
+      "slug": "test-product",
+      "finalStatus": 200,
+      "runtimeNotFound": true,
+      "foundInShop": false,
+      "foundInApi": false,
+      "ok": true
+    }
+  ],
+  "suspiciousImageProducts": [],
+  "shopPageClean": true,
+  "apiCatalogClean": true
+}

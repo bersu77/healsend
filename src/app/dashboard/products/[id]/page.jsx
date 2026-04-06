@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
 import ImageUpload from "@/components/ui/ImageUpload";
 import { useNotifications } from "@/lib/NotificationContext";
@@ -53,6 +54,8 @@ const EMPTY = {
   categoryId: "",
   brandId: "",
   priority: 0,
+  telehealthProvider: "MDI",
+  olaServiceKey: "",
   subscriptionPlansEnabled: false,
   subscriptionPlans: DEFAULT_PLANS.map((p) => ({ ...p })),
 };
@@ -145,6 +148,8 @@ function hydrateFormState(product) {
     categoryId: product?.categoryId || "",
     brandId: product?.brandId || "",
     priority: product?.priority || 0,
+    telehealthProvider: product?.telehealthProvider || "MDI",
+    olaServiceKey: product?.olaServiceKey || "",
     subscriptionPlansEnabled: !!(tiers && tiers.length > 0),
     subscriptionPlans: hydrateSubscriptionPlans(tiers),
   };
@@ -221,6 +226,8 @@ export default function ProductForm() {
         : [],
       categoryId: form.categoryId || null,
       brandId: form.brandId || null,
+      telehealthProvider: form.telehealthProvider || "MDI",
+      olaServiceKey: form.olaServiceKey || null,
       subscriptionTiers: form.subscriptionPlansEnabled
         ? buildSubscriptionTiers(form)
         : null,
@@ -303,13 +310,23 @@ export default function ProductForm() {
         <h1 className="font-headline text-2xl font-extrabold text-[#1c1a24]">
           {isNew ? "Add Product" : "Edit Product"}
         </h1>
-        <button
-          onClick={save}
-          disabled={saving || !form.name}
-          className="hs-gradient-btn px-6 py-2.5 rounded-lg text-sm font-semibold disabled:opacity-40"
-        >
-          {saving ? "Saving..." : "Save & Sync Product"}
-        </button>
+        <div className="flex items-center gap-2">
+          {!isNew ? (
+            <Link
+              href={`/dashboard/product-pages/${params.id}`}
+              className="px-3 py-2 rounded-lg border border-[#c9c4d8]/30 text-sm font-semibold text-[#484555] hover:bg-[#f7f5fb]"
+            >
+              Edit Detail Page
+            </Link>
+          ) : null}
+          <button
+            onClick={save}
+            disabled={saving || !form.name}
+            className="hs-gradient-btn px-6 py-2.5 rounded-lg text-sm font-semibold disabled:opacity-40"
+          >
+            {saving ? "Saving..." : "Save & Sync Product"}
+          </button>
+        </div>
       </div>
 
       <div className="bg-white rounded-xl border border-[#c9c4d8]/20 p-8 space-y-6">
@@ -506,6 +523,42 @@ export default function ProductForm() {
             />
             <span className="text-sm text-[#1c1a24]">In Stock</span>
           </label>
+        </div>
+
+        {/* ── Telehealth Provider ── */}
+        <div className="rounded-xl border border-[#c9c4d8]/30 p-5 space-y-4">
+          <div>
+            <p className="text-sm font-semibold text-[#1c1a24]">
+              Telehealth Provider
+            </p>
+            <p className="text-xs text-[#797587] mt-0.5">
+              Select which telehealth provider handles consultations for this
+              product.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <Field label="Provider">
+              <select
+                className={inputCls}
+                value={form.telehealthProvider}
+                onChange={(e) => update("telehealthProvider", e.target.value)}
+              >
+                <option value="MDI">MD Integrations (MDI)</option>
+                <option value="OLA">OLA Portal</option>
+                <option value="NONE">None</option>
+              </select>
+            </Field>
+            {form.telehealthProvider === "OLA" && (
+              <Field label="OLA Service Key (optional override)">
+                <input
+                  className={inputCls}
+                  value={form.olaServiceKey}
+                  placeholder="healsend-inc-semaglutide-injection-subscription"
+                  onChange={(e) => update("olaServiceKey", e.target.value)}
+                />
+              </Field>
+            )}
+          </div>
         </div>
 
         {/* ── Subscription Plans ── */}

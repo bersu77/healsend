@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   serverExternalPackages: ["@prisma/client", "prisma"],
+  allowedDevOrigins: ["127.0.0.1", "localhost"],
   async redirects() {
     return [
       {

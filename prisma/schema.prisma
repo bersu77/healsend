@@ -260,6 +260,8 @@ model Product {
   tags                String[]
   subscriptionTiers   Json?             // JSON blob for plan tiers
   attributes          Json?             // flexible key-value attrs
+  telehealthProvider  TelehealthProvider @default(MDI)
+  olaServiceKey       String?           // OLA service key override per product
   variants            ProductVariant[]
   orderItems          OrderItem[]
   cartItems           CartItem[]
@@ -272,6 +274,12 @@ model Product {
 enum ProductType {
   SIMPLE
   VARIABLE
+}
+
+enum TelehealthProvider {
+  MDI
+  OLA
+  NONE
 }
 
 model MediaAsset {
@@ -397,6 +405,12 @@ model Order {
   consultationId      String?     // MD Integrations consultation ID
   consultationUrl     String?     // MD Integrations consultation URL
   consultationStatus  String?     // e.g. "pending", "completed", "cancelled"
+  telehealthProvider  TelehealthProvider @default(MDI)
+  olaOrderGuid        String?     // OLA appointment order GUID
+  olaUserGuid         String?     // OLA patient user GUID
+  olaStatus           String?     // OLA appointment status
+  olaRedirectUrl      String?     // OLA redirect URL for next steps
+  olaLastSyncAt       DateTime?
   fulfillmentReadyAt  DateTime?
   fulfillmentBlockedReason String?
   addressId           String?
