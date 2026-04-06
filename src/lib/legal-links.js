@@ -1,11 +1,11 @@
 export const LEGAL_ROUTE_PATHS = {
-  privacy: "/privacy-policy-3",
+  privacy: "/privacy-policy",
   terms: "/terms-of-service-2",
-  telehealthConsent: "/consent-to-telehealth-3",
+  telehealthConsent: "/consent-to-telehealth-2",
   safety: "/safety-information",
-  consumerHealthData: "/consumer-health-data-2",
+  consumerHealthData: "/consumer-health-data",
   refund: "/refund-policy",
-  hipaa: "/privacy-policy-3",
+  hipaa: "/privacy-policy",
 };
 
 export const LEGAL_ROUTE_LABELS = {

@@ -119,7 +119,9 @@ function mergeHeadlinePhraseList(defaults, source) {
 
 function normalizeHomeEditorState(payload) {
   const content =
-    payload?.content && typeof payload.content === "object" ? payload.content : {};
+    payload?.content && typeof payload.content === "object"
+      ? payload.content
+      : {};
   const hero =
     content.hero && typeof content.hero === "object" ? content.hero : {};
   const defaultHeroRow1 = DEFAULT_HOME_EDITOR_STATE.content.hero.row1;
@@ -132,7 +134,10 @@ function normalizeHomeEditorState(payload) {
   const mergedHeroCards = defaultHeroCards.map((item, index) => ({
     ...item,
     ...(sourceHeroCards[index] || {}),
-    image: normalizeHomepageManagedImage(sourceHeroCards[index]?.image, item.image),
+    image: normalizeHomepageManagedImage(
+      sourceHeroCards[index]?.image,
+      item.image,
+    ),
   }));
   const heroHeadlinePhrases =
     Array.isArray(hero.headlinePhrases) && hero.headlinePhrases.length > 0
@@ -284,8 +289,9 @@ export default function HomepageAdminPage() {
     const defaultPhrasePalette =
       DEFAULT_HOME_EDITOR_STATE.content.hero.headlinePhrases;
     const nextDefault =
-      defaultPhrasePalette[hero.headlinePhrases.length % defaultPhrasePalette.length] ||
-      defaultPhrasePalette[0];
+      defaultPhrasePalette[
+        hero.headlinePhrases.length % defaultPhrasePalette.length
+      ] || defaultPhrasePalette[0];
 
     updateHeroField("headlinePhrases", [
       ...hero.headlinePhrases,
@@ -366,7 +372,8 @@ export default function HomepageAdminPage() {
               ...card,
               image: normalizeHomepageManagedImage(
                 card.image,
-                DEFAULT_HOME_EDITOR_STATE.content.splitFeatures.cards[index]?.image,
+                DEFAULT_HOME_EDITOR_STATE.content.splitFeatures.cards[index]
+                  ?.image,
               ),
             })),
           },
@@ -477,12 +484,15 @@ export default function HomepageAdminPage() {
           <textarea
             className={textAreaCls}
             value={form.seoDescription}
-            onChange={(event) => updateForm("seoDescription", event.target.value)}
+            onChange={(event) =>
+              updateForm("seoDescription", event.target.value)
+            }
           />
         </div>
         <div className="mt-4">
           <ImageUpload
             label="Meta / Preview Image"
+            hint="Recommended: 1200×630px (Open Graph / social preview)"
             value={form.heroImage}
             onChange={(url) => updateForm("heroImage", url)}
           />
@@ -496,7 +506,8 @@ export default function HomepageAdminPage() {
         <div className="rounded-xl border border-[#c9c4d8]/20 bg-[#faf9fe] p-4">
           <p className="text-sm text-[#484555]">
             The animated first headline line is controlled entirely by the
-            phrase list below. The only static hero line here is the second line.
+            phrase list below. The only static hero line here is the second
+            line.
           </p>
         </div>
 
@@ -568,14 +579,22 @@ export default function HomepageAdminPage() {
                         className="h-11 w-14 cursor-pointer rounded-lg border border-[#c9c4d8]/30 bg-white p-1"
                         value={phrase.color || "#000000"}
                         onChange={(event) =>
-                          updateHeadlinePhrase(index, "color", event.target.value)
+                          updateHeadlinePhrase(
+                            index,
+                            "color",
+                            event.target.value,
+                          )
                         }
                       />
                       <input
                         className={inputCls}
                         value={phrase.color || ""}
                         onChange={(event) =>
-                          updateHeadlinePhrase(index, "color", event.target.value)
+                          updateHeadlinePhrase(
+                            index,
+                            "color",
+                            event.target.value,
+                          )
                         }
                       />
                     </div>
@@ -665,7 +684,10 @@ export default function HomepageAdminPage() {
                   className="rounded-xl border border-[#c9c4d8]/20 bg-[#faf9fe] p-4"
                 >
                   <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-[#1c1a24]">
-                    <AppIcon name="crop_portrait" className="h-[18px] w-[18px]" />
+                    <AppIcon
+                      name="crop_portrait"
+                      className="h-[18px] w-[18px]"
+                    />
                     Card {index + 1}
                   </div>
                   <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_280px]">
@@ -679,7 +701,12 @@ export default function HomepageAdminPage() {
                             className={textAreaCls}
                             value={card.title}
                             onChange={(event) =>
-                              updateHeroCard(row.key, index, "title", event.target.value)
+                              updateHeroCard(
+                                row.key,
+                                index,
+                                "title",
+                                event.target.value,
+                              )
                             }
                           />
                         </div>
@@ -709,7 +736,12 @@ export default function HomepageAdminPage() {
                           className={inputCls}
                           value={card.href}
                           onChange={(event) =>
-                            updateHeroCard(row.key, index, "href", event.target.value)
+                            updateHeroCard(
+                              row.key,
+                              index,
+                              "href",
+                              event.target.value,
+                            )
                           }
                         />
                       </div>
@@ -717,6 +749,11 @@ export default function HomepageAdminPage() {
                     <div>
                       <ImageUpload
                         label="Card Image"
+                        hint={
+                          row.key === "row1"
+                            ? "Recommended: 800×900px (portrait product shot)"
+                            : "Recommended: 500×500px (square product thumbnail)"
+                        }
                         value={card.image}
                         onChange={(url) =>
                           updateHeroCard(row.key, index, "image", url)
@@ -767,7 +804,11 @@ export default function HomepageAdminPage() {
                       className={textAreaCls}
                       value={card.description}
                       onChange={(event) =>
-                        updateSplitCard(index, "description", event.target.value)
+                        updateSplitCard(
+                          index,
+                          "description",
+                          event.target.value,
+                        )
                       }
                     />
                   </div>
@@ -806,7 +847,11 @@ export default function HomepageAdminPage() {
                         className={inputCls}
                         value={card.accentText || ""}
                         onChange={(event) =>
-                          updateSplitCard(index, "accentText", event.target.value)
+                          updateSplitCard(
+                            index,
+                            "accentText",
+                            event.target.value,
+                          )
                         }
                       />
                     </div>
@@ -828,6 +873,11 @@ export default function HomepageAdminPage() {
                 <div>
                   <ImageUpload
                     label="Feature Image"
+                    hint={
+                      index === 0
+                        ? "Recommended: 880×1000px (portrait product image)"
+                        : "Recommended: 1200×800px (landscape background fill)"
+                    }
                     value={card.image}
                     onChange={(url) => updateSplitCard(index, "image", url)}
                   />

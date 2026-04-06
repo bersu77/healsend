@@ -102,7 +102,7 @@ export async function POST() {
     // Resolve user's orders so we can link case snapshots
     const userOrders = await prisma.order.findMany({
       where: { userId: user.id },
-      select: { id: true, mdiCaseId: true, mdiOrderId: true },
+      select: { id: true, userId: true, mdiCaseId: true, mdiOrderId: true },
     });
 
     for (const voucher of vouchers) {
@@ -154,7 +154,6 @@ export async function POST() {
               await tx.message.create({
                 data: {
                   userId: user.id,
-                  orderId: matchedOrder?.id || null,
                   subject: messageSeed.subject,
                   body: messageSeed.body,
                   fromAdmin: true,

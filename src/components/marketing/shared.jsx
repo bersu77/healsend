@@ -572,31 +572,31 @@ export function MarketingNavbar() {
 
   return (
     <>
-      <header ref={headerRef} className="sticky top-0 z-50">
-        {/* Glass fill — fades in on scroll */}
+      <header
+        ref={headerRef}
+        className="sticky top-0 z-50"
+        onMouseLeave={scheduleClose}
+      >
+        {/* Glass fill — always visible, stronger on scroll */}
         <div
           className={`absolute inset-0 transition-all duration-300 ${
             scrolled
-              ? "bg-[linear-gradient(135deg,rgba(255,255,255,0.78)_0%,rgba(245,247,255,0.68)_50%,rgba(235,240,255,0.74)_100%)] backdrop-blur-2xl"
-              : "bg-transparent backdrop-blur-none"
+              ? "bg-[linear-gradient(135deg,rgba(255,255,255,0.96)_0%,rgba(245,247,255,0.94)_50%,rgba(235,240,255,0.95)_100%)] backdrop-blur-2xl"
+              : "bg-white/90 backdrop-blur-xl"
           }`}
         />
         {/* Top specular highlight */}
-        <div
-          className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/90 to-transparent transition-opacity duration-300 ${
-            scrolled ? "opacity-100" : "opacity-0"
-          }`}
-        />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/90 to-transparent" />
         {/* Bottom border */}
         <div
-          className={`absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent transition-opacity duration-300 ${
-            scrolled ? "opacity-100" : "opacity-0"
+          className={`absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-black/10 to-transparent transition-opacity duration-300 ${
+            scrolled ? "opacity-100" : "opacity-40"
           }`}
         />
         {/* Drop shadow below header */}
         <div
           className={`pointer-events-none absolute inset-x-0 bottom-0 h-8 translate-y-full bg-[linear-gradient(180deg,rgba(15,23,42,0.06),transparent)] transition-opacity duration-300 ${
-            scrolled ? "opacity-100" : "opacity-0"
+            scrolled ? "opacity-100" : "opacity-30"
           }`}
         />
 
@@ -621,10 +621,7 @@ export function MarketingNavbar() {
                 />
               </Link>
 
-              <div
-                className="relative hidden xl:block"
-                onMouseLeave={scheduleClose}
-              >
+              <div className="relative hidden xl:block">
                 <nav className="flex items-center gap-5">
                   {MARKETING_NAV_SECTIONS.map((section) => {
                     const isActive = activeMenu === section.label;

@@ -26,7 +26,6 @@ const TABS = [
   { key: "orders", label: "Orders", icon: "receipt_long" },
   { key: "subscriptions", label: "Subscriptions", icon: "autorenew" },
   { key: "messages", label: "Messages", icon: "chat" },
-  { key: "portal", label: "Patient Portal", icon: "health_and_safety" },
   { key: "care-history", label: "Care History", icon: "medical_services" },
   { key: "affiliate", label: "Affiliate", icon: "group_add" },
   { key: "profile", label: "Profile", icon: "person" },
@@ -567,10 +566,24 @@ export default function AccountClient({
                       activeTab === tab.key
                         ? "bg-[#5b3cdd] text-white"
                         : "border border-black/5 bg-[#faf9fe] text-[#484555] hover:bg-white"
+                    } ${
+                      tab.key === "profile" || tab.key === "logout"
+                        ? "lg:px-3"
+                        : ""
                     }`}
+                    title={
+                      tab.key === "profile" || tab.key === "logout"
+                        ? tab.label
+                        : undefined
+                    }
+                    aria-label={
+                      tab.key === "profile" || tab.key === "logout"
+                        ? tab.label
+                        : undefined
+                    }
                   >
                     <AppIcon className="h-[18px] w-[18px]" name={tab.icon} />
-                    {tab.label}
+                    {tab.key !== "profile" && tab.key !== "logout" && tab.label}
                   </button>
                 ))}
               </div>
@@ -625,18 +638,13 @@ export default function AccountClient({
                 initialMessages={visibleMessages}
                 initialCaseSnapshots={visibleCaseSnapshots}
                 messagingAuthUrl={messagingAuthUrl}
-                mdiSyncing={mdiSyncing}
-              />
-            )}
-            {activeTab === "portal" && (
-              <PortalTab
-                messagingAuthUrl={messagingAuthUrl}
                 verificationCode={messagingVerificationCode}
                 mdiSyncing={mdiSyncing}
               />
             )}
             {activeTab === "care-history" && (
               <CareHistoryTab
+                user={user}
                 initialOrders={visibleOrders}
                 initialSubscriptions={initialSubscriptions}
                 initialCaseSnapshots={visibleCaseSnapshots}
@@ -1579,6 +1587,7 @@ function MessagesTab({
   initialMessages,
   initialCaseSnapshots,
   messagingAuthUrl,
+  verificationCode,
   mdiSyncing,
 }) {
   const messages = initialMessages || [];
@@ -1604,39 +1613,15 @@ function MessagesTab({
   const combinedMessages = messages.length > 0 ? messages : derivedCaseUpdates;
 
   return (
-    <div className="space-y-4">
-      {/* Messaging portal CTA */}
-      {messagingAuthUrl ? (
-        <div className="flex flex-col items-start gap-3 rounded-2xl border border-[#c9c4d8]/30 bg-[#f1ecf9] p-5 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h3 className="text-sm font-semibold text-[#1c1a24]">
-              Open patient messaging portal
-            </h3>
-            <p className="mt-1 text-xs text-[#484555]">
-              Securely message your care team or review consultation notes in
-              the MD Integrations portal.
-            </p>
-          </div>
-          <a
-            href={messagingAuthUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#5b3cdd] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#4a2fc7]"
-          >
-            <AppIcon className="h-[16px] w-[16px]" name="open_in_new" />
-            Open portal
-          </a>
-        </div>
-      ) : mdiSyncing ? (
-        <div className="flex items-center gap-2 rounded-xl border border-[#ece7f7] bg-[#faf9fe] px-4 py-3 text-sm text-[#484555]">
-          <AppIcon
-            className="h-4 w-4 animate-spin text-[#5b3cdd]"
-            name="progress_activity"
-          />
-          Connecting to your care portal…
-        </div>
-      ) : null}
+    <div className="space-y-6">
+      {/* Embedded MDI messaging portal */}
+      <PortalTab
+        messagingAuthUrl={messagingAuthUrl}
+        verificationCode={verificationCode}
+        mdiSyncing={mdiSyncing}
+      />
 
+      {/* Message history */}
       {combinedMessages.length === 0 ? (
         <div className="py-4 text-sm text-[#484555]">
           Message history will appear here after your first care-team update.
@@ -1677,7 +1662,185 @@ function MessagesTab({
   );
 }
 
+// ── Care History helpers ──────────────────────────────────────────────────────
+
+const PHARMACY_STATUSES = new Set([
+  "PAID",
+  "PROCESSING",
+  "SHIPPED",
+  "DELIVERED",
+]);
+
+function getVisitStatusSteps(order, caseSnapshot, mdiState) {
+  const phase = String(order.mdiWorkflowPhase || "").toLowerCase();
+  const consultStatus = String(order.consultationStatus || "").toLowerCase();
+  const caseStatus = String(
+    caseSnapshot?.status || caseSnapshot?.phase || "",
+  ).toLowerCase();
+
+  const isFullyComplete =
+    caseStatus.includes("completed") ||
+    caseStatus.includes("closed") ||
+    phase.includes("completed") ||
+    phase.includes("closed") ||
+    order.status === "SHIPPED" ||
+    order.status === "DELIVERED";
+
+  const underReview =
+    mdiState.kind === "review" ||
+    phase.includes("review") ||
+    phase.includes("assigned") ||
+    phase.includes("processing") ||
+    phase.includes("submitted") ||
+    phase.includes("active") ||
+    Boolean(caseSnapshot?.providerName);
+
+  const intakeSubmitted =
+    consultStatus === "completed" || underReview || isFullyComplete;
+
+  const providerName = caseSnapshot?.providerName;
+
+  return [
+    {
+      label: "Intake Submitted",
+      description: "Your medical questionnaire has been received.",
+      status: intakeSubmitted
+        ? "completed"
+        : mdiState.kind === "questionnaire"
+          ? "active"
+          : "pending",
+    },
+    {
+      label: "Under Medical Review",
+      description: providerName
+        ? `${providerName} is currently reviewing your medical history. This usually takes 2–4 hours.`
+        : "A clinician is reviewing your medical history. This usually takes 2–4 hours.",
+      status: isFullyComplete
+        ? "completed"
+        : underReview
+          ? "active"
+          : "pending",
+    },
+    {
+      label: "Treatment Plan Ready",
+      description: "Your personalized treatment plan will be available.",
+      status: isFullyComplete ? "completed" : "pending",
+    },
+  ];
+}
+
+function getPharmacySteps(order) {
+  const s = order.status;
+  const shipped = s === "SHIPPED" || s === "DELIVERED";
+  const processing = s === "PROCESSING" || shipped;
+  const paid = s === "PAID" || processing;
+  return [
+    {
+      label: "Prescription Sent",
+      description: "We securely sent your prescription to the pharmacy.",
+      status: paid ? "completed" : "pending",
+    },
+    {
+      label: "Processing at Pharmacy",
+      description: "Your medication is being prepared.",
+      status: processing ? "completed" : paid ? "active" : "pending",
+    },
+    {
+      label: "Ready for Pickup",
+      description: "Your medication is ready to collect.",
+      status: shipped ? "completed" : processing ? "active" : "pending",
+    },
+  ];
+}
+
+function CareTimelineStep({ step, isLast }) {
+  const { label, description, status } = step;
+  const isPending = status === "pending";
+
+  return (
+    <div className="flex gap-4">
+      {/* Circle + connector line */}
+      <div className="flex flex-col items-center">
+        <div
+          className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${
+            status === "completed"
+              ? "bg-[#5b3cdd]"
+              : status === "active"
+                ? "border-2 border-[#5b3cdd] bg-white"
+                : "border-2 border-gray-200 bg-white"
+          }`}
+        >
+          {status === "completed" && (
+            <AppIcon name="check" className="h-4 w-4 text-white" />
+          )}
+          {status === "active" && (
+            <div className="h-3 w-3 rounded-full bg-[#5b3cdd]" />
+          )}
+        </div>
+        {!isLast && (
+          <div
+            className="mt-1 w-px flex-1 bg-gray-200"
+            style={{ minHeight: "2rem" }}
+          />
+        )}
+      </div>
+
+      {/* Text */}
+      <div className="pb-6">
+        <p
+          className={`text-sm font-semibold ${
+            isPending ? "text-gray-400" : "text-[#1c1a24]"
+          }`}
+        >
+          {label}
+        </p>
+        <p
+          className={`mt-0.5 text-sm ${isPending ? "text-gray-300" : "text-[#484555]"}`}
+        >
+          {description}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function CareTrackingCard({ icon, title, subtitle, subtitleBadge, steps }) {
+  return (
+    <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+      {/* Card header */}
+      <div className="mb-5 flex items-center gap-3">
+        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-[#ede9ff]">
+          <AppIcon name={icon} className="h-5 w-5 text-[#5b3cdd]" />
+        </div>
+        <div>
+          <p className="text-[15px] font-bold text-[#1c1a24]">{title}</p>
+          <p className="mt-0.5 text-sm text-[#484555]">
+            {subtitle}
+            {subtitleBadge && (
+              <span className="ml-1.5 inline-block rounded bg-[#5b3cdd] px-1.5 py-0.5 text-[11px] font-semibold text-white">
+                {subtitleBadge}
+              </span>
+            )}
+          </p>
+        </div>
+      </div>
+
+      {/* Timeline */}
+      <div className="pl-1">
+        {steps.map((step, i) => (
+          <CareTimelineStep
+            key={step.label}
+            step={step}
+            isLast={i === steps.length - 1}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function CareHistoryTab({
+  user,
   initialOrders,
   initialSubscriptions,
   initialCaseSnapshots,
@@ -1685,171 +1848,112 @@ function CareHistoryTab({
   const orders = initialOrders || [];
   const subscriptions = initialSubscriptions || [];
   const activeSubscriptions = subscriptions.filter(
-    (subscription) => subscription.status === "ACTIVE",
+    (s) => s.status === "ACTIVE",
   );
-
-  if (orders.length === 0 && activeSubscriptions.length === 0) {
-    return (
-      <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center sm:p-12">
-        <h3 className="mb-4 text-xl font-bold text-[#1c1a24]">
-          Start a treatment to build your care history.
-        </h3>
-      </div>
-    );
-  }
+  const firstName = user?.name?.trim().split(" ")[0] || "there";
+  const isEmpty = orders.length === 0 && activeSubscriptions.length === 0;
 
   return (
-    <div className="space-y-6">
-      {activeSubscriptions.length > 0 ? (
-        <div className="grid gap-4 lg:grid-cols-2">
-          {activeSubscriptions.map((subscription) => (
+    <div className="space-y-5">
+      {/* ── Patient Portal header ── */}
+      <div className="flex items-center gap-3">
+        <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-[#5b3cdd]">
+          <AppIcon name="favorite" className="h-6 w-6 text-white" />
+        </div>
+        <div>
+          <h2 className="text-xl font-bold text-[#1c1a24]">Patient Portal</h2>
+          <p className="text-sm text-[#484555]">Welcome back, {firstName}</p>
+        </div>
+      </div>
+
+      {/* ── Empty state ── */}
+      {isEmpty && (
+        <div className="rounded-2xl border border-gray-100 bg-white p-8 text-center shadow-sm sm:p-12">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#ede9ff]">
+            <AppIcon
+              name="medical_services"
+              className="h-7 w-7 text-[#5b3cdd]"
+            />
+          </div>
+          <h3 className="text-lg font-bold text-[#1c1a24]">
+            Start a treatment to build your care history.
+          </h3>
+          <p className="mt-2 text-sm text-[#484555]">
+            Once you place an order, your visit status and pharmacy tracking
+            will appear here.
+          </p>
+        </div>
+      )}
+
+      {/* ── Per-order cards ── */}
+      {orders.map((order) => {
+        const caseSnapshot = getCaseSnapshotForOrder(
+          order,
+          initialCaseSnapshots,
+        );
+        const mdiState = getMdiDashboardState(order, caseSnapshot);
+        const visitSteps = getVisitStatusSteps(order, caseSnapshot, mdiState);
+        const showPharmacy = PHARMACY_STATUSES.has(order.status);
+        const pharmacySteps = showPharmacy ? getPharmacySteps(order) : null;
+
+        // Split "Tirzepatide 10mg" → title + dosage badge
+        const rawName = order.items?.[0]?.name || "Prescription";
+        const dosageMatch = rawName.match(/(\d+\s*(?:mg|mcg|ml|iu|units?))/i);
+        const medTitle = dosageMatch
+          ? rawName.replace(dosageMatch[0], "").trim()
+          : rawName;
+        const medBadge = dosageMatch ? dosageMatch[0].trim() : null;
+
+        return (
+          <div key={order.id} className="space-y-4">
+            <CareTrackingCard
+              icon="stethoscope"
+              title="Your Visit Status"
+              subtitle="Track your consultation progress"
+              steps={visitSteps}
+            />
+
+            {showPharmacy && (
+              <CareTrackingCard
+                icon="medication"
+                title="Pharmacy Tracking"
+                subtitle={medTitle}
+                subtitleBadge={medBadge}
+                steps={pharmacySteps}
+              />
+            )}
+          </div>
+        );
+      })}
+
+      {/* ── Active subscriptions (compact) ── */}
+      {activeSubscriptions.length > 0 && (
+        <div className="grid gap-4 sm:grid-cols-2">
+          {activeSubscriptions.map((sub) => (
             <div
-              key={subscription.id}
-              className="rounded-2xl border border-gray-200 bg-white p-4 sm:p-5"
+              key={sub.id}
+              className="flex items-start gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm"
             >
-              <div className="mb-3 flex items-center gap-2">
-                <AppIcon
-                  className="h-5 w-5 text-[#5b3cdd]"
-                  name="medical_services"
-                />
-                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#797587]">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-[#ede9ff]">
+                <AppIcon name="autorenew" className="h-5 w-5 text-[#5b3cdd]" />
+              </div>
+              <div>
+                <p className="text-[13px] font-semibold uppercase tracking-widest text-[#797587]">
                   Active care plan
                 </p>
+                <h4 className="mt-0.5 text-[15px] font-bold text-[#1c1a24]">
+                  {sub.planName}
+                </h4>
+                <p className="mt-1 text-sm text-[#484555]">
+                  Next billing:{" "}
+                  {sub.nextBillingDate
+                    ? formatDate(sub.nextBillingDate)
+                    : "Not scheduled"}
+                </p>
               </div>
-              <h4 className="text-lg font-bold text-[#1c1a24]">
-                {subscription.planName}
-              </h4>
-              <p className="mt-2 text-sm text-[#484555]">
-                Next billing:{" "}
-                {subscription.nextBillingDate
-                  ? formatDate(subscription.nextBillingDate)
-                  : "Not scheduled"}
-              </p>
             </div>
           ))}
         </div>
-      ) : null}
-
-      {orders.map((order) =>
-        (() => {
-          const caseSnapshot = getCaseSnapshotForOrder(
-            order,
-            initialCaseSnapshots,
-          );
-          const mdiState = getMdiDashboardState(order, caseSnapshot);
-          const offeringsSummary = summarizeStructuredValue(
-            caseSnapshot?.offerings,
-          );
-          const prescriptionsSummary = summarizeStructuredValue(
-            caseSnapshot?.prescriptions,
-          );
-
-          return (
-            <div
-              key={order.id}
-              className="rounded-2xl border border-gray-200 bg-white p-5 sm:p-6"
-            >
-              <div className="mb-3 flex items-center justify-between">
-                <h4 className="text-lg font-bold text-[#1c1a24]">
-                  {order.items.map((item) => item.name).join(", ")}
-                </h4>
-                <div className="flex items-center gap-2">
-                  {caseSnapshot ? (
-                    <span
-                      className={`rounded-full px-2.5 py-1 text-xs font-semibold ${getMdiStatusPill(caseSnapshot.status || caseSnapshot.phase)}`}
-                    >
-                      {formatStatusLabel(
-                        caseSnapshot.status || caseSnapshot.phase,
-                        "Case open",
-                      )}
-                    </span>
-                  ) : null}
-                  <span
-                    className={`rounded-full px-2.5 py-1 text-xs font-semibold ${getStatusPill(order.status)}`}
-                  >
-                    {formatStatusLabel(order.status, "Order")}
-                  </span>
-                </div>
-              </div>
-              <p className="text-sm text-[#484555]">
-                Order placed {formatDate(order.createdAt)}
-              </p>
-              {caseSnapshot ? (
-                <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-                  <div className="rounded-xl bg-[#faf9fe] p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#797587]">
-                      Provider
-                    </p>
-                    <p className="mt-2 text-sm font-semibold text-[#1c1a24]">
-                      {caseSnapshot.providerName || "Pending assignment"}
-                    </p>
-                  </div>
-                  <div className="rounded-xl bg-[#faf9fe] p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#797587]">
-                      Review stage
-                    </p>
-                    <p className="mt-2 text-sm font-semibold text-[#1c1a24]">
-                      {formatStatusLabel(
-                        caseSnapshot.latestEventType ||
-                          caseSnapshot.phase ||
-                          caseSnapshot.status,
-                        "In review",
-                      )}
-                    </p>
-                  </div>
-                  <div className="rounded-xl bg-[#faf9fe] p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#797587]">
-                      Last event
-                    </p>
-                    <p className="mt-2 text-sm font-semibold text-[#1c1a24]">
-                      {formatDateTime(
-                        caseSnapshot.latestEventAt || caseSnapshot.updatedAt,
-                      )}
-                    </p>
-                  </div>
-                </div>
-              ) : null}
-              {offeringsSummary || prescriptionsSummary ? (
-                <div className="mt-4 space-y-2 text-sm text-[#484555]">
-                  {offeringsSummary ? (
-                    <p>
-                      <span className="font-semibold text-[#1c1a24]">
-                        Offerings:
-                      </span>{" "}
-                      {offeringsSummary}
-                    </p>
-                  ) : null}
-                  {prescriptionsSummary ? (
-                    <p>
-                      <span className="font-semibold text-[#1c1a24]">
-                        Prescriptions:
-                      </span>{" "}
-                      {prescriptionsSummary}
-                    </p>
-                  ) : null}
-                </div>
-              ) : null}
-              <div className="mt-4 flex flex-wrap gap-3">
-                <Link
-                  href={`/order-confirmation?orderId=${order.id}`}
-                  className="inline-flex items-center gap-2 rounded-full border border-[#c9c4d8]/30 px-4 py-2 text-sm font-semibold text-[#1c1a24] transition-colors hover:bg-[#f1ecf9]"
-                >
-                  <AppIcon className="h-4 w-4" name="receipt_long" />
-                  View order
-                </Link>
-                <Link
-                  href={`/consultation/${order.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-[#c9c4d8]/30 px-4 py-2 text-sm font-semibold text-[#1c1a24] transition-colors hover:bg-[#f1ecf9]"
-                >
-                  <AppIcon className="h-4 w-4" name="assignment" />
-                  {mdiState.ctaLabel}
-                </Link>
-              </div>
-            </div>
-          );
-        })(),
       )}
     </div>
   );

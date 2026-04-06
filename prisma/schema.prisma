@@ -800,3 +800,38 @@ model RewardLedger {
 
   @@index([userId, status])
 }
+
+// ─── Navigation ──────────────────────────────────────────────
+
+/// A named navigation menu that can be assigned to a site location.
+model NavigationMenu {
+  id        String           @id @default(cuid())
+  name      String
+  /// Slot where this menu is displayed, e.g. "header", "footer", "mobile", "custom".
+  location  String           @default("custom")
+  items     NavigationItem[]
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  @@index([location])
+}
+
+/// A single link inside a NavigationMenu. Supports one level of nesting (parent/children).
+model NavigationItem {
+  id        String           @id @default(cuid())
+  menuId    String
+  menu      NavigationMenu   @relation(fields: [menuId], references: [id], onDelete: Cascade)
+  parentId  String?
+  parent    NavigationItem?  @relation("NavChildren", fields: [parentId], references: [id], onDelete: Restrict)
+  children  NavigationItem[] @relation("NavChildren")
+  label     String
+  url       String
+  /// "_blank" for external / new-tab links; null for same-window.
+  target    String?
+  order     Int              @default(0)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  @@index([menuId])
+  @@index([parentId])
+}

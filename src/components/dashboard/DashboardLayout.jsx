@@ -28,6 +28,7 @@ const NAV = [
     icon: "autorenew",
   },
   { label: "Payments", href: "/dashboard/payments", icon: "payments" },
+  { label: "Navigation", href: "/dashboard/navigation", icon: "menu_open" },
   { label: "Forms", href: "/dashboard/forms", icon: "dynamic_form" },
   { label: "Funnels", href: "/dashboard/funnels", icon: "route" },
   { label: "Users", href: "/dashboard/users", icon: "group" },

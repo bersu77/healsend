@@ -18,6 +18,7 @@ export default function ImageUpload({
   onChange,
   multiple = false,
   label = "Image",
+  hint = "",
   className = "",
 }) {
   const inputRef = useRef(null);
@@ -167,6 +168,16 @@ export default function ImageUpload({
           </>
         )}
       </div>
+
+      {hint && (
+        <p className="mt-1.5 flex items-center gap-1 text-xs text-[#797587]">
+          <AppIcon
+            name="straighten"
+            className="text-[14px] leading-none shrink-0"
+          />
+          {hint}
+        </p>
+      )}
 
       <input
         ref={inputRef}
