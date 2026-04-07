@@ -303,7 +303,7 @@ const defaultHomeBanners = [
     title: "Lose weight Fast with GLP-1s online",
     subtitle: "• Licensed Providers • No Hidden Fees",
     buttonText: "Qualify in 1 minute",
-    buttonHref: getFunnelPath("glp-1-eligibility"),
+    buttonHref: getFunnelPath("glp-1"),
     backgroundImage: REFERENCE_HOME_ASSETS.weightLossBand,
     backgroundPosition: "top center",
   },
@@ -338,7 +338,7 @@ const defaultEligibilitySection = {
   description:
     "Move from interest to intake with a guided flow that feels fast, clear, and easy to follow on every screen.",
   primaryCtaText: "Check your eligibility",
-  primaryCtaHref: getFunnelPath("glp-1-eligibility"),
+  primaryCtaHref: getFunnelPath("glp-1"),
   secondaryCtaText: "Browse treatments",
   secondaryCtaHref: MARKETING_ROUTES.shop,
   highlights: [
@@ -382,7 +382,7 @@ const defaultCareJourneySection = {
   description:
     "From a quick online intake to doorstep delivery, the path is designed to feel direct, calm, and easy to understand on every screen.",
   primaryCtaText: "Get Started",
-  primaryCtaHref: getFunnelPath("glp-1-eligibility"),
+  primaryCtaHref: getFunnelPath("glp-1"),
   secondaryCtaText: "See if you qualify",
   secondaryCtaHref: MARKETING_ROUTES.shop,
   steps: [
@@ -414,7 +414,7 @@ const defaultSplitFeatures = {
       description:
         "A provider licensed in your state will review your information, so that they can combine guidance on nutrition, activity, sleep, and more into a plan designed around your body's needs.",
       ctaText: "Get started",
-      ctaHref: getFunnelPath("glp-1-eligibility"),
+      ctaHref: getFunnelPath("glp-1"),
       variant: "solid",
       accentText: "it's personal",
       image: REFERENCE_HOME_ASSETS.splitFeatureProduct,
@@ -425,7 +425,7 @@ const defaultSplitFeatures = {
       description:
         "Get a personalized weight loss plan designed with one goal in mind: helping you feel happy in your body.",
       ctaText: "See if I'm eligible",
-      ctaHref: getFunnelPath("glp-1-eligibility"),
+      ctaHref: getFunnelPath("glp-1"),
       variant: "image",
       image: REFERENCE_HOME_ASSETS.splitFeatureGlow,
       imageAlt: "Confidence and progress",
@@ -1271,7 +1271,7 @@ function NegativeSellSection() {
 
         <div className="mt-12 flex justify-center">
           <Link
-            href={getFunnelPath("glp-1-eligibility")}
+            href={getFunnelPath("glp-1")}
             className="rounded-full bg-[#1c1a24] px-10 py-4 text-base font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#2d2a3a] hover:shadow-xl"
           >
             See if GLP-1 is right for you
@@ -1287,7 +1287,7 @@ function HimsTopSection() {
     <section className="bg-white">
       {/* Announcement banner */}
       <Link
-        href={getFunnelPath("glp-1-eligibility")}
+        href={getFunnelPath("glp-1")}
         className="flex items-center justify-center gap-2 bg-[#fef6e8] px-4 py-2.5"
       >
         <span className="[font-family:'Open_Sans',sans-serif] text-[13px] text-[#1d1d1f]">
@@ -1431,7 +1431,7 @@ function HimsTopSection() {
           </Link>
 
           <Link
-            href={getFunnelPath("glp-1-eligibility")}
+            href={getFunnelPath("glp-1")}
             className="flex items-center justify-between overflow-hidden rounded-[14px] bg-[#f7f5ff] px-4 py-3.5"
           >
             <h3 className="[font-family:'Poppins',sans-serif] text-[1.05rem] font-semibold leading-tight text-[#1a0e38]">
@@ -2316,7 +2316,6 @@ export default function MarketingHomePage({
         </div>
 
         <NegativeSellSection />
-        <MediaLogosBanner />
 
         {/* Keep these optional sections behind a flag so we can restore them quickly if needed. */}
         {showDeferredHomeSections ? (

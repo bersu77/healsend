@@ -538,7 +538,7 @@ function MemberResultsCarousel() {
 
   return (
     <section className="relative left-1/2 w-screen -translate-x-1/2 pb-24">
-      <div className="mb-6 flex items-center justify-start gap-3 px-5 md:mb-8 md:px-8 lg:px-10">
+      <div className="mt-6 mb-4 flex items-center justify-start gap-3 px-5 md:mb-8 md:px-8 lg:px-10">
         <button
           type="button"
           onClick={() => api?.scrollPrev()}
@@ -580,9 +580,9 @@ function MemberResultsCarousel() {
                       key={`${image.src}-${imageIndex}`}
                       className="flex flex-col gap-1.5"
                     >
-                      <span className="text-center text-[0.7rem] font-semibold uppercase tracking-widest text-[#7a8092]">
+                      {/* <span className="text-center text-[0.7rem] font-semibold uppercase tracking-widest text-[#7a8092]">
                         {imageIndex === 0 ? "Before" : "After"}
-                      </span>
+                      </span> */}
                       <div className="relative aspect-[2/3] overflow-hidden rounded-[1rem] bg-[#eef2fb]">
                         <Image
                           src={image.src}
@@ -641,9 +641,9 @@ function MemberResultsCarousel() {
                           key={`${image.src}-${imageIndex}`}
                           className="flex flex-col gap-1.5"
                         >
-                          <span className="text-center text-[0.7rem] font-semibold uppercase tracking-widest text-[#7a8092]">
+                          {/* <span className="text-center text-[0.7rem] font-semibold uppercase tracking-widest text-[#7a8092]">
                             {imageIndex === 0 ? "Before" : "After"}
-                          </span>
+                          </span> */}
                           <div className="relative aspect-[2/3] overflow-hidden rounded-[1rem] bg-[#eef2fb]">
                             <Image
                               src={image.src}
@@ -681,6 +681,8 @@ function MemberResultsCarousel() {
 }
 
 function OutcomesStatsSection() {
+  const [activeTab, setActiveTab] = useState(0);
+
   return (
     <section className="relative overflow-hidden px-5 py-16 md:px-8 md:py-18 lg:px-10 lg:py-20">
       <div className="pointer-events-none absolute inset-0">
@@ -715,10 +717,57 @@ function OutcomesStatsSection() {
         </div>
 
         <div>
-          <div className="grid gap-3 md:grid-cols-2 md:gap-4">
+          {/* Tabs (desktop: all shown as 2-col grid; mobile: tab pills + single card) */}
+
+          {/* Mobile tab pills */}
+          <div className="mb-4 flex items-center gap-2 overflow-x-auto pb-1 md:hidden">
+            {OUTCOME_STATS.map((stat, i) => (
+              <button
+                key={stat.label}
+                type="button"
+                onClick={() => setActiveTab(i)}
+                className={`shrink-0 rounded-full px-4 py-2 text-[0.78rem] font-semibold transition-colors ${
+                  activeTab === i
+                    ? "bg-[#1c1a24] text-white"
+                    : "bg-white/70 text-[#44506c] border border-[#d6e0f0]"
+                }`}
+              >
+                {stat.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Mobile: single active card */}
+          <div className="md:hidden">
+            {OUTCOME_STATS.map((stat, i) => {
+              const Icon = stat.icon;
+              if (i !== activeTab) return null;
+              return (
+                <article
+                  key={stat.label}
+                  className="rounded-[1rem] border border-[#e8eef7] bg-white p-5 shadow-[0_16px_30px_rgba(38,57,96,0.1)]"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <p className="text-[0.92rem] font-medium uppercase tracking-[0.12em] text-[#44506c]">
+                      {stat.label}
+                    </p>
+                    <Icon className="h-6 w-6 text-[#7182a3]" />
+                  </div>
+                  <p className="mt-4 font-headline text-[2.9rem] font-semibold leading-none tracking-[-0.06em] text-[#0f1524]">
+                    {stat.value}
+                  </p>
+                  <p className="mt-4 max-w-[23rem] text-[0.94rem] leading-6 text-[#5c6a84]">
+                    {stat.description}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+
+          {/* Desktop: 2-col grid */}
+          <div className="hidden gap-3 md:grid md:grid-cols-2 md:gap-4">
             {OUTCOME_STATS.map((stat) => {
               const Icon = stat.icon;
-
               return (
                 <article
                   key={stat.label}

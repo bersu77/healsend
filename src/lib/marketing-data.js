@@ -1349,16 +1349,16 @@ const CUSTOM_PAGE_FALLBACKS = {
     description:
       "Continue with the custom weight-loss eligibility flow.",
     label: "Start GLP-1 intake",
-    href: "/funnels/glp-1-eligibility",
-    redirectTo: "/funnels/glp-1-eligibility",
+    href: "/funnels/glp-1",
+    redirectTo: "/funnels/glp-1",
   },
   "glp-1-agreement-form": {
     title: "Continue your GLP-1 flow",
     description:
       "Continue with the current GLP-1 eligibility and consent flow.",
     label: "Open GLP-1 flow",
-    href: "/funnels/glp-1-eligibility",
-    redirectTo: "/funnels/glp-1-eligibility",
+    href: "/funnels/glp-1",
+    redirectTo: "/funnels/glp-1",
   },
   "metabolic-enhancers-initial-intake-form": {
     title: "Start your anti-aging intake",
@@ -1414,11 +1414,11 @@ const TAG_STYLE_MAP = {
 };
 
 const SHORTCODE_CATEGORY_ROUTE_MAP = {
-  medication: "/funnels/glp-1-eligibility",
-  "249": "/funnels/glp-1-eligibility",
-  "250": "/funnels/glp-1-eligibility",
-  "weight-loss": "/funnels/glp-1-eligibility",
-  "glp-1": "/funnels/glp-1-eligibility",
+  medication: "/funnels/glp-1",
+  "249": "/funnels/glp-1",
+  "250": "/funnels/glp-1",
+  "weight-loss": "/funnels/glp-1",
+  "glp-1": "/funnels/glp-1",
   "pt_141": "/funnels/low-intimacy-drive",
   "pt-141": "/funnels/low-intimacy-drive",
   oxytocin: "/funnels/low-intimacy-drive",
@@ -3512,7 +3512,7 @@ function resolveShortcodeCategoryHref(category, slug) {
   }
 
   if (slug && /(glp|weight|semaglutide|tirzepatide)/i.test(slug)) {
-    return "/funnels/glp-1-eligibility";
+    return "/funnels/glp-1";
   }
 
   if (slug && /(sleep|insomnia|trazodone|mirtazapine|ramalteon)/i.test(slug)) {

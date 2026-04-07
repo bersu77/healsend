@@ -66,9 +66,10 @@ function resolveDurationMonths(plan) {
   }
 
   const haystack = `${plan?.id || ""} ${plan?.name || ""}`.toLowerCase();
-  if (haystack.includes("12")) return 12;
-  if (haystack.includes("3")) return 3;
-  if (haystack.includes("monthly") || haystack.includes("1")) return 1;
+  if (/\b12\b/.test(haystack)) return 12;
+  if (/\b6\b/.test(haystack)) return 6;
+  if (/\b3\b/.test(haystack)) return 3;
+  if (/monthly|\b1\b/.test(haystack)) return 1;
   return null;
 }
 
@@ -407,7 +408,8 @@ function normalizeQuestionOption(option) {
 }
 
 function isGlp1EligibilityTemplate(template) {
-  return String(template?.slug || "") === "glp-1-eligibility";
+  const slug = String(template?.slug || "");
+  return slug === "glp-1-eligibility" || slug === "glp-1";
 }
 
 function getAnswerByStepType(answers, steps, stepType) {
@@ -1755,25 +1757,33 @@ function PlanSelectionStep({
               ? isSelected
                 ? "border-[#5b3cdd]"
                 : "border-[#6d6ffc]"
-              : durationMonths === 3
+              : durationMonths === 6
                 ? isSelected
-                  ? "border-[#7e62ef]"
-                  : "border-[#d7cdfc]"
-                : isSelected
-                  ? "border-[#7f7a90]"
-                  : "border-[#d9d4e7]";
+                  ? "border-[#6855e8]"
+                  : "border-[#b1a5f8]"
+                : durationMonths === 3
+                  ? isSelected
+                    ? "border-[#7e62ef]"
+                    : "border-[#d7cdfc]"
+                  : isSelected
+                    ? "border-[#7f7a90]"
+                    : "border-[#d9d4e7]";
           const badgeText =
             durationMonths === 12
               ? "Best Value"
-              : durationMonths === 3
-                ? "Most Popular"
-                : null;
+              : durationMonths === 6
+                ? "Great Value"
+                : durationMonths === 3
+                  ? "Most Popular"
+                  : null;
           const subcopy =
             durationMonths === 12
               ? "96.8% Reach Their Target Weight"
-              : durationMonths === 3
-                ? "Our most popular choice for consistent results."
-                : "Flexible monthly access.";
+              : durationMonths === 6
+                ? "Steady progress with consistent 6-month commitment."
+                : durationMonths === 3
+                  ? "Our most popular choice for consistent results."
+                  : "Flexible monthly access.";
 
           return (
             <button
@@ -1791,6 +1801,10 @@ function PlanSelectionStep({
                   {durationMonths === 12 ? (
                     <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5b3cdd]">
                       Doctor Recommended
+                    </span>
+                  ) : durationMonths === 6 ? (
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#6855e8]">
+                      Clinician Approved
                     </span>
                   ) : durationMonths === 3 ? (
                     <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#6d6ffc]">
@@ -2199,9 +2213,13 @@ function CheckoutStep({
                       ? "Best Value"
                       : resolveDurationMonths(
                             checkoutSelection.selectedPlan,
-                          ) === 3
-                        ? "Most Popular"
-                        : "Personalized Plan"}
+                          ) === 6
+                        ? "Great Value"
+                        : resolveDurationMonths(
+                              checkoutSelection.selectedPlan,
+                            ) === 3
+                          ? "Most Popular"
+                          : "Personalized Plan"}
                   </p>
                 </div>
                 {dailyAmount ? (

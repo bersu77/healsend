@@ -81,7 +81,7 @@ export default function TreatmentSideNav({ open, onClose }) {
             <p className="text-[11px] font-semibold tracking-widest text-gray-400 uppercase mb-4">
               Get Started
             </p>
-            <Link href="/funnels/glp-1-eligibility" onClick={onClose}>
+            <Link href="/funnels/glp-1" onClick={onClose}>
               <div className="relative rounded-2xl overflow-hidden bg-[#2db560] min-h-[160px] flex items-end p-4">
                 {/* Product image */}
                 <div className="absolute right-0 bottom-0 w-44 h-44 pointer-events-none select-none">

@@ -25,8 +25,8 @@ const TABS = [
   { key: "action-items", label: "Action Items", icon: "info" },
   { key: "orders", label: "Orders", icon: "receipt_long" },
   { key: "messages", label: "Messages", icon: "chat" },
-  { key: "care-history", label: "Care History", icon: "medical_services" },
-  { key: "affiliate", label: "Affiliate", icon: "group_add" },
+  { key: "care-history", label: "Care Tracker", icon: "medical_services" },
+  { key: "affiliate", label: "Affiliate", icon: "dollar" },
   { key: "profile", label: "Profile", icon: "person" },
   { key: "logout", label: "Logout", icon: "logout" },
 ];
@@ -1183,54 +1183,88 @@ function OrdersTab({
 
 function SavedCardPanel({
   paymentMethod,
+  allPaymentMethods,
   onUpdateCard,
+  onDeleteCard,
+  deletingCardId,
   updatingCard,
   cardError,
 }) {
+  const cards =
+    allPaymentMethods && allPaymentMethods.length > 0
+      ? allPaymentMethods
+      : paymentMethod
+        ? [paymentMethod]
+        : [];
+
   return (
     <div className="rounded-2xl border border-[#c9c4d8]/30 bg-[#faf9fe] p-5 sm:p-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#797587] mb-2">
-            Billing Card on File
-          </p>
-          {paymentMethod ? (
-            <div className="flex items-center gap-3">
-              <span className="rounded bg-blue-600 px-2.5 py-0.5 text-[11px] font-bold text-white uppercase">
-                {paymentMethod.brand || "CARD"}
-              </span>
-              <span className="text-sm font-semibold text-[#1c1a24]">
-                •••• {paymentMethod.last4 || "----"}
-              </span>
-              <span className="text-xs text-[#797587]">
-                Expires {paymentMethod.expMonth || "--"}/
-                {paymentMethod.expYear || "--"}
-              </span>
-            </div>
-          ) : (
-            <p className="text-sm text-[#484555]">No card on file yet.</p>
-          )}
-          <p className="mt-2 text-xs text-[#797587]">
-            Your card is securely saved for recurring billing. To update it,
-            click the button to add a new card — your old card will be replaced.
-          </p>
-          {cardError ? (
-            <p className="mt-2 text-xs text-red-600">{cardError}</p>
-          ) : null}
-        </div>
+      <div className="mb-4 flex items-center justify-between">
+        <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#797587]">
+          Payment Methods
+        </p>
         <button
           onClick={onUpdateCard}
           disabled={updatingCard}
-          className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#5b3cdd] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#4a2fc7] disabled:opacity-50"
+          className="inline-flex items-center gap-2 rounded-full bg-[#5b3cdd] px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-[#4a2fc7] disabled:opacity-50"
         >
-          <AppIcon className="h-[16px] w-[16px]" name="credit_card" />
-          {updatingCard
-            ? "Redirecting..."
-            : paymentMethod
-              ? "Update Card"
-              : "Add Card"}
+          <AppIcon className="h-[14px] w-[14px]" name="credit_card" />
+          {updatingCard ? "Redirecting..." : "Add New Card"}
         </button>
       </div>
+
+      {cards.length > 0 ? (
+        <div className="space-y-3">
+          {cards.map((card) => (
+            <div
+              key={card.id}
+              className="flex items-center justify-between gap-3 rounded-xl border border-[#c9c4d8]/20 bg-white px-4 py-3"
+            >
+              <div className="flex items-center gap-3">
+                <span className="rounded bg-blue-600 px-2 py-0.5 text-[11px] font-bold text-white uppercase">
+                  {card.brand || "CARD"}
+                </span>
+                <span className="text-sm font-semibold text-[#1c1a24]">
+                  •••• {card.last4 || "----"}
+                </span>
+                <span className="text-xs text-[#797587]">
+                  {card.expMonth || "--"}/{card.expYear || "--"}
+                </span>
+                {card.isDefault ? (
+                  <span className="rounded-full bg-[#eeeafe] px-2 py-0.5 text-[10px] font-bold text-[#5b3cdd] uppercase">
+                    Default
+                  </span>
+                ) : null}
+              </div>
+              {onDeleteCard ? (
+                <button
+                  type="button"
+                  onClick={() => onDeleteCard(card.id)}
+                  disabled={cards.length <= 1 || deletingCardId === card.id}
+                  className="text-xs text-red-500 hover:text-red-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                  title={
+                    cards.length <= 1
+                      ? "You must keep at least one card"
+                      : "Delete card"
+                  }
+                >
+                  {deletingCardId === card.id ? "Removing…" : "Remove"}
+                </button>
+              ) : null}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-sm text-[#484555]">No card on file yet.</p>
+      )}
+
+      <p className="mt-3 text-xs text-[#797587]">
+        Cards are securely saved for recurring billing. At least one card must
+        remain on file.
+      </p>
+      {cardError ? (
+        <p className="mt-2 text-xs text-red-600">{cardError}</p>
+      ) : null}
     </div>
   );
 }
@@ -1239,14 +1273,32 @@ function SubscriptionsTab({ initialSubscriptions, initialPaymentMethods }) {
   const [subscriptions, setSubscriptions] = useState(
     initialSubscriptions || [],
   );
+  const [paymentMethods, setPaymentMethods] = useState(
+    initialPaymentMethods || [],
+  );
   const [savingId, setSavingId] = useState(null);
   const [updatingCard, setUpdatingCard] = useState(false);
   const [cardError, setCardError] = useState("");
+  const [deletingCardId, setDeletingCardId] = useState(null);
 
   const defaultPaymentMethod = useMemo(
-    () => getDefaultPaymentMethod(initialPaymentMethods),
-    [initialPaymentMethods],
+    () => getDefaultPaymentMethod(paymentMethods),
+    [paymentMethods],
   );
+
+  const handleDeleteCard = async (id) => {
+    setDeletingCardId(id);
+    try {
+      const res = await fetch(
+        `/api/user/payment-methods?id=${encodeURIComponent(id)}`,
+        { method: "DELETE" },
+      );
+      if (!res.ok) return;
+      setPaymentMethods((prev) => prev.filter((m) => m.id !== id));
+    } finally {
+      setDeletingCardId(null);
+    }
+  };
 
   const handleUpdateCard = async () => {
     setUpdatingCard(true);
@@ -1311,14 +1363,15 @@ function SubscriptionsTab({ initialSubscriptions, initialPaymentMethods }) {
             will appear here.
           </p>
         </div>
-        {defaultPaymentMethod && (
-          <SavedCardPanel
-            paymentMethod={defaultPaymentMethod}
-            onUpdateCard={handleUpdateCard}
-            updatingCard={updatingCard}
-            cardError={cardError}
-          />
-        )}
+        <SavedCardPanel
+          paymentMethod={defaultPaymentMethod}
+          allPaymentMethods={paymentMethods}
+          onUpdateCard={handleUpdateCard}
+          onDeleteCard={handleDeleteCard}
+          deletingCardId={deletingCardId}
+          updatingCard={updatingCard}
+          cardError={cardError}
+        />
       </div>
     );
   }
@@ -1328,7 +1381,10 @@ function SubscriptionsTab({ initialSubscriptions, initialPaymentMethods }) {
       {/* Saved card panel at the top */}
       <SavedCardPanel
         paymentMethod={defaultPaymentMethod}
+        allPaymentMethods={paymentMethods}
         onUpdateCard={handleUpdateCard}
+        onDeleteCard={handleDeleteCard}
+        deletingCardId={deletingCardId}
         updatingCard={updatingCard}
         cardError={cardError}
       />
@@ -1377,7 +1433,7 @@ function SubscriptionsTab({ initialSubscriptions, initialPaymentMethods }) {
                 ? "Saving..."
                 : subscription.cancelAtPeriodEnd
                   ? "Keep subscription"
-                  : "Cancel at renewal"}
+                  : "Cancel order"}
             </button>
           </div>
 
@@ -2026,6 +2082,7 @@ function ProfileTab({
   const [savingSubscriptionId, setSavingSubscriptionId] = useState(null);
   const [updatingCard, setUpdatingCard] = useState(false);
   const [cardError, setCardError] = useState("");
+  const [deletingCardId, setDeletingCardId] = useState(null);
 
   const defaultPaymentMethod = useMemo(
     () => getDefaultPaymentMethod(initialPaymentMethods),
@@ -2079,20 +2136,25 @@ function ProfileTab({
   };
 
   const handleDeletePayment = async (id) => {
-    const res = await fetch(
-      `/api/user/payment-methods?id=${encodeURIComponent(id)}`,
-      {
-        method: "DELETE",
-      },
-    );
+    setDeletingCardId(id);
+    try {
+      const res = await fetch(
+        `/api/user/payment-methods?id=${encodeURIComponent(id)}`,
+        {
+          method: "DELETE",
+        },
+      );
 
-    if (!res.ok) {
-      return;
+      if (!res.ok) {
+        return;
+      }
+
+      setPaymentMethods((currentMethods) =>
+        currentMethods.filter((m) => m.id !== id),
+      );
+    } finally {
+      setDeletingCardId(null);
     }
-
-    setPaymentMethods((currentMethods) =>
-      currentMethods.filter((m) => m.id !== id),
-    );
   };
 
   const handleMakeDefault = async (id) => {
@@ -2212,7 +2274,10 @@ function ProfileTab({
             {defaultPaymentMethod && (
               <SavedCardPanel
                 paymentMethod={defaultPaymentMethod}
+                allPaymentMethods={paymentMethods}
                 onUpdateCard={handleUpdateCard}
+                onDeleteCard={handleDeletePayment}
+                deletingCardId={deletingCardId}
                 updatingCard={updatingCard}
                 cardError={cardError}
               />
@@ -2222,7 +2287,10 @@ function ProfileTab({
           <div className="space-y-6">
             <SavedCardPanel
               paymentMethod={defaultPaymentMethod}
+              allPaymentMethods={paymentMethods}
               onUpdateCard={handleUpdateCard}
+              onDeleteCard={handleDeletePayment}
+              deletingCardId={deletingCardId}
               updatingCard={updatingCard}
               cardError={cardError}
             />
@@ -2271,7 +2339,7 @@ function ProfileTab({
                       ? "Saving..."
                       : subscription.cancelAtPeriodEnd
                         ? "Keep subscription"
-                        : "Cancel at renewal"}
+                        : "Cancel order"}
                   </button>
                 </div>
 

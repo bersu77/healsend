@@ -10,6 +10,15 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 /* ──────────────────────────────────────────────────────────────
+   Default styling — applied to templates that have no styling yet.
+   ALL_AT_ONCE: charges immediately and enables Klarna/Afterpay BNPL.
+   ────────────────────────────────────────────────────────────── */
+const DEFAULT_TEMPLATE_STYLING = {
+  checkoutPricingMode: "ALL_AT_ONCE",
+  delayedChargeDays: 20,
+};
+
+/* ──────────────────────────────────────────────────────────────
    Step builders — reusable across templates
    ────────────────────────────────────────────────────────────── */
 
@@ -421,7 +430,7 @@ const TEMPLATES = [
   /* ═══════════════ WEIGHT LOSS ═══════════════ */
   {
     name: "GLP-1 Eligibility Assessment",
-    slug: "glp-1-eligibility",
+    slug: "glp-1",
     description:
       "Determine if you qualify for GLP-1 receptor agonist therapy for weight management.",
     productSlug: "glp-1-injections",
@@ -467,6 +476,19 @@ const TEMPLATES = [
                 "GLP-1 medication included",
                 "Free shipping every month",
                 "24/7 care team support",
+              ],
+            },
+            {
+              id: "glp1-6mo",
+              name: "6-Month Plan",
+              badge: "GREAT VALUE",
+              featured: false,
+              firstMonth: "$35",
+              thenPrice: "$35/mo after",
+              features: [
+                "1:1 provider consultations",
+                "GLP-1 medication included",
+                "Free shipping every month",
               ],
             },
             {
@@ -732,6 +754,18 @@ const TEMPLATES = [
               ],
             },
             {
+              id: "nad-6mo",
+              name: "6-Month Plan",
+              badge: "GREAT VALUE",
+              featured: false,
+              firstMonth: "$35",
+              thenPrice: "$35/mo after",
+              features: [
+                "Provider-guided NAD+ care",
+                "Monthly refill management",
+              ],
+            },
+            {
               id: "nad-3mo",
               name: "3-Month Plan",
               badge: "DOCTOR RECOMMENDED",
@@ -843,6 +877,18 @@ const TEMPLATES = [
                 "Provider-guided NAD+ care",
                 "Monthly refill management",
                 "Priority support",
+              ],
+            },
+            {
+              id: "nad-nasal-6mo",
+              name: "6-Month Plan",
+              badge: "GREAT VALUE",
+              featured: false,
+              firstMonth: "$35",
+              thenPrice: "$35/mo after",
+              features: [
+                "Provider-guided NAD+ care",
+                "Monthly refill management",
               ],
             },
             {
@@ -1024,6 +1070,18 @@ const TEMPLATES = [
               ],
             },
             {
+              id: "sermorelin-6mo",
+              name: "6-Month Plan",
+              badge: "GREAT VALUE",
+              featured: false,
+              firstMonth: "$35",
+              thenPrice: "$35/mo after",
+              features: [
+                "Provider-guided hormone support",
+                "Monthly refill management",
+              ],
+            },
+            {
               id: "sermorelin-3mo",
               name: "3-Month Plan",
               badge: "DOCTOR RECOMMENDED",
@@ -1091,12 +1149,21 @@ async function main() {
         where: { templateId: existing.id },
       });
 
+      // Only set styling if it isn't already configured by an admin
+      const hasExistingStyling =
+        existing.styling &&
+        typeof existing.styling === "object" &&
+        Object.keys(existing.styling).length > 0;
+
       await prisma.onboardingTemplate.update({
         where: { id: existing.id },
         data: {
           name: tpl.name,
           description: tpl.description,
           active: true,
+          ...(!hasExistingStyling
+            ? { styling: tpl.styling || DEFAULT_TEMPLATE_STYLING }
+            : {}),
         },
       });
 
@@ -1124,6 +1191,7 @@ async function main() {
           slug: tpl.slug,
           description: tpl.description,
           active: true,
+          styling: tpl.styling || DEFAULT_TEMPLATE_STYLING,
           steps: {
             create: sanitizedSteps.map((s, i) => ({
               title: s.title,

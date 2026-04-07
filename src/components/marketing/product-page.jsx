@@ -52,6 +52,43 @@ import {
 } from "@/lib/product-routing";
 import { formatUsdCompact } from "@/lib/pricing";
 
+const MEDIA_LOGOS = [
+  { name: "Yahoo!", style: "font-black text-[1.1rem] tracking-tight" },
+  { name: "USA TODAY", style: "font-black text-[0.9rem] tracking-[0.08em]" },
+  { name: "AXIOS", style: "font-black text-[1.05rem] tracking-[0.12em]" },
+  { name: "Forbes", style: "font-bold italic text-[1.1rem]" },
+  {
+    name: "Business Insider",
+    style: "font-black text-[0.85rem] tracking-[0.04em]",
+  },
+  { name: "Reuters", style: "font-bold text-[1rem] tracking-[0.06em]" },
+];
+
+function MediaLogosBanner() {
+  return (
+    <div className="overflow-hidden bg-[#5b3cdd] py-3.5">
+      <div className="flex animate-[mediaLogoScroll_22s_linear_infinite]">
+        {[0, 1].map((copy) => (
+          <div
+            key={copy}
+            aria-hidden={copy === 1 ? true : undefined}
+            className="flex shrink-0 items-center gap-16 px-8"
+          >
+            {MEDIA_LOGOS.map((logo, i) => (
+              <span
+                key={i}
+                className={`whitespace-nowrap text-white ${logo.style}`}
+              >
+                {logo.name}
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 const ICON_MAP = {
   Apple,
   Ban,
@@ -192,6 +229,42 @@ function WillpowerVerticalColumn({ items, reverse = false }) {
   );
 }
 
+function WillpowerHorizontalRow({ items, reverse = false }) {
+  const loopItems = [...items, ...items];
+  return (
+    <div className="relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-[#f7f8fc] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-[#f7f8fc] to-transparent" />
+      <motion.div
+        className="flex gap-3"
+        style={{ width: "max-content" }}
+        animate={{ x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
+        transition={{
+          duration: 22,
+          ease: "linear",
+          repeat: Infinity,
+          repeatType: "loop",
+        }}
+      >
+        {loopItems.map((item, index) => (
+          <div
+            key={`${item.src}-${index}`}
+            className={`relative h-[158px] w-[140px] shrink-0 overflow-hidden rounded-[1rem] sm:h-[178px] sm:w-[158px] ${item.bgClass} shadow-[0_8px_20px_rgba(17,24,39,0.08)]`}
+          >
+            <Image
+              src={item.src}
+              alt={item.alt}
+              fill
+              sizes="158px"
+              className={item.objectClass}
+            />
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
 function WillpowerSection() {
   return (
     <section className="relative overflow-hidden bg-[#f7f8fc] py-16 md:py-20">
@@ -287,6 +360,16 @@ function WillpowerSection() {
           </div>
         </div>
 
+        {/* Mobile: two animated horizontal marquee rows */}
+        <div className="flex flex-col gap-3 overflow-hidden lg:hidden">
+          <WillpowerHorizontalRow items={WILLPOWER_LEFT_MARQUEE_ITEMS} />
+          <WillpowerHorizontalRow
+            items={WILLPOWER_RIGHT_MARQUEE_ITEMS}
+            reverse
+          />
+        </div>
+
+        {/* Desktop: vertical marquee columns */}
         <div className="relative hidden h-[600px] overflow-hidden rounded-[1rem] lg:block">
           <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-gradient-to-b from-[#f7f8fc] via-[#f7f8fc]/92 to-transparent" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-t from-[#f7f8fc] via-[#f7f8fc]/92 to-transparent" />
@@ -1432,7 +1515,7 @@ function LabTested({ productData: _productData }) {
 
           {/* Panel */}
           <div
-            className="relative z-10 w-full max-w-[680px] rounded-[2rem] bg-white p-6 shadow-2xl md:p-10"
+            className="relative z-10 w-full max-w-[680px] overflow-y-auto max-h-[90svh] rounded-[2rem] bg-white p-6 shadow-2xl md:p-10"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -1720,7 +1803,7 @@ function MobileStickyCta({ productData }) {
       }`}
     >
       {/* Fade gradient above the bar */}
-      <div className="pointer-events-none h-8 bg-[linear-gradient(to_top,rgba(255,255,255,0.6),transparent)]" />
+      <div className="pointer-events-none h-8 bg-[linear-gradient(to_top,rgba(255,255,255,0),transparent)]" />
       <div className="px-4 pb-5">
         <div className="flex justify-end pr-[5%]">
           <Link
@@ -1744,6 +1827,7 @@ export default function MarketingProductPage({ product }) {
       <ProductHero productData={productData} />
       <WillpowerSection />
       <FeatureSplit productData={productData} />
+      <MediaLogosBanner />
       <PricingSection productData={productData} />
       <SupportFeatures productData={productData} />
       <BenefitsCarousel productData={productData} />

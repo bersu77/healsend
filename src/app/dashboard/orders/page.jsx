@@ -34,7 +34,8 @@ export default function OrdersPage() {
       .then((r) => r.json())
       .then((d) => {
         const nextOrders = Array.isArray(d?.orders) ? d.orders : [];
-        const total = typeof d?.total === "number" ? d.total : nextOrders.length;
+        const total =
+          typeof d?.total === "number" ? d.total : nextOrders.length;
         const page = typeof d?.page === "number" ? d.page : params.page;
         const limit = typeof d?.limit === "number" ? d.limit : meta.limit;
         const totalPages = Math.max(1, Math.ceil(total / (limit || 20)));
@@ -92,7 +93,7 @@ export default function OrdersPage() {
           onClick={() => setSelected(null)}
         >
           <div
-            className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 space-y-4"
+            className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90svh] overflow-y-auto p-6 space-y-4"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-start">
@@ -203,7 +204,10 @@ export default function OrdersPage() {
                       onClick={() => openDetail(o)}
                       className="text-[#5b3cdd] hover:opacity-70"
                     >
-                      <AppIcon name="visibility" className="h-[18px] w-[18px]" />
+                      <AppIcon
+                        name="visibility"
+                        className="h-[18px] w-[18px]"
+                      />
                     </button>
                   </td>
                 </tr>

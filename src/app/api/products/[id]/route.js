@@ -49,7 +49,7 @@ export async function PUT(request, { params }) {
       ...(body.name && { name: body.name }),
       ...(body.slug && { slug: body.slug }),
       ...(body.type && { type: body.type }),
-      ...(body.sku !== undefined && { sku: body.sku }),
+      ...(body.sku !== undefined && { sku: body.sku || null }),
       ...(body.published !== undefined && { published: body.published }),
       ...(body.featured !== undefined && { featured: body.featured }),
       ...(body.shortDescription !== undefined && {

@@ -47,7 +47,7 @@ export const MARKETING_CATEGORY_PAGE_CONTENT = {
       "Medication delivered discreetly",
     ],
     ctaText: "See if I qualify",
-    fallbackCtaHref: "/funnels/glp-1-eligibility",
+    fallbackCtaHref: "/funnels/glp-1",
     fallbackImage: WORDPRESS_MARKETING_IMAGES.tirzepatide,
     supportPillars: [
       {

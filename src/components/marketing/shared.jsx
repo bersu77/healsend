@@ -12,7 +12,9 @@ import {
   LogOut,
   Menu,
   User,
+  User2,
   X,
+  UserCircle2,
 } from "lucide-react";
 import LoginPageClient from "@/components/auth/LoginPageClient";
 import SignupPageClient from "@/components/auth/SignupPageClient";
@@ -974,18 +976,19 @@ export function MarketingNavbar() {
         {/* Close button row */}
         <div className="flex items-center justify-between px-5 pt-5 pb-4">
           {isAuthenticated ? (
-            <div className="flex items-center gap-2">
+            <div className="w-full flex items-center justify-between gap-2">
+              <h6>Menu</h6>
               <Link
                 href={user?.role === "ADMIN" ? "/dashboard" : "/account"}
                 onClick={closeMobileMenu}
-                className="flex items-center gap-2 rounded-full border border-[#e8edf5] bg-[#f5f7fd] px-3 py-1.5 text-sm font-semibold text-[#1c1a24] hover:bg-[#eef0fa] transition-colors"
+                className="flex items-center gap-2 rounded-full  px-3 py-1.5 text-md font-semibold text-[#1c1a24] hover:bg-[#eef0fa] transition-colors"
               >
-                <User className="h-4 w-4 text-[#5d62f3]" />
-                <span className="max-w-[120px] truncate">
+                <User2 className="h-6 w-6 text-[#5d62f3] " />
+                {/* <span className="max-w-[120px] truncate">
                   {user?.email ?? "Account"}
-                </span>
+                </span> */}
               </Link>
-              <button
+              {/* <button
                 type="button"
                 onClick={() => {
                   logout();
@@ -996,7 +999,7 @@ export function MarketingNavbar() {
               >
                 <LogOut className="h-4 w-4" />
                 <span>Logout</span>
-              </button>
+              </button> */}
             </div>
           ) : (
             <div />

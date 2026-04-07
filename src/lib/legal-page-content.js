@@ -844,6 +844,399 @@ export const LEGAL_PAGE_DATA = {
     ],
   },
 
+  "terms-of-service-2": {
+    slug: "terms-of-service-2",
+    title: "Terms of Service",
+    description:
+      "The legal agreement between you and Healsend governing your use of our platform and services.",
+    nativeTemplate: "legalDocument",
+    hasRenderableBody: false,
+    introHtml: `<p><strong>Effective Date: October 5, 2025</strong></p><p>Healsend Inc. • 30 N Gould St Ste R, Sheridan, WY 82801 • <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a></p>`,
+    faqItems: [],
+    sectionBlocks: [
+      {
+        id: "tos-overview",
+        title: "1. Overview and Acceptance",
+        summary: null,
+        html: `<p>These Terms of Service ("Terms," "Agreement") constitute a legally binding contract between Healsend Inc. ("Healsend," "we," "us," or "our") and each individual ("you," "user," or "patient") who accesses or uses our websites, mobile applications, and digital platforms (collectively, the "Services" or "Platform"). By creating an account, submitting intake information, scheduling a telehealth visit, or otherwise using our Services, you acknowledge that you have read and agree to be bound by these Terms and the policies incorporated by reference.</p>
+<p>The following documents form an integral part of this Agreement: Healsend Privacy Policy, Healsend Consumer Health Data &amp; Biometric Privacy Policy, and Healsend Consent to Telehealth. If you use our Services on behalf of another individual, you represent that you are legally authorized to act on that person's behalf. We may update these Terms from time to time; your continued use after such updates constitutes acceptance of the revised Terms.</p>`,
+      },
+      {
+        id: "tos-about",
+        title: "2. About Healsend",
+        summary: null,
+        html: `<p>Healsend is a U.S.-based technology and administrative services organization (MSO). We do not practice medicine, provide medical advice, diagnose conditions, or dispense prescription drugs. Our role is to develop and maintain software and operational infrastructure that enables independent medical groups to deliver telehealth services to patients.</p>
+<p>All clinical services made available through the Platform are performed by independent, state-licensed medical groups and their providers ("Professional Entities" or "Providers"). These entities are solely responsible for the quality and legality of care they provide. Healsend's services include: hosting and maintaining the telehealth technology platform; providing customer support and scheduling tools; processing payments and subscriptions; facilitating communications; and performing data security, billing administration, and logistics coordination.</p>`,
+      },
+      {
+        id: "tos-eligibility",
+        title: "3. Eligibility and User Responsibilities",
+        summary: null,
+        html: `<p>To use the Services, you must: (a) be at least 18 years of age; (b) reside within the United States; and (c) have the legal capacity to enter into binding contracts. You agree to provide accurate, current, and complete information when creating an account. You are responsible for maintaining the confidentiality of your username and password and must immediately notify Healsend of any unauthorized access to your account. You agree to use the Services only for lawful, personal, and non-commercial purposes. Healsend may suspend or terminate your account if you violate these Terms or provide false information.</p>`,
+      },
+      {
+        id: "tos-services",
+        title: "4. Description of Services",
+        summary: null,
+        html: `<p>The Platform enables users to connect with Providers for telehealth consultations and related services. Features include: electronic registration and intake forms; secure video and messaging interfaces; prescription routing and coordination with licensed pharmacies; and online payment and shipping support. Healsend does not guarantee that a particular service will be appropriate for you. Providers may decline care if they determine that telehealth is not clinically suitable or that an in-person visit is required.</p>
+<p><strong>The Platform must not be used for medical emergencies.</strong> If you believe you are experiencing a life-threatening emergency, call 911 or go to the nearest emergency department.</p>`,
+      },
+      {
+        id: "tos-relationship",
+        title:
+          "5. Relationship Between You, Healsend, and Professional Entities",
+        summary: null,
+        html: `<p>Providers using the Platform exercise their own professional medical judgment. Healsend has no authority to direct or control their practice of medicine. Nothing in this Agreement creates an employment, agency, or joint-venture relationship between Healsend and any Provider or patient. All medical diagnoses, prescriptions, and treatments are the sole responsibility of Providers acting within their licenses.</p>`,
+      },
+      {
+        id: "tos-telehealth-consent",
+        title: "6. Consent to Telehealth",
+        summary: null,
+        html: `<p>By using the Platform, you consent to receive telehealth services from licensed Providers through interactive audio, video, and electronic communications. You acknowledge that telehealth involves electronic transmission of personal and medical data and that certain conditions may not be diagnosable remotely. You may withdraw telehealth consent at any time by notifying your Provider or discontinuing Platform use. Withdrawal does not affect care already provided. Telehealth sessions are conducted through secure, encrypted channels and comply with HIPAA and state telemedicine laws.</p>`,
+      },
+      {
+        id: "tos-payment",
+        title: "7. Payment, Billing & Refunds",
+        summary: null,
+        html: `<p>By submitting your payment information, you authorize Healsend to charge all applicable fees to your designated payment method. Payments are processed by independent, PCI-DSS-compliant payment processors; Healsend does not store full credit-card numbers. If you enroll in an auto-renewing plan, recurring charges will continue until you cancel at least five (5) business days before the next billing cycle.</p>
+<p>Administrative or technology fees are refundable only if the Service was not delivered or if required by law. Clinical encounter fees are non-refundable once a consultation has begun. Refunds are processed within 10 business days of approval. Before initiating any chargeback, you must give Healsend an opportunity to resolve the issue. Healsend operates solely on a self-pay basis; no claims are filed with insurance, Medicare, or Medicaid.</p>`,
+      },
+      {
+        id: "tos-conduct",
+        title: "8. User Conduct and Prohibited Uses",
+        summary: null,
+        html: `<p>You agree to comply with all federal and state laws, including those governing telehealth, controlled substances, and privacy. You must not: (a) impersonate another person or falsify medical or contact information; (b) attempt to gain unauthorized access to any account or system; (c) transmit malware, scripts, or spam; (d) reverse-engineer, copy, or modify any Platform component; (e) engage in abusive, threatening, or harassing communications toward staff or Providers. Violations may result in immediate termination, referral to authorities, or legal action.</p>`,
+      },
+      {
+        id: "tos-ip",
+        title: "9. Intellectual Property Rights",
+        summary: null,
+        html: `<p>All intellectual-property rights—including software, databases, trademarks, text, graphics, and user-interface design—belong exclusively to Healsend Inc. or its licensors. Healsend grants you a non-exclusive, revocable license to use the Platform for your personal, lawful purposes. This license does not permit resale, framing, or derivative works. Any feedback or suggestions you provide may be used by Healsend without restriction or obligation. If you believe any content violates your rights, send notice to <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>.</p>`,
+      },
+      {
+        id: "tos-privacy",
+        title: "10. Privacy and Data Handling",
+        summary: null,
+        html: `<p>Healsend handles personal and health information in accordance with the Healsend Privacy Policy, the Healsend Consumer Health Data &amp; Biometric Privacy Policy, and applicable federal and state laws including HIPAA, HITECH, and the FTC Health Breach Notification Rule. When supporting a Professional Entity that is a Covered Entity, Healsend acts as a Business Associate and enters a Business Associate Agreement (BAA). Information is used only for lawful operational purposes and retained for periods required by law (generally 7 years for health records). Requests for access, correction, or deletion may be sent to <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>.</p>`,
+      },
+      {
+        id: "tos-communications",
+        title: "11. Communications and Electronic Records",
+        summary: null,
+        html: `<p>You consent to receive all records and communications electronically, including legal notices, account updates, and billing receipts. This satisfies requirements for "writing" under the E-SIGN Act and state UETA laws. Transactional messages may be sent for appointments, account security, and shipping updates. Marketing messages are sent only with your express opt-in and include an unsubscribe mechanism. You may withdraw electronic consent by emailing <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>.</p>`,
+      },
+      {
+        id: "tos-disclaimers",
+        title: "12. Disclaimers and Limitation of Liability",
+        summary: null,
+        html: `<p>Healsend makes no representations that use of the Platform will produce specific health outcomes. To the maximum extent permitted by law, Healsend disclaims all warranties—express, implied, or statutory—including merchantability, fitness for a particular purpose, and non-infringement. Healsend's total liability for any claim arising from use of the Services shall not exceed the total fees paid by you in the preceding twelve (12) months. No party is liable for incidental, consequential, special, or punitive damages. You agree to defend, indemnify, and hold harmless Healsend and its officers, employees, and affiliates from any claim arising from your breach of these Terms.</p>`,
+      },
+      {
+        id: "tos-arbitration",
+        title: "13. Dispute Resolution and Arbitration",
+        summary: null,
+        html: `<p>Before filing any formal claim, the parties shall attempt in good faith to resolve disputes informally for at least 30 days after written notice. If unresolved, any dispute shall be resolved exclusively through binding arbitration administered by the American Arbitration Association (AAA) under its Consumer Arbitration Rules. The seat of arbitration shall be Sheridan County, Wyoming. You and Healsend waive any right to participate in a class or representative action unless such waiver is unenforceable under applicable law. Either party may seek temporary or preliminary injunctive relief in state or federal court in Wyoming to protect intellectual property pending arbitration.</p>`,
+      },
+      {
+        id: "tos-termination",
+        title: "14. Termination of Access and Services",
+        summary: null,
+        html: `<p>Healsend may suspend or terminate your account without notice if: (a) you violate these Terms or any applicable law; (b) your use threatens the security or integrity of the Platform; (c) a Provider requests termination for clinical or compliance reasons; or (d) Healsend is required to do so by law. Upon termination, all licenses granted to you end immediately. You may close your account at any time by submitting a written request to <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>.</p>`,
+      },
+      {
+        id: "tos-governing-law",
+        title: "15. Governing Law and Jurisdiction",
+        summary: null,
+        html: `<p>This Agreement is governed by the laws of the State of Wyoming and applicable federal laws of the United States, without regard to conflict-of-laws principles. Any judicial proceeding permitted under Section 13 shall be brought exclusively in the state or federal courts located in Sheridan County, Wyoming.</p>`,
+      },
+      {
+        id: "tos-contact",
+        title: "16. Contact Information",
+        summary: null,
+        html: `<p>Healsend Inc.<br>30 N Gould St Ste R, Sheridan, WY 82801<br>Email: <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a></p><p>Healsend strives to acknowledge all written communications within five (5) business days and provide a substantive response within thirty (30) days when required by law.</p>`,
+      },
+      {
+        id: "tos-updates",
+        title: "17. Updates to These Terms",
+        summary: null,
+        html: `<p>Healsend may amend these Terms from time to time to reflect changes in law, regulation, technology, or business practices. The revised version will be posted on the Platform with a new "Effective Date." Significant changes will be communicated via email or account notification. Your continued use of the Platform after any update constitutes acceptance of the revised Terms.</p>`,
+      },
+      {
+        id: "tos-hipaa",
+        title: "18. Business Associate & HIPAA Chain of Trust",
+        summary: null,
+        html: `<p>When Healsend performs functions for a Professional Entity that is a HIPAA Covered Entity, Healsend acts as its Business Associate as defined in 45 CFR §160.103 and § 164.502(e). Healsend executes a Business Associate Agreement (BAA) with each Covered Entity before handling Protected Health Information (PHI). Healsend implements administrative, technical, and physical safeguards that meet or exceed 45 CFR §164.308–§164.312. Subcontractors that create or receive PHI must sign written agreements imposing the same standards.</p>`,
+      },
+      {
+        id: "tos-vendors",
+        title: "19. Vendor and Sub-Processor Management",
+        summary: null,
+        html: `<p>Healsend uses carefully vetted third-party service providers for hosting, communication, payment, and data analysis functions. Each provider operates under a written agreement requiring confidentiality and HIPAA-equivalent safeguards. Before engagement, Healsend reviews each vendor's security certifications and breach-response protocols. All data processing occurs within the United States unless otherwise agreed in writing.</p>`,
+      },
+      {
+        id: "tos-pharmacy",
+        title: "20. Prescription Fulfillment and Pharmacy Disclosure",
+        summary: null,
+        html: `<p>All prescriptions issued through the Platform are filled by independent, state-licensed pharmacies operating under Section 503A or 503B of the Federal Food, Drug, and Cosmetic Act. Healsend does not compound, manufacture, dispense, or ship medications. Healsend does not own, operate, or receive commissions from any pharmacy. Pharmacies are responsible for drug quality, storage, and FDA recall compliance.</p>`,
+      },
+      {
+        id: "tos-refunds-chargebacks",
+        title: "21. Refunds, Chargebacks & Consumer Protections",
+        summary: null,
+        html: `<p>Administrative, technology, and subscription fees are non-refundable once services have commenced unless required by law or the service was not delivered. Provider consultation fees and telehealth encounter charges are non-refundable once a Provider review has begun. Requests must be submitted to <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> within thirty (30) days of the transaction date. Approved refunds are processed within ten (10) business days. You agree not to initiate a chargeback until Healsend has had ten (10) business days to resolve your complaint. Nothing in this section limits your rights under the FTC Act or state consumer-protection laws.</p>`,
+      },
+      {
+        id: "tos-sms-tcpa",
+        title: "22. SMS, Email & TCPA Consent",
+        summary: null,
+        html: `<p>By providing a mobile number or email address, you consent to receive non-marketing communications about appointments, account activity, prescription status, and billing. Promotional SMS or emails are sent only with your explicit written consent and include clear unsubscribe options per the CAN-SPAM Act and TCPA 47 U.S.C. § 227. You may reply "STOP" to any SMS to end messaging. Standard message and data rates may apply. Consent records are retained for four (4) years.</p>`,
+      },
+      {
+        id: "tos-accessibility",
+        title: "23. Accessibility (ADA § 508 / WCAG 2.1 AA)",
+        summary: null,
+        html: `<p>Healsend is committed to digital accessibility for all users, including those with disabilities. Our Platform is designed to meet or exceed Web Content Accessibility Guidelines (WCAG) 2.1 Level AA and Americans with Disabilities Act (ADA) § 508 standards. Accessibility audits are performed annually. If you encounter an accessibility issue, please contact <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a>; we acknowledge reports within five (5) business days and aim to resolve confirmed issues within thirty (30) days.</p>`,
+      },
+      {
+        id: "tos-bcp",
+        title: "24. Business Continuity & Incident Response",
+        summary: null,
+        html: `<p>Healsend maintains a documented Business Continuity and Disaster Recovery (BC/DR) plan. Platform data is stored in redundant, encrypted U.S.-based data centers. In the event of a breach or security incident involving Consumer Health Data or PHI, Healsend will notify affected individuals and regulators within the time frames required by 45 CFR § 164.404 and applicable state laws. Personnel undergo biannual training on incident response protocols. Healsend is not liable for failures caused by events beyond its reasonable control.</p>`,
+      },
+      {
+        id: "tos-state-addenda",
+        title: "25. State-Specific Addenda",
+        summary: null,
+        html: `<h3>California (CCPA/CPRA)</h3><p>California residents have rights to know, delete, correct, and opt out of data sharing. Healsend does not sell personal information as defined by Cal. Civ. Code § 1798.140.</p>
+<h3>Washington (My Health My Data Act)</h3><p>Explicit consent is required before collecting Consumer Health Data from Washington residents. Deletion requests are honored within forty-five (45) days.</p>
+<h3>Texas (Health &amp; Safety Code Chapter 181)</h3><p>All personnel with access to health information receive state-specific privacy training annually.</p>
+<h3>Florida Telehealth Act</h3><p>Providers delivering care to Florida patients comply with state licensure requirements per F.S. § 456.47.</p>
+<h3>New York</h3><p>Telehealth services comply with Public Health Law § 2999-cc. Providers retain consent records for at least six (6) years.</p>
+<h3>Colorado &amp; Virginia</h3><p>Healsend honors consumer rights to access, deletion, and correction. Where state law provides greater protections, the stricter consumer-protection rule prevails.</p>`,
+      },
+      {
+        id: "tos-entire-agreement",
+        title: "26. Entire Agreement and Execution",
+        summary: null,
+        html: `<p>These Terms, together with all incorporated policies and consents, constitute the entire agreement between you and Healsend regarding use of the Services and supersede all prior oral or written understandings. No waiver of any term shall be deemed a continuing waiver. You may not assign these Terms without Healsend's prior written consent. Healsend may assign its rights to any successor entity in connection with a merger or reorganization.</p>
+<p>Sections 12 (Disclaimers and Limitation of Liability), 13 (Arbitration), 15 (Governing Law), 18 (HIPAA Chain of Trust), and 24 (Business Continuity) survive termination or expiration of this Agreement.</p>
+<p><strong>By creating an account or continuing to use the Healsend Platform, you acknowledge that you have read, understood, and agreed to be bound by this entire Terms of Service, effective as of October 5, 2025.</strong></p>`,
+      },
+    ],
+  },
+
+  "consent-to-telehealth-2": {
+    slug: "consent-to-telehealth-2",
+    title: "Consent to Telehealth",
+    description:
+      "Your rights, responsibilities, and the benefits and limitations of receiving care through Healsend's telehealth platform.",
+    nativeTemplate: "legalDocument",
+    hasRenderableBody: false,
+    introHtml: `<p><strong>Effective Date: October 5, 2025</strong></p><p>Healsend Inc. • 30 N Gould St Ste R, Sheridan, WY 82801 • <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a></p>`,
+    faqItems: [],
+    sectionBlocks: [
+      {
+        id: "ctt-scope",
+        title: "Purpose and Scope",
+        summary: null,
+        html: `<p>This document describes how telemedicine services are provided through the Healsend technology platform ("Platform") and the rights and obligations of patients, Providers, and Healsend. It applies to all telehealth encounters conducted through the Platform by independent medical groups ("Professional Entities") using Healsend's software and administrative infrastructure.</p>
+<p>Healsend is a technology and administrative-services organization (MSO). It does not provide medical care or employ physicians; all clinical decisions are made by the licensed Providers who contract with Professional Entities.</p>`,
+      },
+      {
+        id: "ctt-methods",
+        title: "Nature of Telehealth and Methods of Delivery",
+        summary: null,
+        html: `<p>Telehealth involves real-time and asynchronous communication technologies, including:</p>
+<ul>
+<li>Live audio-video consultations</li>
+<li>Secure messaging and chat</li>
+<li>Asynchronous "store-and-forward" image and data exchange</li>
+<li>Remote patient monitoring devices when applicable</li>
+</ul>
+<p>Providers determine which modality is appropriate. The encounter and records are documented in an electronic health record (EHR) maintained by the Professional Entity.</p>`,
+      },
+      {
+        id: "ctt-parties",
+        title: "Parties to the Encounter",
+        summary: null,
+        html: `<ul>
+<li><strong>Patient / Client:</strong> the individual seeking medical evaluation or treatment.</li>
+<li><strong>Provider:</strong> a duly licensed physician, nurse practitioner, or physician assistant who renders care through a Professional Entity.</li>
+<li><strong>Professional Entity:</strong> an independent medical group authorized to provide telehealth services in your state.</li>
+<li><strong>Healsend Inc.:</strong> the MSO providing technology, scheduling, billing, and non-clinical support. Healsend is not a Covered Entity under HIPAA except when acting as a Business Associate for Professional Entities.</li>
+</ul>`,
+      },
+      {
+        id: "ctt-benefits",
+        title: "Benefits of Telehealth",
+        summary: null,
+        html: `<p>Telehealth can:</p>
+<ul>
+<li>Increase access to licensed clinicians across geographic areas</li>
+<li>Shorten wait times for evaluation and prescription</li>
+<li>Reduce costs related to travel and time off work</li>
+<li>Allow secure follow-up communications</li>
+<li>Facilitate ongoing monitoring of chronic conditions</li>
+</ul>`,
+      },
+      {
+        id: "ctt-risks",
+        title: "Limitations and Risks",
+        summary: null,
+        html: `<p>You acknowledge that telehealth:</p>
+<ul>
+<li>May not permit full physical examination or diagnostic testing</li>
+<li>May result in incomplete information affecting medical decisions</li>
+<li>Relies on your disclosure of accurate health data</li>
+<li>May experience technical interruptions or cybersecurity incidents</li>
+<li>Is not a substitute for emergency care</li>
+</ul>
+<p>Providers may determine that in-person evaluation or laboratory testing is necessary.</p>`,
+      },
+      {
+        id: "ctt-alternatives",
+        title: "Alternatives",
+        summary: null,
+        html: `<p>You have the right to obtain in-person care from any licensed provider at any time. Refusing telehealth will not affect your eligibility for future in-person care or benefits.</p>`,
+      },
+      {
+        id: "ctt-patient-reps",
+        title: "Patient Representations",
+        summary: null,
+        html: `<p>You represent that:</p>
+<ul>
+<li>You are at least 18 years old and physically located in a U.S. state where your Provider is licensed</li>
+<li>The information you submit is true and complete</li>
+<li>You will not record or share the session without consent</li>
+<li>You will comply with treatment and follow-up instructions</li>
+</ul>`,
+      },
+      {
+        id: "ctt-provider-resp",
+        title: "Provider Responsibilities",
+        summary: null,
+        html: `<p>Each Provider:</p>
+<ul>
+<li>Holds active licensure in your state</li>
+<li>Maintains malpractice insurance as required by law</li>
+<li>Determines whether telehealth is appropriate for your condition</li>
+<li>Maintains an EHR record of each encounter</li>
+<li>Provides referrals when medically necessary</li>
+<li>May decline to treat if telehealth is not suitable</li>
+</ul>`,
+      },
+      {
+        id: "ctt-pharmacy",
+        title: "Pharmacy, Laboratory, and Third-Party Coordination",
+        summary: null,
+        html: `<p>When a prescription, diagnostic test, or laboratory order is issued:</p>
+<ul>
+<li>It is transmitted to a licensed U.S. pharmacy or CLIA-certified lab of your choosing</li>
+<li>Healsend merely facilitates secure data transfer</li>
+<li>The Provider and pharmacy remain solely responsible for dispensing accuracy and clinical safety</li>
+<li>You may request record transfers to your personal physician at any time</li>
+</ul>`,
+      },
+      {
+        id: "ctt-privacy",
+        title: "Privacy and Security",
+        summary: null,
+        html: `<p>All electronic communications are encrypted and conducted over HIPAA-compliant systems. Your data may be used or disclosed only to: facilitate diagnosis and treatment; coordinate billing or payment; meet legal and regulatory obligations; or improve platform operations in de-identified form. Healsend adheres to HIPAA, HITECH, FTC Health Breach Notification Rule, and relevant state privacy statutes.</p>`,
+      },
+      {
+        id: "ctt-patient-rights",
+        title: "Patient Rights",
+        summary: null,
+        html: `<p>You have the right to:</p>
+<ul>
+<li>Be treated with respect, regardless of race, gender, or background</li>
+<li>Receive clear explanations of your condition and treatment</li>
+<li>Ask questions and obtain second opinions</li>
+<li>Access or request copies of your medical records</li>
+<li>Revoke consent at any time</li>
+<li>File privacy or service complaints without retaliation</li>
+</ul>`,
+      },
+      {
+        id: "ctt-complaints",
+        title: "Complaints and Grievances",
+        summary: null,
+        html: `<p>Concerns regarding telehealth encounters or professional conduct should be directed to:</p>
+<ul>
+<li>The Professional Entity or Provider for clinical issues</li>
+<li>Healsend at <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a> for technical or administrative matters</li>
+</ul>
+<p>Serious complaints may also be submitted to your state's medical or nursing board.</p>`,
+      },
+      {
+        id: "ctt-emergencies",
+        title: "Emergencies",
+        summary: null,
+        html: `<p><strong>Telehealth is not intended for emergency conditions.</strong> If you experience symptoms such as chest pain, shortness of breath, severe bleeding, suicidal thoughts, or sudden vision loss, call 911 or go to the nearest emergency department.</p>`,
+      },
+      {
+        id: "ctt-retention",
+        title: "Data Retention and Recordkeeping",
+        summary: null,
+        html: `<p>Professional Entities retain medical records in accordance with federal and state retention laws (typically 7 years or longer for adults). Healsend retains platform data for administrative and security purposes per its data-retention schedule and securely deletes information when no longer required.</p>`,
+      },
+      {
+        id: "ctt-electronic-consent",
+        title: "Consent to Electronic Communications",
+        summary: null,
+        html: `<p>You consent to receive medical information, disclosures, and follow-ups electronically (email, SMS, patient portal). You may revoke this consent by emailing Healsend; however, doing so may limit service functionality.</p>`,
+      },
+      {
+        id: "ctt-costs",
+        title: "Acknowledgment of Potential Costs",
+        summary: null,
+        html: `<p>You acknowledge that:</p>
+<ul>
+<li>Telehealth services are generally self-pay</li>
+<li>Insurance reimbursement may vary</li>
+<li>You are responsible for applicable fees and co-payments</li>
+<li>Prescription costs are determined by the dispensing pharmacy</li>
+</ul>`,
+      },
+      {
+        id: "ctt-state-disclosures",
+        title: "Multi-State Legal Disclosures",
+        summary: null,
+        html: `<h3>California</h3><p>Telehealth complies with Bus. &amp; Prof. Code § 2290.5; informed consent is required and retained.</p>
+<h3>Florida</h3><p>Out-of-state Providers are registered with the Florida DOH per F.S. § 456.47.</p>
+<h3>Texas</h3><p>Encounters meet Texas Medical Board Rule § 174 standards, including identity verification and documentation.</p>
+<h3>Washington</h3><p>Each session requires renewed consent per RCW 70.41.230.</p>
+<h3>New York</h3><p>Providers follow Public Health Law § 2999-cc and maintain consent records for six years.</p>
+<h3>Virginia &amp; Colorado</h3><p>Patients may exercise rights to access and correction of telehealth data under state privacy acts.</p>
+<h3>Illinois</h3><p>For biometric or image-based features, Healsend complies with BIPA and deletes identifiers after use.</p>`,
+      },
+      {
+        id: "ctt-tech-requirements",
+        title: "Technology Requirements and Security Warnings",
+        summary: null,
+        html: `<p>You are responsible for maintaining compatible devices and secure networks. Use of public Wi-Fi or shared computers increases privacy risks. Healsend employs encryption, multi-factor authentication, and secure session tokens but cannot guarantee complete protection against unauthorized access beyond its control.</p>`,
+      },
+      {
+        id: "ctt-withdrawal",
+        title: "Withdrawal of Consent",
+        summary: null,
+        html: `<p>You may withdraw consent by written notice to Healsend or your Provider. Withdrawal stops future telehealth services but does not affect prior care or records already created.</p>`,
+      },
+      {
+        id: "ctt-acknowledgment",
+        title: "Acknowledgment",
+        summary: null,
+        html: `<p>By clicking "I Consent," typing your name, or otherwise electronically signing within the Platform, you affirm that:</p>
+<ul>
+<li>You understand the nature, benefits, and risks of telehealth</li>
+<li>You authorize Providers to deliver care using these technologies</li>
+<li>You agree to Healsend's policies and understand Healsend is not a medical provider</li>
+</ul>
+<p>Healsend Inc. • 30 N Gould St Ste R, Sheridan, WY 82801 • <a href="mailto:yourhealth@healsend.com">yourhealth@healsend.com</a></p>`,
+      },
+    ],
+  },
+
   "safety-information": {
     slug: "safety-information",
     title: "Safety Information",
@@ -1098,7 +1491,8 @@ export const LEGAL_PAGE_DATA = {
       },
       {
         id: "tos-relationship",
-        title: "5. Relationship Between You, Healsend, and Professional Entities",
+        title:
+          "5. Relationship Between You, Healsend, and Professional Entities",
         summary: null,
         html: `<p>Providers affiliated with Professional Entities exercise independent clinical judgment. They are not employees or agents of Healsend. All prescriptions, clinical findings, and treatment decisions are the sole responsibility of your treating Provider.</p>
 <p>Healsend does not direct or control the clinical decisions of any Provider. Healsend's role is limited to administrative support, technology services, and operational management.</p>`,
