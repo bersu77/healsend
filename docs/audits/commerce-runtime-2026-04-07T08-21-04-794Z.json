@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-04-07T08:21:04.794Z",
+  "results": [
+    {
+      "name": "login",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200"
+    },
+    {
+      "name": "account page",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200 at /account"
+    },
+    {
+      "name": "user orders api",
+      "ok": true,
+      "failure": "",
+      "summary": "1 orders"
+    },
+    {
+      "name": "user payment methods api",
+      "ok": true,
+      "failure": "",
+      "summary": "1 payment methods"
+    },
+    {
+      "name": "user subscriptions api",
+      "ok": true,
+      "failure": "",
+      "summary": "0 subscriptions (no public subscriptions visible)"
+    },
+    {
+      "name": "user address api",
+      "ok": true,
+      "failure": "",
+      "summary": "123 Wellness Way"
+    },
+    {
+      "name": "cart api",
+      "ok": true,
+      "failure": "",
+      "summary": "1 cart items"
+    },
+    {
+      "name": "order confirmation page",
+      "ok": true,
+      "failure": "",
+      "summary": "status 200 at /order-confirmation?orderId=cmnocnxfl001qpn05dle69bb9"
+    }
+  ]
+}

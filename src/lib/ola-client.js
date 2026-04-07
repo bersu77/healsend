@@ -303,6 +303,22 @@ export async function submitOrderToOla(order, user) {
   const cfg = getOlaConfig();
   const token = await getOlaAccessToken(cfg);
 
+  const formattedDob = (() => {
+    const value = user.dateOfBirth;
+    if (!value) return "";
+    if (value instanceof Date && !Number.isNaN(value.getTime())) {
+      return value.toISOString().slice(0, 10);
+    }
+    if (typeof value === "string") {
+      const parsed = new Date(value);
+      if (!Number.isNaN(parsed.getTime())) {
+        return parsed.toISOString().slice(0, 10);
+      }
+      return value;
+    }
+    return String(value);
+  })();
+
   // Determine service key from product or default
   const product = order.items?.[0]?.product || order.orderItems?.[0]?.product;
   const serviceKey = product?.olaServiceKey || cfg.serviceKey;
@@ -315,7 +331,7 @@ export async function submitOrderToOla(order, user) {
       lastName: user.lastName || user.name?.split(" ").slice(1).join(" ") || "",
       email: user.email,
       phone: user.phone || "",
-      dateOfBirth: user.dateOfBirth || "",
+      dateOfBirth: formattedDob,
       gender: user.gender || "",
       state: user.state || order.shippingState || "",
       address: user.address || order.shippingAddress1 || "",

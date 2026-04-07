@@ -26,7 +26,7 @@ const REF_PARAMS = ["ref", "aff", "affiliate"];
 /** Routes that should never trigger referral cookie logic. */
 const SKIP_PREFIXES = ["/api/", "/_next/", "/fonts/", "/images/", "/uploads/"];
 
-export function middleware(request) {
+export function proxy(request) {
   const { pathname, searchParams } = request.nextUrl;
 
   // Skip static assets and API routes

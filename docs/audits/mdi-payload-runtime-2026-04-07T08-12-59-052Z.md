@@ -1,10 +1,10 @@
 # MDI Payload Variant Verification
 
-- Generated at: `2026-04-07T08:21:15.649Z`
+- Generated at: `2026-04-07T08:12:59.052Z`
 - Base URL: `http://127.0.0.1:3000`
 - Demo user: `demo@healsend.com`
-- Order ID: `cmnocnxfl001qpn05dle69bb9`
-- Case ID: `mdi-payload-case-1775550075300`
+- Order ID: `cmnfllubk001qmt0usfrl4wkm`
+- Case ID: `mdi-payload-case-1775549577202`
 - Checks: `13`
 - Passing: `13`
 - Failing: `0`
@@ -23,6 +23,6 @@ The machine-route contract is handling the expected payload variants cleanly: cu
 - `partner auth GET redirect` — PASS — status 307
 - `webhook voucher fallback nested payload` — PASS — status 200
 - `webhook mixed snake/camel payload` — PASS — status 200
-- `user visits reflect variant payloads` — PASS — 2 visits
-- `user messages reflect variant payloads` — PASS — 10 messages
+- `user visits reflect variant payloads` — PASS — 14 visits
+- `user messages reflect variant payloads` — PASS — 18 messages
 - `database projection after variant flow` — PASS — events 2 / tag active
