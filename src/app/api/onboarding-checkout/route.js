@@ -24,7 +24,11 @@ function getRuntimeStripePublishableKey() {
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "",
   ).trim();
 
-  if (directValue) {
+  if (
+    directValue &&
+    directValue !== "REPLACE_ME" &&
+    directValue.startsWith("pk_")
+  ) {
     return directValue;
   }
 
