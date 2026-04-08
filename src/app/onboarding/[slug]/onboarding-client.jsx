@@ -2001,6 +2001,8 @@ function CheckoutStep({
   const totalAmount = pricingState.totalAmount;
   const dueTodayAmount = pricingState.dueTodayAmount;
   const monthlyInstallment = pricingState.monthlyInstallment;
+  const monthlyRate = pricingState.monthlyRate;
+  const durationMonths = pricingState.durationMonths;
   const allowsBnpl = pricingState.allowsBnpl;
   const selectedMedicationLabel =
     checkoutSelection.selectedMedication?.name ||
@@ -2252,7 +2254,16 @@ function CheckoutStep({
           <div className="border-t border-[#e2dced] pt-5 text-[1.05rem] text-[#1c1a24]">
             <div className="flex items-center justify-between gap-4 py-1.5">
               <span>Standard Plan</span>
-              <span>{formatCheckoutCurrency(totalAmount)}</span>
+              <span>
+                {formatCheckoutCurrency(monthlyRate)}
+                <span className="text-xs text-[#797587]">/mo</span>
+                {durationMonths && durationMonths > 1 ? (
+                  <span className="text-xs text-[#797587]">
+                    {" "}
+                    × {durationMonths} months
+                  </span>
+                ) : null}
+              </span>
             </div>
             <div className="flex items-center justify-between gap-4 py-1.5">
               <span>Online Clinician Visit</span>
@@ -2713,36 +2724,6 @@ function StripePaymentForm({
         </div>
       ) : null}
 
-      {allowsBnpl ? (
-        <div className="grid gap-2">
-          <PaymentShortcutRow
-            onClick={() => handleBnplCheckout("klarna")}
-            disabled={
-              processing ||
-              Boolean(redirectingMethod) ||
-              Boolean(verifyingMethod)
-            }
-            loading={redirectingMethod === "klarna"}
-          >
-            <KlarnaBadge />
-            <span>Continue with Klarna</span>
-          </PaymentShortcutRow>
-
-          <PaymentShortcutRow
-            onClick={() => handleBnplCheckout("afterpay_clearpay")}
-            disabled={
-              processing ||
-              Boolean(redirectingMethod) ||
-              Boolean(verifyingMethod)
-            }
-            loading={redirectingMethod === "afterpay_clearpay"}
-          >
-            <AfterpayBadge />
-            <span>Continue with Afterpay</span>
-          </PaymentShortcutRow>
-        </div>
-      ) : null}
-
       <div
         ref={paymentMethodsRef}
         className="rounded-[1rem] border border-[#d9d4e7] bg-white px-4 py-3 shadow-[0_10px_24px_rgba(28,26,36,0.05)] md:px-6"
@@ -2808,9 +2789,8 @@ function StripePaymentForm({
           </p>
           {totalAmount > 0 && dueTodayAmount === 0 && (
             <p className="mt-2 text-xs font-medium text-[#5b3cdd] md:text-sm">
-              $0 due today. By clicking, you authorize a future charge of{" "}
-              {formatCheckoutCurrency(totalAmount)} to your card only if
-              approved by our partnered providers.
+              $0 due today. A charge of {formatCheckoutCurrency(totalAmount)}{" "}
+              will be applied to your card only after provider approval.
             </p>
           )}
         </div>

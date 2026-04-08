@@ -10,8 +10,8 @@ const PLANS = [
     badgeIcon: "star",
     badgeClass: "hs-gradient text-white",
     name: "12-Month Plan",
-    firstMonth: "$99",
-    thenPrice: "$239/mo",
+    monthlyPrice: "$35",
+    totalLabel: "$420 billed upfront",
     featured: true,
     features: [
       "1:1 doctor consultations included",
@@ -21,12 +21,12 @@ const PLANS = [
   },
   {
     id: "3-month",
-    badge: "DOCTOR RECOMMENDED",
+    badge: "MOST POPULAR",
     badgeIcon: null,
     badgeClass: "bg-[#f1ecf9] text-[#5b3cdd]",
     name: "3-Month Plan",
-    firstMonth: "$169",
-    thenPrice: "$239/mo",
+    monthlyPrice: "$35",
+    totalLabel: "$105 billed upfront",
     featured: false,
     features: [
       "1:1 doctor consultations included",
@@ -39,8 +39,8 @@ const PLANS = [
     badgeIcon: null,
     badgeClass: "",
     name: "Monthly Plan",
-    firstMonth: "$199",
-    thenPrice: "$249/mo",
+    monthlyPrice: "$35",
+    totalLabel: "$35/month",
     featured: false,
     features: [
       "1:1 doctor consultations included",
@@ -91,10 +91,13 @@ export default function StepPlanSelection({ onNext }) {
               </h3>
               <div className="text-right">
                 <span className="text-2xl font-bold text-[#5b3cdd]">
-                  {plan.firstMonth}
+                  {plan.monthlyPrice}
+                  <span className="text-sm font-normal text-[#797587]">
+                    /mo
+                  </span>
                 </span>
                 <span className="text-xs text-[#797587] block">
-                  first month, then {plan.thenPrice}
+                  {plan.totalLabel}
                 </span>
               </div>
             </div>

@@ -3,12 +3,20 @@
 import React, { useState } from "react";
 import AppIcon from "@/components/ui/AppIcon";
 
+const PLAN_MONTHLY_PRICE = 35; // $35/mo for all GLP-1 plans
+
+function getPlanDuration(plan) {
+  if (plan === "12-month") return 12;
+  if (plan === "3-month") return 3;
+  return 1; // monthly
+}
+
 export default function StepCheckout({ data, onNext }) {
   const [card, setCard] = useState({ number: "", expiry: "", cvc: "" });
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState("");
 
-  const plan = data?.plan || "12-month";
+  const plan = data?.plan || "monthly";
   const medication = data?.medication || "semaglutide-injections";
 
   const planLabel =
@@ -21,12 +29,15 @@ export default function StepCheckout({ data, onNext }) {
     .replace(/-/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase());
 
+  const durationMonths = getPlanDuration(plan);
+  const totalDue = PLAN_MONTHLY_PRICE * durationMonths;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setProcessing(true);
-
-    // Simulate processing — in production this would use Stripe Elements
+    // NOTE: This component is a placeholder. Real payment is handled by the
+    // funnel-based onboarding flow at /onboarding/[slug] via Stripe Elements.
     setTimeout(() => {
       setProcessing(false);
       onNext({ paymentComplete: true });
@@ -71,24 +82,29 @@ export default function StepCheckout({ data, onNext }) {
 
         <div className="border-t border-[#c9c4d8]/15 pt-3 space-y-2 text-sm">
           <div className="flex justify-between">
-            <span className="text-[#484555]">Monthly Subscription</span>
-            <span className="font-semibold">$299.00</span>
+            <span className="text-[#484555]">
+              {planLabel} Plan
+              {durationMonths > 1
+                ? ` · $${PLAN_MONTHLY_PRICE}/mo × ${durationMonths} months`
+                : ""}
+            </span>
+            <span className="font-semibold">${totalDue.toFixed(2)}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-[#484555]">Provider Consultation Fee</span>
-            <span className="font-semibold line-through text-[#797587]">
-              $45.00
-            </span>
+            <span className="font-semibold text-green-600">FREE</span>
           </div>
-          <div className="flex justify-between text-green-600">
-            <span>First Month Discount</span>
-            <span className="font-semibold">-$299.00</span>
+          <div className="flex justify-between">
+            <span className="text-[#484555]">Overnight Shipping</span>
+            <span className="font-semibold text-green-600">FREE</span>
           </div>
         </div>
 
         <div className="border-t border-[#c9c4d8]/15 pt-3 flex justify-between items-baseline">
           <span className="font-bold text-lg text-[#1c1a24]">Due today</span>
-          <span className="font-bold text-2xl text-[#5b3cdd]">$0.00</span>
+          <span className="font-bold text-2xl text-[#5b3cdd]">
+            ${totalDue.toFixed(2)}
+          </span>
         </div>
       </div>
 
@@ -189,7 +205,7 @@ export default function StepCheckout({ data, onNext }) {
               Processing...
             </>
           ) : (
-            "Pay Now — $0.00"
+            `Pay Now — $${totalDue.toFixed(2)}`
           )}
         </button>
       </form>

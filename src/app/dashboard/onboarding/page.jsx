@@ -86,8 +86,7 @@ function deriveMedicationSelectProductIds(config, products) {
 }
 
 function mergeTemplateStyling(styling, pricingMode, delayedChargeDays) {
-  const baseStyling =
-    styling && typeof styling === "object" ? styling : {};
+  const baseStyling = styling && typeof styling === "object" ? styling : {};
 
   return {
     ...baseStyling,
@@ -245,8 +244,7 @@ export default function OnboardingManagementPage() {
             Funnel Templates
           </h2>
           <p className="text-sm text-[#484555] mt-1">
-            Create and manage funnel flows for different categories and
-            products
+            Create and manage funnel flows for different categories and products
           </p>
         </div>
         <button
@@ -262,7 +260,10 @@ export default function OnboardingManagementPage() {
         <div className="text-center py-12 text-[#484555]">Loading...</div>
       ) : templates.length === 0 ? (
         <div className="bg-white rounded-xl border border-[#c9c4d8]/20 p-12 text-center">
-          <AppIcon name="route" className="mx-auto mb-4 block h-12 w-12 text-gray-300" />
+          <AppIcon
+            name="route"
+            className="mx-auto mb-4 block h-12 w-12 text-gray-300"
+          />
           <h3 className="font-headline text-xl font-bold text-[#1c1a24] mb-2">
             No Funnel Templates Yet
           </h3>
@@ -369,7 +370,7 @@ function OnboardingCreator({ categories, products, onBack }) {
   const [categoryId, setCategoryId] = useState("");
   const [productId, setProductId] = useState("");
   const [styling, setStyling] = useState({
-    checkoutPricingMode: "UPFRONT_ZERO",
+    checkoutPricingMode: "ALL_AT_ONCE",
     delayedChargeDays: DEFAULT_UPFRONT_ZERO_DELAY_DAYS,
   });
   const [steps, setSteps] = useState([]);
@@ -669,7 +670,7 @@ function OnboardingEditor({ templateId, categories, products, onBack }) {
   const [categoryId, setCategoryId] = useState("");
   const [productId, setProductId] = useState("");
   const [styling, setStyling] = useState({
-    checkoutPricingMode: "UPFRONT_ZERO",
+    checkoutPricingMode: "ALL_AT_ONCE",
     delayedChargeDays: DEFAULT_UPFRONT_ZERO_DELAY_DAYS,
   });
   const [steps, setSteps] = useState([]);
@@ -695,14 +696,13 @@ function OnboardingEditor({ templateId, categories, products, onBack }) {
           normalizeOnboardingStepsForEditor(data.steps || [], products, {
             defaultProductId: data.productId || null,
           }).map((s) => ({
-              title: s.title,
-              subtitle: s.subtitle || "",
-              type: s.type,
-              order: s.order,
-              config: s.config || {},
-              required: s.required ?? true,
-            }),
-          ),
+            title: s.title,
+            subtitle: s.subtitle || "",
+            type: s.type,
+            order: s.order,
+            config: s.config || {},
+            required: s.required ?? true,
+          })),
         );
       });
   }, [products, templateId]);
@@ -1220,23 +1220,87 @@ function StepConfig({ step, categories, products, onChange }) {
         </div>
       );
 
-    case "PLAN_SELECTION":
+    case "PLAN_SELECTION": {
+      // Parse plans from JSON so we can show per-plan price fields
+      let parsedPlans = [];
+      try {
+        const raw = config.plansJson || "";
+        if (raw.trim()) parsedPlans = JSON.parse(raw);
+      } catch {}
+
+      const updatePlanField = (idx, field, value) => {
+        const updated = [...parsedPlans];
+        updated[idx] = { ...updated[idx], [field]: value };
+        setConfig({ plansJson: JSON.stringify(updated, null, 2) });
+      };
+
       return (
         <div className="space-y-3">
+          {parsedPlans.length > 0 ? (
+            <div className="space-y-3">
+              <p className="text-xs font-semibold text-[#484555]">Plans</p>
+              {parsedPlans.map((plan, idx) => (
+                <div
+                  key={plan.id || idx}
+                  className="rounded-lg border border-gray-200 p-3 space-y-2 bg-gray-50"
+                >
+                  <p className="text-xs font-semibold text-[#1c1a24] truncate">
+                    {plan.name || `Plan ${idx + 1}`}
+                  </p>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="block text-[10px] text-[#797587] mb-1">
+                        Price / month
+                      </label>
+                      <input
+                        type="text"
+                        value={plan.firstMonth || ""}
+                        onChange={(e) =>
+                          updatePlanField(idx, "firstMonth", e.target.value)
+                        }
+                        placeholder="$35"
+                        className="w-full px-2 py-1.5 border border-gray-200 rounded text-xs focus:outline-none focus:border-[#5b3cdd]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] text-[#797587] mb-1">
+                        Renewal price / month
+                      </label>
+                      <input
+                        type="text"
+                        value={plan.thenPrice || ""}
+                        onChange={(e) =>
+                          updatePlanField(idx, "thenPrice", e.target.value)
+                        }
+                        placeholder="$35"
+                        className="w-full px-2 py-1.5 border border-gray-200 rounded text-xs focus:outline-none focus:border-[#5b3cdd]"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-xs text-[#797587]">
+              No plans configured. Save the template after selecting a product
+              to auto-populate plans, or paste JSON below.
+            </p>
+          )}
           <div>
             <label className="block text-xs text-[#484555] mb-1">
-              Plans (JSON array or use defaults from product)
+              Raw plans JSON (advanced)
             </label>
             <textarea
               value={config.plansJson || ""}
               onChange={(e) => setConfig({ plansJson: e.target.value })}
-              rows={4}
-              placeholder="Leave empty to use product subscription tiers, or paste custom plans JSON."
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#5b3cdd] resize-none font-mono"
+              rows={3}
+              placeholder="Leave empty to use product subscription tiers."
+              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-[#5b3cdd] resize-none font-mono"
             />
           </div>
         </div>
       );
+    }
 
     case "MEDICATION_SELECT":
       const selectedProductIds = deriveMedicationSelectProductIds(

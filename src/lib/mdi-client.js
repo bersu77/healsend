@@ -517,9 +517,19 @@ function getPrimaryOrderCatalogProfile(order) {
     items.find((entry) => entry.desiredDays)?.desiredDays ||
     null;
 
+  const isGlp1 = /semaglutide|tirzepatide/.test(haystack);
+
+  // GLP-1 medications can only be prescribed a maximum of 90 days at a time
+  // regardless of the subscription duration.
+  const glp1MaxDays = 90;
+  const effectiveDesiredDays =
+    isGlp1 && desiredDays !== null && desiredDays > glp1MaxDays
+      ? glp1MaxDays
+      : desiredDays;
+
   const profile = {
     haystack,
-    desiredDays,
+    desiredDays: effectiveDesiredDays,
     isInitial: !/refill/.test(haystack),
     keywords: [],
     preferredQuestionnaireTerms: [],
