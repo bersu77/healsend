@@ -55,9 +55,9 @@ const MARKETING_NAV_SECTIONS = [
       {
         title: "Precision Recomposition",
         links: [
-          { label: "Tesamorelin", href: ROUTES.shop },
-          { label: "Lipo-C (MIC/B12)", href: "/mic-injection" },
-          { label: "Neuro-Metabolic", href: ROUTES.shop },
+          { label: "Tesamorelin", href: "/funnels/glp-1-eligibility" },
+          { label: "Lipo-C (MIC/B12)", href: "/funnels/micc-b12-shots" },
+          { label: "Neuro-Metabolic", href: "/funnels/glp-1-eligibility" },
         ],
       },
       {
@@ -89,17 +89,17 @@ const MARKETING_NAV_SECTIONS = [
       {
         title: "Testosterone Therapy",
         links: [
-          { label: "TRT Injections", href: ROUTES.shop },
-          { label: "Enclomiphene", href: "/enclomiphene" },
-          { label: "HCG", href: ROUTES.shop },
+          { label: "TRT Injections", href: "/funnels/hrt-lite" },
+          { label: "Enclomiphene", href: "/funnels/enclomiphene" },
+          { label: "HCG", href: "/funnels/hrt-lite" },
         ],
       },
       {
         title: "Growth Hormone Secretagogues",
         links: [
-          { label: "Next-Gen GH Peptides", href: "/cjc-1295-ipamorelin" },
-          { label: "Oral GH Booster", href: ROUTES.shop },
-          { label: "Sermorelin Injections", href: "/sermorelin-injection-2" },
+          { label: "Next-Gen GH Peptides", href: "/funnels/performance-lab" },
+          { label: "Oral GH Booster", href: "/funnels/growth-hormone-support" },
+          { label: "Sermorelin Injections", href: "/funnels/sermorelin" },
         ],
       },
     ],
@@ -122,17 +122,17 @@ const MARKETING_NAV_SECTIONS = [
       {
         title: "Healing & Recovery",
         links: [
-          { label: "The Wolverine Protocol", href: ROUTES.strength },
-          { label: "Advanced Regenerative", href: ROUTES.strength },
-          { label: "Total Body Reconstruction", href: ROUTES.strength },
+          { label: "The Wolverine Protocol", href: "/funnels/sermorelin" },
+          { label: "Advanced Regenerative", href: "/funnels/performance-lab" },
+          { label: "Total Body Reconstruction", href: "/funnels/performance-lab" },
         ],
       },
       {
         title: "Growth Hormone Secretagogues",
         links: [
-          { label: "Next-Gen GH Peptides", href: "/cjc-1295-ipamorelin" },
-          { label: "Oral GH Booster", href: ROUTES.shop },
-          { label: "Sermorelin Injections", href: "/sermorelin-injection-2" },
+          { label: "Next-Gen GH Peptides", href: "/funnels/performance-lab" },
+          { label: "Oral GH Booster", href: "/funnels/growth-hormone-support" },
+          { label: "Sermorelin Injections", href: "/funnels/sermorelin" },
         ],
       },
     ],
@@ -191,26 +191,26 @@ const MARKETING_NAV_SECTIONS = [
         title: "Cellular Longevity",
         links: [
           { label: "Systemic NAD+ Reset", href: ROUTES.nad },
-          { label: "Telomere Lengthening", href: ROUTES.shop },
-          { label: "Mitochondrial Repair", href: ROUTES.shop },
-          { label: "Cellular Clearance", href: ROUTES.shop },
+          { label: "Telomere Lengthening", href: "/funnels/nad-injection-therapy" },
+          { label: "Mitochondrial Repair", href: "/funnels/nad-injection-therapy" },
+          { label: "Cellular Clearance", href: "/funnels/nad-injection-therapy" },
         ],
       },
       {
         title: "Photo-Aging Recovery",
         links: [
-          { label: "Glutathione", href: "/glutathione" },
-          { label: "Glow Blend", href: ROUTES.shop },
-          { label: "GHK-Cu", href: ROUTES.shop },
+          { label: "Glutathione", href: "/funnels/glutathione" },
+          { label: "Glow Blend", href: "/funnels/glutathione" },
+          { label: "GHK-Cu", href: "/funnels/nad-glutathione" },
         ],
       },
       {
         title: "Increase Energy",
         links: [
-          { label: "NAD+ Injections", href: ROUTES.nad },
+          { label: "NAD+ Injections", href: "/nad-injections" },
           { label: "NAD+ Nasal Spray", href: "/nad-nasal-spray" },
-          { label: "Sermorelin Injections", href: "/sermorelin-injection-2" },
-          { label: "MIC+", href: "/mic-injection" },
+          { label: "Sermorelin Injections", href: "/funnels/sermorelin" },
+          { label: "MIC+", href: "/funnels/micc-b12-shots" },
         ],
       },
     ],
@@ -233,10 +233,10 @@ const MARKETING_NAV_SECTIONS = [
       {
         title: "Aesthetics",
         links: [
-          { label: "Master Antioxidant", href: "/glutathione" },
-          { label: "Glow Blend", href: ROUTES.shop },
-          { label: "GHK-Cu Protocol", href: ROUTES.shop },
-          { label: "NAD+ Reset", href: ROUTES.nad },
+          { label: "Master Antioxidant", href: "/funnels/glutathione" },
+          { label: "Glow Blend", href: "/funnels/glutathione" },
+          { label: "GHK-Cu Protocol", href: "/funnels/nad-glutathione" },
+          { label: "NAD+ Reset", href: "/nad-injections" },
         ],
       },
     ],
@@ -259,25 +259,25 @@ const MARKETING_NAV_SECTIONS = [
       {
         title: "Neuro-Regeneration",
         links: [
-          { label: "BDNF & Brain Fog", href: ROUTES.shop },
-          { label: "Anxiety-Free Focus", href: ROUTES.shop },
-          { label: "Neuronal Growth", href: ROUTES.shop },
+          { label: "BDNF & Brain Fog", href: "/funnels/nad-nasal-spray" },
+          { label: "Anxiety-Free Focus", href: "/funnels/nad-nasal-spray" },
+          { label: "Neuronal Growth", href: "/funnels/nad-nasal-spray" },
           { label: "Intranasal NAD+", href: "/nad-nasal-spray" },
         ],
       },
       {
         title: "Insomnia & Sleep",
         links: [
-          { label: "Delta-Sleep Protocol", href: ROUTES.shop },
-          { label: "Trazodone", href: "/generic-trazodone" },
-          { label: "Ramelteon", href: "/ramalteon" },
+          { label: "Delta-Sleep Protocol", href: "/funnels/sleep" },
+          { label: "Trazodone", href: "/funnels/sleep" },
+          { label: "Ramelteon", href: "/funnels/sleep" },
         ],
       },
       {
         title: "Anxiety & Social Calm",
         links: [
-          { label: "Propranolol", href: ROUTES.shop },
-          { label: "Anxiolytic Peptide", href: ROUTES.shop },
+          { label: "Propranolol", href: "/funnels/sleep" },
+          { label: "Anxiolytic Peptide", href: "/funnels/nad-nasal-spray" },
         ],
       },
     ],
@@ -300,9 +300,9 @@ const MARKETING_NAV_SECTIONS = [
       {
         title: "Total Gut Reset",
         links: [
-          { label: "Leaky Gut Repair", href: ROUTES.shop },
-          { label: "Deep Inflammation Calm", href: ROUTES.shop },
-          { label: "Stomach Lining Support", href: ROUTES.shop },
+          { label: "Leaky Gut Repair", href: "/funnels/glutathione-ldn" },
+          { label: "Deep Inflammation Calm", href: "/funnels/glutathione-ldn" },
+          { label: "Stomach Lining Support", href: "/funnels/glutathione-ldn" },
         ],
       },
     ],
@@ -504,21 +504,21 @@ const MARKETING_FOOTER_SECTIONS = Object.freeze([
     title: "Popular Weight Loss",
     links: [
       { label: "GLP-1 Treatments", href: ROUTES.weightLoss },
-      { label: "Tirzepatide Injection", href: ROUTES.weightLoss },
-      { label: "Tirzepatide Drops", href: ROUTES.weightLoss },
-      { label: "Semaglutide Injection", href: ROUTES.weightLoss },
+      { label: "Tirzepatide Injection", href: "/tirzepatide-injections" },
+      { label: "Tirzepatide Drops", href: "/tirzepatide-drops" },
+      { label: "Semaglutide Injection", href: "/semaglutide-injections" },
     ],
   },
   {
     title: "Sexual Health",
-    links: [{ label: "PT-141 Nasal Spray", href: ROUTES.sexualHealth }],
+    links: [{ label: "PT-141 Nasal Spray", href: "/pt-141-nasal-spray" }],
   },
   {
     title: "Anti-aging",
     links: [
-      { label: "NAD+ Injection", href: ROUTES.nad },
+      { label: "NAD+ Injection", href: "/nad-injections" },
       { label: "NAD+ Nasal Spray", href: "/nad-nasal-spray" },
-      { label: "Sermorelin Injection", href: ROUTES.strength },
+      { label: "Sermorelin Injection", href: "/funnels/sermorelin" },
     ],
   },
   {
