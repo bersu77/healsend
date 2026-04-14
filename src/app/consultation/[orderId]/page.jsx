@@ -13,7 +13,9 @@ import { isUsableConsultationUrl } from "@/lib/mdi-shared";
 import AppIcon from "@/components/ui/AppIcon";
 
 function normalizeStatus(value) {
-  return String(value || "").trim().toLowerCase();
+  return String(value || "")
+    .trim()
+    .toLowerCase();
 }
 
 function formatStatusLabel(value, fallback = "Pending") {
@@ -253,6 +255,20 @@ export default function ConsultationPage() {
         if (data?.consultationUrl) {
           data.consultationUrl = ensureFullscreenParam(data.consultationUrl);
         }
+
+        // Redirect OLA orders to the OLA consultation page
+        const isOlaOrder =
+          data?.telehealthProvider === "OLA" ||
+          data?.items?.some(
+            (item) => item?.product?.telehealthProvider === "OLA",
+          );
+        if (isOlaOrder) {
+          router.replace(
+            `/consultation/ola/${encodeURIComponent(String(orderId || ""))}`,
+          );
+          return;
+        }
+
         setOrder(data);
         setLoading(false);
 
@@ -289,7 +305,13 @@ export default function ConsultationPage() {
         consultationId: order.consultationId || null,
       },
     });
-  }, [order?.consultationId, order?.consultationStatus, order?.consultationUrl, order?.id, order?.mdiWorkflowPhase]);
+  }, [
+    order?.consultationId,
+    order?.consultationStatus,
+    order?.consultationUrl,
+    order?.id,
+    order?.mdiWorkflowPhase,
+  ]);
 
   // Auto-create consultation if one doesn't exist yet
   useEffect(() => {
@@ -381,7 +403,9 @@ export default function ConsultationPage() {
 
       const data = await response.json();
       if (!response.ok || !data?.consultationUrl) {
-        throw new Error(data?.error || "Unable to refresh consultation session");
+        throw new Error(
+          data?.error || "Unable to refresh consultation session",
+        );
       }
 
       const normalizedUrl = ensureFullscreenParam(data.consultationUrl);
@@ -391,7 +415,8 @@ export default function ConsultationPage() {
               ...prev,
               consultationId: data.consultationId || prev.consultationId,
               consultationUrl: normalizedUrl,
-              consultationStatus: data.consultationStatus || prev.consultationStatus,
+              consultationStatus:
+                data.consultationStatus || prev.consultationStatus,
             }
           : prev,
       );
@@ -562,61 +587,14 @@ export default function ConsultationPage() {
               (order?.mdiCaseSnapshot?.status ||
                 order?.mdiCaseSnapshot?.phase ||
                 order?.mdiWorkflowPhase) &&
-              getReviewStageLabel(order) !== getPrimaryConsultationBadge(order).label ? (
+              getReviewStageLabel(order) !==
+                getPrimaryConsultationBadge(order).label ? (
                 <span className="inline-flex items-center justify-center rounded-full bg-[#f1ecf9] px-3 py-1 text-xs font-semibold text-[#5b3cdd]">
                   {getReviewStageLabel(order)}
                 </span>
               ) : null}
             </div>
           </div>
-
-          {order ? (
-            <div className="mb-6 grid gap-4 md:grid-cols-3">
-              <div className="rounded-[1.5rem] border border-black/5 bg-white p-5 shadow-sm">
-                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#7b75f0]">
-                  Portal access
-                </p>
-                <p className="mt-2 text-sm font-semibold text-[#1c1a24]">
-                  {isUsableConsultationUrl(order.consultationUrl)
-                    ? "Ready to open"
-                    : order.user?.mdiPatientId
-                      ? "Connected"
-                      : "Preparing now"}
-                </p>
-                <p className="mt-1 text-xs text-[#797587]">
-                  {isUsableConsultationUrl(order.consultationUrl)
-                    ? "Your secure care portal is ready whenever you want to continue."
-                    : order.user?.mdiPatientId
-                      ? "Your care profile is connected and we’re preparing the next step."
-                      : "We’re setting up your secure portal now."}
-                </p>
-              </div>
-              <div className="rounded-[1.5rem] border border-black/5 bg-white p-5 shadow-sm">
-                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#7b75f0]">
-                  Review status
-                </p>
-                <p className="mt-2 text-sm font-semibold text-[#1c1a24]">
-                  {getReviewStageLabel(order)}
-                </p>
-                <p className="mt-1 text-xs text-[#797587]">
-                  {getReviewStageSummary(order)}
-                </p>
-              </div>
-              <div className="rounded-[1.5rem] border border-black/5 bg-white p-5 shadow-sm">
-                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#7b75f0]">
-                  Care team
-                </p>
-                <p className="mt-2 text-sm font-semibold text-[#1c1a24]">
-                  {order.mdiCaseSnapshot?.providerName || "Assigned after review begins"}
-                </p>
-                <p className="mt-1 text-xs text-[#797587]">
-                  {formatShortTimestamp(order.mdiCaseSnapshot?.latestEventAt)
-                    ? `Last updated ${formatShortTimestamp(order.mdiCaseSnapshot?.latestEventAt)}`
-                    : "Your care team details will appear here as soon as review begins."}
-                </p>
-              </div>
-            </div>
-          ) : null}
 
           <div className="overflow-hidden rounded-[2rem] border border-black/5 bg-white shadow-sm">
             {loading || creating ? (

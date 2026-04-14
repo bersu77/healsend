@@ -28,8 +28,16 @@ export async function GET(_request, { params }) {
   });
   if (!product)
     return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+  const linkedTemplate = await prisma.onboardingTemplate.findFirst({
+    where: { productId: id },
+    select: { id: true, name: true, slug: true },
+  });
+
   return NextResponse.json({
     ...product,
+    questionnaireTemplateId: linkedTemplate?.id ?? null,
+    questionnaireTemplateName: linkedTemplate?.name ?? null,
     stripeSync: getProductStripeSyncSummary(product),
   });
 }

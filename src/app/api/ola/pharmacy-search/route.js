@@ -1,9 +1,5 @@
 import { getCurrentUser } from "@/lib/auth";
-import {
-  searchOlaPharmacy,
-  getOlaConfig,
-  getOlaAccessToken,
-} from "@/lib/ola-client";
+import { searchOlaPharmacy } from "@/lib/ola-client";
 import { NextResponse } from "next/server";
 
 /**

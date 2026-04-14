@@ -1285,19 +1285,6 @@ function NegativeSellSection() {
 function HimsTopSection() {
   return (
     <section className="bg-white">
-      {/* Announcement banner */}
-      <Link
-        href={getFunnelPath("glp-1")}
-        className="flex items-center justify-center gap-2 bg-[#fef6e8] px-4 py-2.5"
-      >
-        <span className="[font-family:'Open_Sans',sans-serif] text-[13px] text-[#1d1d1f]">
-          GLP-1 treatments from $149/mo.
-        </span>
-        <span className="[font-family:'Open_Sans',sans-serif] rounded-full border border-[#c9860a] px-3 py-0.5 text-[12px] font-medium text-[#c9860a]">
-          Check it out →
-        </span>
-      </Link>
-
       <div className="px-3 pt-3 pb-4">
         {/* Two featured dark cards */}
         <div className="mb-2.5 grid grid-cols-2 gap-2">
@@ -2285,21 +2272,9 @@ export default function MarketingHomePage({
     energyProducts.length > 0 ? energyProducts : defaultEnergyProducts;
   const strengthCarousel =
     strengthProducts.length > 0 ? strengthProducts : defaultStrengthProducts;
-  const weightLossBanner = {
-    ...(activeBanners[0] || defaultHomeBanners[0]),
-    backgroundImage: defaultHomeBanners[0].backgroundImage,
-    backgroundPosition: defaultHomeBanners[0].backgroundPosition,
-    image: undefined,
-    video: undefined,
-  };
+  const weightLossBanner = activeBanners[0] || defaultHomeBanners[0];
   const sexualHealthBanner = activeBanners[1] || defaultHomeBanners[1];
-  const energyBanner = {
-    ...(activeBanners[2] || defaultHomeBanners[2]),
-    backgroundImage: defaultHomeBanners[2].backgroundImage,
-    backgroundPosition: defaultHomeBanners[2].backgroundPosition,
-    image: undefined,
-    video: undefined,
-  };
+  const energyBanner = activeBanners[2] || defaultHomeBanners[2];
   const strengthBanner = activeBanners[3] || defaultHomeBanners[3];
   const showDeferredHomeSections = false;
 

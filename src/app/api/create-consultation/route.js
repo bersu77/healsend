@@ -80,6 +80,16 @@ export async function POST(request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
 
+  if (order.telehealthProvider && order.telehealthProvider !== "MDI") {
+    return NextResponse.json(
+      {
+        error: "This order uses a non-MDI telehealth provider.",
+        telehealthProvider: order.telehealthProvider,
+      },
+      { status: 400 },
+    );
+  }
+
   const config = getMdiConfig();
   const isSandboxRuntime =
     process.env.MD_IS_SANDBOX === "true" ||
@@ -130,7 +140,9 @@ export async function POST(request) {
         : order.mdiWorkflowPhase || "submitted");
     orderData.consultationStatus =
       orderData.consultationStatus ||
-      (orderData.consultationUrl ? "pending" : order.consultationStatus || "pending");
+      (orderData.consultationUrl
+        ? "pending"
+        : order.consultationStatus || "pending");
     if (!orderData.mdiOrderTag && orderData.consultationUrl) {
       orderData.mdiOrderTag = "Pending";
     }
@@ -153,9 +165,8 @@ export async function POST(request) {
         data: orderData,
       });
 
-      const { update: fulfillmentUpdate } = buildFulfillmentProjection(
-        projectedOrder,
-      );
+      const { update: fulfillmentUpdate } =
+        buildFulfillmentProjection(projectedOrder);
       if (Object.keys(fulfillmentUpdate).length > 0) {
         await tx.order.update({
           where: { id: orderId },
@@ -262,7 +273,8 @@ export async function POST(request) {
         touchConsultationRefresh: true,
         fallbackConsultationId: true,
       });
-      orderData.mdiWorkflowPhase = orderData.mdiWorkflowPhase || "consultation_ready";
+      orderData.mdiWorkflowPhase =
+        orderData.mdiWorkflowPhase || "consultation_ready";
       orderData.consultationStatus = orderData.consultationStatus || "ready";
 
       const userData = buildUserMdiUpdate(normalized);
@@ -280,9 +292,8 @@ export async function POST(request) {
           data: orderData,
         });
 
-        const { update: fulfillmentUpdate } = buildFulfillmentProjection(
-          projectedOrder,
-        );
+        const { update: fulfillmentUpdate } =
+          buildFulfillmentProjection(projectedOrder);
         if (Object.keys(fulfillmentUpdate).length > 0) {
           await tx.order.update({
             where: { id: orderId },
@@ -318,7 +329,10 @@ export async function POST(request) {
           { status: 502 },
         );
       }
-      console.warn("MD partner auth flow failed, falling back to webhook:", err);
+      console.warn(
+        "MD partner auth flow failed, falling back to webhook:",
+        err,
+      );
     }
   }
 
@@ -487,9 +501,12 @@ export async function POST(request) {
           normalized = normalizeMdiPayload({
             ...(mdData && typeof mdData === "object" ? mdData : {}),
             patient_id:
-              directIntake.normalized.patientId || normalized.patientId || authPatientId,
+              directIntake.normalized.patientId ||
+              normalized.patientId ||
+              authPatientId,
             consultation_url:
-              directIntake.normalized.consultationUrl || normalized.consultationUrl,
+              directIntake.normalized.consultationUrl ||
+              normalized.consultationUrl,
             consultation_status:
               directIntake.normalized.consultationStatus ||
               normalized.consultationStatus,
@@ -502,10 +519,14 @@ export async function POST(request) {
             encounter_id:
               directIntake.normalized.encounterId || normalized.encounterId,
           });
-          authPatientId = authPatientId || directIntake.patientId || normalized.patientId;
+          authPatientId =
+            authPatientId || directIntake.patientId || normalized.patientId;
         }
       } catch (err) {
-        console.warn("Unable to create direct MD intake after order submit:", err);
+        console.warn(
+          "Unable to create direct MD intake after order submit:",
+          err,
+        );
       }
     }
 
@@ -555,7 +576,11 @@ export async function POST(request) {
     }
 
     if (!normalized.consultationUrl) {
-      for (let attempt = 0; attempt < 3 && !normalized.consultationUrl; attempt += 1) {
+      for (
+        let attempt = 0;
+        attempt < 3 && !normalized.consultationUrl;
+        attempt += 1
+      ) {
         if (!authPatientId && order.user?.email) {
           try {
             authPatientId = await findMdiPatientByEmail({

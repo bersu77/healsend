@@ -16,12 +16,17 @@ import {
 import { prisma } from "@/lib/prisma";
 import {
   cancelAuthorizedOrderPayment,
-  captureAuthorizedOrderPayment,
+  captureOrRetryOrderPayment,
 } from "@/lib/stripe-payment-workflow";
 import { recordAffiliateServerEvent } from "@/lib/affiliate-tracking";
 import { NextResponse } from "next/server";
 
-async function getOrCreateWebhookEvent({ deliveryId, eventType, headers, payload }) {
+async function getOrCreateWebhookEvent({
+  deliveryId,
+  eventType,
+  headers,
+  payload,
+}) {
   if (deliveryId) {
     const existing = await prisma.mdiWebhookEvent.findUnique({
       where: { deliveryId },
@@ -191,7 +196,7 @@ export async function POST(request) {
       !fulfillmentAssessment.paymentCaptured &&
       finalOrder?.stripePaymentId
     ) {
-      await captureAuthorizedOrderPayment(finalOrder, {
+      await captureOrRetryOrderPayment(finalOrder, {
         reason: "medical_approval",
         caseSnapshot: finalCaseSnapshot,
       });

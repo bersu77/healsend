@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import {
   submitOrderToOla,
   getOlaOrderDetails,
-  getOlaConfig,
+  resolveOlaConfig,
   getOlaAccessToken,
 } from "@/lib/ola-client";
 import { NextResponse } from "next/server";
@@ -36,6 +36,7 @@ export async function POST(request) {
     where: { id: orderId },
     include: {
       items: { include: { product: true } },
+      address: true,
     },
   });
 
@@ -50,7 +51,7 @@ export async function POST(request) {
   // If already submitted to OLA, return existing data
   if (order.olaOrderGuid) {
     try {
-      const cfg = getOlaConfig();
+      const cfg = await resolveOlaConfig();
       const token = await getOlaAccessToken(cfg);
       const details = await getOlaOrderDetails(order.olaOrderGuid, {
         accessToken: token,
@@ -116,7 +117,28 @@ export async function POST(request) {
       consultationStatus: "pending",
     });
   } catch (err) {
-    console.error("[OLA] create-consultation error:", err);
+    const olaMsg = err?.message || "";
+    const isOlaApiError = olaMsg.includes("OLA new-schedule-request failed");
+
+    console.error("[OLA] create-consultation error:", {
+      message: olaMsg,
+      orderId,
+      userId: user.id,
+      hasAddress: !!order.address,
+      productServiceKey: order.items?.[0]?.product?.olaServiceKey || null,
+    });
+
+    if (isOlaApiError) {
+      return NextResponse.json(
+        {
+          error:
+            "Unable to schedule your telehealth appointment. Our provider is temporarily unavailable. Please try again in a few minutes or contact support.",
+          olaError: olaMsg.match(/failed \(\d+\): (.+)$/)?.[1] || olaMsg,
+        },
+        { status: 503 },
+      );
+    }
+
     return NextResponse.json(
       { error: "Failed to create OLA consultation. Please try again." },
       { status: 500 },

@@ -629,7 +629,7 @@ function GoogleRatingBadge() {
           </div>
         </div>
         <p className="mt-0.5 text-[10px] leading-none text-[#70757a]">
-          128 reviews
+          5 stars on Google
         </p>
       </div>
     </a>
@@ -820,6 +820,7 @@ function QuestionMultiStep({ step, value, onChange, onNext }) {
 
 function BMICalculatorStep({ step, value, onChange, onNext }) {
   const v = value || { feet: "", inches: "", weight: "" };
+  const [showResults, setShowResults] = useState(false);
 
   const computeBMI = () => {
     const ft = Number(v.feet) || 0;
@@ -841,6 +842,28 @@ function BMICalculatorStep({ step, value, onChange, onNext }) {
       return "border-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.2)]";
     return "border-amber-500";
   };
+
+  // Build outcome for the transformation card
+  const currentWeight = Number(v.weight) || 0;
+  const projectedLoss = currentWeight
+    ? Math.max(14, Math.round(currentWeight * 0.2))
+    : 40;
+  const targetWeight = currentWeight
+    ? Math.max(currentWeight - projectedLoss, 90)
+    : null;
+  const bmiOutcome = {
+    currentWeight: currentWeight || null,
+    projectedLoss,
+    targetWeight,
+  };
+
+  if (showResults && eligible) {
+    return (
+      <div className="space-y-4">
+        <TransformationResultsCard outcome={bmiOutcome} onNext={onNext} />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-10">
@@ -954,7 +977,13 @@ function BMICalculatorStep({ step, value, onChange, onNext }) {
       )}
 
       <ContinueButton
-        onClick={onNext}
+        onClick={() => {
+          if (eligible) {
+            setShowResults(true);
+          } else {
+            onNext();
+          }
+        }}
         disabled={!v.feet || !v.inches || !v.weight || !eligible}
       />
     </div>
@@ -2350,7 +2379,7 @@ function CheckoutStep({
             ))}
           </div>
         </div>
-        <span className="text-sm text-[#70757a]">128 Google reviews</span>
+        <span className="text-sm text-[#70757a]">5 stars on Google</span>
         <div className="ml-auto hidden items-center gap-3 sm:flex">
           {[
             { initials: "SM", bg: "#4285F4" },
@@ -2881,71 +2910,239 @@ function Glp1PlanIntroStep({ answers, steps, onNext }) {
   );
 }
 
+function TransformationResultsCard({ outcome, onNext }) {
+  const now = new Date();
+  const oneYearLater = new Date(now);
+  oneYearLater.setFullYear(oneYearLater.getFullYear() + 1);
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const startLabel = `${monthNames[now.getMonth()]} ${now.getFullYear()}`;
+  const endLabel = `${monthNames[oneYearLater.getMonth()]} ${oneYearLater.getFullYear()}`;
+
+  const current = outcome.currentWeight || 200;
+  const projectedLoss = outcome.projectedLoss || Math.round(current * 0.2);
+  const target = outcome.targetWeight || current - projectedLoss;
+
+  // Progressive milestones: 5%, 10%, 15%, 20% loss
+  const milestones = [
+    {
+      label: "3 MO",
+      loss: Math.round(current * 0.05),
+      weight: Math.round(current * 0.95),
+    },
+    {
+      label: "6 MO",
+      loss: Math.round(current * 0.1),
+      weight: Math.round(current * 0.9),
+    },
+    {
+      label: "9 MO",
+      loss: Math.round(current * 0.15),
+      weight: Math.round(current * 0.85),
+    },
+    { label: "1 YR", loss: projectedLoss, weight: target },
+  ];
+
+  const pct = Math.round((projectedLoss / current) * 100);
+
+  return (
+    <div
+      className="rounded-[1.75rem] overflow-hidden shadow-[0_32px_72px_rgba(0,0,0,0.45)]"
+      style={{ background: "linear-gradient(160deg,#0b1524 0%,#0d1f2d 100%)" }}
+    >
+      {/* Header badge */}
+      <div className="flex items-center justify-center gap-2 border-b border-white/10 px-5 py-3">
+        <span className="h-2 w-2 rounded-full bg-emerald-400" />
+        <span className="text-[11px] font-bold tracking-[0.18em] text-emerald-400 uppercase">
+          Qualified for Treatment
+        </span>
+      </div>
+
+      <div className="px-5 pb-5 pt-6 md:px-7">
+        {/* Title */}
+        <div className="mb-5 text-center">
+          <h2 className="font-headline text-[1.65rem] font-extrabold leading-tight text-white md:text-3xl">
+            Your Transformation
+          </h2>
+          <p className="mt-1 text-xs font-medium tracking-wide text-white/50">
+            Personalized GLP-1 Protocol&nbsp;•&nbsp;Projected Results
+          </p>
+        </div>
+
+        {/* Date range */}
+        <div className="mb-3 flex items-center justify-between text-[11px] font-medium text-white/40">
+          <span>{startLabel}</span>
+          <span>{endLabel}</span>
+        </div>
+
+        {/* Current → target card */}
+        <div
+          className="mb-4 rounded-[1.1rem] border border-white/10 px-5 py-4"
+          style={{ background: "rgba(255,255,255,0.05)" }}
+        >
+          <p className="mb-1 text-[10px] font-bold tracking-[0.16em] text-white/40 uppercase">
+            Current
+          </p>
+          <div className="flex items-center justify-between gap-3">
+            <p className="font-headline text-4xl font-extrabold text-white">
+              {current}{" "}
+              <span className="text-lg font-semibold text-white/60">lbs</span>
+            </p>
+            <div
+              className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-bold text-white"
+              style={{ background: "linear-gradient(135deg,#12b377,#0e9662)" }}
+            >
+              <svg
+                className="h-3.5 w-3.5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path d="M5 10l5 5 5-5H5z" />
+              </svg>
+              {projectedLoss} lbs lost
+            </div>
+          </div>
+        </div>
+
+        {/* Gradient progress bar */}
+        <div
+          className="mb-4 flex items-center justify-between rounded-[0.85rem] px-4 py-3"
+          style={{ background: "linear-gradient(90deg,#7c3aed,#06b6d4)" }}
+        >
+          <span className="text-sm font-bold text-white">{current} lbs</span>
+          <div className="flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">
+            <svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+            {target} lbs
+          </div>
+        </div>
+
+        {/* Milestone grid */}
+        <div className="mb-4 grid grid-cols-4 gap-2">
+          {milestones.map((m) => (
+            <div
+              key={m.label}
+              className="rounded-[0.85rem] border border-white/10 px-2 py-3 text-center"
+              style={{ background: "rgba(255,255,255,0.05)" }}
+            >
+              <p className="text-[10px] font-bold tracking-[0.14em] text-white/40 uppercase">
+                {m.label}
+              </p>
+              <p className="mt-1 text-[1.15rem] font-extrabold text-white leading-tight">
+                {m.weight}
+              </p>
+              <p className="text-[10px] font-semibold text-emerald-400">
+                -{m.loss} lbs
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* 1-year result summary */}
+        <div
+          className="mb-5 rounded-[1.1rem] border border-emerald-500/20 px-5 py-4 text-center"
+          style={{ background: "rgba(16,185,129,0.08)" }}
+        >
+          <p className="mb-1 text-[10px] font-bold tracking-[0.16em] text-emerald-400 uppercase">
+            Projected 1-Year Result
+          </p>
+          <p className="font-headline text-[2.2rem] font-extrabold leading-none text-white">
+            {projectedLoss}&nbsp;<span className="text-[1.4rem]">lbs</span>{" "}
+            <span className="text-emerald-400">lost</span>
+          </p>
+          <p className="mt-1 text-xs font-medium text-white/50">
+            {pct}% total body weight reduction
+          </p>
+        </div>
+
+        {/* CTA */}
+        <button
+          type="button"
+          onClick={onNext}
+          className="flex w-full items-center justify-center gap-2 rounded-[1rem] py-4 text-base font-bold text-white shadow-[0_8px_24px_rgba(91,60,221,0.45)] transition-all hover:opacity-90 active:scale-[0.98]"
+          style={{ background: "linear-gradient(90deg,#5b3cdd,#7c5ce0)" }}
+        >
+          Start My Transformation
+          <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fillRule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+
+        {/* Trust row */}
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-[11px] font-medium text-white/40">
+          <span className="flex items-center gap-1">
+            <svg
+              className="h-3.5 w-3.5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 1a9 9 0 100 18A9 9 0 0010 1zm0 2a7 7 0 100 14A7 7 0 0010 3zm0 3a1 1 0 011 1v3l2 2a1 1 0 01-1.414 1.414l-2.293-2.293A1 1 0 019 11V7a1 1 0 011-1z"
+                clipRule="evenodd"
+              />
+            </svg>
+            HIPAA Secure
+          </span>
+          <span className="flex items-center gap-1">
+            <svg
+              className="h-3.5 w-3.5 text-yellow-400"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+            <span className="text-white/60">4.9/5 Rating</span>
+          </span>
+          <span className="flex items-center gap-1">
+            <svg
+              className="h-3.5 w-3.5 text-emerald-400"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+            FDA Approved
+          </span>
+        </div>
+
+        {/* Footnote */}
+        <p className="mt-4 text-center text-[10px] leading-relaxed text-white/25">
+          *Results based on avg. weight loss with GLP-1 max dose + calorie
+          protocol. Individual results vary.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 function Glp1ResultsPreviewStep({ answers, steps, onNext }) {
   const outcome = resolveProjectedWeightOutcome(answers, steps);
 
   return (
-    <div className="space-y-6">
-      <div>
-        <span className="inline-flex rounded-full bg-[#e8f5ed] px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#3f8b4d]">
-          Personalized projection
-        </span>
-        <h1 className="mt-4 font-headline text-3xl font-extrabold leading-tight text-[#1c1a24] md:text-[3.1rem]">
-          See how much weight you could lose
-        </h1>
-        <p className="mt-3 max-w-2xl text-base leading-relaxed text-[#5f5a6d] md:text-lg">
-          Skip the waiting room. Get medical care in minutes with a
-          clinician-backed plan built around your answers.
-        </p>
-      </div>
-
-      <div className="rounded-[2rem] border border-[#d9d4e7] bg-white p-6 shadow-[0_20px_40px_rgba(28,26,36,0.08)] md:p-8">
-        <div className="grid gap-6 md:grid-cols-[1.1fr_0.9fr] md:items-center">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#7b7590]">
-              Projected 12-month progress
-            </p>
-            <div className="mt-5 flex items-end gap-2 text-[#1c1a24]">
-              <span className="font-headline text-[4.5rem] font-extrabold leading-none text-[#5560db]">
-                {outcome.projectedLoss}
-              </span>
-              <span className="pb-2 text-[1.35rem] font-semibold">lbs</span>
-            </div>
-            <p className="mt-3 text-base text-[#5f5a6d]">
-              Estimated weight change based on the information you&apos;ve
-              already provided.
-            </p>
-          </div>
-
-          <div className="rounded-[1.5rem] bg-[#f5f7ff] p-5">
-            <div className="space-y-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#7b7590]">
-                  Today
-                </p>
-                <p className="mt-1 text-2xl font-bold text-[#1c1a24]">
-                  {outcome.currentWeight
-                    ? `${outcome.currentWeight} lbs`
-                    : "Current weight added at BMI step"}
-                </p>
-              </div>
-              <div className="h-px bg-[#dddff3]" />
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#7b7590]">
-                  12-month target
-                </p>
-                <p className="mt-1 text-2xl font-bold text-[#1c1a24]">
-                  {outcome.targetWeight
-                    ? `${outcome.targetWeight} lbs`
-                    : "Target updates after BMI"}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <ContinueButton onClick={onNext} label="Continue" hideDefaultCaption />
+    <div className="space-y-4">
+      <TransformationResultsCard outcome={outcome} onNext={onNext} />
     </div>
   );
 }
@@ -3086,7 +3283,7 @@ function Glp1ProvenResultsStep({ onNext }) {
             ))}
           </div>
           <span className="text-sm font-bold text-[#202124]">4.9</span>
-          <span className="text-xs text-[#70757a]">(128)</span>
+          <span className="text-xs text-[#70757a]">5 stars</span>
         </div>
         {FUNNEL_GOOGLE_REVIEWS.map((review) => (
           <GoogleReviewCard key={review.name} {...review} />

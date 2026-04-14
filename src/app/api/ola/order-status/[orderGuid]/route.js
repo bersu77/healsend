@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import {
   getOlaOrderDetails,
   getOlaServiceDetails,
-  getOlaConfig,
+  resolveOlaConfig,
   getOlaAccessToken,
 } from "@/lib/ola-client";
 import { NextResponse } from "next/server";
@@ -36,7 +36,7 @@ export async function GET(_request, { params }) {
   }
 
   try {
-    const cfg = getOlaConfig();
+    const cfg = await resolveOlaConfig();
     const token = await getOlaAccessToken(cfg);
 
     const [orderDetails, serviceDetails] = await Promise.all([

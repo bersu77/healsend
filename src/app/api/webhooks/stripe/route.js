@@ -361,6 +361,7 @@ async function applyAuthorizedSession(
           getPrimaryStripePaymentMethod(session.payment_method_types) ||
           order.stripePaymentMethod,
         paymentCapturedAt: null,
+        authCreatedAt: order.authCreatedAt || new Date(),
       },
     });
 
@@ -469,6 +470,7 @@ async function applyAuthorizedPaymentIntent(order, paymentIntent) {
             ? paymentIntent.payment_method
             : order.stripePaymentMethod),
         paymentCapturedAt: null,
+        authCreatedAt: order.authCreatedAt || new Date(),
       },
     });
 

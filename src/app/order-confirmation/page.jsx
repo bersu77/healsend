@@ -24,7 +24,9 @@ function canViewOrder(order, user) {
     return true;
   }
 
-  return !user && isGuestCartEnabled() && order.user?.email === LOCAL_CART_EMAIL;
+  return (
+    !user && isGuestCartEnabled() && order.user?.email === LOCAL_CART_EMAIL
+  );
 }
 
 export default async function OrderConfirmationPage({ searchParams }) {
@@ -164,7 +166,13 @@ export default async function OrderConfirmationPage({ searchParams }) {
         <div className="flex gap-3 justify-center pt-4 flex-wrap">
           {order ? (
             <Link
-              href={`/consultation/${order.id}`}
+              href={
+                order.items?.some(
+                  (item) => item?.product?.telehealthProvider === "OLA",
+                )
+                  ? `/consultation/ola/${order.id}`
+                  : `/consultation/${order.id}`
+              }
               target="_blank"
               rel="noopener noreferrer"
               className="hs-gradient-btn px-5 py-3 rounded-xl text-sm font-semibold"

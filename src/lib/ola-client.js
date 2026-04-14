@@ -26,6 +26,33 @@ export function getOlaConfig() {
   };
 }
 
+/**
+ * Async variant that merges DB-stored settings on top of the env-var defaults.
+ * Use this in server-side API routes so admins can change OLA config without
+ * a redeploy.
+ */
+export async function resolveOlaConfig() {
+  const base = getOlaConfig();
+  try {
+    const { getAllSiteSettings } = await import("@/lib/site-settings");
+    const db = await getAllSiteSettings();
+    return {
+      ...base,
+      baseUrl: db["ola.baseUrl"]
+        ? String(db["ola.baseUrl"]).replace(/\/+$/, "")
+        : base.baseUrl,
+      serviceKey: db["ola.serviceKey"]
+        ? String(db["ola.serviceKey"])
+        : base.serviceKey,
+      sessionType: db["ola.sessionType"]
+        ? String(db["ola.sessionType"])
+        : base.sessionType,
+    };
+  } catch {
+    return base;
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Auth – Tenant Login
 // ---------------------------------------------------------------------------
@@ -117,13 +144,13 @@ export async function createOlaAppointment(
   const fields = {
     service_key: payload.serviceKey || cfg.serviceKey,
     session_type: payload.sessionType || cfg.sessionType,
-    first_name: payload.firstName,
-    last_name: payload.lastName,
-    email: payload.email,
-    phone: payload.phone,
-    date_of_birth: payload.dateOfBirth,
-    gender: payload.gender,
-    state: payload.state,
+    first_name: payload.firstName || "",
+    last_name: payload.lastName || "",
+    email: payload.email || "",
+    phone: payload.phone || "",
+    date_of_birth: payload.dateOfBirth || "",
+    gender: payload.gender || "",
+    state: payload.state || "",
     address: payload.address || "",
     city: payload.city || "",
     zip_code: payload.zipCode || "",
@@ -135,9 +162,7 @@ export async function createOlaAppointment(
   };
 
   for (const [key, value] of Object.entries(fields)) {
-    if (value !== undefined && value !== null) {
-      form.append(key, String(value));
-    }
+    form.append(key, String(value));
   }
 
   // If photo IDs are provided as file paths or blobs
@@ -333,10 +358,10 @@ export async function submitOrderToOla(order, user) {
       phone: user.phone || "",
       dateOfBirth: formattedDob,
       gender: user.gender || "",
-      state: user.state || order.shippingState || "",
-      address: user.address || order.shippingAddress1 || "",
-      city: user.city || order.shippingCity || "",
-      zipCode: user.zipCode || order.shippingZip || "",
+      state: order.address?.state || "",
+      address: order.address?.line1 || "",
+      city: order.address?.city || "",
+      zipCode: order.address?.zip || "",
     },
     { accessToken: token, config: cfg },
   );

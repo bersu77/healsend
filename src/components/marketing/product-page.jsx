@@ -370,7 +370,7 @@ function WillpowerSection() {
         </div>
 
         {/* Desktop: vertical marquee columns */}
-        <div className="relative hidden h-[600px] overflow-hidden rounded-[1rem] lg:block">
+        <div className="relative hidden h-full max-h-[800px] overflow-hidden rounded-[1rem] lg:block">
           <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-gradient-to-b from-[#f7f8fc] via-[#f7f8fc]/92 to-transparent" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-t from-[#f7f8fc] via-[#f7f8fc]/92 to-transparent" />
           <div className="grid h-full grid-cols-2 gap-3 lg:gap-4">

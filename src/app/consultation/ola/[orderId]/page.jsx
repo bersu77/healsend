@@ -97,7 +97,7 @@ export default function OlaConsultationPage() {
 
   // Auto-create OLA consultation if not yet submitted
   useEffect(() => {
-    if (!order || order.olaOrderGuid || creating) return;
+    if (!order || order.olaOrderGuid || creating || error) return;
     setCreating(true);
 
     fetch("/api/ola/create-consultation", {
@@ -125,7 +125,7 @@ export default function OlaConsultationPage() {
         setError(err.message);
         setCreating(false);
       });
-  }, [order, creating, orderId]);
+  }, [order, creating, orderId, error]);
 
   // Refresh status for existing OLA orders
   const refreshStatus = useCallback(async () => {
@@ -341,20 +341,7 @@ export default function OlaConsultationPage() {
                   <button
                     onClick={() => {
                       setError(null);
-                      setLoading(true);
-                      fetch(`/api/orders/${orderId}`)
-                        .then((r) => {
-                          if (!r.ok) throw new Error("Order not found");
-                          return r.json();
-                        })
-                        .then((data) => {
-                          setOrder(data);
-                          setLoading(false);
-                        })
-                        .catch(() => {
-                          setError("Unable to load order details.");
-                          setLoading(false);
-                        });
+                      setCreating(false);
                     }}
                     className="rounded-full bg-[#5b3cdd] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#4a2fc7]"
                   >

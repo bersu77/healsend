@@ -411,6 +411,9 @@ model Order {
   olaStatus           String?     // OLA appointment status
   olaRedirectUrl      String?     // OLA redirect URL for next steps
   olaLastSyncAt       DateTime?
+  authCreatedAt       DateTime?   // When the Stripe authorization hold was created
+  paymentRetryCount   Int         @default(0) // Off-session retry attempts after auth expiry
+  paymentNextRetryAt  DateTime?   // Scheduled time for next off-session retry
   fulfillmentReadyAt  DateTime?
   fulfillmentBlockedReason String?
   addressId           String?
@@ -421,6 +424,7 @@ model Order {
   mdiWebhookEvents    MdiWebhookEvent[]
   mdiCaseSnapshots    MdiCaseSnapshot[]
   stripeWebhookEvents StripeWebhookEvent[]
+  olaWebhookEvents    OlaWebhookEvent[]
   affiliateEvents     AffiliateEvent[]
 
   @@index([checkoutFingerprint])
@@ -542,6 +546,26 @@ model MdiWebhookEvent {
   @@index([mdiOrderId])
   @@index([mdiPatientId])
   @@index([mdiCaseId])
+  @@index([eventType])
+}
+
+model OlaWebhookEvent {
+  id          String    @id @default(cuid())
+  deliveryId  String?   @unique
+  eventType   String
+  payload     Json
+  headers     Json?
+  processed   Boolean   @default(false)
+  processedAt DateTime?
+  error       String?
+  orderId     String?
+  order       Order?    @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  userId      String?
+  olaOrderGuid String?
+  createdAt   DateTime  @default(now())
+
+  @@index([orderId])
+  @@index([olaOrderGuid])
   @@index([eventType])
 }
 
@@ -813,6 +837,17 @@ model RewardLedger {
   updatedAt    DateTime     @updatedAt
 
   @@index([userId, status])
+}
+
+// ─── Site Settings ───────────────────────────────────────────
+
+/// Admin-managed key/value configuration store for runtime settings
+/// (MDI, OLA, GHL, etc.) that should not be hardcoded or require a redeploy.
+model SiteSettings {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   // JSON-encoded value
+  updatedAt DateTime @updatedAt
 }
 
 // ─── Navigation ──────────────────────────────────────────────

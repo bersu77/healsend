@@ -481,6 +481,18 @@ export async function listMdiPartnerQuestionnaires({
   return [];
 }
 
+function detectDeliveryForm(haystack) {
+  if (/\bpatch(?:es)?\b/.test(haystack)) return "patch";
+  if (/\bnasal\b/.test(haystack) && !/\binjection\b/.test(haystack))
+    return "nasal";
+  if (/\bnasal\b/.test(haystack) && /\binjection\b/.test(haystack))
+    return "nasal_injection";
+  if (/\bdrop[s]?\b/.test(haystack)) return "drops";
+  if (/\btablet[s]?\b|\bcapsule[s]?\b/.test(haystack)) return "oral";
+  if (/\binjection[s]?\b/.test(haystack)) return "injection";
+  return null;
+}
+
 function getPrimaryOrderCatalogProfile(order) {
   const items = order.items.map((item) => {
     const meta = resolveHealsendMetaForItem(item);
@@ -517,7 +529,9 @@ function getPrimaryOrderCatalogProfile(order) {
     items.find((entry) => entry.desiredDays)?.desiredDays ||
     null;
 
-  const isGlp1 = /semaglutide|tirzepatide/.test(haystack);
+  const isGlp1 = /semaglutide|tirzepatide|\bglp.?1\b|weight.?loss/.test(
+    haystack,
+  );
 
   // GLP-1 medications can only be prescribed a maximum of 90 days at a time
   // regardless of the subscription duration.
@@ -527,9 +541,12 @@ function getPrimaryOrderCatalogProfile(order) {
       ? glp1MaxDays
       : desiredDays;
 
+  const deliveryForm = detectDeliveryForm(haystack);
+
   const profile = {
     haystack,
     desiredDays: effectiveDesiredDays,
+    deliveryForm,
     isInitial: !/refill/.test(haystack),
     keywords: [],
     preferredQuestionnaireTerms: [],
@@ -539,14 +556,21 @@ function getPrimaryOrderCatalogProfile(order) {
   if (/nad/.test(haystack)) {
     profile.keywords.push("nad");
     profile.preferredQuestionnaireTerms.push("nad");
-    if (/nasal/.test(haystack)) {
+    if (/patch/.test(haystack)) {
+      // NAD patches: neither nasal nor injection delivery — no sub-type preference
+    } else if (/nasal/.test(haystack) && !/injection/.test(haystack)) {
       profile.keywords.push("nasal");
       profile.preferredQuestionnaireTerms.push("nasal");
       profile.avoidedTerms.push("injection");
     } else {
       profile.keywords.push("injection");
       profile.preferredQuestionnaireTerms.push("injection");
-      profile.avoidedTerms.push("nasal");
+      // Only avoid nasal if there is truly no nasal component
+      if (!/nasal/.test(haystack)) profile.avoidedTerms.push("nasal");
+    }
+    // NAD combo products may include glutathione
+    if (/glutathione/.test(haystack)) {
+      profile.keywords.push("glutathione");
     }
   } else if (/glutathione/.test(haystack)) {
     profile.keywords.push("glutathione");
@@ -554,12 +578,24 @@ function getPrimaryOrderCatalogProfile(order) {
   } else if (/sermorelin/.test(haystack)) {
     profile.keywords.push("sermorelin");
     profile.preferredQuestionnaireTerms.push("sermorelin");
+    // Combo: Sermorelin + Enclomiphene
+    if (/enclomiphene/.test(haystack)) {
+      profile.keywords.push("enclomiphene");
+      profile.preferredQuestionnaireTerms.push("enclomiphene");
+    }
   } else if (/enclomiphene/.test(haystack)) {
     profile.keywords.push("enclomiphene");
     profile.preferredQuestionnaireTerms.push("enclomiphene");
   } else if (/pt-141|bremelanotide/.test(haystack)) {
     profile.keywords.push("pt-141", "bremelanotide");
     profile.preferredQuestionnaireTerms.push("pt-141");
+    // Combo: PT-141 + Oxytocin
+    if (/oxytocin/.test(haystack)) {
+      profile.keywords.push("oxytocin");
+    }
+  } else if (/oxytocin/.test(haystack)) {
+    profile.keywords.push("oxytocin");
+    profile.preferredQuestionnaireTerms.push("oxytocin");
   } else if (
     /sildenafil|viagra|tadalafil|cialis|erectile|performance/.test(haystack)
   ) {
@@ -571,12 +607,34 @@ function getPrimaryOrderCatalogProfile(order) {
   } else if (/tirzepatide/.test(haystack)) {
     profile.keywords.push("tirzepatide");
     profile.preferredQuestionnaireTerms.push("tirzepatide");
+    // Delivery-form variants for tirzepatide
+    if (/\bdrop[s]?\b/.test(haystack)) {
+      profile.keywords.push("drop", "sublingual");
+    } else if (/\btablet[s]?\b/.test(haystack)) {
+      profile.keywords.push("tablet", "oral");
+    }
   } else if (/semaglutide/.test(haystack)) {
     profile.keywords.push("semaglutide");
     profile.preferredQuestionnaireTerms.push("semaglutide");
+    // Delivery-form variants for semaglutide
+    if (/\bdrop[s]?\b/.test(haystack)) {
+      profile.keywords.push("drop", "sublingual");
+    } else if (/\btablet[s]?\b/.test(haystack)) {
+      profile.keywords.push("tablet", "oral");
+    }
   } else if (/mic|lipotropic|b12/.test(haystack)) {
     profile.keywords.push("mic", "b12");
     profile.preferredQuestionnaireTerms.push("mic", "b-12");
+  } else if (/\bglp.?1\b|weight.?loss/.test(haystack)) {
+    // Generic GLP-1 / weight-loss product — no specific drug name detected yet.
+    // Score towards any weight-loss or GLP-1 questionnaire so selection succeeds.
+    profile.keywords.push("glp-1", "weight");
+    profile.preferredQuestionnaireTerms.push(
+      "weight loss",
+      "glp-1",
+      "semaglutide",
+      "tirzepatide",
+    );
   }
 
   return profile;
@@ -601,20 +659,73 @@ function scoreMdiQuestionnaire(questionnaire, profile) {
     if (title.includes(term)) score -= 20;
   }
 
+  // Delivery-form alignment
+  if (profile.deliveryForm) {
+    if (
+      (profile.deliveryForm === "injection" ||
+        profile.deliveryForm === "nasal_injection") &&
+      /injection/.test(title) &&
+      !profile.avoidedTerms.includes("injection")
+    ) {
+      score += 10;
+    }
+    if (
+      (profile.deliveryForm === "nasal" ||
+        profile.deliveryForm === "nasal_injection") &&
+      /nasal/.test(title) &&
+      !profile.avoidedTerms.includes("nasal")
+    ) {
+      score += 10;
+    }
+    if (profile.deliveryForm === "drops" && /drop|sublingual/.test(title)) {
+      score += 10;
+    }
+    if (profile.deliveryForm === "oral" && /tablet|capsule|oral/.test(title)) {
+      score += 10;
+    }
+    if (profile.deliveryForm === "patch" && /patch/.test(title)) {
+      score += 10;
+    }
+    // Penalise strongly mismatched delivery form
+    if (
+      profile.deliveryForm === "injection" &&
+      /nasal/.test(title) &&
+      !profile.keywords.includes("nasal")
+    ) {
+      score -= 12;
+    }
+    if (
+      profile.deliveryForm === "nasal" &&
+      /injection/.test(title) &&
+      !profile.keywords.includes("injection")
+    ) {
+      score -= 12;
+    }
+  }
+
   if (profile.isInitial) {
-    if (/initial|new\/initial/.test(title)) score += 15;
+    if (/initial|new[\s/]initial|new patient/.test(title)) score += 15;
     if (/refill/.test(title)) score -= 10;
   } else if (/refill/.test(title)) {
     score += 15;
   }
 
+  // Duration matching — reward exact tier match, penalise wrong duration
   if (profile.desiredDays >= 180) {
-    if (/180d|6m|6 month/.test(title)) score += 14;
+    if (/180[\s-]?d|6[\s-]*m(onth)?s?\b|6mo\b/.test(title)) score += 14;
+    if (/90[\s-]?d|3[\s-]*m(onth)?s?\b|3mo\b/.test(title)) score -= 6;
+    if (/\bmonthly\b|30[\s-]?d|1[\s-]*m(onth)?\b|1mo\b/.test(title)) score -= 8;
   } else if (profile.desiredDays >= 90) {
-    if (/90d|3m|3 month/.test(title)) score += 14;
-    if (/monthly/.test(title)) score -= 4;
+    if (/90[\s-]?d|3[\s-]*m(onth)?s?\b|3mo\b/.test(title)) score += 14;
+    if (/\bmonthly\b/.test(title)) score -= 4;
+    if (/180[\s-]?d|6[\s-]*m(onth)?s?\b/.test(title)) score -= 6;
   } else if (profile.desiredDays) {
-    if (/monthly|month 1|30d/.test(title)) score += 8;
+    if (
+      /\bmonthly\b|month[\s-]*1\b|30[\s-]?d|1[\s-]*m(onth)?\b|1mo\b/.test(title)
+    )
+      score += 8;
+    if (/90[\s-]?d|3[\s-]*m(onth)?s?\b|3mo\b/.test(title)) score -= 6;
+    if (/180[\s-]?d|6[\s-]*m(onth)?s?\b/.test(title)) score -= 8;
   }
 
   return score;
@@ -637,6 +748,32 @@ function scoreMdiOffering(offering, profile) {
 
   for (const term of profile.avoidedTerms) {
     if (title.includes(term)) score -= 15;
+  }
+
+  // Delivery-form alignment for offerings
+  if (profile.deliveryForm) {
+    if (
+      (profile.deliveryForm === "injection" ||
+        profile.deliveryForm === "nasal_injection") &&
+      /injection/.test(title) &&
+      !profile.avoidedTerms.includes("injection")
+    ) {
+      score += 8;
+    }
+    if (
+      (profile.deliveryForm === "nasal" ||
+        profile.deliveryForm === "nasal_injection") &&
+      /nasal/.test(title) &&
+      !profile.avoidedTerms.includes("nasal")
+    ) {
+      score += 8;
+    }
+    if (profile.deliveryForm === "drops" && /drop|sublingual/.test(title)) {
+      score += 8;
+    }
+    if (profile.deliveryForm === "oral" && /tablet|capsule|oral/.test(title)) {
+      score += 8;
+    }
   }
 
   const daysSupply = Number(
@@ -680,6 +817,40 @@ export function resolveMdiCatalogSelection(
     questionnaire: rankedQuestionnaire || null,
     offering: rankedOffering || null,
   };
+}
+
+/**
+ * Check if any order item has an explicit MDI questionnaire ID override stored
+ * on its product attributes or subscription tier. Tier-level override takes
+ * precedence over product-level override, enabling per-duration questionnaire
+ * routing (e.g. a 3-month semaglutide tier can point at a 90-day questionnaire).
+ */
+function extractProductQuestionnaireOverride(order) {
+  for (const item of asArray(order?.items)) {
+    const durationMonths = extractDurationMonths(item);
+    const tiers = Array.isArray(item.product?.subscriptionTiers)
+      ? item.product.subscriptionTiers
+      : [];
+    const matchedTier = durationMonths
+      ? tiers.find((t) => Number(t?.duration_months) === durationMonths)
+      : null;
+
+    // Tier-level override (priority)
+    const tierQid = firstNonEmpty(
+      matchedTier?.mdi_questionnaire_id,
+      matchedTier?.mdiQuestionnaireId,
+    );
+    if (isUuidLike(tierQid)) return tierQid;
+
+    // Product-level override (fallback)
+    const attrs = asObject(item.product?.attributes);
+    const productQid = firstNonEmpty(
+      attrs.mdiQuestionnaireId,
+      attrs.mdi_questionnaire_id,
+    );
+    if (isUuidLike(productQid)) return productQid;
+  }
+  return null;
 }
 
 function formatMdiExpiryDate(days = 30) {
@@ -836,6 +1007,9 @@ export async function createDirectMdiIntakeForOrder(
     return null;
   }
 
+  // Check for explicit questionnaire ID stored on the product or subscription tier
+  const overrideQuestionnaireId = extractProductQuestionnaireOverride(order);
+
   const [offerings, questionnaires] = await Promise.all([
     listMdiPartnerOfferings({ accessToken, baseUrl }),
     listMdiPartnerQuestionnaires({ accessToken, baseUrl }),
@@ -844,10 +1018,12 @@ export async function createDirectMdiIntakeForOrder(
     offerings,
     questionnaires,
   });
-  const questionnaireId = firstNonEmpty(
-    selection.questionnaire?.partner_questionnaire_id,
-    selection.questionnaire?.id,
-  );
+  const questionnaireId = isUuidLike(overrideQuestionnaireId)
+    ? overrideQuestionnaireId
+    : firstNonEmpty(
+        selection.questionnaire?.partner_questionnaire_id,
+        selection.questionnaire?.id,
+      );
 
   if (!isUuidLike(questionnaireId)) {
     return {
@@ -1711,6 +1887,20 @@ function extractDurationMonths(item) {
     }
   }
 
+  // Extract duration from plan ID stored in order item metadata (e.g. "glp1-3mo", "sema-6mo")
+  const planId = asTrimmedString(
+    item.metadata?.selectedPlanId || item.metadata?.planId,
+  );
+  if (planId) {
+    const planMatch = planId.match(/(\d+)mo\b/i);
+    if (planMatch) {
+      const numeric = Number(planMatch[1]);
+      if (Number.isFinite(numeric) && numeric > 0) {
+        return numeric;
+      }
+    }
+  }
+
   return null;
 }
 
@@ -1798,6 +1988,10 @@ function deriveHealsendPlanSlug({
 
   if (identity.includes("pt-141") || identity.includes("pt_141")) {
     return "pt_141";
+  }
+
+  if (identity.includes("oxytocin")) {
+    return "oxytocin";
   }
 
   if (
@@ -2119,6 +2313,14 @@ export async function submitOrderToMdi(orderId) {
     throw new Error(`Order ${orderId} not found`);
   }
 
+  if (order.telehealthProvider && order.telehealthProvider !== "MDI") {
+    return {
+      ok: false,
+      skipped: "non_mdi_provider",
+      telehealthProvider: order.telehealthProvider,
+    };
+  }
+
   if (
     order.mdiOrderId ||
     order.mdiCaseId ||
@@ -2218,6 +2420,43 @@ export async function submitOrderToMdi(orderId) {
         : null,
       voucherLookupHit: Boolean(voucherLookup?.payload),
     });
+  }
+
+  // If the webhook path produced no consultation URL, create the MDI patient +
+  // questionnaire voucher directly so the intake is ready before the user opens
+  // the account dashboard (covers cases where the webhook response is empty).
+  if (!normalized.consultationUrl) {
+    try {
+      const directIntake = await createDirectMdiIntakeForOrder(hydratedOrder, {
+        accessToken,
+        baseUrl: config.baseUrl,
+        isSandbox: process.env.MD_IS_SANDBOX === "true",
+      });
+      if (directIntake?.normalized) {
+        normalized = normalizeMdiPayload({
+          ...(responsePayload && typeof responsePayload === "object"
+            ? responsePayload
+            : {}),
+          patient_id: directIntake.normalized.patientId || normalized.patientId,
+          consultation_url:
+            directIntake.normalized.consultationUrl ||
+            normalized.consultationUrl,
+          consultation_status:
+            directIntake.normalized.consultationStatus ||
+            normalized.consultationStatus,
+          workflow_phase:
+            directIntake.normalized.workflowPhase || normalized.workflowPhase,
+          voucher_code:
+            directIntake.normalized.voucherCode || normalized.voucherCode,
+          case_id: directIntake.normalized.caseId || normalized.caseId,
+        });
+      }
+    } catch (directIntakeErr) {
+      console.warn(
+        "MD direct intake creation failed in submitOrderToMdi:",
+        directIntakeErr,
+      );
+    }
   }
 
   const orderUpdate = buildOrderMdiUpdate(normalized);

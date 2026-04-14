@@ -570,6 +570,46 @@ function MarketingFooterSection({ title, links }) {
   );
 }
 
+// Convert flat DB navigation items (with nested children) to the MARKETING_NAV_SECTIONS format.
+// Falls back to hardcoded promo/groups for matching section labels.
+function buildNavSectionsFromDb(dbItems) {
+  return dbItems.map((item) => {
+    const fallback = MARKETING_NAV_SECTIONS.find(
+      (s) => s.label.toLowerCase() === item.label.toLowerCase(),
+    );
+    const childLinks = (item.children || []).map((c) => ({
+      label: c.label,
+      href: c.url,
+    }));
+    const groups =
+      childLinks.length > 0
+        ? [{ title: "", links: childLinks }]
+        : (fallback?.groups ?? []);
+    return {
+      label: item.label,
+      href: item.url,
+      groups,
+      get links() {
+        return this.groups.flatMap((g) => g.links);
+      },
+      promo: fallback?.promo ?? null,
+    };
+  });
+}
+
+// Build mobile category items from nav sections (matches the shape of MOBILE_CATEGORY_ITEMS).
+function buildMobileCategoryItemsFromSections(sections) {
+  return sections.map((s) => ({
+    key: `cat-${s.label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+    label: s.label,
+    href: s.href,
+    get links() {
+      return s.links;
+    },
+    promo: s.promo,
+  }));
+}
+
 export function MarketingNavbar() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -578,6 +618,8 @@ export function MarketingNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileSection, setMobileSection] = useState(null);
   const [authOverlayMode, setAuthOverlayMode] = useState(null);
+  const [navSections, setNavSections] = useState(MARKETING_NAV_SECTIONS);
+  const [mobileCatItems, setMobileCatItems] = useState(MOBILE_CATEGORY_ITEMS);
   const [authRedirectPath, setAuthRedirectPath] = useState("");
   const [authProviderConfig, setAuthProviderConfig] = useState({
     google: true,
@@ -601,20 +643,19 @@ export function MarketingNavbar() {
     : { href: ROUTES.login, label: "Login" };
 
   const activeSection =
-    MARKETING_NAV_SECTIONS.find((section) => section.label === activeMenu) ||
-    null;
+    navSections.find((section) => section.label === activeMenu) || null;
   const activeMobileSection =
     MOBILE_EXPLORE_ITEMS.find((item) => item.key === mobileSection) || null;
   const activeMobileNavSection = activeMobileSection
-    ? MARKETING_NAV_SECTIONS.find(
+    ? navSections.find(
         (section) =>
           section.label ===
           MOBILE_SECTION_TO_NAV_LABEL[activeMobileSection.key],
       ) || null
     : null;
-  const dropdownSection = activeSection || MARKETING_NAV_SECTIONS[0];
+  const dropdownSection = activeSection || navSections[0];
   const activeNavCategory =
-    MOBILE_CATEGORY_ITEMS.find((item) => item.key === mobileSection) || null;
+    mobileCatItems.find((item) => item.key === mobileSection) || null;
 
   const openMenu = (label) => {
     if (closeTimeout.current) {
@@ -734,6 +775,29 @@ export function MarketingNavbar() {
     };
   }, []);
 
+  // Load header navigation from DB; fall back to hardcoded if DB has no items
+  useEffect(() => {
+    let isMounted = true;
+    async function loadHeaderNav() {
+      try {
+        const res = await fetch("/api/navigation?location=header", {
+          cache: "no-store",
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!data.items || data.items.length === 0) return;
+        if (!isMounted) return;
+        const sections = buildNavSectionsFromDb(data.items);
+        setNavSections(sections);
+        setMobileCatItems(buildMobileCategoryItemsFromSections(sections));
+      } catch {}
+    }
+    loadHeaderNav();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   useEffect(() => {
     const authMode = searchParams.get("auth");
     if (authMode !== "login" && authMode !== "signup") {
@@ -809,7 +873,7 @@ export function MarketingNavbar() {
 
               <div className="relative hidden xl:block">
                 <nav className="flex items-center gap-5">
-                  {MARKETING_NAV_SECTIONS.map((section) => {
+                  {navSections.map((section) => {
                     const isActive = activeMenu === section.label;
 
                     return (
@@ -1030,7 +1094,7 @@ export function MarketingNavbar() {
                   Treatment Categories
                 </p>
               </div>
-              {MOBILE_CATEGORY_ITEMS.map((cat) => (
+              {mobileCatItems.map((cat) => (
                 <button
                   key={cat.key}
                   type="button"
@@ -1076,17 +1140,13 @@ export function MarketingNavbar() {
               </p>
             </div>
 
-            {/* Discover Eden */}
+            {/* Discover HealSend */}
             <div className="border-t border-gray-200 px-6 pt-6 pb-10">
               <p className="text-[11px] font-semibold tracking-widest text-gray-400 uppercase mb-4">
-                Discover Eden
+                Discover HealSend
               </p>
               <div className="space-y-4">
-                {[
-                  { label: "Eden Health Clubs", href: "/health-clubs" },
-                  { label: "About Us", href: "/about" },
-                  { label: "Blog", href: "/blog" },
-                ].map((link) => (
+                {[{ label: "Blog", href: "/blog" }].map((link) => (
                   <Link
                     key={link.label}
                     href={link.href}
@@ -1231,8 +1291,41 @@ export function MarketingNavbar() {
 
 export function MarketingFooter() {
   const [openMobileFooterSection, setOpenMobileFooterSection] = useState(null);
+  const [footerSections, setFooterSections] = useState(
+    MARKETING_FOOTER_SECTIONS,
+  );
+
+  // Load footer navigation from DB; falls back to hardcoded if DB has no items
+  useEffect(() => {
+    let isMounted = true;
+    async function loadFooterNav() {
+      try {
+        const res = await fetch("/api/navigation?location=footer", {
+          cache: "no-store",
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!data.items || data.items.length === 0) return;
+        if (!isMounted) return;
+        setFooterSections(
+          data.items.map((item) => ({
+            title: item.label,
+            links: (item.children || []).map((c) => ({
+              label: c.label,
+              href: c.url,
+            })),
+          })),
+        );
+      } catch {}
+    }
+    loadFooterNav();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   const mobileSections = [
-    ...MARKETING_FOOTER_SECTIONS,
+    ...footerSections,
     {
       title: "HealSend Patient Care",
       links: MARKETING_FOOTER_PATIENT_CARE,
@@ -1298,7 +1391,7 @@ export function MarketingFooter() {
       </div>
 
       <div className="mx-auto mb-12 hidden max-w-[1340px] grid-cols-2 gap-6 md:grid md:grid-cols-5">
-        {MARKETING_FOOTER_SECTIONS.map((section) => (
+        {footerSections.map((section) => (
           <MarketingFooterSection key={section.title} {...section} />
         ))}
         <div>

@@ -56,6 +56,9 @@ const EMPTY = {
   priority: 0,
   telehealthProvider: "MDI",
   olaServiceKey: "",
+  mdiQuestionnaireId: "",
+  _rawAttributes: {},
+  questionnaireTemplateId: "",
   subscriptionPlansEnabled: false,
   subscriptionPlans: DEFAULT_PLANS.map((p) => ({ ...p })),
 };
@@ -150,6 +153,19 @@ function hydrateFormState(product) {
     priority: product?.priority || 0,
     telehealthProvider: product?.telehealthProvider || "MDI",
     olaServiceKey: product?.olaServiceKey || "",
+    mdiQuestionnaireId:
+      (product?.attributes &&
+      typeof product.attributes === "object" &&
+      !Array.isArray(product.attributes)
+        ? product.attributes.mdiQuestionnaireId || ""
+        : "") || "",
+    _rawAttributes:
+      product?.attributes &&
+      typeof product.attributes === "object" &&
+      !Array.isArray(product.attributes)
+        ? product.attributes
+        : {},
+    questionnaireTemplateId: product?.questionnaireTemplateId || "",
     subscriptionPlansEnabled: !!(tiers && tiers.length > 0),
     subscriptionPlans: hydrateSubscriptionPlans(tiers),
   };
@@ -170,7 +186,9 @@ export default function ProductForm() {
   const [form, setForm] = useState(EMPTY);
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
+  const [templates, setTemplates] = useState([]);
   const [saving, setSaving] = useState(false);
+  const [originalQuestionnaireId, setOriginalQuestionnaireId] = useState("");
   const [stripeSync, setStripeSync] = useState({
     status: "pending",
     productId: null,
@@ -190,6 +208,10 @@ export default function ProductForm() {
       .then((r) => r.json())
       .then(setBrands)
       .catch(() => {});
+    fetch("/api/onboarding-templates")
+      .then((r) => r.json())
+      .then((data) => setTemplates(Array.isArray(data) ? data : []))
+      .catch(() => {});
     if (!isNew) {
       fetch(`/api/products/${params.id}`)
         .then(async (r) => {
@@ -201,6 +223,7 @@ export default function ProductForm() {
         .then((p) => {
           setForm(hydrateFormState(p));
           setStripeSync(getStripeSyncState(p));
+          setOriginalQuestionnaireId(p.questionnaireTemplateId || "");
         })
         .catch(() => {
           notify.error("Error", "Failed to load this product.");
@@ -228,6 +251,14 @@ export default function ProductForm() {
       brandId: form.brandId || null,
       telehealthProvider: form.telehealthProvider || "MDI",
       olaServiceKey: form.olaServiceKey || null,
+      attributes: {
+        ...(typeof form._rawAttributes === "object" && form._rawAttributes
+          ? form._rawAttributes
+          : {}),
+        ...(form.mdiQuestionnaireId
+          ? { mdiQuestionnaireId: form.mdiQuestionnaireId }
+          : {}),
+      },
       subscriptionTiers: form.subscriptionPlansEnabled
         ? buildSubscriptionTiers(form)
         : null,
@@ -244,11 +275,24 @@ export default function ProductForm() {
       });
       const data = await res.json().catch(() => null);
 
-      setSaving(false);
-
       if (!res.ok) {
+        setSaving(false);
         notify.error("Error", data?.error || "Failed to save product.");
         return;
+      }
+
+      const savedProductId = data?.id || params.id;
+
+      // Sync questionnaire assignment if changed
+      const newTemplateId = form.questionnaireTemplateId || null;
+      const oldTemplateId = originalQuestionnaireId || null;
+      if (!isNew && newTemplateId !== oldTemplateId) {
+        await fetch(`/api/products/${savedProductId}/questionnaire`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ templateId: newTemplateId || null }),
+        }).catch(() => {});
+        setOriginalQuestionnaireId(newTemplateId || "");
       }
 
       setForm(hydrateFormState(data));
@@ -257,6 +301,8 @@ export default function ProductForm() {
       if (isNew && data?.id) {
         router.replace(`/dashboard/products/${data.id}`);
       }
+
+      setSaving(false);
 
       if (data?.stripeSync?.status === "needs_attention") {
         notify.warning(
@@ -557,6 +603,55 @@ export default function ProductForm() {
                   onChange={(e) => update("olaServiceKey", e.target.value)}
                 />
               </Field>
+            )}
+            {form.telehealthProvider === "MDI" && (
+              <Field label="MDI Questionnaire ID (optional override)">
+                <input
+                  className={inputCls}
+                  value={form.mdiQuestionnaireId}
+                  placeholder="Leave blank to use keyword auto-selection"
+                  onChange={(e) => update("mdiQuestionnaireId", e.target.value)}
+                />
+              </Field>
+            )}
+          </div>
+
+          <div className="border-t border-[#c9c4d8]/20 pt-4 space-y-1.5">
+            <label className="text-xs font-semibold text-[#484555] uppercase tracking-wider">
+              Questionnaire / Funnel
+            </label>
+            <p className="text-xs text-[#797587]">
+              The intake questionnaire that patients complete before checkout
+              for this product.
+            </p>
+            <select
+              className={inputCls}
+              value={form.questionnaireTemplateId}
+              onChange={(e) =>
+                update("questionnaireTemplateId", e.target.value)
+              }
+            >
+              <option value="">— No questionnaire linked —</option>
+              {templates.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.name}
+                  {t.productId && t.productId !== params.id
+                    ? " (assigned to another product)"
+                    : ""}
+                </option>
+              ))}
+            </select>
+            {form.questionnaireTemplateId && (
+              <p className="text-xs text-[#5b3cdd]">
+                <a
+                  href={`/dashboard/questionnaires/${form.questionnaireTemplateId}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="underline hover:no-underline"
+                >
+                  Open questionnaire editor ↗
+                </a>
+              </p>
             )}
           </div>
         </div>

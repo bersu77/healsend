@@ -13,6 +13,32 @@ import {
   findExistingActivePurchaseForProduct,
 } from "@/lib/purchase-guards";
 import { NextResponse } from "next/server";
+import { sendGhlQuestionnaire } from "@/lib/ghl";
+import { isGhlApiEnabled } from "@/lib/integration-settings";
+import { getSiteSetting } from "@/lib/site-settings";
+import {
+  getMdiAccessToken,
+  getMdiConfig,
+  createDirectMdiIntakeForOrder,
+  loadOrderForMdi,
+} from "@/lib/mdi-client";
+
+const GLP1_QUESTIONNAIRE_ID_FALLBACK = "921e0175-e7d7-4b08-ab11-de4183b393ab";
+const GLP1_FUNNEL_SLUGS_FALLBACK = ["glp-1-eligibility", "glp-1"];
+
+async function resolveGlp1Settings() {
+  const [questionnaireId, slugsCsv] = await Promise.all([
+    getSiteSetting("ghl.glp1QuestionnaireId", GLP1_QUESTIONNAIRE_ID_FALLBACK),
+    getSiteSetting("ghl.glp1FunnelSlugs", null),
+  ]);
+  const slugs = slugsCsv
+    ? String(slugsCsv)
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
+    : GLP1_FUNNEL_SLUGS_FALLBACK;
+  return { questionnaireId: String(questionnaireId), slugs };
+}
 
 function slugify(value) {
   return String(value || "")
@@ -23,7 +49,9 @@ function slugify(value) {
 }
 
 function normalizeStripeStatus(value) {
-  return String(value || "").trim().toLowerCase();
+  return String(value || "")
+    .trim()
+    .toLowerCase();
 }
 
 async function resolveProductFromMedication(template, medicationSelection) {
@@ -180,7 +208,9 @@ export async function POST(request) {
       ? checkoutSession.payment_intent
       : null;
   const paymentIntent = directPaymentIntent || sessionPaymentIntent || null;
-  const paymentAuthorized = isStripePaymentAuthorizedStatus(paymentIntent?.status);
+  const paymentAuthorized = isStripePaymentAuthorizedStatus(
+    paymentIntent?.status,
+  );
   const paymentCaptured =
     isStripePaymentCapturedStatus(paymentIntent?.status) ||
     normalizeStripeStatus(checkoutSession?.payment_status) === "paid";
@@ -293,6 +323,7 @@ export async function POST(request) {
     status: orderStatus,
     subtotal: itemPrice,
     total: itemPrice,
+    telehealthProvider: product?.telehealthProvider || "MDI",
     stripePaymentId: paymentIntent?.id || stripePaymentIntentId,
     stripeSessionId: stripeCheckoutSessionId || null,
     stripePaymentStatus: resolvedPaymentStatus,
@@ -327,6 +358,59 @@ export async function POST(request) {
   };
 
   const order = await prisma.order.create({ data: orderData });
+
+  // Send the GLP-1 questionnaire via GHL chat when a GLP-1 order is created
+  if (isGhlApiEnabled()) {
+    try {
+      const { questionnaireId, slugs } = await resolveGlp1Settings();
+      if (slugs.includes(template.slug)) {
+        const ghlContact = await prisma.ghlContact.findFirst({
+          where: { userId: user.id },
+        });
+        if (ghlContact?.ghlId) {
+          await sendGhlQuestionnaire(ghlContact.ghlId, questionnaireId);
+        }
+      }
+    } catch (err) {
+      console.error(
+        "[onboarding-submissions] Failed to send GLP-1 questionnaire:",
+        err,
+      );
+    }
+  }
+
+  // For any MDI-routed order with payment authorized or captured, proactively
+  // create the MDI patient and questionnaire voucher so the intake is ready
+  // before the user visits the account dashboard.
+  const orderTelehealthProvider = product?.telehealthProvider || "MDI";
+  if (
+    (paymentCaptured || paymentAuthorized) &&
+    orderTelehealthProvider === "MDI"
+  ) {
+    try {
+      const mdiConfig = getMdiConfig();
+      if (mdiConfig.clientId && mdiConfig.clientSecret) {
+        const mdiAccessToken = await getMdiAccessToken({
+          baseUrl: mdiConfig.baseUrl,
+          clientId: mdiConfig.clientId,
+          clientSecret: mdiConfig.clientSecret,
+        });
+        const fullOrder = await loadOrderForMdi(order.id);
+        if (fullOrder) {
+          await createDirectMdiIntakeForOrder(fullOrder, {
+            accessToken: mdiAccessToken,
+            baseUrl: mdiConfig.baseUrl,
+            isSandbox: process.env.MD_IS_SANDBOX === "true",
+          });
+        }
+      }
+    } catch (mdiErr) {
+      console.error(
+        "[onboarding-submissions] Failed to create MDI intake after order:",
+        mdiErr,
+      );
+    }
+  }
 
   return NextResponse.json(
     {

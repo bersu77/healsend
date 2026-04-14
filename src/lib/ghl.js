@@ -115,6 +115,14 @@ export async function deleteGhlContact(contactId) {
   return ghlRequest(`/contacts/${contactId}`, { method: "DELETE" });
 }
 
+/** Send a questionnaire to a contact via chat */
+export async function sendGhlQuestionnaire(contactId, questionnaireId) {
+  return ghlRequest(`/contacts/${contactId}/send-questionnaire`, {
+    method: "POST",
+    body: { questionnaire_id: questionnaireId },
+  });
+}
+
 /** Update a contact */
 export async function updateGhlContact(contactId, data) {
   return ghlRequest(`/contacts/${contactId}`, {

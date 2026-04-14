@@ -37,6 +37,11 @@ const NAV = [
   { label: "Forms", href: "/dashboard/forms", icon: "dynamic_form" },
   { label: "Funnels", href: "/dashboard/funnels", icon: "route" },
   { label: "Users", href: "/dashboard/users", icon: "group" },
+  {
+    label: "Integration Settings",
+    href: "/dashboard/settings",
+    icon: "settings",
+  },
 ];
 
 export default function DashboardLayout({ children }) {
