@@ -1,7 +1,7 @@
 export const WORDPRESS_MARKETING_IMAGES = Object.freeze({
   nadInjection: "/images/marketing/nad-injection.png",
   nadNasal: "/images/marketing/nad-nasal.png",
-  nadPatches: "/images/marketing/nad-patches.webp",
+  nadPatches: "/images/marketing/nad-patches.png",
   tirzepatide: "/images/marketing/tirzepatide.png",
   semaglutide: "/images/marketing/semaglutide-sermorelin.png",
   pt141: "/images/marketing/pt141.png",
@@ -77,10 +77,7 @@ const LEGACY_MARKETING_IMAGE_ALIAS_GROUPS = Object.freeze([
   },
   {
     replacement: WORDPRESS_MARKETING_IMAGES.sermorelin,
-    aliases: [
-      "/photoroom-4.png",
-      "/wp-content/uploads/2026/03/sermorelin.png",
-    ],
+    aliases: ["/photoroom-4.png", "/wp-content/uploads/2026/03/sermorelin.png"],
   },
   {
     replacement: WORDPRESS_MARKETING_IMAGES.enclomiphene,

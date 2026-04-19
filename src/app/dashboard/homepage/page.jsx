@@ -64,7 +64,7 @@ const DEFAULT_HOME_EDITOR_STATE = Object.freeze({
         {
           title: "Hormone Therapy",
           subtitle: "for women",
-          image: "/images/marketing/bundle/enclomiphene-product.webp",
+          image: "/images/marketing/bundle/enclomiphene-product.png",
           href: "/strength-recovery",
         },
         {
@@ -76,7 +76,7 @@ const DEFAULT_HOME_EDITOR_STATE = Object.freeze({
         {
           title: "Skin Care",
           subtitle: "with NAD+",
-          image: "/images/marketing/nad-patches.webp",
+          image: "/images/marketing/nad-patches.png",
           href: "/anti-aging",
         },
       ],

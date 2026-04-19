@@ -802,7 +802,7 @@
       "finalStatus": 200,
       "finalUrl": "http://127.0.0.1:56381/nad-patches",
       "contentType": "text/html; charset=utf-8",
-      "ogImage": "https://healsend.com/images/marketing/nad-patches.webp",
+      "ogImage": "images/marketing/nad-patches.png",
       "suspiciousAssets": [
         "http://127.0.0.1:56381/photoroom-6.png",
         "http://127.0.0.1:56381/photoroom-6.png",

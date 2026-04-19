@@ -54,7 +54,7 @@ const BUNDLE_MARKETING_IMAGES = Object.freeze({
   glutathioneInjections:
     "/images/marketing/bundle/glutathione-injection-product.png",
   sermorelin: "/images/marketing/bundle/sermorelin-product.png",
-  enclomiphene: "/images/marketing/bundle/enclomiphene-product.webp",
+  enclomiphene: "/images/marketing/bundle/enclomiphene-product.png",
   nadNasalSpray: "/images/marketing/bundle/nad-nasal-spray-product.png",
   oxytocinNasalSpray:
     "/images/marketing/bundle/oxytocin-nasal-spray-product.png",

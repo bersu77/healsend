@@ -64,7 +64,8 @@ export async function POST(request) {
       );
     }
 
-    const { templateId, medicationId, planId } = await request.json();
+    const { templateId, medicationId, planId, preferredPricingMode } =
+      await request.json();
 
     if (!templateId) {
       return NextResponse.json(
@@ -101,8 +102,17 @@ export async function POST(request) {
       ? planStep.config.plans.find((p) => p?.id === planId)
       : null;
 
+    const stylingForPricing =
+      preferredPricingMode === "ALL_AT_ONCE" ||
+      preferredPricingMode === "UPFRONT_ZERO"
+        ? {
+            ...(template.styling || {}),
+            checkoutPricingMode: preferredPricingMode,
+          }
+        : template.styling;
+
     const pricingState = getCheckoutPricingState({
-      styling: template.styling,
+      styling: stylingForPricing,
       selectedPlan,
       selectedMedication,
       summary: checkoutStep?.config?.summary,

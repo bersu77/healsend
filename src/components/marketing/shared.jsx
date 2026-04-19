@@ -55,9 +55,9 @@ const MARKETING_NAV_SECTIONS = [
       {
         title: "Precision Recomposition",
         links: [
-          { label: "Tesamorelin", href: "/funnels/glp-1-eligibility" },
+          { label: "Tesamorelin", href: "/funnels/glp-1" },
           { label: "Lipo-C (MIC/B12)", href: "/funnels/micc-b12-shots" },
-          { label: "Neuro-Metabolic", href: "/funnels/glp-1-eligibility" },
+          { label: "Neuro-Metabolic", href: "/funnels/glp-1" },
         ],
       },
       {
@@ -124,7 +124,10 @@ const MARKETING_NAV_SECTIONS = [
         links: [
           { label: "The Wolverine Protocol", href: "/funnels/sermorelin" },
           { label: "Advanced Regenerative", href: "/funnels/performance-lab" },
-          { label: "Total Body Reconstruction", href: "/funnels/performance-lab" },
+          {
+            label: "Total Body Reconstruction",
+            href: "/funnels/performance-lab",
+          },
         ],
       },
       {
@@ -191,9 +194,18 @@ const MARKETING_NAV_SECTIONS = [
         title: "Cellular Longevity",
         links: [
           { label: "Systemic NAD+ Reset", href: ROUTES.nad },
-          { label: "Telomere Lengthening", href: "/funnels/nad-injection-therapy" },
-          { label: "Mitochondrial Repair", href: "/funnels/nad-injection-therapy" },
-          { label: "Cellular Clearance", href: "/funnels/nad-injection-therapy" },
+          {
+            label: "Telomere Lengthening",
+            href: "/funnels/nad-injection-therapy",
+          },
+          {
+            label: "Mitochondrial Repair",
+            href: "/funnels/nad-injection-therapy",
+          },
+          {
+            label: "Cellular Clearance",
+            href: "/funnels/nad-injection-therapy",
+          },
         ],
       },
       {

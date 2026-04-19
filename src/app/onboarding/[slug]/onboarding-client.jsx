@@ -869,19 +869,12 @@ function BMICalculatorStep({ step, value, onChange, onNext }) {
     <div className="space-y-10">
       <div className="text-center md:text-left">
         <h1 className="font-headline text-2xl md:text-3xl font-extrabold tracking-tight text-[#1c1a24] mb-3">
-          {step.title}
+          See How Much Weight You Can Lose
         </h1>
         {step.subtitle && (
-          <div className="space-y-3">
-            <p className="font-body text-[#484555] text-base leading-relaxed">
-              {step.subtitle}
-            </p>
-            <p className="max-w-xl text-sm leading-6 text-[#6e697b]">
-              By clicking, you provide HIPAA authorization for our partnered
-              providers and pharmacies to use your health data for treatment and
-              marketing via email.
-            </p>
-          </div>
+          <p className="font-body text-[#484555] text-base leading-relaxed">
+            {step.subtitle}
+          </p>
         )}
       </div>
 
@@ -985,6 +978,7 @@ function BMICalculatorStep({ step, value, onChange, onNext }) {
           }
         }}
         disabled={!v.feet || !v.inches || !v.weight || !eligible}
+        label="Show My Results"
       />
     </div>
   );
@@ -1063,11 +1057,7 @@ function AccountCreateStep({
 }) {
   const v = value || { email: "", password: "", authMode: "signup" };
   const [mode, setMode] = useState(v.authMode === "login" ? "login" : "signup");
-  const [signupPhase, setSignupPhase] = useState(1);
-  const [profileFirstName, setProfileFirstName] = useState("");
-  const [profileLastName, setProfileLastName] = useState("");
-  const [profilePhone, setProfilePhone] = useState("");
-  const [profileDateOfBirth, setProfileDateOfBirth] = useState("");
+
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -1086,7 +1076,6 @@ function AccountCreateStep({
       ...v,
       authMode: mode,
     });
-    if (mode === "login") setSignupPhase(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode]);
 
@@ -1173,17 +1162,10 @@ function AccountCreateStep({
             ? fieldValue.trim().length > 0
             : Boolean(fieldValue);
         });
-  const phase2Valid =
-    profileFirstName.trim().length > 0 &&
-    profileLastName.trim().length > 0 &&
-    profilePhone.trim().length > 0 &&
-    profileDateOfBirth.trim().length > 0;
   const canSubmit =
     mode === "login"
       ? emailValid && passwordValid
-      : signupPhase === 1
-        ? emailValid && passwordValid && extraFieldsValid
-        : phase2Valid;
+      : emailValid && passwordValid && extraFieldsValid;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -1221,27 +1203,14 @@ function AccountCreateStep({
         return;
       }
 
-      // Signup phase 1: advance to name + phone step
-      if (signupPhase === 1) {
-        setSignupPhase(2);
-        return;
-      }
-
-      // Signup phase 2: register with name + phone
+      // Signup: register with email and password
       setLoading(true);
-      const resolvedName = [profileFirstName.trim(), profileLastName.trim()]
-        .filter(Boolean)
-        .join(" ");
-
       const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: v.email,
           password: v.password,
-          name: resolvedName,
-          phone: profilePhone.trim(),
-          dateOfBirth: profileDateOfBirth || undefined,
         }),
       });
       const payload = await response.json().catch(() => null);
@@ -1319,234 +1288,141 @@ function AccountCreateStep({
           ) : null}
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {mode === "signup" && signupPhase === 2 ? (
-              // Phase 2: collect first name, last name, phone
-              <>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSignupPhase(1);
-                    setError("");
-                  }}
-                  className="flex items-center gap-1.5 text-sm font-medium text-[#5b3cdd] hover:underline"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="15 18 9 12 15 6" />
-                  </svg>
-                  Back
-                </button>
+            <>
+              {mode === "signup" && extraFields.length > 0 ? (
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  {extraFields.map((field) => {
+                    const fieldValue =
+                      field.type === "checkbox"
+                        ? Boolean(v[field.name])
+                        : v[field.name] || "";
+                    const wrapperClass =
+                      field.type === "textarea" || field.fullWidth
+                        ? "md:col-span-2"
+                        : "";
 
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
-                      First name
-                    </label>
-                    <input
-                      type="text"
-                      value={profileFirstName}
-                      onChange={(e) => setProfileFirstName(e.target.value)}
-                      placeholder="First name"
-                      required
-                      autoFocus
-                      className={RECT_INPUT_CLASS}
-                    />
-                  </div>
-                  <div>
-                    <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
-                      Last name
-                    </label>
-                    <input
-                      type="text"
-                      value={profileLastName}
-                      onChange={(e) => setProfileLastName(e.target.value)}
-                      placeholder="Last name"
-                      required
-                      className={RECT_INPUT_CLASS}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
-                    Phone number
-                  </label>
-                  <input
-                    type="tel"
-                    value={profilePhone}
-                    onChange={(e) => setProfilePhone(e.target.value)}
-                    placeholder="Phone number"
-                    required
-                    className={RECT_INPUT_CLASS}
-                  />
-                </div>
-
-                <div>
-                  <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
-                    Date of birth
-                  </label>
-                  <input
-                    type="date"
-                    value={profileDateOfBirth}
-                    onChange={(e) => setProfileDateOfBirth(e.target.value)}
-                    required
-                    max={new Date(
-                      new Date().setFullYear(new Date().getFullYear() - 18),
-                    )
-                      .toISOString()
-                      .slice(0, 10)}
-                    className={RECT_INPUT_CLASS}
-                  />
-                </div>
-              </>
-            ) : (
-              // Phase 1 (signup) or login: email + password
-              <>
-                {mode === "signup" && extraFields.length > 0 ? (
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    {extraFields.map((field) => {
-                      const fieldValue =
-                        field.type === "checkbox"
-                          ? Boolean(v[field.name])
-                          : v[field.name] || "";
-                      const wrapperClass =
-                        field.type === "textarea" || field.fullWidth
-                          ? "md:col-span-2"
-                          : "";
-
-                      return (
-                        <div key={field.name} className={wrapperClass}>
-                          <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
-                            {field.label}
-                          </label>
-                          {field.type === "checkbox" ? (
-                            <label className="flex items-center gap-3 rounded-[1rem] border border-[#d7d1e4] px-4 py-4 text-sm text-[#1c1a24]">
-                              <input
-                                type="checkbox"
-                                checked={fieldValue}
-                                onChange={(e) =>
-                                  onChange({
-                                    ...v,
-                                    [field.name]: e.target.checked,
-                                  })
-                                }
-                                className="h-4 w-4 rounded border-[#c9c4d8] text-[#5b3cdd] focus:ring-[#5b3cdd]"
-                              />
-                              <span>{field.placeholder || field.label}</span>
-                            </label>
-                          ) : field.type === "textarea" ? (
-                            <textarea
-                              value={fieldValue}
-                              onChange={(e) =>
-                                onChange({
-                                  ...v,
-                                  [field.name]: e.target.value,
-                                })
-                              }
-                              rows={4}
-                              placeholder={field.placeholder || ""}
-                              className={`${RECT_INPUT_CLASS} resize-none`}
-                            />
-                          ) : (
+                    return (
+                      <div key={field.name} className={wrapperClass}>
+                        <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
+                          {field.label}
+                        </label>
+                        {field.type === "checkbox" ? (
+                          <label className="flex items-center gap-3 rounded-[1rem] border border-[#d7d1e4] px-4 py-4 text-sm text-[#1c1a24]">
                             <input
-                              type={field.type || "text"}
-                              value={fieldValue}
+                              type="checkbox"
+                              checked={fieldValue}
                               onChange={(e) =>
                                 onChange({
                                   ...v,
-                                  [field.name]: e.target.value,
+                                  [field.name]: e.target.checked,
                                 })
                               }
-                              placeholder={field.placeholder || ""}
-                              className={RECT_INPUT_CLASS}
+                              className="h-4 w-4 rounded border-[#c9c4d8] text-[#5b3cdd] focus:ring-[#5b3cdd]"
                             />
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                ) : null}
+                            <span>{field.placeholder || field.label}</span>
+                          </label>
+                        ) : field.type === "textarea" ? (
+                          <textarea
+                            value={fieldValue}
+                            onChange={(e) =>
+                              onChange({
+                                ...v,
+                                [field.name]: e.target.value,
+                              })
+                            }
+                            rows={4}
+                            placeholder={field.placeholder || ""}
+                            className={`${RECT_INPUT_CLASS} resize-none`}
+                          />
+                        ) : (
+                          <input
+                            type={field.type || "text"}
+                            value={fieldValue}
+                            onChange={(e) =>
+                              onChange({
+                                ...v,
+                                [field.name]: e.target.value,
+                              })
+                            }
+                            placeholder={field.placeholder || ""}
+                            className={RECT_INPUT_CLASS}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : null}
 
-                <div>
-                  <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
-                    Email
-                  </label>
+              <div>
+                <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  value={v.email || ""}
+                  onChange={(e) => onChange({ ...v, email: e.target.value })}
+                  placeholder="Email"
+                  required
+                  className={RECT_INPUT_CLASS}
+                />
+              </div>
+
+              <div>
+                <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
+                  Password
+                </label>
+                <div className="relative">
                   <input
-                    type="email"
-                    value={v.email || ""}
-                    onChange={(e) => onChange({ ...v, email: e.target.value })}
-                    placeholder="Email"
+                    type={showPassword ? "text" : "password"}
+                    value={v.password || ""}
+                    onChange={(e) =>
+                      onChange({ ...v, password: e.target.value })
+                    }
+                    placeholder="Password"
                     required
-                    className={RECT_INPUT_CLASS}
+                    className={`${RECT_INPUT_CLASS} pr-20`}
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((current) => !current)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-medium text-[#484555]"
+                  >
+                    {showPassword ? "Hide" : "Show"}
+                  </button>
                 </div>
+                {mode === "signup" ? (
+                  <p className="mt-2 px-1 text-[11px] text-[#797587]">
+                    Must be at least 8 characters with one number.
+                  </p>
+                ) : null}
+              </div>
+            </>
 
-                <div>
-                  <label className="mb-1.5 ml-1 block text-xs font-semibold text-[#797587]">
-                    Password
-                  </label>
-                  <div className="relative">
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      value={v.password || ""}
-                      onChange={(e) =>
-                        onChange({ ...v, password: e.target.value })
-                      }
-                      placeholder="Password"
-                      required
-                      className={`${RECT_INPUT_CLASS} pr-20`}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword((current) => !current)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-medium text-[#484555]"
-                    >
-                      {showPassword ? "Hide" : "Show"}
-                    </button>
-                  </div>
-                  {mode === "signup" ? (
-                    <p className="mt-2 px-1 text-[11px] text-[#797587]">
-                      Must be at least 8 characters with one number.
-                    </p>
-                  ) : null}
-                </div>
-              </>
-            )}
-
-            {mode !== "signup" || signupPhase === 1 ? (
-              <p className="text-sm leading-6 text-[#484555]">
-                By continuing, you agree to the{" "}
-                <Link
-                  href={LEGAL_ROUTE_PATHS.privacy}
-                  className="text-[#5b3cdd] hover:underline"
-                >
-                  Privacy Policy
-                </Link>
-                ,{" "}
-                <Link
-                  href={LEGAL_ROUTE_PATHS.terms}
-                  className="text-[#5b3cdd] hover:underline"
-                >
-                  Terms
-                </Link>
-                , and{" "}
-                <Link
-                  href={LEGAL_ROUTE_PATHS.telehealthConsent}
-                  className="text-[#5b3cdd] hover:underline"
-                >
-                  Telehealth Consent
-                </Link>
-                .
-              </p>
-            ) : null}
+            <p className="text-sm leading-6 text-[#484555]">
+              By continuing, you agree to the{" "}
+              <Link
+                href={LEGAL_ROUTE_PATHS.privacy}
+                className="text-[#5b3cdd] hover:underline"
+              >
+                Privacy Policy
+              </Link>
+              ,{" "}
+              <Link
+                href={LEGAL_ROUTE_PATHS.terms}
+                className="text-[#5b3cdd] hover:underline"
+              >
+                Terms
+              </Link>
+              , and{" "}
+              <Link
+                href={LEGAL_ROUTE_PATHS.telehealthConsent}
+                className="text-[#5b3cdd] hover:underline"
+              >
+                Telehealth Consent
+              </Link>
+              .
+            </p>
 
             {mode === "login" ? (
               <div className="flex justify-end">
@@ -1579,16 +1455,13 @@ function AccountCreateStep({
                 </span>
               ) : mode === "login" ? (
                 "Log in"
-              ) : signupPhase === 1 ? (
-                "View My Results"
               ) : (
                 "Create Account"
               )}
             </button>
           </form>
 
-          {(providers.google || providers.apple) &&
-          !(mode === "signup" && signupPhase === 2) ? (
+          {providers.google || providers.apple ? (
             <>
               <div className="flex items-center gap-3">
                 <div className="h-px flex-1 bg-gray-200" />
@@ -2004,6 +1877,7 @@ function CheckoutStep({
   const [loading, setLoading] = useState(true);
   const [publishableKey, setPublishableKey] = useState("");
   const [requiresAuth, setRequiresAuth] = useState(false);
+  const [customerPricingMode, setCustomerPricingMode] = useState(null);
   const stripePromise = React.useMemo(
     () => getStripePromise(publishableKey),
     [publishableKey],
@@ -2033,6 +1907,21 @@ function CheckoutStep({
   const monthlyRate = pricingState.monthlyRate;
   const durationMonths = pricingState.durationMonths;
   const allowsBnpl = pricingState.allowsBnpl;
+
+  // ── Customer payment preference (overrides template default) ──────────────
+  const effectivePricingMode = customerPricingMode ?? pricingState.pricingMode;
+  const effectiveDueTodayAmount =
+    effectivePricingMode === "ALL_AT_ONCE" ? totalAmount : 0;
+  const effectiveAllowsBnpl =
+    effectivePricingMode === "ALL_AT_ONCE" && allowsBnpl;
+
+  const handlePricingModeChange = (newMode) => {
+    if (newMode === effectivePricingMode) return;
+    setCustomerPricingMode(newMode);
+    setClientSecret(null);
+    setLoading(true);
+    setInitError("");
+  };
   const selectedMedicationLabel =
     checkoutSelection.selectedMedication?.name ||
     step.config?.summary?.medicationLabel ||
@@ -2042,6 +1931,13 @@ function CheckoutStep({
     step.config?.summary?.planLabel ||
     "Recommended plan";
   const dailyAmount = resolvePerDayAmount(checkoutSelection.selectedPlan);
+  const isGlp1 = steps.some(
+    (s) => s.type === "BMI_CALCULATOR" || s.type === "GLP1_PLAN_INTRO",
+  );
+  const warrantyLabel = isGlp1
+    ? "HealSend Weight Loss Warranty"
+    : "HealSend Care Warranty";
+
   const orderBenefits = checkoutSelection.selectedPlan?.features?.slice(
     0,
     4,
@@ -2073,13 +1969,16 @@ function CheckoutStep({
       previousPrice: "$29",
     },
     {
-      title: "HealSend Weight Loss Warranty",
+      title: warrantyLabel,
       previousPrice: "$179",
     },
   ];
 
   useEffect(() => {
     if (!templateId) return;
+
+    setLoading(true);
+    setInitError("");
 
     const createIntent = async () => {
       try {
@@ -2090,6 +1989,7 @@ function CheckoutStep({
             templateId,
             medicationId: checkoutSelection.medicationId,
             planId: checkoutSelection.planId,
+            preferredPricingMode: customerPricingMode ?? undefined,
           }),
         });
         const json = await res.json();
@@ -2120,6 +2020,7 @@ function CheckoutStep({
   }, [
     checkoutSelection.medicationId,
     checkoutSelection.planId,
+    customerPricingMode,
     onRequireAccount,
     templateId,
   ]);
@@ -2223,6 +2124,82 @@ function CheckoutStep({
         </h1>
       </div>
 
+      {/* ── Pay Now / Pay Later selector ──────────────────────────────── */}
+      <div className="overflow-hidden rounded-[1.4rem] border border-[#d9d4e7] bg-white shadow-[0_12px_32px_rgba(28,26,36,0.06)]">
+        <div className="bg-[#474fd7] px-5 py-3 text-center text-sm font-semibold text-white md:px-8">
+          Choose your payment preference
+        </div>
+        <div className="grid grid-cols-2 gap-3 p-4 md:p-5">
+          {/* Pay Now */}
+          <button
+            type="button"
+            onClick={() => handlePricingModeChange("ALL_AT_ONCE")}
+            className={`rounded-[1rem] border-2 p-4 text-left transition-all ${
+              effectivePricingMode === "ALL_AT_ONCE"
+                ? "border-[#5b3cdd] bg-[#eef1ff]"
+                : "border-[#d9d4e7] bg-[#faf9fd] hover:border-[#a09cbb]"
+            }`}
+          >
+            <div className="mb-1.5 flex items-center gap-2">
+              <div
+                className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-all ${
+                  effectivePricingMode === "ALL_AT_ONCE"
+                    ? "border-[#5b3cdd] bg-[#5b3cdd]"
+                    : "border-[#c9c4d8]"
+                }`}
+              >
+                {effectivePricingMode === "ALL_AT_ONCE" && (
+                  <AppIcon name="check" className="text-[10px] text-white" />
+                )}
+              </div>
+              <span className="text-sm font-bold text-[#1c1a24]">
+                Pay in full today
+              </span>
+            </div>
+            <p className="font-headline text-xl font-bold text-[#5b3cdd]">
+              {formatCheckoutCurrency(totalAmount)}
+            </p>
+            <p className="mt-0.5 text-xs text-[#797587]">
+              Charged when you submit
+            </p>
+          </button>
+
+          {/* Pay Later */}
+          <button
+            type="button"
+            onClick={() => handlePricingModeChange("UPFRONT_ZERO")}
+            className={`rounded-[1rem] border-2 p-4 text-left transition-all ${
+              effectivePricingMode === "UPFRONT_ZERO"
+                ? "border-[#5b3cdd] bg-[#eef1ff]"
+                : "border-[#d9d4e7] bg-[#faf9fd] hover:border-[#a09cbb]"
+            }`}
+          >
+            <div className="mb-1.5 flex items-center gap-2">
+              <div
+                className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-all ${
+                  effectivePricingMode === "UPFRONT_ZERO"
+                    ? "border-[#5b3cdd] bg-[#5b3cdd]"
+                    : "border-[#c9c4d8]"
+                }`}
+              >
+                {effectivePricingMode === "UPFRONT_ZERO" && (
+                  <AppIcon name="check" className="text-[10px] text-white" />
+                )}
+              </div>
+              <span className="text-sm font-bold text-[#1c1a24]">
+                Pay after approval
+              </span>
+            </div>
+            <p className="font-headline text-xl font-bold text-emerald-600">
+              $0 today
+            </p>
+            <p className="mt-0.5 text-xs text-[#797587]">
+              Charged only after your provider approves
+            </p>
+          </button>
+        </div>
+      </div>
+
       <div className="overflow-hidden rounded-[1.4rem] border border-[#d9d4e7] bg-white shadow-[0_12px_32px_rgba(28,26,36,0.06)]">
         <div className="bg-[#474fd7] px-5 py-3 text-center text-sm font-semibold text-white md:px-8">
           FSA/HSA eligible for reimbursement
@@ -2303,7 +2280,7 @@ function CheckoutStep({
               <span className="font-semibold text-[#2f8d4e]">FREE</span>
             </div>
             <div className="flex items-center justify-between gap-4 py-1.5">
-              <span>Protected by Weight Loss Warranty</span>
+              <span>Protected by {warrantyLabel}</span>
               <span className="font-semibold text-[#2f8d4e]">Activated</span>
             </div>
           </div>
@@ -2312,7 +2289,9 @@ function CheckoutStep({
             <div className="flex items-end justify-between gap-4">
               <div>
                 <p className="font-headline text-[2rem] font-bold leading-none text-[#3740d1]">
-                  Total Due Today
+                  {effectivePricingMode === "UPFRONT_ZERO"
+                    ? "Total After Approval"
+                    : "Total Due Today"}
                 </p>
                 {dailyAmount ? (
                   <p className="mt-2 text-sm text-[#5f5a6d]">
@@ -2321,11 +2300,11 @@ function CheckoutStep({
                 ) : null}
               </div>
               <p className="font-headline text-[2.4rem] font-bold leading-none text-[#3740d1]">
-                {formatCheckoutCurrency(dueTodayAmount)}
+                {formatCheckoutCurrency(effectiveDueTodayAmount)}
               </p>
             </div>
 
-            {allowsBnpl ? (
+            {effectiveAllowsBnpl ? (
               <div className="mt-4 flex flex-wrap items-center gap-2 text-sm font-medium text-[#484555]">
                 <span>Express checkout:</span>
                 <KlarnaBadge className="h-9 w-9 text-[0.9rem]" />
@@ -2431,8 +2410,8 @@ function CheckoutStep({
           <StripePaymentForm
             onNext={onNext}
             totalAmount={totalAmount}
-            dueTodayAmount={dueTodayAmount}
-            checkoutPricingMode={pricingState.pricingMode}
+            dueTodayAmount={effectiveDueTodayAmount}
+            checkoutPricingMode={effectivePricingMode}
             templateId={templateId}
             medicationId={checkoutSelection.medicationId}
             planId={checkoutSelection.planId}
@@ -2801,12 +2780,7 @@ function StripePaymentForm({
               Processing Payment...
             </span>
           ) : (
-            <>
-              Pay Now
-              {dueTodayAmount > 0
-                ? ` — ${formatCheckoutCurrency(dueTodayAmount)}`
-                : ""}
-            </>
+            "Start Your Transformation"
           )}
         </button>
 
@@ -2854,49 +2828,62 @@ function Glp1PlanIntroStep({ answers, steps, onNext }) {
   ];
 
   return (
-    <div className="rounded-[2rem] border border-[#d9d4e7] bg-white p-6 shadow-[0_24px_52px_rgba(28,26,36,0.08)] md:p-8">
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#eef1ff] text-[#5560db]">
-          <AppIcon name="support_agent" className="text-[2rem]" />
+    <div className="rounded-[1.75rem] border border-[#d9d4e7] bg-white p-6 shadow-[0_24px_52px_rgba(28,26,36,0.06)] md:p-8">
+      {/* Top row: icon + empty circle */}
+      <div className="flex items-start justify-between">
+        <div className="flex h-12 w-12 items-center justify-center rounded-[0.9rem] bg-[#eef1ff] text-[#5b3cdd]">
+          <AppIcon name="chat" className="text-[1.35rem]" />
         </div>
-        <span className="h-8 w-8 rounded-full border-2 border-[#cbc6d8]" />
+        <span className="mt-0.5 h-7 w-7 rounded-full border-2 border-[#c9c4d8]" />
       </div>
 
-      <h1 className="mt-5 font-headline text-3xl font-extrabold leading-tight text-[#1c1a24] md:text-[3rem]">
+      {/* Title */}
+      <h1 className="mt-5 font-headline text-[2rem] font-extrabold leading-tight text-[#1c1a24] md:text-[2.4rem]">
         Your Personalized Plan — in 2 minutes.
       </h1>
 
-      <p className="mt-6 flex items-center gap-3 text-[1.1rem] font-medium text-[#908b99]">
-        <AppIcon name="check" className="text-[#6bb37a]" />
+      {/* Primary goal */}
+      <p className="mt-4 flex items-center gap-2 font-body text-[0.95rem] text-[#797587]">
+        <AppIcon name="check" className="text-[1rem] text-emerald-500" />
         <span>
           Primary Goal:{" "}
-          <span className="font-semibold text-[#6d6879]">{primaryGoal}</span>
+          <span className="font-semibold text-[#484555]">{primaryGoal}</span>
         </span>
       </p>
 
-      <div className="mt-8 space-y-5 border-l border-[#d7d1e4] pl-5">
+      {/* Timeline */}
+      <div className="relative mt-7 space-y-3 pl-6">
+        {/* Vertical line */}
+        <div className="absolute left-[6px] top-2 bottom-2 w-px bg-[#d9d4e7]" />
+
         {journeySteps.map((journeyStep) => (
           <div key={journeyStep.title} className="relative">
+            {/* Dot */}
             <span
-              className={`absolute -left-[1.95rem] top-4 h-4 w-4 rounded-full border ${
+              className={`absolute -left-6 top-4 h-3 w-3 rounded-full border-2 ${
                 journeyStep.active
-                  ? "border-[#9ad3a8] bg-[#9ad3a8]"
-                  : "border-[#b8b1c9] bg-white"
+                  ? "border-emerald-400 bg-emerald-400"
+                  : "border-[#c9c4d8] bg-white"
               }`}
             />
+            {/* Card */}
             <div
-              className={`rounded-[1.25rem] border px-5 py-4 shadow-[0_10px_30px_rgba(28,26,36,0.08)] ${journeyStep.active ? "border-[#e3def1] bg-white" : "border-transparent bg-[#faf9fd] text-[#908b99]"}`}
+              className={`rounded-[1.1rem] border px-5 py-4 ${
+                journeyStep.active
+                  ? "border-[#d9d4e7] bg-white shadow-[0_4px_16px_rgba(28,26,36,0.06)]"
+                  : "border-transparent bg-[#faf9fd]"
+              }`}
             >
-              <div className="flex items-start justify-between gap-3">
+              <div className="flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-[1.45rem] font-semibold leading-tight text-[#1c1a24]">
+                  <p className="font-headline text-[1.05rem] font-bold leading-snug text-[#1c1a24]">
                     {journeyStep.title}
                   </p>
-                  <p className="mt-1 text-base text-[#757082]">
+                  <p className="mt-0.5 font-body text-sm text-[#797587]">
                     {journeyStep.desc}
                   </p>
                 </div>
-                <span className="rounded-full bg-[#edf8ee] px-3 py-1 text-sm font-semibold text-[#62a86f]">
+                <span className="shrink-0 rounded-full bg-emerald-50 px-3 py-1 font-body text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200">
                   {journeyStep.timing}
                 </span>
               </div>
@@ -2935,204 +2922,191 @@ function TransformationResultsCard({ outcome, onNext }) {
   const projectedLoss = outcome.projectedLoss || Math.round(current * 0.2);
   const target = outcome.targetWeight || current - projectedLoss;
 
-  // Progressive milestones: 5%, 10%, 15%, 20% loss
+  const effectiveLoss = current - target;
   const milestones = [
     {
       label: "3 MO",
-      loss: Math.round(current * 0.05),
-      weight: Math.round(current * 0.95),
+      loss: Math.round(effectiveLoss * 0.25),
+      weight: current - Math.round(effectiveLoss * 0.25),
     },
     {
       label: "6 MO",
-      loss: Math.round(current * 0.1),
-      weight: Math.round(current * 0.9),
+      loss: Math.round(effectiveLoss * 0.5),
+      weight: current - Math.round(effectiveLoss * 0.5),
     },
     {
       label: "9 MO",
-      loss: Math.round(current * 0.15),
-      weight: Math.round(current * 0.85),
+      loss: Math.round(effectiveLoss * 0.75),
+      weight: current - Math.round(effectiveLoss * 0.75),
     },
-    { label: "1 YR", loss: projectedLoss, weight: target },
+    { label: "1 YR", loss: effectiveLoss, weight: target },
   ];
 
-  const pct = Math.round((projectedLoss / current) * 100);
+  const pct = Math.round((effectiveLoss / current) * 100);
 
   return (
-    <div
-      className="rounded-[1.75rem] overflow-hidden shadow-[0_32px_72px_rgba(0,0,0,0.45)]"
-      style={{ background: "linear-gradient(160deg,#0b1524 0%,#0d1f2d 100%)" }}
-    >
-      {/* Header badge */}
-      <div className="flex items-center justify-center gap-2 border-b border-white/10 px-5 py-3">
-        <span className="h-2 w-2 rounded-full bg-emerald-400" />
-        <span className="text-[11px] font-bold tracking-[0.18em] text-emerald-400 uppercase">
+    <div className="w-full space-y-5">
+      {/* Qualified badge */}
+      <div className="flex items-center justify-center gap-2">
+        <span className="h-2 w-2 rounded-full bg-emerald-500" />
+        <span className="font-body text-[11px] font-bold tracking-[0.18em] text-emerald-600 uppercase">
           Qualified for Treatment
         </span>
       </div>
 
-      <div className="px-5 pb-5 pt-6 md:px-7">
-        {/* Title */}
-        <div className="mb-5 text-center">
-          <h2 className="font-headline text-[1.65rem] font-extrabold leading-tight text-white md:text-3xl">
-            Your Transformation
-          </h2>
-          <p className="mt-1 text-xs font-medium tracking-wide text-white/50">
-            Personalized GLP-1 Protocol&nbsp;•&nbsp;Projected Results
+      {/* Title */}
+      <div className="text-center">
+        <h2 className="font-headline text-[1.75rem] font-extrabold leading-tight text-[#1c1a24] md:text-[2.1rem]">
+          Your Transformation
+        </h2>
+        <p className="mt-1 font-body text-sm text-[#797587]">
+          Personalized GLP-1 Protocol&nbsp;•&nbsp;Projected Results
+        </p>
+      </div>
+
+      {/* Date range */}
+      <div className="flex items-center justify-between font-body text-[11px] font-medium text-[#797587]">
+        <span>{startLabel}</span>
+        <span>{endLabel}</span>
+      </div>
+
+      {/* Current weight card */}
+      <div className="rounded-[1.25rem] border border-[#d9d4e7] bg-white px-5 py-4 shadow-[0_4px_16px_rgba(28,26,36,0.06)]">
+        <p className="mb-1 font-body text-[10px] font-bold tracking-[0.16em] text-[#797587] uppercase">
+          Current
+        </p>
+        <div className="flex items-center justify-between gap-3">
+          <p className="font-headline text-4xl font-extrabold text-[#1c1a24]">
+            {current}{" "}
+            <span className="text-xl font-semibold text-[#797587]">lbs</span>
           </p>
-        </div>
-
-        {/* Date range */}
-        <div className="mb-3 flex items-center justify-between text-[11px] font-medium text-white/40">
-          <span>{startLabel}</span>
-          <span>{endLabel}</span>
-        </div>
-
-        {/* Current → target card */}
-        <div
-          className="mb-4 rounded-[1.1rem] border border-white/10 px-5 py-4"
-          style={{ background: "rgba(255,255,255,0.05)" }}
-        >
-          <p className="mb-1 text-[10px] font-bold tracking-[0.16em] text-white/40 uppercase">
-            Current
-          </p>
-          <div className="flex items-center justify-between gap-3">
-            <p className="font-headline text-4xl font-extrabold text-white">
-              {current}{" "}
-              <span className="text-lg font-semibold text-white/60">lbs</span>
-            </p>
-            <div
-              className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-bold text-white"
-              style={{ background: "linear-gradient(135deg,#12b377,#0e9662)" }}
-            >
-              <svg
-                className="h-3.5 w-3.5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path d="M5 10l5 5 5-5H5z" />
-              </svg>
-              {projectedLoss} lbs lost
-            </div>
-          </div>
-        </div>
-
-        {/* Gradient progress bar */}
-        <div
-          className="mb-4 flex items-center justify-between rounded-[0.85rem] px-4 py-3"
-          style={{ background: "linear-gradient(90deg,#7c3aed,#06b6d4)" }}
-        >
-          <span className="text-sm font-bold text-white">{current} lbs</span>
-          <div className="flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">
-            <svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-            {target} lbs
-          </div>
-        </div>
-
-        {/* Milestone grid */}
-        <div className="mb-4 grid grid-cols-4 gap-2">
-          {milestones.map((m) => (
-            <div
-              key={m.label}
-              className="rounded-[0.85rem] border border-white/10 px-2 py-3 text-center"
-              style={{ background: "rgba(255,255,255,0.05)" }}
-            >
-              <p className="text-[10px] font-bold tracking-[0.14em] text-white/40 uppercase">
-                {m.label}
-              </p>
-              <p className="mt-1 text-[1.15rem] font-extrabold text-white leading-tight">
-                {m.weight}
-              </p>
-              <p className="text-[10px] font-semibold text-emerald-400">
-                -{m.loss} lbs
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* 1-year result summary */}
-        <div
-          className="mb-5 rounded-[1.1rem] border border-emerald-500/20 px-5 py-4 text-center"
-          style={{ background: "rgba(16,185,129,0.08)" }}
-        >
-          <p className="mb-1 text-[10px] font-bold tracking-[0.16em] text-emerald-400 uppercase">
-            Projected 1-Year Result
-          </p>
-          <p className="font-headline text-[2.2rem] font-extrabold leading-none text-white">
-            {projectedLoss}&nbsp;<span className="text-[1.4rem]">lbs</span>{" "}
-            <span className="text-emerald-400">lost</span>
-          </p>
-          <p className="mt-1 text-xs font-medium text-white/50">
-            {pct}% total body weight reduction
-          </p>
-        </div>
-
-        {/* CTA */}
-        <button
-          type="button"
-          onClick={onNext}
-          className="flex w-full items-center justify-center gap-2 rounded-[1rem] py-4 text-base font-bold text-white shadow-[0_8px_24px_rgba(91,60,221,0.45)] transition-all hover:opacity-90 active:scale-[0.98]"
-          style={{ background: "linear-gradient(90deg,#5b3cdd,#7c5ce0)" }}
-        >
-          Start My Transformation
-          <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-            <path
-              fillRule="evenodd"
-              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
-
-        {/* Trust row */}
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-[11px] font-medium text-white/40">
-          <span className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1.5 text-sm font-bold text-emerald-700 ring-1 ring-emerald-200">
             <svg
               className="h-3.5 w-3.5"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
-              <path
-                fillRule="evenodd"
-                d="M10 1a9 9 0 100 18A9 9 0 0010 1zm0 2a7 7 0 100 14A7 7 0 0010 3zm0 3a1 1 0 011 1v3l2 2a1 1 0 01-1.414 1.414l-2.293-2.293A1 1 0 019 11V7a1 1 0 011-1z"
-                clipRule="evenodd"
-              />
+              <path d="M5 10l5 5 5-5H5z" />
             </svg>
-            HIPAA Secure
-          </span>
-          <span className="flex items-center gap-1">
-            <svg
-              className="h-3.5 w-3.5 text-yellow-400"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-            <span className="text-white/60">4.9/5 Rating</span>
-          </span>
-          <span className="flex items-center gap-1">
-            <svg
-              className="h-3.5 w-3.5 text-emerald-400"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-            FDA Approved
-          </span>
+            {effectiveLoss} lbs lost
+          </div>
         </div>
+      </div>
 
-        {/* Footnote */}
-        <p className="mt-4 text-center text-[10px] leading-relaxed text-white/25">
-          *Results based on avg. weight loss with GLP-1 max dose + calorie
-          protocol. Individual results vary.
+      {/* Progress bar */}
+      <div
+        className="flex items-center justify-between rounded-[1rem] px-4 py-3"
+        style={{ background: "linear-gradient(90deg,#5b3cdd,#7459f7,#06b6d4)" }}
+      >
+        <span className="font-body text-sm font-bold text-white">
+          {current} lbs
+        </span>
+        <div className="flex items-center gap-1.5 rounded-full bg-white/25 px-3 py-1 font-body text-xs font-bold text-white backdrop-blur-sm">
+          <svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          {target} lbs
+        </div>
+      </div>
+
+      {/* Milestone grid */}
+      <div className="grid grid-cols-4 gap-2">
+        {milestones.map((m) => (
+          <div
+            key={m.label}
+            className="rounded-[1rem] border border-[#ebe6f3] bg-[#f6f2ff] px-2 py-3 text-center"
+          >
+            <p className="font-body text-[10px] font-bold tracking-[0.14em] text-[#797587] uppercase">
+              {m.label}
+            </p>
+            <p className="mt-1 font-headline text-[1.1rem] font-extrabold leading-tight text-[#1c1a24]">
+              {m.weight}
+            </p>
+            <p className="font-body text-[10px] font-semibold text-emerald-600">
+              -{m.loss} lbs
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* 1-year result summary */}
+      <div className="rounded-[1.25rem] border border-emerald-200 bg-emerald-50 px-5 py-5 text-center">
+        <p className="mb-1 font-body text-[10px] font-bold tracking-[0.16em] text-emerald-600 uppercase">
+          Projected 1-Year Result
+        </p>
+        <p className="font-headline text-[2.4rem] font-extrabold leading-none text-[#1c1a24]">
+          {effectiveLoss}&nbsp;
+          <span className="text-[1.5rem]">lbs</span>{" "}
+          <span className="text-emerald-600">lost</span>
+        </p>
+        <p className="mt-1 font-body text-xs text-[#797587]">
+          {pct}% total body weight reduction
         </p>
       </div>
+
+      {/* CTA */}
+      <button
+        type="button"
+        onClick={onNext}
+        className="hs-solid-btn flex w-full items-center justify-center gap-2 rounded-full py-4 font-headline text-base font-bold text-white"
+      >
+        Start My Transformation
+        <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+          <path
+            fillRule="evenodd"
+            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </button>
+
+      {/* Trust row */}
+      <div className="flex flex-wrap items-center justify-center gap-4 font-body text-[11px] font-medium text-[#797587]">
+        <span className="flex items-center gap-1">
+          <svg
+            className="h-3.5 w-3.5 text-[#5b3cdd]"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clipRule="evenodd"
+            />
+          </svg>
+          HIPAA Secure
+        </span>
+        <span className="flex items-center gap-1">
+          <svg
+            className="h-3.5 w-3.5 text-yellow-500"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          4.9/5 Rating
+        </span>
+        <span className="flex items-center gap-1">
+          <svg
+            className="h-3.5 w-3.5 text-emerald-500"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clipRule="evenodd"
+            />
+          </svg>
+          FDA Approved
+        </span>
+      </div>
+
+      {/* Footnote */}
+      <p className="text-center font-body text-[10px] leading-relaxed text-[#b0acbe]">
+        *Results based on avg. weight loss with GLP-1 max dose + calorie
+        protocol. Individual results vary.
+      </p>
     </div>
   );
 }
@@ -3565,7 +3539,17 @@ export default function DynamicOnboardingClient({
   const totalSteps = steps.length;
   const activeStep = steps[currentStep - 1];
   const shouldSkipStep = useCallback(
-    (step) => Boolean(step && isLoggedIn && step.type === "ACCOUNT_CREATE"),
+    (step) => {
+      if (step && isLoggedIn && step.type === "ACCOUNT_CREATE") return true;
+      if (
+        step &&
+        step.type === "QUESTION_MULTI" &&
+        typeof step.title === "string" &&
+        step.title.toLowerCase().includes("approaches")
+      )
+        return true;
+      return false;
+    },
     [isLoggedIn],
   );
   const visibleSteps = steps.filter((step) => !shouldSkipStep(step));

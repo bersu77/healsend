@@ -1,0 +1,59 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: healsend-prod-postgres
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    environment:
+      POSTGRES_DB: ${PROD_POSTGRES_DB:-healsend_prod}
+      POSTGRES_USER: ${PROD_POSTGRES_USER:-healsend}
+      POSTGRES_PASSWORD: ${PROD_POSTGRES_PASSWORD:-HealSend_Prod_2026!}
+    volumes:
+      - healsend-prod-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${PROD_POSTGRES_USER:-healsend} -d ${PROD_POSTGRES_DB:-healsend_prod}",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      - healsend-prod
+
+  app:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.production
+      args:
+        NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-https://healsend.com}
+        NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:-REPLACE_ME}
+    container_name: healsend-prod-app
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOSTNAME: 0.0.0.0
+      # DATABASE_URL is loaded from .env.production with URL-encoded password
+    volumes:
+      - /opt/healsend-prod/public/uploads:/app/public/uploads:rw
+      - /opt/healsend-prod/public/wp-content:/app/public/wp-content:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - healsend
+      - healsend-prod
+
+volumes:
+  healsend-prod-postgres-data:
+
+networks:
+  healsend:
+    external: true
+  healsend-prod:
+    external: true
