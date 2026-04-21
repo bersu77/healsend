@@ -680,9 +680,127 @@ export default function AccountClient({
   );
 }
 
+function FollowUpQuestionnaireCard({ followUp, onCompleted }) {
+  const [open, setOpen] = useState(true);
+  const [marking, setMarking] = useState(false);
+
+  const handleOpen = () => {
+    if (followUp.consultationUrl) {
+      window.open(followUp.consultationUrl, "_blank", "noopener,noreferrer");
+    }
+  };
+
+  const handleMarkDone = async () => {
+    setMarking(true);
+    try {
+      await fetch("/api/follow-up-questionnaires", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: followUp.id }),
+      });
+      onCompleted(followUp.id);
+    } catch {
+      // silently ignore; user can dismiss instead
+    } finally {
+      setMarking(false);
+    }
+  };
+
+  if (!open) return null;
+
+  const hasUrl = Boolean(followUp.consultationUrl);
+
+  return (
+    <div className="overflow-hidden rounded-2xl border border-violet-200 bg-white shadow-sm">
+      <div className="flex items-start justify-between gap-3 bg-gradient-to-r from-violet-50 to-purple-50 px-5 py-4 sm:px-6">
+        <div>
+          <div className="mb-1 flex items-center gap-2">
+            <span className="rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-semibold text-violet-700">
+              Provider follow-up
+            </span>
+          </div>
+          <h3 className="text-base font-bold text-[#1c1a24]">
+            Follow-up questionnaire ready
+          </h3>
+          <p className="mt-0.5 text-sm text-[#484555]">
+            Your care team has sent a follow-up check-in for your{" "}
+            <span className="font-medium">{followUp.templateName}</span>{" "}
+            program. Please complete it so your provider can review your
+            progress.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setOpen(false)}
+          className="shrink-0 rounded-full p-1 text-[#797587] transition-colors hover:bg-black/5"
+          aria-label="Dismiss"
+        >
+          <AppIcon className="h-5 w-5" name="close" />
+        </button>
+      </div>
+
+      <div className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <p className="text-xs text-[#797587]">
+          {hasUrl
+            ? "Opens securely in your patient portal."
+            : "Your portal link is being prepared — check back shortly."}
+        </p>
+
+        <div className="flex items-center gap-3">
+          {hasUrl && (
+            <button
+              type="button"
+              onClick={handleOpen}
+              className="inline-flex items-center gap-2 rounded-full bg-[#5b3cdd] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#4a2fc7]"
+            >
+              <AppIcon className="h-[18px] w-[18px]" name="assignment" />
+              Open questionnaire
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={handleMarkDone}
+            disabled={marking}
+            className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#484555] transition-colors hover:bg-gray-50 disabled:opacity-50"
+          >
+            <AppIcon className="h-[16px] w-[16px]" name="check_circle" />
+            {marking ? "Saving…" : "Mark as done"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ActionItemsTab({ initialOrders, initialCaseSnapshots }) {
   const [orders] = useState(initialOrders || []);
   const [consultLoading, setConsultLoading] = useState(null);
+  const [followUps, setFollowUps] = useState([]);
+  const [followUpLoading, setFollowUpLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/follow-up-questionnaires")
+      .then((res) => (res.ok ? res.json() : { followUps: [] }))
+      .then((data) => {
+        if (!cancelled) {
+          setFollowUps(
+            (data.followUps || []).filter((f) => f.status === "SENT"),
+          );
+        }
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (!cancelled) setFollowUpLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const handleFollowUpCompleted = (id) => {
+    setFollowUps((prev) => prev.filter((f) => f.id !== id));
+  };
 
   const pendingReview = orders.flatMap((order) => {
     const caseSnapshot = getCaseSnapshotForOrder(order, initialCaseSnapshots);
@@ -730,7 +848,9 @@ function ActionItemsTab({ initialOrders, initialCaseSnapshots }) {
     }
   };
 
-  if (pendingReview.length === 0) {
+  const hasAnything = pendingReview.length > 0 || followUps.length > 0;
+
+  if (!hasAnything && !followUpLoading) {
     return (
       <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center sm:p-12">
         <AppIcon
@@ -750,6 +870,13 @@ function ActionItemsTab({ initialOrders, initialCaseSnapshots }) {
 
   return (
     <div className="space-y-6">
+      {followUps.map((followUp) => (
+        <FollowUpQuestionnaireCard
+          key={followUp.id}
+          followUp={followUp}
+          onCompleted={handleFollowUpCompleted}
+        />
+      ))}
       {pendingReview.map(({ order, item, caseSnapshot, mdiState }) => {
         const caseStatus = caseSnapshot?.status || caseSnapshot?.phase || null;
         const friendlyCaseStatus = formatStatusLabel(caseStatus, "In review");

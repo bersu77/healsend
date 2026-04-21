@@ -22,6 +22,7 @@ import {
   createDirectMdiIntakeForOrder,
   loadOrderForMdi,
 } from "@/lib/mdi-client";
+import { scheduleFollowUp } from "@/lib/follow-up-questionnaires";
 
 const GLP1_QUESTIONNAIRE_ID_FALLBACK = "921e0175-e7d7-4b08-ab11-de4183b393ab";
 const GLP1_FUNNEL_SLUGS_FALLBACK = ["glp-1-eligibility", "glp-1"];
@@ -375,6 +376,23 @@ export async function POST(request) {
       console.error(
         "[onboarding-submissions] Failed to send GLP-1 questionnaire:",
         err,
+      );
+    }
+  }
+
+  // Schedule a follow-up questionnaire 4–7 days after submission
+  if (user?.id && submission?.id) {
+    try {
+      await scheduleFollowUp(prisma, {
+        userId: user.id,
+        submissionId: submission.id,
+        templateSlug: template.slug,
+        templateName: template.name,
+      });
+    } catch (fuErr) {
+      console.error(
+        "[onboarding-submissions] Failed to schedule follow-up questionnaire:",
+        fuErr,
       );
     }
   }

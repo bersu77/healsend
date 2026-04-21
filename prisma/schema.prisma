@@ -45,6 +45,7 @@ model User {
   referralsAsReferrer  Referral[]       @relation("ReferralReferrer")
   referralsAsReferred  Referral[]       @relation("ReferralReferred")
   rewardLedger         RewardLedger[]   @relation("RewardLedgerUser")
+  followUpQuestionnaires FollowUpQuestionnaire[]
 
   @@unique([authProvider, authProviderId])
 }
@@ -188,6 +189,40 @@ model OnboardingSubmission {
   data        Json     // All collected answers
   completedAt DateTime?
   createdAt   DateTime @default(now())
+  followUpQuestionnaires FollowUpQuestionnaire[]
+}
+
+// ─── Follow-up Questionnaires ─────────────────────────────────
+
+enum FollowUpStatus {
+  PENDING     // scheduled, not yet delivered
+  SENT        // delivered to client area
+  COMPLETED   // user answered
+  EXPIRED     // window passed without response
+}
+
+model FollowUpQuestionnaire {
+  id                  String         @id @default(cuid())
+  userId              String
+  user                User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  submissionId        String
+  submission          OnboardingSubmission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  templateSlug        String
+  templateName        String
+  scheduledFor        DateTime       // 4-7 days after submission
+  sentAt              DateTime?      // when delivered to client area
+  completedAt         DateTime?
+  status              FollowUpStatus @default(PENDING)
+  mdiQuestionnaireId  String?        // MDI questionnaire UUID (resolved at schedule time)
+  mdiPatientId        String?        // MDI patient UUID (resolved when voucher is created)
+  consultationUrl     String?        // MDI voucher URL (resolved when follow-up becomes due)
+  questions           Json?          // reserved for non-MDI fallback
+  answers             Json?          // reserved for non-MDI fallback
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+
+  @@index([userId, status])
+  @@index([scheduledFor, status])
 }
 
 model Address {
