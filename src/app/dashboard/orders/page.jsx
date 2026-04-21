@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import AppIcon from "@/components/ui/AppIcon";
 import { formatUsd } from "@/lib/pricing";
+import { useNotifications } from "@/lib/NotificationContext";
 
 const STATUS_LABELS = {
   PENDING: { label: "Pending", color: "bg-yellow-100 text-yellow-800" },
@@ -26,6 +27,7 @@ export default function OrdersPage() {
   const [selected, setSelected] = useState(null);
   const [newStatus, setNewStatus] = useState("");
   const [notes, setNotes] = useState("");
+  const { notify } = useNotifications();
 
   const load = useCallback(() => {
     const sp = new URLSearchParams({ page: String(params.page) });
@@ -56,11 +58,17 @@ export default function OrdersPage() {
   };
 
   const updateOrder = async () => {
-    await fetch(`/api/orders/${selected.id}`, {
+    const res = await fetch(`/api/orders/${selected.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: newStatus, notes }),
     });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      notify.error("Error", data?.error || "Failed to update order.");
+      return;
+    }
+    notify.success("Order Updated", "Order status has been updated.");
     setSelected(null);
     load();
   };

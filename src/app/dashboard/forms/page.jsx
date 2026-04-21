@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import AppIcon from "@/components/ui/AppIcon";
+import { useNotifications } from "@/lib/NotificationContext";
 
 const FIELD_TYPES = [
   { value: "text", label: "Text Input" },
@@ -39,6 +40,7 @@ export default function FormsPage() {
     active: false,
   });
   const [preview, setPreview] = useState(false);
+  const { notify } = useNotifications();
 
   const load = useCallback(() => {
     fetch("/api/forms")
@@ -85,11 +87,20 @@ export default function FormsPage() {
       active: !!form.active,
       fields: form.fields,
     };
-    await fetch(url, {
+    const res = await fetch(url, {
       method: isNew ? "POST" : "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      notify.error("Error", data?.error || "Failed to save form.");
+      return;
+    }
+    notify.success(
+      isNew ? "Form Created" : "Form Updated",
+      `"${form.name}" has been ${isNew ? "created" : "updated"} successfully.`,
+    );
     setEditing(null);
     load();
   };
@@ -352,14 +363,20 @@ export default function FormsPage() {
                     disabled={idx === 0}
                     className="text-[#797587] disabled:opacity-20"
                   >
-                    <AppIcon name="arrow_upward" className="h-[18px] w-[18px]" />
+                    <AppIcon
+                      name="arrow_upward"
+                      className="h-[18px] w-[18px]"
+                    />
                   </button>
                   <button
                     onClick={() => moveField(idx, 1)}
                     disabled={idx === form.fields.length - 1}
                     className="text-[#797587] disabled:opacity-20"
                   >
-                    <AppIcon name="arrow_downward" className="h-[18px] w-[18px]" />
+                    <AppIcon
+                      name="arrow_downward"
+                      className="h-[18px] w-[18px]"
+                    />
                   </button>
                   <button
                     onClick={() => removeField(idx)}
@@ -483,8 +500,7 @@ export default function FormsPage() {
           className="hs-gradient-btn px-5 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2"
         >
           <AppIcon name="add" className="h-[18px] w-[18px]" />
-          New
-          Form
+          New Form
         </button>
       </div>
 
@@ -500,8 +516,8 @@ export default function FormsPage() {
                   {t.name}
                 </h3>
                 <p className="text-xs text-[#797587]">
-                  {(Array.isArray(t.fields) ? t.fields.length : 0) || 0} fields &middot;{" "}
-                  {t._count?.submissions || 0} submissions
+                  {(Array.isArray(t.fields) ? t.fields.length : 0) || 0} fields
+                  &middot; {t._count?.submissions || 0} submissions
                 </p>
               </div>
               <span

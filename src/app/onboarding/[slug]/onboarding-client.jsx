@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
@@ -532,29 +532,12 @@ function buildAugmentedSteps(template, baseSteps) {
           required: false,
         },
         {
-          id: `${template.id}-glp1-finalizing-plan`,
-          title: "Finalizing your plan...",
-          subtitle: "",
-          type: "GLP1_FINALIZING_PLAN",
-          config: {},
-          required: false,
-        },
-        {
           id: `${template.id}-glp1-proven-results`,
           title: "Proven results. Backed by data.",
           subtitle: "",
           type: "GLP1_PROVEN_RESULTS",
           config: {},
           required: false,
-        },
-        {
-          id: `${template.id}-glp1-contact-capture`,
-          title: "Your plan is ready. Secure your results.",
-          subtitle:
-            "Confirm your contact info to view treatment options and start your provider review.",
-          type: "GLP1_CONTACT_CAPTURE",
-          config: {},
-          required: true,
         },
       );
     }
@@ -820,7 +803,6 @@ function QuestionMultiStep({ step, value, onChange, onNext }) {
 
 function BMICalculatorStep({ step, value, onChange, onNext }) {
   const v = value || { feet: "", inches: "", weight: "" };
-  const [showResults, setShowResults] = useState(false);
 
   const computeBMI = () => {
     const ft = Number(v.feet) || 0;
@@ -857,29 +839,19 @@ function BMICalculatorStep({ step, value, onChange, onNext }) {
     targetWeight,
   };
 
-  if (showResults && eligible) {
-    return (
-      <div className="space-y-4">
-        <TransformationResultsCard outcome={bmiOutcome} onNext={onNext} />
-      </div>
-    );
-  }
-
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       <div className="text-center md:text-left">
         <h1 className="font-headline text-2xl md:text-3xl font-extrabold tracking-tight text-[#1c1a24] mb-3">
-          See How Much Weight You Can Lose
+          Let&apos;s check your BMI
         </h1>
-        {step.subtitle && (
-          <p className="font-body text-[#484555] text-base leading-relaxed">
-            {step.subtitle}
-          </p>
-        )}
+        <p className="font-body text-[#484555] text-base leading-relaxed">
+          We need your height and weight to determine eligibility.
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
-        <div className="md:col-span-7 space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+        <div className="md:col-span-7 space-y-5">
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-2">
               <label className="font-body text-[0.6875rem] uppercase tracking-wider text-[#484555] font-semibold">
@@ -921,16 +893,16 @@ function BMICalculatorStep({ step, value, onChange, onNext }) {
         </div>
 
         <div className="md:col-span-5 flex flex-col items-center justify-center">
-          <div className="relative w-44 h-44 md:w-52 md:h-52 flex items-center justify-center">
-            <div className="absolute inset-0 rounded-full border-4 border-[#c9c4d8]/10" />
+          <div className="relative w-40 h-40 md:w-48 md:h-48 flex items-center justify-center">
+            <div className="absolute inset-0 rounded-full border-4 border-[#c9c4d8]/20" />
             <div
               className={`absolute inset-0 rounded-full border-[6px] transition-all duration-500 ${getBmiColor()}`}
             />
-            <div className="bg-white shadow-[0_32px_64px_-12px_rgba(28,26,36,0.04)] rounded-full w-[85%] h-[85%] flex flex-col items-center justify-center text-center">
-              <span className="font-headline text-4xl md:text-5xl font-extrabold text-[#1c1a24] tracking-tighter">
+            <div className="bg-white shadow-sm rounded-full w-[85%] h-[85%] flex flex-col items-center justify-center text-center">
+              <span className="font-headline text-3xl md:text-4xl font-extrabold text-[#1c1a24] tracking-tighter">
                 {bmi ?? "—"}
               </span>
-              <span className="font-body text-[0.6875rem] uppercase tracking-widest text-[#484555] mt-1">
+              <span className="font-body text-[0.625rem] uppercase tracking-widest text-[#797587] mt-1">
                 Your BMI
               </span>
             </div>
@@ -938,48 +910,23 @@ function BMICalculatorStep({ step, value, onChange, onNext }) {
         </div>
       </div>
 
-      {bmi && (
-        <div
-          className={`p-5 rounded-2xl flex items-start gap-4 border ${
-            eligible
-              ? "bg-emerald-50 border-emerald-100/50"
-              : "bg-amber-50 border-amber-100/50"
-          }`}
-        >
-          <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
-              eligible ? "bg-emerald-500" : "bg-amber-500"
-            }`}
-          >
-            <AppIcon
-              name={eligible ? "check" : "info"}
-              className="text-white"
-            />
-          </div>
-          <div>
-            <p className="font-semibold text-[#1c1a24]">
-              {eligible ? "You may be eligible!" : "You may not qualify yet"}
-            </p>
-            <p className="text-sm text-[#484555]">
-              {eligible
-                ? "Based on your BMI, you may be a candidate for GLP-1 treatment."
-                : "A BMI of 25+ is typically required. Please verify your details."}
-            </p>
-          </div>
-        </div>
-      )}
-
-      <ContinueButton
-        onClick={() => {
-          if (eligible) {
-            setShowResults(true);
-          } else {
-            onNext();
-          }
-        }}
-        disabled={!v.feet || !v.inches || !v.weight || !eligible}
-        label="Show My Results"
-      />
+      <div className="pt-2">
+        <ContinueButton
+          onClick={() => onNext()}
+          disabled={!v.feet || !v.inches || !v.weight || !eligible}
+          label="Continue"
+        />
+        <p className="mt-3 text-center font-body text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-[#b0acbe]">
+          Safe and Secure Clinical Intake
+        </p>
+      </div>
+      <div className="mt-4 rounded-xl border border-[#d7d1e4] bg-[#f8f7fc] px-4 py-3">
+        <p className="font-body text-[0.8125rem] text-[#6b6480] leading-relaxed">
+          By clicking, you provide HIPAA authorization for our partnered
+          providers and pharmacies to use your health data for treatment and
+          marketing via email.
+        </p>
+      </div>
     </div>
   );
 }
@@ -1635,154 +1582,254 @@ function PlanSelectionStep({
   checkoutPricingMode,
 }) {
   const plans = step.config?.plans || [];
-  const showsPayOverTime =
-    normalizeCheckoutPricingMode(checkoutPricingMode) === "ALL_AT_ONCE";
+
+  function handleSelect(planId) {
+    onChange(planId);
+    onNext();
+  }
+
+  const featured = plans.find((p) => resolveDurationMonths(p) === 12);
+  const secondary = plans.filter((p) => {
+    const m = resolveDurationMonths(p);
+    return m !== 12 && m !== 6;
+  });
+
+  const nonFeaturedBadge = (months) => {
+    if (months === 3) return "Flexible commitment";
+    if (months === 1) return "No commitment";
+    return "Flexible";
+  };
+
+  const nonFeaturedSubtitle = (months) => {
+    if (months === 3) return "Shorter commitment, same medication";
+    if (months === 1) return "Cancel or pause anytime";
+    return "";
+  };
+
+  const nonFeaturedBtnLabel = (plan, months) => {
+    if (months === 3) return "Choose 3-Month Plan";
+    if (months === 1) return "Choose Monthly Plan";
+    return `Choose ${plan.name}`;
+  };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
+      {/* Header */}
       <div className="text-center space-y-2">
-        <h1 className="font-headline text-2xl font-bold text-[#1c1a24]">
+        <h1 className="font-headline text-[1.85rem] font-extrabold leading-tight text-[#1c1a24]">
           Choose your treatment plan
         </h1>
-        {step.subtitle && (
-          <p className="text-sm text-[#484555]">{step.subtitle}</p>
-        )}
+        <p className="text-sm text-[#797587]">
+          All plans include provider consultation, medication, and ongoing
+          support.
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 pt-1">
+          {[
+            "FDA-inspected facility",
+            "Licensed US providers",
+            "HIPAA compliant",
+          ].map((t) => (
+            <span
+              key={t}
+              className="flex items-center gap-1.5 text-[11px] font-medium text-[#797587]"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-[#5b3cdd]" />
+              {t}
+            </span>
+          ))}
+        </div>
       </div>
 
-      <div className="space-y-4">
-        {plans.map((plan) => {
-          const durationMonths = resolveDurationMonths(plan);
-          const isSelected = value === plan.id;
-          const perDayAmount = resolvePerDayAmount(plan);
-          const borderClass =
-            durationMonths === 12
-              ? isSelected
-                ? "border-[#5b3cdd]"
-                : "border-[#6d6ffc]"
-              : durationMonths === 6
-                ? isSelected
-                  ? "border-[#6855e8]"
-                  : "border-[#b1a5f8]"
-                : durationMonths === 3
-                  ? isSelected
-                    ? "border-[#7e62ef]"
-                    : "border-[#d7cdfc]"
-                  : isSelected
-                    ? "border-[#7f7a90]"
-                    : "border-[#d9d4e7]";
-          const badgeText =
-            durationMonths === 12
-              ? "Best Value"
-              : durationMonths === 6
-                ? "Great Value"
-                : durationMonths === 3
-                  ? "Most Popular"
-                  : null;
-          const subcopy =
-            durationMonths === 12
-              ? "96.8% Reach Their Target Weight"
-              : durationMonths === 6
-                ? "Steady progress with consistent 6-month commitment."
-                : durationMonths === 3
-                  ? "Our most popular choice for consistent results."
-                  : "Flexible monthly access.";
-
+      {/* Featured 12-month plan */}
+      {featured &&
+        (() => {
+          const perDayAmount = resolvePerDayAmount(featured);
+          const features = featured.features || [
+            "1:1 provider consultations",
+            "Medication included",
+            "Free shipping every month",
+          ];
           return (
-            <button
-              key={plan.id}
-              onClick={() => onChange(plan.id)}
-              className={`w-full rounded-[1.85rem] border-2 bg-white p-5 text-left transition-all hover:scale-[1.01] ${borderClass} ${
-                isSelected ? "bg-[#fdf8ff] shadow-md" : ""
-              }`}
-            >
-              {badgeText ? (
-                <div className="mb-3 flex items-center justify-between gap-3">
-                  <span className="rounded-full bg-[#f3efff] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#5b3cdd]">
-                    {badgeText}
-                  </span>
-                  {durationMonths === 12 ? (
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5b3cdd]">
-                      Doctor Recommended
-                    </span>
-                  ) : durationMonths === 6 ? (
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#6855e8]">
-                      Clinician Approved
-                    </span>
-                  ) : durationMonths === 3 ? (
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#6d6ffc]">
-                      Patient Choice
-                    </span>
-                  ) : null}
-                </div>
-              ) : null}
-
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="font-headline text-xl font-bold text-[#1c1a24]">
-                    {plan.name}
-                  </h3>
-                  <p className="mt-2 text-sm font-medium text-[#484555]">
-                    {subcopy}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <span className="block text-xl font-extrabold text-[#1c1a24]">
-                    {plan.firstMonth} First Month
-                  </span>
-                  {plan.thenPrice ? (
-                    <span className="mt-1 block text-sm font-semibold text-[#1c1a24]">
-                      then {String(plan.thenPrice).replace(/\s*after/i, "")}
-                    </span>
-                  ) : null}
-                  {perDayAmount ? (
-                    <span className="mt-2 block text-base font-extrabold text-[#2f6df6]">
-                      Just ${perDayAmount.toFixed(2)} / day
-                    </span>
-                  ) : null}
-                </div>
+            <div className="overflow-hidden rounded-[1.75rem] border-2 border-[#5b3cdd] shadow-[0_8px_32px_rgba(91,60,221,0.18)]">
+              {/* Purple header strip */}
+              <div className="flex items-center justify-between bg-[#5b3cdd] px-5 py-2.5">
+                <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/90">
+                  Most popular &middot; Doctor recommended
+                </span>
+                <span className="flex items-center gap-1 text-[11px] font-bold text-white">
+                  <svg
+                    viewBox="0 0 16 16"
+                    className="h-3 w-3 fill-white"
+                    aria-hidden="true"
+                  >
+                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                  </svg>
+                  Best value
+                </span>
               </div>
 
-              {plan.features && (
-                <div className="mt-4 space-y-2">
-                  {plan.features.slice(0, 3).map((feature, index) => (
-                    <p
-                      key={index}
-                      className="flex items-center gap-2 text-sm text-[#484555]"
-                    >
-                      <AppIcon
-                        name="check_circle"
-                        className="text-[16px] text-[#5b3cdd]"
-                      />
-                      {feature}
+              {/* Card body */}
+              <div className="space-y-3 bg-white px-5 pb-5 pt-4">
+                {/* Name + Price */}
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <h3 className="font-headline text-[1.15rem] font-extrabold leading-snug text-[#1c1a24]">
+                      12-Month Transformation Plan
+                    </h3>
+                    <p className="mt-0.5 text-[13px] text-[#797587]">
+                      Best results come with consistency
                     </p>
+                  </div>
+                  <div className="shrink-0 text-right">
+                    <p className="text-[11px] font-semibold text-[#797587]">
+                      $35 first month
+                    </p>
+                    {perDayAmount ? (
+                      <p className="font-headline text-[1.75rem] font-extrabold leading-none text-[#5b3cdd]">
+                        ${perDayAmount.toFixed(2)}
+                        <span className="text-sm font-semibold">/day</span>
+                      </p>
+                    ) : (
+                      <p className="font-headline text-[1.35rem] font-extrabold leading-none text-[#5b3cdd]">
+                        {featured.firstMonth}
+                        <span className="text-sm font-semibold">/mo</span>
+                      </p>
+                    )}
+                    <p className="text-[11px] font-medium text-[#797587]">
+                      then $35/mo &middot; lowest rate
+                    </p>
+                  </div>
+                </div>
+
+                {/* Green highlight row */}
+                <div className="flex items-center gap-2 rounded-xl border border-[#bbf7d0] bg-[#f0fdf4] px-4 py-2.5">
+                  <svg
+                    viewBox="0 0 20 20"
+                    className="h-4 w-4 shrink-0 text-emerald-500"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <p className="text-[12px] font-semibold text-emerald-700">
+                    Highest success rate &middot; Lock in the lowest rate
+                  </p>
+                </div>
+
+                {/* Star highlight row */}
+                <div className="flex items-center gap-2 rounded-xl bg-[#f3efff] px-4 py-2.5">
+                  <svg
+                    viewBox="0 0 20 20"
+                    className="h-4 w-4 shrink-0 text-[#5b3cdd]"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  <p className="text-[12px] font-semibold text-[#5b3cdd]">
+                    96.8% of members reach their target weight
+                  </p>
+                </div>
+
+                {/* Features */}
+                <div className="space-y-0 divide-y divide-[#f0ecfc]">
+                  {features.slice(0, 3).map((f) => (
+                    <div key={f} className="flex items-center gap-2.5 py-2.5">
+                      <svg
+                        viewBox="0 0 20 20"
+                        className="h-4 w-4 shrink-0 text-[#5b3cdd]"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span className="text-[13px] text-[#484555]">{f}</span>
+                    </div>
                   ))}
                 </div>
-              )}
-            </button>
-          );
-        })}
-      </div>
 
-      <ContinueButton
-        onClick={onNext}
-        disabled={!value}
-        label="Select Plan"
-        footnote={
-          <div className="space-y-3 text-center">
-            {showsPayOverTime ? (
-              <p className="inline-flex items-center justify-center gap-2 text-sm font-medium text-[#484555]">
-                <span>Pay over time with</span>
-                <KlarnaBadge className="h-7 w-7 text-[0.82rem]" />
-                <AfterpayBadge className="h-7 w-7" />
-              </p>
-            ) : null}
-            <p className="text-sm text-[#6e697b]">
-              Flexible care. Adjust, pause, or cancel your plan at any time
-              through your patient portal.
-            </p>
+                {/* CTA */}
+                <button
+                  type="button"
+                  onClick={() => handleSelect(featured.id)}
+                  className="hs-solid-btn w-full rounded-full py-3.5 font-headline text-base font-bold text-white"
+                >
+                  Get started
+                </button>
+              </div>
+            </div>
+          );
+        })()}
+
+      {/* Secondary plans */}
+      {secondary.map((plan) => {
+        const months = resolveDurationMonths(plan);
+        return (
+          <div
+            key={plan.id}
+            className="space-y-3 rounded-[1.5rem] border border-[#d9d4e7] bg-white px-5 pb-5 pt-4"
+          >
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <span className="rounded-full bg-[#f3efff] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[#5b3cdd]">
+                  {nonFeaturedBadge(months)}
+                </span>
+                <h3 className="mt-2 font-headline text-[1.05rem] font-extrabold text-[#1c1a24]">
+                  {plan.name}
+                </h3>
+                <p className="text-[12px] text-[#797587]">
+                  {nonFeaturedSubtitle(months)}
+                </p>
+              </div>
+              <div className="shrink-0 text-right">
+                <p className="font-headline text-[1.25rem] font-extrabold text-[#1c1a24]">
+                  $35
+                  <span className="text-sm font-semibold text-[#797587]">
+                    /mo
+                  </span>
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => handleSelect(plan.id)}
+              className="w-full rounded-full border border-[#d9d4e7] py-3 font-headline text-sm font-semibold text-[#484555] transition-colors hover:border-[#5b3cdd] hover:bg-[#f8f6ff] hover:text-[#5b3cdd]"
+            >
+              {nonFeaturedBtnLabel(plan, months)}
+            </button>
           </div>
-        }
-      />
+        );
+      })}
+
+      {/* Bottom trust row */}
+      <div className="space-y-2 pt-1 text-center">
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+          {[
+            { icon: "○", label: "No hidden fees" },
+            { icon: "⏱", label: "Ships within 48hrs" },
+            { icon: "✦", label: "HSA/FSA eligible" },
+          ].map(({ icon, label }) => (
+            <span
+              key={label}
+              className="flex items-center gap-1 text-[11px] font-medium text-[#797587]"
+            >
+              <span className="text-[10px]">{icon}</span>
+              {label}
+            </span>
+          ))}
+        </div>
+        <p className="text-[10px] text-[#b0acbe]">
+          Licensed US providers &middot; HIPAA compliant &middot; Cancel anytime
+        </p>
+      </div>
     </div>
   );
 }
@@ -1877,7 +1924,6 @@ function CheckoutStep({
   const [loading, setLoading] = useState(true);
   const [publishableKey, setPublishableKey] = useState("");
   const [requiresAuth, setRequiresAuth] = useState(false);
-  const [customerPricingMode, setCustomerPricingMode] = useState(null);
   const stripePromise = React.useMemo(
     () => getStripePromise(publishableKey),
     [publishableKey],
@@ -1908,20 +1954,12 @@ function CheckoutStep({
   const durationMonths = pricingState.durationMonths;
   const allowsBnpl = pricingState.allowsBnpl;
 
-  // ── Customer payment preference (overrides template default) ──────────────
-  const effectivePricingMode = customerPricingMode ?? pricingState.pricingMode;
+  // ── Payment mode is set by admin funnel settings (not user-selectable) ──────
+  const effectivePricingMode = pricingState.pricingMode;
   const effectiveDueTodayAmount =
     effectivePricingMode === "ALL_AT_ONCE" ? totalAmount : 0;
   const effectiveAllowsBnpl =
     effectivePricingMode === "ALL_AT_ONCE" && allowsBnpl;
-
-  const handlePricingModeChange = (newMode) => {
-    if (newMode === effectivePricingMode) return;
-    setCustomerPricingMode(newMode);
-    setClientSecret(null);
-    setLoading(true);
-    setInitError("");
-  };
   const selectedMedicationLabel =
     checkoutSelection.selectedMedication?.name ||
     step.config?.summary?.medicationLabel ||
@@ -1989,7 +2027,7 @@ function CheckoutStep({
             templateId,
             medicationId: checkoutSelection.medicationId,
             planId: checkoutSelection.planId,
-            preferredPricingMode: customerPricingMode ?? undefined,
+            preferredPricingMode: pricingState.pricingMode,
           }),
         });
         const json = await res.json();
@@ -2020,7 +2058,7 @@ function CheckoutStep({
   }, [
     checkoutSelection.medicationId,
     checkoutSelection.planId,
-    customerPricingMode,
+    pricingState.pricingMode,
     onRequireAccount,
     templateId,
   ]);
@@ -2122,82 +2160,6 @@ function CheckoutStep({
         <h1 className="font-headline text-2xl font-extrabold leading-tight text-[#1c1a24] md:text-3xl">
           {step.config?.checkoutHeadline || "Start Your Transformation Today"}
         </h1>
-      </div>
-
-      {/* ── Pay Now / Pay Later selector ──────────────────────────────── */}
-      <div className="overflow-hidden rounded-[1.4rem] border border-[#d9d4e7] bg-white shadow-[0_12px_32px_rgba(28,26,36,0.06)]">
-        <div className="bg-[#474fd7] px-5 py-3 text-center text-sm font-semibold text-white md:px-8">
-          Choose your payment preference
-        </div>
-        <div className="grid grid-cols-2 gap-3 p-4 md:p-5">
-          {/* Pay Now */}
-          <button
-            type="button"
-            onClick={() => handlePricingModeChange("ALL_AT_ONCE")}
-            className={`rounded-[1rem] border-2 p-4 text-left transition-all ${
-              effectivePricingMode === "ALL_AT_ONCE"
-                ? "border-[#5b3cdd] bg-[#eef1ff]"
-                : "border-[#d9d4e7] bg-[#faf9fd] hover:border-[#a09cbb]"
-            }`}
-          >
-            <div className="mb-1.5 flex items-center gap-2">
-              <div
-                className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-all ${
-                  effectivePricingMode === "ALL_AT_ONCE"
-                    ? "border-[#5b3cdd] bg-[#5b3cdd]"
-                    : "border-[#c9c4d8]"
-                }`}
-              >
-                {effectivePricingMode === "ALL_AT_ONCE" && (
-                  <AppIcon name="check" className="text-[10px] text-white" />
-                )}
-              </div>
-              <span className="text-sm font-bold text-[#1c1a24]">
-                Pay in full today
-              </span>
-            </div>
-            <p className="font-headline text-xl font-bold text-[#5b3cdd]">
-              {formatCheckoutCurrency(totalAmount)}
-            </p>
-            <p className="mt-0.5 text-xs text-[#797587]">
-              Charged when you submit
-            </p>
-          </button>
-
-          {/* Pay Later */}
-          <button
-            type="button"
-            onClick={() => handlePricingModeChange("UPFRONT_ZERO")}
-            className={`rounded-[1rem] border-2 p-4 text-left transition-all ${
-              effectivePricingMode === "UPFRONT_ZERO"
-                ? "border-[#5b3cdd] bg-[#eef1ff]"
-                : "border-[#d9d4e7] bg-[#faf9fd] hover:border-[#a09cbb]"
-            }`}
-          >
-            <div className="mb-1.5 flex items-center gap-2">
-              <div
-                className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-all ${
-                  effectivePricingMode === "UPFRONT_ZERO"
-                    ? "border-[#5b3cdd] bg-[#5b3cdd]"
-                    : "border-[#c9c4d8]"
-                }`}
-              >
-                {effectivePricingMode === "UPFRONT_ZERO" && (
-                  <AppIcon name="check" className="text-[10px] text-white" />
-                )}
-              </div>
-              <span className="text-sm font-bold text-[#1c1a24]">
-                Pay after approval
-              </span>
-            </div>
-            <p className="font-headline text-xl font-bold text-emerald-600">
-              $0 today
-            </p>
-            <p className="mt-0.5 text-xs text-[#797587]">
-              Charged only after your provider approves
-            </p>
-          </button>
-        </div>
       </div>
 
       <div className="overflow-hidden rounded-[1.4rem] border border-[#d9d4e7] bg-white shadow-[0_12px_32px_rgba(28,26,36,0.06)]">
@@ -2806,6 +2768,12 @@ function Glp1PlanIntroStep({ answers, steps, onNext }) {
   const primaryGoal = resolvePrimaryGoalCopy(
     getAnswerByStepType(answers, steps, "QUESTION_SINGLE"),
   );
+
+  useEffect(() => {
+    const t = setTimeout(() => onNext(), 3000);
+    return () => clearTimeout(t);
+  }, [onNext]);
+
   const journeySteps = [
     {
       title: "Quick health profile",
@@ -2860,7 +2828,7 @@ function Glp1PlanIntroStep({ answers, steps, onNext }) {
           <div key={journeyStep.title} className="relative">
             {/* Dot */}
             <span
-              className={`absolute -left-6 top-4 h-3 w-3 rounded-full border-2 ${
+              className={`absolute -left-6 top-1/2 -translate-y-1/2 h-3 w-3 rounded-full border-2 ${
                 journeyStep.active
                   ? "border-emerald-400 bg-emerald-400"
                   : "border-[#c9c4d8] bg-white"
@@ -2892,32 +2860,30 @@ function Glp1PlanIntroStep({ answers, steps, onNext }) {
         ))}
       </div>
 
-      <ContinueButton onClick={onNext} hideDefaultCaption label="Continue" />
+      {/* Auto-progress bar */}
+      <div
+        className="mt-6 overflow-hidden rounded-full bg-[#ebe6f3]"
+        style={{ height: "4px" }}
+      >
+        <motion.div
+          className="h-full rounded-full bg-[#5b3cdd]"
+          initial={{ width: "0%" }}
+          animate={{ width: "100%" }}
+          transition={{ duration: 3, ease: "linear" }}
+        />
+      </div>
+      <button
+        type="button"
+        onClick={onNext}
+        className="mt-4 w-full rounded-full bg-[#5b3cdd] py-4 font-headline text-base font-bold text-white transition-opacity hover:opacity-90"
+      >
+        Continue
+      </button>
     </div>
   );
 }
 
 function TransformationResultsCard({ outcome, onNext }) {
-  const now = new Date();
-  const oneYearLater = new Date(now);
-  oneYearLater.setFullYear(oneYearLater.getFullYear() + 1);
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  const startLabel = `${monthNames[now.getMonth()]} ${now.getFullYear()}`;
-  const endLabel = `${monthNames[oneYearLater.getMonth()]} ${oneYearLater.getFullYear()}`;
-
   const current = outcome.currentWeight || 200;
   const projectedLoss = outcome.projectedLoss || Math.round(current * 0.2);
   const target = outcome.targetWeight || current - projectedLoss;
@@ -2925,123 +2891,152 @@ function TransformationResultsCard({ outcome, onNext }) {
   const effectiveLoss = current - target;
   const milestones = [
     {
-      label: "3 MO",
+      label: "3 Months",
       loss: Math.round(effectiveLoss * 0.25),
       weight: current - Math.round(effectiveLoss * 0.25),
     },
     {
-      label: "6 MO",
+      label: "6 Months",
       loss: Math.round(effectiveLoss * 0.5),
       weight: current - Math.round(effectiveLoss * 0.5),
     },
     {
-      label: "9 MO",
+      label: "9 Months",
       loss: Math.round(effectiveLoss * 0.75),
       weight: current - Math.round(effectiveLoss * 0.75),
     },
-    { label: "1 YR", loss: effectiveLoss, weight: target },
+    { label: "1 Year", loss: effectiveLoss, weight: target },
   ];
 
-  const pct = Math.round((effectiveLoss / current) * 100);
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.93 },
+    visible: (i) => ({
+      opacity: 1,
+      scale: 1,
+      transition: { delay: i * 0.1, duration: 0.4, ease: "easeOut" },
+    }),
+  };
 
   return (
-    <div className="w-full space-y-5">
-      {/* Qualified badge */}
+    <motion.div
+      className="w-full space-y-5"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
+      {/* Eligible badge */}
       <div className="flex items-center justify-center gap-2">
         <span className="h-2 w-2 rounded-full bg-emerald-500" />
-        <span className="font-body text-[11px] font-bold tracking-[0.18em] text-emerald-600 uppercase">
-          Qualified for Treatment
+        <span className="font-body text-[11px] font-bold tracking-[0.16em] text-emerald-600 uppercase">
+          Currently Eligible for Treatment
         </span>
       </div>
 
       {/* Title */}
       <div className="text-center">
         <h2 className="font-headline text-[1.75rem] font-extrabold leading-tight text-[#1c1a24] md:text-[2.1rem]">
-          Your Transformation
+          Your Personal Transformation
         </h2>
         <p className="mt-1 font-body text-sm text-[#797587]">
-          Personalized GLP-1 Protocol&nbsp;•&nbsp;Projected Results
+          GLP-1 Plan&nbsp;•&nbsp;Projected Results
         </p>
       </div>
 
-      {/* Date range */}
-      <div className="flex items-center justify-between font-body text-[11px] font-medium text-[#797587]">
-        <span>{startLabel}</span>
-        <span>{endLabel}</span>
-      </div>
-
       {/* Current weight card */}
-      <div className="rounded-[1.25rem] border border-[#d9d4e7] bg-white px-5 py-4 shadow-[0_4px_16px_rgba(28,26,36,0.06)]">
+      <motion.div
+        custom={0}
+        variants={cardVariants}
+        initial="hidden"
+        animate="visible"
+        className="rounded-[1.25rem] border border-[#d9d4e7] bg-white px-5 py-4 shadow-[0_4px_16px_rgba(28,26,36,0.06)]"
+      >
         <p className="mb-1 font-body text-[10px] font-bold tracking-[0.16em] text-[#797587] uppercase">
-          Current
+          Current Weight
         </p>
         <div className="flex items-center justify-between gap-3">
           <p className="font-headline text-4xl font-extrabold text-[#1c1a24]">
             {current}{" "}
             <span className="text-xl font-semibold text-[#797587]">lbs</span>
           </p>
-          <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1.5 text-sm font-bold text-emerald-700 ring-1 ring-emerald-200">
-            <svg
-              className="h-3.5 w-3.5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path d="M5 10l5 5 5-5H5z" />
-            </svg>
-            {effectiveLoss} lbs lost
+          <div className="flex items-center gap-1.5 rounded-full bg-emerald-500 px-3 py-1.5 text-sm font-bold text-white">
+            {effectiveLoss} lost
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Progress bar */}
-      <div
-        className="flex items-center justify-between rounded-[1rem] px-4 py-3"
-        style={{ background: "linear-gradient(90deg,#5b3cdd,#7459f7,#06b6d4)" }}
+      {/* Progress bar with timeline markers */}
+      <motion.div
+        custom={1}
+        variants={cardVariants}
+        initial="hidden"
+        animate="visible"
+        className="overflow-hidden rounded-[1rem] px-4 py-3 space-y-2"
+        style={{
+          background:
+            "linear-gradient(90deg,#5b3cdd 0%,#7c5fe6 40%,#06b6d4 100%)",
+        }}
       >
-        <span className="font-body text-sm font-bold text-white">
-          {current} lbs
-        </span>
-        <div className="flex items-center gap-1.5 rounded-full bg-white/25 px-3 py-1 font-body text-xs font-bold text-white backdrop-blur-sm">
-          <svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-          {target} lbs
+        <div className="flex items-center justify-between">
+          <span className="bg-white text-[#1c1a24] text-[11px] font-bold px-2.5 py-1 rounded-lg">
+            {current} lbs
+          </span>
+          <span className="bg-white text-[#1c1a24] text-[11px] font-bold px-2.5 py-1 rounded-lg">
+            {target} lbs
+          </span>
         </div>
-      </div>
+        {/* Animated progress fill */}
+        <div className="relative h-1.5 w-full rounded-full bg-white/20">
+          <motion.div
+            className="absolute left-0 top-0 h-full rounded-full bg-white/70"
+            initial={{ width: "0%" }}
+            animate={{ width: "100%" }}
+            transition={{ duration: 1.4, ease: "easeInOut", delay: 0.4 }}
+          />
+        </div>
+        <div className="flex items-center justify-between px-0.5">
+          <span className="font-body text-[10px] font-bold text-white/80 uppercase">
+            Start
+          </span>
+          <span className="font-body text-[10px] font-bold text-white/80">
+            M3
+          </span>
+          <span className="font-body text-[10px] font-bold text-white/80">
+            M6
+          </span>
+          <span className="font-body text-[10px] font-bold text-white/80">
+            M9
+          </span>
+          <span className="font-body text-[10px] font-bold text-white/80 uppercase">
+            1 Year
+          </span>
+        </div>
+      </motion.div>
 
       {/* Milestone grid */}
       <div className="grid grid-cols-4 gap-2">
-        {milestones.map((m) => (
-          <div
+        {milestones.map((m, i) => (
+          <motion.div
             key={m.label}
+            custom={i + 2}
+            variants={cardVariants}
+            initial="hidden"
+            animate="visible"
             className="rounded-[1rem] border border-[#ebe6f3] bg-[#f6f2ff] px-2 py-3 text-center"
           >
-            <p className="font-body text-[10px] font-bold tracking-[0.14em] text-[#797587] uppercase">
+            <p className="font-body text-[10px] font-semibold text-[#797587]">
               {m.label}
             </p>
-            <p className="mt-1 font-headline text-[1.1rem] font-extrabold leading-tight text-[#1c1a24]">
-              {m.weight}
+            <p className="mt-1 font-headline text-[1rem] font-extrabold leading-tight text-[#5b3cdd]">
+              {m.weight}{" "}
+              <span className="text-[0.65rem] font-semibold text-[#797587]">
+                lbs
+              </span>
             </p>
-            <p className="font-body text-[10px] font-semibold text-emerald-600">
+            <p className="font-body text-[10px] font-semibold text-[#484555]">
               -{m.loss} lbs
             </p>
-          </div>
+          </motion.div>
         ))}
-      </div>
-
-      {/* 1-year result summary */}
-      <div className="rounded-[1.25rem] border border-emerald-200 bg-emerald-50 px-5 py-5 text-center">
-        <p className="mb-1 font-body text-[10px] font-bold tracking-[0.16em] text-emerald-600 uppercase">
-          Projected 1-Year Result
-        </p>
-        <p className="font-headline text-[2.4rem] font-extrabold leading-none text-[#1c1a24]">
-          {effectiveLoss}&nbsp;
-          <span className="text-[1.5rem]">lbs</span>{" "}
-          <span className="text-emerald-600">lost</span>
-        </p>
-        <p className="mt-1 font-body text-xs text-[#797587]">
-          {pct}% total body weight reduction
-        </p>
       </div>
 
       {/* CTA */}
@@ -3107,7 +3102,7 @@ function TransformationResultsCard({ outcome, onNext }) {
         *Results based on avg. weight loss with GLP-1 max dose + calorie
         protocol. Individual results vary.
       </p>
-    </div>
+    </motion.div>
   );
 }
 
@@ -3174,6 +3169,71 @@ function Glp1FinalizingPlanStep({ answers, steps, onNext }) {
   );
 }
 
+function useCountUp(target, duration = 1600) {
+  const [count, setCount] = useState(0);
+  const rafRef = useRef(null);
+  const startTimeRef = useRef(null);
+
+  useEffect(() => {
+    startTimeRef.current = null;
+    function tick(timestamp) {
+      if (!startTimeRef.current) startTimeRef.current = timestamp;
+      const elapsed = timestamp - startTimeRef.current;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(eased * target);
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(tick);
+      } else {
+        setCount(target);
+      }
+    }
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [target, duration]);
+
+  return count;
+}
+
+function StatCard({ stat, index }) {
+  const isPercent = stat.value.includes("%");
+  const rawNumber = parseFloat(stat.value.replace(/[^0-9.]/g, "")) || 0;
+  const counted = useCountUp(rawNumber, 1400 + index * 200);
+
+  let displayValue;
+  if (stat.value === "$0") {
+    displayValue = "$0";
+  } else if (isPercent) {
+    displayValue = `${counted.toFixed(rawNumber % 1 !== 0 ? 1 : 0)}%`;
+  } else {
+    displayValue = stat.value;
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.15, duration: 0.5, ease: "easeOut" }}
+      className="rounded-[1.5rem] border border-[#e2dced] bg-white px-6 py-5 shadow-[0_12px_28px_rgba(28,26,36,0.05)]"
+    >
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#5f5a6d]">
+            {stat.label}
+          </p>
+          <p className="mt-3 font-headline text-[3rem] font-extrabold leading-none text-[#1c1a24]">
+            {displayValue}
+          </p>
+          <p className="mt-3 max-w-xl text-base leading-relaxed text-[#5f5a6d]">
+            {stat.copy}
+          </p>
+        </div>
+        <AppIcon name={stat.icon} className="text-[1.6rem] text-[#9b97ab]" />
+      </div>
+    </motion.div>
+  );
+}
+
 function Glp1ProvenResultsStep({ onNext }) {
   const stats = [
     {
@@ -3191,7 +3251,7 @@ function Glp1ProvenResultsStep({ onNext }) {
     {
       label: "Risk-free",
       value: "$0",
-      copy: "If it doesn’t work for you, you’re covered by the HealSend warranty.",
+      copy: "If it doesn't work for you, you're covered by the HealSend warranty.",
       icon: "paid",
     },
   ];
@@ -3212,55 +3272,8 @@ function Glp1ProvenResultsStep({ onNext }) {
       </div>
 
       <div className="space-y-4">
-        {stats.map((stat) => (
-          <div
-            key={stat.label}
-            className="rounded-[1.5rem] border border-[#e2dced] bg-white px-6 py-5 shadow-[0_12px_28px_rgba(28,26,36,0.05)]"
-          >
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#5f5a6d]">
-                  {stat.label}
-                </p>
-                <p className="mt-3 font-headline text-[3rem] font-extrabold leading-none text-[#1c1a24]">
-                  {stat.value}
-                </p>
-                <p className="mt-3 max-w-xl text-base leading-relaxed text-[#5f5a6d]">
-                  {stat.copy}
-                </p>
-              </div>
-              <AppIcon
-                name={stat.icon}
-                className="text-[1.6rem] text-[#9b97ab]"
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <p className="text-sm leading-6 text-[#7a7488]">
-        Based on self-reported data from approximately 300,000 members on
-        personalized treatment plans, including compounded GLP-1 medications and
-        clinician consultations.
-      </p>
-
-      {/* ── Google Reviews ─────────────────────────────────────── */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2">
-          <GoogleGLogo className="h-5 w-5 shrink-0" />
-          <span className="text-sm font-semibold text-[#202124]">
-            Google Reviews
-          </span>
-          <div className="flex items-center gap-0.5">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <GoogleStarIcon key={i} filled />
-            ))}
-          </div>
-          <span className="text-sm font-bold text-[#202124]">4.9</span>
-          <span className="text-xs text-[#70757a]">5 stars</span>
-        </div>
-        {FUNNEL_GOOGLE_REVIEWS.map((review) => (
-          <GoogleReviewCard key={review.name} {...review} />
+        {stats.map((stat, i) => (
+          <StatCard key={stat.label} stat={stat} index={i} />
         ))}
       </div>
 
@@ -4106,15 +4119,6 @@ function StepRenderer({
       );
     case "GLP1_PROVEN_RESULTS":
       return <Glp1ProvenResultsStep onNext={() => onNext()} />;
-    case "GLP1_CONTACT_CAPTURE":
-      return (
-        <Glp1ContactCaptureStep
-          step={step}
-          value={value}
-          onChange={onChange}
-          onNext={() => onNext()}
-        />
-      );
     case "TEXT_ALERTS":
       return <TextAlertsStep step={step} onNext={(v) => onNext(v)} />;
     case "PLAN_SELECTION":

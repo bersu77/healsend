@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import AppIcon from "@/components/ui/AppIcon";
+import { useNotifications } from "@/lib/NotificationContext";
 import {
   DEFAULT_UPFRONT_ZERO_DELAY_DAYS,
   normalizeCheckoutPricingMode,
@@ -146,6 +147,7 @@ export default function OnboardingManagementPage() {
   const [showCreate, setShowCreate] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [pricingModeSavingId, setPricingModeSavingId] = useState(null);
+  const { notify } = useNotifications();
 
   const fetchData = async () => {
     setLoading(true);
@@ -171,11 +173,16 @@ export default function OnboardingManagementPage() {
   };
 
   const handleToggleActive = async (id, active) => {
-    await fetch(`/api/onboarding-templates/${id}`, {
+    const res = await fetch(`/api/onboarding-templates/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ active: !active }),
     });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      notify.error("Error", data?.error || "Failed to update template.");
+      return;
+    }
     setTemplates((prev) =>
       prev.map((t) => (t.id === id ? { ...t, active: !active } : t)),
     );
@@ -191,11 +198,17 @@ export default function OnboardingManagementPage() {
     setPricingModeSavingId(template.id);
 
     try {
-      await fetch(`/api/onboarding-templates/${template.id}`, {
+      const res = await fetch(`/api/onboarding-templates/${template.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ styling }),
       });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        notify.error("Error", data?.error || "Failed to save pricing mode.");
+        return;
+      }
 
       setTemplates((prev) =>
         prev.map((item) =>

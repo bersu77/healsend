@@ -864,6 +864,38 @@ function mergeBlogCarouselContent(section) {
   };
 }
 
+function mergeHomeBannersContent(banners) {
+  if (!Array.isArray(banners) || banners.length === 0) {
+    return defaultHomeBanners;
+  }
+
+  return defaultHomeBanners.map((defaultBanner, index) => {
+    const sourceBanner = banners[index];
+    if (!sourceBanner || typeof sourceBanner !== "object") {
+      return defaultBanner;
+    }
+
+    return {
+      ...defaultBanner,
+      ...sourceBanner,
+      backgroundImage:
+        normalizeHomepageManagedImage(
+          sourceBanner.backgroundImage,
+          defaultBanner.backgroundImage || null,
+        ) ||
+        defaultBanner.backgroundImage ||
+        undefined,
+      image:
+        normalizeHomepageManagedImage(
+          sourceBanner.image,
+          defaultBanner.image || null,
+        ) ||
+        defaultBanner.image ||
+        undefined,
+    };
+  });
+}
+
 function mergeSplitFeaturesContent(section) {
   const source = section && typeof section === "object" ? section : {};
   const defaultCards = defaultSplitFeatures.cards || [];
@@ -2253,7 +2285,7 @@ export default function MarketingHomePage({
   const activeHero = mergeHeroContent(hero);
   const activeEligibilitySection = eligibilitySection;
   const _activeCareJourneySection = careJourneySection;
-  const activeBanners = banners;
+  const activeBanners = mergeHomeBannersContent(banners);
   const activeSplitFeatures = mergeSplitFeaturesContent(splitFeatures);
   const activeArticleCarousel = mergeArticleCarouselContent(articleCarousel);
   const activeCategoryGrid = mergeCategoryGridContent(categoryGrid);

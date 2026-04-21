@@ -27,20 +27,26 @@ export default function StepBMI({ feet, inches, weight, onChange, onNext }) {
   };
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       <div className="text-center md:text-left">
         <h1 className="font-headline text-2xl md:text-3xl font-extrabold tracking-tight text-[#1c1a24] mb-3">
-          Check your eligibility
+          Let&apos;s check your BMI
         </h1>
         <p className="font-body text-[#484555] text-base leading-relaxed">
-          Please enter your physical details to calculate your Body Mass Index
-          (BMI).
+          We need your height and weight to determine eligibility.
         </p>
+        <div className="mt-4 rounded-xl border border-[#d7d1e4] bg-[#f8f7fc] px-4 py-3">
+          <p className="font-body text-[0.8125rem] text-[#6b6480] leading-relaxed">
+            By clicking, you provide HIPAA authorization for our partnered
+            providers and pharmacies to use your health data for treatment and
+            marketing via email.
+          </p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
         {/* Form Inputs */}
-        <div className="md:col-span-7 space-y-6">
+        <div className="md:col-span-7 space-y-5">
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-2">
               <label className="font-body text-[0.6875rem] uppercase tracking-wider text-[#484555] font-semibold">
@@ -83,16 +89,16 @@ export default function StepBMI({ feet, inches, weight, onChange, onNext }) {
 
         {/* BMI Ring Display */}
         <div className="md:col-span-5 flex flex-col items-center justify-center">
-          <div className="relative w-44 h-44 md:w-52 md:h-52 flex items-center justify-center">
-            <div className="absolute inset-0 rounded-full border-4 border-[#c9c4d8]/10" />
+          <div className="relative w-40 h-40 md:w-48 md:h-48 flex items-center justify-center">
+            <div className="absolute inset-0 rounded-full border-4 border-[#c9c4d8]/20" />
             <div
               className={`absolute inset-0 rounded-full border-[6px] transition-all duration-500 ${getBmiColor()}`}
             />
-            <div className="bg-white shadow-[0_32px_64px_-12px_rgba(28,26,36,0.04)] rounded-full w-[85%] h-[85%] flex flex-col items-center justify-center text-center">
-              <span className="font-headline text-4xl md:text-5xl font-extrabold text-[#1c1a24] tracking-tighter">
+            <div className="bg-white shadow-sm rounded-full w-[85%] h-[85%] flex flex-col items-center justify-center text-center">
+              <span className="font-headline text-3xl md:text-4xl font-extrabold text-[#1c1a24] tracking-tighter">
                 {bmi ?? "—"}
               </span>
-              <span className="font-body text-[0.6875rem] uppercase tracking-widest text-[#484555] mt-1">
+              <span className="font-body text-[0.625rem] uppercase tracking-widest text-[#797587] mt-1">
                 Your BMI
               </span>
             </div>
@@ -100,58 +106,17 @@ export default function StepBMI({ feet, inches, weight, onChange, onNext }) {
         </div>
       </div>
 
-      {/* Eligibility Banner */}
-      {bmi && (
-        <div
-          className={`p-5 rounded-2xl flex items-start gap-4 border ${
-            eligible
-              ? "bg-emerald-50 border-emerald-100/50"
-              : "bg-amber-50 border-amber-100/50"
-          }`}
-        >
-          <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
-              eligible ? "bg-emerald-500" : "bg-amber-500"
-            }`}
-          >
-            <AppIcon
-              name={eligible ? "check" : "info"}
-              className="text-white"
-            />
-          </div>
-          <div>
-            <p
-              className={`font-body font-semibold leading-snug ${
-                eligible ? "text-emerald-900" : "text-amber-900"
-              }`}
-            >
-              {eligible
-                ? "Based on your BMI, you are eligible for our treatment program."
-                : "Your BMI is below 25. You may not qualify for GLP-1 treatment, but our team can help with other options."}
-            </p>
-            <p
-              className={`font-body text-sm mt-1 ${
-                eligible ? "text-emerald-700/80" : "text-amber-700/80"
-              }`}
-            >
-              Our clinical team will review your data to confirm the best path
-              forward.
-            </p>
-          </div>
-        </div>
-      )}
-
-      <div className="pt-4">
+      <div className="pt-2">
         <button
           onClick={onNext}
           disabled={!hasValues || !eligible}
           className="w-full hs-gradient-btn py-4 px-8 rounded-xl font-headline text-lg font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          Next
+          Continue
           <AppIcon name="arrow_forward" />
         </button>
-        <p className="mt-3 text-center font-body text-xs text-[#484555]/60">
-          Secure &amp; HIPAA Compliant. Your data is encrypted.
+        <p className="mt-3 text-center font-body text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-[#b0acbe]">
+          Safe and Secure Clinical Intake
         </p>
       </div>
     </div>

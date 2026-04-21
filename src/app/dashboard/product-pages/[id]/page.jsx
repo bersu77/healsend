@@ -472,21 +472,19 @@ export default function ProductDetailContentEditorPage() {
             slug: product.slug,
             shortDescription: product.shortDescription || "",
             description: product.description || "",
-            price: Number(product.price || 0),
-            comparePrice: Number(product.comparePrice || 0),
+            regularPrice:
+              product.regularPrice != null
+                ? Number(product.regularPrice)
+                : null,
+            salePrice:
+              product.salePrice != null ? Number(product.salePrice) : null,
             stock: Number(product.stock || 0),
             sku: product.sku || "",
-            weight: Number(product.weight || 0),
             categoryId: product.categoryId,
-            image: product.image || "",
             images: Array.isArray(product.images) ? product.images : [],
-            isActive: Boolean(product.isActive),
-            requiresPrescription: Boolean(product.requiresPrescription),
-            telehealthFlowType: product.telehealthFlowType || "NONE",
-            telehealthActive: Boolean(product.telehealthActive),
-            telehealthProductType: product.telehealthProductType || null,
-            telehealthProviderId: product.telehealthProviderId || null,
-            telehealthIntakeFormId: product.telehealthIntakeFormId || null,
+            published: Boolean(product.published),
+            inStock:
+              product.inStock !== undefined ? Boolean(product.inStock) : true,
             attributes: nextAttributes,
           }),
         }),

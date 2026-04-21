@@ -59,20 +59,6 @@ export async function POST(request) {
     );
   }
 
-  if (!name || !name.trim()) {
-    return NextResponse.json(
-      { error: "First and last name are required" },
-      { status: 400 },
-    );
-  }
-
-  if (!phone || !phone.trim()) {
-    return NextResponse.json(
-      { error: "Phone number is required" },
-      { status: 400 },
-    );
-  }
-
   // Validate email format
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
@@ -111,8 +97,8 @@ export async function POST(request) {
     data: {
       email: email.toLowerCase().trim(),
       passwordHash,
-      name: name.trim(),
-      phone: phone.trim(),
+      name: name?.trim() || null,
+      phone: phone?.trim() || null,
       dateOfBirth: parsedDob,
       role: "CUSTOMER",
     },

@@ -974,7 +974,9 @@ export function MarketingNavbar() {
           onMouseLeave={scheduleClose}
         >
           <div className="mx-auto max-w-[1340px] px-4 py-4 md:px-8">
-            <div className="grid overflow-hidden rounded-[1.55rem] md:grid-cols-[1.12fr_0.88fr]">
+            <div
+              className={`grid overflow-hidden rounded-[1.55rem] ${dropdownSection.promo ? "md:grid-cols-[1.12fr_0.88fr]" : ""}`}
+            >
               <div className="px-5 py-5">
                 <div
                   className={`${(dropdownSection.groups || []).length > 2 ? "grid grid-cols-2 gap-x-6 gap-y-5" : "space-y-5"}`}
@@ -1001,34 +1003,36 @@ export function MarketingNavbar() {
                 </div>
               </div>
 
-              <div className="border-t border-[#e8edf4] px-5 py-5 md:border-l md:border-t-0">
-                <Link
-                  href={dropdownSection.promo.href}
-                  className={`group relative block min-h-[22rem] overflow-hidden rounded-[1.35rem] bg-gradient-to-br ${dropdownSection.promo.gradient} shadow-[0_14px_34px_rgba(15,23,42,0.08)]`}
-                >
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,14,24,0.08)_0%,rgba(10,14,24,0.2)_38%,rgba(10,14,24,0.58)_100%)]" />
-                  <Image
-                    src={dropdownSection.promo.image}
-                    alt={dropdownSection.promo.headline}
-                    fill
-                    sizes="(min-width: 768px) 28rem, 100vw"
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                  />
-                  <div className="relative flex min-h-[22rem] flex-col justify-end p-5 text-white">
-                    <div className="max-w-[15rem]">
-                      <h3 className="text-[1.55rem] font-semibold leading-[1.02] tracking-tight text-white">
-                        {dropdownSection.promo.headline}
-                      </h3>
-                      <div className="mt-5">
-                        <span className="hs-solid-btn inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-colors">
-                          <span>Explore now</span>
-                          <ArrowRight className="h-4 w-4" />
-                        </span>
+              {dropdownSection.promo && (
+                <div className="border-t border-[#e8edf4] px-5 py-5 md:border-l md:border-t-0">
+                  <Link
+                    href={dropdownSection.promo.href}
+                    className={`group relative block min-h-[22rem] overflow-hidden rounded-[1.35rem] bg-gradient-to-br ${dropdownSection.promo.gradient} shadow-[0_14px_34px_rgba(15,23,42,0.08)]`}
+                  >
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,14,24,0.08)_0%,rgba(10,14,24,0.2)_38%,rgba(10,14,24,0.58)_100%)]" />
+                    <Image
+                      src={dropdownSection.promo.image}
+                      alt={dropdownSection.promo.headline}
+                      fill
+                      sizes="(min-width: 768px) 28rem, 100vw"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    />
+                    <div className="relative flex min-h-[22rem] flex-col justify-end p-5 text-white">
+                      <div className="max-w-[15rem]">
+                        <h3 className="text-[1.55rem] font-semibold leading-[1.02] tracking-tight text-white">
+                          {dropdownSection.promo.headline}
+                        </h3>
+                        <div className="mt-5">
+                          <span className="hs-solid-btn inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-colors">
+                            <span>Explore now</span>
+                            <ArrowRight className="h-4 w-4" />
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              </div>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
