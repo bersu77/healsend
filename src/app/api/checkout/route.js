@@ -98,7 +98,9 @@ export async function POST(request) {
             : pricingSummary?.planName
               ? `${item.product.name} — ${pricingSummary.planName}`
               : item.product.name,
-          images: [getPublicCatalogPrimaryImage(item.product, "/logo.png")],
+          images: [getPublicCatalogPrimaryImage(item.product, "/logo.png")].filter(
+            (url) => typeof url === "string" && /^https?:\/\//.test(url),
+          ),
         },
         unit_amount: Math.round(price * 100),
       },
