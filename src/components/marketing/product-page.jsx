@@ -292,7 +292,7 @@ function WillpowerSection() {
               </h2>
               <p className="mt-4 max-w-[30rem] text-[1rem] leading-6 text-gray-800 lg:text-[1.05rem]">
                 Personalized GLP-1 treatment. Unlimited clinician-led care.
-                Delivered to your door. Guaranteed or it&apos;s free.
+                Delivered to your door. Guaranteed or it&apos;s free
               </p>
             </div>
 
