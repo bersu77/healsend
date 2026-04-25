@@ -1757,22 +1757,25 @@ function buildPricingTab(product) {
   variants.sort((left, right) => left.price - right.price);
   const subscriptionPlans = getProductSubscriptionPlans(product);
 
+  const normalizePlanName = (name) =>
+    /^\s*1[\s-]*month\s*plan\s*$/i.test(name || "") ? "Monthly" : name;
+
   const plans =
     variants.length > 0
       ? variants.map((variant) => ({
-          name: variant.name,
+          name: normalizePlanName(variant.name),
           firstMonthPrice: variant.price,
           regularPrice: variant.salePrice ?? variant.price,
         }))
       : subscriptionPlans.length > 0
         ? subscriptionPlans.map((plan) => ({
-            name: plan.name,
+            name: normalizePlanName(plan.name),
             firstMonthPrice: plan.firstMonthPrice,
             regularPrice: plan.thenPrice ?? plan.firstMonthPrice,
           }))
       : [
           {
-            name: "Monthly Plan",
+            name: "Monthly",
             firstMonthPrice: product.salePrice ?? product.regularPrice ?? 0,
             regularPrice: product.regularPrice ?? product.salePrice ?? 0,
           },

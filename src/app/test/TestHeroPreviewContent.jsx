@@ -1523,10 +1523,10 @@ function ProjectedLossCalculatorSection() {
                   <p className="mx-auto mt-4 max-w-[22rem] text-center text-[0.98rem] leading-7 text-[#4e5a73]">
                     Over{" "}
                     <span className="font-semibold text-[#141c2b]">
-                      250,000
+                      2,000
                     </span>{" "}
                     members treated.{" "}
-                    <span className="font-semibold text-[#141c2b]">94.6%</span>{" "}
+                    <span className="font-semibold text-[#141c2b]">96.8%</span>{" "}
                     success backed by real HealSend member progress nationwide.
                   </p>
                 </div>
@@ -1647,10 +1647,10 @@ function ProjectedLossCalculatorSection() {
               </div>
             </div>
             <p className="mx-auto mt-4 max-w-[22rem] text-[0.98rem] leading-7 text-[#4e5a73]">
-              Over <span className="font-semibold text-[#141c2b]">250,000</span>{" "}
+              Over <span className="font-semibold text-[#141c2b]">2,000</span>{" "}
               members treated.
-              <span className="font-semibold text-[#141c2b]"> 94.6%</span>{" "}
-              success backed by real HealSend results nationwide.
+              <span className="font-semibold text-[#141c2b]"> 96.8%</span>{" "}
+              success backed by real HealSend member progress nationwide.
             </p>
           </div>
           <div className="rounded-[1rem] bg-[#f5f7fb] p-6 text-center md:p-8">

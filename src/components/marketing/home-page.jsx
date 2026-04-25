@@ -2322,8 +2322,6 @@ export default function MarketingHomePage({
           <HeroCategories hero={activeHero} />
         </div>
 
-        <NegativeSellSection />
-
         {/* Keep these optional sections behind a flag so we can restore them quickly if needed. */}
         {showDeferredHomeSections ? (
           <EligibilitySection section={activeEligibilitySection} />

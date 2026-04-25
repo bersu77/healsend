@@ -12,12 +12,11 @@ import {
   Check,
   ChevronLeft,
   ChevronRight,
-  Clock3,
   Droplet,
   FlaskConical,
-  Flag,
   Hourglass,
   Minus,
+  PillBottle,
   Plus,
   PlusCircle,
   Rabbit,
@@ -109,92 +108,60 @@ const ICON_MAP = {
   Zap,
 };
 
-const WILLPOWER_LEFT_MARQUEE_ITEMS = [
-  {
-    src: "/images/marketing/bundle/weight-loss-lifestyle-1.png",
-    alt: "HealSend weight-loss member",
-    heightClass: "h-[218px]",
-    objectClass: "object-cover object-center",
-    bgClass: "bg-[#dcebff]",
-  },
-  {
-    src: "/weight-loss-image-menu.png",
-    alt: "GLP-1 treatment kit",
-    heightClass: "h-[198px]",
-    objectClass: "object-cover object-center",
-    bgClass: "bg-[#d7f0fb]",
-  },
-  {
-    src: "/images/home/reference/nad-cellular-energy.jpeg",
-    alt: "Microscopic wellness texture",
-    heightClass: "h-[236px]",
-    objectClass: "object-cover object-center",
-    bgClass: "bg-[#edf1ff]",
-  },
-  {
-    src: "/images/marketing/bundle/care-support-lifestyle.webp",
-    alt: "HealSend care-support member",
-    heightClass: "h-[214px]",
-    objectClass: "object-cover object-center",
-    bgClass: "bg-[#f5efe8]",
-  },
-  {
-    src: "/images/home/reference/split-feature-product.jpg",
-    alt: "Treatment options",
-    heightClass: "h-[228px]",
-    objectClass: "object-cover object-center",
-    bgClass: "bg-[#e8efff]",
-  },
+const SLIDER_HEIGHTS = [
+  "h-[218px]",
+  "h-[198px]",
+  "h-[236px]",
+  "h-[214px]",
+  "h-[228px]",
+  "h-[196px]",
 ];
+const SLIDER_BGS = [
+  "bg-[#dcebff]",
+  "bg-[#d7f0fb]",
+  "bg-[#edf1ff]",
+  "bg-[#f5efe8]",
+  "bg-[#e8efff]",
+  "bg-[#dbe8ff]",
+];
+
+const buildSliderItem = (filename, index) => ({
+  src: `/images/slider/${encodeURI(filename)}`,
+  alt: "HealSend member",
+  heightClass: SLIDER_HEIGHTS[index % SLIDER_HEIGHTS.length],
+  objectClass: "object-cover object-center",
+  bgClass: SLIDER_BGS[index % SLIDER_BGS.length],
+});
+
+const WILLPOWER_LEFT_MARQUEE_ITEMS = [
+  "240_F_554794353_4b7WK5XeFkemnF1o7RXL2WFt4ITps4jX.jpg",
+  "Box_2.png",
+  "Copy of 240_F_1859749441_tdF1skYaEk8hSO9lo4tAYXdwVvq7Km4c.jpg",
+  "Copy of 240_F_1861119733_Y7uOou4SbKCsL0DzOOy5RA0UASKblWIO.jpg",
+  "Copy of 240_F_255843378_E2xPB7yqctJZrRIgyeAj8HxXzg5N2mr6.jpg",
+  "Copy of Gemini_Generated_Image_ctnnloctnnloctnn.png",
+  "Copy of Gemini_Generated_Image_r1o81rr1o81rr1o8.png",
+  "Copy of Gemini_Generated_Image_schuohschuohschu.png",
+  "Copy of happyveganfit-remove-4559326 (1).jpg",
+  "Copy of look-studio-S0T98VD2KZs-unsplash.jpg",
+  "Copy of natali-hordiiuk-OIn0cEu0iQ0-unsplash.jpg",
+  "Copy of pexels-cottonbro-6941311.jpg",
+].map(buildSliderItem);
 
 const WILLPOWER_RIGHT_MARQUEE_ITEMS = [
-  {
-    src: "/application-step-1.png",
-    alt: "Online consultation flow",
-    heightClass: "h-[214px]",
-    objectClass: "object-cover object-center",
-    bgClass: "bg-[#dbe8ff]",
-  },
-  {
-    src: "/images/marketing/bundle/sermorelin-product.png",
-    alt: "HealSend recovery support vial",
-    heightClass: "h-[194px]",
-    objectClass: "object-contain object-center scale-[0.86]",
-    bgClass: "bg-[#f6e6bf]",
-  },
-  {
-    src: "/application-step-2.png",
-    alt: "Patient dashboard on mobile",
-    heightClass: "h-[214px]",
-    objectClass: "object-cover object-center",
-    bgClass: "bg-[#e7edf8]",
-  },
-  {
-    src: "/images/marketing/bundle/strength-lifestyle.jpg",
-    alt: "HealSend strength and vitality member",
-    heightClass: "h-[196px]",
-    objectClass: "object-cover object-center",
-    bgClass: "bg-[#ead5bf]",
-  },
-  {
-    src: "/application-step-3.png",
-    alt: "Clinicians",
-    heightClass: "h-[176px]",
-    objectClass: "object-cover object-center",
-    bgClass: "bg-[#eff3ff]",
-  },
-];
-
-function WillpowerInfoRow({ icon: Icon, children }) {
-  return (
-    <div className="flex items-start gap-3 text-[#4f5262]">
-      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#eef1ff] text-[#6D6FFC]">
-        <Icon className="h-4 w-4" />
-      </span>
-      <p className="text-sm leading-6 md:text-[0.97rem]">{children}</p>
-    </div>
-  );
-}
+  "Copy of pexels-daniel-dan-47825192-7558820.jpg",
+  "Copy of pexels-farhadirani-34650790.jpg",
+  "Copy of pexels-karola-g-4498158.jpg",
+  "Copy of pexels-lara-stratiychuk-1606923648-27536859.jpg",
+  "Copy of pexels-olly-3807548.jpg",
+  "Copy of pexels-tima-miroshnichenko-5928317.jpg",
+  "Copy of pexels-tima-miroshnichenko-6011604.jpg",
+  "Copy of pexels-tirachard-kumtanom-112571-347135.jpg",
+  "Gemini_Generated_Image_4a1v034a1v034a1v.png",
+  "Gemini_Generated_Image_n1o1o6n1o1o6n1o1.png",
+  "Gemini_Generated_Image_neknhtneknhtnekn.png",
+  "PHOTO-2026-03-29-18-10-25(1).jpg",
+].map(buildSliderItem);
 
 function WillpowerVerticalColumn({ items, reverse = false }) {
   const loopItems = [...items, ...items];
@@ -213,7 +180,7 @@ function WillpowerVerticalColumn({ items, reverse = false }) {
         {loopItems.map((item, index) => (
           <article
             key={`${item.src}-${index}`}
-            className={`relative overflow-hidden rounded-[1rem] ${item.heightClass} ${item.bgClass} shadow-[0_14px_30px_rgba(17,24,39,0.08)]`}
+            className={`relative overflow-hidden rounded-[1rem] ${item.heightClass} ${item.bgClass}`}
           >
             <Image
               src={item.src}
@@ -233,8 +200,8 @@ function WillpowerHorizontalRow({ items, reverse = false }) {
   const loopItems = [...items, ...items];
   return (
     <div className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-[#f7f8fc] to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-[#f7f8fc] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-[#F1F5F9] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-[#F1F5F9] to-transparent" />
       <motion.div
         className="flex gap-3"
         style={{ width: "max-content" }}
@@ -249,7 +216,7 @@ function WillpowerHorizontalRow({ items, reverse = false }) {
         {loopItems.map((item, index) => (
           <div
             key={`${item.src}-${index}`}
-            className={`relative h-[158px] w-[140px] shrink-0 overflow-hidden rounded-[1rem] sm:h-[178px] sm:w-[158px] ${item.bgClass} shadow-[0_8px_20px_rgba(17,24,39,0.08)]`}
+            className={`relative h-[158px] w-[140px] shrink-0 overflow-hidden rounded-[1rem] sm:h-[178px] sm:w-[158px] ${item.bgClass}`}
           >
             <Image
               src={item.src}
@@ -267,40 +234,39 @@ function WillpowerHorizontalRow({ items, reverse = false }) {
 
 function WillpowerSection() {
   return (
-    <section className="relative overflow-hidden bg-[#f7f8fc] py-16 md:py-20">
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-[52%] bg-white" />
-      <div className="relative mx-auto grid max-w-[1500px] grid-cols-1 gap-6 px-5 md:px-8 lg:grid-cols-[minmax(0,0.93fr)_minmax(420px,0.82fr)] lg:gap-8 lg:px-10">
-        <div className="flex items-center py-4 lg:py-8">
-          <div className="mx-auto w-full max-w-[34rem]">
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="rounded-[1rem] bg-white px-3 py-3 shadow-[0_18px_36px_rgba(20,24,34,0.08)]">
-                <p className="font-headline text-[1.35rem] font-extrabold leading-none text-[#11151f]">
-                  Forbes
-                </p>
-                <p className="mt-1 text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#5f66d8]">
-                  Health 2026
-                </p>
-                <p className="mt-2 text-[0.78rem] font-medium text-[#5c6170]">
-                  GLP-1 Provider
-                </p>
+    <section className="relative overflow-hidden bg-[#F1F5F9]">
+      <div className="relative mx-auto grid max-w-[1340px] grid-cols-1 items-start gap-10 px-4 py-10 md:gap-16 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-80px)] lg:grid-cols-2 lg:items-center lg:overflow-hidden lg:py-0">
+        <div className="w-full">
+          <div className="w-full max-w-[34rem]">
+            <div className="flex flex-wrap items-stretch gap-3">
+              <div className="relative h-[96px] w-[68px] shrink-0 self-stretch overflow-hidden rounded-2xl md:h-[127px] md:w-[91px]">
+                <Image
+                  src="/images/marketing/logos/forbes-best-of-2026.webp"
+                  alt="Forbes Health Best of 2026 — GLP-1 Provider"
+                  fill
+                  sizes="120px"
+                  className="object-cover"
+                  priority
+                />
               </div>
-              <div className="rounded-[1rem] bg-white px-5 py-4 shadow-[0_18px_36px_rgba(20,24,34,0.08)]">
-                <p className="font-headline text-[2.2rem] font-semibold italic leading-none text-[#121622]">
+              <div className="flex flex-col gap-2 self-start rounded-2xl border border-gray-100 bg-slate-50 px-3 py-2 shadow-[0px_9.54px_42.93px_0px_#0000002B] md:px-6 md:py-3">
+                <p className="text-5xl font-medium leading-[42px] tracking-tighter text-gray-950 md:text-[57px] md:leading-[57px]">
                   1,200,000+
                 </p>
-                <div className="mt-3 flex items-center justify-between gap-6">
-                  <p className="text-[1.05rem] font-medium text-[#2b3040]">
+                <div className="flex items-center justify-start gap-2">
+                  <span className="text-[10px] font-medium leading-[14px] text-gray-950 md:text-xl">
                     Prescriptions written
-                  </p>
+                  </span>
                   <div className="flex -space-x-2">
                     {[
                       "/photoroom-6.png",
                       "/photoroom-4.png",
                       "/photoroom-3.png",
+                      "/photoroom-2.png",
                     ].map((src) => (
                       <span
                         key={src}
-                        className="relative h-9 w-9 overflow-hidden rounded-full border-2 border-white bg-[#eef0f8]"
+                        className="relative h-7 w-7 overflow-hidden rounded-full border-2 border-white bg-[#eef0f8] md:h-9 md:w-9"
                       >
                         <Image
                           src={src}
@@ -316,45 +282,47 @@ function WillpowerSection() {
               </div>
             </div>
 
-            <div className="mt-7 max-w-[31rem]">
-              <h2 className="font-headline text-[2.5rem] font-semibold leading-[0.98] tracking-[-0.05em] text-[#141722] sm:text-[3rem] lg:text-[4rem]">
-                Your weight isn&apos;t a willpower problem.
+            <div className="mt-5 max-w-[34rem]">
+              <h2 className="text-balance font-title text-4xl font-medium leading-tight tracking-tight text-gray-950 md:text-5xl">
+                Your weight isn&apos;t a willpower problem.{" "}
+                <span className="font-playfair italic font-medium text-[#6d6ffc]">
+                  It&apos;s a medical one.
+                </span>
               </h2>
-              <p className="mt-1.5 font-headline text-[2.15rem] italic leading-[1.02] tracking-[-0.05em] text-[#6D6FFC] sm:text-[2.55rem] lg:text-[3.55rem]">
-                It&apos;s a medical one.
-              </p>
-              <p className="mt-4 max-w-[29rem] text-[0.98rem] leading-6 text-[#4d5160] lg:text-[1.01rem]">
+              <p className="mt-4 max-w-[30rem] text-[1rem] leading-6 text-gray-800 lg:text-[1.05rem]">
                 Personalized GLP-1 treatment. Unlimited clinician-led care.
-                Delivered to your door with a cleaner, calmer care journey from
-                intake to refill.
+                Delivered to your door. Guaranteed or it&apos;s free.
               </p>
             </div>
 
-            <div className="mt-6 max-w-[32rem] space-y-3">
-              <WillpowerInfoRow icon={Stethoscope}>
-                Compounded Semaglutide &amp; Tirzepatide with clinician-guided
-                support and a treatment path that feels simple from day one.
-              </WillpowerInfoRow>
-              <WillpowerInfoRow icon={Clock3}>
-                Month-to-month plans, straightforward billing, and progress
-                tracking without bouncing across disconnected tools.
-              </WillpowerInfoRow>
-              <WillpowerInfoRow icon={ShieldCheck}>
-                Private onboarding, secure follow-up care, and visible next
-                steps from qualification to ongoing treatment.
-              </WillpowerInfoRow>
-            </div>
+            <ul className="mt-5 max-w-[34rem] space-y-4 text-[#4d5160]">
+              <li className="grid grid-cols-[auto_1fr] items-start gap-1 text-sm md:text-lg">
+                <div className="flex items-center gap-4 text-base md:text-sm">
+                  <PillBottle className="h-6 w-6 shrink-0" strokeWidth={2} />
+                  <span>
+                    Compounded Semaglutide &amp; Tirzepatide — the most
+                    prescribed GLP-1s in clinical weight loss
+                  </span>
+                </div>
+              </li>
+              <li className="grid grid-cols-[auto_1fr] items-start gap-1 text-sm md:text-lg">
+                <div className="flex items-center gap-4 text-base md:text-sm">
+                  <Stethoscope className="h-6 w-6 shrink-0" strokeWidth={2} />
+                  <span>Month-to-month · Cancel anytime · HSA/FSA accepted</span>
+                </div>
+              </li>
+            </ul>
 
-            <div className="mt-6">
+            <div className="mt-5">
               <Link
                 href="/funnels/glp-1"
-                className="hs-solid-btn inline-flex min-h-[3.5rem] items-center justify-center gap-2 rounded-full px-8 text-base font-semibold"
+                className="hs-solid-btn inline-flex min-h-[3rem] items-center justify-center gap-2 rounded-full px-7 text-base font-semibold"
               >
                 Get my personalized plan
                 <ArrowRight className="h-4 w-4" />
               </Link>
-              <p className="mt-3 text-sm text-[#6b7082]">
-                Takes 90 seconds · 100% private · Free
+              <p className="mt-2.5 text-sm font-semibold text-[#4d5160]">
+                Takes 90 seconds · 100% Private · Free
               </p>
             </div>
           </div>
@@ -370,9 +338,7 @@ function WillpowerSection() {
         </div>
 
         {/* Desktop: vertical marquee columns */}
-        <div className="relative hidden h-full max-h-[800px] overflow-hidden rounded-[1rem] lg:block">
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-gradient-to-b from-[#f7f8fc] via-[#f7f8fc]/92 to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-t from-[#f7f8fc] via-[#f7f8fc]/92 to-transparent" />
+        <div className="relative hidden h-full self-stretch overflow-hidden lg:block">
           <div className="grid h-full grid-cols-2 gap-3 lg:gap-4">
             <WillpowerVerticalColumn items={WILLPOWER_LEFT_MARQUEE_ITEMS} />
             <WillpowerVerticalColumn
@@ -380,6 +346,134 @@ function WillpowerSection() {
               reverse
             />
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const NEGATIVE_SELL_CARDS = [
+  {
+    title: "The hunger that never shuts off.",
+    image: "/images/negative-sell/negative_1.webp",
+    bullets: [
+      "You just ate — and you're already thinking about food again.",
+      "The mental load of tracking, restricting, and starting over is exhausting.",
+    ],
+  },
+  {
+    title: "Your metabolism turned on you.",
+    image: "/images/negative-sell/negative_2.jpeg",
+    bullets: [
+      "Postpartum weight, stress eating, hormonal changes — it all adds up.",
+      "Slower metabolism means doing everything right and still not seeing results.",
+    ],
+  },
+  {
+    title: "Lose 20. Gain 25 back. Every diet makes it worse.",
+    image: "/images/negative-sell/negative_3.jpg",
+    bullets: [
+      "You've lost and regained the same weight more than once.",
+      "Each restart is harder, and your body fights you more every time.",
+    ],
+  },
+  {
+    title: "This was never about discipline.",
+    image: "/images/negative-sell/negative_4.webp",
+    bullets: [
+      "Feeling like you should be able to do this alone keeps you stuck.",
+      "You've looked into this before — you just needed the right support.",
+    ],
+  },
+];
+
+function NegativeSellSection() {
+  return (
+    <section className="bg-white py-16 md:py-20">
+      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
+        <div className="mb-4 text-center">
+          <span className="inline-block rounded-full bg-[#f0eeff] px-4 py-1.5 text-sm font-semibold text-[#5b3cdd]">
+            Sound familiar?
+          </span>
+        </div>
+        <h2 className="mb-4 text-center text-3xl font-bold tracking-tight text-[#1c1a24] md:text-4xl lg:text-5xl">
+          Weight loss isn&apos;t just about{" "}
+          <span className="italic text-[#5b3cdd]">eating less.</span>
+        </h2>
+        <p className="mx-auto mb-12 max-w-[42rem] text-center text-lg leading-relaxed text-[#5d6169]">
+          It&apos;s about understanding why your body holds on to weight.
+          Whether it&apos;s food noise, hormonal confusion, or weight resistance
+          from years of yo-yo dieting — this is why GLP-1 therapy exists.
+        </p>
+
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {NEGATIVE_SELL_CARDS.map((card) => (
+            <div
+              key={card.title}
+              className="flex flex-col overflow-hidden rounded-[1.5rem] border border-[#ebebeb] bg-white shadow-sm"
+            >
+              <div className="relative h-48 w-full overflow-hidden bg-[#f5f5f5]">
+                <Image
+                  src={card.image}
+                  alt={card.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="mb-4 text-base font-bold leading-snug text-[#1c1a24]">
+                  {card.title}
+                </h3>
+                <ul className="flex flex-col gap-3">
+                  {card.bullets.map((bullet) => (
+                    <li
+                      key={bullet}
+                      className="flex items-start gap-2.5 text-sm leading-snug text-[#5d6169]"
+                    >
+                      <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#ffe4e4] text-[#e53e3e]">
+                        <svg
+                          width="8"
+                          height="8"
+                          viewBox="0 0 10 10"
+                          fill="none"
+                        >
+                          <line
+                            x1="2"
+                            y1="2"
+                            x2="8"
+                            y2="8"
+                            stroke="#e53e3e"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                          />
+                          <line
+                            x1="8"
+                            y1="2"
+                            x2="2"
+                            y2="8"
+                            stroke="#e53e3e"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </span>
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12 flex justify-center">
+          <Link
+            href="/funnels/glp-1"
+            className="hs-solid-btn rounded-full px-10 py-4 text-base font-semibold transition-all hover:-translate-y-0.5"
+          >
+            See if GLP-1 is right for you
+          </Link>
         </div>
       </div>
     </section>
@@ -670,20 +764,20 @@ function ProductHero({ productData }) {
   const relatedProducts = productData.relatedProducts || [];
 
   return (
-    <section className="bg-[#f9f9f9] px-4 py-12 md:px-8 lg:px-16">
+    <section className="bg-[#f9f9f9] px-4 py-16 md:px-8 md:py-20 lg:px-16">
       <div className="mx-auto flex max-w-[1400px] flex-col justify-center gap-5 lg:flex-row lg:gap-6 xl:gap-8">
-        <div className="relative flex aspect-[4/5] w-full shrink-0 items-center justify-center overflow-hidden rounded-[1rem] bg-[radial-gradient(circle_at_top,#ffffff_0%,#f2efff_58%,#ece7fa_100%)] lg:sticky lg:top-8 lg:w-[55%] lg:self-start xl:w-[740px]">
+        <div className="relative flex aspect-[4/5] w-full shrink-0 items-center justify-center overflow-hidden rounded-[1rem] bg-[#f9f9f9] lg:sticky lg:top-8 lg:w-[55%] lg:self-start xl:w-[740px]">
           {productData.inStock ? (
             <div className="absolute left-6 top-6 z-10 flex items-center gap-2 rounded-[1rem] bg-white/90 px-5 py-2 text-base font-medium backdrop-blur-sm">
               <div className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
               In Stock
             </div>
           ) : null}
-          <div className="flex h-full w-full items-center justify-center p-8 md:p-10 lg:p-12">
+          <div className="flex h-full w-full items-center justify-center py-16 md:py-20">
             <img
-              src={productData.image}
-              alt={productData.name}
-              className="h-auto max-h-full w-auto max-w-full object-contain drop-shadow-[0_20px_38px_rgba(53,43,126,0.18)]"
+              src="/images/marketing/instock.jpeg"
+              alt={`${productData.name} — in stock`}
+              className="max-h-[78%] max-w-[78%] rounded-2xl object-contain"
             />
           </div>
         </div>
@@ -736,48 +830,21 @@ function ProductHero({ productData }) {
                     Buy now, pay later
                   </span>
                   <div className="flex gap-2">
-                    <span className="flex items-center gap-1 rounded-[0.6rem] bg-[#ffd6e5] px-3 py-1 text-[11px] font-black tracking-tight text-[#1a0030] md:text-xs">
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 28 28"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="shrink-0"
-                      >
-                        <circle cx="14" cy="14" r="14" fill="#FF6BB2" />
-                        <text
-                          x="7"
-                          y="19"
-                          fontFamily="sans-serif"
-                          fontWeight="900"
-                          fontSize="16"
-                          fill="white"
-                        >
-                          k
-                        </text>
-                      </svg>
-                      Klarna
+                    <span className="flex items-center rounded-[0.6rem] bg-[#FFB3C7] px-3 py-1.5">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src="/images/marketing/logos/klarna.png"
+                        alt="Klarna"
+                        className="h-3 w-auto"
+                      />
                     </span>
-                    <span className="flex items-center gap-1 rounded-[0.6rem] bg-[#c8f7db] px-3 py-1 text-[11px] font-black tracking-tight text-[#0a2e1a] md:text-xs">
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 28 28"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="shrink-0"
-                      >
-                        <circle cx="14" cy="14" r="14" fill="#39c77a" />
-                        <polyline
-                          points="7,14 12,19 21,9"
-                          stroke="white"
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      Afterpay
+                    <span className="flex items-center rounded-[0.6rem] bg-[#B2FCE4] px-3 py-1.5">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src="/images/marketing/logos/afterpay.png"
+                        alt="Afterpay"
+                        className="h-3 w-auto"
+                      />
                     </span>
                   </div>
                 </div>
@@ -855,32 +922,51 @@ function ProductHero({ productData }) {
                             <p className="mb-3 whitespace-pre-line text-sm text-gray-500">
                               {size.subtitle}
                             </p>
-                            <div className="overflow-hidden rounded-[1rem] border border-gray-200">
-                              {size.plans.map((plan, index) => (
-                                <div
-                                  key={plan.name}
-                                  className={`flex items-center justify-between p-4 ${
-                                    index !== size.plans.length - 1
-                                      ? "border-b border-gray-200"
-                                      : ""
-                                  }`}
-                                >
-                                  <span className="text-sm font-medium text-gray-700 md:text-base">
-                                    {plan.name}
-                                  </span>
-                                  <div className="text-right">
-                                    <div className="mb-1.5 text-xl font-bold leading-none text-[#00a86b]">
-                                      ${plan.firstMonthPrice}{" "}
-                                      <span className="text-sm font-semibold">
-                                        first month
+                            <div className="rounded-[1rem] border border-gray-200">
+                              {size.plans.map((plan, index) => {
+                                const isBestValue = /12[\s-]*month/i.test(
+                                  plan.name || "",
+                                );
+                                const is3Month = /^3[\s-]*month/i.test(
+                                  plan.name || "",
+                                );
+                                const isMonthly =
+                                  /^\s*monthly\b|^\s*1[\s-]*month/i.test(
+                                    plan.name || "",
+                                  );
+                                const displayFirstMonthPrice = isBestValue
+                                  ? 0
+                                  : is3Month
+                                    ? 149
+                                    : plan.firstMonthPrice;
+                                return (
+                                  <div
+                                    key={plan.name}
+                                    className={`relative flex items-center justify-between p-4 ${
+                                      index !== size.plans.length - 1
+                                        ? "border-b border-gray-200"
+                                        : ""
+                                    }`}
+                                  >
+                                    {isBestValue ? (
+                                      <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#00a86b] px-3 text-sm font-semibold leading-none text-white">
+                                        Best Value
                                       </span>
-                                    </div>
-                                    <div className="text-sm leading-none text-gray-500">
-                                      ${plan.regularPrice}/mo after
+                                    ) : null}
+                                    <span className="text-sm font-medium text-gray-700 md:text-base">
+                                      {plan.name}
+                                    </span>
+                                    <div className="text-right">
+                                      <div className="text-xl font-bold leading-none text-[#00a86b]">
+                                        ${displayFirstMonthPrice}{" "}
+                                        <span className="text-sm font-semibold">
+                                          {isMonthly ? "per month" : "first month"}
+                                        </span>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              ))}
+                                );
+                              })}
                             </div>
                           </div>
                         ))}
@@ -897,9 +983,17 @@ function ProductHero({ productData }) {
               </AnimatePresence>
             </div>
             <div className="mt-2 flex justify-between border-t border-gray-100 px-4 pb-2 pt-4 text-xs text-gray-500">
-              <div className="flex items-center gap-1.5">
-                <Flag className="h-3.5 w-3.5" /> Compounded in the U.S.A
-              </div>
+              <span className="flex items-center gap-1.5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  draggable={false}
+                  role="img"
+                  alt="us"
+                  src="/images/marketing/logos/flag-usa.svg"
+                  className="h-4 w-4 align-[-0.1em]"
+                />
+                Compounded in the U.S.A
+              </span>
               <div className="flex items-center gap-1.5">
                 <ShieldCheck className="h-3.5 w-3.5" /> FSA & HSA Eligible
               </div>
@@ -1026,90 +1120,90 @@ function ProductHero({ productData }) {
   );
 }
 function PricingSection({ productData }) {
-  const benefits =
-    productData.pricingHighlights?.length > 0
-      ? productData.pricingHighlights
-      : defaultPricingHighlights;
   const ctaHref = getPrimaryCtaHref(productData);
   const pricePresentation = getPricePresentation(productData);
 
   return (
-    <section className="bg-[#f4f5f9] py-20">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="relative flex flex-col gap-8 overflow-hidden rounded-[2rem] bg-white p-6 shadow-sm md:p-10 lg:min-h-[470px] lg:flex-row lg:items-center lg:p-12">
-          <div className="z-10 flex-1 lg:max-w-[58%]">
-            <h2 className="mb-4 text-3xl font-black leading-[1.1] tracking-tight text-[#1c1d20] md:text-4xl">
-              {productData.pricingSectionTitle ||
-                `${productData.name} with clear pricing and a smoother next step into care`}
-            </h2>
+    <section className="bg-[#f4f5f9] py-16 md:py-20">
+      <div className="mx-auto max-w-[560px] px-4">
+        <h2 className="mb-5 text-center text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">
+          {productData.name}
+        </h2>
 
-            <div className="mb-6 flex items-baseline gap-2">
-              <span className="text-3xl font-black leading-none tracking-tight text-[#1c1d20] md:text-4xl">
-                {pricePresentation.firstMonth}
-              </span>
-              <span className="text-lg font-medium text-gray-500 md:text-xl">
-                {pricePresentation.hasNumericFirstMonth
-                  ? "first month*"
-                  : "support path"}
-              </span>
+        <div className="overflow-hidden rounded-[1rem] border border-gray-200 bg-white shadow-sm">
+          {pricePresentation.savings ? (
+            <div className="flex items-center justify-center gap-2 bg-[#fde073] px-4 py-3 text-sm font-medium text-gray-900 md:text-base">
+              <BadgeCheck className="h-4 w-4 md:h-5 md:w-5" />
+              Save up to {pricePresentation.savings} on your first order
             </div>
-
-            <ul className="mb-8 space-y-3">
-              {benefits.map((benefit) => (
-                <li key={benefit} className="flex items-center gap-4">
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="shrink-0"
-                  >
-                    <rect width="24" height="24" rx="12" fill="#EEEAFE" />
-                    <path
-                      d="M17 8L10.125 15.5L7 12.0909"
-                      stroke="#7B75F0"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <span className="text-lg text-[#1c1d20] md:text-[1.35rem]">
-                    {benefit}
+          ) : (
+            <div className="flex items-center justify-center gap-2 bg-[#fde073] px-4 py-3 text-sm font-medium text-gray-900 md:text-base">
+              <BadgeCheck className="h-4 w-4 md:h-5 md:w-5" />
+              Clinician-guided treatment with clear next steps
+            </div>
+          )}
+          <div className="p-5 md:p-6">
+            <div className="mb-6 flex items-start justify-between">
+              <div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-bold text-gray-900 md:text-4xl">
+                    {pricePresentation.firstMonth}
                   </span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="mb-8 flex flex-col items-center gap-3 sm:flex-row">
-              <Link
-                href={ctaHref}
-                className="hs-solid-btn w-full rounded-full px-10 py-4 text-center text-[1.1rem] font-bold transition-colors sm:w-auto"
-              >
-                Get Started
-              </Link>
-              <Link
-                href={ctaHref}
-                className="hs-outline-btn w-full rounded-full px-10 py-4 text-center text-[1.1rem] font-bold transition-colors sm:w-auto"
-              >
-                See if you&apos;re eligible
-              </Link>
+                  <span className="text-lg font-medium text-gray-800 md:text-xl">
+                    {pricePresentation.hasNumericFirstMonth
+                      ? "first month"
+                      : "support path"}
+                  </span>
+                </div>
+                {pricePresentation.regular ? (
+                  <div className="mt-1 text-sm text-gray-500 md:text-base">
+                    {pricePresentation.hasNumericRegular
+                      ? `then ${pricePresentation.regular}*`
+                      : pricePresentation.regular}
+                  </div>
+                ) : (
+                  <div className="mt-1 text-sm text-gray-500 md:text-base">
+                    Clinician review determines the right treatment path and
+                    next step.
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-col gap-1 pt-2">
+                <span className="text-[10px] font-medium uppercase tracking-wide text-gray-400">
+                  Buy now, pay later
+                </span>
+                <div className="flex gap-2">
+                  <span className="flex items-center rounded-[0.6rem] bg-[#FFB3C7] px-3 py-1.5">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/images/marketing/logos/klarna.png"
+                      alt="Klarna"
+                      className="h-3 w-auto"
+                    />
+                  </span>
+                  <span className="flex items-center rounded-[0.6rem] bg-[#B2FCE4] px-3 py-1.5">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/images/marketing/logos/afterpay.png"
+                      alt="Afterpay"
+                      className="h-3 w-auto"
+                    />
+                  </span>
+                </div>
+              </div>
             </div>
 
-            <p className="max-w-2xl text-[0.85rem] leading-relaxed text-gray-500">
-              {pricePresentation.hasNumericFirstMonth
-                ? "*Price shown reflects the lowest current first-month option for this treatment. Actual pricing depends on the plan your clinician recommends for you."
-                : pricePresentation.regular ||
-                  "Final treatment fit, timing, and any applicable pricing still depend on clinician review and the route recommended for you."}
+            <Link
+              href={ctaHref}
+              className="hs-solid-btn block w-full rounded-[1rem] py-3.5 text-center text-base font-semibold transition-colors md:py-4"
+            >
+              See if you qualify
+            </Link>
+            <p className="mt-3 text-center text-xs text-gray-500 md:text-sm">
+              {pricePresentation.savings
+                ? "Discount auto-applied at checkout"
+                : "Treatment fit still depends on clinician review"}
             </p>
-          </div>
-
-          <div className="z-0 flex w-full items-start justify-center lg:absolute lg:bottom-0 lg:right-12 lg:top-10 lg:w-[38%] lg:justify-end">
-            <img
-              src={productData.image}
-              alt={productData.name}
-              className="w-full max-w-[360px] rounded-2xl object-contain shadow-lg md:max-w-[420px]"
-            />
           </div>
         </div>
       </div>
@@ -1119,7 +1213,7 @@ function PricingSection({ productData }) {
 
 function FeatureSplit({ productData }) {
   return (
-    <section className="bg-white px-4 py-20 md:px-8 lg:px-16">
+    <section className="bg-white px-4 py-16 md:px-8 md:py-20 lg:px-16">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-2">
         <div className="max-w-xl">
           <h2 className="mb-6 text-3xl font-bold leading-tight tracking-tight text-gray-900 md:text-4xl">
@@ -1145,7 +1239,7 @@ function FeatureSplit({ productData }) {
 
 function SupportFeatures({ productData }) {
   return (
-    <section className="bg-[#f4f4f4] px-4 py-20 md:px-8 lg:px-16">
+    <section className="bg-[#f4f4f4] px-4 py-16 md:px-8 md:py-20 lg:px-16">
       <div className="mx-auto max-w-7xl text-center">
         <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-gray-500">
           Rooted in Science
@@ -1193,7 +1287,7 @@ function BenefitsCarousel({ productData }) {
   );
 
   return (
-    <section className="overflow-hidden bg-[#f9f9f9] py-20">
+    <section className="overflow-hidden bg-[#f9f9f9] py-16 md:py-20">
       <div className="mx-auto max-w-[1400px] px-4 md:px-8 lg:px-16">
         <h2 className="mb-12 text-center text-3xl font-bold tracking-tight text-gray-900 md:text-4xl lg:text-5xl">
           {productData.benefitsCarouselTitle}
@@ -1259,106 +1353,157 @@ function BenefitsCarousel({ productData }) {
   );
 }
 
-function TestimonialsSection({ productData }) {
-  const testimonials =
-    productData.testimonials?.length > 0
-      ? productData.testimonials
-      : defaultTestimonials;
-  const [api, setApi] = useState(null);
-  const carouselTestimonials = buildLoopingItems(testimonials, 8);
+const TRANSFORMATION_TESTIMONIALS = [
+  {
+    name: "Kala",
+    weightLoss: 40,
+    before: "/kala_before.webp",
+    after: "/kala_after.webp",
+  },
+  {
+    name: "Morgan",
+    weightLoss: 36,
+    before: "/morgan_before.webp",
+    after: "/morgan_after.webp",
+  },
+  {
+    name: "Chris",
+    weightLoss: 42,
+    before: "/christopher_before.webp",
+    after: "/christopher_after.webp",
+  },
+  {
+    name: "Noelle",
+    weightLoss: 32,
+    before: "/noelle_before.webp",
+    after: "/noelle_after.webp",
+  },
+];
 
-  if (!carouselTestimonials.length) {
-    return null;
-  }
+function TestimonialsSection() {
+  const [api, setApi] = useState(null);
+  const carouselTransformations = buildLoopingItems(
+    TRANSFORMATION_TESTIMONIALS,
+    8,
+  );
+  const ctaHref = "/funnels/glp-1";
 
   return (
-    <section className="bg-white py-20">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-3xl">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#7b75f0]">
-              Join members achieving life-changing results
+    <section className="bg-[#f4f5f9] py-16 md:py-20">
+      <div className="mx-auto max-w-[1340px] px-4 md:px-8">
+        <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+          <div className="max-w-2xl">
+            <div className="flex flex-wrap items-center gap-3">
+              <h2 className="text-3xl font-bold tracking-tight text-gray-950 md:text-4xl lg:text-5xl">
+                2000+ members.
+              </h2>
+              <div className="flex -space-x-2">
+                {[
+                  "/photoroom-6.png",
+                  "/photoroom-4.png",
+                  "/photoroom-3.png",
+                  "/photoroom-2.png",
+                ].map((src) => (
+                  <span
+                    key={src}
+                    className="relative h-9 w-9 overflow-hidden rounded-full border-2 border-white bg-[#eef0f8] md:h-11 md:w-11"
+                  >
+                    <Image
+                      src={src}
+                      alt=""
+                      fill
+                      sizes="44px"
+                      className="object-cover object-center"
+                    />
+                  </span>
+                ))}
+              </div>
+            </div>
+            <p className="mt-1 font-playfair text-3xl italic font-medium tracking-tight text-[#6d6ffc] md:text-4xl lg:text-5xl">
+              Life-changing results
             </p>
-            <h2 className="text-3xl font-bold tracking-tight text-[#1c1d20] md:text-4xl">
-              Social proof and clearer outcomes belong on the page, not hidden
-              in the scroll.
-            </h2>
           </div>
-          <div className="hidden gap-3 md:flex">
-            <button
-              type="button"
-              onClick={() => api?.scrollPrev()}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-100"
+
+          <div className="flex flex-col items-start md:items-end">
+            <Link
+              href={ctaHref}
+              className="inline-flex items-center gap-2 rounded-full bg-[#0f1422] px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#1a2238] md:text-base"
             >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => api?.scrollNext()}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-100"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
+              See what&apos;s possible for you
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <p className="mt-3 text-sm font-medium text-[#4d5160]">
+              Take 90 seconds · 100% private · free
+            </p>
           </div>
+        </div>
+
+        <div className="mb-6 hidden gap-3 md:flex">
+          <button
+            type="button"
+            onClick={() => api?.scrollPrev()}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-100"
+            aria-label="Previous testimonial"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            type="button"
+            onClick={() => api?.scrollNext()}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-100"
+            aria-label="Next testimonial"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
         </div>
       </div>
 
       <Carousel
         setApi={setApi}
         opts={{
-          align: "center",
+          align: "start",
           containScroll: false,
-          loop: carouselTestimonials.length > 1,
+          loop: carouselTransformations.length > 1,
           duration: 34,
         }}
         className="w-full"
       >
         <CarouselContent className="-ml-4 items-stretch md:-ml-6">
-          {carouselTestimonials.map((testimonial, index) => (
+          {carouselTransformations.map((person, index) => (
             <CarouselItem
-              key={`${testimonial.name}-${index}`}
-              className="basis-[84%] pl-4 sm:basis-[58%] md:pl-6 lg:basis-[34%] xl:basis-[30%]"
+              key={`${person.name}-${index}`}
+              className="basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[36%] xl:basis-[32%]"
             >
-              <motion.article
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{
-                  duration: 0.4,
-                  delay: (index % testimonials.length) * 0.06,
-                  ease: "easeOut",
-                }}
-                className="flex min-h-[300px] h-full flex-col rounded-[2rem] border border-[#ececf6] bg-[#fafbff] p-6 shadow-sm md:p-8"
-              >
-                <div className="mb-5 flex items-center gap-1">
-                  {Array.from({ length: 5 }).map((_, starIndex) => (
-                    <Star
-                      key={starIndex}
-                      className="h-4 w-4 fill-[#00b67a] text-[#00b67a]"
+              <article className="flex h-full flex-col rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm md:p-5">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-[1rem] bg-gray-100">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={person.before}
+                      alt={`${person.name} before`}
+                      className="absolute inset-0 h-full w-full object-cover"
                     />
-                  ))}
-                </div>
-                <p className="text-base leading-relaxed text-gray-700 md:text-lg">
-                  “{testimonial.quote}”
-                </p>
-                <div className="mt-auto pt-8">
-                  <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[#7b75f0]">
-                    {testimonial.highlight}
-                  </p>
-                  <div className="mt-4 flex items-center justify-between gap-4">
-                    <div>
-                      <p className="text-base font-semibold text-[#1c1d20]">
-                        {testimonial.name}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        {testimonial.role}
-                      </p>
-                    </div>
-                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#111318] text-white">
-                      <BadgeCheck className="h-5 w-5" />
-                    </div>
+                  </div>
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-[1rem] bg-gray-100">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={person.after}
+                      alt={`${person.name} after`}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
                   </div>
                 </div>
-              </motion.article>
+                <p className="mt-5 text-center text-lg font-medium text-gray-700 md:text-xl">
+                  {person.name} lost{" "}
+                  <span className="font-semibold text-[#00a86b]">
+                    {person.weightLoss} lbs
+                  </span>
+                </p>
+                <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-[#4d5160] md:text-sm">
+                  <BadgeCheck className="h-4 w-4 text-[#00a86b]" />
+                  <span>Verified HealSend Members</span>
+                </div>
+              </article>
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -1371,7 +1516,7 @@ function ResearchSplit({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
 
   return (
-    <section className="bg-[#f9f9f9] px-4 py-20 md:px-8 lg:px-16">
+    <section className="bg-[#f9f9f9] px-4 py-16 md:px-8 md:py-20 lg:px-16">
       <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div className="order-2 relative aspect-square overflow-hidden rounded-[2rem] lg:order-1 lg:aspect-[4/4.5]">
           <img
@@ -1412,7 +1557,7 @@ function SimpleSteps({ productData }) {
   const steps = defaultSimpleSteps;
 
   return (
-    <section className="bg-[#f4f5f9] py-20">
+    <section className="bg-[#f4f5f9] py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-12 text-center">
           <h2 className="mx-auto mb-10 w-full text-[2.5rem] font-semibold leading-[1.15] tracking-tight text-[#1c1d20] md:text-[3rem] lg:text-[3.5rem]">
@@ -1561,7 +1706,7 @@ function LabTested({ productData: _productData }) {
         </div>
       )}
 
-      <section className="bg-[#f9f9f9] px-4 py-20 md:px-8 lg:px-16">
+      <section className="bg-[#f9f9f9] px-4 py-16 md:px-8 md:py-20 lg:px-16">
         <div className="mx-auto max-w-[1200px]">
           <div className="flex flex-col items-center gap-8 rounded-[2.5rem] bg-gradient-to-br from-[#6f68f0] to-[#8f88ff] p-6 md:p-10 lg:flex-row lg:gap-12 lg:p-12">
             <div className="flex-1 text-white">
@@ -1645,7 +1790,7 @@ function ComprehensiveCare({ productData }) {
       : defaultComprehensiveCare.features;
 
   return (
-    <section className="bg-[#f9f9f9] py-24">
+    <section className="bg-[#f9f9f9] py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-12 text-center">
           <h2 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-[#7b75f0] md:text-5xl lg:text-6xl">
@@ -1731,7 +1876,7 @@ function CleanSimpleEffective({ productData }) {
         );
 
   return (
-    <section className="relative bg-[#f9f9f9] py-24">
+    <section className="relative bg-[#f9f9f9] py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <h2 className="mb-12 text-center text-3xl font-bold tracking-tight text-black md:text-4xl lg:text-5xl">
           Clean, simple, and effective
@@ -1759,6 +1904,109 @@ function CleanSimpleEffective({ productData }) {
             className="rounded-full bg-gradient-to-r from-[#8b85f5] to-[#665ce0] px-12 py-4 text-lg font-bold text-white shadow-xl transition-all hover:-translate-y-1 hover:shadow-2xl"
           >
             Get Started
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const FAQ_ITEMS = [
+  {
+    question: "Which states do you serve for GLP-1 treatment?",
+    answer:
+      "HealSend clinicians are licensed to treat patients in all 50 U.S. states. After your intake, your plan is matched to a clinician licensed in your state so prescribing and follow-up care stays compliant with local rules.",
+  },
+  {
+    question: "Do you accept insurance?",
+    answer:
+      "HealSend's GLP-1 program is cash-pay, so you don't deal with insurance approvals or surprise denials. Your monthly price is what you see on the plan card — no hidden fees. HSA and FSA cards are accepted at checkout.",
+  },
+  {
+    question: "What medications do HealSend clinicians prescribe?",
+    answer:
+      "Our clinicians prescribe compounded Semaglutide and Tirzepatide injections. The right molecule, dose, and titration schedule are decided after your clinician review based on your goals, history, and any tolerance considerations.",
+  },
+  {
+    question: "Does the price stay the same as my dose increases?",
+    answer:
+      "Yes. The plan price you sign up at is the same price across every titration step. As your clinician moves you up to a higher dose, your monthly cost doesn't increase — so dose adjustments stay focused on your response, not your bill.",
+  },
+  {
+    question: "Does my plan include the prescription and the medication itself?",
+    answer:
+      "Yes. Your monthly plan covers the clinician visit, the prescription, the compounded medication, supplies for self-administration, and free expedited shipping to your door. Ongoing follow-up messaging with your care team is included too.",
+  },
+];
+
+function FAQSection() {
+  const [openIndex, setOpenIndex] = useState(null);
+  const ctaHref = "/funnels/glp-1";
+
+  return (
+    <section className="bg-white py-16 md:py-20">
+      <div className="mx-auto max-w-[820px] px-4 md:px-8">
+        <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-[#1d1d1f] md:text-4xl lg:text-5xl">
+          Frequently asked questions
+        </h2>
+
+        <div className="flex flex-col gap-4">
+          {FAQ_ITEMS.map((item, idx) => {
+            const isOpen = openIndex === idx;
+            return (
+              <div
+                key={item.question}
+                className="overflow-hidden rounded-[1rem] bg-[#f5f5f7] transition-shadow duration-200 hover:shadow-[0_8px_24px_rgba(29,29,31,0.08)]"
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(isOpen ? null : idx)}
+                  className="flex w-full items-center justify-between gap-6 px-6 py-6 text-left md:px-7"
+                  aria-expanded={isOpen}
+                >
+                  <span className="text-lg font-semibold text-[#1d1d1f] md:text-xl">
+                    {item.question}
+                  </span>
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[#1d1d1f]">
+                    {isOpen ? (
+                      <Minus className="h-5 w-5" strokeWidth={2.25} />
+                    ) : (
+                      <Plus className="h-5 w-5" strokeWidth={2.25} />
+                    )}
+                  </span>
+                </button>
+                <AnimatePresence initial={false}>
+                  {isOpen ? (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <p className="px-6 pb-6 pr-12 text-base leading-relaxed text-[#1d1d1fcc] md:px-7">
+                        {item.answer}
+                      </p>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Link
+            href={ctaHref}
+            className="hs-solid-btn w-full rounded-full px-10 py-4 text-center text-base font-semibold sm:w-auto"
+          >
+            Get started
+          </Link>
+          <Link
+            href={ctaHref}
+            className="hs-outline-btn w-full rounded-full px-10 py-4 text-center text-base font-semibold sm:w-auto"
+          >
+            See if you&apos;re eligible
           </Link>
         </div>
       </div>
@@ -1824,20 +2072,22 @@ export default function MarketingProductPage({ product }) {
   return (
     <div className="min-h-screen bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
       <MarketingNavbar />
-      <ProductHero productData={productData} />
       <WillpowerSection />
-      <FeatureSplit productData={productData} />
+      <ProductHero productData={productData} />
+      {/* <FeatureSplit productData={productData} /> */}
       <MediaLogosBanner />
       <PricingSection productData={productData} />
-      <SupportFeatures productData={productData} />
+      <NegativeSellSection />
       <BenefitsCarousel productData={productData} />
-      <TestimonialsSection productData={productData} />
+      <SupportFeatures productData={productData} />
+      <TestimonialsSection />
       <ResearchSplit productData={productData} />
       <SimpleSteps productData={productData} />
       <LabTested productData={productData} />
       <ComprehensiveCare productData={productData} />
       <CleanSimpleEffective productData={productData} />
-      <ProductPageTestSections />
+      <FAQSection />
+      {/* <ProductPageTestSections /> */}
       <MarketingFooter />
       <MobileStickyCta productData={productData} />
     </div>

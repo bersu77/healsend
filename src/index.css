@@ -350,6 +350,14 @@
   font-family: "Manrope", sans-serif;
 }
 
+.font-title {
+  font-family: "Figtree", sans-serif;
+}
+
+.font-playfair {
+  font-family: "Playfair Display", serif;
+}
+
 html.hs-nav-loading,
 html.hs-nav-loading body {
   cursor: progress;
