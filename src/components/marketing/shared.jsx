@@ -1689,3 +1689,77 @@ export function MarketingProductCarousel({ products, eagerImages = false }) {
 }
 
 export const MARKETING_ROUTES = ROUTES;
+
+export function MinimalMarketingNavbar() {
+  const { user, isAuthenticated } = useAuth();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const primaryCta = isAuthenticated
+    ? user?.role === "ADMIN"
+      ? { href: "/dashboard", label: "Dashboard" }
+      : { href: "/account", label: "My Account" }
+    : { href: ROUTES.shop, label: "Get Started" };
+
+  return (
+    <header className="sticky top-0 z-50">
+      <div
+        className={`absolute inset-0 transition-all duration-300 ${
+          scrolled
+            ? "bg-[linear-gradient(135deg,rgba(255,255,255,0.96)_0%,rgba(245,247,255,0.94)_50%,rgba(235,240,255,0.95)_100%)] backdrop-blur-2xl"
+            : "bg-white/90 backdrop-blur-xl"
+        }`}
+      />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/90 to-transparent" />
+      <div
+        className={`absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-black/10 to-transparent transition-opacity duration-300 ${
+          scrolled ? "opacity-100" : "opacity-40"
+        }`}
+      />
+      <div
+        className={`pointer-events-none absolute inset-x-0 bottom-0 h-8 translate-y-full bg-[linear-gradient(180deg,rgba(15,23,42,0.06),transparent)] transition-opacity duration-300 ${
+          scrolled ? "opacity-100" : "opacity-30"
+        }`}
+      />
+
+      <div className="relative px-4 py-3">
+        <div className="mx-auto max-w-[1340px] px-4 py-2 md:px-8">
+          <div className="flex items-center justify-between gap-3 rounded-[1.7rem] md:px-5">
+            <Link href={ROUTES.home} className="flex shrink-0 items-center">
+              <Image
+                src="/logo.png"
+                alt="HealSend"
+                width={164}
+                height={52}
+                priority
+                className="h-10 w-auto md:h-10"
+              />
+            </Link>
+
+            <div className="flex items-center gap-2">
+              {!isAuthenticated ? (
+                <Link
+                  href="/login"
+                  className="hs-outline-btn inline-flex min-w-[92px] items-center justify-center rounded-full px-4 py-2.5 text-sm font-semibold transition-colors"
+                >
+                  <span>Login</span>
+                </Link>
+              ) : null}
+              <Link
+                href={primaryCta.href}
+                className="hs-solid-btn inline-flex min-w-[122px] items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all"
+              >
+                <span>{primaryCta.label}</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}

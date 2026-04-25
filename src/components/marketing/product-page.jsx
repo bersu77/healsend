@@ -35,6 +35,7 @@ import {
 import {
   MarketingFooter,
   MarketingNavbar,
+  MinimalMarketingNavbar,
   MARKETING_ROUTES,
 } from "@/components/marketing/shared";
 import {
@@ -532,26 +533,26 @@ const defaultSimpleSteps = [
 ];
 
 const defaultComprehensiveCare = {
-  title: "The most comprehensive anti-aging care program online.",
+  title: "The most comprehensive GLP-1 care program online.",
   description:
-    "Most wellness programs stop at product access. HealSend pairs your treatment with clinician guidance, support, and ongoing care.",
+    "Most GLP-1 programs stop at medications. We deliver expert-led care and clinician support for faster, safer results.",
   introLabel: "HealSend",
   introText:
-    "You're not just getting medication. You're getting clinician-guided support built to help you stay consistent, informed, and progressing toward better energy and long-term wellness.",
-  ctaText: null,
+    "You're not just getting medication. You're getting full care on demand to keep you motivated, safe, and reaching your weight-loss goals.",
+  ctaText: "Start Your Weight Loss Journey",
   features: [
     {
-      title: "Unlimited Video Calls With Clinicians",
+      title: "Unlimited Video Calls With\nClinicians",
       points: [
         "See a licensed clinician same-day",
         "Unlimited visits, all online",
       ],
-      image: WORDPRESS_MARKETING_IMAGES.nadInjection,
+      image: "/application-step-1.png",
       imageClass:
-        "absolute bottom-0 right-6 h-32 w-32 rounded-t-2xl border-4 border-white object-contain bg-white p-2 shadow-lg md:h-40 md:w-40",
+        "absolute bottom-0 right-6 h-32 w-32 object-contain md:h-40 md:w-40",
     },
     {
-      title: "Always On Medical Assistance via Phone",
+      title: "Always On Medical Assistance\nvia Phone",
       points: [
         "Questions about side effects? Call our medical hotline",
         "Fast, clear support from U.S. agents - no offshore centers",
@@ -571,7 +572,7 @@ const defaultComprehensiveCare = {
         "absolute bottom-2 right-2 w-32 object-contain mix-blend-multiply md:w-48",
     },
     {
-      title: "Real-Time Access to Member Community & Platform",
+      title: "Real-Time Access to Member\nCommunity & Platform",
       points: [
         "Share tips, advice, and progress with members",
         "Win rewards, get expert help, and more",
@@ -1802,53 +1803,53 @@ function ComprehensiveCare({ productData }) {
         </div>
 
         <div className="rounded-[2rem] bg-white p-6 shadow-sm md:p-10 lg:p-12">
-          <div className="mb-12 text-center">
-            <div className="mb-6 inline-block text-2xl font-bold text-[#7b75f0] underline decoration-2 underline-offset-4">
-              {content.introLabel}
-            </div>
+          <div className="mb-12 flex flex-col items-center text-center">
+            <Image
+              src="/logo.png"
+              alt={content.introLabel || "HealSend"}
+              width={220}
+              height={68}
+              className="mb-6 h-12 w-auto md:h-14"
+              priority
+            />
             <p className="mx-auto max-w-4xl text-lg leading-relaxed text-gray-700 md:text-xl">
               {content.introText}
             </p>
           </div>
 
-          <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="mb-12 grid grid-cols-1 gap-6 xl:grid-cols-2">
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="relative flex min-h-[360px] flex-col overflow-hidden rounded-[1.5rem] bg-[#f4f5f9] shadow-sm"
+                className="flex flex-col overflow-hidden rounded-[1.5rem] bg-[#f4f5f9] shadow-sm"
               >
                 <div className="flex items-center justify-center gap-1.5 bg-[#7b75f0] py-2 text-xs font-bold text-white">
                   Included <PlusCircle className="h-3.5 w-3.5" />
                 </div>
-                <div className="relative z-10 flex flex-1 flex-col p-6 md:p-8 md:pr-36">
-                  <h3 className="mb-4 text-xl font-bold leading-tight text-[#7b75f0] md:max-w-[65%] md:text-2xl">
-                    {feature.title}
-                  </h3>
-                  <ul className="space-y-3 md:max-w-[65%]">
-                    {feature.points.map((point) => (
-                      <li key={point} className="flex items-start gap-2.5">
-                        <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#7b75f0]" />
-                        <span className="text-sm leading-relaxed text-gray-600 md:text-base">
-                          {point}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="px-6 pb-6 md:hidden">
-                  <div className="overflow-hidden rounded-[1.25rem] bg-white/80 p-4">
+                <div className="flex flex-1 items-center gap-4 p-6 lg:gap-6 lg:p-8">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="mb-4 whitespace-pre-line text-xl font-bold leading-tight text-[#7b75f0]">
+                      {feature.title}
+                    </h3>
+                    <ul className="space-y-3">
+                      {feature.points.map((point) => (
+                        <li key={point} className="flex items-start gap-2.5">
+                          <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#7b75f0]" />
+                          <span className="text-sm leading-relaxed text-gray-600 lg:text-base">
+                            {point}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="flex h-32 w-32 shrink-0 items-center justify-center sm:h-36 sm:w-36 lg:h-40 lg:w-40">
                     <img
                       src={feature.image}
                       alt={feature.title}
-                      className="h-40 w-full object-contain"
+                      className="h-full w-full object-contain"
                     />
                   </div>
                 </div>
-                <img
-                  src={feature.image}
-                  alt={feature.title}
-                  className={`hidden md:block ${feature.imageClass}`}
-                />
               </div>
             ))}
           </div>
@@ -2071,7 +2072,7 @@ export default function MarketingProductPage({ product }) {
 
   return (
     <div className="min-h-screen bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
-      <MarketingNavbar />
+      <MinimalMarketingNavbar />
       <WillpowerSection />
       <ProductHero productData={productData} />
       {/* <FeatureSplit productData={productData} /> */}

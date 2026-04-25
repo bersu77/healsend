@@ -108,14 +108,14 @@ export const productContent = {
   ],
   relatedProducts: [
     {
-      id: "nad-nasal-spray",
-      name: "NAD+ Nasal Spray",
-      image: WORDPRESS_MARKETING_IMAGES.nadNasal,
+      id: "tirzepatide-injections",
+      name: "Tirzepatide Injections",
+      image: WORDPRESS_MARKETING_IMAGES.tirzepatide,
     },
     {
-      id: "nad-patches",
-      name: "NAD+ Patches",
-      image: WORDPRESS_MARKETING_IMAGES.nadPatches,
+      id: "semaglutide-injections",
+      name: "Semaglutide Injections",
+      image: WORDPRESS_MARKETING_IMAGES.semaglutide,
     },
   ],
   featureSection: {

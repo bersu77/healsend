@@ -1,24 +1,36 @@
-import MarketingHomePage from "@/components/marketing/home-page";
-import { getMarketingHomePageData } from "@/lib/marketing-data";
+import { notFound } from "next/navigation";
+import MarketingProductPage from "@/components/marketing/product-page";
+import { getMarketingProductPageData } from "@/lib/marketing-data";
 import { buildPageMetadata } from "@/lib/seo";
+
+const HOME_PRODUCT_SLUG = "tirzepatide-injections";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata() {
-  const data = await getMarketingHomePageData();
+  const product = await getMarketingProductPageData(HOME_PRODUCT_SLUG);
 
   return buildPageMetadata({
-    title: data?.seoTitle || data?.title || "HealSend",
+    title:
+      product?.seoTitle ||
+      (product?.name ? `${product.name} | HealSend` : "HealSend"),
     description:
-      data?.seoDescription ||
-      "Clinician-guided treatment, onboarding, and ongoing care through HealSend.",
+      product?.seoDescription ||
+      product?.summary ||
+      product?.tabs?.description ||
+      "Personalized treatment options from HealSend.",
     path: "/",
-    image: data?.heroImage || null,
+    image: product?.image || product?.heroImage || null,
   });
 }
 
 export default async function HomePage() {
-  const data = await getMarketingHomePageData();
+  const product = await getMarketingProductPageData(HOME_PRODUCT_SLUG);
 
-  return <MarketingHomePage {...(data || {})} />;
+  if (!product) {
+    notFound();
+  }
+
+  const serializableProduct = JSON.parse(JSON.stringify(product));
+  return <MarketingProductPage product={serializableProduct} />;
 }
