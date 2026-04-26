@@ -152,12 +152,15 @@ const buildSliderItem = (filename, index) => ({
 });
 
 const WILLPOWER_LEFT_MARQUEE_ITEMS = [
+      "Copy of Gemini_Generated_Image_ctnnloctnnloctnn.png",
+
   "240_F_554794353_4b7WK5XeFkemnF1o7RXL2WFt4ITps4jX.jpg",
+
   "Box_2.png",
   "Copy of 240_F_1859749441_tdF1skYaEk8hSO9lo4tAYXdwVvq7Km4c.jpg",
   "Copy of 240_F_1861119733_Y7uOou4SbKCsL0DzOOy5RA0UASKblWIO.jpg",
   "Copy of 240_F_255843378_E2xPB7yqctJZrRIgyeAj8HxXzg5N2mr6.jpg",
-  "Copy of Gemini_Generated_Image_ctnnloctnnloctnn.png",
+
   "Copy of Gemini_Generated_Image_r1o81rr1o81rr1o8.png",
   "Copy of Gemini_Generated_Image_schuohschuohschu.png",
   "Copy of happyveganfit-remove-4559326 (1).jpg",
@@ -175,8 +178,9 @@ const WILLPOWER_RIGHT_MARQUEE_ITEMS = [
   "Copy of pexels-tima-miroshnichenko-5928317.jpg",
   "Copy of pexels-tima-miroshnichenko-6011604.jpg",
   "Copy of pexels-tirachard-kumtanom-112571-347135.jpg",
+    "Gemini_Generated_Image_n1o1o6n1o1o6n1o1.png",
+
   "Gemini_Generated_Image_4a1v034a1v034a1v.png",
-  "Gemini_Generated_Image_n1o1o6n1o1o6n1o1.png",
   "Gemini_Generated_Image_neknhtneknhtnekn.png",
   "PHOTO-2026-03-29-18-10-25(1).jpg",
 ].map(buildSliderItem);
@@ -929,67 +933,91 @@ function ProductHero({ productData }) {
                     : null}
 
                   {activeTab === "pricing" ? (
-                    <div className="space-y-6">
-                      <h3 className="text-lg font-bold leading-tight text-gray-900 md:text-xl">
-                        {productData.tabs.pricing.title}
-                      </h3>
+                    <div className="space-y-8">
+                      {/* Tirzepatide Injections Pricing */}
                       <div className="space-y-6">
-                        {productData.tabs.pricing.sizes.map((size) => (
-                          <div key={size.title}>
-                            <h4 className="text-base font-bold text-gray-800 md:text-lg">
-                              {size.title}
-                            </h4>
-                            <p className="mb-3 whitespace-pre-line text-sm text-gray-500">
-                              {size.subtitle}
-                            </p>
-                            <div className="rounded-[1rem] border border-gray-200">
-                              {size.plans.map((plan, index) => {
-                                const isBestValue = /12[\s-]*month/i.test(
-                                  plan.name || "",
-                                );
-                                const is3Month = /^3[\s-]*month/i.test(
-                                  plan.name || "",
-                                );
-                                const isMonthly =
-                                  /^\s*monthly\b|^\s*1[\s-]*month/i.test(
-                                    plan.name || "",
-                                  );
-                                const displayFirstMonthPrice = isBestValue
-                                  ? 0
-                                  : is3Month
-                                    ? 149
-                                    : plan.firstMonthPrice;
-                                return (
-                                  <div
-                                    key={plan.name}
-                                    className={`relative flex items-center justify-between p-4 ${
-                                      index !== size.plans.length - 1
-                                        ? "border-b border-gray-200"
-                                        : ""
-                                    }`}
-                                  >
-                                    {isBestValue ? (
-                                      <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#00a86b] px-3 text-sm font-semibold leading-none text-white">
-                                        Best Value
-                                      </span>
-                                    ) : null}
-                                    <span className="text-sm font-medium text-gray-700 md:text-base">
-                                      {plan.name}
-                                    </span>
-                                    <div className="text-right">
-                                      <div className="text-xl font-bold leading-none text-[#00a86b]">
-                                        ${displayFirstMonthPrice}{" "}
-                                        <span className="text-sm font-semibold">
-                                          {isMonthly ? "per month" : "first month"}
-                                        </span>
-                                      </div>
+                        <h3 className="text-lg font-bold leading-tight text-gray-900 md:text-xl">
+                          Tirzepatide Injections
+                        </h3>
+                        <div className="rounded-[1rem] border border-gray-200">
+                          {[
+                            { name: "12 Month Plan", firstMonth: 0, thenPrice: 299, isBestValue: true },
+                            { name: "3 Month Plan", firstMonth: 149, thenPrice: 299, isBestValue: false },
+                            { name: "Monthly Plan", firstMonth: 199, thenPrice: 199, isBestValue: false, isMuted: true }
+                          ].map((plan, index) => (
+                            <div
+                              key={plan.name}
+                              className={`relative flex items-center justify-between p-4 ${
+                                index !== 2 ? "border-b border-gray-200" : ""
+                              } ${plan.isMuted ? "bg-gray-50/50" : ""}`}
+                            >
+                              {plan.isBestValue ? (
+                                <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#00a86b] px-3 text-sm font-semibold leading-none text-white">
+                                  Best Value
+                                </span>
+                              ) : null}
+                              <span className={`text-sm font-medium md:text-base ${plan.isMuted ? "text-gray-500" : "text-gray-700"}`}>
+                                {plan.name}
+                              </span>
+                              <div className="text-right">
+                                <div className={`text-xl font-bold leading-none ${plan.isMuted ? "text-gray-500" : "text-[#00a86b]"}`}>
+                                  ${plan.firstMonth === 0 ? "0" : plan.firstMonth}{" "}
+                                  <span className="text-sm font-semibold">
+                                    {plan.firstMonth === 0 ? "first month" : "first month"}
+                                  </span>
+                                  {plan.thenPrice && (
+                                    <div className="text-sm font-normal mt-1">
+                                      then ${plan.thenPrice}/month
                                     </div>
-                                  </div>
-                                );
-                              })}
+                                  )}
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Semaglutide Injections Pricing */}
+                      <div className="space-y-6">
+                        <h3 className="text-lg font-bold leading-tight text-gray-900 md:text-xl">
+                          Semaglutide Injections
+                        </h3>
+                        <div className="rounded-[1rem] border border-gray-200">
+                          {[
+                            { name: "12 Month Plan", firstMonth: 0, thenPrice: 249, isBestValue: true },
+                            { name: "3 Month Plan", firstMonth: 149, thenPrice: 249, isBestValue: false },
+                            { name: "Monthly Plan", firstMonth: 199, thenPrice: 199, isBestValue: false, isMuted: true }
+                          ].map((plan, index) => (
+                            <div
+                              key={plan.name}
+                              className={`relative flex items-center justify-between p-4 ${
+                                index !== 2 ? "border-b border-gray-200" : ""
+                              } ${plan.isMuted ? "bg-gray-50/50" : ""}`}
+                            >
+                              {plan.isBestValue ? (
+                                <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#00a86b] px-3 text-sm font-semibold leading-none text-white">
+                                  Best Value
+                                </span>
+                              ) : null}
+                              <span className={`text-sm font-medium md:text-base ${plan.isMuted ? "text-gray-500" : "text-gray-700"}`}>
+                                {plan.name}
+                              </span>
+                              <div className="text-right">
+                                <div className={`text-xl font-bold leading-none ${plan.isMuted ? "text-gray-500" : "text-[#00a86b]"}`}>
+                                  ${plan.firstMonth === 0 ? "0" : plan.firstMonth}{" "}
+                                  <span className="text-sm font-semibold">
+                                    {plan.firstMonth === 0 ? "first month" : "first month"}
+                                  </span>
+                                  {plan.thenPrice && (
+                                    <div className="text-sm font-normal mt-1">
+                                      then ${plan.thenPrice}/month
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   ) : null}
@@ -1736,17 +1764,18 @@ const TRANSFORMATION_TESTIMONIALS = [
     before: "/morgan_before.webp",
     after: "/morgan_after.webp",
   },
-  {
-    name: "Chris",
-    weightLoss: 42,
-    before: "/christopher_before.webp",
-    after: "/christopher_after.webp",
-  },
+  
   {
     name: "Noelle",
     weightLoss: 32,
     before: "/noelle_before.webp",
     after: "/noelle_after.webp",
+  },
+  {
+    name: "Chris",
+    weightLoss: 42,
+    before: "/christopher_before.webp",
+    after: "/christopher_after.webp",
   },
 ];
 
@@ -1761,7 +1790,7 @@ function TestimonialsSection() {
   return (
     <section className="bg-[#f4f5f9] py-16 md:py-20">
       <div className="mx-auto max-w-[1340px] px-4 md:px-8">
-        <div className="mb-8 flex flex-col gap-6 md:mb-10 md:flex-row md:items-start md:justify-between">
+        <div className="mb-8 flex flex-col gap-6 md:mb-10 md:flex-row md:items-start  md:justify-between">
           <div className="max-w-2xl">
             <div className="flex flex-wrap items-center gap-2.5 md:gap-3">
               <h2 className="text-2xl font-bold tracking-tight text-gray-950 sm:text-3xl md:text-4xl lg:text-5xl">
@@ -1794,15 +1823,15 @@ function TestimonialsSection() {
             </p>
           </div>
 
-          <div className="flex w-full flex-col items-start md:w-auto md:items-end">
+          <div className="flex w-full flex-col items-center justify-center md:w-auto md:items-end my-auto">
             <Link
               href={ctaHref}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#0f1422] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1a2238] sm:w-auto sm:px-6 sm:py-3.5 md:text-base"
+              className="inline-flex w-full items-center font-bold  gap-2 rounded-full bg-[#0f1422] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1a2238] sm:w-auto sm:px-6 sm:py-3.5 md:text-base"
             >
               See what&apos;s possible for you
               <ArrowRight className="h-4 w-4 shrink-0" />
             </Link>
-            <p className="mt-3 w-full text-center text-xs font-medium text-[#4d5160] sm:w-auto sm:text-left sm:text-sm md:text-right">
+            <p className="mt-3 w-full text-center text-xs font-bold text-[#4d5160] ">
               Take 90 seconds · 100% private · free
             </p>
           </div>
