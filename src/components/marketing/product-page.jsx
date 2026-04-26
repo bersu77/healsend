@@ -2274,7 +2274,7 @@ function CleanSimpleEffective({ productData }) {
         );
 
   return (
-    <section className="relative bg-[#f9f9f9] py-12 md:py-16">
+    <section className="relative bg-white py-12 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <h2 className="mb-10 text-center text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
           Clean, simple, and effective

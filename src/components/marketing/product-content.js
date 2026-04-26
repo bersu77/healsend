@@ -1,8 +1,10 @@
 import {
   Atom,
   BadgeCheck,
+  Brain,
   Droplet,
   FlaskConical,
+  Heart,
   Hourglass,
   Leaf,
   Rabbit,
@@ -136,17 +138,17 @@ export const productContent = {
       "You may notice real differences in how you think, move, and feel.",
     features: [
       {
-        icon: Target,
+        icon: Brain,
         title: "Sharper focus & clarity",
         description: "Brain fog? Meet your new clarity companion.",
       },
       {
-        icon: TrendingUp,
+        icon: Zap,
         title: "Restore energy & metabolism",
         description: "NAD+ boosts mitochondrial function to power your day.",
       },
       {
-        icon: Hourglass,
+        icon: Heart,
         title: "Support healthy aging",
         description: "Support DNA repair and longevity enzymes like SIRT1.",
       },
@@ -204,28 +206,28 @@ export const productContent = {
   },
   cleanIngredients: [
     {
-      iconImage: "/images/marketing/icons/s3.jpeg",
-      name: "Weight Loss\nGoal Guarantee.",
+      icon: ShieldCheck,
+      name: "Pharmaceutical\nGrade\nIngredients",
     },
     {
-      iconImage: "/images/marketing/icons/24h-delivery.png",
-      name: "Always Free,\n48hr Delivery",
+      icon: FlaskConical,
+      name: "Lab Tested\nfor Purity\n& Potency",
     },
     {
-      iconImage: "/images/marketing/icons/s8.jpeg",
-      name: "Clinician-led\nPlans & 24/7 Care\nTeams.",
+      icon: Leaf,
+      name: "No Fillers\nor Artificial\nAdditives",
     },
     {
-      iconImage: "/images/marketing/icons/price.png",
-      name: "Honest Pricing,\nSame Price at\nEvery Dose.",
+      icon: Droplet,
+      name: "Sterile\nFormulation\nProcess",
     },
     {
-      iconImage: "/images/marketing/icons/prescriptions.png",
-      name: "200,000+\nPrescriptions\nWritten.",
+      icon: BadgeCheck,
+      name: "Quality\nAssured\n& Certified",
     },
     {
-      iconImage: "/images/marketing/icons/no-insurance.png",
-      name: "No Insurance. No\nWaitlist. No\nHidden Fees.",
+      icon: Atom,
+      name: "Molecularly\nPure\nCompounds",
     },
   ],
 };
