@@ -2316,11 +2316,14 @@ function FAQSection() {
   const ctaHref = "/funnels/glp-1";
 
   return (
-    <section className="bg-white py-16 md:py-20">
-      <div className="mx-auto max-w-[820px] px-4 md:px-8">
-        <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-[#1d1d1f] md:text-4xl lg:text-5xl">
-          Frequently asked questions
-        </h2>
+    <section className="relative bg-gradient-to-b from-[#E2E8F0] to-[#F8FAFC] rounded-t-[32px] -mt-7 py-12 md:!pt-20 md:!pb-10 md:py-20 md:mt-0">
+      <div className="container mx-auto max-w-screen-md px-4 md:px-8">
+        <h2 className="mb-3 text-4xl font-medium text-slate-900 md:text-5xl text-balance font-title">
+        Your questions. <span className="italic text-brand font-playfair text-blue-600">Honest answers.</span>
+      </h2>
+      <p className="mb-16 text-start text-sm text-gray-600  max-w-lg">
+        Everything you want to know before getting started. And remember when you start your plan, you will have access to learning tutorials & unlimited access to clinicians for virtual consults or support.
+      </p>
 
         <div className="flex flex-col gap-4">
           {FAQ_ITEMS.map((item, idx) => {
@@ -2328,18 +2331,18 @@ function FAQSection() {
             return (
               <div
                 key={item.question}
-                className="overflow-hidden rounded-[1rem] bg-[#f5f5f7] transition-shadow duration-200 hover:shadow-[0_8px_24px_rgba(29,29,31,0.08)]"
+                className="border-b border-slate-400 last:border-b-0"
               >
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : idx)}
-                  className="flex w-full items-center justify-between gap-6 px-6 py-6 text-left md:px-7"
+                  className="flex w-full items-center justify-between py-4 gap-6  text-left hover:underline"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-lg font-semibold text-[#1d1d1f] md:text-xl">
+                  <span className="text-xl font-medium text-slate-900 md:text-2xl hover:underline">
                     {item.question}
                   </span>
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[#1d1d1f]">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center text-gray-500">
                     {isOpen ? (
                       <Minus className="h-5 w-5" strokeWidth={2.25} />
                     ) : (
@@ -2356,7 +2359,7 @@ function FAQSection() {
                       transition={{ duration: 0.25, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <p className="px-6 pb-6 pr-12 text-base leading-relaxed text-[#1d1d1fcc] md:px-7">
+                      <p className="pb-6 pr-12 text-base leading-relaxed text-gray-600">
                         {item.answer}
                       </p>
                     </motion.div>
