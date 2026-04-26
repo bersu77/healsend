@@ -186,7 +186,7 @@ function WillpowerVerticalColumn({ items, reverse = false }) {
         className="flex flex-col gap-3 lg:gap-4"
         animate={{ y: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
         transition={{
-          duration: 18,
+          duration: 30,
           ease: "linear",
           repeat: Infinity,
           repeatType: "loop",
@@ -222,7 +222,7 @@ function WillpowerHorizontalRow({ items, reverse = false }) {
         style={{ width: "max-content" }}
         animate={{ x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
         transition={{
-          duration: 22,
+          duration: 36,
           ease: "linear",
           repeat: Infinity,
           repeatType: "loop",
@@ -561,17 +561,17 @@ const defaultComprehensiveCare = {
         "See a licensed clinician same-day",
         "Unlimited visits, all online",
       ],
-      image: "/application-step-1.png",
+      image: "/images/marketing/include-1.jpeg",
       imageClass:
         "absolute bottom-0 right-6 h-32 w-32 object-contain md:h-40 md:w-40",
     },
     {
-      title: "Always On Medical Assistance\nvia Phone",
+      title: "Always On Medical Assistance via Phone",
       points: [
         "Questions about side effects? Call our medical hotline",
         "Fast, clear support from U.S. agents - no offshore centers",
       ],
-      image: WORDPRESS_MARKETING_IMAGES.nadNasal,
+      image: "/images/marketing/include-2.png",
       imageClass:
         "absolute bottom-6 right-6 aspect-square w-28 rounded-full border-4 border-white bg-white object-contain p-3 shadow-xl md:w-36",
     },
@@ -581,17 +581,17 @@ const defaultComprehensiveCare = {
         "Fast, reliable delivery for every refill",
         "Refills arrive before you ever run out",
       ],
-      image: WORDPRESS_MARKETING_IMAGES.nadPatches,
+      image: "/images/marketing/include-3.png",
       imageClass:
         "absolute bottom-2 right-2 w-32 object-contain mix-blend-multiply md:w-48",
     },
     {
-      title: "Real-Time Access to Member\nCommunity & Platform",
+      title: "Real-Time Access to Member Community & Platform",
       points: [
         "Share tips, advice, and progress with members",
         "Win rewards, get expert help, and more",
       ],
-      image: WORDPRESS_MARKETING_IMAGES.sermorelin,
+      image: "/images/marketing/include-4.png",
       imageClass:
         "absolute bottom-6 right-6 aspect-square w-28 rounded-full border-4 border-white bg-white object-contain p-3 shadow-xl md:w-36",
     },
@@ -782,18 +782,20 @@ function ProductHero({ productData }) {
     <section className="bg-[#f9f9f9] px-4 py-16 md:px-8 md:py-20 lg:px-16">
       <div className="mx-auto flex max-w-[1400px] flex-col justify-center gap-5 lg:flex-row lg:gap-6 xl:gap-8">
         <div className="relative flex aspect-[4/5] w-full shrink-0 items-center justify-center overflow-hidden rounded-[1rem] bg-[#f9f9f9] lg:sticky lg:top-8 lg:w-[55%] lg:self-start xl:w-[740px]">
-          {productData.inStock ? (
-            <div className="absolute left-6 top-6 z-10 flex items-center gap-2 rounded-[1rem] bg-white/90 px-5 py-2 text-base font-medium backdrop-blur-sm">
-              <div className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
-              In Stock
-            </div>
-          ) : null}
           <div className="flex h-full w-full items-center justify-center py-16 md:py-20">
-            <img
-              src="/images/marketing/instock.jpeg"
-              alt={`${productData.name} — in stock`}
-              className="max-h-[78%] max-w-[78%] rounded-2xl object-contain"
-            />
+            <div className="relative h-full w-full max-h-[78%] max-w-[78%]">
+              {productData.inStock ? (
+                <div className="absolute bottom-full left-0 z-10 mb-3 flex items-center gap-2 rounded-[1rem] bg-white/90 px-4 py-1.5 text-sm font-medium shadow-sm backdrop-blur-sm md:px-5 md:py-2 md:text-base">
+                  <div className="h-2 w-2 rounded-full bg-emerald-500 md:h-2.5 md:w-2.5" />
+                  In Stock
+                </div>
+              ) : null}
+              <img
+                src="/images/marketing/instock.jpeg"
+                alt={`${productData.name} — in stock`}
+                className="h-full w-full rounded-2xl object-cover"
+              />
+            </div>
           </div>
         </div>
 
@@ -1134,6 +1136,356 @@ function ProductHero({ productData }) {
     </section>
   );
 }
+const MEDICAL_PLANS = [
+  {
+    id: "semaglutide",
+    headerClass: "bg-[#f3c787]",
+    headerTextClass: "text-white",
+    useFullImage: true,
+    badges: ["Just starting GLP-1?", "Recommended starter plan"],
+    title: "Semaglutide\nPlan",
+    subtitle: "GLP-1 receptor agonist",
+    image: "/images/marketing/semaglutide.webp",
+    bulletsHeading: "WHAT YOU GET",
+    bullets: [
+      {
+        icon: Star,
+        text: "Steady, gradual weight loss for first-time GLP-1 users",
+      },
+      {
+        icon: Hourglass,
+        text: "Once-weekly injection your clinician dials in to your body",
+      },
+    ],
+    primaryCta: "Start Semaglutide",
+    secondaryCta: "Why Sema?",
+    description:
+      "A simple first step. A once-weekly injection that calms food noise, eases cravings, and supports steady, predictable progress.",
+    whyItWorks: [
+      "Feel full sooner and stay full longer",
+      "Quiets persistent food cravings between meals",
+      "Supports gradual, sustainable fat loss",
+    ],
+    bestFor: [
+      "First-time GLP-1 users",
+      "Members who want steady, predictable progress",
+    ],
+  },
+  {
+    id: "tirzepatide",
+    headerClass: "bg-[#3a7fb8]",
+    headerTextClass: "text-white",
+    useFullImage: true,
+    badges: ["Hit a plateau on GLP-1?", "Most chosen plan"],
+    title: "Tirzepatide\nPlan",
+    subtitle: "Dual GIP + GLP-1 agonist",
+    image: "/images/marketing/tirzepatide.webp",
+    bulletsHeading: "WHAT YOU GET",
+    bullets: [
+      {
+        icon: Target,
+        text: "Targets two metabolic pathways for stronger appetite control",
+      },
+      {
+        icon: TrendingUp,
+        text: "A great next step if Semaglutide has stalled for you",
+      },
+      {
+        icon: ShieldCheck,
+        text: "Slow titration designed to keep side effects minimal",
+      },
+    ],
+    primaryCta: "Start Tirzepatide",
+    secondaryCta: "Why Tirz?",
+    description:
+      "A dual-action option that goes after both hunger and insulin response for stronger results when one mechanism isn't enough.",
+    whyItWorks: [
+      "Stronger appetite suppression than single-action GLP-1s",
+      "Engages both hunger and insulin response pathways",
+      "Built for deeper, faster weight reduction",
+    ],
+    bestFor: [
+      "Members plateauing on Semaglutide",
+      "Anyone who needs stronger appetite control",
+    ],
+  },
+  // {
+  //   id: "microdose",
+  //   headerClass: "bg-gradient-to-br from-[#cdb194] to-[#9c7e5b]",
+  //   headerTextClass: "text-white",
+  //   badges: ["Gentle start", "Lower-dose option"],
+  //   title: "GLP-1 Microdose\nPlan",
+  //   subtitle: "GLP-1 agonist · micro-titration",
+  //   image: "/images/marketing/glp1-hero-merged-tight.png",
+  //   bulletsHeading: "WHY MEMBERS CHOOSE MICRODOSE",
+  //   bullets: [
+  //     {
+  //       icon: PillBottle,
+  //       text: "Smaller, more frequent dosing for a gentler introduction",
+  //     },
+  //     {
+  //       icon: ArrowRight,
+  //       text: "Move up to the full plan whenever you feel ready",
+  //     },
+  //   ],
+  //   primaryCta: "Start Microdose",
+  //   secondaryCta: "Why Microdose?",
+  //   description:
+  //     "Start low, go slow. Smaller doses split across the week for a gentler ramp and an easier adjustment period.",
+  //   whyItWorks: [
+  //     "Lower doses, fewer reported side effects",
+  //     "Twice-weekly schedule keeps levels steady",
+  //     "Easier to stick with long term",
+  //   ],
+  //   bestFor: [
+  //     "First-time injectable users",
+  //     "Members sensitive to medication side effects",
+  //   ],
+  // },
+  {
+    id: "name-brand",
+    headerClass: "bg-[#3a7fb8]",
+    headerTextClass: "text-white",
+    useFullImage: true,
+    badges: ["Prefer a brand name?", "Retail price"],
+    title: "Ozempic®\nZepbound®",
+    subtitle: "",
+    image: "/images/marketing/branded.webp",
+    bulletsHeading: "",
+    bullets: [],
+    primaryCta: "Get a name brand",
+    secondaryCta: null,
+  },
+];
+
+function MedicalPlanCard({ plan, ctaHref }) {
+  const [expanded, setExpanded] = useState(false);
+  const isMinimal = plan.bullets.length === 0;
+  const hasDetails =
+    plan.description ||
+    (plan.whyItWorks && plan.whyItWorks.length > 0) ||
+    (plan.bestFor && plan.bestFor.length > 0);
+
+  return (
+    <div
+      className={`flex h-full flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-[0_20px_40px_-24px_rgba(91,60,221,0.12)] ring-1 ring-[#ece8f3] ${
+        isMinimal ? "" : "min-h-[620px]"
+      }`}
+    >
+      <div
+        className={`relative h-[222px] shrink-0 overflow-hidden ${plan.headerClass} ${plan.headerTextClass}`}
+      >
+        {plan.useFullImage ? (
+          <img
+            src={plan.image}
+            alt={plan.title}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
+          <img
+            src={plan.image}
+            alt={plan.title}
+            loading="lazy"
+            className="pointer-events-none absolute right-0 top-0 h-full w-[55%] object-contain object-right"
+          />
+        )}
+        <div className="absolute inset-0 z-10 flex flex-col justify-between gap-y-6 p-6">
+          <div className="flex flex-col items-start gap-y-2">
+            {plan.badges.map((badge, i) => (
+              <span
+                key={badge}
+                className={`rounded-lg px-2 py-1 text-sm font-medium leading-5 text-gray-800 ${
+                  i === 0
+                    ? "bg-gradient-to-r from-white/80 to-white/50"
+                    : "bg-white/50"
+                }`}
+              >
+                {badge}
+              </span>
+            ))}
+          </div>
+          <div>
+            <p className="text-2xl font-medium leading-tight">
+              {plan.title.split("\n").map((line, idx, arr) => (
+                <React.Fragment key={idx}>
+                  {line}
+                  {idx < arr.length - 1 ? <br /> : null}
+                </React.Fragment>
+              ))}
+            </p>
+            {plan.subtitle ? (
+              <p className="mt-2 text-sm font-medium">{plan.subtitle}</p>
+            ) : null}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-1 flex-col p-6 md:p-7">
+        {!isMinimal ? (
+          <>
+            <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[#1c1a24]">
+              {plan.bulletsHeading}
+            </p>
+            <ul className="mb-6 flex-1 space-y-4">
+              {plan.bullets.map((bullet) => {
+                const Icon = bullet.icon;
+                return (
+                  <li key={bullet.text} className="flex items-start gap-3">
+                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f1ecf9]">
+                      <Icon className="h-3.5 w-3.5 text-[#5b3cdd]" />
+                    </span>
+                    <span className="text-sm leading-6 text-[#1c1a24]">
+                      {bullet.text}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </>
+        ) : (
+          <div className="flex-1" />
+        )}
+
+        <Link
+          href={ctaHref}
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1c1a24] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[#2a2740]"
+        >
+          {plan.primaryCta}
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+        {plan.secondaryCta && hasDetails ? (
+          <button
+            type="button"
+            onClick={() => setExpanded((v) => !v)}
+            aria-expanded={expanded}
+            className={`mt-3 inline-flex items-center justify-center rounded-full border bg-white px-5 py-3 text-sm font-semibold transition-colors ${
+              expanded
+                ? "border-[#d8d2ee] text-[#5b3cdd] hover:bg-[#f1ecf9]"
+                : "border-[#e5e0ee] text-[#1c1a24] hover:bg-[#f1ecf9]"
+            }`}
+          >
+            {expanded ? "Hide details" : plan.secondaryCta}
+          </button>
+        ) : null}
+
+        <AnimatePresence initial={false}>
+          {expanded && hasDetails ? (
+            <motion.div
+              key="details"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="mt-6 space-y-6 border-t border-[#ece8f3] pt-6">
+                {plan.description ? (
+                  <p className="text-sm leading-6 text-[#474257]">
+                    {plan.description}
+                  </p>
+                ) : null}
+                {plan.whyItWorks?.length > 0 ? (
+                  <div>
+                    <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#1c1a24]">
+                      WHY IT WORKS
+                    </p>
+                    <ul className="space-y-2.5">
+                      {plan.whyItWorks.map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <Check
+                            className="mt-0.5 h-4 w-4 shrink-0 text-[#5b3cdd]"
+                            strokeWidth={3}
+                          />
+                          <span className="text-sm leading-6 text-[#1c1a24]">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+                {plan.bestFor?.length > 0 ? (
+                  <div>
+                    <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#1c1a24]">
+                      BEST FOR
+                    </p>
+                    <ul className="space-y-2.5">
+                      {plan.bestFor.map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <Check
+                            className="mt-0.5 h-4 w-4 shrink-0 text-[#5b3cdd]"
+                            strokeWidth={3}
+                          />
+                          <span className="text-sm leading-6 text-[#1c1a24]">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+
+function MedicalWeightLossSection({ productData }) {
+  const ctaHref = getPrimaryCtaHref(productData);
+
+  return (
+    <section className="overflow-hidden bg-[#f9f9f9] py-16 md:py-20">
+      <div className="mx-auto max-w-[1400px] px-4 md:px-8 lg:px-16">
+        <div className="mb-10 flex flex-col gap-6 md:mb-12 md:flex-row md:items-start md:justify-between">
+          <div className="max-w-2xl">
+            <h2 className="font-title text-3xl font-bold tracking-tight text-gray-950 md:text-5xl">
+              Medical weight-loss care
+            </h2>
+            <p className="mt-1 font-playfair text-2xl italic text-[#5b3cdd] md:text-4xl">
+              matched to your stage and goals.
+            </p>
+            <p className="mt-5 max-w-xl text-base leading-7 text-[#474257] md:text-lg">
+              Weight loss isn&apos;t one-size-fits-all. Choose the plan built
+              for where you are right now &mdash; your goals, your lifestyle,
+              your timeline.
+            </p>
+          </div>
+
+          <div className="flex flex-row items-center gap-4 md:gap-6">
+            <img
+              src="/images/marketing/ratings-trustpilot.webp"
+              alt="Trustpilot rating"
+              loading="lazy"
+              className="h-20 w-auto md:h-24"
+            />
+            <img
+              src="/images/marketing/ratings-fb.webp"
+              alt="Facebook community"
+              loading="lazy"
+              className="h-20 w-auto md:h-24"
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center gap-6 lg:flex-row lg:items-start lg:justify-center lg:gap-8">
+          {MEDICAL_PLANS.map((plan) => (
+            <div
+              key={plan.id}
+              className="w-full max-w-md lg:w-[26%] lg:max-w-none"
+            >
+              <MedicalPlanCard plan={plan} ctaHref={ctaHref} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function PricingSection({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
   const pricePresentation = getPricePresentation(productData);
@@ -1406,10 +1758,10 @@ function TestimonialsSection() {
   return (
     <section className="bg-[#f4f5f9] py-16 md:py-20">
       <div className="mx-auto max-w-[1340px] px-4 md:px-8">
-        <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+        <div className="mb-8 flex flex-col gap-6 md:mb-10 md:flex-row md:items-start md:justify-between">
           <div className="max-w-2xl">
-            <div className="flex flex-wrap items-center gap-3">
-              <h2 className="text-3xl font-bold tracking-tight text-gray-950 md:text-4xl lg:text-5xl">
+            <div className="flex flex-wrap items-center gap-2.5 md:gap-3">
+              <h2 className="text-2xl font-bold tracking-tight text-gray-950 sm:text-3xl md:text-4xl lg:text-5xl">
                 2000+ members.
               </h2>
               <div className="flex -space-x-2">
@@ -1421,7 +1773,7 @@ function TestimonialsSection() {
                 ].map((src) => (
                   <span
                     key={src}
-                    className="relative h-9 w-9 overflow-hidden rounded-full border-2 border-white bg-[#eef0f8] md:h-11 md:w-11"
+                    className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-white bg-[#eef0f8] sm:h-9 sm:w-9 md:h-11 md:w-11"
                   >
                     <Image
                       src={src}
@@ -1434,30 +1786,30 @@ function TestimonialsSection() {
                 ))}
               </div>
             </div>
-            <p className="mt-1 font-playfair text-3xl italic font-medium tracking-tight text-[#6d6ffc] md:text-4xl lg:text-5xl">
+            <p className="mt-1 font-playfair text-2xl italic font-medium tracking-tight text-[#6d6ffc] sm:text-3xl md:text-4xl lg:text-5xl">
               Life-changing results
             </p>
           </div>
 
-          <div className="flex flex-col items-start md:items-end">
+          <div className="flex w-full flex-col items-start md:w-auto md:items-end">
             <Link
               href={ctaHref}
-              className="inline-flex items-center gap-2 rounded-full bg-[#0f1422] px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#1a2238] md:text-base"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#0f1422] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1a2238] sm:w-auto sm:px-6 sm:py-3.5 md:text-base"
             >
               See what&apos;s possible for you
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4 shrink-0" />
             </Link>
-            <p className="mt-3 text-sm font-medium text-[#4d5160]">
+            <p className="mt-3 w-full text-center text-xs font-medium text-[#4d5160] sm:w-auto sm:text-left sm:text-sm md:text-right">
               Take 90 seconds · 100% private · free
             </p>
           </div>
         </div>
 
-        <div className="mb-6 hidden gap-3 md:flex">
+        <div className="mb-6 flex gap-3">
           <button
             type="button"
             onClick={() => api?.scrollPrev()}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-100"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-100 md:h-11 md:w-11"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="h-5 w-5" />
@@ -1465,7 +1817,7 @@ function TestimonialsSection() {
           <button
             type="button"
             onClick={() => api?.scrollNext()}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-100"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-100 md:h-11 md:w-11"
             aria-label="Next testimonial"
           >
             <ChevronRight className="h-5 w-5" />
@@ -1781,11 +2133,11 @@ function LabTested({ productData: _productData }) {
               </div>
             </div>
             <div className="w-full lg:w-[45%]">
-              <div className="relative aspect-square overflow-hidden rounded-[2rem] shadow-2xl">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-2xl">
                 <img
                   src={content.image}
                   alt="Lab tested medications"
-                  className="h-full w-full object-contain"
+                  className="h-full w-full object-cover"
                 />
               </div>
             </div>
@@ -1860,7 +2212,7 @@ function ComprehensiveCare({ productData }) {
                     <img
                       src={feature.image}
                       alt={feature.title}
-                      className="h-full w-full object-contain"
+                      className="h-full w-full object-contain mix-blend-multiply"
                     />
                   </div>
                 </div>
@@ -1881,7 +2233,6 @@ function ComprehensiveCare({ productData }) {
 }
 
 function CleanSimpleEffective({ productData }) {
-  const ctaHref = getPrimaryCtaHref(productData);
   const items =
     productData.cleanIngredients?.length > 0
       ? productData.cleanIngredients
@@ -1891,9 +2242,9 @@ function CleanSimpleEffective({ productData }) {
         );
 
   return (
-    <section className="relative bg-[#f9f9f9] py-16 md:py-20">
+    <section className="relative bg-[#f9f9f9] py-12 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <h2 className="mb-12 text-center text-3xl font-bold tracking-tight text-black md:text-4xl lg:text-5xl">
+        <h2 className="mb-10 text-center text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
           Clean, simple, and effective
         </h2>
 
@@ -1901,25 +2252,28 @@ function CleanSimpleEffective({ productData }) {
           {items.map((item) => (
             <div
               key={item.text || item.name}
-              className="flex flex-col items-center justify-center rounded-[1.5rem] bg-white p-5 text-center shadow-sm"
+              className="flex flex-col items-center justify-center rounded-[1.25rem] bg-white p-6 text-center shadow-sm transition-transform duration-300 ease-out hover:-translate-y-1 hover:scale-[1.04] hover:shadow-md"
             >
-              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#f9f9f9]">
-                <item.icon className="h-7 w-7 text-black" strokeWidth={1.5} />
+              <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-[#eef0f4]">
+                {item.iconImage ? (
+                  <img
+                    src={item.iconImage}
+                    alt=""
+                    aria-hidden="true"
+                    className="h-12 w-12 object-contain mix-blend-multiply"
+                  />
+                ) : (
+                  <item.icon
+                    className="h-9 w-9 text-[#1c1a24]"
+                    strokeWidth={1.75}
+                  />
+                )}
               </div>
-              <p className="whitespace-pre-line text-sm font-medium leading-snug text-black">
+              <p className="whitespace-pre-line text-[13px] font-bold leading-snug text-[#1c1a24]">
                 {item.text || item.name}
               </p>
             </div>
           ))}
-        </div>
-
-        <div className="mt-16 flex justify-center">
-          <Link
-            href={ctaHref}
-            className="rounded-full bg-gradient-to-r from-[#8b85f5] to-[#665ce0] px-12 py-4 text-lg font-bold text-white shadow-xl transition-all hover:-translate-y-1 hover:shadow-2xl"
-          >
-            Get Started
-          </Link>
         </div>
       </div>
     </section>
@@ -2198,6 +2552,7 @@ export default function MarketingProductPage({ product }) {
       <ProductHero productData={productData} />
       {/* <FeatureSplit productData={productData} /> */}
       <MediaLogosBanner />
+      <FadeInSection><MedicalWeightLossSection productData={productData} /></FadeInSection>
       <FadeInSection><PricingSection productData={productData} /></FadeInSection>
       <FadeInSection><NegativeSellSection /></FadeInSection>
       <FadeInSection><BenefitsCarousel productData={productData} /></FadeInSection>

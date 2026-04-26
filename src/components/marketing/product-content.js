@@ -1,14 +1,18 @@
 import {
   Atom,
+  BadgeCheck,
   Droplet,
   FlaskConical,
   Hourglass,
   Leaf,
   Rabbit,
+  ShieldCheck,
+  Stethoscope,
   Syringe,
   Target,
   TrendingUp,
   TreePine,
+  Truck,
   Wheat,
   Zap,
 } from "lucide-react";
@@ -199,11 +203,29 @@ export const productContent = {
       "Discounts are applied automatically at checkout when available, and final treatment fit still depends on clinician review.",
   },
   cleanIngredients: [
-    { icon: Rabbit, name: "Cruelty Free" },
-    { icon: TreePine, name: "Eco Friendly" },
-    { icon: Leaf, name: "Paraben Free" },
-    { icon: FlaskConical, name: "Silicone Free" },
-    { icon: Atom, name: "Sulphate Free" },
-    { icon: Wheat, name: "Gluten Free" },
+    {
+      iconImage: "/images/marketing/icons/s3.jpeg",
+      name: "Weight Loss\nGoal Guarantee.",
+    },
+    {
+      iconImage: "/images/marketing/icons/24h-delivery.png",
+      name: "Always Free,\n48hr Delivery",
+    },
+    {
+      iconImage: "/images/marketing/icons/s8.jpeg",
+      name: "Clinician-led\nPlans & 24/7 Care\nTeams.",
+    },
+    {
+      iconImage: "/images/marketing/icons/price.png",
+      name: "Honest Pricing,\nSame Price at\nEvery Dose.",
+    },
+    {
+      iconImage: "/images/marketing/icons/prescriptions.png",
+      name: "200,000+\nPrescriptions\nWritten.",
+    },
+    {
+      iconImage: "/images/marketing/icons/no-insurance.png",
+      name: "No Insurance. No\nWaitlist. No\nHidden Fees.",
+    },
   ],
 };
