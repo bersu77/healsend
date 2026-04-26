@@ -52,6 +52,20 @@ import {
 } from "@/lib/product-routing";
 import { formatUsdCompact } from "@/lib/pricing";
 
+function FadeInSection({ children, delay = 0, y = 48, className }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, amount: 0.2 }}
+      transition={{ duration: 1, delay, ease: [0.16, 1, 0.3, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 const MEDIA_LOGOS = [
   { name: "Yahoo!", style: "font-black text-[1.1rem] tracking-tight" },
   { name: "USA TODAY", style: "font-black text-[0.9rem] tracking-[0.08em]" },
@@ -67,17 +81,17 @@ const MEDIA_LOGOS = [
 function MediaLogosBanner() {
   return (
     <div className="overflow-hidden bg-[#5b3cdd] py-3.5">
-      <div className="flex animate-[mediaLogoScroll_22s_linear_infinite]">
-        {[0, 1].map((copy) => (
+      <div className="flex w-max animate-[mediaLogoScroll_45s_linear_infinite] will-change-transform">
+        {[0, 1, 2, 3].map((copy) => (
           <div
             key={copy}
-            aria-hidden={copy === 1 ? true : undefined}
-            className="flex shrink-0 items-center gap-16 px-8"
+            aria-hidden={copy > 0 ? true : undefined}
+            className="flex shrink-0 items-center"
           >
             {MEDIA_LOGOS.map((logo, i) => (
               <span
                 key={i}
-                className={`whitespace-nowrap text-white ${logo.style}`}
+                className={`mr-16 whitespace-nowrap text-white ${logo.style}`}
               >
                 {logo.name}
               </span>
@@ -2015,6 +2029,113 @@ function FAQSection() {
   );
 }
 
+const SAME_MED_HEALSEND_POINTS = [
+  "Personalized, clinically-proven GLP-1 plans",
+  "Expert-led education with an active member community",
+  "Treatment precisely matched to your body and goals",
+  "Doses titrated by your clinician to minimize side effects",
+  "Unlimited video calls and messaging with your clinician",
+  "100% online. Free, discreet shipping.",
+];
+
+const SAME_MED_OTHERS_POINTS = [
+  "Generic, fixed plans you have to adapt to",
+  "No education, no nutrition support, no community",
+  "Same dose for everyone, basic diagnosis protocols",
+  "Side effects handled reactively, not proactively",
+  "No follow-up after your prescription ships",
+  "Pharmacy lines, long waits, no guarantees",
+];
+
+function SameMedicationSection() {
+  return (
+    <section className="bg-slate-100 py-12 md:py-20">
+      <div className="container mx-auto max-w-screen-md space-y-10 px-4 md:space-y-14 md:px-8">
+        <div className="space-y-2 text-center">
+          <h2 className="font-title text-4xl font-bold tracking-tight text-gray-950 md:text-6xl">
+            Same medication.
+          </h2>
+          <p className="font-playfair text-3xl italic text-[#5b3cdd] md:text-5xl">
+            Very different experience.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 md:gap-8">
+          <div className="flex flex-col items-center gap-6 rounded-2xl bg-gradient-to-b from-[#15204a] to-[#2a3360] px-4 py-8 text-center text-white md:px-6 md:py-10">
+            <img
+              src="/images/marketing/glp1-hero-merged.png"
+              alt="HealSend GLP-1 medications"
+              loading="lazy"
+              className="h-28 w-auto object-contain md:h-40"
+            />
+            <div className="font-playfair text-2xl italic md:text-3xl">
+              HealSend
+            </div>
+            <ul className="w-full space-y-8">
+              {SAME_MED_HEALSEND_POINTS.map((point, i) => (
+                <motion.li
+                  key={point}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false, amount: 0.4 }}
+                  transition={{
+                    duration: 0.7,
+                    delay: i * 0.12,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="flex flex-col items-center gap-3 px-1"
+                >
+                  <span className="text-sm font-semibold leading-snug md:text-base">
+                    {point}
+                  </span>
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#22c55e]">
+                    <Check className="h-4 w-4 text-white" strokeWidth={3} />
+                  </span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="flex flex-col items-center gap-6 rounded-2xl bg-white px-4 py-8 text-center md:px-6 md:py-10">
+            <img
+              src="/images/marketing/others.webp"
+              alt="Other providers' medications"
+              loading="lazy"
+              className="h-28 w-auto object-contain md:h-40"
+            />
+            <div className="text-2xl font-medium text-[#5f5b70] md:text-3xl">
+              Others
+            </div>
+            <ul className="w-full space-y-8">
+              {SAME_MED_OTHERS_POINTS.map((point, i) => (
+                <motion.li
+                  key={point}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false, amount: 0.4 }}
+                  transition={{
+                    duration: 0.7,
+                    delay: i * 0.12,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="flex flex-col items-center gap-3 px-1"
+                >
+                  <span className="text-sm leading-snug text-[#5f5b70] md:text-base">
+                    {point}
+                  </span>
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#cdd0d8]">
+                    <Minus className="h-4 w-4 text-white" strokeWidth={3} />
+                  </span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function MobileStickyCta({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
   const pricePresentation = getPricePresentation(productData);
@@ -2077,17 +2198,18 @@ export default function MarketingProductPage({ product }) {
       <ProductHero productData={productData} />
       {/* <FeatureSplit productData={productData} /> */}
       <MediaLogosBanner />
-      <PricingSection productData={productData} />
-      <NegativeSellSection />
-      <BenefitsCarousel productData={productData} />
-      <SupportFeatures productData={productData} />
-      <TestimonialsSection />
-      <ResearchSplit productData={productData} />
-      <SimpleSteps productData={productData} />
-      <LabTested productData={productData} />
-      <ComprehensiveCare productData={productData} />
-      <CleanSimpleEffective productData={productData} />
-      <FAQSection />
+      <FadeInSection><PricingSection productData={productData} /></FadeInSection>
+      <FadeInSection><NegativeSellSection /></FadeInSection>
+      <FadeInSection><BenefitsCarousel productData={productData} /></FadeInSection>
+      <FadeInSection><SupportFeatures productData={productData} /></FadeInSection>
+      <FadeInSection><TestimonialsSection /></FadeInSection>
+      <FadeInSection><ResearchSplit productData={productData} /></FadeInSection>
+      <FadeInSection><SimpleSteps productData={productData} /></FadeInSection>
+      <FadeInSection><LabTested productData={productData} /></FadeInSection>
+      <FadeInSection><ComprehensiveCare productData={productData} /></FadeInSection>
+      <FadeInSection><CleanSimpleEffective productData={productData} /></FadeInSection>
+      <FadeInSection><SameMedicationSection /></FadeInSection>
+      <FadeInSection><FAQSection /></FadeInSection>
       {/* <ProductPageTestSections /> */}
       <MarketingFooter />
       <MobileStickyCta productData={productData} />
