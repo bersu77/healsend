@@ -1150,34 +1150,38 @@ function HeroCategories({ hero = defaultHeroContent }) {
 }
 
 const MEDIA_LOGOS = [
-  { name: "Yahoo!", style: "font-black text-[1.1rem] tracking-tight" },
-  { name: "USA TODAY", style: "font-black text-[0.9rem] tracking-[0.08em]" },
-  { name: "AXIOS", style: "font-black text-[1.05rem] tracking-[0.12em]" },
-  { name: "Forbes", style: "font-bold italic text-[1.1rem]" },
-  {
-    name: "Business Insider",
-    style: "font-black text-[0.85rem] tracking-[0.04em]",
-  },
-  { name: "Reuters", style: "font-bold text-[1rem] tracking-[0.06em]" },
+  { name: "Yahoo!", image: "/sponsers/yahoo.webp", alt: "Yahoo logo" },
+  { name: "USA TODAY", image: "/sponsers/usa-Today.webp", alt: "USA TODAY logo", sizeClass: "w-36 md:w-40" },
+  { name: "AXIOS", image: "/sponsers/axios.png", alt: "AXIOS logo", sizeClass: "w-40 md:w-44", imageClass: "scale-[1.4]" },
+  { name: "Forbes", image: "/sponsers/forbes.webp", alt: "Forbes logo", imageClass: "scale-[0.8]" },
+  { name: "Business Insider", image: "/sponsers/business-insider.png", alt: "Business Insider logo", sizeClass: "w-44 md:w-48" },
+  // { name: "Reuters", image: "/sponsers/reuters.png", alt: "Reuters logo", sizeClass: "w-40 md:w-44", imageClass: "scale-[1.55]" },
+
 ];
 
 function MediaLogosBanner() {
   return (
-    <div className="overflow-hidden bg-[#5b3cdd] py-3.5">
+    <div className="overflow-hidden bg-[#5b3cdd] py-6">
       <div className="flex animate-[mediaLogoScroll_22s_linear_infinite]">
         {[0, 1].map((copy) => (
           <div
             key={copy}
             aria-hidden={copy === 1 ? true : undefined}
-            className="flex shrink-0 items-center gap-16 px-8"
+            className="flex shrink-0 items-center gap-12 px-6 md:gap-16 md:px-10"
           >
             {MEDIA_LOGOS.map((logo, i) => (
-              <span
+              <div
                 key={i}
-                className={`whitespace-nowrap text-white ${logo.style}`}
+                className={`relative flex h-8 shrink-0 items-center justify-center px-1 opacity-90 transition-opacity hover:opacity-100 ${logo.sizeClass || "w-36 md:w-40"}`}
               >
-                {logo.name}
-              </span>
+                <Image
+                  src={logo.image}
+                  alt={logo.alt}
+                  fill
+                  sizes="(max-width: 768px) 144px, 160px"
+                  className={`object-contain ${logo.imageClass || ""} ${logo.name === "Business Insider" ? "brightness-0 invert" : ""} ${logo.name === "Reuters" ? "filter contrast-200 brightness-1.5" : ""}`}
+                />
+              </div>
             ))}
           </div>
         ))}
