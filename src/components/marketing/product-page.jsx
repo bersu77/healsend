@@ -68,7 +68,7 @@ function FadeInSection({ children, delay = 0, y = 48, className }) {
 
 const MEDIA_LOGOS = [
   { name: "Yahoo!", image: "/sponsers/yahoo.webp", alt: "Yahoo logo" },
-  { name: "USA TODAY", image: "/sponsers/usa-Today.webp", alt: "USA TODAY logo", sizeClass: "w-36 md:w-40" },
+  { name: "USA TODAY", image: "/sponsers/usa-today.webp", alt: "USA TODAY logo", sizeClass: "w-36 md:w-40" },
   { name: "AXIOS", image: "/sponsers/axios.png", alt: "AXIOS logo", sizeClass: "w-40 md:w-44", imageClass: "scale-[0.7]" },
   { name: "Forbes", image: "/sponsers/forbes.webp", alt: "Forbes logo", imageClass: "scale-[0.8]" },
   { name: "Business Insider", image: "/sponsers/business-insider.png", alt: "Business Insider logo", sizeClass: "w-44 md:w-48" },
