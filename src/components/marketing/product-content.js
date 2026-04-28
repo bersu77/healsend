@@ -206,28 +206,28 @@ export const productContent = {
   },
   cleanIngredients: [
     {
-      icon: ShieldCheck,
-      name: "Pharmaceutical\nGrade\nIngredients",
+      iconImage: "/images/clean/evidence-based-treatments.png",
+      name: "Evidence-Based Treatments",
     },
     {
-      icon: FlaskConical,
-      name: "Lab Tested\nfor Purity\n& Potency",
+      iconImage: "/images/clean/online-private.png",
+      name: "100% Online & Private",
     },
     {
-      icon: Leaf,
-      name: "No Fillers\nor Artificial\nAdditives",
+      iconImage: "/images/clean/automatic-refills.png",
+      name: "Automatic refills",
     },
     {
-      icon: Droplet,
-      name: "Sterile\nFormulation\nProcess",
+      iconImage: "/images/clean/same-day-prescriptions.png",
+      name: "Same-Day Prescriptions",
     },
     {
-      icon: BadgeCheck,
-      name: "Quality\nAssured\n& Certified",
+      iconImage: "/images/clean/transparent-pricing.png",
+      name: "Affordable, Transparent Pricing",
     },
     {
-      icon: Atom,
-      name: "Molecularly\nPure\nCompounds",
+      iconImage: "/images/clean/fast-free-delivery.png",
+      name: "Fast free delivery",
     },
   ],
 };

@@ -2219,7 +2219,7 @@ function ComprehensiveCare({ productData }) {
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="flex flex-col overflow-hidden rounded-[1.5rem] bg-[#f4f5f9] shadow-sm"
+                className="flex flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-sm"
               >
                 <div className="flex items-center justify-center gap-1.5 bg-[#7b75f0] py-2 text-xs font-bold text-white">
                   Included <PlusCircle className="h-3.5 w-3.5" />
@@ -2244,7 +2244,7 @@ function ComprehensiveCare({ productData }) {
                     <img
                       src={feature.image}
                       alt={feature.title}
-                      className="h-full w-full object-contain mix-blend-multiply"
+                      className="h-full w-full object-contain"
                     />
                   </div>
                 </div>
@@ -2274,7 +2274,7 @@ function CleanSimpleEffective({ productData }) {
         );
 
   return (
-    <section className="relative bg-white py-12 md:py-16">
+    <section className="relative bg-[#F9F9F9] py-12 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <h2 className="mb-10 text-center text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
           Clean, simple, and effective
@@ -2286,13 +2286,13 @@ function CleanSimpleEffective({ productData }) {
               key={item.text || item.name}
               className="flex flex-col items-center justify-center rounded-[1.25rem] bg-white p-6 text-center shadow-sm transition-transform duration-300 ease-out hover:-translate-y-1 hover:scale-[1.04] hover:shadow-md"
             >
-              <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-[#eef0f4]">
+              <div className="mb-5 flex h-20 w-20 items-center justify-center">
                 {item.iconImage ? (
                   <img
                     src={item.iconImage}
                     alt=""
                     aria-hidden="true"
-                    className="h-12 w-12 object-contain mix-blend-multiply"
+                    className="h-16 w-16 object-contain"
                   />
                 ) : (
                   <item.icon
@@ -2345,10 +2345,10 @@ function FAQSection() {
   const ctaHref = "/funnels/glp-1";
 
   return (
-    <section className="relative bg-gradient-to-b from-[#E2E8F0] to-[#F8FAFC] rounded-t-[32px] -mt-7 py-12 md:!pt-20 md:!pb-10 md:py-20 md:mt-0">
-      <div className="container mx-auto max-w-screen-md px-4 md:px-8">
+    <section className="relative bg-[#F7F7F8] rounded-t-[32px] -mt-7 py-12 md:!pt-20 md:!pb-10 md:py-20 md:mt-0">
+      <div className="container mx-auto max-w-4xl px-4 md:px-8">
         <h2 className="mb-3 text-4xl font-medium text-slate-900 md:text-5xl text-balance font-title">
-        Your questions. <span className="italic text-brand font-playfair text-blue-600">Honest answers.</span>
+        Your questions. <span className="italic font-playfair text-[#6d6ffc]">Honest answers.</span>
       </h2>
       <p className="mb-16 text-start text-sm text-gray-600  max-w-lg">
         Everything you want to know before getting started. And remember when you start your plan, you will have access to learning tutorials & unlimited access to clinicians for virtual consults or support.
@@ -2360,24 +2360,30 @@ function FAQSection() {
             return (
               <div
                 key={item.question}
-                className="border-b border-slate-400 last:border-b-0"
+                className="overflow-hidden rounded-[1.25rem] bg-[#FFFFFF] shadow-sm"
               >
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : idx)}
-                  className="flex w-full items-center justify-between py-4 gap-6  text-left hover:underline"
+                  className="flex w-full items-center justify-between px-7 py-7 gap-6 text-left md:px-10 md:py-9"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-xl font-medium text-slate-900 md:text-2xl hover:underline">
+                  <span className="pr-4 text-lg font-bold text-gray-900 md:text-xl">
                     {item.question}
                   </span>
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center text-gray-500">
+                  <div className="flex shrink-0 items-center justify-center rounded-full bg-[#333333] p-1.5 md:p-2">
                     {isOpen ? (
-                      <Minus className="h-5 w-5" strokeWidth={2.25} />
+                      <Minus
+                        className="h-4 w-4 text-white md:h-5 md:w-5"
+                        strokeWidth={2.5}
+                      />
                     ) : (
-                      <Plus className="h-5 w-5" strokeWidth={2.25} />
+                      <Plus
+                        className="h-4 w-4 text-white md:h-5 md:w-5"
+                        strokeWidth={2.5}
+                      />
                     )}
-                  </span>
+                  </div>
                 </button>
                 <AnimatePresence initial={false}>
                   {isOpen ? (
@@ -2388,9 +2394,9 @@ function FAQSection() {
                       transition={{ duration: 0.25, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <p className="pb-6 pr-12 text-base leading-relaxed text-gray-600">
+                      <div className="px-7 pb-7 text-base leading-relaxed text-gray-600 md:px-10 md:pb-9 md:text-lg">
                         {item.answer}
-                      </p>
+                      </div>
                     </motion.div>
                   ) : null}
                 </AnimatePresence>
