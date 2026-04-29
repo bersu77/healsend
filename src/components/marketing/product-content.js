@@ -133,24 +133,25 @@ export const productContent = {
     image: WORDPRESS_MARKETING_IMAGES.nadInjection,
   },
   supportSection: {
-    title: "Designed to support how you feel and function.",
+    title: "Designed to Support How You Feel & Function",
     subtitle:
-      "You may notice real differences in how you think, move, and feel.",
+      "You will notice differences in how you eat, lose weight, and feel.",
     features: [
       {
-        icon: Brain,
-        title: "Sharper focus & clarity",
-        description: "Brain fog? Meet your new clarity companion.",
+        iconImage: "/images/articles/liver.jpg",
+        title: "Control Appetite",
+        description: "Feel full sooner. Crave less.",
       },
       {
-        icon: Zap,
-        title: "Restore energy & metabolism",
-        description: "NAD+ boosts mitochondrial function to power your day.",
+        iconImage: "/images/articles/blogs/trade.jpg",
+        title: "Steady Energy",
+        description: "Balanced blood sugar = fewer crashes.",
       },
       {
-        icon: Heart,
-        title: "Support healthy aging",
-        description: "Support DNA repair and longevity enzymes like SIRT1.",
+        iconImage: "/images/articles/blogs/3.svg",
+        iconTint: "purple",
+        title: "Real Weight Loss",
+        description: "Weekly progress you can see.",
       },
     ],
   },
@@ -174,7 +175,7 @@ export const productContent = {
   ],
   researchSection: {
     title: "What the research shows about NAD+",
-    image: WORDPRESS_MARKETING_IMAGES.nadNasal,
+    image: "/images/articles/blogs/female.jpg",
     points: [
       "Supports cellular repair & energy (ATP)",
       "Activates longevity enzymes like SIRT1",

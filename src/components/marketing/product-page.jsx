@@ -10,12 +10,14 @@ import {
   Ban,
   BadgeCheck,
   Check,
+  Clock3,
   ChevronLeft,
   ChevronRight,
   Droplet,
   FlaskConical,
   Hourglass,
   Minus,
+  Mail,
   PillBottle,
   Plus,
   PlusCircle,
@@ -152,7 +154,7 @@ const buildSliderItem = (filename, index) => ({
 });
 
 const WILLPOWER_LEFT_MARQUEE_ITEMS = [
-      "Copy of Gemini_Generated_Image_ctnnloctnnloctnn.png",
+  "Copy of Gemini_Generated_Image_ctnnloctnnloctnn.png",
 
   "240_F_554794353_4b7WK5XeFkemnF1o7RXL2WFt4ITps4jX.jpg",
 
@@ -160,11 +162,11 @@ const WILLPOWER_LEFT_MARQUEE_ITEMS = [
   "Copy of 240_F_1859749441_tdF1skYaEk8hSO9lo4tAYXdwVvq7Km4c.jpg",
   "Copy of 240_F_1861119733_Y7uOou4SbKCsL0DzOOy5RA0UASKblWIO.jpg",
   "Copy of 240_F_255843378_E2xPB7yqctJZrRIgyeAj8HxXzg5N2mr6.jpg",
+  "Copy of pexels-tima-miroshnichenko-5928317.jpg",
 
   "Copy of Gemini_Generated_Image_r1o81rr1o81rr1o8.png",
   "Copy of Gemini_Generated_Image_schuohschuohschu.png",
   "Copy of happyveganfit-remove-4559326 (1).jpg",
-  "Copy of look-studio-S0T98VD2KZs-unsplash.jpg",
   "Copy of natali-hordiiuk-OIn0cEu0iQ0-unsplash.jpg",
   "Copy of pexels-cottonbro-6941311.jpg",
 ].map(buildSliderItem);
@@ -175,11 +177,10 @@ const WILLPOWER_RIGHT_MARQUEE_ITEMS = [
   "Copy of pexels-karola-g-4498158.jpg",
   "Copy of pexels-lara-stratiychuk-1606923648-27536859.jpg",
   "Copy of pexels-olly-3807548.jpg",
-  "Copy of pexels-tima-miroshnichenko-5928317.jpg",
   "Copy of pexels-tima-miroshnichenko-6011604.jpg",
   "Copy of pexels-tirachard-kumtanom-112571-347135.jpg",
-    "Gemini_Generated_Image_n1o1o6n1o1o6n1o1.png",
-
+  "Gemini_Generated_Image_n1o1o6n1o1o6n1o1.png",
+  "Copy of look-studio-S0T98VD2KZs-unsplash.jpg",
   "Gemini_Generated_Image_4a1v034a1v034a1v.png",
   "Gemini_Generated_Image_neknhtneknhtnekn.png",
   "PHOTO-2026-03-29-18-10-25(1).jpg",
@@ -528,8 +529,8 @@ const defaultSimpleSteps = [
       "Complete a quick form and meet with a licensed medical provider 100% online. They'll determine if a personalized treatment plan is right for you.",
     image: "/application-step-1.png",
     imageContainerClass:
-      "mt-auto flex h-[220px] w-full items-end justify-center",
-    imageClass: "h-full w-full object-contain object-bottom",
+      "mt-auto flex h-[360px] w-full items-end justify-center",
+    imageClass: "h-full w-full object-cover object-bottom",
   },
   {
     title: "Get your medication delivered at home",
@@ -538,8 +539,8 @@ const defaultSimpleSteps = [
       "If eligible, your custom prescription will be shipped directly to your door — fast and free.",
     image: "/application-step-2.png",
     imageContainerClass:
-      "mt-auto flex h-[220px] w-full items-end justify-center",
-    imageClass: "h-full w-full object-contain object-bottom",
+      "mt-auto flex h-[360px] w-full items-end justify-center",
+    imageClass: "h-full w-full scale-[1.22] object-contain object-bottom",
   },
   {
     title: "Receive 24/7 support and ongoing care",
@@ -548,7 +549,7 @@ const defaultSimpleSteps = [
       "We'll be with you every step of the way with regular check-ins and on-demand medical support to keep you on track.",
     image: "/application-step-3.png",
     imageContainerClass:
-      "mt-auto flex h-[220px] w-full items-end justify-center",
+      "mt-auto flex h-[360px] w-full items-end justify-center",
     imageClass: "h-full w-full object-contain object-bottom",
   },
 ];
@@ -789,11 +790,17 @@ function ProductHero({ productData }) {
     <section className="bg-[#f9f9f9] px-4 py-16 md:px-8 md:py-20 lg:px-16">
       <div className="mx-auto flex max-w-[1400px] flex-col justify-center gap-5 lg:flex-row lg:gap-6 xl:gap-8">
         <div className="relative flex aspect-[4/5] w-full shrink-0 items-center justify-center overflow-hidden rounded-[1rem] bg-[#f9f9f9] lg:sticky lg:top-8 lg:w-[55%] lg:self-start xl:w-[740px]">
-          <div className="flex h-full w-full items-center justify-center py-16 md:py-20">
+          <h1 className="absolute left-[11%] top-8 z-20 whitespace-nowrap text-start text-3xl font-bold tracking-tight text-gray-900 md:top-9 md:text-5xl">
+            Tirzepatide Injections
+          </h1>
+          <div className="flex h-full w-full items-center justify-center py-4 md:py-8">
             <div className="relative h-full w-full max-h-[78%] max-w-[78%]">
               {productData.inStock ? (
-                <div className="absolute bottom-full left-0 z-10 mb-3 flex items-center gap-2 rounded-[1rem] bg-white/90 px-4 py-1.5 text-sm font-medium shadow-sm backdrop-blur-sm md:px-5 md:py-2 md:text-base">
-                  <div className="h-2 w-2 rounded-full bg-emerald-500 md:h-2.5 md:w-2.5" />
+                <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-[1rem] bg-white/92 px-4 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-white/80 backdrop-blur-sm md:left-5 md:top-5 md:px-5 md:py-2 md:text-base">
+                  <div className="relative h-2.5 w-2.5 md:h-3 md:w-3">
+                    <span className="absolute inset-0 rounded-full bg-emerald-400/60 blur-[2px]" />
+                    <span className="absolute inset-0 rounded-full bg-emerald-500 animate-pulse" />
+                  </div>
                   In Stock
                 </div>
               ) : null}
@@ -807,11 +814,7 @@ function ProductHero({ productData }) {
         </div>
 
         <div className="flex w-full shrink-0 flex-col lg:w-[45%] xl:w-[450px]">
-          <h1 className="mb-5 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl">
-            {productData.name}
-          </h1>
-
-          <div className="mb-6 overflow-hidden rounded-[1rem] border border-gray-200 bg-white shadow-sm">
+          <div className="mb-6 overflow-hidden rounded-[1rem] border border-gray-200 bg-white">
             {pricePresentation.savings ? (
               <div className="flex items-center justify-center gap-2 bg-[#fde073] px-4 py-3 text-sm font-medium text-gray-900 md:text-base">
                 <BadgeCheck className="h-4 w-4 md:h-5 md:w-5" />
@@ -828,26 +831,15 @@ function ProductHero({ productData }) {
                 <div>
                   <div className="flex items-baseline gap-2">
                     <span className="text-3xl font-bold text-gray-900 md:text-4xl">
-                      {pricePresentation.firstMonth}
+                      $0
                     </span>
                     <span className="text-lg font-medium text-gray-800 md:text-xl">
-                      {pricePresentation.hasNumericFirstMonth
-                        ? "first month"
-                        : "support path"}
+                      first month
                     </span>
                   </div>
-                  {pricePresentation.regular ? (
-                    <div className="mt-1 text-sm text-gray-500 md:text-base">
-                      {pricePresentation.hasNumericRegular
-                        ? `then ${pricePresentation.regular}*`
-                        : pricePresentation.regular}
-                    </div>
-                  ) : (
-                    <div className="mt-1 text-sm text-gray-500 md:text-base">
-                      Clinician review determines the right treatment path and
-                      next step.
-                    </div>
-                  )}
+                  <div className="mt-1 text-sm text-gray-500 md:text-base">
+                    then $299/mo*
+                  </div>
                 </div>
                 <div className="flex flex-col gap-1 pt-2">
                   <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wide">
@@ -895,11 +887,10 @@ function ProductHero({ productData }) {
                   key={tab}
                   type="button"
                   onClick={() => setActiveTab(tab)}
-                  className={`flex-1 rounded-[1rem] py-2.5 text-sm font-medium capitalize transition-colors ${
-                    activeTab === tab
-                      ? "bg-white text-gray-900 shadow-sm"
-                      : "text-gray-500 hover:text-gray-700"
-                  }`}
+                  className={`flex-1 rounded-[1rem] py-2.5 text-sm font-medium capitalize transition-colors ${activeTab === tab
+                    ? "bg-white text-gray-900 shadow-sm"
+                    : "text-gray-500 hover:text-gray-700"
+                    }`}
                 >
                   {tab}
                 </button>
@@ -917,19 +908,19 @@ function ProductHero({ productData }) {
                 >
                   {activeTab === "benefits"
                     ? productData.tabs.benefits.map((item, idx) => {
-                        const Icon = item.icon;
-                        return (
-                          <div
-                            key={`${item.text}-${idx}`}
-                            className="flex gap-3"
-                          >
-                            <Icon className="mt-0.5 h-5 w-5 shrink-0 text-gray-400" />
-                            <p className="text-sm leading-relaxed text-gray-600 md:text-base">
-                              {item.text}
-                            </p>
-                          </div>
-                        );
-                      })
+                      const Icon = item.icon;
+                      return (
+                        <div
+                          key={`${item.text}-${idx}`}
+                          className="flex gap-3"
+                        >
+                          <Icon className="mt-0.5 h-5 w-5 shrink-0 text-gray-400" />
+                          <p className="text-sm leading-relaxed text-gray-600 md:text-base">
+                            {item.text}
+                          </p>
+                        </div>
+                      );
+                    })
                     : null}
 
                   {activeTab === "pricing" ? (
@@ -947,9 +938,8 @@ function ProductHero({ productData }) {
                           ].map((plan, index) => (
                             <div
                               key={plan.name}
-                              className={`relative flex items-center justify-between p-4 ${
-                                index !== 2 ? "border-b border-gray-200" : ""
-                              } ${plan.isMuted ? "bg-gray-50/50" : ""}`}
+                              className={`relative flex items-center justify-between p-4 ${index !== 2 ? "border-b border-gray-200" : ""
+                                } ${plan.isMuted ? "bg-gray-50/50" : ""}`}
                             >
                               {plan.isBestValue ? (
                                 <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#00a86b] px-3 text-sm font-semibold leading-none text-white">
@@ -966,8 +956,10 @@ function ProductHero({ productData }) {
                                     {plan.firstMonth === 0 ? "first month" : "first month"}
                                   </span>
                                   {plan.thenPrice && (
-                                    <div className="text-sm font-normal mt-1">
-                                      then ${plan.thenPrice}/month
+                                    <div className="mt-1 text-sm font-normal text-gray-500">
+                                      {plan.name === "Monthly Plan"
+                                        ? `$${plan.thenPrice}/mo*`
+                                        : `then $${plan.thenPrice}/mo*`}
                                     </div>
                                   )}
                                 </div>
@@ -990,9 +982,8 @@ function ProductHero({ productData }) {
                           ].map((plan, index) => (
                             <div
                               key={plan.name}
-                              className={`relative flex items-center justify-between p-4 ${
-                                index !== 2 ? "border-b border-gray-200" : ""
-                              } ${plan.isMuted ? "bg-gray-50/50" : ""}`}
+                              className={`relative flex items-center justify-between p-4 ${index !== 2 ? "border-b border-gray-200" : ""
+                                } ${plan.isMuted ? "bg-gray-50/50" : ""}`}
                             >
                               {plan.isBestValue ? (
                                 <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#00a86b] px-3 text-sm font-semibold leading-none text-white">
@@ -1009,8 +1000,10 @@ function ProductHero({ productData }) {
                                     {plan.firstMonth === 0 ? "first month" : "first month"}
                                   </span>
                                   {plan.thenPrice && (
-                                    <div className="text-sm font-normal mt-1">
-                                      then ${plan.thenPrice}/month
+                                    <div className="mt-1 text-sm font-normal text-gray-500">
+                                      {plan.name === "Monthly Plan"
+                                        ? `$${plan.thenPrice}/mo*`
+                                        : `then $${plan.thenPrice}/mo*`}
                                     </div>
                                   )}
                                 </div>
@@ -1299,9 +1292,8 @@ function MedicalPlanCard({ plan, ctaHref }) {
 
   return (
     <div
-      className={`flex h-full flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-[0_20px_40px_-24px_rgba(91,60,221,0.12)] ring-1 ring-[#ece8f3] ${
-        isMinimal ? "" : "min-h-[620px]"
-      }`}
+      className={`flex h-full flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-[0_20px_40px_-24px_rgba(91,60,221,0.12)] ring-1 ring-[#ece8f3] ${isMinimal ? "" : "min-h-[620px]"
+        }`}
     >
       <div
         className={`relative h-[222px] shrink-0 overflow-hidden ${plan.headerClass} ${plan.headerTextClass}`}
@@ -1326,11 +1318,10 @@ function MedicalPlanCard({ plan, ctaHref }) {
             {plan.badges.map((badge, i) => (
               <span
                 key={badge}
-                className={`rounded-lg px-2 py-1 text-sm font-medium leading-5 text-gray-800 ${
-                  i === 0
-                    ? "bg-gradient-to-r from-white/80 to-white/50"
-                    : "bg-white/50"
-                }`}
+                className={`rounded-lg px-2 py-1 text-sm font-medium leading-5 text-gray-800 ${i === 0
+                  ? "bg-gradient-to-r from-white/80 to-white/50"
+                  : "bg-white/50"
+                  }`}
               >
                 {badge}
               </span>
@@ -1390,11 +1381,10 @@ function MedicalPlanCard({ plan, ctaHref }) {
             type="button"
             onClick={() => setExpanded((v) => !v)}
             aria-expanded={expanded}
-            className={`mt-3 inline-flex items-center justify-center rounded-full border bg-white px-5 py-3 text-sm font-semibold transition-colors ${
-              expanded
-                ? "border-[#d8d2ee] text-[#5b3cdd] hover:bg-[#f1ecf9]"
-                : "border-[#e5e0ee] text-[#1c1a24] hover:bg-[#f1ecf9]"
-            }`}
+            className={`mt-3 inline-flex items-center justify-center rounded-full border bg-white px-5 py-3 text-sm font-semibold transition-colors ${expanded
+              ? "border-[#d8d2ee] text-[#5b3cdd] hover:bg-[#f1ecf9]"
+              : "border-[#e5e0ee] text-[#1c1a24] hover:bg-[#f1ecf9]"
+              }`}
           >
             {expanded ? "Hide details" : plan.secondaryCta}
           </button>
@@ -1520,6 +1510,8 @@ function MedicalWeightLossSection({ productData }) {
 function PricingSection({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
   const pricePresentation = getPricePresentation(productData);
+  const heroFirstMonthPrice = "$0";
+  const heroThenPrice = "$299/mo*";
 
   return (
     <section className="bg-[#f4f5f9] py-16 md:py-20">
@@ -1528,7 +1520,7 @@ function PricingSection({ productData }) {
           {productData.name}
         </h2>
 
-        <div className="overflow-hidden rounded-[1rem] border border-gray-200 bg-white shadow-sm">
+        <div className="overflow-hidden rounded-[1rem] border border-gray-200 bg-white">
           {pricePresentation.savings ? (
             <div className="flex items-center justify-center gap-2 bg-[#fde073] px-4 py-3 text-sm font-medium text-gray-900 md:text-base">
               <BadgeCheck className="h-4 w-4 md:h-5 md:w-5" />
@@ -1545,26 +1537,15 @@ function PricingSection({ productData }) {
               <div>
                 <div className="flex items-baseline gap-2">
                   <span className="text-3xl font-bold text-gray-900 md:text-4xl">
-                    {pricePresentation.firstMonth}
+                    {heroFirstMonthPrice}
                   </span>
                   <span className="text-lg font-medium text-gray-800 md:text-xl">
-                    {pricePresentation.hasNumericFirstMonth
-                      ? "first month"
-                      : "support path"}
+                    first month
                   </span>
                 </div>
-                {pricePresentation.regular ? (
-                  <div className="mt-1 text-sm text-gray-500 md:text-base">
-                    {pricePresentation.hasNumericRegular
-                      ? `then ${pricePresentation.regular}*`
-                      : pricePresentation.regular}
-                  </div>
-                ) : (
-                  <div className="mt-1 text-sm text-gray-500 md:text-base">
-                    Clinician review determines the right treatment path and
-                    next step.
-                  </div>
-                )}
+                <div className="mt-1 text-sm text-gray-500 md:text-base">
+                  then {heroThenPrice}
+                </div>
               </div>
               <div className="flex flex-col gap-1 pt-2">
                 <span className="text-[10px] font-medium uppercase tracking-wide text-gray-400">
@@ -1652,16 +1633,36 @@ function SupportFeatures({ productData }) {
         <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
           {productData.supportSection.features.map((feature) => {
             const Icon = feature.icon;
+            const hasIconImage = Boolean(feature.iconImage);
 
             return (
               <div
                 key={feature.title}
                 className="flex flex-col items-center text-center"
               >
-                <Icon
-                  className="mb-6 h-16 w-16 text-[#7b75f0]"
-                  strokeWidth={1.5}
-                />
+                {hasIconImage ? (
+                  <img
+                    src={feature.iconImage}
+                    alt={feature.title}
+                    className={`mb-6 h-20 w-20 object-contain mix-blend-multiply ${feature.iconTint === "purple"
+                      ? "brightness-0 saturate-100"
+                      : ""
+                      }`}
+                    style={
+                      feature.iconTint === "purple"
+                        ? {
+                          filter:
+                            "brightness(0) saturate(100%) invert(56%) sepia(72%) saturate(1025%) hue-rotate(218deg) brightness(101%) contrast(95%)",
+                        }
+                        : undefined
+                    }
+                  />
+                ) : (
+                  <Icon
+                    className="mb-6 h-16 w-16 text-[#7b75f0]"
+                    strokeWidth={1.5}
+                  />
+                )}
                 <h3 className="mb-2 text-lg font-bold text-gray-900">
                   {feature.title}
                 </h3>
@@ -1764,7 +1765,7 @@ const TRANSFORMATION_TESTIMONIALS = [
     before: "/morgan_before.webp",
     after: "/morgan_after.webp",
   },
-  
+
   {
     name: "Noelle",
     weightLoss: 32,
@@ -1826,13 +1827,16 @@ function TestimonialsSection() {
           <div className="flex w-full flex-col items-center justify-center md:w-auto md:items-end my-auto">
             <Link
               href={ctaHref}
-              className="inline-flex w-full items-center font-bold  gap-2 rounded-full bg-[#0f1422] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1a2238] sm:w-auto sm:px-6 sm:py-3.5 md:text-base"
+              className="inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-full bg-slate-950 px-10 py-4 text-sm font-medium text-white ring-offset-background transition-colors hover:bg-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 sm:w-auto"
             >
               See what&apos;s possible for you
               <ArrowRight className="h-4 w-4 shrink-0" />
             </Link>
-            <p className="mt-3 w-full text-center text-xs font-bold text-[#4d5160] ">
-              Take 90 seconds · 100% private · free
+            <p className="mt-3 w-full text-center text-sm text-gray-700">
+              <span className="text-inherit font-semibold">
+                Take 90 seconds ·
+              </span>{" "}
+              100% private · free
             </p>
           </div>
         </div>
@@ -1855,6 +1859,7 @@ function TestimonialsSection() {
             <ChevronRight className="h-5 w-5" />
           </button>
         </div>
+
       </div>
 
       <Carousel
@@ -1911,15 +1916,307 @@ function TestimonialsSection() {
   );
 }
 
+function MemberResultsStatsSection() {
+  const memberStats = [
+    {
+      label: "Faster results",
+      value: "2x",
+      description:
+        "Remedy members lose weight twice as fast as the industry average within 90 days.",
+      icon: TrendingUp,
+    },
+    {
+      label: "Avg. weight loss",
+      value: "-14 lbs",
+      description: "Average weight loss within 90 days of starting Remedy's program.",
+      icon: ArrowRight,
+    },
+    {
+      label: "Success rate",
+      value: "94.6%",
+      description: "of Remedy members lose 5% or more of their body weight on treatment.",
+      icon: BadgeCheck,
+    },
+    {
+      label: "Member retention",
+      value: "91%",
+      description: "of Remedy members stay past 90 days.",
+      icon: Star,
+    },
+  ];
+
+  return (
+    <section className="relative overflow-hidden bg-gray-50 py-10 text-gray-700 md:py-14">
+      <img
+        src="/images/articles/liquid-bubbles-desktop.webp"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 hidden h-full w-full object-cover object-top md:block"
+      />
+      <div className="absolute inset-0 bg-[#f4f5f9]/35" />
+      <div className="relative z-10 mx-auto max-w-[1400px] px-4 md:px-8">
+        <div className="border border-[#d7e0ee]/80 bg-white/15 p-5 md:p-8">
+          <div className="grid items-start gap-6 lg:grid-cols-[0.92fr_1.58fr]">
+            <div className="p-2 md:pr-5">
+              <p className="font-medium text-balance font-title text-4xl  tracking-[-0.01em] text-gray-950">
+                Why members start and stay
+              </p>
+              <h3 className="mt-2 text-3xl font-playfair italic tracking-tight text-balance text-[#5b3cdd] md:text-4xl">
+                with Remedy.
+              </h3>
+              <p className="mt-4 text-sm leading-relaxed text-gray-700">
+                <span className="font-semibold">
+                  8 out of 10 members lose 14+ lbs in 90 days*
+                </span>
+                <br />
+                Join 250,000+ members nationwide achieving their weight loss
+                goals.
+              </p>
+            </div>
+
+            <div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {memberStats.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <article
+                      key={item.label}
+                      className="min-h-[178px] rounded-[1rem] border border-[#dfe5f1] bg-white p-5 shadow-[0_8px_22px_-16px_rgba(24,39,75,0.35)]"
+                    >
+                      <div className="mb-2 flex items-center justify-between">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gray-500">
+                          {item.label}
+                        </p>
+                        <Icon className="h-4 w-4 text-gray-400" strokeWidth={1.9} />
+                      </div>
+                      <p className="text-4xl font-bold tracking-tight text-gray-950 md:text-[3.35rem]">
+                        {item.value}
+                      </p>
+                      <p className="mt-3 text-sm leading-relaxed text-gray-600">
+                        {item.description}
+                      </p>
+                    </article>
+                  );
+                })}
+              </div>
+              <p className="mt-5 text-[10px] leading-relaxed text-gray-600 md:text-[11px]">
+                Based on self-reported data from approximately 300,000 Remedy Meds
+                members on a personalized treatment plan, including compounded GLP-1
+                medications and consultations with medical professionals, compared to
+                outcomes reported for GLP-1 medications alone in Rodrigues F., et al.
+                (2024). "Semaglutide vs Tirzepatide for Weight Loss in Adults with
+                Overweight or Obesity." JAMA Internal Medicine. Members reported
+                their weight on their initial medical intake questionnaire and every
+                3-4 weeks thereafter.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BMICalculatorPreviewSection() {
+  const previewAvatars = [
+    "/photoroom-6.png",
+    "/photoroom-4.png",
+    "/photoroom-3.png",
+    "/photoroom-2.png",
+    "/noelle_after.webp",
+    "/morgan_after.webp",
+  ];
+
+  return (
+    <section className="bg-white px-5 py-20 md:px-8 lg:px-10">
+      <div className="mx-auto max-w-[1240px]">
+        <div className="max-w-[72rem]">
+          <h2 className="font-title text-[2.5rem] font-semibold leading-[0.96] tracking-[-0.055em] text-[#101726] sm:text-[3.1rem] lg:text-[4.25rem]">
+            Find out what you could lose{" "}
+            <span className="font-playfair italic text-[#5d62f3]">with HealSend.</span>
+          </h2>
+        </div>
+
+        <div className="mt-8 grid gap-5 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,0.95fr)_minmax(0,0.9fr)]">
+          <article className="rounded-[1rem] border border-[#edf1f7] bg-white p-6 shadow-[0_18px_34px_rgba(20,24,34,0.08)] md:p-8">
+            <p className="text-center text-[1.15rem] font-medium tracking-[-0.03em] text-[#121726] md:text-[1.25rem]">
+              Check your eligibility.
+            </p>
+
+            <div className="relative mx-auto mt-8 h-[210px] w-[260px]">
+              <svg viewBox="0 0 280 170" className="h-full w-full overflow-visible">
+                <path
+                  d="M 25 150 A 115 115 0 0 1 255 150"
+                  fill="none"
+                  stroke="#e5e7eb"
+                  strokeWidth="16"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M 25 150 A 115 115 0 0 1 255 150"
+                  fill="none"
+                  stroke="url(#bmiGradientPreview)"
+                  strokeWidth="16"
+                  strokeLinecap="round"
+                  strokeDasharray="275 361"
+                  strokeDashoffset="0"
+                />
+                <defs>
+                  <linearGradient id="bmiGradientPreview" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#6db1ff" />
+                    <stop offset="50%" stopColor="#91e2a8" />
+                    <stop offset="78%" stopColor="#ffd34d" />
+                    <stop offset="100%" stopColor="#ff845b" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div className="absolute inset-x-0 bottom-6 text-center">
+                <div className="font-title text-[4.6rem] font-semibold leading-none tracking-[-0.06em] text-[#0b1020]">
+                  30.1
+                </div>
+                <div className="mt-1 text-sm font-medium uppercase tracking-[0.2em] text-[#7a859c]">
+                  Your BMI
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 space-y-5">
+              <div>
+                <label className="mb-2 block text-[1rem] font-medium text-[#313948]">
+                  Height
+                </label>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3">
+                    <span className="w-full text-[1.02rem] text-[#172030]">5</span>
+                    <span className="text-[1.02rem] font-medium text-[#68748f]">ft</span>
+                  </div>
+                  <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3">
+                    <span className="w-full text-[1.02rem] text-[#172030]">10</span>
+                    <span className="text-[1.02rem] font-medium text-[#68748f]">in</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label className="mb-2 block text-[1rem] font-medium text-[#313948]">
+                  Weight
+                </label>
+                <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3">
+                  <span className="w-full text-[1.02rem] text-[#172030]">210</span>
+                  <span className="text-[1.02rem] font-medium text-[#68748f]">lbs</span>
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className="hs-solid-btn mt-8 inline-flex min-h-[3.4rem] w-full items-center justify-center gap-2 rounded-full px-8 text-[1.02rem] font-semibold"
+            >
+              See my BMI eligibility
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </article>
+
+          <article className="overflow-hidden rounded-[1rem] border border-[#edf1f7] bg-white shadow-[0_18px_34px_rgba(20,24,34,0.08)]">
+            <div className="relative h-full min-h-[720px]">
+              <Image
+                src="/photoroom-4.png"
+                alt="Happy HealSend member"
+                fill
+                sizes="(max-width: 1280px) 100vw, 32vw"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(255,255,255,0.88)_44%,rgba(255,255,255,1)_100%)] px-6 pb-5 pt-24">
+                <div className="flex justify-center">
+                  <div className="flex -space-x-2.5">
+                    {previewAvatars.map((src) => (
+                      <span
+                        key={src}
+                        className="relative h-10 w-10 overflow-hidden rounded-full border-[3px] border-white bg-[#edf1f8]"
+                      >
+                        <Image
+                          src={src}
+                          alt=""
+                          fill
+                          sizes="40px"
+                          className="object-cover object-center"
+                        />
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <p className="mx-auto mt-4 max-w-[22rem] text-center text-[0.98rem] leading-7 text-[#4e5a73]">
+                  Over <span className="font-semibold text-[#141c2b]">250,000</span>{" "}
+                  members treated. <span className="font-semibold text-[#141c2b]">94.6%</span>{" "}
+                  success backed by real HealSend member progress nationwide.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article className="rounded-[1rem] border border-[#edf1f7] bg-white p-8 shadow-[0_18px_34px_rgba(20,24,34,0.08)]">
+            <div className="text-center">
+              <p className="text-[1.3rem] font-medium leading-[1.2] tracking-[-0.03em] text-[#121726]">
+                Your projected
+                <br />
+                weight loss
+              </p>
+
+              <div className="mt-10">
+                <span className="font-title text-[5.7rem] font-semibold leading-none tracking-[-0.08em] text-[#0b1020]">
+                  50
+                </span>
+                <span className="ml-2 text-[3.25rem] font-medium tracking-[-0.04em] text-[#66748f]">
+                  lbs
+                </span>
+              </div>
+
+              <p className="mx-auto mt-7 max-w-[19rem] text-[0.98rem] leading-7 text-[#4f5c76]">
+                Based on <span className="font-semibold text-[#121726]">250,000+</span>{" "}
+                average HealSend member results in guided weight-loss care.
+              </p>
+            </div>
+
+            <div className="mt-10 border-t border-[#d9e1ef] pt-9">
+              <p className="text-center text-[1.02rem] font-medium text-[#20283a]">
+                Starting weight
+              </p>
+              <div className="mx-auto mt-4 flex max-w-[10.5rem] items-end justify-center gap-1 rounded-[0.9rem] bg-[#f2f5fa] px-5 py-4">
+                <span className="font-title text-[3.2rem] font-semibold leading-none tracking-[-0.06em] text-[#48536b]">
+                  334
+                </span>
+                <span className="mb-1 text-[1.15rem] font-medium text-[#68748f]">
+                  lbs
+                </span>
+              </div>
+
+              <div className="mt-12">
+                <div className="relative h-4 rounded-full bg-[#dfe5f4]">
+                  <div className="absolute inset-y-0 left-0 w-[74%] rounded-full bg-[#5d62f3]" />
+                  <div className="absolute left-[calc(74%-14px)] top-1/2 h-7 w-7 -translate-y-1/2 rounded-full border-2 border-[#4b55eb] bg-white shadow-[0_10px_20px_rgba(93,98,243,0.18)]" />
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ResearchSplit({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
+  const researchImage =
+    productData.researchSection?.title?.includes("NAD+")
+      ? "/images/articles/blogs/female.jpg"
+      : productData.researchSection.image;
 
   return (
     <section className="bg-[#f9f9f9] px-4 py-16 md:px-8 md:py-20 lg:px-16">
       <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div className="order-2 relative aspect-square overflow-hidden rounded-[2rem] lg:order-1 lg:aspect-[4/4.5]">
           <img
-            src={productData.researchSection.image}
+            src={researchImage}
             alt="Woman smiling outdoors"
             className="h-full w-full object-contain"
           />
@@ -1982,24 +2279,24 @@ function SimpleSteps({ productData }) {
           {steps.map((step) => (
             <div
               key={step.step}
-              className="relative flex h-full flex-col overflow-hidden rounded-[2rem] bg-white px-8 pt-10 shadow-sm"
+              className="relative flex h-full flex-col overflow-hidden rounded-[2rem] bg-white px-6 pt-7 shadow-sm"
             >
-              <h3 className="mb-8 min-h-[60px] pr-4 text-[1.4rem] font-bold leading-[1.3] text-[#1c1d20]">
+              <h3 className="mb-5 min-h-[56px] pr-2 text-[1.4rem] font-bold leading-[1.3] text-[#1c1d20]">
                 {step.title}
               </h3>
 
-              <div className="mb-8 h-px w-full bg-gray-100/80" />
+              <div className="mb-5 h-px w-full bg-gray-100/80" />
 
-              <div className="relative z-10 mb-8 flex gap-5">
-                <div className="flex w-12 shrink-0 flex-col">
+              <div className="relative z-10 mb-5 flex items-start gap-4">
+                <div className="flex w-14 shrink-0 flex-col items-center">
                   <span className="mb-1 text-[0.75rem] font-bold tracking-[0.15em] text-[#8a8d98]">
                     STEP
                   </span>
-                  <span className="-ml-1 text-[3.5rem] font-black leading-none text-[#1c1d20]">
+                  <span className="text-center text-[3.3rem] font-extrabold leading-none text-[#1c1d20]">
                     {step.step}
                   </span>
                 </div>
-                <p className="pt-1 text-[1.05rem] leading-[1.6] text-[#4a4d57]">
+                <p className="pt-0.5 text-[1.05rem] leading-[1.6] text-[#4a4d57]">
                   {step.description}
                 </p>
               </div>
@@ -2269,9 +2566,9 @@ function CleanSimpleEffective({ productData }) {
     productData.cleanIngredients?.length > 0
       ? productData.cleanIngredients
       : mergeIconItems(
-          defaultProductContent.cleanIngredients,
-          defaultProductContent.cleanIngredients,
-        );
+        defaultProductContent.cleanIngredients,
+        defaultProductContent.cleanIngredients,
+      );
 
   return (
     <section className="relative bg-[#F9F9F9] py-12 md:py-16">
@@ -2292,7 +2589,10 @@ function CleanSimpleEffective({ productData }) {
                     src={item.iconImage}
                     alt=""
                     aria-hidden="true"
-                    className="h-16 w-16 object-contain"
+                    className={`object-contain ${item.iconImage.includes("fast-free-delivery")
+                      ? "h-30 w-20"
+                      : "h-19 w-16"
+                      }`}
                   />
                 ) : (
                   <item.icon
@@ -2348,11 +2648,11 @@ function FAQSection() {
     <section className="relative bg-[#F7F7F8] rounded-t-[32px] -mt-7 py-12 md:!pt-20 md:!pb-10 md:py-20 md:mt-0">
       <div className="container mx-auto max-w-4xl px-4 md:px-8">
         <h2 className="mb-3 text-4xl font-medium text-slate-900 md:text-5xl text-balance font-title">
-        Your questions. <span className="italic font-playfair text-[#6d6ffc]">Honest answers.</span>
-      </h2>
-      <p className="mb-16 text-start text-sm text-gray-600  max-w-lg">
-        Everything you want to know before getting started. And remember when you start your plan, you will have access to learning tutorials & unlimited access to clinicians for virtual consults or support.
-      </p>
+          Your questions. <span className="italic font-playfair text-[#6d6ffc]">Honest answers.</span>
+        </h2>
+        <p className="mb-16 text-start text-sm text-gray-600  max-w-lg">
+          Everything you want to know before getting started. And remember when you start your plan, you will have access to learning tutorials & unlimited access to clinicians for virtual consults or support.
+        </p>
 
         <div className="flex flex-col gap-4">
           {FAQ_ITEMS.map((item, idx) => {
@@ -2531,6 +2831,81 @@ function SameMedicationSection() {
   );
 }
 
+function SupportAvailabilitySection() {
+  return (
+    <section className="bg-white px-5 pb-20 pt-4 md:px-8 lg:px-10">
+      <div className="mx-auto grid max-w-[1320px] gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+        <div className="overflow-hidden rounded-[1rem] bg-[#f2f5fb] shadow-[0_18px_34px_rgba(18,26,42,0.08)]">
+          <div className="relative aspect-[1.08/1]">
+            <Image
+              src="/images/articles/care-support-lifestyle.webp"
+              alt="HealSend care support"
+              fill
+              sizes="(max-width: 1024px) 100vw, 42vw"
+              className="object-cover object-center"
+            />
+          </div>
+        </div>
+
+        <div className="max-w-[34rem] lg:justify-self-center">
+          <h2 className="font-headline text-[2.5rem] font-semibold leading-[0.96] tracking-[-0.055em] text-[#111621] sm:text-[3rem] lg:text-[3.7rem]">
+            We&apos;re here when
+            <br />
+            <span className="italic text-[#5d62f3]">You need us.</span>
+          </h2>
+
+          <div className="mt-8 space-y-6">
+            <div className="flex items-start gap-4">
+              <span className="mt-1 flex h-12 w-12 items-center justify-center rounded-full border border-[#d7deeb] text-[#30394d]">
+                <Clock3 className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-[0.98rem] font-medium text-[#626b7f]">
+                  Always available
+                </p>
+                <p className="mt-1 text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d]">
+                  7 days a week · 8:00am - 8:00pm ET
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <span className="mt-1 flex h-12 w-12 items-center justify-center rounded-full border border-[#d7deeb] text-[#30394d]">
+                <Stethoscope className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-[0.98rem] font-medium text-[#626b7f]">
+                  Care-team messaging and virtual follow-up
+                </p>
+                <p className="mt-1 text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d]">
+                  Secure support inside your HealSend account
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <span className="mt-1 flex h-12 w-12 items-center justify-center rounded-full border border-[#d7deeb] text-[#30394d]">
+                <Mail className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-[0.98rem] font-medium text-[#626b7f]">
+                  Email us
+                </p>
+                <a
+                  href="mailto:yourhealth@healsend.com"
+                  className="mt-1 inline-block text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d] underline decoration-[#aeb7ca] underline-offset-4"
+                >
+                  yourhealth@healsend.com
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function MobileStickyCta({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
   const pricePresentation = getPricePresentation(productData);
@@ -2561,11 +2936,10 @@ function MobileStickyCta({ productData }) {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-40 transition-all duration-300 ease-in-out ${
-        visible
-          ? "translate-y-0 opacity-100"
-          : "translate-y-4 opacity-0 pointer-events-none"
-      }`}
+      className={`fixed inset-x-0 bottom-0 z-40 transition-all duration-300 ease-in-out ${visible
+        ? "translate-y-0 opacity-100"
+        : "translate-y-4 opacity-0 pointer-events-none"
+        }`}
     >
       {/* Fade gradient above the bar */}
       <div className="pointer-events-none h-8 bg-[linear-gradient(to_top,rgba(255,255,255,0),transparent)]" />
@@ -2599,6 +2973,8 @@ export default function MarketingProductPage({ product }) {
       <FadeInSection><BenefitsCarousel productData={productData} /></FadeInSection>
       <FadeInSection><SupportFeatures productData={productData} /></FadeInSection>
       <FadeInSection><TestimonialsSection /></FadeInSection>
+      <FadeInSection><MemberResultsStatsSection /></FadeInSection>
+      <FadeInSection><BMICalculatorPreviewSection /></FadeInSection>
       <FadeInSection><ResearchSplit productData={productData} /></FadeInSection>
       <FadeInSection><SimpleSteps productData={productData} /></FadeInSection>
       <FadeInSection><LabTested productData={productData} /></FadeInSection>
@@ -2606,6 +2982,7 @@ export default function MarketingProductPage({ product }) {
       <FadeInSection><CleanSimpleEffective productData={productData} /></FadeInSection>
       <FadeInSection><SameMedicationSection /></FadeInSection>
       <FadeInSection><FAQSection /></FadeInSection>
+      <FadeInSection><SupportAvailabilitySection /></FadeInSection>
       {/* <ProductPageTestSections /> */}
       <MarketingFooter />
       <MobileStickyCta productData={productData} />

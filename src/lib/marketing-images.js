@@ -2,7 +2,7 @@ export const WORDPRESS_MARKETING_IMAGES = Object.freeze({
   nadInjection: "/images/marketing/nad-injection.png",
   nadNasal: "/images/marketing/nad-nasal.png",
   nadPatches: "/images/marketing/nad-patches.png",
-  tirzepatide: "/images/marketing/tirzepatide.png",
+  tirzepatide: "/images/articles/blogs/female.jpg",
   semaglutide: "/images/marketing/semaglutide-sermorelin.png",
   pt141: "/images/marketing/pt141.png",
   oxytocin: "/images/marketing/oxytocin.png",
