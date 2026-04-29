@@ -9,12 +9,9 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronDown,
-  LogOut,
   Menu,
-  User,
   User2,
   X,
-  UserCircle2,
 } from "lucide-react";
 import LoginPageClient from "@/components/auth/LoginPageClient";
 import SignupPageClient from "@/components/auth/SignupPageClient";
@@ -413,7 +410,7 @@ const MOBILE_EXPLORE_ITEMS = [
   },
 ];
 
-const MOBILE_TOP_TREATMENTS = [
+const _MOBILE_TOP_TREATMENTS = [
   {
     title: "NAD",
     href: ROUTES.nad,
@@ -444,7 +441,7 @@ const MOBILE_TOP_TREATMENTS = [
   },
 ];
 
-const MOBILE_SECTION_TO_NAV_LABEL = Object.freeze({
+const _MOBILE_SECTION_TO_NAV_LABEL = Object.freeze({
   "weight-loss-fast": "Weight Loss",
   "power-every-cell": "Longevity",
   "sexual-health": "Sexual Health",
@@ -625,7 +622,7 @@ function buildMobileCategoryItemsFromSections(sections) {
 export function MarketingNavbar() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { user, isAuthenticated, logout } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const [activeMenu, setActiveMenu] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileSection, setMobileSection] = useState(null);
@@ -637,7 +634,6 @@ export function MarketingNavbar() {
     google: true,
     apple: true,
   });
-  const [, setMobileTreatmentsApi] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef(null);
   const mobilePanelRef = useRef(null);
@@ -656,15 +652,8 @@ export function MarketingNavbar() {
 
   const activeSection =
     navSections.find((section) => section.label === activeMenu) || null;
-  const activeMobileSection =
+  const _activeMobileSection =
     MOBILE_EXPLORE_ITEMS.find((item) => item.key === mobileSection) || null;
-  const activeMobileNavSection = activeMobileSection
-    ? navSections.find(
-        (section) =>
-          section.label ===
-          MOBILE_SECTION_TO_NAV_LABEL[activeMobileSection.key],
-      ) || null
-    : null;
   const dropdownSection = activeSection || navSections[0];
   const activeNavCategory =
     mobileCatItems.find((item) => item.key === mobileSection) || null;

@@ -1159,7 +1159,7 @@ const MEDIA_LOGOS = [
 
 ];
 
-function MediaLogosBanner() {
+function _MediaLogosBanner() {
   return (
     <div className="overflow-hidden bg-[#5b3cdd] py-6">
       <div className="flex animate-[mediaLogoScroll_22s_linear_infinite]">
@@ -1225,7 +1225,7 @@ const NEGATIVE_SELL_CARDS = [
   },
 ];
 
-function NegativeSellSection() {
+function _NegativeSellSection() {
   return (
     <section className="bg-white py-20 md:py-28">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">

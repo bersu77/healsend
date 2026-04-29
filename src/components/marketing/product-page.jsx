@@ -36,7 +36,6 @@ import {
 } from "lucide-react";
 import {
   MarketingFooter,
-  MarketingNavbar,
   MinimalMarketingNavbar,
   MARKETING_ROUTES,
 } from "@/components/marketing/shared";
@@ -45,9 +44,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { ProductPageTestSections } from "@/app/test/TestHeroPreviewContent";
 import { productContent as defaultProductContent } from "@/components/marketing/product-content";
-import { WORDPRESS_MARKETING_IMAGES } from "@/lib/marketing-images";
 import {
   getMarketingProductDetailPath,
   getProductOnboardingPath,
@@ -847,7 +844,6 @@ function ProductHero({ productData }) {
                   </span>
                   <div className="flex gap-2">
                     <span className="flex items-center rounded-[0.6rem] bg-[#FFB3C7] px-3 py-1.5">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src="/images/marketing/logos/klarna.png"
                         alt="Klarna"
@@ -855,7 +851,6 @@ function ProductHero({ productData }) {
                       />
                     </span>
                     <span className="flex items-center rounded-[0.6rem] bg-[#B2FCE4] px-3 py-1.5">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src="/images/marketing/logos/afterpay.png"
                         alt="Afterpay"
@@ -1025,7 +1020,6 @@ function ProductHero({ productData }) {
             </div>
             <div className="mt-2 flex justify-between border-t border-gray-100 px-4 pb-2 pt-4 text-xs text-gray-500">
               <span className="flex items-center gap-1.5">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   draggable={false}
                   role="img"
@@ -1553,7 +1547,6 @@ function PricingSection({ productData }) {
                 </span>
                 <div className="flex gap-2">
                   <span className="flex items-center rounded-[0.6rem] bg-[#FFB3C7] px-3 py-1.5">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src="/images/marketing/logos/klarna.png"
                       alt="Klarna"
@@ -1561,7 +1554,6 @@ function PricingSection({ productData }) {
                     />
                   </span>
                   <span className="flex items-center rounded-[0.6rem] bg-[#B2FCE4] px-3 py-1.5">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src="/images/marketing/logos/afterpay.png"
                       alt="Afterpay"
@@ -1590,7 +1582,7 @@ function PricingSection({ productData }) {
   );
 }
 
-function FeatureSplit({ productData }) {
+function _FeatureSplit({ productData }) {
   return (
     <section className="bg-white px-4 py-16 md:px-8 md:py-20 lg:px-16">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-2">
@@ -1881,7 +1873,6 @@ function TestimonialsSection() {
               <article className="flex h-full flex-col rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm md:p-5">
                 <div className="grid grid-cols-2 gap-3">
                   <div className="relative aspect-[3/4] overflow-hidden rounded-[1rem] bg-gray-100">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={person.before}
                       alt={`${person.name} before`}
@@ -1889,7 +1880,6 @@ function TestimonialsSection() {
                     />
                   </div>
                   <div className="relative aspect-[3/4] overflow-hidden rounded-[1rem] bg-gray-100">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={person.after}
                       alt={`${person.name} after`}
@@ -2908,7 +2898,6 @@ function SupportAvailabilitySection() {
 
 function MobileStickyCta({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
-  const pricePresentation = getPricePresentation(productData);
   const [visible, setVisible] = useState(false);
   const lastScrollY = useRef(0);
 

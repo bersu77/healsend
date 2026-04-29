@@ -1,21 +1,6 @@
 import {
-  Atom,
-  BadgeCheck,
-  Brain,
   Droplet,
-  FlaskConical,
-  Heart,
-  Hourglass,
-  Leaf,
-  Rabbit,
-  ShieldCheck,
-  Stethoscope,
   Syringe,
-  Target,
-  TrendingUp,
-  TreePine,
-  Truck,
-  Wheat,
   Zap,
 } from "lucide-react";
 import { WORDPRESS_MARKETING_IMAGES } from "@/lib/marketing-images";
