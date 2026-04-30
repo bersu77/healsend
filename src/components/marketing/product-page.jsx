@@ -44,7 +44,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { Dialog, DialogContent, DialogPortal, DialogOverlay } from "@/components/ui/dialog";
+import { Dialog, DialogPortal, DialogOverlay } from "@/components/ui/dialog";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { productContent as defaultProductContent } from "@/components/marketing/product-content";
 import {
@@ -2384,7 +2384,7 @@ function BMICalculatorPreviewSection() {
 function BMIEligibilityModal({
   open,
   onOpenChange,
-  bmi,
+  bmi: _bmi,
   bmiDisplay,
   dashFill,
   arcLength,
