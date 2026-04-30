@@ -44,6 +44,8 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import { Dialog, DialogContent, DialogPortal, DialogOverlay } from "@/components/ui/dialog";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { productContent as defaultProductContent } from "@/components/marketing/product-content";
 import {
   getMarketingProductDetailPath,
@@ -1455,7 +1457,7 @@ function MedicalWeightLossSection({ productData }) {
   return (
     <section className="overflow-hidden bg-[#f9f9f9] py-16 md:py-20">
       <div className="mx-auto max-w-[1400px] px-4 md:px-8 lg:px-16">
-        <div className="mb-10 flex flex-col gap-6 md:mb-12 md:flex-row md:items-start md:justify-between">
+        <div className="mb-10 flex flex-col gap-6 md:mb-12 md:flex-row md:items-start md:justify-between md:gap-8">
           <div className="max-w-2xl">
             <h2 className="font-title text-3xl font-bold tracking-tight text-gray-950 md:text-5xl">
               Medical weight-loss care
@@ -1470,18 +1472,18 @@ function MedicalWeightLossSection({ productData }) {
             </p>
           </div>
 
-          <div className="flex flex-row items-center gap-4 md:gap-6">
+          <div className="flex flex-row items-start gap-0 self-start md:ml-auto md:gap-0 md:pl-8">
             <img
-              src="/images/marketing/ratings-trustpilot.webp"
-              alt="Trustpilot rating"
+              src="/images/articles/googlereview.png"
+              alt="Google reviews rating"
               loading="lazy"
-              className="h-20 w-auto md:h-24"
+              className="h-20 w-[360px] object-contain md:h-28 md:w-[500px]"
             />
             <img
-              src="/images/marketing/ratings-fb.webp"
-              alt="Facebook community"
+              src="/images/articles/2k%20%2B%20Memebers%20(2).png"
+              alt="HealSend 2K members"
               loading="lazy"
-              className="h-20 w-auto md:h-24"
+              className="h-20 w-[360px] object-contain md:h-28 md:w-[500px]"
             />
           </div>
         </div>
@@ -1752,10 +1754,9 @@ const TRANSFORMATION_TESTIMONIALS = [
     after: "/kala_after.webp",
   },
   {
-    name: "Morgan",
-    weightLoss: 36,
-    before: "/morgan_before.webp",
-    after: "/morgan_after.webp",
+    name: "Ashley",
+    weightLoss: 110,
+    image: "/images/1000_F_951796023_kqPn3JVqIGZV6HWmQedRhxIz7FPtqtn6.jpg",
   },
 
   {
@@ -1871,22 +1872,44 @@ function TestimonialsSection() {
               className="basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[36%] xl:basis-[32%]"
             >
               <article className="flex h-full flex-col rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm md:p-5">
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="relative aspect-[3/4] overflow-hidden rounded-[1rem] bg-gray-100">
+                {person.image ? (
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-[1rem] bg-gray-100">
                     <img
-                      src={person.before}
-                      alt={`${person.name} before`}
+                      src={person.image}
+                      alt={`${person.name} result`}
                       className="absolute inset-0 h-full w-full object-cover"
                     />
+                    <span className="absolute left-2 top-2 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-gray-900 shadow-sm backdrop-blur-sm">
+                      Before
+                    </span>
+                    <span className="absolute right-2 top-2 rounded-full bg-[#00a86b] px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
+                      After
+                    </span>
                   </div>
-                  <div className="relative aspect-[3/4] overflow-hidden rounded-[1rem] bg-gray-100">
-                    <img
-                      src={person.after}
-                      alt={`${person.name} after`}
-                      className="absolute inset-0 h-full w-full object-cover"
-                    />
+                ) : (
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="relative aspect-[3/4] overflow-hidden rounded-[1rem] bg-gray-100">
+                      <img
+                        src={person.before}
+                        alt={`${person.name} before`}
+                        className="absolute inset-0 h-full w-full object-cover"
+                      />
+                      <span className="absolute left-2 top-2 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-gray-900 shadow-sm backdrop-blur-sm">
+                        Before
+                      </span>
+                    </div>
+                    <div className="relative aspect-[3/4] overflow-hidden rounded-[1rem] bg-gray-100">
+                      <img
+                        src={person.after}
+                        alt={`${person.name} after`}
+                        className="absolute inset-0 h-full w-full object-cover"
+                      />
+                      <span className="absolute left-2 top-2 rounded-full bg-[#00a86b] px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
+                        After
+                      </span>
+                    </div>
                   </div>
-                </div>
+                )}
                 <p className="mt-5 text-center text-lg font-medium text-gray-700 md:text-xl">
                   {person.name} lost{" "}
                   <span className="font-semibold text-[#00a86b]">
@@ -2017,6 +2040,79 @@ function BMICalculatorPreviewSection() {
     "/morgan_after.webp",
   ];
 
+  const [heightFt, setHeightFt] = useState("5");
+  const [heightIn, setHeightIn] = useState("10");
+  const [weightLbs, setWeightLbs] = useState("210");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [projectedStartWeight, setProjectedStartWeight] = useState(334);
+
+  const totalInches =
+    (parseFloat(heightFt) || 0) * 12 + (parseFloat(heightIn) || 0);
+  const weightNum = parseFloat(weightLbs) || 0;
+  const bmi =
+    totalInches > 0 && weightNum > 0
+      ? (weightNum * 703) / (totalInches * totalInches)
+      : 0;
+  const bmiDisplay = bmi > 0 ? bmi.toFixed(1) : "—";
+
+  const bmiCategory =
+    bmi <= 0
+      ? null
+      : bmi < 18.5
+        ? "underweight"
+        : bmi < 25
+          ? "healthy"
+          : bmi < 30
+            ? "overweight"
+            : "obesity";
+
+  const categoryMessages = {
+    underweight:
+      "Your BMI is below the typical healthy range. A licensed clinician can review your full picture and recommend the right next step for you.",
+    healthy:
+      "Your BMI is in the healthy range. If you'd like guidance on long-term wellness, our clinicians can help you find the right plan.",
+    overweight:
+      "Your BMI is in a range where medical support can help. A licensed clinician can build a personalized plan to help you feel better, move more easily, and regain confidence.",
+    obesity:
+      "Your BMI is in a range where medical support can help. A licensed clinician can build a personalized plan to help you feel better, move more easily, and regain confidence.",
+  };
+
+  const bmiRanges = [
+    { key: "underweight", label: "Underweight", value: "<18.5", dot: "#a5a8ff", bg: "bg-[#eef0ff]" },
+    { key: "healthy", label: "Healthy Weight", value: "18.5+", dot: "#7be0a5", bg: "bg-[#eaf6f0]" },
+    { key: "overweight", label: "Overweight", value: "25+", dot: "#ffd07a", bg: "bg-[#fbf3e6]" },
+    { key: "obesity", label: "Obesity", value: "30+", dot: "#ef4444", bg: "bg-[#fde6e6]" },
+  ];
+
+  const arcLength = 361;
+  const fillPercent = Math.max(0, Math.min(1, (bmi - 15) / 20));
+  const dashFill = (fillPercent * arcLength).toFixed(0);
+  const projectedLossLbs = Math.round(projectedStartWeight * 0.15);
+  const projectedFillPercent = Math.max(
+    0,
+    Math.min(100, ((projectedStartWeight - 120) / (450 - 120)) * 100),
+  );
+
+  const handleNumericChange = (setter, max) => (event) => {
+    const raw = event.target.value;
+    if (raw === "") {
+      setter("");
+      return;
+    }
+    if (!/^\d{0,3}$/.test(raw)) return;
+    const value = parseInt(raw, 10);
+    if (Number.isNaN(value)) return;
+    if (max !== undefined && value > max) return;
+    setter(String(value));
+  };
+
+  const handleProjectedWeightChange = (event) => {
+    const value = Number(event.target.value);
+    if (Number.isNaN(value)) return;
+    setProjectedStartWeight(value);
+    setModalOpen(true);
+  };
+
   return (
     <section className="bg-white px-5 py-20 md:px-8 lg:px-10">
       <div className="mx-auto max-w-[1240px]">
@@ -2048,8 +2144,9 @@ function BMICalculatorPreviewSection() {
                   stroke="url(#bmiGradientPreview)"
                   strokeWidth="16"
                   strokeLinecap="round"
-                  strokeDasharray="275 361"
+                  strokeDasharray={`${dashFill} ${arcLength}`}
                   strokeDashoffset="0"
+                  style={{ transition: "stroke-dasharray 0.3s ease" }}
                 />
                 <defs>
                   <linearGradient id="bmiGradientPreview" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -2062,7 +2159,7 @@ function BMICalculatorPreviewSection() {
               </svg>
               <div className="absolute inset-x-0 bottom-6 text-center">
                 <div className="font-title text-[4.6rem] font-semibold leading-none tracking-[-0.06em] text-[#0b1020]">
-                  30.1
+                  {bmiDisplay}
                 </div>
                 <div className="mt-1 text-sm font-medium uppercase tracking-[0.2em] text-[#7a859c]">
                   Your BMI
@@ -2076,12 +2173,28 @@ function BMICalculatorPreviewSection() {
                   Height
                 </label>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3">
-                    <span className="w-full text-[1.02rem] text-[#172030]">5</span>
+                  <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3 focus-within:border-[#5d62f3]">
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      value={heightFt}
+                      onChange={handleNumericChange(setHeightFt, 8)}
+                      aria-label="Height in feet"
+                      className="w-full bg-transparent text-[1.02rem] text-[#172030] outline-none"
+                    />
                     <span className="text-[1.02rem] font-medium text-[#68748f]">ft</span>
                   </div>
-                  <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3">
-                    <span className="w-full text-[1.02rem] text-[#172030]">10</span>
+                  <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3 focus-within:border-[#5d62f3]">
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      value={heightIn}
+                      onChange={handleNumericChange(setHeightIn, 11)}
+                      aria-label="Height in inches"
+                      className="w-full bg-transparent text-[1.02rem] text-[#172030] outline-none"
+                    />
                     <span className="text-[1.02rem] font-medium text-[#68748f]">in</span>
                   </div>
                 </div>
@@ -2091,8 +2204,16 @@ function BMICalculatorPreviewSection() {
                 <label className="mb-2 block text-[1rem] font-medium text-[#313948]">
                   Weight
                 </label>
-                <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3">
-                  <span className="w-full text-[1.02rem] text-[#172030]">210</span>
+                <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3 focus-within:border-[#5d62f3]">
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    value={weightLbs}
+                    onChange={handleNumericChange(setWeightLbs, 999)}
+                    aria-label="Weight in pounds"
+                    className="w-full bg-transparent text-[1.02rem] text-[#172030] outline-none"
+                  />
                   <span className="text-[1.02rem] font-medium text-[#68748f]">lbs</span>
                 </div>
               </div>
@@ -2100,12 +2221,26 @@ function BMICalculatorPreviewSection() {
 
             <button
               type="button"
-              className="hs-solid-btn mt-8 inline-flex min-h-[3.4rem] w-full items-center justify-center gap-2 rounded-full px-8 text-[1.02rem] font-semibold"
+              onClick={() => setModalOpen(true)}
+              disabled={bmi <= 0}
+              className="hs-solid-btn mt-8 inline-flex min-h-[3.4rem] w-full items-center justify-center gap-2 rounded-full px-8 text-[1.02rem] font-semibold disabled:cursor-not-allowed disabled:opacity-60"
             >
               See my BMI eligibility
               <ArrowRight className="h-4 w-4" />
             </button>
           </article>
+
+          <BMIEligibilityModal
+            open={modalOpen}
+            onOpenChange={setModalOpen}
+            bmi={bmi}
+            bmiDisplay={bmiDisplay}
+            dashFill={dashFill}
+            arcLength={arcLength}
+            bmiCategory={bmiCategory}
+            categoryMessages={categoryMessages}
+            bmiRanges={bmiRanges}
+          />
 
           <article className="overflow-hidden rounded-[1rem] border border-[#edf1f7] bg-white shadow-[0_18px_34px_rgba(20,24,34,0.08)]">
             <div className="relative h-full min-h-[720px]">
@@ -2154,7 +2289,7 @@ function BMICalculatorPreviewSection() {
 
               <div className="mt-10">
                 <span className="font-title text-[5.7rem] font-semibold leading-none tracking-[-0.08em] text-[#0b1020]">
-                  50
+                  {projectedLossLbs}
                 </span>
                 <span className="ml-2 text-[3.25rem] font-medium tracking-[-0.04em] text-[#66748f]">
                   lbs
@@ -2173,7 +2308,7 @@ function BMICalculatorPreviewSection() {
               </p>
               <div className="mx-auto mt-4 flex max-w-[10.5rem] items-end justify-center gap-1 rounded-[0.9rem] bg-[#f2f5fa] px-5 py-4">
                 <span className="font-title text-[3.2rem] font-semibold leading-none tracking-[-0.06em] text-[#48536b]">
-                  334
+                  {projectedStartWeight}
                 </span>
                 <span className="mb-1 text-[1.15rem] font-medium text-[#68748f]">
                   lbs
@@ -2182,15 +2317,163 @@ function BMICalculatorPreviewSection() {
 
               <div className="mt-12">
                 <div className="relative h-4 rounded-full bg-[#dfe5f4]">
-                  <div className="absolute inset-y-0 left-0 w-[74%] rounded-full bg-[#5d62f3]" />
-                  <div className="absolute left-[calc(74%-14px)] top-1/2 h-7 w-7 -translate-y-1/2 rounded-full border-2 border-[#4b55eb] bg-white shadow-[0_10px_20px_rgba(93,98,243,0.18)]" />
+                  <div
+                    className="absolute inset-y-0 left-0 rounded-full bg-[#5d62f3]"
+                    style={{ width: `${projectedFillPercent}%` }}
+                  />
                 </div>
+                <input
+                  type="range"
+                  min={120}
+                  max={450}
+                  step={1}
+                  value={projectedStartWeight}
+                  onChange={handleProjectedWeightChange}
+                  aria-label="Starting weight slider"
+                  className="mt-[-16px] h-7 w-full cursor-pointer appearance-none bg-transparent accent-[#5d62f3]"
+                />
               </div>
             </div>
           </article>
         </div>
       </div>
     </section>
+  );
+}
+
+function BMIEligibilityModal({
+  open,
+  onOpenChange,
+  bmi,
+  bmiDisplay,
+  dashFill,
+  arcLength,
+  bmiCategory,
+  categoryMessages,
+  bmiRanges,
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogPortal>
+        <DialogOverlay className="bg-black/50" />
+        <DialogPrimitive.Content className="fixed left-1/2 top-1/2 z-50 grid max-h-[92vh] w-[95vw] max-w-[1100px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-[1.25rem] bg-white p-6 shadow-2xl outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 md:p-10">
+          <DialogPrimitive.Close
+            aria-label="Close"
+            className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50"
+          >
+            <X className="h-4 w-4" />
+          </DialogPrimitive.Close>
+
+          <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+            <div className="rounded-[1rem] bg-[#f5f7fb] p-6 md:p-8">
+              <p className="text-center text-[1.05rem] font-medium tracking-[-0.02em] text-[#121726] md:text-[1.15rem]">
+                Check your eligibility.
+              </p>
+
+              <div className="relative mx-auto mt-6 h-[200px] w-[260px]">
+                <svg viewBox="0 0 280 170" className="h-full w-full overflow-visible">
+                  <path
+                    d="M 25 150 A 115 115 0 0 1 255 150"
+                    fill="none"
+                    stroke="#e5e7eb"
+                    strokeWidth="16"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M 25 150 A 115 115 0 0 1 255 150"
+                    fill="none"
+                    stroke="url(#bmiGradientModal)"
+                    strokeWidth="16"
+                    strokeLinecap="round"
+                    strokeDasharray={`${dashFill} ${arcLength}`}
+                    strokeDashoffset="0"
+                  />
+                  <defs>
+                    <linearGradient id="bmiGradientModal" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#6db1ff" />
+                      <stop offset="50%" stopColor="#91e2a8" />
+                      <stop offset="78%" stopColor="#ffd34d" />
+                      <stop offset="100%" stopColor="#ff845b" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div className="absolute inset-x-0 bottom-4 text-center">
+                  <div className="font-title text-[3.6rem] font-semibold leading-none tracking-[-0.06em] text-[#0b1020]">
+                    {bmiDisplay}
+                  </div>
+                  <div className="mt-1 text-sm font-medium text-[#5b6478]">
+                    Your BMI
+                  </div>
+                </div>
+              </div>
+
+              <p className="mt-6 text-center text-[0.95rem] leading-7 text-[#3a4254]">
+                Body Mass Index (BMI) is a measurement that uses your height and
+                weight to estimate whether your weight is in a healthy range for
+                your height.*
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              {bmiRanges.map((range) => {
+                const isActive = range.key === bmiCategory;
+                return (
+                  <div
+                    key={range.key}
+                    className={`rounded-[1rem] p-4 md:p-5 ${isActive ? range.bg : "bg-[#f5f7fb]"}`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <span
+                          className="h-2.5 w-2.5 rounded-full"
+                          style={{ backgroundColor: range.dot }}
+                        />
+                        <span className="text-[1rem] font-semibold text-[#101726] md:text-[1.05rem]">
+                          {range.label}
+                        </span>
+                      </div>
+                      <span className="text-[0.95rem] font-semibold text-[#101726]">
+                        {range.value}
+                      </span>
+                    </div>
+
+                    {isActive ? (
+                      <>
+                        <p className="mt-3 text-[0.92rem] leading-6 text-[#3a4254]">
+                          {categoryMessages[range.key]}
+                        </p>
+                        <Link
+                          href="/funnels/glp-1"
+                          className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#5d62f3] px-6 py-3.5 text-[0.98rem] font-semibold text-white transition-colors hover:bg-[#4b55eb]"
+                        >
+                          Start treatment today
+                          <ArrowRight className="h-4 w-4" />
+                        </Link>
+                      </>
+                    ) : null}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="mt-8 space-y-3 text-[0.78rem] leading-5 text-[#5b6478] md:text-[0.82rem]">
+            <p>
+              *BMI doesn&apos;t directly measure body fat and may not accurately
+              reflect health for people with high muscle mass, pregnant women,
+              children, older adults, certain ethnic groups, or those with
+              medical conditions.
+            </p>
+            <p>
+              The BMI calculator does not determine eligibility for weight-loss
+              treatments. A licensed healthcare provider must evaluate your
+              overall health and history to decide if treatment is right for
+              you.
+            </p>
+          </div>
+        </DialogPrimitive.Content>
+      </DialogPortal>
+    </Dialog>
   );
 }
 
@@ -2896,6 +3179,104 @@ function SupportAvailabilitySection() {
   );
 }
 
+function GLP1BenefitsSection({ productData }) {
+  const [api, setApi] = useState(null);
+  const ctaHref = getPrimaryCtaHref(productData);
+
+  const benefits = [
+    {
+      title: "Demo text for the demo",
+      image: "/images/articles/girl.webp",
+      alt: "GLP-1 benefit",
+    },
+    {
+      title: "Feel lighter, clearer, and more energized",
+      image: "/images/articles/med1.webp",
+      alt: "GLP-1 medication",
+    },
+    {
+      title: "Demo text for the demo image vineeth will change it later",
+      image: "/images/articles/fem1.jpg",
+      alt: "GLP-1 lifestyle",
+      ctaText: "Get Started",
+      ctaHref,
+    },
+    {
+      title: "Stay consistent with clinician-guided support each step of your journey",
+      image: "/images/glp-1.jpg",
+      alt: "GLP-1 treatment support",
+    },
+  ];
+
+  return (
+    <section className="bg-white py-16 md:py-20">
+      <div className="mx-auto max-w-[1340px] px-4 md:px-8">
+        <h2 className="mb-10 text-center font-title text-3xl font-bold tracking-tight text-[#101726] md:mb-12 md:text-4xl lg:text-5xl">
+          What are the benefits of GLP-1?
+        </h2>
+
+        <Carousel
+          setApi={setApi}
+          opts={{ align: "start", containScroll: false, loop: true }}
+          className="w-full"
+        >
+          <CarouselContent className="-ml-4 md:-ml-6">
+            {benefits.map((item, index) => (
+              <CarouselItem
+                key={`${item.title}-${index}`}
+                className="basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[33.333%]"
+              >
+                <article className="relative h-[420px] overflow-hidden rounded-[1.25rem] shadow-sm md:h-[460px]">
+                  <img
+                    src={item.image}
+                    alt={item.alt}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_60%,rgba(0,0,0,0.85)_100%)] p-6 md:p-7">
+                    <p className="text-[1.05rem] font-semibold leading-tight text-white md:text-[1.15rem]">
+                      {item.title}
+                    </p>
+                    {item.ctaText ? (
+                      <Link
+                        href={item.ctaHref}
+                        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#5d62f3] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#4b55eb]"
+                      >
+                        {item.ctaText}
+                      </Link>
+                    ) : null}
+                  </div>
+                </article>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+
+        <div className="mt-6 flex items-center gap-4">
+          <div className="h-px flex-1 bg-gray-200" />
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={() => api?.scrollPrev()}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50"
+              aria-label="Previous benefit"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => api?.scrollNext()}
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-[#101726] text-white transition-colors hover:bg-[#1d2538]"
+              aria-label="Next benefit"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function MobileStickyCta({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
   const [visible, setVisible] = useState(false);
@@ -2959,6 +3340,7 @@ export default function MarketingProductPage({ product }) {
       <FadeInSection><MedicalWeightLossSection productData={productData} /></FadeInSection>
       <FadeInSection><PricingSection productData={productData} /></FadeInSection>
       <FadeInSection><NegativeSellSection /></FadeInSection>
+      <FadeInSection><GLP1BenefitsSection productData={productData} /></FadeInSection>
       <FadeInSection><BenefitsCarousel productData={productData} /></FadeInSection>
       <FadeInSection><SupportFeatures productData={productData} /></FadeInSection>
       <FadeInSection><TestimonialsSection /></FadeInSection>

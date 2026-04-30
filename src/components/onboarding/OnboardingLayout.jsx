@@ -82,23 +82,8 @@ export default function OnboardingLayout({
                 HIPAA Compliant
               </span>
             </div>
-            <p className="font-body text-[0.6875rem] uppercase tracking-wider text-slate-500">
-              © 2024 HealSend. All rights reserved.
-            </p>
           </div>
           <div className="flex flex-wrap gap-6">
-            <Link
-              className="font-body text-[0.6875rem] uppercase tracking-wider text-slate-400 hover:text-[#5b3cdd] transition-colors"
-              href={LEGAL_ROUTE_PATHS.privacy}
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              className="font-body text-[0.6875rem] uppercase tracking-wider text-slate-400 hover:text-[#5b3cdd] transition-colors"
-              href={LEGAL_ROUTE_PATHS.terms}
-            >
-              Terms of Service
-            </Link>
             <Link
               className="font-body text-[0.6875rem] uppercase tracking-wider text-slate-400 hover:text-[#5b3cdd] transition-colors"
               href={LEGAL_ROUTE_PATHS.hipaa}

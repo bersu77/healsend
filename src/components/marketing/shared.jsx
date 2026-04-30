@@ -29,6 +29,7 @@ import {
 const ROUTES = MARKETING_ROUTE_PATHS;
 const LEGITSCRIPT_VERIFICATION_URL =
   "https://www.legitscript.com/websites/?checker_keywords=healsend.com";
+const HIDDEN_FOOTER_LINK_LABELS = new Set(["Privacy Policy", "Terms of Service"]);
 const DESKTOP_NAV_PROMO_IMAGES = Object.freeze({
   weightLoss: WORDPRESS_MARKETING_IMAGES.tirzepatide,
   antiAging: WORDPRESS_MARKETING_IMAGES.nadInjection,
@@ -1372,7 +1373,9 @@ export function MarketingFooter() {
                 >
                   <div className="overflow-hidden">
                     <ul className="space-y-3 pb-4 text-sm text-gray-400">
-                      {section.links.map((link) => (
+                      {section.links
+                        .filter((link) => !HIDDEN_FOOTER_LINK_LABELS.has(link.label))
+                        .map((link) => (
                         <li key={`${section.title}-${link.label}`}>
                           {link.href ? (
                             <Link
@@ -1402,7 +1405,9 @@ export function MarketingFooter() {
         <div>
           <h4 className="mb-6 text-sm font-bold">HealSend Patient Care</h4>
           <ul className="space-y-4 text-sm text-gray-400">
-            {MARKETING_FOOTER_PATIENT_CARE.map((item) => (
+            {MARKETING_FOOTER_PATIENT_CARE
+              .filter((item) => !HIDDEN_FOOTER_LINK_LABELS.has(item.label))
+              .map((item) => (
               <li key={item.label}>
                 {item.href ? (
                   <a
@@ -1455,9 +1460,6 @@ export function MarketingFooter() {
           </div>
         </div>
 
-        <div className="mt-4 border-t border-gray-800 pt-4 text-center text-xs text-gray-500">
-          <p>© 2025 HealSend Inc. All Rights Reserved</p>
-        </div>
       </div>
     </footer>
   );
