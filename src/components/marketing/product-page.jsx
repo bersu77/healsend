@@ -1156,6 +1156,46 @@ function ProductHero({ productData }) {
     </section>
   );
 }
+
+function AboveFoldClarityBlock() {
+  const items = [
+    { label: "Clinician review", icon: Stethoscope },
+    { label: "Prescription if appropriate", icon: PillBottle },
+    { label: "U.S. pharmacy fulfillment", icon: ShieldCheck },
+    { label: "Ongoing check-ins", icon: Clock3 },
+  ];
+
+  return (
+    <section className="bg-[#f9f9f9] px-4 pb-8 md:px-8 md:pb-10 lg:px-16">
+      <div className="mx-auto max-w-[1400px] overflow-hidden rounded-[1rem] border border-[#e6e9f2] bg-white p-4 shadow-sm md:p-5">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <div className="shrink-0">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#6a7288]">
+              What you get
+            </p>
+          </div>
+          <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 lg:max-w-[980px] lg:grid-cols-4">
+            {items.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.label}
+                  className="flex items-center gap-2 rounded-[0.8rem] border border-[#e8ecf6] bg-[#fbfcff] px-3 py-2"
+                >
+                  <Icon className="h-4 w-4 shrink-0 text-[#5d62f3]" />
+                  <span className="text-sm font-medium text-[#1f2533]">{item.label}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <p className="mt-3 text-xs font-medium text-[#5f6780] md:text-sm">
+          No insurance required • Transparent pricing
+        </p>
+      </div>
+    </section>
+  );
+}
 const MEDICAL_PLANS = [
   {
     id: "semaglutide",
@@ -2330,7 +2370,7 @@ function BMICalculatorPreviewSection() {
                   value={projectedStartWeight}
                   onChange={handleProjectedWeightChange}
                   aria-label="Starting weight slider"
-                  className="mt-[-16px] h-7 w-full cursor-pointer appearance-none bg-transparent accent-[#5d62f3]"
+                  className="relative z-10 mt-[-12px] h-8 w-full cursor-pointer appearance-none bg-transparent accent-[#5d62f3] [&::-webkit-slider-runnable-track]:h-4 [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-transparent [&::-webkit-slider-thumb]:-mt-[6px] [&::-webkit-slider-thumb]:h-7 [&::-webkit-slider-thumb]:w-7 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#4b55eb] [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-[0_10px_20px_rgba(93,98,243,0.18)] [&::-moz-range-track]:h-4 [&::-moz-range-track]:rounded-full [&::-moz-range-track]:bg-transparent [&::-moz-range-thumb]:h-7 [&::-moz-range-thumb]:w-7 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-[#4b55eb] [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:shadow-[0_10px_20px_rgba(93,98,243,0.18)]"
                 />
               </div>
             </div>
@@ -3217,10 +3257,10 @@ function GLP1BenefitsSection({ productData }) {
 
         <Carousel
           setApi={setApi}
-          opts={{ align: "start", containScroll: false, loop: true }}
+          opts={{ align: "start", containScroll: "trimSnaps", loop: benefits.length > 1 }}
           className="w-full"
         >
-          <CarouselContent className="-ml-4 md:-ml-6">
+          <CarouselContent className="-ml-4 items-stretch md:-ml-6">
             {benefits.map((item, index) => (
               <CarouselItem
                 key={`${item.title}-${index}`}
@@ -3335,6 +3375,7 @@ export default function MarketingProductPage({ product }) {
       <MinimalMarketingNavbar />
       <WillpowerSection />
       <ProductHero productData={productData} />
+      <AboveFoldClarityBlock />
       {/* <FeatureSplit productData={productData} /> */}
       <MediaLogosBanner />
       <FadeInSection><MedicalWeightLossSection productData={productData} /></FadeInSection>
