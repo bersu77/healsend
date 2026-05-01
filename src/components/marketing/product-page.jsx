@@ -76,6 +76,14 @@ const MEDIA_LOGOS = [
   // { name: "Reuters", image: "/sponsers/reuters.png", alt: "Reuters logo", sizeClass: "w-40 md:w-44", imageClass: "scale-[1.55]" },
 ];
 
+/** Overlapping member photos for social proof (Willpower stat + testimonials header). */
+const MEMBER_FACE_STACK_IMAGE_SRCS = [
+  "/images/wmremove-transformed.png",
+  "/images/secondafter.jpg",
+  "/images/thirdafter.jpeg",
+  "/images/lastafter.jpg",
+];
+
 function MediaLogosBanner() {
   return (
     <div className="overflow-hidden bg-[#5b3cdd] py-6">
@@ -285,12 +293,7 @@ function WillpowerSection() {
                     Prescriptions written
                   </span>
                   <div className="flex -space-x-2">
-                    {[
-                      "/photoroom-6.png",
-                      "/photoroom-4.png",
-                      "/photoroom-3.png",
-                      "/photoroom-2.png",
-                    ].map((src) => (
+                    {MEMBER_FACE_STACK_IMAGE_SRCS.map((src) => (
                       <span
                         key={src}
                         className="relative h-7 w-7 overflow-hidden rounded-full border-2 border-white bg-[#eef0f8] md:h-9 md:w-9"
@@ -948,25 +951,23 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
                 </div>
               ) : null}
 
-              <div className="w-full">
-                <div className="inline-flex w-full max-w-full flex-col items-center gap-2.5 sm:w-auto">
-                  <Link
-                    href={ctaHref}
-                    className="hs-solid-btn flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] transition-colors"
-                  >
-                    Get my personalized plan
-                    <ArrowRight className="h-4 w-4 shrink-0" />
-                  </Link>
-                  <p className="w-full text-center text-sm font-semibold text-gray-700">
-                    Takes 90 seconds · 100% private · free
-                  </p>
-                </div>
+              <div className="mx-auto flex w-full max-w-md flex-col items-center gap-2.5">
+                <Link
+                  href={ctaHref}
+                  className="hs-solid-btn flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] transition-colors"
+                >
+                  Get my personalized plan
+                  <ArrowRight className="h-4 w-4 shrink-0" />
+                </Link>
+                <p className="w-full text-center text-sm font-semibold text-gray-700">
+                  Takes 90 seconds · 100% private · free
+                </p>
+                <p className="mt-0 w-full text-center text-xs text-gray-500 md:text-sm">
+                  {pricePresentation.savings
+                    ? "Discount auto-applied at checkout"
+                    : "Treatment fit still depends on clinician review"}
+                </p>
               </div>
-              <p className="mt-2 text-center text-xs text-gray-500 md:text-sm">
-                {pricePresentation.savings
-                  ? "Discount auto-applied at checkout"
-                  : "Treatment fit still depends on clinician review"}
-              </p>
 
             </div>
           </div>
@@ -1697,25 +1698,23 @@ function PricingSection({ productData }) {
               </div>
             </div>
 
-            <div className="w-full">
-              <div className="inline-flex w-full max-w-full flex-col items-center gap-2.5 sm:w-auto">
-                <Link
-                  href={ctaHref}
-                  className="hs-solid-btn flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] transition-colors"
-                >
-                  Get my personalized plan
-                  <ArrowRight className="h-4 w-4 shrink-0" />
-                </Link>
-                <p className="w-full text-center text-sm font-semibold text-gray-700">
-                  Takes 90 seconds · 100% private · free
-                </p>
-              </div>
+            <div className="mx-auto flex w-full max-w-md flex-col items-center gap-2.5">
+              <Link
+                href={ctaHref}
+                className="hs-solid-btn flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] transition-colors"
+              >
+                Get my personalized plan
+                <ArrowRight className="h-4 w-4 shrink-0" />
+              </Link>
+              <p className="w-full text-center text-sm font-semibold text-gray-700">
+                Takes 90 seconds · 100% private · free
+              </p>
+              <p className="mt-0 w-full text-center text-xs text-gray-500 md:text-sm">
+                {pricePresentation.savings
+                  ? "Discount auto-applied at checkout"
+                  : "Treatment fit still depends on clinician review"}
+              </p>
             </div>
-            <p className="mt-2 text-center text-xs text-gray-500 md:text-sm">
-              {pricePresentation.savings
-                ? "Discount auto-applied at checkout"
-                : "Treatment fit still depends on clinician review"}
-            </p>
           </div>
         </div>
       </div>
@@ -1933,12 +1932,7 @@ function TestimonialsSection() {
                 2000+ members.
               </h2>
               <div className="flex -space-x-2">
-                {[
-                  "/images/wmremove-transformed.png",
-                  "/images/secondafter.jpg",
-                  "/images/thirdafter.jpeg",
-                  "/images/lastafter.jpg",
-                ].map((src) => (
+                {MEMBER_FACE_STACK_IMAGE_SRCS.map((src) => (
                   <span
                     key={src}
                     className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-white bg-[#eef0f8] sm:h-9 sm:w-9 md:h-11 md:w-11"
