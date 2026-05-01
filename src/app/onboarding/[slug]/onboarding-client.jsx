@@ -41,8 +41,6 @@ const fadeVariants = {
 
 const RECT_INPUT_CLASS =
   "w-full rounded-[1.1rem] border border-[#d7d1e4] bg-white px-4 py-4 text-base transition-colors outline-none focus:border-[#5b3cdd]";
-const RECT_SELECT_TRIGGER_CLASS =
-  `${RECT_INPUT_CLASS} appearance-none cursor-pointer bg-[#fbfcfe] py-[1.05rem] pr-12 font-medium text-[#0f172a] shadow-[inset_0_1px_0_rgba(255,255,255,0.95)] hover:border-[#bcb6d8] hover:bg-white focus:border-[#5b3cdd] focus:shadow-[0_0_0_3px_rgba(91,60,221,0.14)]`;
 const PRIMARY_PILL_BUTTON_CLASS =
   "hs-solid-btn w-full rounded-full px-6 py-4 font-headline text-base font-bold disabled:cursor-not-allowed disabled:opacity-40";
 const SECONDARY_PILL_BUTTON_CLASS =
@@ -2359,18 +2357,18 @@ function CheckoutStep({
 
           <div className="rounded-[1rem] border border-[#dde6eb] bg-[#f8fcfb] px-4 py-3">
             <div className="flex items-center justify-between gap-4 text-[#6f6a7f]">
-              <p className="text-[1.05rem] font-bold uppercase tracking-[0.08em]">
+              <p className="text-[0.875rem] font-bold uppercase tracking-[0.08em] md:text-[0.95rem]">
                 vs. traditional clinics
               </p>
-              <p className="text-[1.9rem] font-semibold line-through tabular-nums">
+              <p className="text-[1.25rem] font-semibold line-through tabular-nums md:text-[1.35rem]">
                 {formatCheckoutCurrency(compareClinicAmount)}
               </p>
             </div>
             <div className="mt-1 flex items-end justify-between gap-4">
-              <p className="font-headline text-[2rem] font-bold text-[#001b8f]">
+              <p className="font-headline text-[1.35rem] font-bold leading-tight text-[#001b8f] md:text-[1.5rem]">
                 Your Total Savings
               </p>
-              <p className="font-headline text-[2.65rem] font-extrabold leading-none text-[#001b8f] tabular-nums">
+              <p className="font-headline text-[1.85rem] font-extrabold leading-none text-[#001b8f] tabular-nums md:text-[2rem]">
                 -{formatCheckoutCurrency(totalSavings)}
               </p>
             </div>
@@ -2379,18 +2377,18 @@ function CheckoutStep({
           <div className="border-t border-[#e7ebf8] pt-4">
             <div className="flex items-end justify-between gap-4">
               <div>
-                <p className="font-headline text-[3rem] font-extrabold leading-none text-[#001b8f]">
+                <p className="font-headline text-[1.7rem] font-extrabold leading-snug text-[#001b8f] md:text-[1.95rem]">
                   {effectivePricingMode === "UPFRONT_ZERO"
                     ? "Total After Approval"
                     : "Total Due Today"}
                 </p>
                 {dailyAmount ? (
-                  <p className="mt-1 text-[1.25rem] text-[#5f5a6d]">
+                  <p className="mt-1 text-sm text-[#5f5a6d] md:text-[0.95rem]">
                     Breakdown: only ${dailyAmount.toFixed(2)}/day
                   </p>
                 ) : null}
               </div>
-              <p className="font-headline text-[4rem] font-extrabold leading-none text-[#001b8f] tabular-nums">
+              <p className="font-headline text-[2.1rem] font-extrabold leading-none text-[#001b8f] tabular-nums md:text-[2.45rem]">
                 {formatCheckoutCurrency(effectiveDueTodayAmount)}
               </p>
             </div>
@@ -2608,7 +2606,6 @@ function StripePaymentForm({
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState("");
   const [walletReady, setWalletReady] = useState(false);
-  const [walletChecked, setWalletChecked] = useState(false);
   const [redirectingMethod, setRedirectingMethod] = useState("");
   const [verifyingMethod, setVerifyingMethod] = useState("");
   const paymentMethodsRef = React.useRef(null);
@@ -2874,49 +2871,46 @@ function StripePaymentForm({
         </div>
       ) : null}
 
-      {!walletChecked || walletReady ? (
-        <div
-          className={
-            walletReady
-              ? "rounded-[1rem] border border-[#d9d4e7] bg-[#f7f6ff] px-3 py-3 shadow-[0_8px_20px_rgba(28,26,36,0.05)] md:px-4"
-              : "pointer-events-none absolute left-[-9999px] top-auto h-px w-px overflow-hidden opacity-0"
-          }
-          aria-hidden={!walletReady}
-        >
-          <ExpressCheckoutElement
-            onConfirm={handleExpressCheckoutConfirm}
-            onReady={({ availablePaymentMethods }) => {
-              const hasAvailableMethods = Array.isArray(availablePaymentMethods)
-                ? availablePaymentMethods.length > 0
-                : Boolean(
+      <div
+        className={
+          walletReady
+            ? "rounded-[1rem] border border-[#d9d4e7] bg-[#f7f6ff] px-3 py-3 shadow-[0_8px_20px_rgba(28,26,36,0.05)] md:px-4"
+            : "pointer-events-none fixed top-0 -left-[10000px] z-[-10] flex h-[56px] w-[min(560px,calc(100vw-48px))] items-center opacity-0"
+        }
+        aria-hidden={!walletReady}
+      >
+        <ExpressCheckoutElement
+          onConfirm={handleExpressCheckoutConfirm}
+          onReady={({ availablePaymentMethods }) => {
+            const hasAvailableMethods = Array.isArray(availablePaymentMethods)
+              ? availablePaymentMethods.length > 0
+              : Boolean(
                   availablePaymentMethods &&
-                  Object.keys(availablePaymentMethods).length,
+                    Object.keys(availablePaymentMethods).length,
                 );
 
-              setWalletReady(hasAvailableMethods);
-              setWalletChecked(true);
-            }}
-            options={{
-              buttonHeight: 52,
-              layout: {
-                maxColumns: 2,
-                maxRows: 1,
-                overflow: "never",
-              },
-              paymentMethodOrder: ["applePay", "googlePay"],
-              paymentMethods: {
-                applePay: "always",
-                googlePay: "always",
-                link: "never",
-              },
-              buttonType: {
-                applePay: "check-out",
-                googlePay: "pay",
-              },
-            }}
-          />
-        </div>
-      ) : null}
+            setWalletReady(hasAvailableMethods);
+          }}
+          options={{
+            buttonHeight: 52,
+            layout: {
+              maxColumns: 2,
+              maxRows: 2,
+              overflow: "auto",
+            },
+            paymentMethodOrder: ["applePay", "googlePay"],
+            paymentMethods: {
+              applePay: "always",
+              googlePay: "always",
+              link: "never",
+            },
+            buttonType: {
+              applePay: "check-out",
+              googlePay: "pay",
+            },
+          }}
+        />
+      </div>
 
       <div className="flex items-center gap-3 pt-1">
         <span className="h-px flex-1 bg-[#ece8f3]" />
@@ -3584,6 +3578,29 @@ function Glp1ProvenResultsStep({ onNext }) {
 }
 
 function Glp1ContactCaptureStep({ step, value, onChange, onNext }) {
+  const [stateMenuOpen, setStateMenuOpen] = useState(false);
+  const statePickerRef = useRef(null);
+
+  useEffect(() => {
+    function handlePointerDown(event) {
+      if (!statePickerRef.current?.contains(event.target)) {
+        setStateMenuOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handlePointerDown);
+    return () => document.removeEventListener("mousedown", handlePointerDown);
+  }, []);
+
+  useEffect(() => {
+    if (!stateMenuOpen) return;
+    function onKey(event) {
+      if (event.key === "Escape") setStateMenuOpen(false);
+    }
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [stateMenuOpen]);
+
   const v = {
     firstName: "",
     lastName: "",
@@ -3766,36 +3783,67 @@ function Glp1ContactCaptureStep({ step, value, onChange, onNext }) {
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-[0.95rem] font-semibold text-[#0f172a]">
+              <label
+                id="contact-state-label"
+                className="text-[0.95rem] font-semibold text-[#0f172a]"
+              >
                 State
               </label>
-              <div className="relative">
-                <select
-                  value={v.state}
-                  onChange={(event) =>
-                    onChange({
-                      ...v,
-                      state: event.target.value,
-                    })
-                  }
-                  className={RECT_SELECT_TRIGGER_CLASS}
-                  aria-label="State"
+              <div ref={statePickerRef} className="relative">
+                <button
+                  type="button"
+                  id="contact-state-trigger"
+                  aria-labelledby="contact-state-label"
+                  aria-haspopup="listbox"
+                  aria-expanded={stateMenuOpen}
+                  onClick={() => setStateMenuOpen((open) => !open)}
+                  className="flex w-full items-stretch rounded-[1.1rem] border border-[#d7d1e4] bg-[#fbfcfe] text-base font-medium text-[#0f172a] shadow-[inset_0_1px_0_rgba(255,255,255,0.95)] outline-none transition-colors hover:border-[#bcb6d8] hover:bg-white focus-visible:border-[#5b3cdd] focus-visible:shadow-[0_0_0_3px_rgba(91,60,221,0.14)]"
                 >
-                  <option value="" disabled>
-                    Select State
-                  </option>
-                  {stateOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-                <span
-                  className="pointer-events-none absolute inset-y-0 right-0 flex w-11 items-center justify-center rounded-r-[1.05rem] border-l border-[#e8e4f2] bg-gradient-to-b from-[#fdfbff] to-[#f3efff] text-[#5b3cdd]"
-                  aria-hidden="true"
-                >
-                  <AppIcon name="arrow_downward" className="text-[18px]" />
-                </span>
+                  <span
+                    className={`min-w-0 flex-1 py-3 pl-4 pr-3 text-left text-base leading-none ${v.state ? "font-medium text-[#0f172a]" : "text-[#9ca3af]"}`}
+                  >
+                    {v.state || "Select State"}
+                  </span>
+                  <span
+                    className="flex w-11 shrink-0 items-center justify-center rounded-r-[1.05rem] border-l border-[#e8e4f2] bg-gradient-to-b from-[#fdfbff] to-[#f3efff] text-[#5b3cdd]"
+                    aria-hidden="true"
+                  >
+                    <AppIcon
+                      name="arrow_downward"
+                      className={`text-[18px] transition-transform ${stateMenuOpen ? "rotate-180" : ""}`}
+                    />
+                  </span>
+                </button>
+                {stateMenuOpen ? (
+                  <ul
+                    role="listbox"
+                    aria-labelledby="contact-state-label"
+                    className="absolute z-50 mt-2 max-h-[220px] w-full overflow-y-auto overscroll-contain rounded-[1rem] border border-[#e5e9f6] bg-white py-1 shadow-[0_14px_40px_rgba(28,26,36,0.14)] [scrollbar-gutter:stable]"
+                  >
+                    {stateOptions.map((option) => {
+                      const chosen = v.state === option;
+                      return (
+                        <li key={option} role="presentation">
+                          <button
+                            type="button"
+                            role="option"
+                            aria-selected={chosen}
+                            onClick={() => {
+                              onChange({ ...v, state: option });
+                              setStateMenuOpen(false);
+                            }}
+                            className={`flex w-full items-center px-4 py-2.5 text-left text-[0.96rem] font-medium transition-colors ${chosen
+                              ? "bg-[#ebe7fb] text-[#5b3cdd]"
+                              : "text-[#1c1a24] hover:bg-[#f7f6ff]"
+                              }`}
+                          >
+                            {option}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : null}
               </div>
             </div>
             <div className="space-y-1.5">

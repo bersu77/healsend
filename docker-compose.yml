@@ -1,3 +1,5 @@
+# Local development Postgres. Sync URL with env/local-docker.database.env
+# Bootstrap: npm run db:bootstrap:docker
 services:
   postgres:
     image: postgres:16-alpine
@@ -8,7 +10,8 @@ services:
       POSTGRES_USER: johndoe
       POSTGRES_PASSWORD: randompassword
     ports:
-      - "5432:5432"
+      # 5433 avoids clashing with another Postgres already bound to 5432 on the host
+      - "5433:5432"
     volumes:
       - healsend-postgres-data:/var/lib/postgresql/data
     healthcheck:

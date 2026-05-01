@@ -187,7 +187,7 @@ export async function POST(request) {
 
     const amountCents = Math.round(pricingState.totalAmount * 100);
     const paymentIntentKey = [
-      "onboarding-card-link-v4",
+      "onboarding-card-link-v5",
       user.id,
       template.id,
       medicationId || "none",
@@ -195,33 +195,57 @@ export async function POST(request) {
       stripeCustomerId || "guest",
       amountCents,
       pricingState.pricingMode,
+      pricingState.captureMethod,
     ].join(":");
-    const paymentIntent = await stripe.paymentIntents.create(
-      {
-        amount: amountCents,
-        currency: "usd",
-        customer: stripeCustomerId || undefined,
-        capture_method: pricingState.captureMethod,
-        payment_method_types: ["card", "link"],
-        payment_method_options: {
-          card: {
-            setup_future_usage: "off_session",
-          },
-          link: {
-            setup_future_usage: "off_session",
-          },
-        },
-        metadata: {
-          userId: user.id,
-          templateId: template.id,
-          templateSlug: template.slug,
-          medicationId: medicationId || "",
-          planId: planId || "",
-          checkoutPricingMode: pricingState.pricingMode,
-          delayedChargeDays: String(pricingState.delayedChargeDays),
-        },
-        description: `HealSend — ${productName}`,
+
+    const baseIntent = {
+      amount: amountCents,
+      currency: "usd",
+      customer: stripeCustomerId || undefined,
+      capture_method: pricingState.captureMethod,
+      metadata: {
+        userId: user.id,
+        templateId: template.id,
+        templateSlug: template.slug,
+        medicationId: medicationId || "",
+        planId: planId || "",
+        checkoutPricingMode: pricingState.pricingMode,
+        delayedChargeDays: String(pricingState.delayedChargeDays),
       },
+      description: `HealSend — ${productName}`,
+    };
+
+    // automatic_payment_methods conflicts with some manual-capture / Link setups on
+    // Stripe — use explicit types for UPFRONT_ZERO (manual), wallets-friendly
+    // discovery for ALL_AT_ONCE (automatic).
+    const paymentIntentParams =
+      pricingState.captureMethod === "manual"
+        ? {
+            ...baseIntent,
+            payment_method_types: ["card", "link"],
+            payment_method_options: {
+              card: {
+                setup_future_usage: "off_session",
+              },
+              link: {
+                setup_future_usage: "off_session",
+              },
+            },
+          }
+        : {
+            ...baseIntent,
+            automatic_payment_methods: {
+              enabled: true,
+            },
+            payment_method_options: {
+              card: {
+                setup_future_usage: "off_session",
+              },
+            },
+          };
+
+    const paymentIntent = await stripe.paymentIntents.create(
+      paymentIntentParams,
       {
         idempotencyKey: paymentIntentKey,
       },
