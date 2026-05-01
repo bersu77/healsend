@@ -44,3 +44,5 @@ prod-envs/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.vercel
