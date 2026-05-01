@@ -778,9 +778,11 @@ function mergeProductContent(product) {
   };
 }
 
-function ProductHero({ productData }) {
+function ProductHero({ productData, isHomepage: _isHomepage = false }) {
   const [activeTab, setActiveTab] = useState("benefits");
   const [openFaq, setOpenFaq] = useState(null);
+  const [showPriceFootnote, setShowPriceFootnote] = useState(false);
+  const [showSafetyInfo, setShowSafetyInfo] = useState(false);
   const ctaHref = getPrimaryCtaHref(productData);
   const pricePresentation = getPricePresentation(productData);
   const relatedProducts = productData.relatedProducts || [];
@@ -806,7 +808,7 @@ function ProductHero({ productData }) {
               <img
                 src="/images/marketing/instock.jpeg"
                 alt={`${productData.name} — in stock`}
-                className="h-full w-full rounded-2xl object-cover"
+                className="h-full w-full rounded-2xl object-cover object-bottom object-right"
               />
             </div>
           </div>
@@ -836,9 +838,14 @@ function ProductHero({ productData }) {
                       first month
                     </span>
                   </div>
-                  <div className="mt-1 text-sm text-gray-500 md:text-base">
+                  <button
+                    type="button"
+                    onClick={() => setShowPriceFootnote((v) => !v)}
+                    aria-expanded={showPriceFootnote}
+                    className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 underline decoration-dotted underline-offset-4 hover:text-gray-700 md:text-base"
+                  >
                     then $299/mo*
-                  </div>
+                  </button>
                 </div>
                 <div className="flex flex-col gap-1 pt-2">
                   <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wide">
@@ -863,6 +870,16 @@ function ProductHero({ productData }) {
                 </div>
               </div>
 
+              {showPriceFootnote ? (
+                <div className="mb-4 rounded-[0.75rem] bg-gray-50 p-3 text-xs leading-5 text-gray-600 md:text-sm">
+                  *$0 first month covers the clinician visit and initial supply
+                  on eligible plans. Recurring billing of $299/month begins at
+                  month two and continues until you cancel. Includes
+                  medication, follow-up care, and shipping. Cancel anytime in
+                  your account.
+                </div>
+              ) : null}
+
               <Link
                 href={ctaHref}
                 className="hs-solid-btn block w-full rounded-[1rem] py-3.5 text-center text-base font-semibold transition-colors md:py-4"
@@ -874,6 +891,42 @@ function ProductHero({ productData }) {
                   ? "Discount auto-applied at checkout"
                   : "Treatment fit still depends on clinician review"}
               </p>
+
+              <button
+                type="button"
+                onClick={() => setShowSafetyInfo((v) => !v)}
+                aria-expanded={showSafetyInfo}
+                className="mt-4 flex w-full items-center justify-between rounded-[0.75rem] border border-gray-200 bg-gray-50 px-3 py-2.5 text-left text-xs font-medium text-gray-700 transition-colors hover:bg-gray-100 md:text-sm"
+              >
+                <span className="flex items-center gap-2">
+                  <ShieldCheck className="h-4 w-4 text-gray-500" />
+                  Important safety information
+                </span>
+                <span className="text-gray-400">
+                  {showSafetyInfo ? "−" : "+"}
+                </span>
+              </button>
+              {showSafetyInfo ? (
+                <div className="mt-2 space-y-2 rounded-[0.75rem] bg-gray-50 p-3 text-xs leading-5 text-gray-600 md:text-sm">
+                  <p>
+                    GLP-1 medications can cause side effects including nausea,
+                    vomiting, diarrhea, constipation, and abdominal pain. Less
+                    common but serious risks include pancreatitis, gallbladder
+                    issues, and kidney problems.
+                  </p>
+                  <p>
+                    Do not use if you or your family have a history of medullary
+                    thyroid cancer or MEN 2. Tell your clinician about all
+                    medications you take and any history of digestive,
+                    pancreatic, kidney, or thyroid conditions. Not for use
+                    during pregnancy.
+                  </p>
+                  <p>
+                    Your HealSend clinician reviews your full history before
+                    prescribing.
+                  </p>
+                </div>
+              ) : null}
             </div>
           </div>
 
@@ -1712,80 +1765,6 @@ function SupportFeatures({ productData }) {
   );
 }
 
-function BenefitsCarousel({ productData }) {
-  const [api, setApi] = useState(null);
-  const carouselItems = buildLoopingItems(
-    productData.benefitsCarousel || [],
-    8,
-  );
-
-  return (
-    <section className="overflow-hidden bg-[#f9f9f9] py-16 md:py-20">
-      <div className="mx-auto max-w-[1400px] px-4 md:px-8 lg:px-16">
-        <h2 className="mb-12 text-center text-3xl font-bold tracking-tight text-gray-900 md:text-4xl lg:text-5xl">
-          {productData.benefitsCarouselTitle}
-        </h2>
-      </div>
-
-      <div className="relative w-full">
-        <Carousel
-          setApi={setApi}
-          opts={{
-            align: "center",
-            containScroll: false,
-            loop: carouselItems.length > 1,
-            duration: 34,
-          }}
-          className="w-full"
-        >
-          <CarouselContent className="-ml-4 items-stretch md:-ml-6 lg:-ml-8">
-            {carouselItems.map((item, itemIndex) => (
-              <CarouselItem
-                key={`${item.text}-${itemIndex}`}
-                className="basis-[84%] pl-4 sm:basis-[58%] md:pl-6 lg:basis-[34%] lg:pl-8 xl:basis-[28%]"
-              >
-                <div className="group relative aspect-[4/5] overflow-hidden rounded-[1rem]">
-                  <Image
-                    src={item.image}
-                    alt={item.text}
-                    fill
-                    sizes="(min-width: 1280px) 28vw, (min-width: 1024px) 34vw, (min-width: 640px) 58vw, 84vw"
-                    className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 md:p-8">
-                    <p className="text-base font-normal leading-snug text-white md:text-lg">
-                      {item.text}
-                    </p>
-                  </div>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-
-        <div className="mx-auto max-w-[1400px] px-4 md:px-8 lg:px-16">
-          <div className="mt-4 hidden justify-end gap-3 md:flex">
-            <button
-              type="button"
-              onClick={() => api?.scrollPrev()}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200/80 transition-colors hover:bg-gray-300 md:h-12 md:w-12"
-            >
-              <ChevronLeft className="h-5 w-5 text-gray-600 md:h-6 md:w-6" />
-            </button>
-            <button
-              type="button"
-              onClick={() => api?.scrollNext()}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200/80 transition-colors hover:bg-gray-300 md:h-12 md:w-12"
-            >
-              <ChevronRight className="h-5 w-5 text-gray-600 md:h-6 md:w-6" />
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 const TRANSFORMATION_TESTIMONIALS = [
   {
     name: "Kala",
@@ -2483,10 +2462,12 @@ function BMIEligibilityModal({
                           {categoryMessages[range.key]}
                         </p>
                         <Link
-                          href="/funnels/glp-1"
+                          href={range.key === "underweight" ? "mailto:yourhealth@healsend.com" : "/funnels/glp-1"}
                           className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#5d62f3] px-6 py-3.5 text-[0.98rem] font-semibold text-white transition-colors hover:bg-[#4b55eb]"
                         >
-                          Start treatment today
+                          {range.key === "underweight"
+                            ? "Talk to a clinician"
+                            : "Start treatment today"}
                           <ArrowRight className="h-4 w-4" />
                         </Link>
                       </>
@@ -3225,26 +3206,26 @@ function GLP1BenefitsSection({ productData }) {
 
   const benefits = [
     {
-      title: "Demo text for the demo",
+      title: "Steady, sustainable weight loss without crash dieting",
       image: "/images/articles/girl.webp",
-      alt: "GLP-1 benefit",
+      alt: "Sustainable weight loss",
     },
     {
       title: "Feel lighter, clearer, and more energized",
       image: "/images/articles/med1.webp",
-      alt: "GLP-1 medication",
+      alt: "More energy and clarity",
     },
     {
-      title: "Demo text for the demo image vineeth will change it later",
+      title: "Improved metabolic health — blood sugar, blood pressure, and cholesterol",
       image: "/images/articles/fem1.jpg",
-      alt: "GLP-1 lifestyle",
+      alt: "Improved metabolic markers",
       ctaText: "Get Started",
       ctaHref,
     },
     {
       title: "Stay consistent with clinician-guided support each step of your journey",
       image: "/images/glp-1.jpg",
-      alt: "GLP-1 treatment support",
+      alt: "Clinician support",
     },
   ];
 
@@ -3357,9 +3338,12 @@ function MobileStickyCta({ productData }) {
         <div className="flex justify-end pr-[5%]">
           <Link
             href={ctaHref}
-            className="hs-solid-btn inline-flex items-center justify-center rounded-full px-14 py-3.5 text-sm font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] md:min-w-[280px]"
+            className="hs-solid-btn inline-flex items-center justify-center gap-2 rounded-full px-8 py-3.5 text-sm font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] md:min-w-[280px]"
           >
-            Get Started
+            <span>Get Started</span>
+            <span className="hidden text-xs font-medium opacity-90 sm:inline">
+              · $0 first month
+            </span>
           </Link>
         </div>
       </div>
@@ -3367,14 +3351,14 @@ function MobileStickyCta({ productData }) {
   );
 }
 
-export default function MarketingProductPage({ product }) {
+export default function MarketingProductPage({ product, isHomepage = false }) {
   const productData = mergeProductContent(product);
 
   return (
     <div className="min-h-screen bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
       <MinimalMarketingNavbar />
       <WillpowerSection />
-      <ProductHero productData={productData} />
+      <ProductHero productData={productData} isHomepage={isHomepage} />
       <AboveFoldClarityBlock />
       {/* <FeatureSplit productData={productData} /> */}
       <MediaLogosBanner />
@@ -3382,7 +3366,6 @@ export default function MarketingProductPage({ product }) {
       <FadeInSection><PricingSection productData={productData} /></FadeInSection>
       <FadeInSection><NegativeSellSection /></FadeInSection>
       <FadeInSection><GLP1BenefitsSection productData={productData} /></FadeInSection>
-      <FadeInSection><BenefitsCarousel productData={productData} /></FadeInSection>
       <FadeInSection><SupportFeatures productData={productData} /></FadeInSection>
       <FadeInSection><TestimonialsSection /></FadeInSection>
       <FadeInSection><MemberResultsStatsSection /></FadeInSection>

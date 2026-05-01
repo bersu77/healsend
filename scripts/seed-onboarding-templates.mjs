@@ -3,11 +3,160 @@
  * TreatmentSideNav.  Each template is a multi-step intake flow tailored
  * to the treatment category.
  *
- * Run:  node scripts/seed-onboarding-templates.mjs
+ * Run (recommended — local Postgres in .env.local overrides .env):
+ *   node scripts/seed-onboarding-templates.mjs
+ *
+ * This script refuses remote/cloud DATABASE_URL hosts by default so you do not
+ * accidentally mutate production/staging data. Override only if intentional:
+ *   SEED_ALLOW_REMOTE=1 node scripts/seed-onboarding-templates.mjs
+ *   node scripts/seed-onboarding-templates.mjs --allow-remote
+ *
+ * Use only seeding (does not touch .env files on disk):
+ *   SEED_DATABASE_URL="postgresql://..." node scripts/seed-onboarding-templates.mjs
+ *
+ * Docker Compose local DB (reads env/local-docker.database.env; wins over .env):
+ *   npm run db:bootstrap:docker
+ *   node scripts/seed-onboarding-templates.mjs --with-local-docker
+ *
+ * No database (write snapshot to data/onboarding-templates.export.json):
+ *   npm run seed:onboarding-templates:export
+ *
+ * Load snapshot into Postgres (still needs DATABASE_URL rules / --allow-remote):
+ *   npm run seed:onboarding-templates:apply-export -- --with-local-docker
  */
 
+import fs from "node:fs";
+import path from "node:path";
 import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import { getGlp1OnboardingDefinition } from "../src/lib/builtin-onboarding/glp1-definition.js";
+
+const LOCAL_DOCKER_ENV_REL = path.join("env", "local-docker.database.env");
+const FALLBACK_LOCAL_DOCKER_DATABASE_URL =
+  "postgresql://johndoe:randompassword@localhost:5433/mydb?schema=public";
+
+function readLocalDockerDatabaseEnvFile() {
+  const filePath = path.join(process.cwd(), LOCAL_DOCKER_ENV_REL);
+  if (!fs.existsSync(filePath)) {
+    return FALLBACK_LOCAL_DOCKER_DATABASE_URL;
+  }
+  const text = fs.readFileSync(filePath, "utf8");
+  for (const line of text.split(/\r?\n/)) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const eq = trimmed.indexOf("=");
+    if (eq <= 0) continue;
+    const key = trimmed.slice(0, eq).trim();
+    if (key !== "DATABASE_URL") continue;
+    let val = trimmed.slice(eq + 1).trim();
+    if (
+      (val.startsWith('"') && val.endsWith('"')) ||
+      (val.startsWith("'") && val.endsWith("'"))
+    ) {
+      val = val.slice(1, -1);
+    }
+    return val.trim();
+  }
+  return FALLBACK_LOCAL_DOCKER_DATABASE_URL;
+}
+
+/** When set after .env load, forces which DB receives templates (Docker local). */
+let forcedDockerSeedUrl = "";
+if (process.argv.includes("--with-local-docker")) {
+  forcedDockerSeedUrl = readLocalDockerDatabaseEnvFile();
+}
+
+function loadOptionalEnvFiles() {
+  const root = process.cwd();
+  for (const name of [".env", ".env.local"]) {
+    const filePath = path.join(root, name);
+    if (!fs.existsSync(filePath)) continue;
+    const content = fs.readFileSync(filePath, "utf8");
+    for (const line of content.split(/\r?\n/)) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) continue;
+      const eq = trimmed.indexOf("=");
+      if (eq <= 0) continue;
+      const key = trimmed.slice(0, eq).trim();
+      let val = trimmed.slice(eq + 1).trim();
+      if (
+        (val.startsWith('"') && val.endsWith('"')) ||
+        (val.startsWith("'") && val.endsWith("'"))
+      ) {
+        val = val.slice(1, -1);
+      }
+      process.env[key] = val;
+    }
+  }
+}
+
+function isProbablyLocalDatabaseUrl(databaseUrl) {
+  try {
+    const u = new URL(databaseUrl);
+    const host = u.hostname.toLowerCase();
+    if (
+      host === "localhost" ||
+      host === "127.0.0.1" ||
+      host === "::1" ||
+      host.endsWith(".localhost")
+    ) {
+      return true;
+    }
+    // Docker Compose service name when the script runs inside the same compose network
+    if (host === "postgres" || host === "db") {
+      return true;
+    }
+    return false;
+  } catch {
+    return false;
+  }
+}
+
+function pickSeedDatabaseUrl() {
+  return (
+    process.env.SEED_DATABASE_URL?.trim() ||
+    process.env.DATABASE_URL?.trim() ||
+    ""
+  );
+}
+
+function guardSeedTarget(databaseUrl) {
+  const allowRemote =
+    process.argv.includes("--allow-remote") ||
+    process.env.SEED_ALLOW_REMOTE === "1";
+
+  if (!databaseUrl) {
+    console.error(
+      "❌ No database URL. Set DATABASE_URL or SEED_DATABASE_URL (e.g. in .env.local).",
+    );
+    process.exit(1);
+  }
+
+  if (!allowRemote && !isProbablyLocalDatabaseUrl(databaseUrl)) {
+    console.error("❌ Refusing to seed: database host is not local.");
+    console.error(`   URL host: ${tryHost(databaseUrl)}`);
+    console.error("");
+    console.error("   Use a local Postgres URL in .env.local, for example:");
+    console.error(
+      '   DATABASE_URL="postgresql://USER:PASS@localhost:5432/healsend?schema=public"',
+    );
+    console.error("");
+    console.error(
+      "   Or set SEED_DATABASE_URL for a one-off local connection string.",
+    );
+    console.error(
+      "   To target a remote DB anyway (dangerous): --allow-remote or SEED_ALLOW_REMOTE=1",
+    );
+    process.exit(1);
+  }
+}
+
+function tryHost(databaseUrl) {
+  try {
+    return new URL(databaseUrl).hostname;
+  } catch {
+    return "(unparseable URL)";
+  }
+}
 
 /* ──────────────────────────────────────────────────────────────
    Default styling — applied to templates that have no styling yet.
@@ -47,7 +196,7 @@ const bmiStep = {
 };
 
 const healthHistoryStep = {
-  title: "Tell us about your health",
+  title: "Your health background",
   subtitle: "This helps our providers create a safe treatment plan.",
   type: "CUSTOM_FORM",
   config: {
@@ -427,131 +576,8 @@ const TEMPLATES = [
     ],
   },
 
-  /* ═══════════════ WEIGHT LOSS ═══════════════ */
-  {
-    name: "GLP-1 Eligibility Assessment",
-    slug: "glp-1",
-    description:
-      "Determine if you qualify for GLP-1 receptor agonist therapy for weight management.",
-    productSlug: "glp-1-injections",
-    steps: [
-      goalStep("What matters most to you right now?", "", [
-        "Lose weight & keep it off",
-        "Stop thinking about food",
-        "Break through a plateau",
-        "Get a clinician-guided plan",
-      ]),
-      bmiStep,
-      multiQuestion(
-        "Have you tried any of these approaches?",
-        "Select all that apply.",
-        [
-          "Diet programs (keto, intermittent fasting, etc.)",
-          "Regular exercise routine",
-          "Weight loss supplements",
-          "Prescription weight loss medication",
-          "Surgical procedures",
-          "Nothing formal yet",
-        ],
-      ),
-      healthHistoryStep,
-      accountStep,
-      textAlertsStep,
-      {
-        title: "Choose Your Plan",
-        subtitle:
-          "All plans include provider consultation, GLP-1 medication, and ongoing support.",
-        type: "PLAN_SELECTION",
-        config: {
-          plans: [
-            {
-              id: "glp1-12mo",
-              name: "12-Month Plan",
-              badge: "BEST VALUE",
-              featured: true,
-              firstMonth: "$35",
-              thenPrice: "$35/mo after",
-              features: [
-                "1:1 provider consultations",
-                "GLP-1 medication included",
-                "Free shipping every month",
-                "24/7 care team support",
-              ],
-            },
-            {
-              id: "glp1-6mo",
-              name: "6-Month Plan",
-              badge: "GREAT VALUE",
-              featured: false,
-              firstMonth: "$35",
-              thenPrice: "$35/mo after",
-              features: [
-                "1:1 provider consultations",
-                "GLP-1 medication included",
-                "Free shipping every month",
-              ],
-            },
-            {
-              id: "glp1-3mo",
-              name: "3-Month Plan",
-              badge: "DOCTOR RECOMMENDED",
-              featured: false,
-              firstMonth: "$35",
-              thenPrice: "$35/mo after",
-              features: [
-                "1:1 provider consultations",
-                "GLP-1 medication included",
-                "Free shipping every month",
-              ],
-            },
-            {
-              id: "glp1-1mo",
-              name: "Monthly Plan",
-              firstMonth: "$35",
-              thenPrice: "$35/mo after",
-              features: [
-                "1:1 provider consultations",
-                "GLP-1 medication included",
-              ],
-            },
-          ],
-        },
-        required: true,
-      },
-      {
-        title: "Select Your Medication",
-        subtitle:
-          "Your provider will confirm the best option during your consultation.",
-        type: "MEDICATION_SELECT",
-        config: {
-          medications: [
-            {
-              id: "semaglutide-injections",
-              name: "Semaglutide Injections",
-              description:
-                "Once-weekly GLP-1 injection option with an affiliate payout of $35.",
-              price: "$35/mo",
-              icon: "vaccines",
-              badge: "COST EFFECTIVE",
-              badgeClass: "bg-blue-100 text-blue-700",
-            },
-            {
-              id: "tirzepatide-injections",
-              name: "Tirzepatide Injections",
-              description:
-                "Most potent dual-agonist injectable. Average 22% body weight loss in trials.",
-              price: "$35/mo",
-              icon: "vaccines",
-              badge: "HIGHEST SUCCESS RATE",
-              badgeClass: "bg-amber-100 text-amber-700",
-            },
-          ],
-        },
-        required: true,
-      },
-      checkoutStep("GLP-1 Weight Loss — Subscription", "$35.00"),
-    ],
-  },
+  /* ═══════════════ WEIGHT LOSS (canonical source: src/lib/builtin-onboarding/glp1-definition.js) ═══════════════ */
+  getGlp1OnboardingDefinition(),
 
   {
     name: "Food Noise & Appetite Support",
@@ -1131,14 +1157,116 @@ const TEMPLATES = [
 ];
 
 /* ──────────────────────────────────────────────────────────────
+   DB client (after template definitions; skipped for --export-json)
+   ────────────────────────────────────────────────────────────── */
+
+const exportJsonRequested = process.argv.includes("--export-json");
+
+function parseApplyExportPath() {
+  const idx = process.argv.indexOf("--apply-export");
+  if (idx === -1) return null;
+  const next = process.argv[idx + 1];
+  if (
+    typeof next === "string" &&
+    next.length > 0 &&
+    !next.startsWith("-")
+  ) {
+    return path.resolve(process.cwd(), next);
+  }
+  return path.join(process.cwd(), "data", "onboarding-templates.export.json");
+}
+
+const applyExportPath = parseApplyExportPath();
+
+if (exportJsonRequested && applyExportPath) {
+  console.error("❌ Use only one of: --export-json or --apply-export");
+  process.exit(1);
+}
+
+let prisma = null;
+if (!exportJsonRequested) {
+  loadOptionalEnvFiles();
+
+  if (forcedDockerSeedUrl) {
+    process.env.SEED_DATABASE_URL = forcedDockerSeedUrl;
+  }
+
+  const seedDatabaseUrl = pickSeedDatabaseUrl();
+  guardSeedTarget(seedDatabaseUrl);
+  process.env.DATABASE_URL = seedDatabaseUrl;
+
+  prisma = new PrismaClient();
+}
+
+/* ──────────────────────────────────────────────────────────────
    Seed runner
    ────────────────────────────────────────────────────────────── */
 
 async function main() {
-  console.log("🌱 Seeding onboarding templates...\n");
+  if (exportJsonRequested) {
+    const idx = process.argv.indexOf("--export-json");
+    const next = process.argv[idx + 1];
+    const outPath =
+      typeof next === "string" && next.length > 0 && !next.startsWith("-")
+        ? path.resolve(process.cwd(), next)
+        : path.join(process.cwd(), "data", "onboarding-templates.export.json");
+    fs.mkdirSync(path.dirname(outPath), { recursive: true });
+    const payload = {
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      templates: TEMPLATES.map((tpl) => ({
+        name: tpl.name,
+        slug: tpl.slug,
+        description: tpl.description ?? null,
+        productSlug: tpl.productSlug ?? null,
+        styling: tpl.styling || DEFAULT_TEMPLATE_STYLING,
+        steps: sanitizeTemplateSteps(tpl.steps),
+      })),
+    };
+    fs.writeFileSync(outPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+    console.log(
+      `📄 Exported ${payload.templates.length} templates (no DB) → ${path.relative(process.cwd(), outPath)}`,
+    );
+    return;
+  }
 
-  for (const tpl of TEMPLATES) {
-    const sanitizedSteps = sanitizeTemplateSteps(tpl.steps);
+  let templatesToSeed = TEMPLATES;
+  if (applyExportPath) {
+    if (!fs.existsSync(applyExportPath)) {
+      console.error("❌ Export file not found:", applyExportPath);
+      process.exit(1);
+    }
+    const parsed = JSON.parse(fs.readFileSync(applyExportPath, "utf8"));
+    templatesToSeed = parsed.templates;
+    if (!Array.isArray(templatesToSeed)) {
+      console.error("❌ Export JSON must contain a \"templates\" array.");
+      process.exit(1);
+    }
+    console.log(
+      `\n📥 Applying ${templatesToSeed.length} templates from ${path.relative(process.cwd(), applyExportPath)} …\n`,
+    );
+  } else {
+    console.log("🌱 Seeding onboarding templates...\n");
+  }
+
+  for (const tpl of templatesToSeed) {
+    const sanitizedSteps = applyExportPath
+      ? tpl.steps
+      : sanitizeTemplateSteps(tpl.steps);
+
+    let nextProductId = null;
+    if (tpl.productSlug) {
+      const prod = await prisma.product.findUnique({
+        where: { slug: tpl.productSlug },
+      });
+      nextProductId = prod?.id ?? null;
+      if (!prod) {
+        console.warn(
+          `  ⚠️  No Product with slug "${tpl.productSlug}" (template "${tpl.slug}") — leaving product link unset.`,
+        );
+      }
+    }
+
     const existing = await prisma.onboardingTemplate.findUnique({
       where: { slug: tpl.slug },
     });
@@ -1155,12 +1283,16 @@ async function main() {
         typeof existing.styling === "object" &&
         Object.keys(existing.styling).length > 0;
 
+      const mergedProductId =
+        nextProductId != null ? nextProductId : existing.productId ?? null;
+
       await prisma.onboardingTemplate.update({
         where: { id: existing.id },
         data: {
           name: tpl.name,
           description: tpl.description,
           active: true,
+          productId: mergedProductId,
           ...(!hasExistingStyling
             ? { styling: tpl.styling || DEFAULT_TEMPLATE_STYLING }
             : {}),
@@ -1191,6 +1323,7 @@ async function main() {
           slug: tpl.slug,
           description: tpl.description,
           active: true,
+          productId: nextProductId,
           styling: tpl.styling || DEFAULT_TEMPLATE_STYLING,
           steps: {
             create: sanitizedSteps.map((s, i) => ({
@@ -1209,7 +1342,9 @@ async function main() {
     }
   }
 
-  console.log(`\n🎉 Done! ${TEMPLATES.length} onboarding templates seeded.`);
+  console.log(
+    `\n🎉 Done! ${templatesToSeed.length} onboarding templates seeded.`,
+  );
 }
 
 main()
@@ -1217,4 +1352,6 @@ main()
     console.error("❌ Seed failed:", e);
     process.exit(1);
   })
-  .finally(() => prisma.$disconnect());
+  .finally(() => {
+    if (prisma) prisma.$disconnect();
+  });

@@ -32,5 +32,5 @@ export default async function HomePage() {
   }
 
   const serializableProduct = JSON.parse(JSON.stringify(product));
-  return <MarketingProductPage product={serializableProduct} />;
+  return <MarketingProductPage product={serializableProduct} isHomepage />;
 }

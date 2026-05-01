@@ -34,7 +34,9 @@ export function normalizeCheckoutPricingMode(value) {
 export function resolvePlanDurationMonths(plan) {
   if (!plan) return null;
   const explicit = Number(plan.durationMonths || plan.duration_months || 0);
-  if (Number.isFinite(explicit) && explicit > 0) return explicit;
+  if (Number.isFinite(explicit) && explicit > 0) {
+    return explicit;
+  }
 
   const haystack = `${plan.id || ""} ${plan.name || ""}`.toLowerCase();
   if (/\b12\b/.test(haystack)) return 12;
@@ -62,27 +64,68 @@ export function normalizeDelayedChargeDays(value) {
   return Math.min(60, Math.max(1, normalized));
 }
 
+function mergePlanWithMedicationTiers(plan, medication) {
+  const id = medication?.id;
+  if (
+    plan == null ||
+    id == null ||
+    typeof plan.medicationTiers !== "object" ||
+    plan.medicationTiers == null
+  ) {
+    return plan;
+  }
+  const tiers = plan.medicationTiers[id];
+  return tiers ? { ...plan, ...tiers } : plan;
+}
+
 export function resolveCheckoutTotalAmount({
   selectedPlan,
   selectedMedication,
   summary,
 }) {
-  // For multi-month plans: compute total upfront cost (firstMonth + remaining months × thenPrice)
-  if (selectedPlan) {
-    const durationMonths = resolvePlanDurationMonths(selectedPlan);
-    const firstMonth = parseCurrency(
-      selectedPlan?.firstMonth ?? selectedPlan?.firstMonthPrice,
-    );
-    const thenPrice = parseCurrency(selectedPlan?.thenPrice) ?? firstMonth;
+  const plan = mergePlanWithMedicationTiers(selectedPlan, selectedMedication);
 
-    if (firstMonth !== null && firstMonth > 0) {
+  // For multi-month plans: upfront total = first month + remaining months × recurring
+  // (supports $0 first-month promos: firstMonth parses to 0)
+  if (plan) {
+    const durationMonths = resolvePlanDurationMonths(plan);
+    const rawFirst = plan?.firstMonth ?? plan?.firstMonthPrice;
+    const rawRecurring =
+      plan?.thenPrice ?? plan?.recurringPrice ?? rawFirst;
+    const firstMonth = parseCurrency(rawFirst);
+    const recurring = parseCurrency(rawRecurring);
+
+    if (
+      durationMonths !== null &&
+      durationMonths > 0 &&
+      (firstMonth !== null || recurring !== null)
+    ) {
+      const fm = firstMonth !== null ? firstMonth : recurring ?? 0;
+      const rm = recurring !== null ? recurring : fm;
+
+      if (durationMonths === 1) {
+        const single = fm > 0 ? fm : rm;
+        if (typeof single === "number" && single > 0) return single;
+      } else if (durationMonths > 1) {
+        const total =
+          fm + Math.max(durationMonths - 1, 0) * (Number.isFinite(rm) ? rm : 0);
+        if (Number.isFinite(total) && total >= 0) return total;
+      }
+    }
+
+    const legacyFirst = parseCurrency(
+      plan?.firstMonth ?? plan?.firstMonthPrice,
+    );
+    const legacyThen = parseCurrency(plan?.thenPrice) ?? legacyFirst ?? null;
+
+    if (legacyFirst !== null && legacyFirst > 0) {
       if (durationMonths && durationMonths > 1) {
         return (
-          firstMonth +
-          Math.max(durationMonths - 1, 0) * (thenPrice ?? firstMonth)
+          legacyFirst +
+          Math.max(durationMonths - 1, 0) * (legacyThen ?? legacyFirst)
         );
       }
-      return firstMonth;
+      return legacyFirst;
     }
   }
 
@@ -100,6 +143,8 @@ export function getCheckoutPricingState({
   selectedMedication,
   summary,
 }) {
+  const plan = mergePlanWithMedicationTiers(selectedPlan, selectedMedication);
+
   const pricingMode = normalizeCheckoutPricingMode(styling);
   const delayedChargeDays = normalizeDelayedChargeDays(styling);
   const totalAmount = resolveCheckoutTotalAmount({
@@ -109,13 +154,14 @@ export function getCheckoutPricingState({
   });
   const dueTodayAmount = pricingMode === "ALL_AT_ONCE" ? totalAmount : 0;
 
-  // Per-month display rate — always the base monthly price, not the total
+  // Per-month display — prefer recurring, then first month, then medication
   const monthlyRate =
-    parseCurrency(selectedPlan?.firstMonth ?? selectedPlan?.firstMonthPrice) ??
+    parseCurrency(plan?.thenPrice ?? plan?.recurringPrice ?? null) ??
+    parseCurrency(plan?.firstMonth ?? plan?.firstMonthPrice) ??
     parseCurrency(selectedMedication?.price) ??
     totalAmount;
 
-  const durationMonths = resolvePlanDurationMonths(selectedPlan);
+  const durationMonths = resolvePlanDurationMonths(plan);
 
   return {
     pricingMode,

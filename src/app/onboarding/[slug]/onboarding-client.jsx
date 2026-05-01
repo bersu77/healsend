@@ -41,6 +41,8 @@ const fadeVariants = {
 
 const RECT_INPUT_CLASS =
   "w-full rounded-[1.1rem] border border-[#d7d1e4] bg-white px-4 py-4 text-base transition-colors outline-none focus:border-[#5b3cdd]";
+const RECT_SELECT_TRIGGER_CLASS =
+  `${RECT_INPUT_CLASS} appearance-none cursor-pointer bg-[#fbfcfe] py-[1.05rem] pr-12 font-medium text-[#0f172a] shadow-[inset_0_1px_0_rgba(255,255,255,0.95)] hover:border-[#bcb6d8] hover:bg-white focus:border-[#5b3cdd] focus:shadow-[0_0_0_3px_rgba(91,60,221,0.14)]`;
 const PRIMARY_PILL_BUTTON_CLASS =
   "hs-solid-btn w-full rounded-full px-6 py-4 font-headline text-base font-bold disabled:cursor-not-allowed disabled:opacity-40";
 const SECONDARY_PILL_BUTTON_CLASS =
@@ -78,19 +80,28 @@ function resolveProjectedPlanTotal(plan) {
   const firstMonth = parseAmountValue(
     plan?.firstMonth || plan?.firstMonthPrice,
   );
-  const thenPrice = parseAmountValue(plan?.thenPrice);
+  const thenPrice = parseAmountValue(
+    plan?.thenPrice || plan?.recurringPrice,
+  );
 
   if (!durationMonths) {
     return firstMonth || thenPrice || 0;
   }
 
   if (durationMonths <= 1) {
-    return firstMonth || thenPrice || 0;
+    const single = firstMonth > 0 ? firstMonth : thenPrice;
+    return single || thenPrice || firstMonth || 0;
   }
 
-  return (
-    firstMonth + Math.max(durationMonths - 1, 0) * (thenPrice || firstMonth)
-  );
+  const fm = Number.isFinite(firstMonth) ? firstMonth : thenPrice;
+  const rm =
+    Number.isFinite(thenPrice) && thenPrice >= 0
+      ? thenPrice
+      : Number.isFinite(fm)
+        ? fm
+        : 0;
+
+  return fm + Math.max(durationMonths - 1, 0) * rm;
 }
 
 function resolvePerDayAmount(plan) {
@@ -105,6 +116,14 @@ function resolvePerDayAmount(plan) {
   }
 
   return Math.round((total / 365) * 10) / 10;
+}
+
+function resolvePlanDailyAverage(plan) {
+  const months = Math.max(resolveDurationMonths(plan), 1);
+  const total = resolveProjectedPlanTotal(plan);
+  if (!total || !Number.isFinite(total)) return null;
+  const days = months * 30;
+  return Math.round((total / days) * 100) / 100;
 }
 
 function getCurrentPath() {
@@ -220,7 +239,7 @@ function writeOnboardingDraft(storageKey, draft) {
 
   try {
     window.localStorage.setItem(storageKey, JSON.stringify(draft));
-  } catch {}
+  } catch { }
 }
 
 function clearOnboardingDraft(storageKey) {
@@ -228,7 +247,7 @@ function clearOnboardingDraft(storageKey) {
 
   try {
     window.localStorage.removeItem(storageKey);
-  } catch {}
+  } catch { }
 }
 
 function parseCheckoutCurrency(value) {
@@ -249,9 +268,9 @@ function formatCheckoutCurrency(value) {
 
 function getPaymentMethodDisplayName(value) {
   switch (
-    String(value || "")
-      .trim()
-      .toLowerCase()
+  String(value || "")
+    .trim()
+    .toLowerCase()
   ) {
     case "klarna":
       return "Klarna";
@@ -296,6 +315,28 @@ function AfterpayBadge({ className = "" }) {
   );
 }
 
+function ApplePayBadge({ className = "" }) {
+  return (
+    <span
+      className={`inline-flex h-8 min-w-[56px] items-center justify-center rounded-[0.65rem] bg-black px-2 text-white ${className}`}
+      aria-hidden="true"
+    >
+      <span className="text-[0.95rem] font-semibold">Apple Pay</span>
+    </span>
+  );
+}
+
+function GooglePayBadge({ className = "" }) {
+  return (
+    <span
+      className={`inline-flex h-8 min-w-[64px] items-center justify-center rounded-[0.65rem] border border-[#d9d4e7] bg-white px-2 text-[#202124] ${className}`}
+      aria-hidden="true"
+    >
+      <span className="text-[0.95rem] font-semibold">G Pay</span>
+    </span>
+  );
+}
+
 function PaymentShortcutRow({
   children,
   suffix,
@@ -310,7 +351,7 @@ function PaymentShortcutRow({
       {...(onClick ? { type: "button", onClick, disabled } : {})}
       className="flex w-full flex-col items-center justify-center rounded-[1rem] border border-[#d9d4e7] bg-white px-4 py-2.5 text-center shadow-[0_8px_18px_rgba(28,26,36,0.04)] transition-colors enabled:hover:border-[#c8c1dd] enabled:hover:bg-[#fcfbff] disabled:cursor-not-allowed disabled:opacity-60"
     >
-      <span className="flex items-center justify-center gap-2.5 text-sm font-semibold text-[#1c1a24] md:text-[0.95rem]">
+      <span className="flex items-center justify-center gap-2.5 text-base font-bold text-[#1c1a24] md:text-[1.05rem]">
         {loading ? (
           <span className="h-4.5 w-4.5 rounded-full border-2 border-[#d7d1e4] border-t-[#5b3cdd] animate-spin" />
         ) : null}
@@ -343,8 +384,8 @@ function getCheckoutSelection(data, steps, summary) {
         medicationId = currentValue;
         selectedMedication = Array.isArray(currentStep.config?.medications)
           ? currentStep.config.medications.find(
-              (med) => med?.id === currentValue,
-            ) || null
+            (med) => med?.id === currentValue,
+          ) || null
           : null;
       }
 
@@ -356,8 +397,8 @@ function getCheckoutSelection(data, steps, summary) {
         planId = currentValue;
         selectedPlan = Array.isArray(currentStep.config?.plans)
           ? currentStep.config.plans.find(
-              (plan) => plan?.id === currentValue,
-            ) || null
+            (plan) => plan?.id === currentValue,
+          ) || null
           : null;
       }
     }
@@ -433,8 +474,8 @@ function resolvePrimaryGoalCopy(goalAnswer) {
   if (normalized.includes("plateau")) {
     return "Break through a plateau";
   }
-  if (normalized.includes("clinician")) {
-    return "Get a clinician-guided plan";
+    if (normalized.includes("clinician") || normalized.includes("guided care")) {
+    return "Get clinician-guided care";
   }
   if (normalized.includes("maintain")) {
     return "Lose weight & keep it off";
@@ -480,8 +521,9 @@ function buildAugmentedSteps(template, baseSteps) {
     if (index === 0 && step?.type === "QUESTION_SINGLE") {
       augmentedSteps.push({
         ...step,
-        title: "What matters most to you right now?",
-        subtitle: "",
+        title: "What matters most to you?",
+        subtitle:
+          "No wrong answers. We use this to personalize your plan.",
         config: {
           ...step.config,
           options: [
@@ -493,17 +535,17 @@ function buildAugmentedSteps(template, baseSteps) {
             {
               value: "Stop thinking about food",
               label: "Stop thinking about food",
-              description: "Reduce cravings. Silence food noise.",
+              description: "Quiet the cravings.",
             },
             {
               value: "Break through a plateau",
               label: "Break through a plateau",
-              description: "Diet and exercise stopped working.",
+              description: "Diet & exercise stalled.",
             },
             {
-              value: "Get a clinician-guided plan",
-              label: "Get a clinician-guided plan",
-              description: "Clinically proven. Set it and forget it.",
+              value: "Get clinician-guided care",
+              label: "Get clinician-guided care",
+              description: "Real medication, real outcomes.",
             },
           ],
         },
@@ -539,9 +581,28 @@ function buildAugmentedSteps(template, baseSteps) {
           config: {},
           required: false,
         },
+        {
+          id: `${template.id}-glp1-contact-capture`,
+          title: "Last bit before your plan.",
+          subtitle:
+            "We use this to ship your medication and message you about your care.",
+          type: "GLP1_CONTACT_CAPTURE",
+          config: {},
+          required: true,
+        },
       );
     }
   });
+
+  // Keep "Stay in the loop" directly after plan selection.
+  const planIndex = augmentedSteps.findIndex(
+    (step) => step?.type === "PLAN_SELECTION",
+  );
+  const loopIndex = augmentedSteps.findIndex((step) => step?.type === "TEXT_ALERTS");
+  if (planIndex !== -1 && loopIndex !== -1 && loopIndex !== planIndex + 1) {
+    const [loopStep] = augmentedSteps.splice(loopIndex, 1);
+    augmentedSteps.splice(planIndex + 1, 0, loopStep);
+  }
 
   return augmentedSteps.map((step, index) => ({
     ...step,
@@ -714,11 +775,10 @@ function QuestionSingleStep({ step, value, onChange, onNext }) {
                 onChange(opt.value);
                 setTimeout(() => onNext(), 0);
               }}
-              className={`w-full text-left rounded-[1.35rem] border bg-white p-4 transition-all duration-200 ${
-                selected
+              className={`w-full text-left rounded-[1.35rem] border bg-white p-4 transition-all duration-200 ${selected
                   ? "border-[#5b3cdd] bg-[#faf7ff] shadow-[0_12px_32px_rgba(91,60,221,0.14)]"
                   : "border-[#d7d1e4] hover:border-[#8d80dd] hover:bg-[#f8f4ff]"
-              }`}
+                }`}
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0">
@@ -732,11 +792,10 @@ function QuestionSingleStep({ step, value, onChange, onNext }) {
                   ) : null}
                 </div>
                 <span
-                  className={`mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border ${
-                    selected
+                  className={`mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border ${selected
                       ? "border-[#5b3cdd] bg-[#5b3cdd] text-white"
                       : "border-[#cbc6d8] bg-white text-transparent"
-                  }`}
+                    }`}
                 >
                   <AppIcon name="check" className="text-[15px]" />
                 </span>
@@ -781,11 +840,10 @@ function QuestionMultiStep({ step, value, onChange, onNext }) {
               key={opt}
               type="button"
               onClick={() => toggle(opt)}
-              className={`w-full text-left p-4 rounded-[1.2rem] border transition-all duration-200 flex items-center justify-between ${
-                isSelected
+              className={`w-full text-left p-4 rounded-[1.2rem] border transition-all duration-200 flex items-center justify-between ${isSelected
                   ? "bg-[#faf7ff] text-[#1c1a24] border-[#5b3cdd] shadow-[0_12px_32px_rgba(91,60,221,0.14)] scale-[1.01]"
                   : "bg-white border-[#d7d1e4] hover:border-[#8d80dd] hover:bg-[#f8f4ff]"
-              }`}
+                }`}
             >
               <span className="font-body text-[1rem] font-semibold">{opt}</span>
               <AppIcon
@@ -802,6 +860,7 @@ function QuestionMultiStep({ step, value, onChange, onNext }) {
 }
 
 function BMICalculatorStep({ step, value, onChange, onNext }) {
+  const cfg = step.config || {};
   const v = value || { feet: "", inches: "", weight: "" };
 
   const computeBMI = () => {
@@ -816,7 +875,15 @@ function BMICalculatorStep({ step, value, onChange, onNext }) {
   };
 
   const bmi = computeBMI();
-  const eligible = bmi && Number(bmi) >= 25;
+  const eligibleMin =
+    typeof cfg.eligibleMinBmi === "number" && cfg.eligibleMinBmi > 0
+      ? cfg.eligibleMinBmi
+      : 25;
+  const eligible =
+    bmi &&
+    (cfg.strictMinBmi
+      ? Number(bmi) > eligibleMin
+      : Number(bmi) >= eligibleMin);
 
   const getBmiColor = () => {
     if (!bmi) return "border-[#c9c4d8]";
@@ -843,10 +910,11 @@ function BMICalculatorStep({ step, value, onChange, onNext }) {
     <div className="space-y-8">
       <div className="text-center md:text-left">
         <h1 className="font-headline text-2xl md:text-3xl font-extrabold tracking-tight text-[#1c1a24] mb-3">
-          Let&apos;s check your BMI
+          {cfg.title || "Let's check your BMI"}
         </h1>
         <p className="font-body text-[#484555] text-base leading-relaxed">
-          We need your height and weight to determine eligibility.
+          {cfg.subtitle ||
+            "We need your height and weight to determine eligibility."}
         </p>
       </div>
 
@@ -855,38 +923,38 @@ function BMICalculatorStep({ step, value, onChange, onNext }) {
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-2">
               <label className="font-body text-[0.6875rem] uppercase tracking-wider text-[#484555] font-semibold">
-                Feet
+                {cfg.feetLabel || "Feet"}
               </label>
               <input
                 type="number"
                 value={v.feet}
                 onChange={(e) => onChange({ ...v, feet: e.target.value })}
-                placeholder="5"
+                placeholder={cfg.feetPlaceholder || "5"}
                 className={RECT_INPUT_CLASS}
               />
             </div>
             <div className="flex flex-col gap-2">
               <label className="font-body text-[0.6875rem] uppercase tracking-wider text-[#484555] font-semibold">
-                Inches
+                {cfg.inchesLabel || "Inches"}
               </label>
               <input
                 type="number"
                 value={v.inches}
                 onChange={(e) => onChange({ ...v, inches: e.target.value })}
-                placeholder="10"
+                placeholder={cfg.inchesPlaceholder || "10"}
                 className={RECT_INPUT_CLASS}
               />
             </div>
           </div>
           <div className="flex flex-col gap-2">
             <label className="font-body text-[0.6875rem] uppercase tracking-wider text-[#484555] font-semibold">
-              Weight (lbs)
+              {cfg.weightLabel || "Weight (lbs)"}
             </label>
             <input
               type="number"
               value={v.weight}
               onChange={(e) => onChange({ ...v, weight: e.target.value })}
-              placeholder="210"
+              placeholder={cfg.weightPlaceholder || "210"}
               className={RECT_INPUT_CLASS}
             />
           </div>
@@ -914,7 +982,7 @@ function BMICalculatorStep({ step, value, onChange, onNext }) {
         <ContinueButton
           onClick={() => onNext()}
           disabled={!v.feet || !v.inches || !v.weight || !eligible}
-          label="Continue"
+          label={cfg.continueLabel || "Continue"}
         />
         <p className="mt-3 text-center font-body text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-[#b0acbe]">
           Safe and Secure Clinical Intake
@@ -994,6 +1062,46 @@ function TextInputStep({ step, value, onChange, onNext }) {
   );
 }
 
+const ACCOUNT_HEADLINE_ACCENT_CLASS =
+  "bg-gradient-to-r from-[#5b3cdd] via-[#6366f1] to-[#06b6d4] bg-clip-text text-transparent";
+
+function AccountStepAccentHeadline({ mode, step, sc }) {
+  const headlineClass =
+    "font-headline text-2xl font-extrabold tracking-tight text-[#1c1a24] md:text-3xl";
+  if (mode === "login") {
+    const p = sc.loginHeadlineParts;
+    if (p?.accent != null) {
+      return (
+        <h1 className={headlineClass}>
+          {p.lead}
+          <span className={ACCOUNT_HEADLINE_ACCENT_CLASS}>{p.accent}</span>
+          {p.tail ?? ""}
+        </h1>
+      );
+    }
+    return (
+      <h1 className={headlineClass}>
+        {sc.loginHeadline || "Log in to continue."}
+      </h1>
+    );
+  }
+  const p = sc.signupHeadlineParts;
+  if (p?.accent != null) {
+    return (
+      <h1 className={headlineClass}>
+        {p.lead}
+        <span className={ACCOUNT_HEADLINE_ACCENT_CLASS}>{p.accent}</span>
+        {p.tail ?? ""}
+      </h1>
+    );
+  }
+  return (
+    <h1 className={headlineClass}>
+      {sc.signupHeadline || step.title || "View My Results"}
+    </h1>
+  );
+}
+
 function AccountCreateStep({
   step,
   value,
@@ -1038,7 +1146,7 @@ function AccountCreateStep({
           apple: Boolean(data.apple),
         });
       })
-      .catch(() => {});
+      .catch(() => { });
 
     return () => {
       cancelled = true;
@@ -1055,7 +1163,7 @@ function AccountCreateStep({
         setOauthLoading("");
         setError(
           OAUTH_ERROR_MESSAGES[payload.error] ||
-            "Sign-in failed. Please try again.",
+          "Sign-in failed. Please try again.",
         );
         return;
       }
@@ -1095,20 +1203,20 @@ function AccountCreateStep({
     mode === "login"
       ? typeof v.password === "string" && v.password.trim().length > 0
       : typeof v.password === "string" &&
-        v.password.length >= 8 &&
-        /\d/.test(v.password);
+      v.password.length >= 8 &&
+      /\d/.test(v.password);
   const extraFieldsValid =
     mode === "login"
       ? true
       : requiredExtraFields.every((field) => {
-          const fieldValue = v[field.name];
-          if (field.type === "checkbox") {
-            return Boolean(fieldValue);
-          }
-          return typeof fieldValue === "string"
-            ? fieldValue.trim().length > 0
-            : Boolean(fieldValue);
-        });
+        const fieldValue = v[field.name];
+        if (field.type === "checkbox") {
+          return Boolean(fieldValue);
+        }
+        return typeof fieldValue === "string"
+          ? fieldValue.trim().length > 0
+          : Boolean(fieldValue);
+      });
   const canSubmit =
     mode === "login"
       ? emailValid && passwordValid
@@ -1188,46 +1296,75 @@ function AccountCreateStep({
     openOAuthPopup(`/api/auth/${provider}`);
   };
 
+  const sc = step.config || {};
+  const oauthGoogleLabel =
+    mode === "login"
+      ? sc.oauthGoogleLogin || "Log in with Google"
+      : sc.oauthGoogleSignup || "Continue with Google";
+  const oauthAppleLabel =
+    mode === "login"
+      ? sc.oauthAppleLogin || "Log in with Apple"
+      : sc.oauthAppleSignup || "Continue with Apple";
+  const accountEyebrow =
+    sc.accountEyebrow ??
+    (String(step.title || "").includes("Almost there")
+      ? step.title
+      : null);
+
   return (
-    <div className="space-y-8 md:space-y-10">
+    <div className="space-y-6 md:space-y-8">
       <section className="text-center">
-        <h1 className="font-headline text-2xl font-extrabold tracking-tight text-[#1c1a24] md:text-3xl">
-          {mode === "login" ? "Log in to continue" : "View My Results"}
-        </h1>
+        {accountEyebrow ? (
+          <div className="mb-4 flex justify-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/35 bg-emerald-500/[0.12] px-3 py-1.5 font-body text-[10px] font-bold uppercase tracking-[0.14em] text-emerald-700">
+              <span
+                className="h-1.5 w-1.5 rounded-full bg-emerald-500"
+                aria-hidden
+              />
+              {accountEyebrow}
+            </span>
+          </div>
+        ) : null}
+        <AccountStepAccentHeadline mode={mode} step={step} sc={sc} />
         <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-[#484555]">
           {mode === "login"
-            ? "Pick up where you left off without losing your progress."
-            : "See how much weight you could lose. Skip the waiting room and create your secure account to keep going."}
+            ? sc.loginLede ||
+              "Pick up where you left off without losing your progress."
+            : sc.signupLede ||
+              "See how much weight you could lose. Skip the waiting room and create your secure account to keep going."}
         </p>
+
+        {/* Client funnel: AUTH TABS — “Create account” | “I already have one” (glp1-funnel CONTENT.account) */}
+        <div className="mx-auto mt-6 grid max-w-2xl grid-cols-2 gap-1.5 rounded-[14px] border border-[#e2dced] bg-[#f3efff] p-1">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={mode === "signup"}
+            onClick={() => setMode("signup")}
+            className={`rounded-[10px] px-3 py-2.5 text-sm font-semibold tracking-tight transition-all ${mode === "signup"
+                ? "bg-[#5b3cdd] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.14),0_4px_14px_rgba(91,60,221,0.35)]"
+                : "bg-transparent text-[#797587] hover:text-[#484555]"
+              }`}
+          >
+            {sc.authTabSignup || "Create account"}
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={mode === "login"}
+            onClick={() => setMode("login")}
+            className={`rounded-[10px] px-3 py-2.5 text-sm font-semibold tracking-tight transition-all ${mode === "login"
+                ? "bg-[#5b3cdd] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.14),0_4px_14px_rgba(91,60,221,0.35)]"
+                : "bg-transparent text-[#797587] hover:text-[#484555]"
+              }`}
+          >
+            {sc.authTabLogin || "I already have one"}
+          </button>
+        </div>
       </section>
 
       <div className="rounded-[1rem] border border-[#c9c4d8]/20 bg-white p-6 shadow-[0_32px_64px_-12px_rgba(28,26,36,0.04)] md:p-8">
         <div className="mx-auto max-w-2xl space-y-6">
-          <div className="grid grid-cols-2 gap-2 rounded-[1rem] bg-[#f3efff] p-1.5">
-            <button
-              type="button"
-              onClick={() => setMode("login")}
-              className={`rounded-[0.9rem] px-4 py-3 text-sm font-semibold transition-colors ${
-                mode === "login"
-                  ? "bg-white text-[#1c1a24] shadow-[0_10px_24px_rgba(28,26,36,0.08)]"
-                  : "text-[#5b3cdd]"
-              }`}
-            >
-              Log in
-            </button>
-            <button
-              type="button"
-              onClick={() => setMode("signup")}
-              className={`rounded-[0.9rem] px-4 py-3 text-sm font-semibold transition-colors ${
-                mode === "signup"
-                  ? "bg-white text-[#1c1a24] shadow-[0_10px_24px_rgba(28,26,36,0.08)]"
-                  : "text-[#5b3cdd]"
-              }`}
-            >
-              View My Results
-            </button>
-          </div>
-
           {notice ? (
             <div className="rounded-[1rem] border border-[#d8cffd] bg-[#f6f2ff] px-4 py-3 text-sm text-[#4c3aa9]">
               {notice}
@@ -1309,7 +1446,8 @@ function AccountCreateStep({
                   type="email"
                   value={v.email || ""}
                   onChange={(e) => onChange({ ...v, email: e.target.value })}
-                  placeholder="Email"
+                  placeholder="you@email.com"
+                  autoComplete="email"
                   required
                   className={RECT_INPUT_CLASS}
                 />
@@ -1326,7 +1464,14 @@ function AccountCreateStep({
                     onChange={(e) =>
                       onChange({ ...v, password: e.target.value })
                     }
-                    placeholder="Password"
+                    placeholder={
+                      mode === "signup"
+                        ? "At least 8 characters"
+                        : "Password"
+                    }
+                    autoComplete={
+                      mode === "signup" ? "new-password" : "current-password"
+                    }
                     required
                     className={`${RECT_INPUT_CLASS} pr-20`}
                   />
@@ -1346,40 +1491,42 @@ function AccountCreateStep({
               </div>
             </>
 
-            <p className="text-sm leading-6 text-[#484555]">
-              By continuing, you agree to the{" "}
-              <Link
-                href={LEGAL_ROUTE_PATHS.privacy}
-                className="text-[#5b3cdd] hover:underline"
-              >
-                Privacy Policy
-              </Link>
-              ,{" "}
-              <Link
-                href={LEGAL_ROUTE_PATHS.terms}
-                className="text-[#5b3cdd] hover:underline"
-              >
-                Terms
-              </Link>
-              , and{" "}
-              <Link
-                href={LEGAL_ROUTE_PATHS.telehealthConsent}
-                className="text-[#5b3cdd] hover:underline"
-              >
-                Telehealth Consent
-              </Link>
-              .
-            </p>
-
             {mode === "login" ? (
-              <div className="flex justify-end">
+              <div className="-mt-1 flex justify-end">
                 <Link
                   href={buildSupportMailto("Password reset help")}
-                  className="text-sm text-[#5b3cdd] hover:underline"
+                  className="text-[13px] font-medium text-[#5b3cdd] hover:underline"
                 >
                   Forgot password?
                 </Link>
               </div>
+            ) : null}
+
+            {mode === "signup" ? (
+              <p className="text-sm leading-6 text-[#484555]">
+                By continuing, you agree to the{" "}
+                <Link
+                  href={LEGAL_ROUTE_PATHS.privacy}
+                  className="text-[#5b3cdd] hover:underline"
+                >
+                  Privacy Policy
+                </Link>
+                ,{" "}
+                <Link
+                  href={LEGAL_ROUTE_PATHS.terms}
+                  className="text-[#5b3cdd] hover:underline"
+                >
+                  Terms
+                </Link>
+                , and{" "}
+                <Link
+                  href={LEGAL_ROUTE_PATHS.telehealthConsent}
+                  className="text-[#5b3cdd] hover:underline"
+                >
+                  Telehealth Consent
+                </Link>
+                .
+              </p>
             ) : null}
 
             {error ? (
@@ -1391,7 +1538,7 @@ function AccountCreateStep({
             <button
               type="submit"
               disabled={!canSubmit || loading || Boolean(oauthLoading)}
-              className={PRIMARY_PILL_BUTTON_CLASS}
+              className={`${PRIMARY_PILL_BUTTON_CLASS} flex items-center justify-center gap-2`}
             >
               {loading ? (
                 <span className="flex items-center gap-2">
@@ -1400,20 +1547,37 @@ function AccountCreateStep({
                     ? "Logging in..."
                     : "Creating your account..."}
                 </span>
-              ) : mode === "login" ? (
-                "Log in"
               ) : (
-                "Create Account"
+                <>
+                  <span>
+                    {mode === "login"
+                      ? sc.loginCta || "Log in"
+                      : sc.signupCta || "Create Account"}
+                  </span>
+                  <svg
+                    className="h-[18px] w-[18px] shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                    strokeLinecap="round"
+                    aria-hidden
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </>
               )}
             </button>
           </form>
 
           {providers.google || providers.apple ? (
             <>
-              <div className="flex items-center gap-3">
-                <div className="h-px flex-1 bg-gray-200" />
-                <span className="text-sm text-[#484555]">or</span>
-                <div className="h-px flex-1 bg-gray-200" />
+              <div className="flex items-center gap-3 pt-1">
+                <div className="h-px flex-1 bg-[#e2dced]" />
+                <span className="font-body text-[11px] font-semibold uppercase tracking-[0.1em] text-[#797587]">
+                  or
+                </span>
+                <div className="h-px flex-1 bg-[#e2dced]" />
               </div>
 
               <div className="space-y-3">
@@ -1446,7 +1610,7 @@ function AccountCreateStep({
                         />
                       </svg>
                     )}
-                    Continue with Google
+                    {oauthGoogleLabel}
                   </button>
                 ) : null}
 
@@ -1468,7 +1632,7 @@ function AccountCreateStep({
                         <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
                       </svg>
                     )}
-                    Continue with Apple
+                    {oauthAppleLabel}
                   </button>
                 ) : null}
               </div>
@@ -1501,6 +1665,9 @@ function TextAlertsStep({ step, onNext }) {
   return (
     <div className="space-y-5">
       <div className="text-center space-y-2">
+        <span className="inline-flex rounded-full bg-[#f3efff] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#5b3cdd]">
+          {`Step ${step.order || ""} · Stay in the loop`}
+        </span>
         <h1 className="font-headline text-2xl font-bold text-[#1c1a24]">
           {step.title}
         </h1>
@@ -1574,6 +1741,18 @@ function TextAlertsStep({ step, onNext }) {
   );
 }
 
+function formatPlanFirstMonthBlurb(plan) {
+  const raw = plan?.firstMonth ?? plan?.firstMonthPrice;
+  const n = parseAmountValue(raw);
+  if (n === 0) return "Free first month";
+  return `${raw || `$${n}`} first month`;
+}
+
+function formatPlanThenBlurb(plan) {
+  const then = plan?.thenPrice || plan?.recurringPrice;
+  return then ? `then ${then} · lowest rate` : "";
+}
+
 function PlanSelectionStep({
   step,
   value,
@@ -1588,40 +1767,31 @@ function PlanSelectionStep({
     onNext();
   }
 
-  const featured = plans.find((p) => resolveDurationMonths(p) === 12);
-  const secondary = plans.filter((p) => {
-    const m = resolveDurationMonths(p);
-    return m !== 12 && m !== 6;
-  });
-
-  const nonFeaturedBadge = (months) => {
-    if (months === 3) return "Flexible commitment";
-    if (months === 1) return "No commitment";
-    return "Flexible";
-  };
-
-  const nonFeaturedSubtitle = (months) => {
-    if (months === 3) return "Shorter commitment, same medication";
-    if (months === 1) return "Cancel or pause anytime";
-    return "";
-  };
-
-  const nonFeaturedBtnLabel = (plan, months) => {
-    if (months === 3) return "Choose 3-Month Plan";
-    if (months === 1) return "Choose Monthly Plan";
-    return `Choose ${plan.name}`;
-  };
+  const planSortPriority = { 3: 1, 12: 2, 1: 3 };
+  const visiblePlans = [...plans]
+    .filter((p) => resolveDurationMonths(p) !== 6)
+    .sort((a, b) => {
+      const ma = resolveDurationMonths(a);
+      const mb = resolveDurationMonths(b);
+      const pa = planSortPriority[ma] || 20;
+      const pb = planSortPriority[mb] || 20;
+      if (pa !== pb) return pa - pb;
+      return String(a.name || "").localeCompare(String(b.name || ""));
+    });
 
   return (
     <div className="space-y-5">
       {/* Header */}
       <div className="text-center space-y-2">
+        <span className="inline-flex rounded-full bg-[#f3efff] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#5b3cdd]">
+          {`Step ${step.order || ""} · Choose your plan`}
+        </span>
         <h1 className="font-headline text-[1.85rem] font-extrabold leading-tight text-[#1c1a24]">
-          Choose your treatment plan
+          {step.title || "Choose your treatment plan"}
         </h1>
         <p className="text-sm text-[#797587]">
-          All plans include provider consultation, medication, and ongoing
-          support.
+          {step.subtitle ||
+            "All plans include provider consultation, medication, and ongoing support."}
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 pt-1">
           {[
@@ -1640,174 +1810,133 @@ function PlanSelectionStep({
         </div>
       </div>
 
-      {/* Featured 12-month plan */}
-      {featured &&
-        (() => {
-          const perDayAmount = resolvePerDayAmount(featured);
-          const features = featured.features || [
-            "1:1 provider consultations",
-            "Medication included",
-            "Free shipping every month",
-          ];
-          return (
-            <div className="overflow-hidden rounded-[1.75rem] border-2 border-[#5b3cdd] shadow-[0_8px_32px_rgba(91,60,221,0.18)]">
-              {/* Purple header strip */}
-              <div className="flex items-center justify-between bg-[#5b3cdd] px-5 py-2.5">
-                <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/90">
-                  Most popular &middot; Doctor recommended
-                </span>
-                <span className="flex items-center gap-1 text-[11px] font-bold text-white">
-                  <svg
-                    viewBox="0 0 16 16"
-                    className="h-3 w-3 fill-white"
-                    aria-hidden="true"
-                  >
-                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                  </svg>
-                  Best value
-                </span>
-              </div>
-
-              {/* Card body */}
-              <div className="space-y-3 bg-white px-5 pb-5 pt-4">
-                {/* Name + Price */}
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h3 className="font-headline text-[1.15rem] font-extrabold leading-snug text-[#1c1a24]">
-                      12-Month Transformation Plan
-                    </h3>
-                    <p className="mt-0.5 text-[13px] text-[#797587]">
-                      Best results come with consistency
-                    </p>
-                  </div>
-                  <div className="shrink-0 text-right">
-                    <p className="text-[11px] font-semibold text-[#797587]">
-                      $35 first month
-                    </p>
-                    {perDayAmount ? (
-                      <p className="font-headline text-[1.75rem] font-extrabold leading-none text-[#5b3cdd]">
-                        ${perDayAmount.toFixed(2)}
-                        <span className="text-sm font-semibold">/day</span>
-                      </p>
-                    ) : (
-                      <p className="font-headline text-[1.35rem] font-extrabold leading-none text-[#5b3cdd]">
-                        {featured.firstMonth}
-                        <span className="text-sm font-semibold">/mo</span>
-                      </p>
-                    )}
-                    <p className="text-[11px] font-medium text-[#797587]">
-                      then $35/mo &middot; lowest rate
-                    </p>
-                  </div>
-                </div>
-
-                {/* Green highlight row */}
-                <div className="flex items-center gap-2 rounded-xl border border-[#bbf7d0] bg-[#f0fdf4] px-4 py-2.5">
-                  <svg
-                    viewBox="0 0 20 20"
-                    className="h-4 w-4 shrink-0 text-emerald-500"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <p className="text-[12px] font-semibold text-emerald-700">
-                    Highest success rate &middot; Lock in the lowest rate
-                  </p>
-                </div>
-
-                {/* Star highlight row */}
-                <div className="flex items-center gap-2 rounded-xl bg-[#f3efff] px-4 py-2.5">
-                  <svg
-                    viewBox="0 0 20 20"
-                    className="h-4 w-4 shrink-0 text-[#5b3cdd]"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                  <p className="text-[12px] font-semibold text-[#5b3cdd]">
-                    96.8% of members reach their target weight
-                  </p>
-                </div>
-
-                {/* Features */}
-                <div className="space-y-0 divide-y divide-[#f0ecfc]">
-                  {features.slice(0, 3).map((f) => (
-                    <div key={f} className="flex items-center gap-2.5 py-2.5">
-                      <svg
-                        viewBox="0 0 20 20"
-                        className="h-4 w-4 shrink-0 text-[#5b3cdd]"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      <span className="text-[13px] text-[#484555]">{f}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* CTA */}
-                <button
-                  type="button"
-                  onClick={() => handleSelect(featured.id)}
-                  className="hs-solid-btn w-full rounded-full py-3.5 font-headline text-base font-bold text-white"
-                >
-                  Get started
-                </button>
-              </div>
-            </div>
-          );
-        })()}
-
-      {/* Secondary plans */}
-      {secondary.map((plan) => {
+      <div className="grid gap-5 md:grid-cols-3 lg:gap-8">
+        {visiblePlans.map((plan) => {
         const months = resolveDurationMonths(plan);
+        const dailyAvg = resolvePlanDailyAverage(plan);
+        const firstMonthRaw = plan?.firstMonth ?? plan?.firstMonthPrice;
+        const firstMonthAmount =
+          parseAmountValue(firstMonthRaw) || parseAmountValue(plan.thenPrice || plan.recurringPrice);
+        const recurring = plan.thenPrice || plan.recurringPrice || plan.firstMonth;
+        const baseFeatures =
+          Array.isArray(plan.features) && plan.features.length > 0
+            ? [...plan.features]
+            : months === 3
+              ? [
+                  "1:1 provider consultations",
+                  "GLP-1 medication included",
+                  "Free metabolic health kit",
+                  "Free cold-chain shipping",
+                ]
+              : months === 12
+                ? [
+                    "Priority 1:1 specialist access",
+                    "Full 12mo GLP-1 supply",
+                    "Continuous Glucose Monitor (CGM)",
+                    "Premium lab testing suite",
+                    "Concierge shipping & support",
+                ]
+              : months === 1
+                ? [
+                    "Standard medical screening",
+                    "GLP-1 prescription service",
+                    "Digital coaching platform",
+                    "Standard shipping",
+                  ]
+                : [];
+        const hasShippingFeature = baseFeatures.some((feature) =>
+          String(feature || "").toLowerCase().includes("shipping"),
+        );
+        const planFeatures =
+          months === 1 && !hasShippingFeature
+            ? [...baseFeatures, "Free shipping"]
+            : baseFeatures;
+        const isPopular = months === 12;
+        const yearlyTotal =
+          months === 12
+            ? Math.round(resolveProjectedPlanTotal(plan))
+            : null;
         return (
           <div
             key={plan.id}
-            className="space-y-3 rounded-[1.5rem] border border-[#d9d4e7] bg-white px-5 pb-5 pt-4"
+            className={`relative flex min-h-0 flex-col space-y-4 rounded-[1.15rem] border bg-white px-5 pb-5 pt-5 shadow-[0_8px_18px_rgba(28,26,36,0.04)] md:px-6 md:pb-5 md:pt-6 ${
+              isPopular
+                ? "border-[#0b57d0] ring-1 ring-[#0b57d0]/30"
+                : "border-[#dfe3f2]"
+            }`}
           >
-            <div className="flex items-center justify-between gap-3">
+            {isPopular ? (
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#0b57d0] px-4 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-white">
+                Most Popular
+              </span>
+            ) : null}
+            <div className="flex items-start justify-between gap-4">
               <div>
-                <span className="rounded-full bg-[#f3efff] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[#5b3cdd]">
-                  {nonFeaturedBadge(months)}
-                </span>
-                <h3 className="mt-2 font-headline text-[1.05rem] font-extrabold text-[#1c1a24]">
+                <h3 className="font-headline text-[2rem] font-extrabold leading-tight text-[#111827]">
                   {plan.name}
                 </h3>
-                <p className="text-[12px] text-[#797587]">
-                  {nonFeaturedSubtitle(months)}
-                </p>
-              </div>
-              <div className="shrink-0 text-right">
-                <p className="font-headline text-[1.25rem] font-extrabold text-[#1c1a24]">
-                  $35
-                  <span className="text-sm font-semibold text-[#797587]">
-                    /mo
-                  </span>
-                </p>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={() => handleSelect(plan.id)}
-              className="w-full rounded-full border border-[#d9d4e7] py-3 font-headline text-sm font-semibold text-[#484555] transition-colors hover:border-[#5b3cdd] hover:bg-[#f8f6ff] hover:text-[#5b3cdd]"
-            >
-              {nonFeaturedBtnLabel(plan, months)}
-            </button>
+            <div>
+              {months === 12 && dailyAvg ? (
+                <>
+                  <p className="font-headline text-[1.2rem] font-semibold text-[#4b5563]">
+                    ${""}
+                    <span className="text-[3.2rem] font-extrabold leading-none text-[#0b57d0]">
+                      {dailyAvg.toFixed(2)}
+                    </span>
+                    /day
+                  </p>
+                  <p className="text-[0.95rem] font-medium text-[#6b7280]">
+                    Billed annually at ${yearlyTotal}/yr
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="font-headline text-[1.15rem] font-semibold text-[#4b5563]">
+                    $
+                    <span className="text-[2.5rem] font-extrabold leading-none text-[#111827]">
+                      {Math.round(firstMonthAmount || parseAmountValue(recurring))}
+                    </span>
+                    {months === 1 ? "/mo" : "/first mo"}
+                  </p>
+                  {months !== 1 ? (
+                    <p className="text-[0.95rem] text-[#6b7280]">
+                      Then {recurring}/mo thereafter
+                    </p>
+                  ) : (
+                    <p className="text-[0.95rem] text-[#6b7280]">
+                      No commitment, cancel anytime
+                    </p>
+                  )}
+                </>
+              )}
+            </div>
+            <div className="space-y-2">
+              {planFeatures.slice(0, 5).map((feature) => (
+                <p key={feature} className="flex items-center gap-2 text-[1.05rem] text-[#4b5563]">
+                  <AppIcon name="check_circle" className="text-[18px] text-[#0f8a63]" />
+                  <span>{feature}</span>
+                </p>
+              ))}
+            </div>
+            <div className="mt-auto flex justify-center pt-1">
+              <button
+                type="button"
+                onClick={() => handleSelect(plan.id)}
+                className={`rounded-lg px-8 py-2.5 font-headline text-sm font-bold transition-colors md:text-base ${
+                  isPopular
+                    ? "bg-[#0b57d0] text-white hover:bg-[#0848ad]"
+                    : "border border-[#d8deef] bg-[#eef2ff] text-[#0b57d0] hover:bg-[#e4ebff]"
+                }`}
+              >
+                Select Plan
+              </button>
+            </div>
           </div>
         );
-      })}
+        })}
+      </div>
 
       {/* Bottom trust row */}
       <div className="space-y-2 pt-1 text-center">
@@ -1855,11 +1984,10 @@ function MedicationSelectStep({ step, value, onChange, onNext }) {
             <button
               key={med.id}
               onClick={() => onChange(med.id)}
-              className={`w-full text-left p-5 rounded-2xl border-2 transition-all hover:scale-[1.01] relative ${
-                isSelected
+              className={`w-full text-left p-5 rounded-2xl border-2 transition-all hover:scale-[1.01] relative ${isSelected
                   ? "border-[#5b3cdd] bg-[#fdf8ff] shadow-md"
                   : "border-[#c9c4d8]/30 bg-white hover:border-[#5b3cdd]/40"
-              }`}
+                }`}
             >
               {isSelected && (
                 <div className="absolute top-3 right-3 w-6 h-6 rounded-full hs-gradient flex items-center justify-center">
@@ -1868,9 +1996,8 @@ function MedicationSelectStep({ step, value, onChange, onNext }) {
               )}
               {med.badge && (
                 <span
-                  className={`inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-3 ${
-                    med.badgeClass || "bg-[#f1ecf9] text-[#5b3cdd]"
-                  }`}
+                  className={`inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase mb-3 ${med.badgeClass || "bg-[#f1ecf9] text-[#5b3cdd]"
+                    }`}
                 >
                   {med.badge}
                 </span>
@@ -1919,6 +2046,7 @@ function CheckoutStep({
   steps,
   checkoutPricingMode,
 }) {
+  const [openFaq, setOpenFaq] = useState(null);
   const [clientSecret, setClientSecret] = useState(null);
   const [initError, setInitError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -1969,6 +2097,18 @@ function CheckoutStep({
     step.config?.summary?.planLabel ||
     "Recommended plan";
   const dailyAmount = resolvePerDayAmount(checkoutSelection.selectedPlan);
+  const firstMonthRaw =
+    checkoutSelection.selectedPlan?.firstMonth ||
+    checkoutSelection.selectedPlan?.firstMonthPrice ||
+    "$0";
+  const firstMonthAmount = parseAmountValue(firstMonthRaw);
+  const monthsRemaining = Math.max((durationMonths || 1) - 1, 0);
+  const monthlyAmount = parseAmountValue(monthlyRate) || 0;
+  const compareClinicAmount = Math.max(
+    Math.round(totalAmount + 13599),
+    Math.round(totalAmount * 2.2),
+  );
+  const totalSavings = Math.max(compareClinicAmount - totalAmount, 0);
   const isGlp1 = steps.some(
     (s) => s.type === "BMI_CALCULATOR" || s.type === "GLP1_PLAN_INTRO",
   );
@@ -1976,16 +2116,18 @@ function CheckoutStep({
     ? "HealSend Weight Loss Warranty"
     : "HealSend Care Warranty";
 
-  const orderBenefits = checkoutSelection.selectedPlan?.features?.slice(
-    0,
-    4,
-  ) || [
-    "Flexible month-to-month",
-    "Clinically proven",
-    "Results or you don't pay",
-    "No long-term commitment",
-  ];
-  const includedBenefits = [
+  const planFeatures = checkoutSelection.selectedPlan?.features;
+  const orderBenefits =
+    Array.isArray(planFeatures) && planFeatures.length > 0
+      ? planFeatures.slice(0, 4)
+      : step.config?.checkoutOrderBenefits || [
+          "Flexible month-to-month",
+          "Clinically proven",
+          "Results or you don't pay",
+          "No long-term commitment",
+        ];
+
+  const defaultIncludedBenefits = [
     {
       title: "Unlimited Video Calls With Clinicians",
       previousPrice: "$129",
@@ -2011,6 +2153,11 @@ function CheckoutStep({
       previousPrice: "$179",
     },
   ];
+  const includedBenefits =
+    Array.isArray(step.config?.includedBenefits) &&
+    step.config.includedBenefits.length > 0
+      ? step.config.includedBenefits
+      : defaultIncludedBenefits;
 
   useEffect(() => {
     if (!templateId) return;
@@ -2154,114 +2301,96 @@ function CheckoutStep({
     );
   }
 
+  const trustChips = step.config?.checkoutTrustChips;
+
   return (
     <div className="space-y-4 md:space-y-6">
-      <div className="space-y-2">
-        <h1 className="font-headline text-2xl font-extrabold leading-tight text-[#1c1a24] md:text-3xl">
-          {step.config?.checkoutHeadline || "Start Your Transformation Today"}
+      <div className="space-y-1">
+        <h1 className="font-headline text-[2.1rem] font-extrabold leading-tight text-[#001b8f] md:text-[2.4rem]">
+          Order Summary
         </h1>
       </div>
 
-      <div className="overflow-hidden rounded-[1.4rem] border border-[#d9d4e7] bg-white shadow-[0_12px_32px_rgba(28,26,36,0.06)]">
-        <div className="bg-[#474fd7] px-5 py-3 text-center text-sm font-semibold text-white md:px-8">
-          FSA/HSA eligible for reimbursement
+      <div className="overflow-hidden rounded-[1.4rem] border border-[#dbe0f2] bg-white shadow-[0_14px_34px_rgba(28,26,36,0.05)]">
+        <div className="bg-[#3f4fde] px-5 py-3 text-center text-sm font-semibold text-white md:px-8">
+          {step.config?.fsaBannerText ?? "FSA/HSA eligible for reimbursement"}
         </div>
-        <div className="space-y-6 px-5 py-6 md:px-8 md:py-8">
-          <div className="flex items-start gap-4">
-            <div className="flex h-20 w-20 items-center justify-center rounded-[1.25rem] bg-[#f6ebcd] text-[#c99622]">
-              <AppIcon name="vaccines" className="text-[2rem]" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h2 className="font-headline text-[1.85rem] font-bold leading-tight text-[#3740d1]">
-                    {selectedMedicationLabel}
-                  </h2>
-                  <p className="mt-2 inline-flex rounded-full bg-[#edf9ef] px-3 py-1 text-xs font-semibold text-[#3f8b4d]">
-                    {resolveDurationMonths(checkoutSelection.selectedPlan) ===
-                    12
-                      ? "Best Value"
-                      : resolveDurationMonths(
-                            checkoutSelection.selectedPlan,
-                          ) === 6
-                        ? "Great Value"
-                        : resolveDurationMonths(
-                              checkoutSelection.selectedPlan,
-                            ) === 3
-                          ? "Most Popular"
-                          : "Personalized Plan"}
-                  </p>
-                </div>
-                {dailyAmount ? (
-                  <div className="text-right text-[#3740d1]">
-                    <p className="text-sm font-medium text-[#3f4560]">
-                      As low as
-                    </p>
-                    <p className="font-headline text-[2.2rem] font-bold leading-none">
-                      ${dailyAmount.toFixed(2)}
-                      <span className="text-[1.15rem]">/day</span>
-                    </p>
-                  </div>
-                ) : null}
-              </div>
-
-              <div className="mt-5 grid gap-2 text-[1.05rem] text-[#202434]">
-                {orderBenefits.map((benefit) => (
-                  <p key={benefit} className="flex items-center gap-2">
-                    <AppIcon
-                      name="check_circle"
-                      className="text-[18px] text-[#3740d1]"
-                    />
-                    <span>{benefit}</span>
-                  </p>
-                ))}
-              </div>
-            </div>
+        <div className="space-y-6 px-5 py-6 md:px-8 md:py-7">
+          <div className="border-b border-[#edf0f8] pb-4">
+            <h2 className="font-headline text-[2rem] font-extrabold text-[#0f172a]">
+              {selectedPlanLabel}
+            </h2>
+            <p className="text-[1.2rem] italic text-[#616a81]">Billed monthly</p>
           </div>
 
-          <div className="border-t border-[#e2dced] pt-5 text-[1.05rem] text-[#1c1a24]">
-            <div className="flex items-center justify-between gap-4 py-1.5">
-              <span>Standard Plan</span>
-              <span>
-                {formatCheckoutCurrency(monthlyRate)}
-                <span className="text-xs text-[#797587]">/mo</span>
-                {durationMonths && durationMonths > 1 ? (
-                  <span className="text-xs text-[#797587]">
-                    {" "}
-                    × {durationMonths} months
-                  </span>
-                ) : null}
+          <div className="space-y-0.5 text-[1.05rem] text-[#1c1a24]">
+            <div className="flex items-center justify-between gap-4 py-2">
+              <span>First month membership</span>
+              <span className="font-semibold text-[#0f172a] tabular-nums">
+                {formatCheckoutCurrency(firstMonthAmount || monthlyAmount)}
               </span>
             </div>
-            <div className="flex items-center justify-between gap-4 py-1.5">
+            <div className="flex items-center justify-between gap-4 py-2">
+              <span>Subsequent months</span>
+              <span className="font-semibold text-[#0f172a] tabular-nums">
+                {formatCheckoutCurrency(monthlyAmount)}/mo
+              </span>
+            </div>
+            <div className="flex items-center justify-between gap-4 py-2">
               <span>Online Clinician Visit</span>
               <span className="font-semibold text-[#2f8d4e]">FREE</span>
             </div>
-            <div className="flex items-center justify-between gap-4 py-1.5">
-              <span>Overnight Shipping</span>
+            <div className="flex items-center justify-between gap-4 py-2">
+              <span>Overnight Cold-Chain Shipping</span>
               <span className="font-semibold text-[#2f8d4e]">FREE</span>
             </div>
-            <div className="flex items-center justify-between gap-4 py-1.5">
-              <span>Protected by {warrantyLabel}</span>
-              <span className="font-semibold text-[#2f8d4e]">Activated</span>
+            <div className="flex flex-col gap-1 py-2">
+              <div className="flex items-center justify-between gap-4">
+                <span>Protected by {warrantyLabel}</span>
+                <span className="font-semibold text-[#2f8d4e]">Activated</span>
+              </div>
+              {step.config?.warrantyTagline ? (
+                <p className="text-xs text-[#5f5a6d]">
+                  {step.config.warrantyTagline}
+                </p>
+              ) : null}
             </div>
           </div>
 
-          <div className="border-t border-[#e2dced] pt-5">
+          <div className="rounded-[1rem] border border-[#dde6eb] bg-[#f8fcfb] px-4 py-3">
+            <div className="flex items-center justify-between gap-4 text-[#6f6a7f]">
+              <p className="text-[1.05rem] font-bold uppercase tracking-[0.08em]">
+                vs. traditional clinics
+              </p>
+              <p className="text-[1.9rem] font-semibold line-through tabular-nums">
+                {formatCheckoutCurrency(compareClinicAmount)}
+              </p>
+            </div>
+            <div className="mt-1 flex items-end justify-between gap-4">
+              <p className="font-headline text-[2rem] font-bold text-[#001b8f]">
+                Your Total Savings
+              </p>
+              <p className="font-headline text-[2.65rem] font-extrabold leading-none text-[#001b8f] tabular-nums">
+                -{formatCheckoutCurrency(totalSavings)}
+              </p>
+            </div>
+          </div>
+
+          <div className="border-t border-[#e7ebf8] pt-4">
             <div className="flex items-end justify-between gap-4">
               <div>
-                <p className="font-headline text-[2rem] font-bold leading-none text-[#3740d1]">
+                <p className="font-headline text-[3rem] font-extrabold leading-none text-[#001b8f]">
                   {effectivePricingMode === "UPFRONT_ZERO"
                     ? "Total After Approval"
                     : "Total Due Today"}
                 </p>
                 {dailyAmount ? (
-                  <p className="mt-2 text-sm text-[#5f5a6d]">
-                    Just ${dailyAmount.toFixed(2)}/day
+                  <p className="mt-1 text-[1.25rem] text-[#5f5a6d]">
+                    Breakdown: only ${dailyAmount.toFixed(2)}/day
                   </p>
                 ) : null}
               </div>
-              <p className="font-headline text-[2.4rem] font-bold leading-none text-[#3740d1]">
+              <p className="font-headline text-[4rem] font-extrabold leading-none text-[#001b8f] tabular-nums">
                 {formatCheckoutCurrency(effectiveDueTodayAmount)}
               </p>
             </div>
@@ -2269,6 +2398,8 @@ function CheckoutStep({
             {effectiveAllowsBnpl ? (
               <div className="mt-4 flex flex-wrap items-center gap-2 text-sm font-medium text-[#484555]">
                 <span>Express checkout:</span>
+                <ApplePayBadge className="h-9" />
+                <GooglePayBadge className="h-9" />
                 <KlarnaBadge className="h-9 w-9 text-[0.9rem]" />
                 <AfterpayBadge className="h-9 w-9" />
               </div>
@@ -2282,6 +2413,49 @@ function CheckoutStep({
             </p>
           </div>
         </div>
+      </div>
+
+      {dailyAmount ? (
+        <div className="rounded-[1.35rem] border border-[#dfe1fb] bg-gradient-to-r from-[#f2f4ff] to-[#eef1ff] px-5 py-6 text-center shadow-[0_10px_24px_rgba(28,26,36,0.04)] md:px-6">
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#6f6a7f]">
+            Just
+          </p>
+          <p className="font-headline text-[4rem] font-extrabold leading-none text-[#3740d1]">
+            ${dailyAmount.toFixed(2)}
+            <span className="text-[3rem]">/day</span>
+          </p>
+          <p className="mt-1 text-base font-semibold text-[#6f6a7f]">
+            Less than a coffee
+          </p>
+        </div>
+      ) : null}
+
+      {Array.isArray(trustChips) && trustChips.length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {trustChips.map((label) => (
+            <span
+              key={label}
+              className="rounded-[0.75rem] border border-[#dfe1fb] bg-[#eef1ff] px-3 py-1.5 text-sm font-semibold text-[#3740d1]"
+            >
+              {label}
+            </span>
+          ))}
+        </div>
+      ) : null}
+
+      <div className="flex items-center justify-between gap-3 rounded-[1.1rem] border border-[#1f2439] bg-[#0f1220] px-4 py-3 text-white">
+        <div className="flex items-center gap-3">
+          <span className="flex h-10 w-10 items-center justify-center rounded-[0.85rem] bg-[#1a1f35] text-[#6f78ff]">
+            <AppIcon name="local_shipping" className="text-[1.2rem]" />
+          </span>
+          <div>
+            <p className="text-xl font-bold leading-tight">FedEx Express</p>
+            <p className="text-sm text-white/80">Medicine arrives within 2 business days</p>
+          </div>
+        </div>
+        <span className="rounded-md bg-white px-2.5 py-1 text-sm font-extrabold text-[#4626a8]">
+          FedEx
+        </span>
       </div>
 
       <div className="rounded-[1.35rem] border border-[#dfe1fb] bg-[#eef1ff] px-5 py-5 shadow-[0_10px_24px_rgba(28,26,36,0.04)] md:px-6">
@@ -2308,6 +2482,38 @@ function CheckoutStep({
           ))}
         </div>
       </div>
+
+      {Array.isArray(step.config?.faq) && step.config.faq.length > 0 ? (
+        <div className="rounded-[1.35rem] border border-[#dfe1fb] bg-white px-5 py-5 shadow-[0_10px_24px_rgba(28,26,36,0.04)] md:px-6">
+          <h2 className="font-headline text-lg font-bold text-[#1c1a24]">
+            Common questions
+          </h2>
+          <div className="mt-3 divide-y divide-[#ece8f3]">
+            {step.config.faq.map((item, idx) => (
+              <div key={`faq-${idx}`} className="py-1">
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-between gap-3 py-3 text-left text-sm font-semibold text-[#1c1a24]"
+                  onClick={() =>
+                    setOpenFaq((prev) => (prev === idx ? null : idx))
+                  }
+                >
+                  {item.q}
+                  <AppIcon
+                    name="arrow_downward"
+                    className={`shrink-0 text-[#797587] transition-transform ${openFaq === idx ? "rotate-180" : ""}`}
+                  />
+                </button>
+                {openFaq === idx ? (
+                  <p className="pb-3 text-sm leading-relaxed text-[#484555]">
+                    {item.a}
+                  </p>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
 
       {/* ── Google Reviews trust strip ─────────────────────────────── */}
       <div className="flex flex-wrap items-center gap-3 rounded-[1.25rem] border border-[#e8eaed] bg-white px-5 py-4 shadow-[0_1px_4px_rgba(0,0,0,0.06)]">
@@ -2351,16 +2557,18 @@ function CheckoutStep({
                 colorText: "#1c1a24",
                 colorTextSecondary: "#6d6879",
                 colorBackground: "#ffffff",
-                colorDanger: "#d14343",
+                colorDanger: "#ff4f79",
                 borderRadius: "16px",
                 fontFamily: "inherit",
                 spacingUnit: "6px",
               },
               rules: {
                 ".Input": {
-                  border: "1px solid rgba(201, 196, 216, 0.35)",
+                  border: "1px solid rgba(186, 180, 210, 0.55)",
                   boxShadow: "none",
+                  backgroundColor: "#fbfaff",
                 },
+                ".Input:focus": { border: "1px solid #5b3cdd" },
                 ".Tab": {
                   border: "1px solid rgba(201, 196, 216, 0.35)",
                   boxShadow: "none",
@@ -2450,7 +2658,7 @@ function StripePaymentForm({
         if (!response.ok || !payload?.sessionUrl) {
           throw new Error(
             payload?.error ||
-              `Unable to start ${getPaymentMethodDisplayName(method)} right now.`,
+            `Unable to start ${getPaymentMethodDisplayName(method)} right now.`,
           );
         }
 
@@ -2458,7 +2666,7 @@ function StripePaymentForm({
       } catch (bnplError) {
         setError(
           bnplError?.message ||
-            "Unable to start that payment method right now. Please try again.",
+          "Unable to start that payment method right now. Please try again.",
         );
         setRedirectingMethod("");
       }
@@ -2504,7 +2712,7 @@ function StripePaymentForm({
         if (!response.ok) {
           throw new Error(
             payload?.error ||
-              "Unable to verify your payment. Please try again.",
+            "Unable to verify your payment. Please try again.",
           );
         }
 
@@ -2525,7 +2733,7 @@ function StripePaymentForm({
         if (cancelled) return;
         setError(
           verificationError?.message ||
-            "We couldn't confirm your payment yet. Please try again.",
+          "We couldn't confirm your payment yet. Please try again.",
         );
         handledSessionRef.current = "";
         setVerifyingMethod("");
@@ -2610,7 +2818,10 @@ function StripePaymentForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-2 md:space-y-2.5">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-3 rounded-[1.35rem] border border-[#d9d4e7] bg-white p-4 shadow-[0_14px_32px_rgba(28,26,36,0.06)] md:space-y-4 md:p-5"
+    >
       {verifyingMethod ? (
         <div className="flex items-center justify-center gap-3 rounded-[1rem] border border-[#d9d4e7] bg-[#faf8ff] px-4 py-3 text-center text-sm font-medium text-[#484555]">
           <span className="h-4.5 w-4.5 rounded-full border-2 border-[#d7d1e4] border-t-[#5b3cdd] animate-spin" />
@@ -2621,8 +2832,18 @@ function StripePaymentForm({
         </div>
       ) : null}
 
+      {hasAlternativePayments ? (
+        <div className="flex items-center gap-3">
+          <span className="h-px flex-1 bg-[#ece8f3]" />
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#7b768c]">
+            Express checkout
+          </p>
+          <span className="h-px flex-1 bg-[#ece8f3]" />
+        </div>
+      ) : null}
+
       {allowsBnpl ? (
-        <div className="grid gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <PaymentShortcutRow
             onClick={() => handleBnplCheckout("klarna")}
             disabled={
@@ -2631,9 +2852,10 @@ function StripePaymentForm({
               Boolean(verifyingMethod)
             }
             loading={redirectingMethod === "klarna"}
+            suffix="$0 today"
           >
             <KlarnaBadge />
-            <span>Continue with Klarna</span>
+            <span>Klarna</span>
           </PaymentShortcutRow>
 
           <PaymentShortcutRow
@@ -2644,9 +2866,10 @@ function StripePaymentForm({
               Boolean(verifyingMethod)
             }
             loading={redirectingMethod === "afterpay_clearpay"}
+            suffix="$0 today"
           >
             <AfterpayBadge />
-            <span>Continue with Afterpay</span>
+            <span>Afterpay</span>
           </PaymentShortcutRow>
         </div>
       ) : null}
@@ -2655,7 +2878,7 @@ function StripePaymentForm({
         <div
           className={
             walletReady
-              ? "rounded-[1rem] border border-[#d9d4e7] bg-white px-5 py-4 shadow-[0_10px_24px_rgba(28,26,36,0.05)] md:px-7"
+              ? "rounded-[1rem] border border-[#d9d4e7] bg-[#f7f6ff] px-3 py-3 shadow-[0_8px_20px_rgba(28,26,36,0.05)] md:px-4"
               : "pointer-events-none absolute left-[-9999px] top-auto h-px w-px overflow-hidden opacity-0"
           }
           aria-hidden={!walletReady}
@@ -2666,24 +2889,25 @@ function StripePaymentForm({
               const hasAvailableMethods = Array.isArray(availablePaymentMethods)
                 ? availablePaymentMethods.length > 0
                 : Boolean(
-                    availablePaymentMethods &&
-                    Object.keys(availablePaymentMethods).length,
-                  );
+                  availablePaymentMethods &&
+                  Object.keys(availablePaymentMethods).length,
+                );
 
               setWalletReady(hasAvailableMethods);
               setWalletChecked(true);
             }}
             options={{
-              buttonHeight: 54,
+              buttonHeight: 52,
               layout: {
                 maxColumns: 2,
-                maxRows: 2,
+                maxRows: 1,
                 overflow: "never",
               },
-              paymentMethodOrder: ["applePay", "googlePay", "link"],
+              paymentMethodOrder: ["applePay", "googlePay"],
               paymentMethods: {
                 applePay: "always",
                 googlePay: "always",
+                link: "never",
               },
               buttonType: {
                 applePay: "check-out",
@@ -2694,13 +2918,21 @@ function StripePaymentForm({
         </div>
       ) : null}
 
+      <div className="flex items-center gap-3 pt-1">
+        <span className="h-px flex-1 bg-[#ece8f3]" />
+        <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#7b768c]">
+          Or pay with card
+        </p>
+        <span className="h-px flex-1 bg-[#ece8f3]" />
+      </div>
+
       <div
         ref={paymentMethodsRef}
-        className="rounded-[1rem] border border-[#d9d4e7] bg-white px-4 py-3 shadow-[0_10px_24px_rgba(28,26,36,0.05)] md:px-6"
+        className="rounded-[1rem] border border-[#d9d4e7] bg-[#fcfbff] px-4 py-4 shadow-[0_8px_20px_rgba(28,26,36,0.05)] md:px-6"
       >
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           <div className="space-y-0.5">
-            <h3 className="font-headline text-lg font-bold text-[#1c1a24] md:text-[1.2rem]">
+            <h3 className="font-headline text-[1.05rem] font-bold text-[#1c1a24] md:text-[1.15rem]">
               Payment details
             </h3>
             <p className="text-xs text-[#797587] md:text-sm">
@@ -2719,12 +2951,12 @@ function StripePaymentForm({
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-[1rem] p-3 text-center">
+        <div className="rounded-[1rem] border border-[#ffc3d3] bg-[#fff4f8] p-3 text-center">
           <p className="text-red-700 text-sm">{error}</p>
         </div>
       )}
 
-      <div className="rounded-[1rem] border border-[#d9d4e7] bg-white px-5 py-3.5 shadow-[0_10px_24px_rgba(28,26,36,0.05)] md:px-7">
+      <div className="rounded-[1rem] border border-[#d9d4e7] bg-[#fcfbff] px-4 py-3.5 shadow-[0_8px_20px_rgba(28,26,36,0.05)] md:px-6">
         <button
           type="submit"
           disabled={
@@ -2734,7 +2966,7 @@ function StripePaymentForm({
             Boolean(redirectingMethod) ||
             Boolean(verifyingMethod)
           }
-          className={PRIMARY_PILL_BUTTON_CLASS}
+          className={`${PRIMARY_PILL_BUTTON_CLASS} inline-flex items-center justify-center gap-2`}
         >
           {processing ? (
             <span className="flex items-center justify-center gap-2">
@@ -2742,7 +2974,10 @@ function StripePaymentForm({
               Processing Payment...
             </span>
           ) : (
-            "Start Your Transformation"
+            <>
+              Start my transformation
+              <AppIcon name="lock" className="text-[1.05rem]" />
+            </>
           )}
         </button>
 
@@ -2774,16 +3009,17 @@ function Glp1PlanIntroStep({ answers, steps, onNext }) {
     return () => clearTimeout(t);
   }, [onNext]);
 
+  // Mirrors client funnel CONTENT.preview.timeline
   const journeySteps = [
     {
       title: "Quick health profile",
-      desc: "Target weight, body, and lifestyle",
+      desc: "Target weight, body & lifestyle",
       timing: "60s",
       active: true,
     },
     {
       title: "We match your plan",
-      desc: "Medication, dose, and timeline",
+      desc: "Medication, dose & timeline",
       timing: "30s",
       active: false,
     },
@@ -2810,11 +3046,11 @@ function Glp1PlanIntroStep({ answers, steps, onNext }) {
         Your Personalized Plan — in 2 minutes.
       </h1>
 
-      {/* Primary goal */}
+      {/* Primary goal — CONTENT.preview.goalLabel */}
       <p className="mt-4 flex items-center gap-2 font-body text-[0.95rem] text-[#797587]">
         <AppIcon name="check" className="text-[1rem] text-emerald-500" />
         <span>
-          Primary Goal:{" "}
+          Primary goal:{" "}
           <span className="font-semibold text-[#484555]">{primaryGoal}</span>
         </span>
       </p>
@@ -2828,19 +3064,17 @@ function Glp1PlanIntroStep({ answers, steps, onNext }) {
           <div key={journeyStep.title} className="relative">
             {/* Dot */}
             <span
-              className={`absolute -left-6 top-1/2 -translate-y-1/2 h-3 w-3 rounded-full border-2 ${
-                journeyStep.active
+              className={`absolute -left-6 top-1/2 -translate-y-1/2 h-3 w-3 rounded-full border-2 ${journeyStep.active
                   ? "border-emerald-400 bg-emerald-400"
                   : "border-[#c9c4d8] bg-white"
-              }`}
+                }`}
             />
             {/* Card */}
             <div
-              className={`rounded-[1.1rem] border px-5 py-4 ${
-                journeyStep.active
+              className={`rounded-[1.1rem] border px-5 py-4 ${journeyStep.active
                   ? "border-[#d9d4e7] bg-white shadow-[0_4px_16px_rgba(28,26,36,0.06)]"
                   : "border-transparent bg-[#faf9fd]"
-              }`}
+                }`}
             >
               <div className="flex items-center justify-between gap-3">
                 <div>
@@ -2889,23 +3123,51 @@ function TransformationResultsCard({ outcome, onNext }) {
   const target = outcome.targetWeight || current - projectedLoss;
 
   const effectiveLoss = current - target;
-  const milestones = [
-    {
-      label: "3 Months",
-      loss: Math.round(effectiveLoss * 0.25),
-      weight: current - Math.round(effectiveLoss * 0.25),
-    },
-    {
-      label: "6 Months",
-      loss: Math.round(effectiveLoss * 0.5),
-      weight: current - Math.round(effectiveLoss * 0.5),
-    },
-    {
-      label: "9 Months",
-      loss: Math.round(effectiveLoss * 0.75),
-      weight: current - Math.round(effectiveLoss * 0.75),
-    },
-    { label: "1 Year", loss: effectiveLoss, weight: target },
+  const bmiValue =
+    Number.isFinite(Number(outcome?.bmi)) && Number(outcome?.bmi) > 0
+      ? Number(outcome?.bmi)
+      : Number.isFinite(Number(outcome?.startingBmi)) && Number(outcome?.startingBmi) > 0
+        ? Number(outcome?.startingBmi)
+        : null;
+  const bmiLabel =
+    bmiValue == null
+      ? "—"
+      : bmiValue >= 40
+        ? "Class III obesity"
+        : bmiValue >= 35
+          ? "Class II obesity"
+          : bmiValue >= 30
+            ? "Class I obesity"
+            : bmiValue >= 25
+              ? "Overweight"
+              : "Healthy range";
+  const savings = Number(outcome?.estimatedSavingsYearly) || effectiveLoss * 500;
+  const milestoneRows = [
+    { month: "1 MO", factor: 0.28 },
+    { month: "3 MOS", factor: 0.66 },
+    { month: "6 MOS", factor: 0.9 },
+    { month: "9 MOS", factor: 0.97 },
+    { month: "12 MO", factor: 1 },
+  ].map((entry) => {
+    const loss = Math.max(1, Math.round(effectiveLoss * entry.factor));
+    const weight = Math.max(1, current - loss);
+    return { ...entry, loss, weight };
+  });
+  const milestoneTimeline = [
+    { month: "START", weight: current, loss: 0, factor: 0.08, caption: "DAY 0" },
+    ...milestoneRows.map((row, idx) => ({
+      ...row,
+      caption:
+        idx === 0
+          ? "INITIAL"
+          : idx === 1
+            ? "MOMENTUM"
+            : idx === 2
+              ? "DEEP SHIFT"
+              : idx === 3
+                ? "REFINING"
+                : "HEALTHY TARGET",
+    })),
   ];
 
   const cardVariants = {
@@ -2924,120 +3186,148 @@ function TransformationResultsCard({ outcome, onNext }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      {/* Eligible badge */}
-      <div className="flex items-center justify-center gap-2">
-        <span className="h-2 w-2 rounded-full bg-emerald-500" />
-        <span className="font-body text-[11px] font-bold tracking-[0.16em] text-emerald-600 uppercase">
-          Currently Eligible for Treatment
-        </span>
-      </div>
-
-      {/* Title */}
       <div className="text-center">
-        <h2 className="font-headline text-[1.75rem] font-extrabold leading-tight text-[#1c1a24] md:text-[2.1rem]">
-          Your Personal Transformation
+        <p className="font-body text-[11px] font-bold uppercase tracking-[0.14em] text-[#797587]">
+          Your results · Ready
+        </p>
+        <h2 className="mt-2 font-headline text-[1.75rem] font-extrabold leading-tight text-[#1c1a24] md:text-[2.1rem]">
+          In 12 months, you could weigh{" "}
+          <span className="text-[#5b3cdd]">{target} lbs</span>
         </h2>
-        <p className="mt-1 font-body text-sm text-[#797587]">
-          GLP-1 Plan&nbsp;•&nbsp;Projected Results
+        <p className="mt-3 mx-auto max-w-md font-body text-sm leading-relaxed text-[#484555] md:text-base">
+          Your personalized GLP-1 projection, based on real patient data.
         </p>
       </div>
 
-      {/* Current weight card */}
       <motion.div
         custom={0}
         variants={cardVariants}
         initial="hidden"
         animate="visible"
-        className="rounded-[1.25rem] border border-[#d9d4e7] bg-white px-5 py-4 shadow-[0_4px_16px_rgba(28,26,36,0.06)]"
+        className="grid gap-4 md:grid-cols-2"
       >
-        <p className="mb-1 font-body text-[10px] font-bold tracking-[0.16em] text-[#797587] uppercase">
-          Current Weight
-        </p>
-        <div className="flex items-center justify-between gap-3">
-          <p className="font-headline text-4xl font-extrabold text-[#1c1a24]">
-            {current}{" "}
-            <span className="text-xl font-semibold text-[#797587]">lbs</span>
-          </p>
-          <div className="flex items-center gap-1.5 rounded-full bg-emerald-500 px-3 py-1.5 text-sm font-bold text-white">
-            {effectiveLoss} lost
+        <div className="rounded-[1.2rem] border border-[#e7e9f8] bg-white p-4 shadow-[0_10px_20px_rgba(28,26,36,0.04)]">
+          <div className="mb-3 flex items-center justify-between">
+            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#0f57df]">
+              Weight Trajectory
+            </p>
+            <span className="rounded-full bg-[#eef1ff] px-3 py-1 text-xs font-semibold text-[#3349dd]">
+              Starting: {current} lbs
+            </span>
           </div>
+          <h3 className="font-headline text-[1.55rem] font-extrabold leading-tight text-[#0f172a] md:text-[1.7rem]">
+            Healthy Target: {target}lb
+          </h3>
+          <div className="mt-3 flex items-center gap-3">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full border-[6px] border-[#e5ebff] border-r-[#0f57df] border-t-[#0f57df] text-[#0f57df]">
+              <span className="font-headline text-[1.35rem] font-extrabold">
+                80%
+              </span>
+            </div>
+            <div>
+              <p className="text-[0.95rem] text-[#3e4458]">
+                You are{" "}
+                <span className="font-bold text-[#0f57df]">
+                  {Math.max(current - target, 0)} lbs
+                </span>{" "}
+                from your clinical optimum.
+              </p>
+              <p className="mt-0.5 text-[0.95rem] text-[#3e4458]">
+                Projected in 12 months.
+              </p>
+              <p className="mt-1 text-[0.92rem] font-semibold text-[#007a53]">
+                Clinical Grade Progress
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="rounded-[1.2rem] border border-[#e7e9f8] bg-white p-4 shadow-[0_10px_20px_rgba(28,26,36,0.04)]">
+          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#007a53]">
+            Value Summary
+          </p>
+          <h3 className="mt-1 font-headline text-[1.55rem] font-extrabold leading-tight text-[#0f172a] md:text-[1.7rem]">
+            Total Savings:{" "}
+            <span className="text-[#3349dd]">${Math.round(savings).toLocaleString()}</span>
+          </h3>
+          <div className="mt-3 rounded-[0.8rem] border border-[#bdf1dd] bg-[#ebfff7] px-3 py-2">
+            <p className="text-[0.98rem] font-bold text-[#007a53]">
+              Eligibility: Qualified
+            </p>
+            <p className="text-[0.86rem] text-[#246251]">
+              Your profile matches the criteria.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={onNext}
+            className="mt-3 w-full rounded-[0.8rem] bg-[#4f5df7] py-2.5 text-left font-headline text-[1.35rem] font-bold text-white"
+          >
+            <span className="flex items-center justify-between px-3">
+              Ready for Next Step
+              <span aria-hidden="true">→</span>
+            </span>
+          </button>
         </div>
       </motion.div>
 
-      {/* Progress bar with timeline markers */}
       <motion.div
         custom={1}
         variants={cardVariants}
         initial="hidden"
         animate="visible"
-        className="overflow-hidden rounded-[1rem] px-4 py-3 space-y-2"
-        style={{
-          background:
-            "linear-gradient(90deg,#5b3cdd 0%,#7c5fe6 40%,#06b6d4 100%)",
-        }}
+        className="rounded-[1.35rem] border border-[#e8ebf7] bg-white px-5 py-5 shadow-[0_10px_24px_rgba(28,26,36,0.05)] md:px-6"
       >
-        <div className="flex items-center justify-between">
-          <span className="bg-white text-[#1c1a24] text-[11px] font-bold px-2.5 py-1 rounded-lg">
-            {current} lbs
-          </span>
-          <span className="bg-white text-[#1c1a24] text-[11px] font-bold px-2.5 py-1 rounded-lg">
-            {target} lbs
+        <div className="mb-5 flex items-center justify-between">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#0f57df]">
+              Clinical Timeline
+            </p>
+            <h3 className="mt-1 font-headline text-[2.2rem] font-extrabold text-[#0f172a]">
+              Your Milestones
+            </h3>
+          </div>
+          <span className="text-xs font-semibold text-[#6f6a7f]">
+            Weight target vs baseline
           </span>
         </div>
-        {/* Animated progress fill */}
-        <div className="relative h-1.5 w-full rounded-full bg-white/20">
-          <motion.div
-            className="absolute left-0 top-0 h-full rounded-full bg-white/70"
-            initial={{ width: "0%" }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 1.4, ease: "easeInOut", delay: 0.4 }}
-          />
-        </div>
-        <div className="flex items-center justify-between px-0.5">
-          <span className="font-body text-[10px] font-bold text-white/80 uppercase">
-            Start
-          </span>
-          <span className="font-body text-[10px] font-bold text-white/80">
-            M3
-          </span>
-          <span className="font-body text-[10px] font-bold text-white/80">
-            M6
-          </span>
-          <span className="font-body text-[10px] font-bold text-white/80">
-            M9
-          </span>
-          <span className="font-body text-[10px] font-bold text-white/80 uppercase">
-            1 Year
-          </span>
+        <div className="grid grid-cols-3 gap-4 sm:grid-cols-6">
+          {milestoneTimeline.map((milestone, idx) => {
+            const barHeight = Math.max(45, Math.round(milestone.factor * 170));
+            const isTarget = idx === milestoneTimeline.length - 1;
+            return (
+              <div key={`${milestone.month}-${idx}`} className="text-center">
+                <div className="mb-2 rounded-[0.7rem] border border-[#edf0f8] bg-white px-2 py-1.5 shadow-[0_4px_10px_rgba(28,26,36,0.05)]">
+                  <p className="text-[1.05rem] font-extrabold text-[#0f57df]">
+                    {milestone.weight}lb
+                  </p>
+                  {idx > 0 ? (
+                    <p className="text-xs font-bold text-[#ef4444]">
+                      -{milestone.loss} LB
+                    </p>
+                  ) : (
+                    <p className="text-xs font-medium text-[#6f6a7f]">Baseline</p>
+                  )}
+                </div>
+                <div className="mx-auto flex h-[190px] w-14 items-end rounded-[0.8rem] bg-[#eef1ff]">
+                  <div
+                    className={`w-full rounded-[0.8rem] ${isTarget ? "bg-[#007a53]" : "bg-gradient-to-t from-[#6a4dff] to-[#3b66ff]"}`}
+                    style={{ height: `${barHeight}px` }}
+                  />
+                </div>
+                <p className="mt-2 text-[1.05rem] font-bold text-[#0f172a]">
+                  {milestone.month.toLowerCase()}
+                </p>
+                <p
+                  className={`text-xs font-semibold ${isTarget ? "text-[#007a53]" : "text-[#7b7690]"}`}
+                >
+                  {milestone.caption}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </motion.div>
-
-      {/* Milestone grid */}
-      <div className="grid grid-cols-4 gap-2">
-        {milestones.map((m, i) => (
-          <motion.div
-            key={m.label}
-            custom={i + 2}
-            variants={cardVariants}
-            initial="hidden"
-            animate="visible"
-            className="rounded-[1rem] border border-[#ebe6f3] bg-[#f6f2ff] px-2 py-3 text-center"
-          >
-            <p className="font-body text-[10px] font-semibold text-[#797587]">
-              {m.label}
-            </p>
-            <p className="mt-1 font-headline text-[1rem] font-extrabold leading-tight text-[#5b3cdd]">
-              {m.weight}{" "}
-              <span className="text-[0.65rem] font-semibold text-[#797587]">
-                lbs
-              </span>
-            </p>
-            <p className="font-body text-[10px] font-semibold text-[#484555]">
-              -{m.loss} lbs
-            </p>
-          </motion.div>
-        ))}
-      </div>
 
       {/* CTA */}
       <button
@@ -3045,7 +3335,7 @@ function TransformationResultsCard({ outcome, onNext }) {
         onClick={onNext}
         className="hs-solid-btn flex w-full items-center justify-center gap-2 rounded-full py-4 font-headline text-base font-bold text-white"
       >
-        Start My Transformation
+        Continue
         <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
           <path
             fillRule="evenodd"
@@ -3097,10 +3387,11 @@ function TransformationResultsCard({ outcome, onNext }) {
         </span>
       </div>
 
-      {/* Footnote */}
+      {/* Disclaimer — CONTENT.results.disclaimer */}
       <p className="text-center font-body text-[10px] leading-relaxed text-[#b0acbe]">
-        *Results based on avg. weight loss with GLP-1 max dose + calorie
-        protocol. Individual results vary.
+        Projections are estimates based on aggregate patient data. Eligibility
+        for GLP-1 medications is determined by a licensed physician. Not for
+        use during pregnancy. Not medical advice.
       </p>
     </motion.div>
   );
@@ -3146,8 +3437,8 @@ function Glp1FinalizingPlanStep({ answers, steps, onNext }) {
         <p className="flex items-center gap-3">
           <AppIcon name="check" className="text-[#9aa0b0]" />
           <span>
-            Primary Goal:{" "}
-            <span className="font-medium text-[#6d6879]">{primaryGoal}</span>
+          Primary goal:{" "}
+          <span className="font-medium text-[#6d6879]">{primaryGoal}</span>
           </span>
         </p>
         {outcome.currentWeight && outcome.targetWeight ? (
@@ -3235,6 +3526,7 @@ function StatCard({ stat, index }) {
 }
 
 function Glp1ProvenResultsStep({ onNext }) {
+  // CONFIG.proofStats from client reference funnel (4 cards)
   const stats = [
     {
       label: "Members see results",
@@ -3243,15 +3535,21 @@ function Glp1ProvenResultsStep({ onNext }) {
       icon: "leaderboard",
     },
     {
+      label: "Reach their target",
+      value: "96.8%",
+      copy: "of members on the 12-month plan reach their target weight.",
+      icon: "star",
+    },
+    {
       label: "Members stay",
-      value: "91%",
+      value: "93%",
       copy: "of members stay past 90 days.",
       icon: "group",
     },
     {
       label: "Risk-free",
       value: "$0",
-      copy: "If it doesn't work for you, you're covered by the HealSend warranty.",
+      copy: "If it doesn't work for you, you're covered by the Weight Loss Warranty.",
       icon: "paid",
     },
   ];
@@ -3260,15 +3558,18 @@ function Glp1ProvenResultsStep({ onNext }) {
     <div className="space-y-6">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="font-headline text-3xl font-extrabold leading-tight text-[#1c1a24] md:text-[3rem]">
+          <p className="font-body text-[11px] font-bold uppercase tracking-[0.14em] text-[#797587] md:text-xs">
+            Verified outcomes
+          </p>
+          <h1 className="mt-1 font-headline text-3xl font-extrabold leading-tight text-[#1c1a24] md:text-[3rem]">
             Proven results. Backed by data.
           </h1>
         </div>
-        <div className="hidden h-20 w-20 items-center justify-center rounded-full border-[10px] border-[#f4e05d] bg-[#fff59f] text-center text-[0.62rem] font-bold uppercase tracking-[0.12em] text-[#40360a] md:flex">
-          HealSend
-          <br />
-          Care+
-        </div>
+        <img
+          src="/images/weight-loss-warranty-badge.png"
+          alt="Weight Loss Warranty"
+          className="hidden h-20 w-20 rounded-full object-cover md:block"
+        />
       </div>
 
       <div className="space-y-4">
@@ -3283,68 +3584,256 @@ function Glp1ProvenResultsStep({ onNext }) {
 }
 
 function Glp1ContactCaptureStep({ step, value, onChange, onNext }) {
-  const v = value || { firstName: "", lastName: "", phone: "" };
+  const v = {
+    firstName: "",
+    lastName: "",
+    phone: "",
+    streetAddress: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    ...(typeof value === "object" && value !== null ? value : {}),
+  };
+  const stateOptions = [
+    "AL",
+    "AK",
+    "AZ",
+    "AR",
+    "CA",
+    "CO",
+    "CT",
+    "DC",
+    "DE",
+    "FL",
+    "GA",
+    "HI",
+    "IA",
+    "ID",
+    "IL",
+    "IN",
+    "KS",
+    "KY",
+    "LA",
+    "MA",
+    "MD",
+    "ME",
+    "MI",
+    "MN",
+    "MO",
+    "MS",
+    "MT",
+    "NC",
+    "ND",
+    "NE",
+    "NH",
+    "NJ",
+    "NM",
+    "NV",
+    "NY",
+    "OH",
+    "OK",
+    "OR",
+    "PA",
+    "RI",
+    "SC",
+    "SD",
+    "TN",
+    "TX",
+    "UT",
+    "VA",
+    "VT",
+    "WA",
+    "WI",
+    "WV",
+    "WY",
+  ];
+  const isValid =
+    v.firstName.trim() &&
+    v.lastName.trim() &&
+    v.streetAddress.trim() &&
+    v.city.trim() &&
+    v.state.trim() &&
+    v.zipCode.trim();
 
   return (
     <div className="space-y-6">
       <div>
-        <span className="inline-flex rounded-md bg-[#69ba86] px-3 py-1 text-xs font-semibold text-white">
-          GLP-1 Eligibility: Approved
-        </span>
-        <h1 className="mt-4 font-headline text-3xl font-extrabold leading-tight text-[#1c1a24] md:text-[3rem]">
-          {step.title}
+        <h1 className="font-headline text-[2.1rem] font-extrabold leading-tight text-[#0f172a] md:text-[2.5rem]">
+          Final details for your custom plan
         </h1>
-        <p className="mt-3 max-w-2xl text-base leading-relaxed text-[#5f5a6d] md:text-lg">
-          {step.subtitle}
+        <p className="mt-2 max-w-3xl text-[1.05rem] leading-relaxed text-[#4b5563]">
+          This information is used for prescription verification and secure
+          shipping of your medication.
         </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <input
-          type="text"
-          value={v.firstName}
-          onChange={(event) =>
-            onChange({
-              ...v,
-              firstName: event.target.value,
-            })
-          }
-          placeholder="First Name"
-          className={RECT_INPUT_CLASS}
-        />
-        <input
-          type="text"
-          value={v.lastName}
-          onChange={(event) =>
-            onChange({
-              ...v,
-              lastName: event.target.value,
-            })
-          }
-          placeholder="Last Name"
-          className={RECT_INPUT_CLASS}
-        />
+      <div className="rounded-[1.25rem] border border-[#e5eaf6] bg-white p-5 shadow-[0_10px_24px_rgba(28,26,36,0.04)] md:p-6">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="space-y-1.5">
+            <label className="text-[0.95rem] font-semibold text-[#0f172a]">
+              First Name
+            </label>
+            <input
+              type="text"
+              value={v.firstName}
+              onChange={(event) =>
+                onChange({
+                  ...v,
+                  firstName: event.target.value,
+                })
+              }
+              placeholder="e.g. Alexander"
+              className={RECT_INPUT_CLASS}
+            />
+          </div>
+          <div className="space-y-1.5">
+            <label className="text-[0.95rem] font-semibold text-[#0f172a]">
+              Last Name
+            </label>
+            <input
+              type="text"
+              value={v.lastName}
+              onChange={(event) =>
+                onChange({
+                  ...v,
+                  lastName: event.target.value,
+                })
+              }
+              placeholder="e.g. Stanton"
+              className={RECT_INPUT_CLASS}
+            />
+          </div>
+        </div>
+
+        <div className="mt-4 space-y-1.5">
+          <label className="text-[0.95rem] font-semibold text-[#0f172a]">
+            Phone Number{" "}
+            <span className="font-normal text-[#6b7280]">(optional)</span>
+          </label>
+          <input
+            type="tel"
+            value={v.phone}
+            onChange={(event) =>
+              onChange({
+                ...v,
+                phone: event.target.value,
+              })
+            }
+            placeholder="(555) 000-0000"
+            className={RECT_INPUT_CLASS}
+          />
+        </div>
+
+        <div className="mt-6 border-t border-[#edf1f8] pt-5">
+          <h2 className="font-headline text-[1.9rem] font-extrabold text-[#0f172a]">
+            Shipping Address
+          </h2>
+
+          <div className="mt-3 space-y-1.5">
+            <label className="text-[0.95rem] font-semibold text-[#0f172a]">
+              Street Address
+            </label>
+            <input
+              type="text"
+              value={v.streetAddress}
+              onChange={(event) =>
+                onChange({
+                  ...v,
+                  streetAddress: event.target.value,
+                })
+              }
+              placeholder="123 Wellness Way"
+              className={RECT_INPUT_CLASS}
+            />
+          </div>
+
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            <div className="space-y-1.5">
+              <label className="text-[0.95rem] font-semibold text-[#0f172a]">
+                City
+              </label>
+              <input
+                type="text"
+                value={v.city}
+                onChange={(event) =>
+                  onChange({
+                    ...v,
+                    city: event.target.value,
+                  })
+                }
+                placeholder="Palo Alto"
+                className={RECT_INPUT_CLASS}
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-[0.95rem] font-semibold text-[#0f172a]">
+                State
+              </label>
+              <div className="relative">
+                <select
+                  value={v.state}
+                  onChange={(event) =>
+                    onChange({
+                      ...v,
+                      state: event.target.value,
+                    })
+                  }
+                  className={RECT_SELECT_TRIGGER_CLASS}
+                  aria-label="State"
+                >
+                  <option value="" disabled>
+                    Select State
+                  </option>
+                  {stateOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                <span
+                  className="pointer-events-none absolute inset-y-0 right-0 flex w-11 items-center justify-center rounded-r-[1.05rem] border-l border-[#e8e4f2] bg-gradient-to-b from-[#fdfbff] to-[#f3efff] text-[#5b3cdd]"
+                  aria-hidden="true"
+                >
+                  <AppIcon name="arrow_downward" className="text-[18px]" />
+                </span>
+              </div>
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-[0.95rem] font-semibold text-[#0f172a]">
+                Zip Code
+              </label>
+              <input
+                type="text"
+                value={v.zipCode}
+                onChange={(event) =>
+                  onChange({
+                    ...v,
+                    zipCode: event.target.value,
+                  })
+                }
+                placeholder="94301"
+                className={RECT_INPUT_CLASS}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <p className="max-w-lg text-[0.9rem] leading-relaxed text-[#6b7280]">
+            By continuing, you agree to our terms of service and acknowledge our
+            privacy policy regarding medical data.
+          </p>
+          <button
+            type="button"
+            onClick={onNext}
+            disabled={!isValid}
+            className="hs-solid-btn inline-flex min-w-[230px] items-center justify-center gap-2 rounded-[0.85rem] px-6 py-3.5 font-headline text-[1.1rem] font-bold text-white disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            Continue to Plan Selection
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
       </div>
-
-      <input
-        type="tel"
-        value={v.phone}
-        onChange={(event) =>
-          onChange({
-            ...v,
-            phone: event.target.value,
-          })
-        }
-        placeholder="Phone number"
-        className={`${RECT_INPUT_CLASS} border-2 border-[#1c1a24]`}
-      />
-
-      <ContinueButton
-        onClick={onNext}
-        disabled={!v.firstName.trim() || !v.lastName.trim() || !v.phone.trim()}
-        label="View Options"
-        hideDefaultCaption
-      />
     </div>
   );
 }
@@ -3569,9 +4058,9 @@ export default function DynamicOnboardingClient({
   const totalVisibleSteps = visibleSteps.length || totalSteps || 1;
   const displayStep = activeStep
     ? Math.max(
-        1,
-        visibleSteps.findIndex((step) => step.id === activeStep.id) + 1,
-      )
+      1,
+      visibleSteps.findIndex((step) => step.id === activeStep.id) + 1,
+    )
     : 1;
   const accountStepIndex = steps.findIndex(
     (step) => step.type === "ACCOUNT_CREATE",
@@ -3694,9 +4183,9 @@ export default function DynamicOnboardingClient({
       const nextAnswers =
         val !== undefined && activeStep
           ? {
-              ...answers,
-              [activeStep.id]: val,
-            }
+            ...answers,
+            [activeStep.id]: val,
+          }
           : answers;
 
       if (activeStep) {
@@ -3748,6 +4237,11 @@ export default function DynamicOnboardingClient({
       totalSteps,
     ],
   );
+
+  const exitFunnelToHome = useCallback(() => {
+    clearOnboardingDraft(draftStorageKey);
+    router.push("/");
+  }, [draftStorageKey, router]);
 
   const goBack = () => {
     const hasReachedCheckout =
@@ -3906,15 +4400,27 @@ export default function DynamicOnboardingClient({
     );
   }
 
+  const isPlanSelectionStep = activeStep?.type === "PLAN_SELECTION";
+
   return (
     <OnboardingShell
       step={displayStep}
       totalSteps={totalVisibleSteps}
-      onBack={currentStep > 1 ? goBack : undefined}
+      onBack={
+        currentStep > 1 ? goBack : exitFunnelToHome
+      }
+      backAriaLabel={
+        currentStep > 1 ? "Go to previous step" : "Return to home"
+      }
       onForward={
         canJumpForward ? () => setCurrentStep(nextCompletedStep) : undefined
       }
       label={template.name}
+      mainMaxWidthClass={
+        isPlanSelectionStep
+          ? "max-w-6xl xl:max-w-7xl"
+          : "max-w-3xl"
+      }
     >
       <AnimatePresence mode="wait">
         <motion.div
@@ -3950,8 +4456,10 @@ function OnboardingShell({
   step,
   totalSteps,
   onBack,
+  backAriaLabel = "Go back",
   onForward,
   label,
+  mainMaxWidthClass = "max-w-3xl",
   children,
 }) {
   return (
@@ -3963,7 +4471,7 @@ function OnboardingShell({
               <button
                 onClick={onBack}
                 className="inline-flex h-11 w-11 items-center justify-center text-[#1c1a24] transition-opacity hover:opacity-80"
-                aria-label="Go back"
+                aria-label={backAriaLabel}
               >
                 <AppIcon name="arrow_back" className="text-[2rem]" />
               </button>
@@ -3987,7 +4495,9 @@ function OnboardingShell({
         </div>
       </header>
 
-      <main className="flex-grow mx-auto w-full max-w-3xl px-5 py-6 md:px-6 md:py-7">
+      <main
+        className={`flex-grow mx-auto w-full px-5 py-6 md:px-6 md:py-7 ${mainMaxWidthClass}`}
+      >
         <ProgressBar current={step} total={totalSteps} label={label} />
         {children}
       </main>
@@ -4102,6 +4612,15 @@ function StepRenderer({
       );
     case "GLP1_PROVEN_RESULTS":
       return <Glp1ProvenResultsStep onNext={() => onNext()} />;
+    case "GLP1_CONTACT_CAPTURE":
+      return (
+        <Glp1ContactCaptureStep
+          step={step}
+          value={value}
+          onChange={onChange}
+          onNext={() => onNext()}
+        />
+      );
     case "TEXT_ALERTS":
       return <TextAlertsStep step={step} onNext={(v) => onNext(v)} />;
     case "PLAN_SELECTION":

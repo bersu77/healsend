@@ -4,11 +4,13 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { buildPageMetadata } from "@/lib/seo";
 import { sanitizeOnboardingTemplate } from "@/lib/onboarding-template-utils";
+import { ensureGlp1BuiltinTemplateSynced } from "@/lib/builtin-onboarding/ensure-glp1-template";
+import { GLP1_ONBOARDING_SLUG } from "@/lib/builtin-onboarding/glp1-definition";
 
 export const dynamic = "force-dynamic";
 
 async function getOnboardingTemplate(slug) {
-  const template = await prisma.onboardingTemplate.findFirst({
+  let template = await prisma.onboardingTemplate.findFirst({
     where: {
       OR: [{ id: slug }, { slug }],
     },
@@ -18,6 +20,20 @@ async function getOnboardingTemplate(slug) {
       _count: { select: { submissions: true } },
     },
   });
+
+  if (!template && slug === GLP1_ONBOARDING_SLUG) {
+    await ensureGlp1BuiltinTemplateSynced(prisma);
+    template = await prisma.onboardingTemplate.findFirst({
+      where: {
+        OR: [{ id: slug }, { slug }],
+      },
+      include: {
+        steps: { orderBy: { order: "asc" } },
+        category: true,
+        _count: { select: { submissions: true } },
+      },
+    });
+  }
 
   return sanitizeOnboardingTemplate(template);
 }
