@@ -1233,7 +1233,7 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
 
             <div className="space-y-2.5 text-[11px] leading-relaxed text-gray-600">
               <p>
-                *Price shown applies to 500mg (2.5mL) 3-month plan paid upfront
+                *Price shown applies to Semaglutide 12-month plan paid upfront
                 or with buy now, pay later programs. Actual price will depend on
                 product and plan prescribed.
               </p>
