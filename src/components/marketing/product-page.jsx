@@ -76,12 +76,12 @@ const MEDIA_LOGOS = [
   // { name: "Reuters", image: "/sponsers/reuters.png", alt: "Reuters logo", sizeClass: "w-40 md:w-44", imageClass: "scale-[1.55]" },
 ];
 
-/** Overlapping member photos for social proof (Willpower stat + testimonials header). */
+/** HealSend consultation/marketing portraits — overlapping stack (Willpower stat + testimonials header). */
 const MEMBER_FACE_STACK_IMAGE_SRCS = [
-  "/images/wmremove-transformed.png",
-  "/images/secondafter.jpg",
-  "/images/thirdafter.jpeg",
-  "/images/lastafter.jpg",
+  "/images/4_Home_Doctors_Online_Consultation-Doctors_02.jpg",
+  "/images/4_Home_Doctors_Online_Consultation-Doctors_04.jpg",
+  "/images/4_Home_Doctors_Online_Consultation-Avatar.jpg",
+  "/images/4_Home_Doctors_Online_Consultation-Testimonials_01.jpg",
 ];
 
 function MediaLogosBanner() {
