@@ -1845,6 +1845,7 @@ const TRANSFORMATION_TESTIMONIALS_RAW = [
     weightLoss: 110,
     gender: "f",
     image: "/images/wmremove-transformed.png",
+    afterMonth: 9,
   },
   {
     name: "Emily T.",
@@ -1891,6 +1892,28 @@ const TRANSFORMATION_TESTIMONIALS_RAW = [
 const TRANSFORMATION_TESTIMONIALS = orderTransformationTestimonials(
   TRANSFORMATION_TESTIMONIALS_RAW,
 );
+
+/**
+ * After-photo month (after month 0). Optional per-member `afterMonth` overrides the default hash (4–7).
+ */
+function transformationAfterMonthNumber(person) {
+  const explicit = Number(person.afterMonth);
+  if (Number.isFinite(explicit) && explicit >= 0) return Math.round(explicit);
+  const base = [...String(person.name ?? "")].reduce(
+    (acc, ch) => acc + ch.charCodeAt(0),
+    0,
+  );
+  const wl = Number(person.weightLoss) || 0;
+  return ((base * 31 + wl) % 4) + 4; /* 4–7 */
+}
+
+function TransformationMonthLabel({ month }) {
+  return (
+    <span className="text-xs font-semibold tabular-nums text-gray-600 sm:text-sm">
+      Month {month}
+    </span>
+  );
+}
 
 function TestimonialsSection() {
   const [api, setApi] = useState(null);
@@ -1985,63 +2008,66 @@ function TestimonialsSection() {
         className="w-full"
       >
         <CarouselContent className="-ml-4 items-stretch md:-ml-6">
-          {carouselTransformations.map((person, index) => (
-            <CarouselItem
-              key={`${person.name}-${index}`}
-              className="basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[36%] xl:basis-[32%]"
-            >
-              <article className="flex h-full flex-col rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm md:p-5">
-                {person.image ? (
-                  <div className="relative aspect-[16/10] overflow-hidden rounded-[1rem] bg-gray-100">
-                    <img
-                      src={person.image}
-                      alt={`${person.name} result`}
-                      className="absolute inset-0 h-full w-full object-cover"
-                    />
-                    <span className="absolute left-2 top-2 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-gray-900 shadow-sm backdrop-blur-sm">
-                      Before
-                    </span>
-                    <span className="absolute right-2 top-2 rounded-full bg-[#00a86b] px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
-                      After
-                    </span>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="relative aspect-[3/4] overflow-hidden rounded-[1rem] bg-gray-100">
-                      <img
-                        src={person.before}
-                        alt={`${person.name} before`}
-                        className="absolute inset-0 h-full w-full object-cover"
-                      />
-                      <span className="absolute left-2 top-2 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-gray-900 shadow-sm backdrop-blur-sm">
-                        Before
-                      </span>
+          {carouselTransformations.map((person, index) => {
+            const afterMonth = transformationAfterMonthNumber(person);
+            return (
+              <CarouselItem
+                key={`${person.name}-${index}`}
+                className="basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[36%] xl:basis-[32%]"
+              >
+                <article className="flex h-full flex-col rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm md:p-5">
+                  {person.image ? (
+                    <div className="flex flex-col gap-3">
+                      <div className="relative aspect-[16/10] overflow-hidden rounded-[1rem] bg-gray-100">
+                        <img
+                          src={person.image}
+                          alt={`${person.name} result`}
+                          className="absolute inset-0 h-full w-full object-contain object-center"
+                        />
+                      </div>
+                      <div className="flex items-center justify-center gap-10 sm:gap-12">
+                        <TransformationMonthLabel month={0} />
+                        <TransformationMonthLabel month={afterMonth} />
+                      </div>
                     </div>
-                    <div className="relative aspect-[3/4] overflow-hidden rounded-[1rem] bg-gray-100">
-                      <img
-                        src={person.after}
-                        alt={`${person.name} after`}
-                        className="absolute inset-0 h-full w-full object-cover"
-                      />
-                      <span className="absolute left-2 top-2 rounded-full bg-[#00a86b] px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
-                        After
-                      </span>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="flex min-w-0 flex-col items-center gap-3">
+                        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[1rem] bg-gray-100">
+                          <img
+                            src={person.before}
+                            alt={`${person.name} before`}
+                            className="absolute inset-0 h-full w-full object-contain object-center"
+                          />
+                        </div>
+                        <TransformationMonthLabel month={0} />
+                      </div>
+                      <div className="flex min-w-0 flex-col items-center gap-3">
+                        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[1rem] bg-gray-100">
+                          <img
+                            src={person.after}
+                            alt={`${person.name} after`}
+                            className="absolute inset-0 h-full w-full object-contain object-center"
+                          />
+                        </div>
+                        <TransformationMonthLabel month={afterMonth} />
+                      </div>
                     </div>
+                  )}
+                  <p className="mt-5 text-center text-lg font-medium text-gray-700 md:text-xl">
+                    {person.name} lost{" "}
+                    <span className="font-semibold text-[#00a86b]">
+                      {person.weightLoss} lbs
+                    </span>
+                  </p>
+                  <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-[#4d5160] md:text-sm">
+                    <BadgeCheck className="h-4 w-4 text-[#00a86b]" />
+                    <span>Verified HealSend Members</span>
                   </div>
-                )}
-                <p className="mt-5 text-center text-lg font-medium text-gray-700 md:text-xl">
-                  {person.name} lost{" "}
-                  <span className="font-semibold text-[#00a86b]">
-                    {person.weightLoss} lbs
-                  </span>
-                </p>
-                <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-[#4d5160] md:text-sm">
-                  <BadgeCheck className="h-4 w-4 text-[#00a86b]" />
-                  <span>Verified HealSend Members</span>
-                </div>
-              </article>
-            </CarouselItem>
-          ))}
+                </article>
+              </CarouselItem>
+            );
+          })}
         </CarouselContent>
       </Carousel>
     </section>
