@@ -2022,7 +2022,7 @@ function TestimonialsSection() {
                         <img
                           src={person.image}
                           alt={`${person.name} result`}
-                          className="absolute inset-0 h-full w-full object-contain object-center"
+                          className="absolute inset-0 h-full w-full object-cover object-center"
                         />
                       </div>
                       <div className="flex items-center justify-center gap-10 sm:gap-12">
@@ -2037,7 +2037,7 @@ function TestimonialsSection() {
                           <img
                             src={person.before}
                             alt={`${person.name} before`}
-                            className="absolute inset-0 h-full w-full object-contain object-center"
+                            className="absolute inset-0 h-full w-full object-cover object-center"
                           />
                         </div>
                         <TransformationMonthLabel month={0} />
@@ -2047,7 +2047,7 @@ function TestimonialsSection() {
                           <img
                             src={person.after}
                             alt={`${person.name} after`}
-                            className="absolute inset-0 h-full w-full object-contain object-center"
+                            className="absolute inset-0 h-full w-full object-cover object-center"
                           />
                         </div>
                         <TransformationMonthLabel month={afterMonth} />
