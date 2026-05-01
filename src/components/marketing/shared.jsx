@@ -1437,9 +1437,9 @@ export function MarketingFooter() {
               <Image
                 src="/legitscript-verification-badge.png"
                 alt="LegitScript verification badge"
-                width={160}
-                height={56}
-                className="h-14 w-auto object-contain md:h-12"
+                width={400}
+                height={140}
+                className="h-24 w-auto object-contain sm:h-[6.75rem] md:h-28 lg:h-32"
               />
             </a>
           </div>
@@ -1718,34 +1718,39 @@ export function MinimalMarketingNavbar() {
         }`}
       />
 
-      <div className="relative px-4 py-3">
-        <div className="mx-auto max-w-[1340px] px-4 py-2 md:px-8">
-          <div className="flex items-center justify-between gap-3 rounded-[1.7rem] md:px-5">
-            <Link href={ROUTES.home} className="flex shrink-0 items-center">
+      <div className="relative px-3 py-3 sm:px-5 md:px-6">
+        <div className="mx-auto max-w-[1340px] py-2 md:px-8">
+          <div className="flex min-w-0 w-full max-w-full items-center justify-between gap-2 rounded-[1.7rem] sm:gap-3 md:px-5">
+            <Link
+              href={ROUTES.home}
+              className="flex min-w-0 shrink items-center overflow-hidden"
+            >
               <Image
                 src="/logo.png"
                 alt="HealSend"
                 width={164}
                 height={52}
                 priority
-                className="h-10 w-auto md:h-10"
+                className="h-8 w-auto max-w-[6.85rem] object-contain object-left sm:h-9 sm:max-w-[7.75rem] md:h-10 md:max-w-none"
               />
             </Link>
 
-            <div className="flex items-center gap-2">
+            <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
               {!isAuthenticated ? (
                 <Link
                   href="/login"
-                  className="hs-outline-btn inline-flex min-w-[92px] items-center justify-center rounded-full px-4 py-2.5 text-sm font-semibold transition-colors"
+                  className="hs-outline-btn inline-flex min-h-[2.5rem] items-center justify-center rounded-full px-3 py-2 text-xs font-semibold transition-colors sm:min-w-[92px] sm:px-4 sm:py-2.5 sm:text-sm"
                 >
                   <span>Login</span>
                 </Link>
               ) : null}
               <Link
                 href={primaryCta.href}
-                className="hs-solid-btn inline-flex min-w-[122px] items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all"
+                className="hs-solid-btn inline-flex min-h-[2.5rem] items-center justify-center gap-1 rounded-full px-3 py-2 text-xs font-semibold transition-all sm:gap-2 sm:px-5 sm:py-2.5 sm:text-sm md:min-w-[122px]"
               >
-                <span>{primaryCta.label}</span>
+                <span className="max-w-[10.5rem] truncate sm:max-w-none">
+                  {primaryCta.label}
+                </span>
               </Link>
             </div>
           </div>

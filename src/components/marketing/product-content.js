@@ -133,8 +133,7 @@ export const productContent = {
         description: "Balanced blood sugar = fewer crashes.",
       },
       {
-        iconImage: "/images/articles/blogs/3.svg",
-        iconTint: "purple",
+        iconImage: "/images/image.png",
         title: "Real Weight Loss",
         description: "Weekly progress you can see.",
       },

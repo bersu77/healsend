@@ -58,7 +58,7 @@ function FadeInSection({ children, delay = 0, y = 48, className }) {
     <motion.div
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 1, delay, ease: [0.16, 1, 0.3, 1] }}
       className={className}
     >
@@ -145,7 +145,10 @@ const SLIDER_BGS = [
 ];
 
 const buildSliderItem = (filename, index) => ({
-  src: `/images/slider/${encodeURI(filename)}`,
+  src:
+    typeof filename === "string" && filename.startsWith("/")
+      ? encodeURI(filename)
+      : `/images/slider/${encodeURI(filename)}`,
   alt: "HealSend member",
   heightClass: SLIDER_HEIGHTS[index % SLIDER_HEIGHTS.length],
   objectClass: "object-cover object-center",
@@ -153,6 +156,7 @@ const buildSliderItem = (filename, index) => ({
 });
 
 const WILLPOWER_LEFT_MARQUEE_ITEMS = [
+  "/images/add.png",
   "Copy of Gemini_Generated_Image_ctnnloctnnloctnn.png",
 
   "240_F_554794353_4b7WK5XeFkemnF1o7RXL2WFt4ITps4jX.jpg",
@@ -171,6 +175,7 @@ const WILLPOWER_LEFT_MARQUEE_ITEMS = [
 ].map(buildSliderItem);
 
 const WILLPOWER_RIGHT_MARQUEE_ITEMS = [
+  "/images/addslider.jpg",
   "Copy of pexels-daniel-dan-47825192-7558820.jpg",
   "Copy of pexels-farhadirani-34650790.jpg",
   "Copy of pexels-karola-g-4498158.jpg",
@@ -335,17 +340,20 @@ function WillpowerSection() {
               </li>
             </ul>
 
-            <div className="mt-5">
-              <Link
-                href="/funnels/glp-1"
-                className="hs-solid-btn inline-flex min-h-[3rem] items-center justify-center gap-2 rounded-full px-7 text-base font-semibold"
-              >
-                Get my personalized plan
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <p className="mt-2.5 text-sm font-semibold text-[#4d5160]">
-                Takes 90 seconds · 100% Private · Free
-              </p>
+            <div className="mt-5 w-full">
+              {/* Left-align the cluster (matches body copy edge); trust line stays centered under the pill */}
+              <div className="inline-flex w-full max-w-full flex-col items-center gap-2.5 sm:w-auto">
+                <Link
+                  href="/funnels/glp-1"
+                  className="hs-solid-btn inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold sm:w-auto"
+                >
+                  Get my personalized plan
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <p className="w-full text-center text-sm font-semibold text-gray-700">
+                  Takes 90 seconds · 100% private · free
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -697,6 +705,58 @@ function mergeIconItems(items, fallbackItems) {
   }));
 }
 
+/** Default slides when a Tirzepatide PDP has no CMS `benefitsCarousel` (avoid NAD+ fallback). */
+const TIRZEPATIDE_BENEFITS_CAROUSEL = [
+  {
+    text: "Combines GLP-1 & GIP hormones for superior fat loss results",
+    image: "/images/articles/wmremove-transformed-2%20(1).jpeg",
+    alt: "Dual-action Tirzepatide support",
+  },
+  {
+    text: "Supports stronger appetite control and fewer food cravings",
+    image: "/images/wmremove-transformed-4-1%20(1).jpeg",
+    alt: "Improved appetite control",
+  },
+  // {
+  //   text: "Built for consistent weekly progress with clinician-guided dosing",
+  //   image: "/images/4_Home_Doctors_Online_Consultation-Doctors_04.jpg",
+  //   alt: "Clinician-guided Tirzepatide plan",
+  // },
+  {
+    text: "Helps improve metabolic markers alongside sustainable weight loss",
+    image: "/images/wmremove-transformed-3-1%20(1).jpeg",
+    alt: "Metabolic health benefits",
+  },
+  {
+    text: "A strong option when you need next-level support beyond basics",
+    image: "/images/3.jpg",
+    alt: "Advanced Tirzepatide support",
+    ctaText: "Get Started",
+  },
+];
+
+function productLooksLikeTirzepatide(p) {
+  const blob = `${p?.slug ?? ""} ${p?.id ?? ""} ${p?.name ?? ""}`.toLowerCase();
+  return (
+    blob.includes("tirzepatide") ||
+    blob.includes("zepbound") ||
+    (blob.includes("glp") && blob.includes("inject"))
+  );
+}
+
+/** Show Tirzepatide / GLP-1-style benefits carousel (not NAD+ skin-care style PDPs). */
+function showWeightLossBenefitsCarousel(p, isHomepage) {
+  if (isHomepage) return true;
+  const blob = `${p?.slug ?? ""} ${p?.id ?? ""} ${p?.name ?? ""}`.toLowerCase();
+  if (productLooksLikeTirzepatide(p)) return true;
+  if (blob.includes("semaglutide") || blob.includes("wegovy") || blob.includes("ozempic"))
+    return true;
+  if (blob.includes("mounjaro")) return true;
+  if (blob.includes("weight") && blob.includes("loss")) return true;
+  if (blob.includes("glp")) return true;
+  return false;
+}
+
 function mergeProductContent(product) {
   if (!product) {
     return defaultProductContent;
@@ -755,9 +815,18 @@ function mergeProductContent(product) {
         defaultComprehensiveCare.ctaText ||
         `Start Your ${product.name || defaultProductContent.name} Journey`,
     },
-    benefitsCarouselTitle:
-      product.benefitsCarouselTitle ||
-      `What are the benefits of ${product.name || defaultProductContent.name}?`,
+    benefitsCarouselTitle: product.benefitsCarouselTitle ||
+      (productLooksLikeTirzepatide(product)
+        ? (product?.name || "").toLowerCase().includes("inject")
+          ? "What are the benefits of Tirzepatide Injections?"
+          : "What Are the Benefits of Tirzepatide?"
+        : `What are the benefits of ${product.name || defaultProductContent.name}?`),
+    benefitsCarousel:
+      product.benefitsCarousel?.length > 0
+        ? product.benefitsCarousel
+        : productLooksLikeTirzepatide(product)
+          ? TIRZEPATIDE_BENEFITS_CAROUSEL
+          : defaultProductContent.benefitsCarousel,
     relatedProducts: relatedProducts,
     testimonials:
       product.testimonials?.length > 0
@@ -782,20 +851,19 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
   const [activeTab, setActiveTab] = useState("benefits");
   const [openFaq, setOpenFaq] = useState(null);
   const [showPriceFootnote, setShowPriceFootnote] = useState(false);
-  const [showSafetyInfo, setShowSafetyInfo] = useState(false);
   const ctaHref = getPrimaryCtaHref(productData);
   const pricePresentation = getPricePresentation(productData);
   const relatedProducts = productData.relatedProducts || [];
 
   return (
-    <section className="bg-[#f9f9f9] px-4 py-16 md:px-8 md:py-20 lg:px-16">
-      <div className="mx-auto flex max-w-[1400px] flex-col justify-center gap-5 lg:flex-row lg:gap-6 xl:gap-8">
-        <div className="relative flex aspect-[4/5] w-full shrink-0 items-center justify-center overflow-hidden rounded-[1rem] bg-[#f9f9f9] lg:sticky lg:top-8 lg:w-[55%] lg:self-start xl:w-[740px]">
-          <h1 className="absolute left-[11%] top-8 z-20 whitespace-nowrap text-start text-3xl font-bold tracking-tight text-gray-900 md:top-9 md:text-5xl">
+    <section className="bg-[#f9f9f9] px-4 py-16 md:px-[3.25rem] md:py-20 lg:px-[3.25rem]">
+      <div className="mx-auto flex max-w-[1340px] flex-col justify-center gap-5 lg:flex-row lg:gap-6 xl:gap-8">
+        <div className="relative flex aspect-[4/5] w-full shrink-0 items-start justify-start overflow-hidden rounded-[1rem] bg-[#f9f9f9] lg:sticky lg:top-24 lg:w-[55%] lg:self-start xl:w-[740px]">
+          <h1 className="absolute left-4 right-4 top-8 z-20 whitespace-normal text-start text-3xl font-bold tracking-tight text-gray-900 md:left-8 md:right-auto md:top-9 md:max-w-[70%] md:text-5xl">
             Tirzepatide Injections
           </h1>
-          <div className="flex h-full w-full items-center justify-center py-4 md:py-8">
-            <div className="relative h-full w-full max-h-[78%] max-w-[78%]">
+          <div className="flex h-full w-full items-center justify-start px-4 pb-4 pt-20 md:px-8 md:py-8">
+            <div className="relative h-full w-full max-h-[78%] max-w-[92%] md:max-w-full">
               {productData.inStock ? (
                 <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-[1rem] bg-white/92 px-4 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-white/80 backdrop-blur-sm md:left-5 md:top-5 md:px-5 md:py-2 md:text-base">
                   <div className="relative h-2.5 w-2.5 md:h-3 md:w-3">
@@ -880,53 +948,26 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
                 </div>
               ) : null}
 
-              <Link
-                href={ctaHref}
-                className="hs-solid-btn block w-full rounded-[1rem] py-3.5 text-center text-base font-semibold transition-colors md:py-4"
-              >
-                See if you qualify
-              </Link>
-              <p className="mt-3 text-center text-xs text-gray-500 md:text-sm">
+              <div className="w-full">
+                <div className="inline-flex w-full max-w-full flex-col items-center gap-2.5 sm:w-auto">
+                  <Link
+                    href={ctaHref}
+                    className="hs-solid-btn flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] transition-colors"
+                  >
+                    Get my personalized plan
+                    <ArrowRight className="h-4 w-4 shrink-0" />
+                  </Link>
+                  <p className="w-full text-center text-sm font-semibold text-gray-700">
+                    Takes 90 seconds · 100% private · free
+                  </p>
+                </div>
+              </div>
+              <p className="mt-2 text-center text-xs text-gray-500 md:text-sm">
                 {pricePresentation.savings
                   ? "Discount auto-applied at checkout"
                   : "Treatment fit still depends on clinician review"}
               </p>
 
-              <button
-                type="button"
-                onClick={() => setShowSafetyInfo((v) => !v)}
-                aria-expanded={showSafetyInfo}
-                className="mt-4 flex w-full items-center justify-between rounded-[0.75rem] border border-gray-200 bg-gray-50 px-3 py-2.5 text-left text-xs font-medium text-gray-700 transition-colors hover:bg-gray-100 md:text-sm"
-              >
-                <span className="flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4 text-gray-500" />
-                  Important safety information
-                </span>
-                <span className="text-gray-400">
-                  {showSafetyInfo ? "−" : "+"}
-                </span>
-              </button>
-              {showSafetyInfo ? (
-                <div className="mt-2 space-y-2 rounded-[0.75rem] bg-gray-50 p-3 text-xs leading-5 text-gray-600 md:text-sm">
-                  <p>
-                    GLP-1 medications can cause side effects including nausea,
-                    vomiting, diarrhea, constipation, and abdominal pain. Less
-                    common but serious risks include pancreatitis, gallbladder
-                    issues, and kidney problems.
-                  </p>
-                  <p>
-                    Do not use if you or your family have a history of medullary
-                    thyroid cancer or MEN 2. Tell your clinician about all
-                    medications you take and any history of digestive,
-                    pancreatic, kidney, or thyroid conditions. Not for use
-                    during pregnancy.
-                  </p>
-                  <p>
-                    Your HealSend clinician reviews your full history before
-                    prescribing.
-                  </p>
-                </div>
-              ) : null}
             </div>
           </div>
 
@@ -1183,24 +1224,17 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
               </span>
             </div>
 
-            <div className="rounded-[1rem] bg-gray-100 p-4 text-xs leading-relaxed text-gray-500">
+            <div className="rounded-[1rem] border border-[#f08a7e] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
               The statements on this page have not been evaluated by the Food
               and Drug Administration. This product is not intended to diagnose,
               treat, cure or prevent any disease.
             </div>
 
-            <div className="space-y-2.5 text-[11px] leading-relaxed text-gray-400">
+            <div className="space-y-2.5 text-[11px] leading-relaxed text-gray-600">
               <p>
                 *Price shown applies to 500mg (2.5mL) 3-month plan paid upfront
                 or with buy now, pay later programs. Actual price will depend on
                 product and plan prescribed.
-              </p>
-              <p>
-                **The FDA does not review or approve any compounded medications
-                for safety or effectiveness.
-              </p>
-              <p className="mt-5 text-center text-xs underline">
-                Important safety information
               </p>
             </div>
           </div>
@@ -1565,19 +1599,23 @@ function MedicalWeightLossSection({ productData }) {
             </p>
           </div>
 
-          <div className="flex flex-row items-start gap-0 self-start md:ml-auto md:gap-0 md:pl-8">
-            <img
-              src="/images/articles/googlereview.png"
-              alt="Google reviews rating"
-              loading="lazy"
-              className="h-20 w-[360px] object-contain md:h-28 md:w-[500px]"
-            />
-            <img
-              src="/images/articles/2k%20%2B%20Memebers%20(2).png"
-              alt="HealSend 2K members"
-              loading="lazy"
-              className="h-20 w-[360px] object-contain md:h-28 md:w-[500px]"
-            />
+          <div className="flex w-full max-w-md flex-row justify-end gap-2  sm:max-w-xl md:ml-auto md:max-w-none md:gap-3 md:pl-8 lg:gap-4">
+            <div className="flex h-24 flex-1 basis-1/2 items-center justify-center md:min-h-28 md:basis-auto md:flex-initial md:w-[240px] lg:w-[280px]">
+              <img
+                src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`}
+                alt="Google reviews rating"
+                loading="lazy"
+                className="h-24 max-h-full w-full object-contain object-center md:h-28"
+              />
+            </div>
+            <div className="flex h-24 flex-1 basis-1/2 items-center justify-center  md:min-h-28 md:basis-auto md:flex-initial md:w-[240px] lg:w-[280px]">
+              <img
+                src="/images/updatehealsend.png"
+                alt="HealSend 2K members"
+                loading="lazy"
+                className="h-24 max-h-full w-full object-contain object-center md:h-28"
+              />
+            </div>
           </div>
         </div>
 
@@ -1659,13 +1697,21 @@ function PricingSection({ productData }) {
               </div>
             </div>
 
-            <Link
-              href={ctaHref}
-              className="hs-solid-btn block w-full rounded-[1rem] py-3.5 text-center text-base font-semibold transition-colors md:py-4"
-            >
-              See if you qualify
-            </Link>
-            <p className="mt-3 text-center text-xs text-gray-500 md:text-sm">
+            <div className="w-full">
+              <div className="inline-flex w-full max-w-full flex-col items-center gap-2.5 sm:w-auto">
+                <Link
+                  href={ctaHref}
+                  className="hs-solid-btn flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] transition-colors"
+                >
+                  Get my personalized plan
+                  <ArrowRight className="h-4 w-4 shrink-0" />
+                </Link>
+                <p className="w-full text-center text-sm font-semibold text-gray-700">
+                  Takes 90 seconds · 100% private · free
+                </p>
+              </div>
+            </div>
+            <p className="mt-2 text-center text-xs text-gray-500 md:text-sm">
               {pricePresentation.savings
                 ? "Discount auto-applied at checkout"
                 : "Treatment fit still depends on clinician review"}
@@ -1765,32 +1811,86 @@ function SupportFeatures({ productData }) {
   );
 }
 
-const TRANSFORMATION_TESTIMONIALS = [
+/** Order: women first, then interleave so two men are never adjacent. `gender` stripped after sort. */
+function orderTransformationTestimonials(rows) {
+  const females = [];
+  const males = [];
+  for (const row of rows) {
+    const { gender, ...rest } = row;
+    if (gender === "m") males.push(rest);
+    else females.push(rest);
+  }
+  const lead = Math.max(0, females.length - males.length);
+  const ordered = [];
+  let fi = 0;
+  for (let i = 0; i < lead && fi < females.length; i++) ordered.push(females[fi++]);
+  let mi = 0;
+  while (mi < males.length || fi < females.length) {
+    if (mi < males.length) ordered.push(males[mi++]);
+    if (fi < females.length) ordered.push(females[fi++]);
+  }
+  return ordered;
+}
+
+const TRANSFORMATION_TESTIMONIALS_RAW = [
   {
-    name: "Kala",
-    weightLoss: 40,
-    before: "/kala_before.webp",
-    after: "/kala_after.webp",
+    name: "Vineeth R.",
+    weightLoss: 20,
+    gender: "m",
+    before: "/images/firstbefore.png",
+    after: "/images/firstafter.png",
   },
   {
     name: "Ashley",
     weightLoss: 110,
-    image: "/images/1000_F_951796023_kqPn3JVqIGZV6HWmQedRhxIz7FPtqtn6.jpg",
-  },
-
-  {
-    name: "Noelle",
-    weightLoss: 32,
-    before: "/noelle_before.webp",
-    after: "/noelle_after.webp",
+    gender: "f",
+    image: "/images/wmremove-transformed.png",
   },
   {
-    name: "Chris",
-    weightLoss: 42,
-    before: "/christopher_before.webp",
-    after: "/christopher_after.webp",
+    name: "Emily T.",
+    weightLoss: 26,
+    gender: "f",
+    before: "/images/secondbefore.jpg",
+    after: "/images/secondafter.jpg",
+  },
+  {
+    name: "Sophia M.",
+    weightLoss: 22,
+    gender: "f",
+    before: "/images/thirdbefore.jpeg",
+    after: "/images/thirdafter.jpeg",
+  },
+  {
+    name: "Olivia J.",
+    weightLoss: 25,
+    gender: "f",
+    image: "/images/fourth.jpeg",
+  },
+  {
+    name: "Megan L.",
+    weightLoss: 24,
+    gender: "f",
+    image: "/images/sixth.jpg",
+  },
+  {
+    name: "Daniel C.",
+    weightLoss: 31,
+    gender: "m",
+    before: "/images/sevenbefore.jpg",
+    after: "/images/7.jpg",
+  },
+  {
+    name: "Rachel B.",
+    weightLoss: 28,
+    gender: "f",
+    before: "/images/lastbefore.jpg",
+    after: "/images/lastafter.jpg",
   },
 ];
+
+const TRANSFORMATION_TESTIMONIALS = orderTransformationTestimonials(
+  TRANSFORMATION_TESTIMONIALS_RAW,
+);
 
 function TestimonialsSection() {
   const [api, setApi] = useState(null);
@@ -1811,10 +1911,10 @@ function TestimonialsSection() {
               </h2>
               <div className="flex -space-x-2">
                 {[
-                  "/photoroom-6.png",
-                  "/photoroom-4.png",
-                  "/photoroom-3.png",
-                  "/photoroom-2.png",
+                  "/images/wmremove-transformed.png",
+                  "/images/secondafter.jpg",
+                  "/images/thirdafter.jpeg",
+                  "/images/lastafter.jpg",
                 ].map((src) => (
                   <span
                     key={src}
@@ -1965,7 +2065,7 @@ function MemberResultsStatsSection() {
     },
     {
       label: "Success rate",
-      value: "94.6%",
+      value: "96.8%",
       description: "of Remedy members lose 5% or more of their body weight on treatment.",
       icon: BadgeCheck,
     },
@@ -1998,10 +2098,10 @@ function MemberResultsStatsSection() {
               </h3>
               <p className="mt-4 text-sm leading-relaxed text-gray-700">
                 <span className="font-semibold">
-                  8 out of 10 members lose 14+ lbs in 90 days*
+                  8 out of 10 members lose 20+ lbs in 90 days*
                 </span>
                 <br />
-                Join 250,000+ members nationwide achieving their weight loss
+                Join 2,000+ members nationwide achieving their weight loss
                 goals.
               </p>
             </div>
@@ -2021,7 +2121,7 @@ function MemberResultsStatsSection() {
                         </p>
                         <Icon className="h-4 w-4 text-gray-400" strokeWidth={1.9} />
                       </div>
-                      <p className="text-4xl font-bold tracking-tight text-gray-950 md:text-[3.35rem]">
+                      <p className="text-2xl font-bold tracking-tight text-gray-950 md:text-[2rem]">
                         {item.value}
                       </p>
                       <p className="mt-3 text-sm leading-relaxed text-gray-600">
@@ -2031,16 +2131,6 @@ function MemberResultsStatsSection() {
                   );
                 })}
               </div>
-              <p className="mt-5 text-[10px] leading-relaxed text-gray-600 md:text-[11px]">
-                Based on self-reported data from approximately 300,000 Remedy Meds
-                members on a personalized treatment plan, including compounded GLP-1
-                medications and consultations with medical professionals, compared to
-                outcomes reported for GLP-1 medications alone in Rodrigues F., et al.
-                (2024). "Semaglutide vs Tirzepatide for Weight Loss in Adults with
-                Overweight or Obesity." JAMA Internal Medicine. Members reported
-                their weight on their initial medical intake questionnaire and every
-                3-4 weeks thereafter.
-              </p>
             </div>
           </div>
         </div>
@@ -2264,9 +2354,10 @@ function BMICalculatorPreviewSection() {
           <article className="overflow-hidden rounded-[1rem] border border-[#edf1f7] bg-white shadow-[0_18px_34px_rgba(20,24,34,0.08)]">
             <div className="relative h-full min-h-[720px]">
               <Image
-                src="/photoroom-4.png"
+                src="/images/wmremove-transformed%20(1).jpeg"
                 alt="Happy HealSend member"
                 fill
+                unoptimized
                 sizes="(max-width: 1280px) 100vw, 32vw"
                 className="object-cover object-center"
               />
@@ -2290,8 +2381,8 @@ function BMICalculatorPreviewSection() {
                   </div>
                 </div>
                 <p className="mx-auto mt-4 max-w-[22rem] text-center text-[0.98rem] leading-7 text-[#4e5a73]">
-                  Over <span className="font-semibold text-[#141c2b]">250,000</span>{" "}
-                  members treated. <span className="font-semibold text-[#141c2b]">94.6%</span>{" "}
+                  Over <span className="font-semibold text-[#141c2b]">2,000</span>{" "}
+                  members treated. <span className="font-semibold text-[#141c2b]">96.8%</span>{" "}
                   success backed by real HealSend member progress nationwide.
                 </p>
               </div>
@@ -2316,7 +2407,7 @@ function BMICalculatorPreviewSection() {
               </div>
 
               <p className="mx-auto mt-7 max-w-[19rem] text-[0.98rem] leading-7 text-[#4f5c76]">
-                Based on <span className="font-semibold text-[#121726]">250,000+</span>{" "}
+                Based on <span className="font-semibold text-[#121726]">2000+</span>{" "}
                 average HealSend member results in guided weight-loss care.
               </p>
             </div>
@@ -2512,7 +2603,7 @@ function ResearchSplit({ productData }) {
           <img
             src={researchImage}
             alt="Woman smiling outdoors"
-            className="h-full w-full object-contain"
+            className="h-full w-full object-contain object-bottom"
           />
         </div>
         <div className="order-1 max-w-xl lg:order-2">
@@ -2532,7 +2623,7 @@ function ResearchSplit({ productData }) {
           </div>
           <Link
             href={ctaHref}
-            className="hs-solid-btn rounded-full px-8 py-3.5 text-base font-medium transition-colors"
+            className="hs-solid-btn hs-no-shimmer rounded-full px-8 py-3.5 text-base font-medium transition-colors"
           >
             See if you qualify
           </Link>
@@ -2815,9 +2906,9 @@ function ComprehensiveCare({ productData }) {
                 <div className="flex items-center justify-center gap-1.5 bg-[#7b75f0] py-2 text-xs font-bold text-white">
                   Included <PlusCircle className="h-3.5 w-3.5" />
                 </div>
-                <div className="flex flex-1 items-center gap-4 p-6 lg:gap-6 lg:p-8">
+                <div className="flex flex-1 flex-col gap-5 p-6 lg:flex-row lg:items-start lg:gap-6 lg:p-8">
                   <div className="min-w-0 flex-1">
-                    <h3 className="mb-4 whitespace-pre-line text-xl font-bold leading-tight text-[#7b75f0]">
+                    <h3 className="mb-4 text-xl font-bold leading-tight text-[#7b75f0] md:text-3xl">
                       {feature.title}
                     </h3>
                     <ul className="space-y-3">
@@ -2831,7 +2922,7 @@ function ComprehensiveCare({ productData }) {
                       ))}
                     </ul>
                   </div>
-                  <div className="flex h-32 w-32 shrink-0 items-center justify-center sm:h-36 sm:w-36 lg:h-40 lg:w-40">
+                  <div className="mx-auto mt-1 flex h-24 w-24 shrink-0 items-center justify-center sm:h-28 sm:w-28 lg:mx-0 lg:mt-0 lg:h-32 lg:w-32">
                     <img
                       src={feature.image}
                       alt={feature.title}
@@ -3027,6 +3118,42 @@ const SAME_MED_HEALSEND_POINTS = [
   "100% online. Free, discreet shipping.",
 ];
 
+/** Trust strip icons (client assets in /public/images). Mixed “clinical” + brand-style marks per line. */
+const SAME_MED_MARQUEE_ITEMS = [
+  {
+    text: "FSA & HSA eligible",
+    icon: `/images/${encodeURIComponent("icon_1-removebg-preview (1) (1).png")}`,
+  },
+  {
+    text: "Personalized weight-loss plans",
+    icon: `/images/${encodeURIComponent("note-removebg-preview (1) (1).png")}`,
+  },
+  {
+    text: "No memberships or hidden fees",
+    icon: `/images/${encodeURIComponent("block-removebg-preview (1) (1).png")}`,
+  },
+  {
+    text: "Free & fast shipping",
+    icon: `/images/${encodeURIComponent("Fast-Shipping-1 (1).png")}`,
+  },
+  {
+    text: "US-only certified pharmacies",
+    icon: `/images/${encodeURIComponent("Access-to-medical-1 (1) (1).webp")}`,
+  },
+  {
+    text: "Always-on clinician support",
+    icon: `/images/${encodeURIComponent("medi_im-removebg-preview-1 (2).png")}`,
+  },
+  {
+    text: "1,200,000+ prescriptions written",
+    icon: `/images/${encodeURIComponent("note-removebg-preview (1) (1).png")}`,
+  },
+  {
+    text: "2000+ members",
+    icon: `/images/${encodeURIComponent("icon_1-removebg-preview (1) (1).png")}`,
+  },
+];
+
 const SAME_MED_OTHERS_POINTS = [
   "Generic, fixed plans you have to adapt to",
   "No education, no nutrition support, no community",
@@ -3036,10 +3163,50 @@ const SAME_MED_OTHERS_POINTS = [
   "Pharmacy lines, long waits, no guarantees",
 ];
 
+function SameMedicationMarquee() {
+  const loopItems = [...SAME_MED_MARQUEE_ITEMS, ...SAME_MED_MARQUEE_ITEMS];
+
+  return (
+    <div className="relative left-1/2 w-screen -translate-x-1/2 border-y border-[#e2d79a] bg-[#f9eb94] px-3 py-2 shadow-[0_10px_24px_rgba(186,155,33,0.08)]">
+      <div className="overflow-hidden">
+        <motion.div
+          className="flex min-w-max items-center gap-[18px]"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{
+            duration: 26,
+            ease: "linear",
+            repeat: Infinity,
+            repeatType: "loop",
+          }}
+        >
+          {loopItems.map((item, index) => (
+            <div
+              key={`${item.text}-${index}`}
+              className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[0.76rem] font-semibold leading-none text-[#5b4d12] md:text-[0.82rem]"
+            >
+              <span className="relative inline-flex h-[1em] w-[1em] shrink-0 items-center justify-center">
+                <Image
+                  src={item.icon}
+                  alt=""
+                  fill
+                  sizes="16px"
+                  className="object-contain"
+                />
+              </span>
+              <span>{item.text}</span>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
 function SameMedicationSection() {
   return (
     <section className="bg-slate-100 py-12 md:py-20">
-      <div className="container mx-auto max-w-screen-md space-y-10 px-4 md:space-y-14 md:px-8">
+      <SameMedicationMarquee />
+      <div className="container mx-auto mt-8 max-w-screen-md space-y-10 px-4 md:mt-10 md:space-y-14 md:px-8">
         <div className="space-y-2 text-center">
           <h2 className="font-title text-4xl font-bold tracking-tight text-gray-950 md:text-6xl">
             Same medication.
@@ -3200,10 +3367,278 @@ function SupportAvailabilitySection() {
   );
 }
 
-function GLP1BenefitsSection({ productData }) {
+/**
+ * Tirzepatide benefits carousel (static slide set), same layout as main carousel but separate from CMS data.
+ */
+function RestoredTirzepatideBenefitsCarouselSection({
+  productData,
+  isHomepage = false,
+}) {
   const [api, setApi] = useState(null);
   const ctaHref = getPrimaryCtaHref(productData);
 
+  if (!showWeightLossBenefitsCarousel(productData, isHomepage)) {
+    return null;
+  }
+
+  const benefits = (() => {
+    const items = TIRZEPATIDE_BENEFITS_CAROUSEL;
+    const valid = items.filter(
+      (item) =>
+        item.image && String(item.text || item.title || "").trim(),
+    );
+    return valid.map((item, index) => {
+      const isLast = index === valid.length - 1;
+      const title = item.text || item.title || "";
+      const rawCta =
+        item.ctaText != null && item.ctaText !== "" ? String(item.ctaText) : "";
+      return {
+        title,
+        image: item.image,
+        alt: item.alt || item.title || item.text || "Benefit card image",
+        ctaText: isLast ? (rawCta.trim() || "Get Started") : rawCta.trim(),
+        ctaHref: item.ctaHref || ctaHref,
+      };
+    });
+  })();
+
+  return (
+    <section
+      id="tirzepatide-benefits-classic"
+      aria-labelledby="tirzepatide-benefits-classic-heading"
+      className="scroll-mt-24 bg-white py-14 md:py-20"
+    >
+      <div className="mx-auto max-w-[1340px] px-4 md:px-8">
+        <h2
+          id="tirzepatide-benefits-classic-heading"
+          className="mb-10 text-center font-title text-3xl font-bold tracking-tight text-[#101726] md:mb-12 md:text-4xl lg:text-5xl"
+        >
+          What Are the Benefits of Tirzepatide?
+        </h2>
+
+        {benefits.length === 0 ? (
+          <p className="text-center text-sm text-gray-600">
+            Benefit carousel is unavailable.
+          </p>
+        ) : (
+          <>
+            <Carousel
+                setApi={setApi}
+                opts={{
+                  align: "start",
+                  containScroll: "trimSnaps",
+                  loop: benefits.length > 1,
+                }}
+                className="w-full"
+              >
+                <CarouselContent className="-ml-4 items-stretch md:-ml-6">
+                  {benefits.map((item, index) => {
+                    const isFinal = index === benefits.length - 1;
+                    const label =
+                      item.ctaText?.trim() ||
+                      (isFinal ? "Get Started" : "");
+                    const showCta = Boolean(label);
+                    return (
+                      <CarouselItem
+                        key={`restored-${item.title}-${index}`}
+                        className="basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[33.333%]"
+                      >
+                        <article className="relative h-[420px] overflow-hidden rounded-[1.25rem] shadow-md ring-1 ring-black/5 md:h-[460px]">
+                          <img
+                            src={item.image}
+                            alt={item.alt}
+                            className="absolute inset-0 h-full w-full object-cover object-center"
+                          />
+                          <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_60%,rgba(0,0,0,0.85)_100%)] p-6 md:p-7">
+                            <p className="text-[1.05rem] font-semibold leading-tight text-white md:text-[1.15rem]">
+                              {item.title}
+                            </p>
+                            {showCta ? (
+                              <Link
+                                href={item.ctaHref || ctaHref}
+                                className="hs-solid-btn mt-4 inline-flex min-h-[3.5rem] w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-base font-semibold shadow-[0_10px_28px_rgba(109,111,252,0.4)] md:min-h-[3.75rem] md:px-8 md:py-4 md:text-[1.05rem]"
+                              >
+                                {label}
+                              </Link>
+                            ) : null}
+                          </div>
+                        </article>
+                      </CarouselItem>
+                    );
+                  })}
+                </CarouselContent>
+              </Carousel>
+
+              <div className="mt-6 flex items-center gap-4">
+                <div className="h-px flex-1 bg-gray-200" />
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => api?.scrollPrev()}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50"
+                    aria-label="Previous benefit"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => api?.scrollNext()}
+                    className="flex h-11 w-11 items-center justify-center rounded-full bg-[#6d6ffc] text-white shadow-sm transition-colors hover:bg-[#5d62f3]"
+                    aria-label="Next benefit"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </div>
+              </div>
+          </>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/** PDP product carousel (“What are the benefits of Tirzepatide Injections?”) — merged CMS or `TIRZEPATIDE_BENEFITS_CAROUSEL` fallback via `mergeProductContent`. */
+function TirzepatideProductBenefitsCarouselSection({
+  productData,
+  isHomepage = false,
+}) {
+  const [api, setApi] = useState(null);
+  const ctaHref = getPrimaryCtaHref(productData);
+
+  const mapToSlides = (items) => {
+    const valid = items.filter(
+      (item) =>
+        item.image && String(item.text || item.title || "").trim(),
+    );
+    return valid.map((item, index) => {
+      const isLast = index === valid.length - 1;
+      const title = item.text || item.title || "";
+      const rawCta =
+        item.ctaText != null && item.ctaText !== "" ? String(item.ctaText) : "";
+      return {
+        title,
+        image: item.image,
+        alt: item.alt || item.title || item.text || "Benefit card image",
+        ctaText: isLast ? (rawCta.trim() || "Get Started") : rawCta.trim(),
+        ctaHref: item.ctaHref || ctaHref,
+      };
+    });
+  };
+
+  if (!showWeightLossBenefitsCarousel(productData, isHomepage)) {
+    return null;
+  }
+
+  const benefits = mapToSlides(productData.benefitsCarousel || []);
+
+  return (
+    <section
+      id="tirzepatide-benefits"
+      aria-labelledby="tirzepatide-benefits-heading"
+      className="scroll-mt-24 bg-white py-14 md:py-20"
+    >
+      <div className="mx-auto max-w-[1340px] px-4 md:px-8">
+        <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.22em] text-[#64748b]">
+          Tirzepatide benefits
+        </p>
+        <h2
+          id="tirzepatide-benefits-heading"
+          className="mb-10 text-center font-title text-3xl font-bold tracking-tight text-[#101726] md:mb-12 md:text-4xl lg:text-5xl"
+        >
+          {productData.benefitsCarouselTitle ||
+            "What Are the Benefits of Tirzepatide?"}
+        </h2>
+
+        {benefits.length === 0 ? (
+          <p className="text-center text-sm text-gray-600">
+            Benefit carousel is unavailable.
+          </p>
+        ) : (
+          <>
+            <Carousel
+              setApi={setApi}
+              opts={{
+                align: "start",
+                containScroll: "trimSnaps",
+                loop: benefits.length > 1,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4 items-stretch md:-ml-6">
+                {benefits.map((item, index) => {
+                  const isFinal = index === benefits.length - 1;
+                  const label =
+                    item.ctaText?.trim() ||
+                    (isFinal ? "Get Started" : "");
+                  const showCta = Boolean(label);
+                  return (
+                    <CarouselItem
+                      key={`${item.title}-${index}`}
+                      className="basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[33.333%]"
+                    >
+                      <article className="relative h-[420px] overflow-hidden rounded-[1.25rem] shadow-md ring-1 ring-black/5 md:h-[460px]">
+                        <img
+                          src={item.image}
+                          alt={item.alt}
+                          className="absolute inset-0 h-full w-full object-cover object-center"
+                        />
+                        <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_60%,rgba(0,0,0,0.85)_100%)] p-6 md:p-7">
+                          <p className="text-[1.05rem] font-semibold leading-tight text-white md:text-[1.15rem]">
+                            {item.title}
+                          </p>
+                          {showCta ? (
+                            <Link
+                              href={item.ctaHref || ctaHref}
+                              className="hs-solid-btn mt-4 inline-flex min-h-[3.5rem] w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-base font-semibold shadow-[0_10px_28px_rgba(109,111,252,0.4)] md:min-h-[3.75rem] md:px-8 md:py-4 md:text-[1.05rem]"
+                            >
+                              {label}
+                            </Link>
+                          ) : null}
+                        </div>
+                      </article>
+                    </CarouselItem>
+                  );
+                })}
+              </CarouselContent>
+            </Carousel>
+
+            <div className="mt-6 flex items-center gap-4">
+              <div className="h-px flex-1 bg-gray-200" />
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => api?.scrollPrev()}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50"
+                  aria-label="Previous benefit"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => api?.scrollNext()}
+                  className="flex h-11 w-11 items-center justify-center rounded-full bg-[#101726] text-white transition-colors hover:bg-[#1d2538]"
+                  aria-label="Next benefit"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function GLP1BenefitsSection({ productData, isHomepage = false }) {
+  const [api, setApi] = useState(null);
+  const ctaHref = getPrimaryCtaHref(productData);
+
+  if (!showWeightLossBenefitsCarousel(productData, isHomepage)) {
+    return null;
+  }
+
+  /** Fixed GLP‑1 storyline + imagery (three cards; CTA on third). */
   const benefits = [
     {
       title: "Steady, sustainable weight loss without crash dieting",
@@ -3216,59 +3651,70 @@ function GLP1BenefitsSection({ productData }) {
       alt: "More energy and clarity",
     },
     {
-      title: "Improved metabolic health — blood sugar, blood pressure, and cholesterol",
+      title:
+        "Improved metabolic health — blood sugar, blood pressure, and cholesterol",
       image: "/images/articles/fem1.jpg",
       alt: "Improved metabolic markers",
       ctaText: "Get Started",
       ctaHref,
     },
-    {
-      title: "Stay consistent with clinician-guided support each step of your journey",
-      image: "/images/glp-1.jpg",
-      alt: "Clinician support",
-    },
   ];
 
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section
+      id="glp1-benefits"
+      aria-labelledby="glp1-benefits-heading"
+      className="scroll-mt-24 bg-white py-16 md:py-20"
+    >
       <div className="mx-auto max-w-[1340px] px-4 md:px-8">
-        <h2 className="mb-10 text-center font-title text-3xl font-bold tracking-tight text-[#101726] md:mb-12 md:text-4xl lg:text-5xl">
+        <h2
+          id="glp1-benefits-heading"
+          className="mb-10 text-center font-title text-3xl font-bold tracking-tight text-[#101726] md:mb-12 md:text-4xl lg:text-5xl"
+        >
           What are the benefits of GLP-1?
         </h2>
 
         <Carousel
           setApi={setApi}
-          opts={{ align: "start", containScroll: "trimSnaps", loop: benefits.length > 1 }}
+          opts={{
+            align: "start",
+            containScroll: "trimSnaps",
+            loop: benefits.length > 1,
+          }}
           className="w-full"
         >
           <CarouselContent className="-ml-4 items-stretch md:-ml-6">
-            {benefits.map((item, index) => (
-              <CarouselItem
-                key={`${item.title}-${index}`}
-                className="basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[33.333%]"
-              >
-                <article className="relative h-[420px] overflow-hidden rounded-[1.25rem] shadow-sm md:h-[460px]">
-                  <img
-                    src={item.image}
-                    alt={item.alt}
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_60%,rgba(0,0,0,0.85)_100%)] p-6 md:p-7">
-                    <p className="text-[1.05rem] font-semibold leading-tight text-white md:text-[1.15rem]">
-                      {item.title}
-                    </p>
-                    {item.ctaText ? (
-                      <Link
-                        href={item.ctaHref}
-                        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#5d62f3] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#4b55eb]"
-                      >
-                        {item.ctaText}
-                      </Link>
-                    ) : null}
-                  </div>
-                </article>
-              </CarouselItem>
-            ))}
+            {benefits.map((item, index) => {
+              const label = item.ctaText?.trim() || "";
+              const showCta = Boolean(label);
+              return (
+                <CarouselItem
+                  key={`${item.title}-${index}`}
+                  className="basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[33.333%]"
+                >
+                  <article className="relative h-[420px] overflow-hidden rounded-[1.25rem] shadow-sm md:h-[460px]">
+                    <img
+                      src={item.image}
+                      alt={item.alt}
+                      className="absolute inset-0 h-full w-full object-cover object-center"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_60%,rgba(0,0,0,0.85)_100%)] p-6 md:p-7">
+                      <p className="text-[1.05rem] font-semibold leading-tight text-white md:text-[1.15rem]">
+                        {item.title}
+                      </p>
+                      {showCta ? (
+                        <Link
+                          href={item.ctaHref || ctaHref}
+                          className="hs-solid-btn mt-4 inline-flex min-h-[2.85rem] w-full items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)]"
+                        >
+                          {label}
+                        </Link>
+                      ) : null}
+                    </div>
+                  </article>
+                </CarouselItem>
+              );
+            })}
           </CarouselContent>
         </Carousel>
 
@@ -3334,16 +3780,13 @@ function MobileStickyCta({ productData }) {
     >
       {/* Fade gradient above the bar */}
       <div className="pointer-events-none h-8 bg-[linear-gradient(to_top,rgba(255,255,255,0),transparent)]" />
-      <div className="px-4 pb-5">
-        <div className="flex justify-end pr-[5%]">
+      <div className="px-4 pb-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] md:pr-[5%]">
+        <div className="md:flex md:justify-end">
           <Link
             href={ctaHref}
-            className="hs-solid-btn inline-flex items-center justify-center gap-2 rounded-full px-8 py-3.5 text-sm font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] md:min-w-[280px]"
+            className="hs-solid-btn inline-flex w-full min-h-[3rem] items-center justify-center gap-2 rounded-full px-8 py-3.5 text-sm font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] md:w-auto md:min-w-[280px]"
           >
             <span>Get Started</span>
-            <span className="hidden text-xs font-medium opacity-90 sm:inline">
-              · $0 first month
-            </span>
           </Link>
         </div>
       </div>
@@ -3359,18 +3802,32 @@ export default function MarketingProductPage({ product, isHomepage = false }) {
       <MinimalMarketingNavbar />
       <WillpowerSection />
       <ProductHero productData={productData} isHomepage={isHomepage} />
+      <MediaLogosBanner />
+
+      <MedicalWeightLossSection productData={productData} />
+
+      <RestoredTirzepatideBenefitsCarouselSection
+        productData={productData}
+        isHomepage={isHomepage}
+      />
+
+      <FadeInSection><NegativeSellSection /></FadeInSection>
+
+
+
+      <TirzepatideProductBenefitsCarouselSection
+        productData={productData}
+        isHomepage={isHomepage}
+      />
+      <GLP1BenefitsSection productData={productData} isHomepage={isHomepage} />
       <AboveFoldClarityBlock />
       {/* <FeatureSplit productData={productData} /> */}
-      <MediaLogosBanner />
-      <FadeInSection><MedicalWeightLossSection productData={productData} /></FadeInSection>
-      <FadeInSection><PricingSection productData={productData} /></FadeInSection>
-      <FadeInSection><NegativeSellSection /></FadeInSection>
-      <FadeInSection><GLP1BenefitsSection productData={productData} /></FadeInSection>
+      <PricingSection productData={productData} />
       <FadeInSection><SupportFeatures productData={productData} /></FadeInSection>
       <FadeInSection><TestimonialsSection /></FadeInSection>
       <FadeInSection><MemberResultsStatsSection /></FadeInSection>
       <FadeInSection><BMICalculatorPreviewSection /></FadeInSection>
-      <FadeInSection><ResearchSplit productData={productData} /></FadeInSection>
+      <ResearchSplit productData={productData} />
       <FadeInSection><SimpleSteps productData={productData} /></FadeInSection>
       <FadeInSection><LabTested productData={productData} /></FadeInSection>
       <FadeInSection><ComprehensiveCare productData={productData} /></FadeInSection>

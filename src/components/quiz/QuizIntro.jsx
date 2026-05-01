@@ -51,7 +51,7 @@ export default function QuizIntro({ onStart }) {
         <div className="flex items-center justify-center gap-6 mt-10 text-xs text-purple-300 font-semibold">
           <span>⏱️ 30 seconds</span>
           <div className="w-px h-3 bg-purple-500/30" />
-          <span>🛡️ 100% Private</span>
+          <span>🛡️ 100% private</span>
           <div className="w-px h-3 bg-purple-500/30" />
           <span>🔬 Clinical-Grade</span>
         </div>

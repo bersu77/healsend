@@ -320,6 +320,13 @@
   z-index: 0;
 }
 
+.hs-solid-btn.hs-no-shimmer::before,
+.hs-gradient-btn.hs-no-shimmer::before {
+  animation: none;
+  opacity: 0;
+  transform: none;
+}
+
 .hs-solid-btn > *,
 .hs-gradient-btn > *,
 .hs-outline-btn > * {
