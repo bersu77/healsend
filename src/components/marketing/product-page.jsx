@@ -3423,73 +3423,73 @@ function RestoredTirzepatideBenefitsCarouselSection({
         ) : (
           <>
             <Carousel
-                setApi={setApi}
-                opts={{
-                  align: "start",
-                  containScroll: "trimSnaps",
-                  loop: benefits.length > 1,
-                }}
-                className="w-full"
-              >
-                <CarouselContent className="-ml-4 items-stretch md:-ml-6">
-                  {benefits.map((item, index) => {
-                    const isFinal = index === benefits.length - 1;
-                    const label =
-                      item.ctaText?.trim() ||
-                      (isFinal ? "Get Started" : "");
-                    const showCta = Boolean(label);
-                    return (
-                      <CarouselItem
-                        key={`restored-${item.title}-${index}`}
-                        className="basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[33.333%]"
-                      >
-                        <article className="relative h-[420px] overflow-hidden rounded-[1.25rem] shadow-md ring-1 ring-black/5 md:h-[460px]">
-                          <img
-                            src={item.image}
-                            alt={item.alt}
-                            className="absolute inset-0 h-full w-full object-cover object-center"
-                          />
-                          <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_60%,rgba(0,0,0,0.85)_100%)] p-6 md:p-7">
-                            <p className="text-[1.05rem] font-semibold leading-tight text-white md:text-[1.15rem]">
-                              {item.title}
-                            </p>
-                            {showCta ? (
-                              <Link
-                                href={item.ctaHref || ctaHref}
-                                className="hs-solid-btn mt-4 inline-flex min-h-[3.5rem] w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-base font-semibold shadow-[0_10px_28px_rgba(109,111,252,0.4)] md:min-h-[3.75rem] md:px-8 md:py-4 md:text-[1.05rem]"
-                              >
-                                {label}
-                              </Link>
-                            ) : null}
-                          </div>
-                        </article>
-                      </CarouselItem>
-                    );
-                  })}
-                </CarouselContent>
-              </Carousel>
+              setApi={setApi}
+              opts={{
+                align: "start",
+                containScroll: "trimSnaps",
+                loop: benefits.length > 1,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4 items-stretch md:-ml-6">
+                {benefits.map((item, index) => {
+                  const isFinal = index === benefits.length - 1;
+                  const label =
+                    item.ctaText?.trim() ||
+                    (isFinal ? "Get Started" : "");
+                  const showCta = Boolean(label);
+                  return (
+                    <CarouselItem
+                      key={`restored-${item.title}-${index}`}
+                      className="basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[33.333%]"
+                    >
+                      <article className="relative h-[420px] overflow-hidden rounded-[1.25rem] shadow-md ring-1 ring-black/5 md:h-[460px]">
+                        <img
+                          src={item.image}
+                          alt={item.alt}
+                          className="absolute inset-0 h-full w-full object-cover object-center"
+                        />
+                        <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_60%,rgba(0,0,0,0.85)_100%)] p-6 md:p-7">
+                          <p className="text-[1.05rem] font-semibold leading-tight text-white md:text-[1.15rem]">
+                            {item.title}
+                          </p>
+                          {showCta ? (
+                            <Link
+                              href={item.ctaHref || ctaHref}
+                              className="hs-solid-btn mt-4 inline-flex min-h-[3.5rem] w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-base font-semibold shadow-[0_10px_28px_rgba(109,111,252,0.4)] md:min-h-[3.75rem] md:px-8 md:py-4 md:text-[1.05rem]"
+                            >
+                              {label}
+                            </Link>
+                          ) : null}
+                        </div>
+                      </article>
+                    </CarouselItem>
+                  );
+                })}
+              </CarouselContent>
+            </Carousel>
 
-              <div className="mt-6 flex items-center gap-4">
-                <div className="h-px flex-1 bg-gray-200" />
-                <div className="flex gap-3">
-                  <button
-                    type="button"
-                    onClick={() => api?.scrollPrev()}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50"
-                    aria-label="Previous benefit"
-                  >
-                    <ChevronLeft className="h-5 w-5" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => api?.scrollNext()}
-                    className="flex h-11 w-11 items-center justify-center rounded-full bg-[#6d6ffc] text-white shadow-sm transition-colors hover:bg-[#5d62f3]"
-                    aria-label="Next benefit"
-                  >
-                    <ChevronRight className="h-5 w-5" />
-                  </button>
-                </div>
+            <div className="mt-6 flex items-center gap-4">
+              <div className="h-px flex-1 bg-gray-200" />
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => api?.scrollPrev()}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50"
+                  aria-label="Previous benefit"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => api?.scrollNext()}
+                  className="flex h-11 w-11 items-center justify-center rounded-full bg-[#6d6ffc] text-white shadow-sm transition-colors hover:bg-[#5d62f3]"
+                  aria-label="Next benefit"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
               </div>
+            </div>
           </>
         )}
       </div>

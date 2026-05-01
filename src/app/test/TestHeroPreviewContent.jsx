@@ -324,10 +324,6 @@ const STAGE_PLAN_LOOP_PAGES = [
   ...STAGE_PLAN_PAGES,
 ];
 
-const STAGE_PLAN_DISCLAIMER = `Results are based on self-reported data from ~300,000 HealSend members on personalized treatment plans, including compounded GLP-1 medications and clinician consultations. Members reported their weight on their initial medical intake questionnaire and every 3-4 weeks thereafter. Individual results may vary.
-
-HealSend offers compounded GLP-1s exclusively from U.S. pharmacies. Compounded medications are regulated and compounding pharmacies are licensed and inspected by Boards of Pharmacy, but the FDA has not evaluated the medications for safety, quality, or efficacy. GLP-1 medications are prescription drugs that should be taken and monitored under the supervision of a licensed health care professional. GLP-1 medications carry serious risks, including risks of thyroid C-cell tumors (which includes thyroid cancer) and medullary thyroid carcinoma (MTC). Talk to your provider if you get a lump or swelling in your neck, hoarseness, trouble swallowing, or shortness of breath.`;
-
 const CALCULATOR_AVATARS = [
   "/images/quiz/avatars/intro-1.jpg",
   "/images/quiz/avatars/intro-2.jpg",
@@ -427,17 +423,15 @@ function ExperienceCard({
 }) {
   return (
     <article
-      className={`rounded-[1rem] border p-5 md:p-6 ${
-        inverse
+      className={`rounded-[1rem] border p-5 md:p-6 ${inverse
           ? "border-[#d8def1] bg-white text-[#1b1e28] shadow-[0_18px_34px_rgba(32,38,52,0.08)]"
           : "border-[#46527d] bg-[linear-gradient(180deg,#26345f_0%,#344167_52%,#48536f_100%)] text-white shadow-[0_20px_38px_rgba(33,40,67,0.16)]"
-      }`}
+        }`}
     >
       <div className="flex flex-col items-center text-center">
         <div
-          className={`relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-[0.9rem] ${
-            inverse ? "bg-[#f7f8fc]" : "bg-white/10"
-          }`}
+          className={`relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-[0.9rem] ${inverse ? "bg-[#f7f8fc]" : "bg-white/10"
+            }`}
         >
           <Image
             src={imageSrc}
@@ -456,18 +450,16 @@ function ExperienceCard({
         {points.map((point) => (
           <div key={point} className="flex flex-col items-center">
             <p
-              className={`text-[0.92rem] leading-5.5 ${
-                inverse ? "text-[#5f6476]" : "text-white/88"
-              }`}
+              className={`text-[0.92rem] leading-5.5 ${inverse ? "text-[#5f6476]" : "text-white/88"
+                }`}
             >
               {point}
             </p>
             <span
-              className={`mt-1.5 flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full ${
-                inverse
+              className={`mt-1.5 flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full ${inverse
                   ? "bg-[#eef0f7] text-[#7a8092]"
                   : "bg-[#99e39a] text-[#1f4426]"
-              }`}
+                }`}
             >
               {inverse ? (
                 <Circle className="h-3.5 w-3.5 fill-current" />
@@ -523,18 +515,6 @@ function ExperienceComparisonSection() {
 
 function MemberResultsCarousel() {
   const [api, setApi] = useState(null);
-
-  useEffect(() => {
-    if (!api) {
-      return undefined;
-    }
-
-    const intervalId = window.setInterval(() => {
-      api.scrollNext();
-    }, 4200);
-
-    return () => window.clearInterval(intervalId);
-  }, [api]);
 
   return (
     <section className="relative left-1/2 w-screen -translate-x-1/2 pb-24">
@@ -726,11 +706,10 @@ function OutcomesStatsSection() {
                 key={stat.label}
                 type="button"
                 onClick={() => setActiveTab(i)}
-                className={`shrink-0 rounded-full px-4 py-2 text-[0.78rem] font-semibold transition-colors ${
-                  activeTab === i
+                className={`shrink-0 rounded-full px-4 py-2 text-[0.78rem] font-semibold transition-colors ${activeTab === i
                     ? "bg-[#1c1a24] text-white"
                     : "bg-white/70 text-[#44506c] border border-[#d6e0f0]"
-                }`}
+                  }`}
               >
                 {stat.label}
               </button>
@@ -1111,13 +1090,6 @@ function StagePlansSection() {
           </CarouselContent>
         </Carousel>
 
-        <div className="mx-auto mt-7 max-w-[1180px] px-5 text-[11px] leading-[1.65] text-[#7b8192] md:px-8 lg:px-10">
-          {STAGE_PLAN_DISCLAIMER.split("\n\n").map((paragraph) => (
-            <p key={paragraph} className="mb-3 last:mb-0">
-              {paragraph}
-            </p>
-          ))}
-        </div>
       </div>
     </section>
   );
@@ -1316,31 +1288,31 @@ function ProjectedLossCalculatorSection() {
   const bmiPanelCopy =
     bmiCategory === "Obesity"
       ? {
-          title: "Obesity",
-          description:
-            "Your BMI is in a range where medical support can help. A licensed clinician can build a personalized plan to help you feel better, move more easily, and regain confidence.",
-          panelClass: "bg-[#ffc9c9]",
-        }
+        title: "Obesity",
+        description:
+          "Your BMI is in a range where medical support can help. A licensed clinician can build a personalized plan to help you feel better, move more easily, and regain confidence.",
+        panelClass: "bg-[#ffc9c9]",
+      }
       : bmiCategory === "Overweight"
         ? {
-            title: "Overweight",
-            description:
-              "You may benefit from guided support, especially if weight has been difficult to manage alone. A clinician can help you understand safe next steps.",
-            panelClass: "bg-[#ffe7be]",
-          }
+          title: "Overweight",
+          description:
+            "You may benefit from guided support, especially if weight has been difficult to manage alone. A clinician can help you understand safe next steps.",
+          panelClass: "bg-[#ffe7be]",
+        }
         : bmiCategory === "Healthy Weight"
           ? {
-              title: "Healthy Weight",
-              description:
-                "Your BMI sits in a generally healthy range. A clinician can still help assess whether your goals call for treatment, nutrition support, or another path.",
-              panelClass: "bg-[#dff7e8]",
-            }
+            title: "Healthy Weight",
+            description:
+              "Your BMI sits in a generally healthy range. A clinician can still help assess whether your goals call for treatment, nutrition support, or another path.",
+            panelClass: "bg-[#dff7e8]",
+          }
           : {
-              title: "Underweight",
-              description:
-                "Your BMI is below the typical treatment range for weight-loss care. A licensed provider can help review your goals and overall health before suggesting next steps.",
-              panelClass: "bg-[#e4ebff]",
-            };
+            title: "Underweight",
+            description:
+              "Your BMI is below the typical treatment range for weight-loss care. A licensed provider can help review your goals and overall health before suggesting next steps.",
+            panelClass: "bg-[#e4ebff]",
+          };
 
   const radius = 118;
   const circumference = Math.PI * radius;
@@ -1752,9 +1724,8 @@ function ProjectedLossCalculatorSection() {
                 return (
                   <div
                     key={row.label}
-                    className={`rounded-[1rem] border border-transparent px-4 py-4 ${
-                      active ? row.panelClass : "bg-[#f5f7fb]"
-                    }`}
+                    className={`rounded-[1rem] border border-transparent px-4 py-4 ${active ? row.panelClass : "bg-[#f5f7fb]"
+                      }`}
                   >
                     <div className="flex items-center justify-between gap-4">
                       <div className="flex items-center gap-3">
