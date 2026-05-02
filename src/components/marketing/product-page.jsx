@@ -43,6 +43,8 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
 } from "@/components/ui/carousel";
 import { Dialog, DialogPortal, DialogOverlay } from "@/components/ui/dialog";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
@@ -52,6 +54,7 @@ import {
   getProductOnboardingPath,
 } from "@/lib/product-routing";
 import { formatUsdCompact } from "@/lib/pricing";
+import { cn } from "@/lib/utils";
 
 function FadeInSection({ children, delay = 0, y = 48, className }) {
   return (
@@ -82,6 +85,13 @@ const MEMBER_FACE_STACK_IMAGE_SRCS = [
   "/images/4_Home_Doctors_Online_Consultation-Doctors_04.jpg",
   "/images/4_Home_Doctors_Online_Consultation-Avatar.jpg",
   "/images/4_Home_Doctors_Online_Consultation-Testimonials_01.jpg",
+];
+
+/** Same set + two more member portraits — e.g. BMI hero stack (six circles). */
+const MEMBER_FACE_STACK_IMAGE_SRCS_SIX = [
+  ...MEMBER_FACE_STACK_IMAGE_SRCS,
+  "/images/4_Home_Doctors_Online_Consultation-Testimonials_02.jpg",
+  "/images/4_Home_Doctors_Online_Consultation-Testimonials_03.jpg",
 ];
 
 function MediaLogosBanner() {
@@ -270,44 +280,33 @@ function WillpowerHorizontalRow({ items, reverse = false }) {
 function WillpowerSection() {
   return (
     <section className="relative overflow-hidden bg-[#F1F5F9]">
-      <div className="relative mx-auto grid max-w-[1340px] grid-cols-1 items-start gap-10 px-4 py-10 md:gap-16 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-80px)] lg:grid-cols-2 lg:items-center lg:overflow-hidden lg:py-0">
-        <div className="w-full">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-80px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+        {/* Same 55% / 45% (+ xl 450px) split as ProductHero so the right column lines up down the page */}
+        <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
-            <div className="flex flex-wrap items-stretch gap-3">
-              <div className="relative h-[96px] w-[68px] shrink-0 self-stretch overflow-hidden rounded-2xl md:h-[127px] md:w-[91px]">
-                <Image
-                  src="/images/marketing/logos/forbes-best-of-2026.webp"
-                  alt="Forbes Health Best of 2026 — GLP-1 Provider"
-                  fill
-                  sizes="120px"
-                  className="object-cover"
-                  priority
-                />
-              </div>
-              <div className="flex flex-col gap-2 self-start rounded-2xl border border-gray-100 bg-slate-50 px-3 py-2 shadow-[0px_9.54px_42.93px_0px_#0000002B] md:px-6 md:py-3">
-                <p className="text-5xl font-medium leading-[42px] tracking-tighter text-gray-950 md:text-[57px] md:leading-[57px]">
-                  1,200,000+
-                </p>
-                <div className="flex items-center justify-start gap-2">
-                  <span className="text-[10px] font-medium leading-[14px] text-gray-950 md:text-xl">
-                    Prescriptions written
-                  </span>
-                  <div className="flex -space-x-2">
-                    {MEMBER_FACE_STACK_IMAGE_SRCS.map((src) => (
-                      <span
-                        key={src}
-                        className="relative h-7 w-7 overflow-hidden rounded-full border-2 border-white bg-[#eef0f8] md:h-9 md:w-9"
-                      >
-                        <Image
-                          src={src}
-                          alt=""
-                          fill
-                          sizes="36px"
-                          className="object-cover object-center"
-                        />
-                      </span>
-                    ))}
-                  </div>
+            <div className="inline-flex w-fit max-w-full flex-col gap-2 self-start rounded-2xl border border-gray-100 bg-slate-50 px-3 py-2 shadow-[0px_9.54px_42.93px_0px_#0000002B] md:px-5 md:py-3">
+              <p className="whitespace-nowrap text-5xl font-medium leading-[42px] tracking-tighter text-gray-950 md:text-[57px] md:leading-[57px]">
+                1,000,000+
+              </p>
+              <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1.5">
+                <span className="shrink-0 text-[10px] font-medium leading-[14px] text-gray-950 md:text-xl">
+                  Prescriptions written
+                </span>
+                <div className="flex shrink-0 -space-x-2">
+                  {MEMBER_FACE_STACK_IMAGE_SRCS.map((src) => (
+                    <span
+                      key={src}
+                      className="relative h-7 w-7 overflow-hidden rounded-full border-2 border-white bg-[#eef0f8] md:h-9 md:w-9"
+                    >
+                      <Image
+                        src={src}
+                        alt=""
+                        fill
+                        sizes="36px"
+                        className="object-cover object-center"
+                      />
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -371,7 +370,7 @@ function WillpowerSection() {
         </div>
 
         {/* Desktop: vertical marquee columns */}
-        <div className="relative hidden h-full self-stretch overflow-hidden lg:block">
+        <div className="relative hidden min-h-0 w-full shrink-0 overflow-hidden lg:block lg:h-full lg:w-[45%] lg:self-stretch xl:w-[450px]">
           <div className="grid h-full grid-cols-2 gap-3 lg:gap-4">
             <WillpowerVerticalColumn items={WILLPOWER_LEFT_MARQUEE_ITEMS} />
             <WillpowerVerticalColumn
@@ -540,7 +539,7 @@ const defaultSimpleSteps = [
     image: "/application-step-1.png",
     imageContainerClass:
       "mt-auto flex h-[360px] w-full items-end justify-center",
-    imageClass: "h-full w-full object-cover object-bottom",
+    imageClass: "h-full w-full object-contain object-bottom",
   },
   {
     title: "Get your medication delivered at home",
@@ -574,14 +573,14 @@ const defaultComprehensiveCare = {
   ctaText: "Start Your Weight Loss Journey",
   features: [
     {
-      title: "Unlimited Video Calls With\nClinicians",
+      title: "Unlimited Access to Clinicians",
       points: [
         "See a licensed clinician same-day",
         "Unlimited visits, all online",
       ],
-      image: "/images/marketing/include-1.jpeg",
+      image: "/images/Screenshot_2026-05-02_153107-removebg-preview.png",
       imageClass:
-        "absolute bottom-0 right-6 h-32 w-32 object-contain md:h-40 md:w-40",
+        "absolute bottom-0 right-6 h-27 w-32 object-contain md:h-30s md:w-40",
     },
     {
       title: "Always On Medical Assistance via Phone",
@@ -732,11 +731,21 @@ const TIRZEPATIDE_BENEFITS_CAROUSEL = [
   },
   {
     text: "A strong option when you need next-level support beyond basics",
-    image: "/images/3.jpg",
-    alt: "Advanced Tirzepatide support",
+    image: "/images/articles/med1.webp",
+    alt: "Support beyond basics for your weight-loss journey",
     ctaText: "Get Started",
   },
 ];
+
+/** Research split for Tirzepatide PDPs (avoids NAD+ placeholder from default product content). */
+const TIRZEPATIDE_SURMOUNT_RESEARCH_SECTION = {
+  title: "Results from SURMOUNT Clinical Trials",
+  points: [
+    "Adults without diabetes lost up to 22.5% of body weight in 72 weeks.",
+    "Adults with type 2 diabetes lost 12–15% of their weight.",
+    "Combining tirzepatide with lifestyle programs leads to even stronger outcomes.",
+  ],
+};
 
 function productLooksLikeTirzepatide(p) {
   const blob = `${p?.slug ?? ""} ${p?.id ?? ""} ${p?.name ?? ""}`.toLowerCase();
@@ -744,6 +753,16 @@ function productLooksLikeTirzepatide(p) {
     blob.includes("tirzepatide") ||
     blob.includes("zepbound") ||
     (blob.includes("glp") && blob.includes("inject"))
+  );
+}
+
+/** SURMOUNT trial copy applies to tirzepatide-class products only (not semaglutide). */
+function productShouldUseSurmountResearch(p) {
+  const blob = `${p?.slug ?? ""} ${p?.id ?? ""} ${p?.name ?? ""}`.toLowerCase();
+  return (
+    blob.includes("tirzepatide") ||
+    blob.includes("mounjaro") ||
+    blob.includes("zepbound")
   );
 }
 
@@ -759,6 +778,10 @@ function showWeightLossBenefitsCarousel(p, isHomepage) {
   if (blob.includes("glp")) return true;
   return false;
 }
+
+/** Prev/next: identical default style (no permanent filled “next” accent), square hit target at any zoom. */
+const benefitCarouselNavButtonClassName =
+  "inline-flex size-11 shrink-0 aspect-square items-center justify-center rounded-full border border-gray-200 bg-white p-0 text-gray-700 shadow-none transition-colors hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-300/80 focus-visible:ring-offset-2";
 
 function mergeProductContent(product) {
   if (!product) {
@@ -847,6 +870,18 @@ function mergeProductContent(product) {
         product.name ||
         defaultClosingCta.planLabel,
     },
+    researchSection: productShouldUseSurmountResearch(product)
+      ? {
+        ...defaultProductContent.researchSection,
+        ...product.researchSection,
+        ...TIRZEPATIDE_SURMOUNT_RESEARCH_SECTION,
+        /* Editorial slice: member portrait — do not inherit catalog product hero (vial). */
+        image: "/images/articles/blogs/female.jpg",
+      }
+      : {
+        ...defaultProductContent.researchSection,
+        ...product.researchSection,
+      },
   };
 }
 
@@ -860,32 +895,40 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
 
   return (
     <section className="bg-[#f9f9f9] px-4 py-16 md:px-[3.25rem] md:py-20 lg:px-[3.25rem]">
-      <div className="mx-auto flex max-w-[1340px] flex-col justify-center gap-5 lg:flex-row lg:gap-6 xl:gap-8">
-        <div className="relative flex aspect-[4/5] w-full shrink-0 items-start justify-start overflow-hidden rounded-[1rem] bg-[#f9f9f9] lg:sticky lg:top-24 lg:w-[55%] lg:self-start xl:w-[740px]">
-          <h1 className="absolute left-4 right-4 top-8 z-20 whitespace-normal text-start text-3xl font-bold tracking-tight text-gray-900 md:left-8 md:right-auto md:top-9 md:max-w-[70%] md:text-5xl">
-            Tirzepatide Injections
-          </h1>
-          <div className="flex h-full w-full items-center justify-start px-4 pb-4 pt-20 md:px-8 md:py-8">
-            <div className="relative h-full w-full max-h-[78%] max-w-[92%] md:max-w-full">
-              {productData.inStock ? (
-                <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-[1rem] bg-white/92 px-4 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-white/80 backdrop-blur-sm md:left-5 md:top-5 md:px-5 md:py-2 md:text-base">
-                  <div className="relative h-2.5 w-2.5 md:h-3 md:w-3">
-                    <span className="absolute inset-0 rounded-full bg-emerald-400/60 blur-[2px]" />
-                    <span className="absolute inset-0 rounded-full bg-emerald-500 animate-pulse" />
-                  </div>
-                  In Stock
+      <div className="mx-auto flex max-w-[1340px] flex-col gap-5 lg:flex-row lg:items-stretch lg:gap-6 xl:gap-8">
+        {/* Tall right column stretches this cell; sticky block pins until section scrolls past */}
+        <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[55%] lg:max-w-[740px]">
+          {/* Isolate + chunky gap + header shrink-0: avoids title/visual bleed onto image at fractional zoom */}
+          <div className="flex flex-col gap-6 sm:gap-7 md:gap-10 lg:isolate lg:sticky lg:top-24 lg:z-10">
+            <div className="relative z-[1] shrink-0 bg-[#f9f9f9] pb-1">
+              <h1 className="text-balance text-start text-3xl font-bold leading-snug tracking-tight text-gray-900 md:text-5xl md:leading-tight">
+                {productData.name}
+              </h1>
+            </div>
+            <div className="relative z-0 flex aspect-[4/5] w-full shrink-0 items-start justify-start overflow-hidden rounded-[1rem] bg-[#f9f9f9] ring-1 ring-black/[0.04]">
+              <div className="flex h-full min-h-0 w-full flex-1 items-start justify-start px-4 pb-4 pt-3 md:px-8 md:pb-8 md:pt-5">
+                <div className="relative mt-2 h-full min-h-0 w-full max-h-[76%] max-w-[92%] sm:mt-3 sm:max-h-[74%] md:mt-4 md:max-h-[78%] md:max-w-full">
+                  {productData.inStock ? (
+                    <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-[1rem] bg-white/92 px-4 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-white/80 backdrop-blur-sm md:left-5 md:top-5 md:px-5 md:py-2 md:text-base">
+                      <div className="relative h-2.5 w-2.5 md:h-3 md:w-3">
+                        <span className="absolute inset-0 rounded-full bg-emerald-400/60 blur-[2px]" />
+                        <span className="absolute inset-0 rounded-full bg-emerald-500 animate-pulse" />
+                      </div>
+                      In Stock
+                    </div>
+                  ) : null}
+                  <img
+                    src="/images/marketing/instock.jpeg"
+                    alt={`${productData.name} — in stock`}
+                    className="h-full w-full rounded-2xl object-cover object-bottom object-right"
+                  />
                 </div>
-              ) : null}
-              <img
-                src="/images/marketing/instock.jpeg"
-                alt={`${productData.name} — in stock`}
-                className="h-full w-full rounded-2xl object-cover object-bottom object-right"
-              />
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="flex w-full shrink-0 flex-col lg:w-[45%] xl:w-[450px]">
+        <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[45%] xl:w-[450px]">
           <div className="mb-6 overflow-hidden rounded-[1rem] border border-gray-200 bg-white">
             {pricePresentation.savings ? (
               <div className="flex items-center justify-center gap-2 bg-[#fde073] px-4 py-3 text-sm font-medium text-gray-900 md:text-base">
@@ -899,9 +942,9 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
               </div>
             )}
             <div className="p-5 md:p-6">
-              <div className="mb-6 flex items-start justify-between">
-                <div>
-                  <div className="flex items-baseline gap-2">
+              <div className="mb-6 flex items-center justify-between gap-4">
+                <div className="min-w-0 shrink">
+                  <div className="flex flex-wrap items-baseline gap-2">
                     <span className="text-3xl font-bold text-gray-900 md:text-4xl">
                       $0
                     </span>
@@ -918,7 +961,7 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
                     then $299/mo*
                   </button>
                 </div>
-                <div className="flex flex-col gap-1 pt-2">
+                <div className="flex shrink-0 flex-col items-end gap-1">
                   <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wide">
                     Buy now, pay later
                   </span>
@@ -951,7 +994,7 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
                 </div>
               ) : null}
 
-              <div className="mx-auto flex w-full max-w-md flex-col items-center gap-2.5">
+              <div className="flex w-full flex-col items-stretch gap-2.5">
                 <Link
                   href={ctaHref}
                   className="hs-solid-btn flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] transition-colors"
@@ -988,7 +1031,7 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
                 </button>
               ))}
             </div>
-            <div className="overflow-hidden p-4">
+            <div className="overflow-hidden px-5 pb-4 pt-1 md:px-6 md:pb-5">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeTab}
@@ -1115,7 +1158,7 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
                 </motion.div>
               </AnimatePresence>
             </div>
-            <div className="mt-2 flex justify-between border-t border-gray-100 px-4 pb-2 pt-4 text-xs text-gray-500">
+            <div className="mt-2 flex justify-between border-t border-gray-100 px-5 pb-2 pt-4 text-xs text-gray-500 md:px-6">
               <span className="flex items-center gap-1.5">
                 <img
                   draggable={false}
@@ -1201,7 +1244,7 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
                         className="h-full max-h-[160px] w-full rounded-[1rem] object-contain"
                       />
                     </div>
-                    <span className="text-sm font-medium text-gray-900">
+                    <span className="text-xs font-medium text-gray-500">
                       {relatedProduct.name}
                     </span>
                   </Link>
@@ -1225,7 +1268,7 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
               </span>
             </div>
 
-            <div className="rounded-[1rem] border border-[#f08a7e] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
+            <div className="rounded-[1rem] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
               The statements on this page have not been evaluated by the Food
               and Drug Administration. This product is not intended to diagnose,
               treat, cure or prevent any disease.
@@ -1245,45 +1288,7 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
   );
 }
 
-function AboveFoldClarityBlock() {
-  const items = [
-    { label: "Clinician review", icon: Stethoscope },
-    { label: "Prescription if appropriate", icon: PillBottle },
-    { label: "U.S. pharmacy fulfillment", icon: ShieldCheck },
-    { label: "Ongoing check-ins", icon: Clock3 },
-  ];
 
-  return (
-    <section className="bg-[#f9f9f9] px-4 pb-8 md:px-8 md:pb-10 lg:px-16">
-      <div className="mx-auto max-w-[1400px] overflow-hidden rounded-[1rem] border border-[#e6e9f2] bg-white p-4 shadow-sm md:p-5">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-          <div className="shrink-0">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#6a7288]">
-              What you get
-            </p>
-          </div>
-          <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 lg:max-w-[980px] lg:grid-cols-4">
-            {items.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.label}
-                  className="flex items-center gap-2 rounded-[0.8rem] border border-[#e8ecf6] bg-[#fbfcff] px-3 py-2"
-                >
-                  <Icon className="h-4 w-4 shrink-0 text-[#5d62f3]" />
-                  <span className="text-sm font-medium text-[#1f2533]">{item.label}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <p className="mt-3 text-xs font-medium text-[#5f6780] md:text-sm">
-          No insurance required • Transparent pricing
-        </p>
-      </div>
-    </section>
-  );
-}
 const MEDICAL_PLANS = [
   {
     id: "semaglutide",
@@ -1416,8 +1421,10 @@ function MedicalPlanCard({ plan, ctaHref }) {
 
   return (
     <div
-      className={`flex h-full flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-[0_20px_40px_-24px_rgba(91,60,221,0.12)] ring-1 ring-[#ece8f3] ${isMinimal ? "" : "min-h-[620px]"
-        }`}
+      className={cn(
+        "flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-[0_20px_40px_-24px_rgba(91,60,221,0.12)] ring-1 ring-[#ece8f3]",
+        isMinimal ? "h-auto self-start w-full" : "h-full",
+      )}
     >
       <div
         className={`relative h-[222px] shrink-0 overflow-hidden ${plan.headerClass} ${plan.headerTextClass}`}
@@ -1467,52 +1474,68 @@ function MedicalPlanCard({ plan, ctaHref }) {
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col p-6 md:p-7">
+      <div
+        className={cn(
+          "flex min-h-0 flex-col",
+          isMinimal
+            ? "shrink-0 border-t border-[#ece8f3]/60 px-5 pb-5 pt-4 sm:px-6 sm:pb-6 md:px-7 md:pb-7"
+            : "flex-1 p-5 sm:p-6 md:p-7",
+        )}
+      >
         {!isMinimal ? (
           <>
             <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[#1c1a24]">
               {plan.bulletsHeading}
             </p>
-            <ul className="mb-6 flex-1 space-y-4">
+            <ul className="flex shrink-0 flex-col gap-4">
               {plan.bullets.map((bullet) => {
                 const Icon = bullet.icon;
                 return (
-                  <li key={bullet.text} className="flex items-start gap-3">
+                  <li key={bullet.text} className="flex min-w-0 items-start gap-3">
                     <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f1ecf9]">
-                      <Icon className="h-3.5 w-3.5 text-[#5b3cdd]" />
+                      <Icon className="h-3.5 w-3.5 shrink-0 text-[#5b3cdd]" />
                     </span>
-                    <span className="text-sm leading-6 text-[#1c1a24]">
+                    <span className="text-pretty break-words text-base leading-snug text-gray-700 [overflow-wrap:anywhere] md:leading-6">
                       {bullet.text}
                     </span>
                   </li>
                 );
               })}
             </ul>
+            {/* Flexible spacer: equal-height row keeps CTAs pinned to card bottom */}
+            <div className="mt-6 min-h-3 flex-1 shrink" aria-hidden />
           </>
-        ) : (
-          <div className="flex-1" />
-        )}
-
-        <Link
-          href={ctaHref}
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1c1a24] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[#2a2740]"
-        >
-          {plan.primaryCta}
-          <ArrowRight className="h-4 w-4" />
-        </Link>
-        {plan.secondaryCta && hasDetails ? (
-          <button
-            type="button"
-            onClick={() => setExpanded((v) => !v)}
-            aria-expanded={expanded}
-            className={`mt-3 inline-flex items-center justify-center rounded-full border bg-white px-5 py-3 text-sm font-semibold transition-colors ${expanded
-              ? "border-[#d8d2ee] text-[#5b3cdd] hover:bg-[#f1ecf9]"
-              : "border-[#e5e0ee] text-[#1c1a24] hover:bg-[#f1ecf9]"
-              }`}
-          >
-            {expanded ? "Hide details" : plan.secondaryCta}
-          </button>
         ) : null}
+
+        <div
+          className={cn(
+            "shrink-0 flex w-full flex-col gap-3",
+            !isMinimal && "mt-auto",
+          )}
+        >
+          <Link
+            href={ctaHref}
+            className="flex min-h-[3.375rem] w-full shrink-0 items-center justify-center gap-2 rounded-full bg-[#1c1a24] px-4 py-2.5 text-center text-[13px] font-bold leading-snug tracking-tight text-white transition-colors hover:bg-[#2a2740] sm:px-5 sm:text-sm sm:leading-tight"
+          >
+            <span className="text-balance">
+              {plan.primaryCta}
+            </span>
+            <ArrowRight className="h-4 w-4 shrink-0 self-center" aria-hidden />
+          </Link>
+          {plan.secondaryCta && hasDetails ? (
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              aria-expanded={expanded}
+              className={`flex min-h-[2.875rem] w-full shrink-0 items-center justify-center whitespace-nowrap rounded-full border bg-white px-4 py-2.5 text-center text-[13px] font-semibold leading-snug tracking-tight transition-colors sm:text-sm ${expanded
+                ? "border-[#d8d2ee] text-[#5b3cdd] hover:bg-[#f1ecf9]"
+                : "border-[#e5e0ee] text-[#1c1a24] hover:bg-[#f1ecf9]"
+                }`}
+            >
+              {expanded ? "Hide details" : plan.secondaryCta}
+            </button>
+          ) : null}
+        </div>
 
         <AnimatePresence initial={false}>
           {expanded && hasDetails ? (
@@ -1522,9 +1545,9 @@ function MedicalPlanCard({ plan, ctaHref }) {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="overflow-hidden"
+              className="mt-4 w-full min-w-0 shrink-0 overflow-hidden"
             >
-              <div className="mt-6 space-y-6 border-t border-[#ece8f3] pt-6">
+              <div className="space-y-6 border-t border-[#ece8f3] pt-5 md:pt-6">
                 {plan.description ? (
                   <p className="text-sm leading-6 text-[#474257]">
                     {plan.description}
@@ -1585,137 +1608,73 @@ function MedicalWeightLossSection({ productData }) {
   return (
     <section className="overflow-hidden bg-[#f9f9f9] py-16 md:py-20">
       <div className="mx-auto max-w-[1400px] px-4 md:px-8 lg:px-16">
-        <div className="mb-10 flex flex-col gap-6 md:mb-12 md:flex-row md:items-start md:justify-between md:gap-8">
-          <div className="max-w-2xl">
-            <h2 className="font-title text-3xl font-bold tracking-tight text-gray-950 md:text-5xl">
+        <div className="mb-10 grid grid-cols-1 gap-8 md:mb-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-x-8 xl:gap-x-12">
+          <div className="min-w-0">
+            <h2 className="font-title text-3xl font-bold leading-[1.05] tracking-tight text-gray-950 sm:text-4xl lg:text-[2.625rem] xl:text-[3.15rem]">
               Medical weight-loss care
             </h2>
-            <p className="mt-1 font-playfair text-2xl italic text-[#5b3cdd] md:text-4xl">
+            <p className="mt-2 font-playfair text-2xl italic leading-tight text-[#5d62f3] sm:text-3xl lg:text-[2.125rem] xl:text-[2.5rem]">
               matched to your stage and goals.
             </p>
-            <p className="mt-5 max-w-xl text-base leading-7 text-[#474257] md:text-lg">
+            <p className="mt-5 max-w-3xl text-base leading-7 text-[#474257] md:text-lg">
               Weight loss isn&apos;t one-size-fits-all. Choose the plan built
               for where you are right now &mdash; your goals, your lifestyle,
               your timeline.
             </p>
           </div>
 
-          <div className="flex w-full max-w-md flex-row justify-end gap-2  sm:max-w-xl md:ml-auto md:max-w-none md:gap-3 md:pl-8 lg:gap-4">
-            <div className="flex h-24 flex-1 basis-1/2 items-center justify-center md:min-h-28 md:basis-auto md:flex-initial md:w-[240px] lg:w-[280px]">
-              <img
-                src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`}
-                alt="Google reviews rating"
-                loading="lazy"
-                className="h-24 max-h-full w-full object-contain object-center md:h-28"
-              />
+          <div className="flex w-full flex-wrap items-center gap-3 sm:gap-4 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end lg:pt-1">
+            <div className="flex min-h-[92px] min-w-0 max-w-[calc(50%-0.375rem)] flex-1 basis-0 items-center justify-center sm:max-w-none sm:flex-initial sm:basis-[200px] lg:min-h-[104px] lg:w-[min(252px,calc((100vw-4rem)*0.44))] lg:max-w-none lg:flex-initial">
+              <div className="relative flex items-center justify-center px-10 lg:px-12">
+                <img
+                  src="/images/clean/image.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute -left-2 h-20 w-auto object-contain lg:-left-3 lg:h-24"
+                />
+                <img
+                  src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`}
+                  alt="Google reviews rating"
+                  loading="lazy"
+                  className="relative z-10 h-auto max-h-[76px] w-auto max-w-full shrink-0 object-contain object-center lg:max-h-[88px]"
+                />
+                <img
+                  src="/images/articles/blogs/image.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute -right-2 h-20 w-auto object-contain lg:-right-3 lg:h-24"
+                />
+              </div>
             </div>
-            <div className="flex h-24 flex-1 basis-1/2 items-center justify-center  md:min-h-28 md:basis-auto md:flex-initial md:w-[240px] lg:w-[280px]">
-              <img
-                src="/images/updatehealsend.png"
-                alt="HealSend 2K members"
-                loading="lazy"
-                className="h-24 max-h-full w-full object-contain object-center md:h-28"
-              />
+            <div className="flex min-h-[92px] min-w-0 max-w-[calc(50%-0.375rem)] flex-1 basis-0 items-center justify-center sm:max-w-none sm:flex-initial sm:basis-[200px] lg:min-h-[104px] lg:w-[min(252px,calc((100vw-4rem)*0.44))] lg:max-w-none lg:flex-initial">
+              <div className="relative flex items-center justify-center px-10 lg:px-12">
+                <img
+                  src="/images/clean/image.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute -left-2 h-20 w-auto object-contain lg:-left-3 lg:h-24"
+                />
+                <img
+                  src="/images/healsend-2k-members-trust.png"
+                  alt="HealSend — 2K+ members"
+                  loading="lazy"
+                  className="relative z-10 h-auto max-h-[100px] w-auto max-w-[min(220px,100%)] shrink-0 object-contain object-center sm:max-h-[110px] lg:max-h-[120px]"
+                />
+                <img
+                  src="/images/articles/blogs/image.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute -right-2 h-20 w-auto object-contain lg:-right-3 lg:h-24"
+                />
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col items-center gap-6 lg:flex-row lg:items-start lg:justify-center lg:gap-8">
+        <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-3 lg:items-stretch lg:gap-6 xl:gap-8">
           {MEDICAL_PLANS.map((plan) => (
-            <div
-              key={plan.id}
-              className="w-full max-w-md lg:w-[26%] lg:max-w-none"
-            >
-              <MedicalPlanCard plan={plan} ctaHref={ctaHref} />
-            </div>
+            <MedicalPlanCard key={plan.id} plan={plan} ctaHref={ctaHref} />
           ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function PricingSection({ productData }) {
-  const ctaHref = getPrimaryCtaHref(productData);
-  const pricePresentation = getPricePresentation(productData);
-  const heroFirstMonthPrice = "$0";
-  const heroThenPrice = "$299/mo*";
-
-  return (
-    <section className="bg-[#f4f5f9] py-16 md:py-20">
-      <div className="mx-auto max-w-[560px] px-4">
-        <h2 className="mb-5 text-center text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">
-          {productData.name}
-        </h2>
-
-        <div className="overflow-hidden rounded-[1rem] border border-gray-200 bg-white">
-          {pricePresentation.savings ? (
-            <div className="flex items-center justify-center gap-2 bg-[#fde073] px-4 py-3 text-sm font-medium text-gray-900 md:text-base">
-              <BadgeCheck className="h-4 w-4 md:h-5 md:w-5" />
-              Save up to {pricePresentation.savings} on your first order
-            </div>
-          ) : (
-            <div className="flex items-center justify-center gap-2 bg-[#fde073] px-4 py-3 text-sm font-medium text-gray-900 md:text-base">
-              <BadgeCheck className="h-4 w-4 md:h-5 md:w-5" />
-              Clinician-guided treatment with clear next steps
-            </div>
-          )}
-          <div className="p-5 md:p-6">
-            <div className="mb-6 flex items-start justify-between">
-              <div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-bold text-gray-900 md:text-4xl">
-                    {heroFirstMonthPrice}
-                  </span>
-                  <span className="text-lg font-medium text-gray-800 md:text-xl">
-                    first month
-                  </span>
-                </div>
-                <div className="mt-1 text-sm text-gray-500 md:text-base">
-                  then {heroThenPrice}
-                </div>
-              </div>
-              <div className="flex flex-col gap-1 pt-2">
-                <span className="text-[10px] font-medium uppercase tracking-wide text-gray-400">
-                  Buy now, pay later
-                </span>
-                <div className="flex gap-2">
-                  <span className="flex items-center rounded-[0.6rem] bg-[#FFB3C7] px-3 py-1.5">
-                    <img
-                      src="/images/marketing/logos/klarna.png"
-                      alt="Klarna"
-                      className="h-3 w-auto"
-                    />
-                  </span>
-                  <span className="flex items-center rounded-[0.6rem] bg-[#B2FCE4] px-3 py-1.5">
-                    <img
-                      src="/images/marketing/logos/afterpay.png"
-                      alt="Afterpay"
-                      className="h-3 w-auto"
-                    />
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="mx-auto flex w-full max-w-md flex-col items-center gap-2.5">
-              <Link
-                href={ctaHref}
-                className="hs-solid-btn flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] transition-colors"
-              >
-                Get my personalized plan
-                <ArrowRight className="h-4 w-4 shrink-0" />
-              </Link>
-              <p className="w-full text-center text-sm font-semibold text-gray-700">
-                Takes 90 seconds · 100% private · free
-              </p>
-              <p className="mt-0 w-full text-center text-xs text-gray-500 md:text-sm">
-                {pricePresentation.savings
-                  ? "Discount auto-applied at checkout"
-                  : "Treatment fit still depends on clinician review"}
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -2071,86 +2030,143 @@ function TestimonialsSection() {
 function MemberResultsStatsSection() {
   const memberStats = [
     {
-      label: "Faster results",
-      value: "2x",
+      label: "Faster Results",
+      value: "2",
+      unit: "x",
       description:
-        "Remedy members lose weight twice as fast as the industry average within 90 days.",
+        "HealSend members lose weight twice as fast as the industry average within 90 days.",
       icon: TrendingUp,
     },
     {
-      label: "Avg. weight loss",
-      value: "-14 lbs",
-      description: "Average weight loss within 90 days of starting Remedy's program.",
+      label: "Avg. Weight Loss",
+      value: "-14",
+      unit: "lbs",
+      description: "Average weight loss within 90 days of starting HealSend's program.",
       icon: ArrowRight,
     },
     {
-      label: "Success rate",
-      value: "96.8%",
-      description: "of Remedy members lose 5% or more of their body weight on treatment.",
+      label: "Success Rate",
+      value: "96.8",
+      unit: "%",
+      description: "of HealSend members lose 5% or more of their body weight on treatment.",
       icon: BadgeCheck,
     },
     {
-      label: "Member retention",
-      value: "91%",
-      description: "of Remedy members stay past 90 days.",
+      label: "Member Retention",
+      value: "91",
+      unit: "%",
+      description: "of HealSend members stay past 90 days.",
       icon: Star,
     },
   ];
 
   return (
-    <section className="relative overflow-hidden bg-gray-50 py-10 text-gray-700 md:py-14">
+    <section className="relative overflow-hidden py-12 md:py-20 bg-slate-50">
       <img
         src="/images/articles/liquid-bubbles-desktop.webp"
         alt=""
         aria-hidden="true"
         className="absolute inset-0 hidden h-full w-full object-cover object-top md:block"
       />
-      <div className="absolute inset-0 bg-[#f4f5f9]/35" />
-      <div className="relative z-10 mx-auto max-w-[1400px] px-4 md:px-8">
-        <div className="border border-[#d7e0ee]/80 bg-white/15 p-5 md:p-8">
-          <div className="grid items-start gap-6 lg:grid-cols-[0.92fr_1.58fr]">
-            <div className="p-2 md:pr-5">
-              <p className="font-medium text-balance font-title text-4xl  tracking-[-0.01em] text-gray-950">
-                Why members start and stay
-              </p>
-              <h3 className="mt-2 text-3xl font-playfair italic tracking-tight text-balance text-[#5b3cdd] md:text-4xl">
-                with Remedy.
-              </h3>
-              <p className="mt-4 text-sm leading-relaxed text-gray-700">
-                <span className="font-semibold">
-                  8 out of 10 members lose 20+ lbs in 90 days*
-                </span>
-                <br />
-                Join 2,000+ members nationwide achieving their weight loss
-                goals.
-              </p>
+      <img
+        src="/images/articles/liquid-bubbles-desktop.webp"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover object-bottom md:hidden"
+      />
+      <div className="absolute inset-0 bg-white/70 md:hidden" />
+      <div className="container relative mx-auto max-w-screen-xl space-y-8 px-0 md:px-4">
+        <div className="grid items-start gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
+          <div className="flex flex-col gap-y-0 space-y-6 px-4 md:px-0">
+            <h2 className="font-medium text-balance font-title text-4xl tracking-[-0.01em] text-gray-950 md:text-5xl">
+              Why members start and stay{" "}
+              <span className="font-playfair italic text-[#3b4cc0]">
+                with HealSend.
+              </span>
+            </h2>
+            <p className="text-sm font-bold text-gray-700">
+              8 out of 10 members lose{" "}
+              <em>20+ lbs in 90 days</em>*
+              <br />
+              <span className="font-normal text-inherit">
+                Join 2,000+ members nationwide achieving their weight loss goals.
+              </span>
+            </p>
+          </div>
+
+          <div className="min-w-0">
+            {/* Mobile: carousel */}
+            <div className="md:hidden pl-4">
+              <Carousel opts={{ align: "start" }} className="relative w-full">
+                <CarouselContent className="-ml-4 items-stretch">
+                  {memberStats.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <CarouselItem
+                        key={item.label}
+                        className="min-w-0 shrink-0 grow-0 basis-11/12 pl-4"
+                      >
+                        <div className="h-full">
+                          <div className="overflow-hidden shadow-lg rounded-2xl p-6 bg-slate-50 h-full">
+                            <div className="flex gap-4 justify-between items-start">
+                              <p className="text-sm tracking-wider uppercase text-slate-700">
+                                {item.label}
+                              </p>
+                              <Icon className="size-[30px] text-slate-500" aria-hidden="true" strokeWidth={1.5} />
+                            </div>
+                            <div className="flex justify-start gap-0.5 items-baseline pb-6 pt-1">
+                              <span className="font-medium text-4xl tracking-tight text-gray-950">
+                                {item.value}
+                              </span>
+                              <span className="font-medium text-4xl tracking-tight text-gray-950">
+                                {item.unit}
+                              </span>
+                            </div>
+                            <p className="text-sm text-slate-500">
+                              {item.description}
+                            </p>
+                          </div>
+                        </div>
+                      </CarouselItem>
+                    );
+                  })}
+                </CarouselContent>
+                <div className="flex gap-3 px-4 mt-4">
+                  <CarouselPrevious className="static translate-y-0 size-6 rounded-full text-sm bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-600" />
+                  <CarouselNext className="static translate-y-0 size-6 rounded-full text-sm bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-600" />
+                </div>
+              </Carousel>
             </div>
 
-            <div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {memberStats.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <article
-                      key={item.label}
-                      className="min-h-[178px] rounded-[1rem] border border-[#dfe5f1] bg-white p-5 shadow-[0_8px_22px_-16px_rgba(24,39,75,0.35)]"
-                    >
-                      <div className="mb-2 flex items-center justify-between">
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gray-500">
-                          {item.label}
-                        </p>
-                        <Icon className="h-4 w-4 text-gray-400" strokeWidth={1.9} />
-                      </div>
-                      <p className="text-2xl font-bold tracking-tight text-gray-950 md:text-[2rem]">
+            {/* md+: 2x2 grid */}
+            <div className="hidden md:grid md:grid-cols-2 gap-4">
+              {memberStats.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.label}
+                    className="overflow-hidden shadow-lg rounded-2xl p-6 pb-11 bg-slate-50"
+                  >
+                    <div className="flex gap-4 justify-between items-start">
+                      <p className="text-sm tracking-wider uppercase text-slate-700">
+                        {item.label}
+                      </p>
+                      <Icon className="size-[30px] text-slate-500" aria-hidden="true" strokeWidth={1.5} />
+                    </div>
+                    <div className="flex justify-start gap-0.5 items-baseline pb-6 pt-1">
+                      <span className="font-medium text-4xl tracking-tight text-gray-950">
                         {item.value}
-                      </p>
-                      <p className="mt-3 text-sm leading-relaxed text-gray-600">
-                        {item.description}
-                      </p>
-                    </article>
-                  );
-                })}
-              </div>
+                      </span>
+                      <span className="font-medium text-4xl tracking-tight text-gray-950">
+                        {item.unit}
+                      </span>
+                    </div>
+                    <p className="text-sm text-slate-500">
+                      {item.description}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -2160,20 +2176,12 @@ function MemberResultsStatsSection() {
 }
 
 function BMICalculatorPreviewSection() {
-  const previewAvatars = [
-    "/photoroom-6.png",
-    "/photoroom-4.png",
-    "/photoroom-3.png",
-    "/photoroom-2.png",
-    "/noelle_after.webp",
-    "/morgan_after.webp",
-  ];
-
   const [heightFt, setHeightFt] = useState("5");
   const [heightIn, setHeightIn] = useState("10");
   const [weightLbs, setWeightLbs] = useState("210");
   const [modalOpen, setModalOpen] = useState(false);
   const [projectedStartWeight, setProjectedStartWeight] = useState(334);
+  const sliderTimerRef = useRef(null);
 
   const totalInches =
     (parseFloat(heightFt) || 0) * 12 + (parseFloat(heightIn) || 0);
@@ -2252,13 +2260,13 @@ function BMICalculatorPreviewSection() {
           </h2>
         </div>
 
-        <div className="mt-8 grid gap-5 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,0.95fr)_minmax(0,0.9fr)]">
-          <article className="rounded-[1rem] border border-[#edf1f7] bg-white p-6 shadow-[0_18px_34px_rgba(20,24,34,0.08)] md:p-8">
-            <p className="text-center text-[1.15rem] font-medium tracking-[-0.03em] text-[#121726] md:text-[1.25rem]">
+        <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)]">
+          <article className="rounded-[1rem] border border-[#edf1f7] bg-white p-4 shadow-[0_18px_34px_rgba(20,24,34,0.08)] md:p-8">
+            <p className="text-center text-[1rem] font-medium tracking-[-0.03em] text-[#121726] md:text-[1.25rem]">
               Check your eligibility.
             </p>
 
-            <div className="relative mx-auto mt-8 h-[210px] w-[260px]">
+            <div className="relative mx-auto mt-4 h-[160px] w-[200px] md:mt-8 md:h-[210px] md:w-[260px]">
               <svg viewBox="0 0 280 170" className="h-full w-full overflow-visible">
                 <path
                   d="M 25 150 A 115 115 0 0 1 255 150"
@@ -2286,23 +2294,23 @@ function BMICalculatorPreviewSection() {
                   </linearGradient>
                 </defs>
               </svg>
-              <div className="absolute inset-x-0 bottom-6 text-center">
-                <div className="font-title text-[4.6rem] font-semibold leading-none tracking-[-0.06em] text-[#0b1020]">
+              <div className="absolute inset-x-0 bottom-4 text-center md:bottom-6">
+                <div className="font-title text-[3.2rem] font-semibold leading-none tracking-[-0.06em] text-[#0b1020] md:text-[4.6rem]">
                   {bmiDisplay}
                 </div>
-                <div className="mt-1 text-sm font-medium uppercase tracking-[0.2em] text-[#7a859c]">
+                <div className="mt-1 text-xs font-medium uppercase tracking-[0.2em] text-[#7a859c] md:text-sm">
                   Your BMI
                 </div>
               </div>
             </div>
 
-            <div className="mt-6 space-y-5">
+            <div className="mt-4 space-y-4 md:mt-6 md:space-y-5">
               <div>
-                <label className="mb-2 block text-[1rem] font-medium text-[#313948]">
+                <label className="mb-1.5 block text-[0.9rem] font-medium text-[#313948] md:mb-2 md:text-[1rem]">
                   Height
                 </label>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3 focus-within:border-[#5d62f3]">
+                <div className="grid grid-cols-2 gap-3 md:gap-4">
+                  <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-3 py-2.5 focus-within:border-[#5d62f3] md:px-4 md:py-3">
                     <input
                       type="text"
                       inputMode="numeric"
@@ -2310,11 +2318,11 @@ function BMICalculatorPreviewSection() {
                       value={heightFt}
                       onChange={handleNumericChange(setHeightFt, 8)}
                       aria-label="Height in feet"
-                      className="w-full bg-transparent text-[1.02rem] text-[#172030] outline-none"
+                      className="w-full bg-transparent text-[0.9rem] text-[#172030] outline-none md:text-[1.02rem]"
                     />
-                    <span className="text-[1.02rem] font-medium text-[#68748f]">ft</span>
+                    <span className="text-[0.9rem] font-medium text-[#68748f] md:text-[1.02rem]">ft</span>
                   </div>
-                  <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3 focus-within:border-[#5d62f3]">
+                  <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-3 py-2.5 focus-within:border-[#5d62f3] md:px-4 md:py-3">
                     <input
                       type="text"
                       inputMode="numeric"
@@ -2322,18 +2330,18 @@ function BMICalculatorPreviewSection() {
                       value={heightIn}
                       onChange={handleNumericChange(setHeightIn, 11)}
                       aria-label="Height in inches"
-                      className="w-full bg-transparent text-[1.02rem] text-[#172030] outline-none"
+                      className="w-full bg-transparent text-[0.9rem] text-[#172030] outline-none md:text-[1.02rem]"
                     />
-                    <span className="text-[1.02rem] font-medium text-[#68748f]">in</span>
+                    <span className="text-[0.9rem] font-medium text-[#68748f] md:text-[1.02rem]">in</span>
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="mb-2 block text-[1rem] font-medium text-[#313948]">
+                <label className="mb-1.5 block text-[0.9rem] font-medium text-[#313948] md:mb-2 md:text-[1rem]">
                   Weight
                 </label>
-                <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-4 py-3 focus-within:border-[#5d62f3]">
+                <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-3 py-2.5 focus-within:border-[#5d62f3] md:px-4 md:py-3">
                   <input
                     type="text"
                     inputMode="numeric"
@@ -2341,9 +2349,9 @@ function BMICalculatorPreviewSection() {
                     value={weightLbs}
                     onChange={handleNumericChange(setWeightLbs, 999)}
                     aria-label="Weight in pounds"
-                    className="w-full bg-transparent text-[1.02rem] text-[#172030] outline-none"
+                    className="w-full bg-transparent text-[0.9rem] text-[#172030] outline-none md:text-[1.02rem]"
                   />
-                  <span className="text-[1.02rem] font-medium text-[#68748f]">lbs</span>
+                  <span className="text-[0.9rem] font-medium text-[#68748f] md:text-[1.02rem]">lbs</span>
                 </div>
               </div>
             </div>
@@ -2352,7 +2360,7 @@ function BMICalculatorPreviewSection() {
               type="button"
               onClick={() => setModalOpen(true)}
               disabled={bmi <= 0}
-              className="hs-solid-btn mt-8 inline-flex min-h-[3.4rem] w-full items-center justify-center gap-2 rounded-full px-8 text-[1.02rem] font-semibold disabled:cursor-not-allowed disabled:opacity-60"
+              className="hs-solid-btn mt-6 inline-flex min-h-[2.8rem] w-full items-center justify-center gap-2 rounded-full px-6 text-[0.9rem] font-semibold disabled:cursor-not-allowed disabled:opacity-60 md:mt-8 md:min-h-[3.4rem] md:px-8 md:text-[1.02rem]"
             >
               See my BMI eligibility
               <ArrowRight className="h-4 w-4" />
@@ -2371,7 +2379,7 @@ function BMICalculatorPreviewSection() {
             bmiRanges={bmiRanges}
           />
 
-          <article className="overflow-hidden rounded-[1rem] border border-[#edf1f7] bg-white shadow-[0_18px_34px_rgba(20,24,34,0.08)]">
+          <article className="hidden overflow-hidden rounded-[1rem] border border-[#edf1f7] bg-white shadow-[0_18px_34px_rgba(20,24,34,0.08)] lg:block">
             <div className="relative h-full min-h-[720px]">
               <Image
                 src="/images/wmremove-transformed%20(1).jpeg"
@@ -2384,7 +2392,7 @@ function BMICalculatorPreviewSection() {
               <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(255,255,255,0.88)_44%,rgba(255,255,255,1)_100%)] px-6 pb-5 pt-24">
                 <div className="flex justify-center">
                   <div className="flex -space-x-2.5">
-                    {previewAvatars.map((src) => (
+                    {MEMBER_FACE_STACK_IMAGE_SRCS_SIX.map((src) => (
                       <span
                         key={src}
                         className="relative h-10 w-10 overflow-hidden rounded-full border-[3px] border-white bg-[#edf1f8]"
@@ -2409,7 +2417,7 @@ function BMICalculatorPreviewSection() {
             </div>
           </article>
 
-          <article className="rounded-[1rem] border border-[#edf1f7] bg-white p-8 shadow-[0_18px_34px_rgba(20,24,34,0.08)]">
+          <article className="hidden rounded-[1rem] border border-[#edf1f7] bg-white p-8 shadow-[0_18px_34px_rgba(20,24,34,0.08)] lg:block">
             <div className="text-center">
               <p className="text-[1.3rem] font-medium leading-[1.2] tracking-[-0.03em] text-[#121726]">
                 Your projected
@@ -2445,22 +2453,50 @@ function BMICalculatorPreviewSection() {
                 </span>
               </div>
 
-              <div className="mt-12">
-                <div className="relative h-4 rounded-full bg-[#dfe5f4]">
+              <div className="relative mt-12 py-3">
+                <div
+                  className="relative h-4 w-full overflow-hidden rounded-full bg-[#5d62f3]/10 pointer-events-none"
+                  role="progressbar"
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                >
                   <div
-                    className="absolute inset-y-0 left-0 rounded-full bg-[#5d62f3]"
-                    style={{ width: `${projectedFillPercent}%` }}
+                    className="h-full w-full flex-1 rounded-full bg-gradient-to-r from-[#4347d9] to-[#5d62f3]"
+                    style={{ transform: `translateX(-${100 - projectedFillPercent}%)` }}
                   />
                 </div>
-                <input
-                  type="range"
-                  min={120}
-                  max={450}
-                  step={1}
-                  value={projectedStartWeight}
-                  onChange={handleProjectedWeightChange}
-                  aria-label="Starting weight slider"
-                  className="relative z-10 mt-[-12px] h-8 w-full cursor-pointer appearance-none bg-transparent accent-[#5d62f3] [&::-webkit-slider-runnable-track]:h-4 [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-transparent [&::-webkit-slider-thumb]:-mt-[6px] [&::-webkit-slider-thumb]:h-7 [&::-webkit-slider-thumb]:w-7 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#4b55eb] [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-[0_10px_20px_rgba(93,98,243,0.18)] [&::-moz-range-track]:h-4 [&::-moz-range-track]:rounded-full [&::-moz-range-track]:bg-transparent [&::-moz-range-thumb]:h-7 [&::-moz-range-thumb]:w-7 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-[#4b55eb] [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:shadow-[0_10px_20px_rgba(93,98,243,0.18)]"
+                <div
+                  aria-label={`Weight: ${projectedStartWeight} lbs`}
+                  aria-valuenow={projectedStartWeight}
+                  aria-valuemin={120}
+                  aria-valuemax={450}
+                  role="slider"
+                  tabIndex={0}
+                  className="absolute top-1/2 size-6 rounded-full bg-white border-2 border-[#3b3ff0] shadow-md cursor-grab active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3b3ff0] focus-visible:ring-offset-2"
+                  style={{
+                    left: `${projectedFillPercent}%`,
+                    top: "50%",
+                    transform: "translateX(-50%) translateY(-50%)",
+                  }}
+                  onPointerDown={(e) => {
+                    e.currentTarget.setPointerCapture(e.pointerId);
+                    const bar = e.currentTarget.parentElement;
+                    clearTimeout(sliderTimerRef.current);
+                    const move = (ev) => {
+                      const rect = bar.getBoundingClientRect();
+                      const pct = Math.max(0, Math.min(1, (ev.clientX - rect.left) / rect.width));
+                      setProjectedStartWeight(Math.round(120 + pct * (450 - 120)));
+                    };
+                    move(e);
+                    const up = () => {
+                      bar.removeEventListener("pointermove", move);
+                      bar.removeEventListener("pointerup", up);
+                      sliderTimerRef.current = setTimeout(() => setModalOpen(true), 2000);
+                    };
+                    bar.addEventListener("pointermove", move);
+                    bar.addEventListener("pointerup", up);
+                  }}
+                  draggable="false"
                 />
               </div>
             </div>
@@ -2486,7 +2522,7 @@ function BMIEligibilityModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogPortal>
         <DialogOverlay className="bg-black/50" />
-        <DialogPrimitive.Content className="fixed left-1/2 top-1/2 z-50 grid max-h-[92vh] w-[95vw] max-w-[1100px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-[1.25rem] bg-white p-6 shadow-2xl outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 md:p-10">
+        <DialogPrimitive.Content className="fixed inset-x-3 bottom-0 z-50 grid max-h-[92vh] w-auto overflow-y-auto rounded-t-[1.25rem] bg-white p-4 shadow-2xl outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom md:inset-x-auto md:bottom-auto md:left-1/2 md:top-1/2 md:max-h-[92vh] md:w-[95vw] md:max-w-[1100px] md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-[1.25rem] md:p-10">
           <DialogPrimitive.Close
             aria-label="Close"
             className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50"
@@ -2495,12 +2531,12 @@ function BMIEligibilityModal({
           </DialogPrimitive.Close>
 
           <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-            <div className="rounded-[1rem] bg-[#f5f7fb] p-6 md:p-8">
+            <div className="rounded-[1rem] bg-[#f5f7fb] p-4 md:p-8">
               <p className="text-center text-[1.05rem] font-medium tracking-[-0.02em] text-[#121726] md:text-[1.15rem]">
                 Check your eligibility.
               </p>
 
-              <div className="relative mx-auto mt-6 h-[200px] w-[260px]">
+              <div className="relative mx-auto mt-4 h-[160px] w-[220px] md:mt-6 md:h-[200px] md:w-[260px]">
                 <svg viewBox="0 0 280 170" className="h-full w-full overflow-visible">
                   <path
                     d="M 25 150 A 115 115 0 0 1 255 150"
@@ -2528,16 +2564,16 @@ function BMIEligibilityModal({
                   </defs>
                 </svg>
                 <div className="absolute inset-x-0 bottom-4 text-center">
-                  <div className="font-title text-[3.6rem] font-semibold leading-none tracking-[-0.06em] text-[#0b1020]">
+                  <div className="font-title text-[2.8rem] font-semibold leading-none tracking-[-0.06em] text-[#0b1020] md:text-[3.6rem]">
                     {bmiDisplay}
                   </div>
-                  <div className="mt-1 text-sm font-medium text-[#5b6478]">
+                  <div className="mt-1 text-xs font-medium text-[#5b6478] md:text-sm">
                     Your BMI
                   </div>
                 </div>
               </div>
 
-              <p className="mt-6 text-center text-[0.95rem] leading-7 text-[#3a4254]">
+              <p className="mt-4 text-center text-[0.82rem] leading-6 text-[#3a4254] md:mt-6 md:text-[0.95rem] md:leading-7">
                 Body Mass Index (BMI) is a measurement that uses your height and
                 weight to estimate whether your weight is in a healthy range for
                 your height.*
@@ -2589,20 +2625,6 @@ function BMIEligibilityModal({
             </div>
           </div>
 
-          <div className="mt-8 space-y-3 text-[0.78rem] leading-5 text-[#5b6478] md:text-[0.82rem]">
-            <p>
-              *BMI doesn&apos;t directly measure body fat and may not accurately
-              reflect health for people with high muscle mass, pregnant women,
-              children, older adults, certain ethnic groups, or those with
-              medical conditions.
-            </p>
-            <p>
-              The BMI calculator does not determine eligibility for weight-loss
-              treatments. A licensed healthcare provider must evaluate your
-              overall health and history to decide if treatment is right for
-              you.
-            </p>
-          </div>
         </DialogPrimitive.Content>
       </DialogPortal>
     </Dialog>
@@ -2684,29 +2706,29 @@ function SimpleSteps({ productData }) {
           {steps.map((step) => (
             <div
               key={step.step}
-              className="relative flex h-full flex-col overflow-hidden rounded-[2rem] bg-white px-6 pt-7 shadow-sm"
+              className="relative flex h-full flex-col overflow-hidden rounded-[1.5rem] bg-white px-4 pt-5 shadow-sm md:rounded-[2rem] md:px-6 md:pt-7"
             >
-              <h3 className="mb-5 min-h-[56px] pr-2 text-[1.4rem] font-bold leading-[1.3] text-[#1c1d20]">
+              <h3 className="mb-3 min-h-0 pr-2 text-[1.1rem] font-bold leading-[1.3] text-[#1c1d20] md:mb-5 md:min-h-[56px] md:text-[1.4rem]">
                 {step.title}
               </h3>
 
-              <div className="mb-5 h-px w-full bg-gray-100/80" />
+              <div className="mb-3 h-px w-full bg-gray-100/80 md:mb-5" />
 
-              <div className="relative z-10 mb-5 flex items-start gap-4">
-                <div className="flex w-14 shrink-0 flex-col items-center">
-                  <span className="mb-1 text-[0.75rem] font-bold tracking-[0.15em] text-[#8a8d98]">
+              <div className="relative z-10 mb-3 flex items-start gap-3 md:mb-5 md:gap-4">
+                <div className="flex w-10 shrink-0 flex-col items-center md:w-14">
+                  <span className="mb-1 text-[0.65rem] font-bold tracking-[0.15em] text-[#8a8d98] md:text-[0.75rem]">
                     STEP
                   </span>
-                  <span className="text-center text-[3.3rem] font-extrabold leading-none text-[#1c1d20]">
+                  <span className="text-center text-[2.4rem] font-extrabold leading-none text-[#1c1d20] md:text-[3.3rem]">
                     {step.step}
                   </span>
                 </div>
-                <p className="pt-0.5 text-[1.05rem] leading-[1.6] text-[#4a4d57]">
+                <p className="pt-0.5 text-[0.9rem] leading-[1.5] text-[#4a4d57] md:text-[1.05rem] md:leading-[1.6]">
                   {step.description}
                 </p>
               </div>
 
-              <div className={step.imageContainerClass}>
+              <div className="mt-auto flex w-full items-end justify-center h-[300px] md:h-[360px]">
                 <img
                   src={step.image}
                   alt={`Step ${step.step}`}
@@ -2819,20 +2841,20 @@ function LabTested({ productData: _productData }) {
               </p>
 
               <div className="max-w-lg space-y-4">
-                <div className="flex items-center justify-between rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-md md:p-5">
-                  <div className="flex items-center gap-4">
+                <div className="flex flex-col gap-3 rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:gap-4 md:p-5">
+                  <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4">
                     <BadgeCheck
-                      className="h-6 w-6 text-white"
+                      className="h-6 w-6 shrink-0 text-white"
                       strokeWidth={1.5}
                     />
-                    <span className="text-base font-medium text-white">
+                    <span className="min-w-0 text-base font-medium leading-snug text-white">
                       Third party quality control testing
                     </span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setModalOpen(true)}
-                    className="hs-outline-btn rounded-full px-5 py-2 text-sm font-medium transition-colors"
+                    className="hs-outline-btn inline-flex w-full shrink-0 items-center justify-center whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors sm:w-auto sm:px-5"
                   >
                     Learn More
                   </button>
@@ -2942,7 +2964,7 @@ function ComprehensiveCare({ productData }) {
                       ))}
                     </ul>
                   </div>
-                  <div className="mx-auto mt-1 flex h-24 w-24 shrink-0 items-center justify-center sm:h-28 sm:w-28 lg:mx-0 lg:mt-0 lg:h-32 lg:w-32">
+                  <div className="mx-auto mt-1 flex h-20 w-20 shrink-0 items-center justify-center bg-white sm:h-24 sm:w-24 lg:mx-0 lg:mt-0 lg:h-28 lg:w-28">
                     <img
                       src={feature.image}
                       alt={feature.title}
@@ -3145,7 +3167,7 @@ const SAME_MED_MARQUEE_ITEMS = [
     icon: `/images/${encodeURIComponent("icon_1-removebg-preview (1) (1).png")}`,
   },
   {
-    text: "Personalized weight-loss plans",
+    text: "Personalized Rx weight-loss plans",
     icon: `/images/${encodeURIComponent("note-removebg-preview (1) (1).png")}`,
   },
   {
@@ -3165,7 +3187,7 @@ const SAME_MED_MARQUEE_ITEMS = [
     icon: `/images/${encodeURIComponent("medi_im-removebg-preview-1 (2).png")}`,
   },
   {
-    text: "1,200,000+ prescriptions written",
+    text: "1,000,000+ prescriptions written",
     icon: `/images/${encodeURIComponent("note-removebg-preview (1) (1).png")}`,
   },
   {
@@ -3187,10 +3209,10 @@ function SameMedicationMarquee() {
   const loopItems = [...SAME_MED_MARQUEE_ITEMS, ...SAME_MED_MARQUEE_ITEMS];
 
   return (
-    <div className="relative left-1/2 w-screen -translate-x-1/2 border-y border-[#e2d79a] bg-[#f9eb94] px-3 py-2 shadow-[0_10px_24px_rgba(186,155,33,0.08)]">
+    <div className="relative left-1/2 w-screen -translate-x-1/2 border-y border-[#e2d79a] bg-[#f9eb94] px-3 py-6 shadow-[0_10px_24px_rgba(186,155,33,0.08)]">
       <div className="overflow-hidden">
         <motion.div
-          className="flex min-w-max items-center gap-[18px]"
+          className="flex min-w-max items-center gap-[58px]"
           animate={{ x: ["0%", "-50%"] }}
           transition={{
             duration: 26,
@@ -3344,7 +3366,7 @@ function SupportAvailabilitySection() {
                 <p className="text-[0.98rem] font-medium text-[#626b7f]">
                   Always available
                 </p>
-                <p className="mt-1 text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d]">
+                <p className="mt-1 whitespace-nowrap text-[0.95rem] font-semibold leading-[1.22] text-[#434b5d] md:text-[1.28rem]">
                   7 days a week · 8:00am - 8:00pm ET
                 </p>
               </div>
@@ -3395,7 +3417,26 @@ function RestoredTirzepatideBenefitsCarouselSection({
   isHomepage = false,
 }) {
   const [api, setApi] = useState(null);
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
   const ctaHref = getPrimaryCtaHref(productData);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+    const updateScrollLocks = () => {
+      setCanScrollPrev(api.canScrollPrev());
+      setCanScrollNext(api.canScrollNext());
+    };
+    updateScrollLocks();
+    api.on("select", updateScrollLocks);
+    api.on("reInit", updateScrollLocks);
+    return () => {
+      api.off("select", updateScrollLocks);
+      api.off("reInit", updateScrollLocks);
+    };
+  }, [api]);
 
   if (!showWeightLossBenefitsCarousel(productData, isHomepage)) {
     return null;
@@ -3447,7 +3488,8 @@ function RestoredTirzepatideBenefitsCarouselSection({
               opts={{
                 align: "start",
                 containScroll: "trimSnaps",
-                loop: benefits.length > 1,
+                /* loop disables Embla’s scroll edges — turn off so prev/next gray out at ends */
+                loop: false,
               }}
               className="w-full"
             >
@@ -3494,271 +3536,44 @@ function RestoredTirzepatideBenefitsCarouselSection({
               <div className="flex gap-3">
                 <button
                   type="button"
+                  disabled={!canScrollPrev}
                   onClick={() => api?.scrollPrev()}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50"
                   aria-label="Previous benefit"
+                  className={cn(
+                    benefitCarouselNavButtonClassName,
+                    !canScrollPrev &&
+                    "opacity-55 cursor-not-allowed border-gray-200 text-gray-400 hover:bg-white",
+                  )}
                 >
-                  <ChevronLeft className="h-5 w-5" />
+                  <ChevronLeft
+                    className={cn(
+                      "h-5 w-5 shrink-0",
+                      !canScrollPrev && "text-gray-400",
+                    )}
+                  />
                 </button>
                 <button
                   type="button"
+                  disabled={!canScrollNext}
                   onClick={() => api?.scrollNext()}
-                  className="flex h-11 w-11 items-center justify-center rounded-full bg-[#6d6ffc] text-white shadow-sm transition-colors hover:bg-[#5d62f3]"
                   aria-label="Next benefit"
+                  className={cn(
+                    benefitCarouselNavButtonClassName,
+                    !canScrollNext &&
+                    "opacity-55 cursor-not-allowed border-gray-200 text-gray-400 hover:bg-white",
+                  )}
                 >
-                  <ChevronRight className="h-5 w-5" />
+                  <ChevronRight
+                    className={cn(
+                      "h-5 w-5 shrink-0",
+                      !canScrollNext && "text-gray-400",
+                    )}
+                  />
                 </button>
               </div>
             </div>
           </>
         )}
-      </div>
-    </section>
-  );
-}
-
-/** PDP product carousel (“What are the benefits of Tirzepatide Injections?”) — merged CMS or `TIRZEPATIDE_BENEFITS_CAROUSEL` fallback via `mergeProductContent`. */
-function TirzepatideProductBenefitsCarouselSection({
-  productData,
-  isHomepage = false,
-}) {
-  const [api, setApi] = useState(null);
-  const ctaHref = getPrimaryCtaHref(productData);
-
-  const mapToSlides = (items) => {
-    const valid = items.filter(
-      (item) =>
-        item.image && String(item.text || item.title || "").trim(),
-    );
-    return valid.map((item, index) => {
-      const isLast = index === valid.length - 1;
-      const title = item.text || item.title || "";
-      const rawCta =
-        item.ctaText != null && item.ctaText !== "" ? String(item.ctaText) : "";
-      return {
-        title,
-        image: item.image,
-        alt: item.alt || item.title || item.text || "Benefit card image",
-        ctaText: isLast ? (rawCta.trim() || "Get Started") : rawCta.trim(),
-        ctaHref: item.ctaHref || ctaHref,
-      };
-    });
-  };
-
-  if (!showWeightLossBenefitsCarousel(productData, isHomepage)) {
-    return null;
-  }
-
-  const benefits = mapToSlides(productData.benefitsCarousel || []);
-
-  return (
-    <section
-      id="tirzepatide-benefits"
-      aria-labelledby="tirzepatide-benefits-heading"
-      className="scroll-mt-24 bg-white py-14 md:py-20"
-    >
-      <div className="mx-auto max-w-[1340px] px-4 md:px-8">
-        <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.22em] text-[#64748b]">
-          Tirzepatide benefits
-        </p>
-        <h2
-          id="tirzepatide-benefits-heading"
-          className="mb-10 text-center font-title text-3xl font-bold tracking-tight text-[#101726] md:mb-12 md:text-4xl lg:text-5xl"
-        >
-          {productData.benefitsCarouselTitle ||
-            "What Are the Benefits of Tirzepatide?"}
-        </h2>
-
-        {benefits.length === 0 ? (
-          <p className="text-center text-sm text-gray-600">
-            Benefit carousel is unavailable.
-          </p>
-        ) : (
-          <>
-            <Carousel
-              setApi={setApi}
-              opts={{
-                align: "start",
-                containScroll: "trimSnaps",
-                loop: benefits.length > 1,
-              }}
-              className="w-full"
-            >
-              <CarouselContent className="-ml-4 items-stretch md:-ml-6">
-                {benefits.map((item, index) => {
-                  const isFinal = index === benefits.length - 1;
-                  const label =
-                    item.ctaText?.trim() ||
-                    (isFinal ? "Get Started" : "");
-                  const showCta = Boolean(label);
-                  return (
-                    <CarouselItem
-                      key={`${item.title}-${index}`}
-                      className="basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[33.333%]"
-                    >
-                      <article className="relative h-[420px] overflow-hidden rounded-[1.25rem] shadow-md ring-1 ring-black/5 md:h-[460px]">
-                        <img
-                          src={item.image}
-                          alt={item.alt}
-                          className="absolute inset-0 h-full w-full object-cover object-center"
-                        />
-                        <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_60%,rgba(0,0,0,0.85)_100%)] p-6 md:p-7">
-                          <p className="text-[1.05rem] font-semibold leading-tight text-white md:text-[1.15rem]">
-                            {item.title}
-                          </p>
-                          {showCta ? (
-                            <Link
-                              href={item.ctaHref || ctaHref}
-                              className="hs-solid-btn mt-4 inline-flex min-h-[3.5rem] w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-base font-semibold shadow-[0_10px_28px_rgba(109,111,252,0.4)] md:min-h-[3.75rem] md:px-8 md:py-4 md:text-[1.05rem]"
-                            >
-                              {label}
-                            </Link>
-                          ) : null}
-                        </div>
-                      </article>
-                    </CarouselItem>
-                  );
-                })}
-              </CarouselContent>
-            </Carousel>
-
-            <div className="mt-6 flex items-center gap-4">
-              <div className="h-px flex-1 bg-gray-200" />
-              <div className="flex gap-3">
-                <button
-                  type="button"
-                  onClick={() => api?.scrollPrev()}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50"
-                  aria-label="Previous benefit"
-                >
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => api?.scrollNext()}
-                  className="flex h-11 w-11 items-center justify-center rounded-full bg-[#101726] text-white transition-colors hover:bg-[#1d2538]"
-                  aria-label="Next benefit"
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </button>
-              </div>
-            </div>
-          </>
-        )}
-      </div>
-    </section>
-  );
-}
-
-function GLP1BenefitsSection({ productData, isHomepage = false }) {
-  const [api, setApi] = useState(null);
-  const ctaHref = getPrimaryCtaHref(productData);
-
-  if (!showWeightLossBenefitsCarousel(productData, isHomepage)) {
-    return null;
-  }
-
-  /** Fixed GLP‑1 storyline + imagery (three cards; CTA on third). */
-  const benefits = [
-    {
-      title: "Steady, sustainable weight loss without crash dieting",
-      image: "/images/articles/girl.webp",
-      alt: "Sustainable weight loss",
-    },
-    {
-      title: "Feel lighter, clearer, and more energized",
-      image: "/images/articles/med1.webp",
-      alt: "More energy and clarity",
-    },
-    {
-      title:
-        "Improved metabolic health — blood sugar, blood pressure, and cholesterol",
-      image: "/images/articles/fem1.jpg",
-      alt: "Improved metabolic markers",
-      ctaText: "Get Started",
-      ctaHref,
-    },
-  ];
-
-  return (
-    <section
-      id="glp1-benefits"
-      aria-labelledby="glp1-benefits-heading"
-      className="scroll-mt-24 bg-white py-16 md:py-20"
-    >
-      <div className="mx-auto max-w-[1340px] px-4 md:px-8">
-        <h2
-          id="glp1-benefits-heading"
-          className="mb-10 text-center font-title text-3xl font-bold tracking-tight text-[#101726] md:mb-12 md:text-4xl lg:text-5xl"
-        >
-          What are the benefits of GLP-1?
-        </h2>
-
-        <Carousel
-          setApi={setApi}
-          opts={{
-            align: "start",
-            containScroll: "trimSnaps",
-            loop: benefits.length > 1,
-          }}
-          className="w-full"
-        >
-          <CarouselContent className="-ml-4 items-stretch md:-ml-6">
-            {benefits.map((item, index) => {
-              const label = item.ctaText?.trim() || "";
-              const showCta = Boolean(label);
-              return (
-                <CarouselItem
-                  key={`${item.title}-${index}`}
-                  className="basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[33.333%]"
-                >
-                  <article className="relative h-[420px] overflow-hidden rounded-[1.25rem] shadow-sm md:h-[460px]">
-                    <img
-                      src={item.image}
-                      alt={item.alt}
-                      className="absolute inset-0 h-full w-full object-cover object-center"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_60%,rgba(0,0,0,0.85)_100%)] p-6 md:p-7">
-                      <p className="text-[1.05rem] font-semibold leading-tight text-white md:text-[1.15rem]">
-                        {item.title}
-                      </p>
-                      {showCta ? (
-                        <Link
-                          href={item.ctaHref || ctaHref}
-                          className="hs-solid-btn mt-4 inline-flex min-h-[2.85rem] w-full items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)]"
-                        >
-                          {label}
-                        </Link>
-                      ) : null}
-                    </div>
-                  </article>
-                </CarouselItem>
-              );
-            })}
-          </CarouselContent>
-        </Carousel>
-
-        <div className="mt-6 flex items-center gap-4">
-          <div className="h-px flex-1 bg-gray-200" />
-          <div className="flex gap-3">
-            <button
-              type="button"
-              onClick={() => api?.scrollPrev()}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50"
-              aria-label="Previous benefit"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => api?.scrollNext()}
-              className="flex h-11 w-11 items-center justify-center rounded-full bg-[#101726] text-white transition-colors hover:bg-[#1d2538]"
-              aria-label="Next benefit"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
       </div>
     </section>
   );
@@ -3834,15 +3649,7 @@ export default function MarketingProductPage({ product, isHomepage = false }) {
       <FadeInSection><NegativeSellSection /></FadeInSection>
 
 
-
-      <TirzepatideProductBenefitsCarouselSection
-        productData={productData}
-        isHomepage={isHomepage}
-      />
-      <GLP1BenefitsSection productData={productData} isHomepage={isHomepage} />
-      <AboveFoldClarityBlock />
       {/* <FeatureSplit productData={productData} /> */}
-      <PricingSection productData={productData} />
       <FadeInSection><SupportFeatures productData={productData} /></FadeInSection>
       <FadeInSection><TestimonialsSection /></FadeInSection>
       <FadeInSection><MemberResultsStatsSection /></FadeInSection>

@@ -416,13 +416,25 @@ function getCheckoutSelection(data, steps, summary) {
 }
 
 /* ═══════════════════════ Progress Bar ══════════════════════════ */
-function ProgressBar({ current, total, label }) {
-  const pct = Math.round((current / total) * 100);
+function ProgressBar({ current, total }) {
+  const safeTotal = Math.max(1, Number(total) || 1);
+  const safeCurrent = Math.min(
+    Math.max(1, Number(current) || 1),
+    safeTotal,
+  );
+  const pct = Math.round((safeCurrent / safeTotal) * 100);
   return (
-    <div className="mb-10">
-      <div className="h-3 w-full overflow-hidden rounded-full bg-[#e4e7f1]">
+    <div
+      role="progressbar"
+      aria-valuenow={safeCurrent}
+      aria-valuemin={1}
+      aria-valuemax={safeTotal}
+      aria-label={`Step ${safeCurrent} of ${safeTotal}`}
+      className="w-full shrink-0"
+    >
+      <div className="h-[2px] w-full overflow-hidden bg-[#ebe6f3]">
         <div
-          className="h-full rounded-full bg-[#262626] transition-all duration-500"
+          className="h-full bg-[#5b3cdd] transition-all duration-500 ease-out"
           style={{ width: `${pct}%` }}
         />
       </div>
@@ -482,15 +494,33 @@ function resolvePrimaryGoalCopy(goalAnswer) {
   return goalAnswer || "Weight loss";
 }
 
+/** BMI from onboarding BMI step shape `{ feet, inches, weight }` (lbs, imperial). */
+function computeBmiFromBmiStepAnswer(bmiAnswer) {
+  if (!bmiAnswer || typeof bmiAnswer !== "object") return null;
+  const ft = Number(bmiAnswer.feet) || 0;
+  const inc = Number(bmiAnswer.inches) || 0;
+  const w = Number(bmiAnswer.weight) || 0;
+  const totalInches = ft * 12 + inc;
+  if (!totalInches || !w) return null;
+  const heightM = totalInches * 0.0254;
+  const kg = w * 0.45359237;
+  const raw = kg / (heightM * heightM);
+  const rounded = Number.parseFloat(Number(raw).toFixed(1));
+  return Number.isFinite(rounded) && rounded > 0 ? rounded : null;
+}
+
 function resolveProjectedWeightOutcome(answers, steps) {
   const bmiAnswer = getAnswerByStepType(answers, steps, "BMI_CALCULATOR");
   const currentWeight = Number(bmiAnswer?.weight) || 0;
+  const startingBmi = computeBmiFromBmiStepAnswer(bmiAnswer);
 
   if (!currentWeight) {
     return {
       currentWeight: null,
       projectedLoss: 40,
       targetWeight: null,
+      bmi: startingBmi,
+      startingBmi,
     };
   }
 
@@ -501,6 +531,8 @@ function resolveProjectedWeightOutcome(answers, steps) {
     currentWeight,
     projectedLoss,
     targetWeight,
+    bmi: startingBmi,
+    startingBmi,
   };
 }
 
@@ -981,6 +1013,7 @@ function BMICalculatorStep({ step, value, onChange, onNext }) {
           onClick={() => onNext()}
           disabled={!v.feet || !v.inches || !v.weight || !eligible}
           label={cfg.continueLabel || "Continue"}
+          hideDefaultCaption
         />
         <p className="mt-3 text-center font-body text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-[#b0acbe]">
           Safe and Secure Clinical Intake
@@ -2127,7 +2160,7 @@ function CheckoutStep({
 
   const defaultIncludedBenefits = [
     {
-      title: "Unlimited Video Calls With Clinicians",
+      title: "Unlimited Access to Clinicians",
       previousPrice: "$129",
     },
     {
@@ -3027,12 +3060,21 @@ function Glp1PlanIntroStep({ answers, steps, onNext }) {
 
   return (
     <div className="rounded-[1.75rem] border border-[#d9d4e7] bg-white p-6 shadow-[0_24px_52px_rgba(28,26,36,0.06)] md:p-8">
-      {/* Top row: icon + empty circle */}
+      {/* Top row: clinician photo + loading indicator */}
       <div className="flex items-start justify-between">
-        <div className="flex h-12 w-12 items-center justify-center rounded-[0.9rem] bg-[#eef1ff] text-[#5b3cdd]">
-          <AppIcon name="chat" className="text-[1.35rem]" />
+        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-[0.9rem] bg-[#eef1ff] ring-1 ring-[#dfe4ff]/80">
+          <Image
+            src="/images/doctor-1@3x.png"
+            alt="Clinician"
+            fill
+            sizes="48px"
+            className="object-cover object-top"
+          />
         </div>
-        <span className="mt-0.5 h-7 w-7 rounded-full border-2 border-[#c9c4d8]" />
+        <span
+          aria-hidden
+          className="mt-0.5 h-7 w-7 shrink-0 rounded-full border-2 border-[#d9d4e7] border-t-[#5b3cdd] animate-spin"
+        />
       </div>
 
       {/* Title */}
@@ -3100,23 +3142,20 @@ function Glp1PlanIntroStep({ answers, steps, onNext }) {
           transition={{ duration: 3, ease: "linear" }}
         />
       </div>
-      <button
-        type="button"
-        onClick={onNext}
-        className="mt-4 w-full rounded-full bg-[#5b3cdd] py-4 font-headline text-base font-bold text-white transition-opacity hover:opacity-90"
-      >
-        Continue
-      </button>
+      <p className="sr-only">Advancing shortly…</p>
     </div>
   );
 }
 
+/** Option A — HealSend light: aligns with onboarding shell ~#fdf8ff, accent #5b3cdd */
 function TransformationResultsCard({ outcome, onNext }) {
   const current = outcome.currentWeight || 200;
   const projectedLoss = outcome.projectedLoss || Math.round(current * 0.2);
   const target = outcome.targetWeight || current - projectedLoss;
 
-  const effectiveLoss = current - target;
+  const effectiveLoss = Math.max(0, Math.round(current - target));
+  const pctOfBody =
+    current > 0 ? Math.min(99, Math.round((effectiveLoss / current) * 100)) : 0;
   const bmiValue =
     Number.isFinite(Number(outcome?.bmi)) && Number(outcome?.bmi) > 0
       ? Number(outcome?.bmi)
@@ -3136,6 +3175,8 @@ function TransformationResultsCard({ outcome, onNext }) {
               ? "Overweight"
               : "Healthy range";
   const savings = Number(outcome?.estimatedSavingsYearly) || effectiveLoss * 500;
+  const savingsRounded = Math.round(savings);
+
   const milestoneRows = [
     { month: "1 MO", factor: 0.28 },
     { month: "3 MOS", factor: 0.66 },
@@ -3144,244 +3185,222 @@ function TransformationResultsCard({ outcome, onNext }) {
     { month: "12 MO", factor: 1 },
   ].map((entry) => {
     const loss = Math.max(1, Math.round(effectiveLoss * entry.factor));
-    const weight = Math.max(1, current - loss);
+    const weight = Math.max(1, Math.round(current - loss));
     return { ...entry, loss, weight };
   });
-  const milestoneTimeline = [
-    { month: "START", weight: current, loss: 0, factor: 0.08, caption: "DAY 0" },
-    ...milestoneRows.map((row, idx) => ({
-      ...row,
-      caption:
-        idx === 0
-          ? "INITIAL"
-          : idx === 1
-            ? "MOMENTUM"
-            : idx === 2
-              ? "DEEP SHIFT"
-              : idx === 3
-                ? "REFINING"
-                : "HEALTHY TARGET",
-    })),
-  ];
-
-  const cardVariants = {
-    hidden: { opacity: 0, scale: 0.93 },
-    visible: (i) => ({
-      opacity: 1,
-      scale: 1,
-      transition: { delay: i * 0.1, duration: 0.4, ease: "easeOut" },
-    }),
-  };
 
   return (
     <motion.div
-      className="w-full space-y-5"
+      className="mx-auto w-full max-w-xl space-y-5 bg-[#fdf8ff]"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <div className="text-center">
-        <p className="font-body text-[11px] font-bold uppercase tracking-[0.14em] text-[#797587]">
-          Your results · Ready
+      {/* Header */}
+      <div className="text-center px-1">
+        <p className="font-body text-[11px] font-semibold uppercase tracking-[0.12em] text-emerald-600">
+          <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-emerald-500 align-middle" />
+          Currently eligible for treatment
         </p>
-        <h2 className="mt-2 font-headline text-[1.75rem] font-extrabold leading-tight text-[#1c1a24] md:text-[2.1rem]">
-          In 12 months, you could weigh{" "}
-          <span className="text-[#5b3cdd]">{target} lbs</span>
+        <h2 className="mt-3 font-headline text-[1.85rem] font-extrabold leading-tight text-[#1c1a24] md:text-[2.1rem]">
+          Your 12-Month Projection
         </h2>
-        <p className="mt-3 mx-auto max-w-md font-body text-sm leading-relaxed text-[#484555] md:text-base">
-          Your personalized GLP-1 projection, based on real patient data.
+        <p className="mt-2 font-body text-sm text-[#6b6978] md:text-[0.95rem]">
+          GLP-1 Plan · Built on real patient data
         </p>
       </div>
 
-      <motion.div
-        custom={0}
-        variants={cardVariants}
-        initial="hidden"
-        animate="visible"
-        className="grid gap-4 md:grid-cols-2"
-      >
-        <div className="rounded-[1.2rem] border border-[#e7e9f8] bg-white p-4 shadow-[0_10px_20px_rgba(28,26,36,0.04)]">
-          <div className="mb-3 flex items-center justify-between">
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#0f57df]">
-              Weight Trajectory
-            </p>
-            <span className="rounded-full bg-[#eef1ff] px-3 py-1 text-xs font-semibold text-[#3349dd]">
-              Starting: {current} lbs
-            </span>
-          </div>
-          <h3 className="font-headline text-[1.55rem] font-extrabold leading-tight text-[#0f172a] md:text-[1.7rem]">
-            Healthy Target: {target}lb
-          </h3>
-          <div className="mt-3 flex items-center gap-3">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full border-[6px] border-[#e5ebff] border-r-[#0f57df] border-t-[#0f57df] text-[#0f57df]">
-              <span className="font-headline text-[1.35rem] font-extrabold">
-                80%
-              </span>
-            </div>
-            <div>
-              <p className="text-[0.95rem] text-[#3e4458]">
-                You are{" "}
-                <span className="font-bold text-[#0f57df]">
-                  {Math.max(current - target, 0)} lbs
-                </span>{" "}
-                from your clinical optimum.
-              </p>
-              <p className="mt-0.5 text-[0.95rem] text-[#3e4458]">
-                Projected in 12 months.
-              </p>
-              <p className="mt-1 text-[0.92rem] font-semibold text-[#007a53]">
-                Clinical Grade Progress
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-[1.2rem] border border-[#e7e9f8] bg-white p-4 shadow-[0_10px_20px_rgba(28,26,36,0.04)]">
-          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#007a53]">
-            Value Summary
+      {/* Hero: projected loss */}
+      <div className="overflow-hidden rounded-[1.35rem] bg-gradient-to-br from-[#6366f1] via-[#5b3cdd] to-[#4338ca] px-5 py-6 text-white shadow-[0_14px_40px_rgba(91,60,221,0.35)] md:px-6 md:py-7">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <p className="max-w-[60%] font-body text-[10px] font-bold uppercase tracking-[0.16em] text-white/90">
+            Projected total loss
           </p>
-          <h3 className="mt-1 font-headline text-[1.55rem] font-extrabold leading-tight text-[#0f172a] md:text-[1.7rem]">
-            Total Savings:{" "}
-            <span className="text-[#3349dd]">${Math.round(savings).toLocaleString()}</span>
-          </h3>
-          <div className="mt-3 rounded-[0.8rem] border border-[#bdf1dd] bg-[#ebfff7] px-3 py-2">
-            <p className="text-[0.98rem] font-bold text-[#007a53]">
-              Eligibility: Qualified
-            </p>
-            <p className="text-[0.86rem] text-[#246251]">
-              Your profile matches the criteria.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={onNext}
-            className="mt-3 w-full rounded-[0.8rem] bg-[#4f5df7] py-2.5 text-left font-headline text-[1.35rem] font-bold text-white"
-          >
-            <span className="flex items-center justify-between px-3">
-              Ready for Next Step
-              <span aria-hidden="true">→</span>
-            </span>
-          </button>
-        </div>
-      </motion.div>
-
-      <motion.div
-        custom={1}
-        variants={cardVariants}
-        initial="hidden"
-        animate="visible"
-        className="rounded-[1.35rem] border border-[#e8ebf7] bg-white px-5 py-5 shadow-[0_10px_24px_rgba(28,26,36,0.05)] md:px-6"
-      >
-        <div className="mb-5 flex items-center justify-between">
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#0f57df]">
-              Clinical Timeline
-            </p>
-            <h3 className="mt-1 font-headline text-[2.2rem] font-extrabold text-[#0f172a]">
-              Your Milestones
-            </h3>
-          </div>
-          <span className="text-xs font-semibold text-[#6f6a7f]">
-            Weight target vs baseline
+          <span className="inline-flex min-h-[44px] shrink-0 items-center justify-center rounded-full border border-white/35 px-3 py-2 font-body text-[10px] font-bold uppercase tracking-wider text-white/95 max-sm:w-full max-sm:text-center sm:max-w-none sm:py-1">
+            12 months
           </span>
         </div>
-        <div className="grid grid-cols-3 gap-4 sm:grid-cols-6">
-          {milestoneTimeline.map((milestone, idx) => {
-            const barHeight = Math.max(45, Math.round(milestone.factor * 170));
-            const isTarget = idx === milestoneTimeline.length - 1;
-            return (
-              <div key={`${milestone.month}-${idx}`} className="text-center">
-                <div className="mb-2 rounded-[0.7rem] border border-[#edf0f8] bg-white px-2 py-1.5 shadow-[0_4px_10px_rgba(28,26,36,0.05)]">
-                  <p className="text-[1.05rem] font-extrabold text-[#0f57df]">
-                    {milestone.weight}lb
-                  </p>
-                  {idx > 0 ? (
-                    <p className="text-xs font-bold text-[#ef4444]">
-                      -{milestone.loss} LB
-                    </p>
-                  ) : (
-                    <p className="text-xs font-medium text-[#6f6a7f]">Baseline</p>
-                  )}
-                </div>
-                <div className="mx-auto flex h-[190px] w-14 items-end rounded-[0.8rem] bg-[#eef1ff]">
-                  <div
-                    className={`w-full rounded-[0.8rem] ${isTarget ? "bg-[#007a53]" : "bg-gradient-to-t from-[#6a4dff] to-[#3b66ff]"}`}
-                    style={{ height: `${barHeight}px` }}
-                  />
-                </div>
-                <p className="mt-2 text-[1.05rem] font-bold text-[#0f172a]">
-                  {milestone.month.toLowerCase()}
-                </p>
-                <p
-                  className={`text-xs font-semibold ${isTarget ? "text-[#007a53]" : "text-[#7b7690]"}`}
-                >
-                  {milestone.caption}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      </motion.div>
-
-      {/* CTA */}
-      <button
-        type="button"
-        onClick={onNext}
-        className="hs-solid-btn flex w-full items-center justify-center gap-2 rounded-full py-4 font-headline text-base font-bold text-white"
-      >
-        Continue
-        <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-          <path
-            fillRule="evenodd"
-            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </button>
-
-      {/* Trust row */}
-      <div className="flex flex-wrap items-center justify-center gap-4 font-body text-[11px] font-medium text-[#797587]">
-        <span className="flex items-center gap-1">
-          <svg
-            className="h-3.5 w-3.5 text-[#5b3cdd]"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-              clipRule="evenodd"
-            />
-          </svg>
-          HIPAA Secure
-        </span>
-        <span className="flex items-center gap-1">
-          <svg
-            className="h-3.5 w-3.5 text-yellow-500"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-          4.9/5 Rating
-        </span>
-        <span className="flex items-center gap-1">
-          <svg
-            className="h-3.5 w-3.5 text-emerald-500"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clipRule="evenodd"
-            />
-          </svg>
-          FDA Approved
-        </span>
+        <p className="mt-4 font-headline text-[2.85rem] font-extrabold leading-none tracking-tight text-white md:text-[3.25rem]">
+          {effectiveLoss} LBS
+        </p>
+        <p className="mt-2 font-body text-sm text-white/90 md:text-[0.95rem]">
+          {pctOfBody}% of your starting weight
+        </p>
       </div>
 
-      {/* Disclaimer — CONTENT.results.disclaimer */}
+      {/* Projection timeline */}
+      <div className="rounded-xl border border-[#e8e6ef] bg-white px-4 py-4 shadow-[0_8px_24px_rgba(28,26,36,0.05)]">
+        <p className="mb-3 font-body text-[10px] font-bold uppercase tracking-[0.14em] text-[#797587]">
+          Projection timeline
+        </p>
+        <div className="flex min-w-0 justify-between gap-1 truncate text-[10px] font-bold uppercase tracking-[0.1em] text-[#9794a8] sm:tracking-[0.14em]">
+          <span>Start</span>
+          <span>M3</span>
+          <span>M6</span>
+          <span>M9</span>
+          <span>1 yr</span>
+        </div>
+        <div
+          className="relative mt-3 flex min-h-[44px] w-full max-w-full items-center py-2"
+          role="presentation"
+        >
+          <div
+            className="h-[11px] min-w-0 w-full overflow-hidden rounded-full bg-[#eceaf2]"
+            aria-hidden
+          >
+            <div
+              className="h-full w-full rounded-full bg-gradient-to-r from-[#8b82f9] to-[#5b3cdd]"
+            />
+          </div>
+        </div>
+        <div className="mt-3 flex justify-between gap-2 font-body text-[10px] text-[#6b6978] max-sm:flex-col max-sm:text-center sm:text-[11px]">
+          <span className="min-w-0 truncate">{current} lbs</span>
+          <span className="min-w-0 truncate">{target} lbs</span>
+        </div>
+      </div>
+
+      {/* Stats 2×2 / single column below sm */}
+      <div className="grid grid-cols-1 divide-y divide-[#eceaf2] overflow-hidden rounded-[1.15rem] border border-[#e8e6ef] bg-white shadow-[0_8px_24px_rgba(28,26,36,0.05)] sm:grid-cols-2 sm:divide-x sm:divide-y">
+        <div className="p-4 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:py-5 md:p-5">
+          <p className="font-body text-[10px] font-semibold uppercase tracking-[0.14em] text-[#797587]">
+            Goal weight
+          </p>
+          <p className="mt-2 font-headline text-[1.55rem] font-extrabold text-[#1c1a24]">
+            {target} lb
+          </p>
+          <p className="mt-1 font-body text-xs text-[#6b6978]">from {current} lbs</p>
+        </div>
+        <div className="p-4 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:py-5 md:p-5">
+          <p className="font-body text-[10px] font-semibold uppercase tracking-[0.14em] text-[#797587]">
+            You&apos;d save
+          </p>
+          <p className="mt-2 font-headline text-[1.55rem] font-extrabold text-[#5b3cdd]">
+            ${savingsRounded.toLocaleString("en-US")}
+          </p>
+          <p className="mt-1 font-body text-xs text-[#6b6978]">vs. clinics, per year</p>
+        </div>
+        <div className="p-4 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:py-5 md:p-5">
+          <p className="font-body text-[10px] font-semibold uppercase tracking-[0.14em] text-[#797587]">
+            Starting BMI
+          </p>
+          <p className="mt-2 font-headline text-[1.55rem] font-extrabold text-[#1c1a24]">
+            {bmiValue != null ? bmiValue.toFixed(1) : "—"}
+          </p>
+          <p className="mt-1 font-body text-xs text-[#6b6978]">{bmiLabel}</p>
+        </div>
+        <div className="p-4 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:py-5 md:p-5">
+          <p className="font-body text-[10px] font-semibold uppercase tracking-[0.14em] text-[#797587]">
+            Eligibility
+          </p>
+          <p className="mt-2 font-headline text-[1.05rem] font-extrabold text-emerald-700 md:text-[1.35rem]">
+            Qualified ✓
+          </p>
+          <p className="mt-1 font-body text-xs text-[#246251]">Ready for next step</p>
+        </div>
+      </div>
+
+      {/* Milestones */}
+      <div className="rounded-[1.15rem] border border-[#e8e6ef] bg-white px-4 py-5 shadow-[0_8px_24px_rgba(28,26,36,0.05)] md:px-5 md:py-6">
+        <div className="mb-4 flex flex-wrap items-end justify-between gap-2 border-b border-[#eef0f4] pb-3 max-sm:flex-col max-sm:items-start">
+          <h3 className="font-headline text-lg font-bold text-[#1c1a24] md:text-xl">
+            Your milestones
+          </h3>
+          <p className="font-body text-[10px] font-semibold uppercase tracking-[0.14em] text-[#9794a8]">
+            Month by month
+          </p>
+        </div>
+        <div className="space-y-0">
+          {milestoneRows.map((row) => (
+            <div
+              key={row.month}
+              className="flex min-h-[44px] flex-col gap-2 border-b border-[#f2f1f7] py-3.5 last:border-b-0 sm:flex-row sm:items-center sm:gap-4"
+            >
+              <span className="w-16 shrink-0 font-body text-[0.8rem] font-bold text-[#1c1a24]">
+                {row.month}
+              </span>
+              <div className="min-w-0 flex-1">
+                <div className="h-2.5 overflow-hidden rounded-full bg-[#eceaf2] sm:h-2">
+                  <div
+                    className="h-full max-w-full rounded-full bg-gradient-to-r from-[#8b82f9] to-[#5b3cdd]"
+                    style={{ width: `${Math.round(row.factor * 100)}%` }}
+                  />
+                </div>
+              </div>
+              <div className="shrink-0 text-left max-sm:flex max-sm:min-h-[44px] max-sm:w-full max-sm:items-center max-sm:justify-between sm:block sm:w-28 sm:text-right">
+                <p className="font-headline text-base font-bold text-[#1c1a24]">
+                  {row.weight} lb
+                </p>
+                <p className="font-body text-[11px] font-bold uppercase text-emerald-600 sm:mt-0.5">
+                  -{row.loss} LB
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Primary CTA + trust */}
+      <div className="flex flex-col items-center gap-3">
+        <button
+          type="button"
+          onClick={onNext}
+          className="hs-solid-btn flex min-h-[48px] w-full max-w-lg items-center justify-center gap-2 rounded-full px-6 py-4 font-headline text-base font-bold text-white shadow-[0_10px_28px_rgba(91,60,221,0.38)] md:text-[1.05rem]"
+        >
+          Start My Transformation
+          <svg className="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+            <path
+              fillRule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 px-2 font-body text-[11px] font-medium text-[#797587] md:gap-x-8">
+          <span className="flex min-h-[44px] items-center gap-1">
+            <svg
+              className="h-3.5 w-3.5 text-[#5b3cdd]"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden
+            >
+              <path
+                fillRule="evenodd"
+                d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clipRule="evenodd"
+              />
+            </svg>
+            HIPAA Secure
+          </span>
+          <span className="flex min-h-[44px] items-center gap-1">
+            <svg
+              className="h-3.5 w-3.5 text-yellow-500"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden
+            >
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+            4.9/5 Rating
+          </span>
+          <span className="flex min-h-[44px] items-center gap-1">
+            <svg
+              className="h-3.5 w-3.5 text-emerald-500"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden
+            >
+              <path
+                fillRule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+            FDA Approved
+          </span>
+        </div>
+      </div>
+
       <p className="text-center font-body text-[10px] leading-relaxed text-[#b0acbe]">
         Projections are estimates based on aggregate patient data. Eligibility
         for GLP-1 medications is determined by a licensed physician. Not for
@@ -4513,6 +4532,9 @@ function OnboardingShell({
   return (
     <div className="min-h-screen flex flex-col bg-[#fdf8ff] font-body text-[#1c1a24] antialiased">
       <header className="sticky top-0 z-50 bg-[#fdf8ff]/90 backdrop-blur-xl">
+        {typeof step === "number" && typeof totalSteps === "number" ? (
+          <ProgressBar current={step} total={totalSteps} />
+        ) : null}
         <div className="relative flex w-full items-center justify-between px-4 py-4 md:px-6 md:py-5">
           <div className="flex min-w-[56px] items-center justify-start">
             {onBack && (
@@ -4546,7 +4568,6 @@ function OnboardingShell({
       <main
         className={`flex-grow mx-auto w-full px-5 py-6 md:px-6 md:py-7 ${mainMaxWidthClass}`}
       >
-        <ProgressBar current={step} total={totalSteps} label={label} />
         {children}
       </main>
 

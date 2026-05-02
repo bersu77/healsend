@@ -19,7 +19,7 @@ export const metadata = {
 
 const FEATURES = [
   {
-    title: "Unlimited Video Calls With Clinicians",
+    title: "Unlimited Access to Clinicians",
     points: [
       "See a licensed clinician same-day",
       "Unlimited visits, all online",

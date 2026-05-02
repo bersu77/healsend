@@ -127,7 +127,7 @@ const EXPERIENCE_MARQUEE_ITEMS = [
   "Free & fast shipping",
   "US-only certified pharmacies",
   "Always-on clinician support",
-  "1,200,000+ prescriptions written",
+  "1,000,000+ prescriptions written",
   "250,000+ members",
 ];
 
@@ -1344,7 +1344,7 @@ function ProjectedLossCalculatorSection() {
             </h2>
           </div>
 
-          <div className="mt-8 grid gap-5 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,0.95fr)_minmax(0,0.9fr)]">
+          <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)]">
             <article className="rounded-[1rem] border border-[#edf1f7] bg-white p-6 shadow-[0_18px_34px_rgba(20,24,34,0.08)] md:p-8">
               <p className="text-center text-[1.15rem] font-medium tracking-[-0.03em] text-[#121726] md:text-[1.25rem]">
                 Check your eligibility.
@@ -1814,7 +1814,7 @@ export default function TestHeroPreviewContent() {
 
                 <div className="rounded-[1rem] bg-white px-5 py-4 shadow-[0_18px_36px_rgba(20,24,34,0.08)]">
                   <p className="font-headline text-[2.2rem] font-semibold italic leading-none text-[#121622]">
-                    1,200,000+
+                    1,000,000+
                   </p>
                   <div className="mt-3 flex items-center justify-between gap-6">
                     <p className="text-[1.05rem] font-medium text-[#2b3040]">

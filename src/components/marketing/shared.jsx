@@ -27,6 +27,14 @@ import {
 } from "@/components/ui/carousel";
 
 const ROUTES = MARKETING_ROUTE_PATHS;
+
+/** Face stack shown on homepage product carousel cards (social proof). */
+const CAROUSEL_MEMBER_FACE_STACK_SRCS = [
+  "/images/4_Home_Doctors_Online_Consultation-Doctors_02.jpg",
+  "/images/4_Home_Doctors_Online_Consultation-Doctors_04.jpg",
+  "/images/4_Home_Doctors_Online_Consultation-Avatar.jpg",
+  "/images/4_Home_Doctors_Online_Consultation-Testimonials_01.jpg",
+];
 const LEGITSCRIPT_VERIFICATION_URL =
   "https://www.legitscript.com/websites/?checker_keywords=healsend.com";
 const HIDDEN_FOOTER_LINK_LABELS = new Set(["Privacy Policy", "Terms of Service"]);
@@ -1541,6 +1549,9 @@ export function MarketingBanner({
   );
 }
 
+const marketingProductCarouselNavButtonClassName =
+  "inline-flex size-10 shrink-0 aspect-square items-center justify-center rounded-full border border-gray-200 bg-white p-0 text-gray-700 shadow-none transition-colors hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-300/80 focus-visible:ring-offset-2";
+
 export function MarketingProductCarousel({ products, eagerImages = false }) {
   const [api, setApi] = useState(null);
   const isTransitioningRef = useRef(false);
@@ -1594,13 +1605,13 @@ export function MarketingProductCarousel({ products, eagerImages = false }) {
               key={`${product.title}-${productIndex}`}
               className="basis-[88%] pl-4 sm:basis-[52%] md:pl-6 lg:basis-[30%] lg:pl-8 xl:basis-[23%]"
             >
-              <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-md">
-                <div className="relative flex h-52 items-center justify-center overflow-hidden bg-[#f4f5f9] sm:h-56">
-                  <div className="absolute left-4 top-4 z-10 flex flex-wrap gap-2">
+              <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-md">
+                <div className="relative flex h-[148px] items-center justify-center overflow-hidden bg-[#f4f5f9] sm:h-[168px]">
+                  <div className="absolute left-2 top-2 z-10 flex max-w-[calc(100%-1rem)] flex-wrap gap-1">
                     {product.tags.map((tag) => (
                       <span
                         key={`${product.title}-${tag.label}`}
-                        className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider ${tag.bg} ${tag.text}`}
+                        className={`rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider ${tag.bg} ${tag.text}`}
                       >
                         {tag.label}
                       </span>
@@ -1616,38 +1627,60 @@ export function MarketingProductCarousel({ products, eagerImages = false }) {
                   />
                 </div>
 
-                <div className="flex flex-1 flex-col p-5 sm:p-6">
-                  <h3 className="mb-2 text-xl font-bold text-[#7b75f0]">
+                <div className="flex flex-1 flex-col px-3 pb-3 pt-3 sm:px-4 sm:pb-3.5 sm:pt-3.5">
+                  <h3 className="mb-1 text-center text-lg font-bold leading-snug text-[#7b75f0] sm:text-left sm:text-xl">
                     {product.title}
                   </h3>
-                  <p className="mb-8 flex-1 text-sm text-gray-600">
+                  <p className="mb-3 text-center font-body text-[10px] font-normal leading-snug tracking-[0.02em] text-[#c5cad5] sm:mb-2.5 sm:text-left sm:text-[11px]">
                     {product.price}
                   </p>
+
+                  <div className="mb-3 flex shrink-0 flex-col items-center gap-1">
+                    <div className="flex justify-center -space-x-1.5">
+                      {CAROUSEL_MEMBER_FACE_STACK_SRCS.map((src) => (
+                        <span
+                          key={src}
+                          className="relative h-[22px] w-[22px] shrink-0 overflow-hidden rounded-full border-2 border-white bg-[#eef0f8]"
+                        >
+                          <Image
+                            src={src}
+                            alt=""
+                            fill
+                            sizes="22px"
+                            className="object-cover object-center"
+                          />
+                        </span>
+                      ))}
+                    </div>
+                    <p className="font-body text-[9px] font-semibold uppercase tracking-[0.14em] text-[#cdd3dc]">
+                      2k+ members
+                    </p>
+                  </div>
 
                   {product.isAssessment ? (
                     <Link
                       href={product.href}
-                      className="hs-solid-btn mb-4 block w-full rounded-full py-3.5 text-center font-bold transition-colors"
+                      className="hs-solid-btn mt-auto block w-full rounded-full py-2.5 text-center text-sm font-bold transition-colors sm:py-3"
                     >
                       Start assessment
                     </Link>
                   ) : (
-                    <div className="mb-4 flex gap-3">
+                    <div className="mt-auto flex gap-2">
                       <Link
                         href={product.href}
-                        className="hs-solid-btn flex-1 rounded-full py-3.5 text-center text-sm font-bold transition-colors"
+                        className="hs-solid-btn flex-1 rounded-full py-2.5 text-center text-xs font-bold transition-colors sm:py-3 sm:text-sm"
                       >
                         Get Started
                       </Link>
                       <Link
                         href={product.secondaryHref || product.href}
-                        className="hs-outline-btn flex-1 rounded-full py-3.5 text-center text-sm font-bold transition-colors"
+                        className="hs-outline-btn flex-1 rounded-full py-2.5 text-center text-xs font-bold transition-colors sm:py-3 sm:text-sm"
                       >
                         Learn more
                       </Link>
                     </div>
                   )}
-                  <span className="block text-center text-xs text-gray-500 underline">
+                  <span className="mt-3 block text-center font-body text-[9px] font-normal tracking-wide text-[#dde1e8] underline decoration-[#e8ecf0] underline-offset-1 sm:text-[10px]">
                     ⓘ Important safety information
                   </span>
                 </div>
@@ -1662,16 +1695,18 @@ export function MarketingProductCarousel({ products, eagerImages = false }) {
           <button
             type="button"
             onClick={() => step("left")}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#7b75f0] text-white transition-colors hover:bg-[#665ce0]"
+            className={marketingProductCarouselNavButtonClassName}
+            aria-label="Show previous products"
           >
-            <ChevronLeft className="h-5 w-5" />
+            <ChevronLeft className="h-5 w-5 shrink-0" />
           </button>
           <button
             type="button"
             onClick={() => step("right")}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#7b75f0] text-white transition-colors hover:bg-[#665ce0]"
+            className={marketingProductCarouselNavButtonClassName}
+            aria-label="Show next products"
           >
-            <ChevronRight className="h-5 w-5" />
+            <ChevronRight className="h-5 w-5 shrink-0" />
           </button>
         </div>
       </div>
