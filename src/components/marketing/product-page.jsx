@@ -1625,34 +1625,34 @@ function MedicalWeightLossSection({ productData }) {
 
           <div className="flex w-full flex-wrap items-center gap-3 sm:gap-4 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end lg:pt-1">
             <div className="flex min-h-[92px] min-w-0 max-w-[calc(50%-0.375rem)] flex-1 basis-0 items-center justify-center sm:max-w-none sm:flex-initial sm:basis-[200px] lg:min-h-[104px] lg:w-[min(252px,calc((100vw-4rem)*0.44))] lg:max-w-none lg:flex-initial">
-              <div className="relative flex items-center justify-center px-10 lg:px-12">
+              <div className="relative flex items-center justify-center px-7 lg:px-9">
                 <img
                   src="/images/clean/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="absolute -left-2 h-20 w-auto object-contain lg:-left-3 lg:h-24"
+                  className="absolute left-0 h-20 w-auto object-contain lg:h-24"
                 />
                 <img
                   src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`}
                   alt="Google reviews rating"
                   loading="lazy"
-                  className="relative z-10 h-auto max-h-[76px] w-auto max-w-full shrink-0 object-contain object-center lg:max-h-[88px]"
+                  className="relative z-10 h-auto max-h-[95px] w-auto max-w-full shrink-0 object-contain object-center lg:max-h-[100px]"
                 />
                 <img
                   src="/images/articles/blogs/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="absolute -right-2 h-20 w-auto object-contain lg:-right-3 lg:h-24"
+                  className="absolute right-0 h-20 w-auto object-contain lg:h-24"
                 />
               </div>
             </div>
             <div className="flex min-h-[92px] min-w-0 max-w-[calc(50%-0.375rem)] flex-1 basis-0 items-center justify-center sm:max-w-none sm:flex-initial sm:basis-[200px] lg:min-h-[104px] lg:w-[min(252px,calc((100vw-4rem)*0.44))] lg:max-w-none lg:flex-initial">
-              <div className="relative flex items-center justify-center px-10 lg:px-12">
+              <div className="relative flex items-center justify-center px-7 lg:px-9">
                 <img
                   src="/images/clean/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="absolute -left-2 h-20 w-auto object-contain lg:-left-3 lg:h-24"
+                  className="absolute left-0 h-20 w-auto object-contain lg:h-24"
                 />
                 <img
                   src="/images/healsend-2k-members-trust.png"
@@ -1664,7 +1664,7 @@ function MedicalWeightLossSection({ productData }) {
                   src="/images/articles/blogs/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="absolute -right-2 h-20 w-auto object-contain lg:-right-3 lg:h-24"
+                  className="absolute right-0 h-20 w-auto object-contain lg:h-24"
                 />
               </div>
             </div>
