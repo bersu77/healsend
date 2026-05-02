@@ -906,8 +906,8 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
               </h1>
             </div>
             <div className="relative z-0 flex aspect-[4/5] w-full shrink-0 items-start justify-start overflow-hidden rounded-[1rem] bg-[#f9f9f9] ring-1 ring-black/[0.04]">
-              <div className="flex h-full min-h-0 w-full flex-1 items-start justify-start px-4 pb-4 pt-3 md:px-8 md:pb-8 md:pt-5">
-                <div className="relative mt-2 h-full min-h-0 w-full max-h-[76%] max-w-[92%] sm:mt-3 sm:max-h-[74%] md:mt-4 md:max-h-[78%] md:max-w-full">
+              <div className="flex h-full min-h-0 w-full flex-1 items-stretch justify-stretch">
+                <div className="relative h-full min-h-0 w-full">
                   {productData.inStock ? (
                     <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-[1rem] bg-white/92 px-4 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-white/80 backdrop-blur-sm md:left-5 md:top-5 md:px-5 md:py-2 md:text-base">
                       <div className="relative h-2.5 w-2.5 md:h-3 md:w-3">
@@ -931,18 +931,18 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
         <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[45%] xl:w-[450px]">
           <div className="mb-6 overflow-hidden rounded-[1rem] border border-gray-200 bg-white">
             {pricePresentation.savings ? (
-              <div className="flex items-center justify-center gap-2 bg-[#fde073] px-4 py-3 text-sm font-medium text-gray-900 md:text-base">
+              <div className="flex items-center justify-center gap-2 bg-[#fde073] px-5 py-3.5 text-sm font-medium text-gray-900 md:text-base">
                 <BadgeCheck className="h-4 w-4 md:h-5 md:w-5" />
                 Save up to {pricePresentation.savings} on your first order
               </div>
             ) : (
-              <div className="flex items-center justify-center gap-2 bg-[#fde073] px-4 py-3 text-sm font-medium text-gray-900 md:text-base">
+              <div className="flex items-center justify-center gap-2 bg-[#fde073] px-5 py-3.5 text-sm font-medium text-gray-900 md:text-base">
                 <BadgeCheck className="h-4 w-4 md:h-5 md:w-5" />
                 Clinician-guided treatment with clear next steps
               </div>
             )}
-            <div className="p-5 md:p-6">
-              <div className="mb-6 flex items-center justify-between gap-4">
+            <div className="px-6 py-6 md:px-7 md:py-7">
+              <div className="mb-7 flex items-center justify-between gap-4">
                 <div className="min-w-0 shrink">
                   <div className="flex flex-wrap items-baseline gap-2">
                     <span className="text-3xl font-bold text-gray-900 md:text-4xl">
@@ -961,31 +961,26 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
                     then $299/mo*
                   </button>
                 </div>
-                <div className="flex shrink-0 flex-col items-end gap-1">
-                  <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wide">
-                    Buy now, pay later
+                <div className="flex shrink-0 flex-col items-end gap-2">
+                  <span className="flex items-center rounded-[0.6rem] bg-[#FFB3C7] px-3 py-1.5">
+                    <img
+                      src="/images/marketing/logos/klarna.png"
+                      alt="Klarna"
+                      className="h-3 w-auto"
+                    />
                   </span>
-                  <div className="flex gap-2">
-                    <span className="flex items-center rounded-[0.6rem] bg-[#FFB3C7] px-3 py-1.5">
-                      <img
-                        src="/images/marketing/logos/klarna.png"
-                        alt="Klarna"
-                        className="h-3 w-auto"
-                      />
-                    </span>
-                    <span className="flex items-center rounded-[0.6rem] bg-[#B2FCE4] px-3 py-1.5">
-                      <img
-                        src="/images/marketing/logos/afterpay.png"
-                        alt="Afterpay"
-                        className="h-3 w-auto"
-                      />
-                    </span>
-                  </div>
+                  <span className="flex items-center rounded-[0.6rem] bg-[#B2FCE4] px-3 py-1.5">
+                    <img
+                      src="/images/marketing/logos/afterpay.png"
+                      alt="Afterpay"
+                      className="h-3 w-auto"
+                    />
+                  </span>
                 </div>
               </div>
 
               {showPriceFootnote ? (
-                <div className="mb-4 rounded-[0.75rem] bg-gray-50 p-3 text-xs leading-5 text-gray-600 md:text-sm">
+                <div className="mb-5 rounded-[0.75rem] bg-gray-50 p-3 text-xs leading-5 text-gray-600 md:text-sm">
                   *$0 first month covers the clinician visit and initial supply
                   on eligible plans. Recurring billing of $299/month begins at
                   month two and continues until you cancel. Includes
@@ -994,21 +989,17 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
                 </div>
               ) : null}
 
-              <div className="flex w-full flex-col items-stretch gap-2.5">
+              <div className="flex w-full flex-col items-stretch gap-3">
                 <Link
                   href={ctaHref}
-                  className="hs-solid-btn flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] transition-colors"
+                  className="hs-solid-btn flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] transition-colors"
                 >
-                  Get my personalized plan
-                  <ArrowRight className="h-4 w-4 shrink-0" />
+                  See if you qualify
                 </Link>
-                <p className="w-full text-center text-sm font-semibold text-gray-700">
-                  Takes 90 seconds · 100% private · free
-                </p>
-                <p className="mt-0 w-full text-center text-xs text-gray-500 md:text-sm">
+                <p className="mt-1 w-full text-center text-xs text-gray-500 md:text-sm">
                   {pricePresentation.savings
                     ? "Discount auto-applied at checkout"
-                    : "Treatment fit still depends on clinician review"}
+                    : "Discount auto-applied at checkout"}
                 </p>
               </div>
 
@@ -1735,7 +1726,7 @@ function SupportFeatures({ productData }) {
                   <img
                     src={feature.iconImage}
                     alt={feature.title}
-                    className={`mb-6 h-20 w-20 object-contain mix-blend-multiply ${feature.iconTint === "purple"
+                    className={`mb-6 ${feature.iconClass || "h-20 w-20"} object-contain mix-blend-multiply ${feature.iconTint === "purple"
                       ? "brightness-0 saturate-100"
                       : ""
                       }`}
@@ -2107,7 +2098,7 @@ function MemberResultsStatsSection() {
                         className="min-w-0 shrink-0 grow-0 basis-11/12 pl-4"
                       >
                         <div className="h-full">
-                          <div className="overflow-hidden shadow-lg rounded-2xl p-6 bg-slate-50 h-full">
+                          <div className="overflow-hidden shadow-lg rounded-2xl p-6 bg-white border border-gray-200 h-full">
                             <div className="flex gap-4 justify-between items-start">
                               <p className="text-sm tracking-wider uppercase text-slate-700">
                                 {item.label}
@@ -2145,7 +2136,7 @@ function MemberResultsStatsSection() {
                 return (
                   <div
                     key={item.label}
-                    className="overflow-hidden shadow-lg rounded-2xl p-6 pb-11 bg-slate-50"
+                    className="overflow-hidden shadow-lg rounded-2xl p-6 pb-11 bg-white border border-gray-200"
                   >
                     <div className="flex gap-4 justify-between items-start">
                       <p className="text-sm tracking-wider uppercase text-slate-700">
@@ -2964,7 +2955,7 @@ function ComprehensiveCare({ productData }) {
                       ))}
                     </ul>
                   </div>
-                  <div className="mx-auto mt-1 flex h-20 w-20 shrink-0 items-center justify-center bg-white sm:h-24 sm:w-24 lg:mx-0 lg:mt-0 lg:h-28 lg:w-28">
+                  <div className="mx-auto mt-1 flex h-48 w-48 shrink-0 items-center justify-center bg-white sm:h-56 sm:w-56 lg:mx-0 lg:mt-0 lg:h-64 lg:w-64">
                     <img
                       src={feature.image}
                       alt={feature.title}

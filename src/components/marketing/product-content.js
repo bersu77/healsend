@@ -136,6 +136,7 @@ export const productContent = {
         iconImage: "/images/image.png",
         title: "Real Weight Loss",
         description: "Weekly progress you can see.",
+        iconClass: "h-28 w-28",
       },
     ],
   },
