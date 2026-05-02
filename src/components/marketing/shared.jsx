@@ -649,15 +649,15 @@ export function MarketingNavbar() {
   const closeTimeout = useRef(null);
   const secondaryCta = isAuthenticated
     ? null
-    : { href: ROUTES.login, label: "Login" };
+    : { href: ROUTES.login, label: "Sign In" };
   const primaryCta = isAuthenticated
     ? user?.role === "ADMIN"
       ? { href: "/dashboard", label: "Dashboard" }
       : { href: "/account", label: "My Account" }
-    : { href: ROUTES.shop, label: "Get Started" };
+    : null;
   const mobileAccountCta = isAuthenticated
     ? primaryCta
-    : { href: ROUTES.login, label: "Login" };
+    : { href: ROUTES.login, label: "Sign In" };
 
   const activeSection =
     navSections.find((section) => section.label === activeMenu) || null;
@@ -877,7 +877,7 @@ export function MarketingNavbar() {
                   width={164}
                   height={52}
                   priority
-                  className="h-10 w-auto md:h-10"
+                  className="h-12 w-auto md:h-14"
                 />
               </Link>
 
@@ -935,12 +935,14 @@ export function MarketingNavbar() {
                       <span>{secondaryCta.label}</span>
                     </button>
                   ) : null}
-                  <Link
-                    href={primaryCta.href}
-                    className="hs-solid-btn inline-flex min-w-[122px] items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all"
-                  >
-                    <span>{primaryCta.label}</span>
-                  </Link>
+                  {primaryCta ? (
+                    <Link
+                      href={primaryCta.href}
+                      className="hs-solid-btn inline-flex min-w-[122px] items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all"
+                    >
+                      <span>{primaryCta.label}</span>
+                    </Link>
+                  ) : null}
                 </div>
 
                 <button
@@ -1730,7 +1732,7 @@ export function MinimalMarketingNavbar() {
     ? user?.role === "ADMIN"
       ? { href: "/dashboard", label: "Dashboard" }
       : { href: "/account", label: "My Account" }
-    : { href: ROUTES.shop, label: "Get Started" };
+    : null;
 
   return (
     <header className="sticky top-0 z-50">
@@ -1766,7 +1768,7 @@ export function MinimalMarketingNavbar() {
                 width={164}
                 height={52}
                 priority
-                className="h-8 w-auto max-w-[6.85rem] object-contain object-left sm:h-9 sm:max-w-[7.75rem] md:h-10 md:max-w-none"
+                className="h-10 w-auto max-w-[7.5rem] object-contain object-left sm:h-12 sm:max-w-[8.5rem] md:h-14 md:max-w-none"
               />
             </Link>
 
@@ -1776,17 +1778,19 @@ export function MinimalMarketingNavbar() {
                   href="/login"
                   className="hs-outline-btn inline-flex min-h-[2.5rem] items-center justify-center rounded-full px-3 py-2 text-xs font-semibold transition-colors sm:min-w-[92px] sm:px-4 sm:py-2.5 sm:text-sm"
                 >
-                  <span>Login</span>
+                  <span>Sign In</span>
                 </Link>
               ) : null}
-              <Link
-                href={primaryCta.href}
-                className="hs-solid-btn inline-flex min-h-[2.5rem] items-center justify-center gap-1 rounded-full px-3 py-2 text-xs font-semibold transition-all sm:gap-2 sm:px-5 sm:py-2.5 sm:text-sm md:min-w-[122px]"
-              >
-                <span className="max-w-[10.5rem] truncate sm:max-w-none">
-                  {primaryCta.label}
-                </span>
-              </Link>
+              {primaryCta ? (
+                <Link
+                  href={primaryCta.href}
+                  className="hs-solid-btn inline-flex min-h-[2.5rem] items-center justify-center gap-1 rounded-full px-3 py-2 text-xs font-semibold transition-all sm:gap-2 sm:px-5 sm:py-2.5 sm:text-sm md:min-w-[122px]"
+                >
+                  <span className="max-w-[10.5rem] truncate sm:max-w-none">
+                    {primaryCta.label}
+                  </span>
+                </Link>
+              ) : null}
             </div>
           </div>
         </div>

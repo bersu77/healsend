@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
@@ -570,7 +570,7 @@ const defaultComprehensiveCare = {
   introLabel: "HealSend",
   introText:
     "You're not just getting medication. You're getting full care on demand to keep you motivated, safe, and reaching your weight-loss goals.",
-  ctaText: "Start Your Weight Loss Journey",
+  ctaText: "Lose Fat Now",
   features: [
     {
       title: "Unlimited Access to Clinicians",
@@ -578,9 +578,9 @@ const defaultComprehensiveCare = {
         "See a licensed clinician same-day",
         "Unlimited visits, all online",
       ],
-      image: "/images/Screenshot_2026-05-02_153107-removebg-preview.png",
+      image: "/images/Exploring-Clinic-Telemedicine-Photoroom.png",
       imageClass:
-        "absolute bottom-0 right-6 h-27 w-32 object-contain md:h-30s md:w-40",
+        "absolute bottom-0 right-6 h-30 w-32 object-contain md:h-35s md:w-40",
     },
     {
       title: "Always On Medical Assistance via Phone",
@@ -1402,7 +1402,7 @@ const MEDICAL_PLANS = [
   },
 ];
 
-function MedicalPlanCard({ plan, ctaHref }) {
+function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
   const [expanded, setExpanded] = useState(false);
   const isMinimal = plan.bullets.length === 0;
   const hasDetails =
@@ -1412,9 +1412,11 @@ function MedicalPlanCard({ plan, ctaHref }) {
 
   return (
     <div
+      ref={cardRef}
+      style={minHeight ? { minHeight } : undefined}
       className={cn(
-        "flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-[0_20px_40px_-24px_rgba(91,60,221,0.12)] ring-1 ring-[#ece8f3]",
-        isMinimal ? "h-auto self-start w-full" : "h-full",
+        "flex min-w-0 flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-[0_20px_40px_-24px_rgba(91,60,221,0.12)] ring-1 ring-[#ece8f3]",
+        isMinimal ? "h-auto self-start w-full" : "w-full",
       )}
     >
       <div
@@ -1595,6 +1597,15 @@ function MedicalPlanCard({ plan, ctaHref }) {
 
 function MedicalWeightLossSection({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
+  const cardRefs = useRef([]);
+  const [minCardH, setMinCardH] = useState(0);
+
+  useEffect(() => {
+    const els = cardRefs.current.filter(Boolean);
+    if (els.length === 0) return;
+    const max = Math.max(...els.map((el) => el.offsetHeight));
+    if (max > 0) setMinCardH(max);
+  }, []);
 
   return (
     <section className="overflow-hidden bg-[#f9f9f9] py-16 md:py-20">
@@ -1615,56 +1626,62 @@ function MedicalWeightLossSection({ productData }) {
           </div>
 
           <div className="flex w-full flex-wrap items-center gap-3 sm:gap-4 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end lg:pt-1">
-            <div className="flex min-h-[92px] min-w-0 max-w-[calc(50%-0.375rem)] flex-1 basis-0 items-center justify-center sm:max-w-none sm:flex-initial sm:basis-[200px] lg:min-h-[104px] lg:w-[min(252px,calc((100vw-4rem)*0.44))] lg:max-w-none lg:flex-initial">
-              <div className="relative flex items-center justify-center px-7 lg:px-9">
+            <div className="flex min-w-0 flex-initial items-center justify-center">
+              <div className="relative flex items-center">
                 <img
                   src="/images/clean/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="absolute left-0 h-20 w-auto object-contain lg:h-24"
+                  className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
                 />
                 <img
                   src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`}
                   alt="Google reviews rating"
                   loading="lazy"
-                  className="relative z-10 h-auto max-h-[95px] w-auto max-w-full shrink-0 object-contain object-center lg:max-h-[100px]"
+                  className="z-10 -ml-2 -mr-1 h-auto max-h-[60px] max-w-[120px] object-contain mix-blend-multiply sm:-ml-3 sm:-mr-2 sm:max-h-[80px] sm:max-w-none md:max-h-[100px] lg:-ml-5 lg:-mr-3 lg:max-h-[120px]"
                 />
                 <img
                   src="/images/articles/blogs/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="absolute right-0 h-20 w-auto object-contain lg:h-24"
+                  className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
                 />
               </div>
             </div>
-            <div className="flex min-h-[92px] min-w-0 max-w-[calc(50%-0.375rem)] flex-1 basis-0 items-center justify-center sm:max-w-none sm:flex-initial sm:basis-[200px] lg:min-h-[104px] lg:w-[min(252px,calc((100vw-4rem)*0.44))] lg:max-w-none lg:flex-initial">
-              <div className="relative flex items-center justify-center px-7 lg:px-9">
+            <div className="flex min-w-0 flex-initial items-center justify-center">
+              <div className="relative flex items-center">
                 <img
                   src="/images/clean/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="absolute left-0 h-20 w-auto object-contain lg:h-24"
+                  className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
                 />
                 <img
                   src="/images/healsend-2k-members-trust.png"
                   alt="HealSend — 2K+ members"
                   loading="lazy"
-                  className="relative z-10 h-auto max-h-[100px] w-auto max-w-[min(220px,100%)] shrink-0 object-contain object-center sm:max-h-[110px] lg:max-h-[120px]"
+                  className="z-10 -mx-2 h-auto max-h-[60px] w-auto shrink-0 object-contain sm:-mx-3 sm:max-h-[80px] md:max-h-[100px] lg:-mx-4 lg:max-h-[120px]"
                 />
                 <img
                   src="/images/articles/blogs/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="absolute right-0 h-20 w-auto object-contain lg:h-24"
+                  className="z-20 h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
                 />
               </div>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-3 lg:items-stretch lg:gap-6 xl:gap-8">
-          {MEDICAL_PLANS.map((plan) => (
-            <MedicalPlanCard key={plan.id} plan={plan} ctaHref={ctaHref} />
+        <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-3 lg:items-start lg:gap-6 xl:gap-8">
+          {MEDICAL_PLANS.map((plan, idx) => (
+            <MedicalPlanCard
+              key={plan.id}
+              plan={plan}
+              ctaHref={ctaHref}
+              cardRef={plan.bullets.length > 0 ? (el) => { cardRefs.current[idx] = el; } : undefined}
+              minHeight={plan.bullets.length > 0 ? minCardH : undefined}
+            />
           ))}
         </div>
       </div>
@@ -2630,9 +2647,9 @@ function ResearchSplit({ productData }) {
       : productData.researchSection.image;
 
   return (
-    <section className="bg-[#f9f9f9] px-4 py-16 md:px-8 md:py-20 lg:px-16">
+    <section className="bg-[#f9f9f9] px-4 pt-16 pb-0 md:px-8 md:pt-20 lg:px-16">
       <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
-        <div className="order-2 relative aspect-square overflow-hidden rounded-[2rem] lg:order-1 lg:aspect-[4/4.5]">
+        <div className="order-2 relative overflow-hidden lg:order-1">
           <img
             src={researchImage}
             alt="Woman smiling outdoors"
@@ -2969,9 +2986,9 @@ function ComprehensiveCare({ productData }) {
 
           <Link
             href={ctaHref}
-            className="hs-solid-btn mx-auto block w-full max-w-2xl rounded-full py-4 text-center text-lg font-bold transition-colors md:py-5 md:text-xl"
+            className="hs-solid-btn mx-auto block w-full max-w-sm rounded-full py-4 text-center text-lg font-bold transition-colors md:py-5 md:text-xl"
           >
-            {content.ctaText || `Start Your ${productData.name} Journey`}
+            Lose Fat Now
           </Link>
         </div>
       </div>
@@ -2989,10 +3006,10 @@ function CleanSimpleEffective({ productData }) {
       );
 
   return (
-    <section className="relative bg-[#F9F9F9] py-12 md:py-16">
+    <section className="relative bg-[#F9F9F9] pt-6 pb-12 md:pt-8 md:pb-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <h2 className="mb-10 text-center text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
-          Clean, simple, and effective
+          Fast, safe, doctor-led care
         </h2>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:grid-cols-6">
@@ -3217,13 +3234,13 @@ function SameMedicationMarquee() {
               key={`${item.text}-${index}`}
               className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[0.76rem] font-semibold leading-none text-[#5b4d12] md:text-[0.82rem]"
             >
-              <span className="relative inline-flex h-[1em] w-[1em] shrink-0 items-center justify-center">
+              <span className="relative inline-flex h-5 w-5 shrink-0 items-center justify-center md:h-6 md:w-6">
                 <Image
                   src={item.icon}
                   alt=""
                   fill
-                  sizes="16px"
-                  className="object-contain"
+                  sizes="24px"
+                  className="object-contain grayscale opacity-60"
                 />
               </span>
               <span>{item.text}</span>
