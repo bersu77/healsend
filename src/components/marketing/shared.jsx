@@ -1721,6 +1721,7 @@ export const MARKETING_ROUTES = ROUTES;
 export function MinimalMarketingNavbar() {
   const { user, isAuthenticated } = useAuth();
   const [scrolled, setScrolled] = useState(false);
+  const [authOverlayMode, setAuthOverlayMode] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -1735,6 +1736,7 @@ export function MinimalMarketingNavbar() {
     : null;
 
   return (
+    <>
     <header className="sticky top-0 z-50">
       <div
         className={`absolute inset-0 transition-all duration-300 ${
@@ -1774,12 +1776,13 @@ export function MinimalMarketingNavbar() {
 
             <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
               {!isAuthenticated ? (
-                <Link
-                  href="/login"
+                <button
+                  type="button"
+                  onClick={() => setAuthOverlayMode("login")}
                   className="hs-outline-btn inline-flex min-h-[2.5rem] items-center justify-center rounded-full px-3 py-2 text-xs font-semibold transition-colors sm:min-w-[92px] sm:px-4 sm:py-2.5 sm:text-sm"
                 >
                   <span>Sign In</span>
-                </Link>
+                </button>
               ) : null}
               {primaryCta ? (
                 <Link
@@ -1796,5 +1799,26 @@ export function MinimalMarketingNavbar() {
         </div>
       </div>
     </header>
+
+    {authOverlayMode === "login" ? (
+      <LoginPageClient
+        enableGoogleAuth
+        enableAppleAuth
+        onClose={() => setAuthOverlayMode(null)}
+        onSwitchToSignup={() => setAuthOverlayMode("signup")}
+        overlay
+      />
+    ) : null}
+
+    {authOverlayMode === "signup" ? (
+      <SignupPageClient
+        enableGoogleAuth
+        enableAppleAuth
+        onClose={() => setAuthOverlayMode(null)}
+        onSwitchToLogin={() => setAuthOverlayMode("login")}
+        overlay
+      />
+    ) : null}
+    </>
   );
 }
