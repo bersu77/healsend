@@ -1007,13 +1007,13 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
           </div>
 
           <div className="mb-6 rounded-[1rem] border border-gray-200 bg-white p-2 shadow-sm">
-            <div className="mb-4 flex rounded-[1rem] bg-gray-100 p-1.5">
+            <div className="mb-6 flex rounded-full bg-gray-100 p-1.5">
               {["benefits", "pricing", "description"].map((tab) => (
                 <button
                   key={tab}
                   type="button"
                   onClick={() => setActiveTab(tab)}
-                  className={`flex-1 rounded-[1rem] py-2.5 text-sm font-medium capitalize transition-colors ${activeTab === tab
+                  className={`flex-1 rounded-full py-2.5 text-sm font-medium capitalize transition-colors ${activeTab === tab
                     ? "bg-white text-gray-900 shadow-sm"
                     : "text-gray-500 hover:text-gray-700"
                     }`}
@@ -1022,7 +1022,7 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
                 </button>
               ))}
             </div>
-            <div className="overflow-hidden px-5 pb-4 pt-1 md:px-6 md:pb-5">
+            <div className="overflow-hidden px-5 pb-5 pt-2 md:px-6 md:pb-6">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeTab}
@@ -1040,8 +1040,8 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
                           key={`${item.text}-${idx}`}
                           className="flex gap-3"
                         >
-                          <Icon className="mt-0.5 h-5 w-5 shrink-0 text-gray-400" />
-                          <p className="text-sm leading-relaxed text-gray-600 md:text-base">
+                          <Icon className="mt-0.5 h-5 w-5 shrink-0 text-gray-600" />
+                          <p className="text-[0.938rem] leading-relaxed text-gray-700 md:text-base">
                             {item.text}
                           </p>
                         </div>
