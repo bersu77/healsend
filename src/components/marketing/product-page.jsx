@@ -876,7 +876,7 @@ function mergeProductContent(product) {
         ...product.researchSection,
         ...TIRZEPATIDE_SURMOUNT_RESEARCH_SECTION,
         /* Editorial slice: member portrait — do not inherit catalog product hero (vial). */
-        image: "/images/articles/blogs/female.jpg",
+        image: "/images/female-removebg-preview.png",
       }
       : {
         ...defaultProductContent.researchSection,
@@ -2643,7 +2643,7 @@ function ResearchSplit({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
   const researchImage =
     productData.researchSection?.title?.includes("NAD+")
-      ? "/images/articles/blogs/female.jpg"
+      ? "/images/female-removebg-preview.png"
       : productData.researchSection.image;
 
   return (
@@ -2671,12 +2671,14 @@ function ResearchSplit({ productData }) {
               </div>
             ))}
           </div>
-          <Link
-            href={ctaHref}
-            className="hs-solid-btn hs-no-shimmer rounded-full px-8 py-3.5 text-base font-medium transition-colors"
-          >
-            See if you qualify
-          </Link>
+          <div className="text-center">
+            <Link
+              href={ctaHref}
+              className="hs-solid-btn hs-no-shimmer inline-block rounded-full px-8 py-3.5 text-base font-medium transition-colors"
+            >
+              See if you qualify
+            </Link>
+          </div>
         </div>
       </div>
     </section>
