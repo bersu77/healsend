@@ -13,8 +13,9 @@ import {
   findExistingActivePurchaseForProduct,
 } from "@/lib/purchase-guards";
 import { NextResponse } from "next/server";
-import { sendGhlQuestionnaire } from "@/lib/ghl";
+import { sendGhlQuestionnaire, updateGhlContact } from "@/lib/ghl";
 import { isGhlApiEnabled } from "@/lib/integration-settings";
+import { tagPaid, tagSmsOptedIn } from "@/lib/ghl-funnel-tags";
 import { getSiteSetting } from "@/lib/site-settings";
 import {
   getMdiAccessToken,
@@ -192,6 +193,11 @@ export async function POST(request) {
     );
   });
 
+  const textAlertsEntry = Object.entries(data).find(([stepId]) => {
+    return stepTypeById.get(stepId) === "TEXT_ALERTS";
+  });
+  const smsOptedIn = textAlertsEntry?.[1] === "opted_in";
+
   const medicationSelection = medicationEntry?.[1] || null;
   const checkoutData = checkoutEntry?.[1] || {};
   const paymentComplete = checkoutData?.paymentComplete === true;
@@ -360,21 +366,43 @@ export async function POST(request) {
 
   const order = await prisma.order.create({ data: orderData });
 
-  // Send the GLP-1 questionnaire via GHL chat when a GLP-1 order is created
+  if (paymentCaptured || paymentAuthorized) {
+    tagPaid(user.id).catch(() => {});
+  }
+
+  if (smsOptedIn) {
+    tagSmsOptedIn(user.id).catch(() => {});
+  }
+
+  // Sync phone number and name to GHL contact from submission data
   if (isGhlApiEnabled()) {
     try {
-      const { questionnaireId, slugs } = await resolveGlp1Settings();
-      if (slugs.includes(template.slug)) {
-        const ghlContact = await prisma.ghlContact.findFirst({
-          where: { userId: user.id },
-        });
-        if (ghlContact?.ghlId) {
+      const ghlContact = await prisma.ghlContact.findFirst({
+        where: { userId: user.id },
+      });
+      if (ghlContact?.ghlId) {
+        const phoneFromData = Object.values(data).find(
+          (v) => v && typeof v === "object" && typeof v.phone === "string" && v.phone.trim(),
+        );
+        const updates = {};
+        if (phoneFromData?.phone) updates.phone = phoneFromData.phone.trim();
+        if (phoneFromData?.firstName) updates.firstName = phoneFromData.firstName.trim();
+        if (phoneFromData?.lastName) updates.lastName = phoneFromData.lastName.trim();
+        if (Object.keys(updates).length > 0) {
+          updateGhlContact(ghlContact.ghlId, updates).catch((err) =>
+            console.error("[onboarding-submissions] Failed to update GHL contact phone:", err),
+          );
+        }
+
+        // Send the GLP-1 questionnaire via GHL chat when a GLP-1 order is created
+        const { questionnaireId, slugs } = await resolveGlp1Settings();
+        if (slugs.includes(template.slug)) {
           await sendGhlQuestionnaire(ghlContact.ghlId, questionnaireId);
         }
       }
     } catch (err) {
       console.error(
-        "[onboarding-submissions] Failed to send GLP-1 questionnaire:",
+        "[onboarding-submissions] Failed GHL sync:",
         err,
       );
     }

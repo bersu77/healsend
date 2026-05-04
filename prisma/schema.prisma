@@ -10,7 +10,7 @@ datasource db {
 // ─── Users & Auth ────────────────────────────────────────────
 
 model User {
-  id            String    @id @default(cuid())
+  id            String    @id @default(uuid())
   email         String    @unique
   passwordHash  String?
   name          String?
@@ -51,7 +51,7 @@ model User {
 }
 
 model Subscription {
-  id                 String             @id @default(cuid())
+  id                 String             @id @default(uuid())
   userId             String
   user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   stripeSubscriptionId String?          @unique
@@ -85,7 +85,7 @@ enum Role {
 }
 
 model Session {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   token     String   @unique
@@ -94,7 +94,7 @@ model Session {
 }
 
 model PaymentMethod {
-  id            String  @id @default(cuid())
+  id            String  @id @default(uuid())
   userId        String
   user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   stripePaymentMethodId String
@@ -107,7 +107,7 @@ model PaymentMethod {
 }
 
 model Message {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   subject   String?
@@ -118,7 +118,7 @@ model Message {
 }
 
 model Onboarding {
-  id          String   @id @default(cuid())
+  id          String   @id @default(uuid())
   userId      String   @unique
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   goal        String?
@@ -135,7 +135,7 @@ model Onboarding {
 // ─── Onboarding Templates (Admin-managed) ────────────────────
 
 model OnboardingTemplate {
-  id          String   @id @default(cuid())
+  id          String   @id @default(uuid())
   name        String
   slug        String   @unique
   description String?
@@ -151,7 +151,7 @@ model OnboardingTemplate {
 }
 
 model OnboardingStep {
-  id          String   @id @default(cuid())
+  id          String   @id @default(uuid())
   templateId  String
   template    OnboardingTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
   title       String
@@ -181,7 +181,7 @@ enum StepType {
 }
 
 model OnboardingSubmission {
-  id          String   @id @default(cuid())
+  id          String   @id @default(uuid())
   templateId  String
   template    OnboardingTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
   userId      String?
@@ -202,7 +202,7 @@ enum FollowUpStatus {
 }
 
 model FollowUpQuestionnaire {
-  id                  String         @id @default(cuid())
+  id                  String         @id @default(uuid())
   userId              String
   user                User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   submissionId        String
@@ -226,7 +226,7 @@ model FollowUpQuestionnaire {
 }
 
 model Address {
-  id         String  @id @default(cuid())
+  id         String  @id @default(uuid())
   userId     String
   user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   line1      String
@@ -242,7 +242,7 @@ model Address {
 // ─── Catalog ─────────────────────────────────────────────────
 
 model Category {
-  id          String     @id @default(cuid())
+  id          String     @id @default(uuid())
   name        String     @unique
   slug        String     @unique
   description String?
@@ -259,7 +259,7 @@ model Category {
 }
 
 model Brand {
-  id          String    @id @default(cuid())
+  id          String    @id @default(uuid())
   name        String    @unique
   slug        String    @unique
   logo        String?
@@ -270,7 +270,7 @@ model Brand {
 }
 
 model Product {
-  id                  String            @id @default(cuid())
+  id                  String            @id @default(uuid())
   wcId                Int?              @unique // WooCommerce legacy ID
   sku                 String?           @unique
   name                String
@@ -318,7 +318,7 @@ enum TelehealthProvider {
 }
 
 model MediaAsset {
-  id          String   @id @default(cuid())
+  id          String   @id @default(uuid())
   source      String   @default("wordpress")
   sourceId    Int?     @unique
   slug        String?
@@ -335,7 +335,7 @@ model MediaAsset {
 }
 
 model MarketingPage {
-  id              String            @id @default(cuid())
+  id              String            @id @default(uuid())
   slug            String            @unique
   title           String
   pageType        MarketingPageType @default(CUSTOM)
@@ -369,7 +369,7 @@ enum MarketingPageType {
 }
 
 model ProductVariant {
-  id              String      @id @default(cuid())
+  id              String      @id @default(uuid())
   productId       String
   product         Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
   name            String
@@ -387,7 +387,7 @@ model ProductVariant {
 // ─── Cart ────────────────────────────────────────────────────
 
 model Cart {
-  id        String     @id @default(cuid())
+  id        String     @id @default(uuid())
   userId    String     @unique
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   items     CartItem[]
@@ -395,7 +395,7 @@ model Cart {
 }
 
 model CartItem {
-  id         String          @id @default(cuid())
+  id         String          @id @default(uuid())
   cartId     String
   cart       Cart            @relation(fields: [cartId], references: [id], onDelete: Cascade)
   productId  String
@@ -409,8 +409,8 @@ model CartItem {
 // ─── Orders ──────────────────────────────────────────────────
 
 model Order {
-  id                  String      @id @default(cuid())
-  orderNumber         String      @unique @default(cuid())
+  id                  String      @id @default(uuid())
+  orderNumber         String      @unique @default(uuid())
   userId              String
   user                User        @relation(fields: [userId], references: [id])
   status              OrderStatus @default(PENDING)
@@ -485,7 +485,7 @@ enum StripeWebhookEventStatus {
 }
 
 model OrderItem {
-  id         String          @id @default(cuid())
+  id         String          @id @default(uuid())
   orderId    String
   order      Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
   productId  String?
@@ -501,7 +501,7 @@ model OrderItem {
 // ─── Dynamic Forms ───────────────────────────────────────────
 
 model FormTemplate {
-  id          String           @id @default(cuid())
+  id          String           @id @default(uuid())
   name        String
   slug        String           @unique
   description String?
@@ -514,7 +514,7 @@ model FormTemplate {
 }
 
 model FormSubmission {
-  id         String       @id @default(cuid())
+  id         String       @id @default(uuid())
   formId     String
   form       FormTemplate @relation(fields: [formId], references: [id], onDelete: Cascade)
   data       Json
@@ -525,7 +525,7 @@ model FormSubmission {
 // ─── GoHighLevel CRM Integration ─────────────────────────────
 
 model GhlContact {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   ghlId     String   @unique
   firstName String?
   lastName  String?
@@ -538,7 +538,7 @@ model GhlContact {
 }
 
 model GhlWebhookEvent {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   eventType String
   payload   Json
   processed Boolean  @default(false)
@@ -547,7 +547,7 @@ model GhlWebhookEvent {
 
 // GHL OAuth tokens for multi-tenant SaaS
 model GhlOAuthToken {
-  id           String   @id @default(cuid())
+  id           String   @id @default(uuid())
   userId       String   @unique
   locationId   String
   accessToken  String
@@ -558,7 +558,7 @@ model GhlOAuthToken {
 }
 
 model MdiWebhookEvent {
-  id          String   @id @default(cuid())
+  id          String   @id @default(uuid())
   deliveryId  String?  @unique
   eventType   String
   source      String   @default("mdi")
@@ -585,7 +585,7 @@ model MdiWebhookEvent {
 }
 
 model OlaWebhookEvent {
-  id          String    @id @default(cuid())
+  id          String    @id @default(uuid())
   deliveryId  String?   @unique
   eventType   String
   payload     Json
@@ -605,7 +605,7 @@ model OlaWebhookEvent {
 }
 
 model MdiCaseSnapshot {
-  id                  String   @id @default(cuid())
+  id                  String   @id @default(uuid())
   mdiCaseId           String   @unique
   orderId             String?
   order               Order?   @relation(fields: [orderId], references: [id], onDelete: SetNull)
@@ -637,7 +637,7 @@ model MdiCaseSnapshot {
 }
 
 model MdiPatientMessageSync {
-  id          String   @id @default(cuid())
+  id          String   @id @default(uuid())
   userId       String   @unique
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   mdiPatientId String?
@@ -651,7 +651,7 @@ model MdiPatientMessageSync {
 }
 
 model StripeWebhookEvent {
-  id               String                   @id @default(cuid())
+  id               String                   @id @default(uuid())
   stripeEventId    String                   @unique
   eventType        String
   status           StripeWebhookEventStatus @default(PROCESSING)
@@ -680,7 +680,7 @@ enum AffiliateEventType {
 }
 
 model AffiliateSession {
-  id                String           @id @default(cuid())
+  id                String           @id @default(uuid())
   visitorId         String
   sessionKey        String           @unique
   userId            String?
@@ -708,7 +708,7 @@ model AffiliateSession {
 }
 
 model AffiliateEvent {
-  id                 String             @id @default(cuid())
+  id                 String             @id @default(uuid())
   sessionId          String?
   session            AffiliateSession?  @relation(fields: [sessionId], references: [id], onDelete: SetNull)
   userId             String?
@@ -751,7 +751,7 @@ enum AffiliateApplicationStatus {
 }
 
 model AffiliateApplication {
-  id              String                     @id @default(cuid())
+  id              String                     @id @default(uuid())
   userId          String                     @unique
   user            User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
   status          AffiliateApplicationStatus @default(PENDING)
@@ -800,7 +800,7 @@ enum RewardStatus {
 /// Admin-managed affiliate links stored in the database.
 /// Replaces the legacy JSON file store in data/affiliate-program.json.
 model AffiliateLink {
-  id              String                  @id @default(cuid())
+  id              String                  @id @default(uuid())
   /// Optional link to an approved AffiliateApplication (affiliate partner).
   /// Null = standalone campaign link without a specific partner.
   applicationId   String?
@@ -828,7 +828,7 @@ model AffiliateLink {
 /// One Referral row per unique visitor who arrived via an AffiliateLink.
 /// Created on first visit; updated to CONVERTED when they sign up / purchase.
 model Referral {
-  id             String         @id @default(cuid())
+  id             String         @id @default(uuid())
   linkId         String
   link           AffiliateLink  @relation(fields: [linkId], references: [id], onDelete: Cascade)
   /// Affiliate user (denormalised from link.application.userId for fast queries).
@@ -858,7 +858,7 @@ model Referral {
 /// Ledger of earned rewards. One entry per converted Referral.
 /// Admin approves / marks paid from the dashboard.
 model RewardLedger {
-  id           String       @id @default(cuid())
+  id           String       @id @default(uuid())
   /// Affiliate user who earns this reward.
   userId       String
   user         User         @relation("RewardLedgerUser", fields: [userId], references: [id])
@@ -879,7 +879,7 @@ model RewardLedger {
 /// Admin-managed key/value configuration store for runtime settings
 /// (MDI, OLA, GHL, etc.) that should not be hardcoded or require a redeploy.
 model SiteSettings {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   key       String   @unique
   value     String   // JSON-encoded value
   updatedAt DateTime @updatedAt
@@ -889,7 +889,7 @@ model SiteSettings {
 
 /// A named navigation menu that can be assigned to a site location.
 model NavigationMenu {
-  id        String           @id @default(cuid())
+  id        String           @id @default(uuid())
   name      String
   /// Slot where this menu is displayed, e.g. "header", "footer", "mobile", "custom".
   location  String           @default("custom")
@@ -902,7 +902,7 @@ model NavigationMenu {
 
 /// A single link inside a NavigationMenu. Supports one level of nesting (parent/children).
 model NavigationItem {
-  id        String           @id @default(cuid())
+  id        String           @id @default(uuid())
   menuId    String
   menu      NavigationMenu   @relation(fields: [menuId], references: [id], onDelete: Cascade)
   parentId  String?
