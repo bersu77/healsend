@@ -46,7 +46,7 @@ export async function ghlRequest(
 
   const fetchOptions = { method, headers };
 
-  if (body && (method === "POST" || method === "PUT")) {
+  if (body && (method === "POST" || method === "PUT" || method === "DELETE")) {
     fetchOptions.body = JSON.stringify(body);
   }
 
@@ -106,6 +106,14 @@ export async function listGhlContacts({ query, limit = 20 } = {}) {
 export async function addTagToGhlContact(contactId, tag) {
   return ghlRequest(`/contacts/${contactId}/tags/`, {
     method: "POST",
+    body: { tags: [tag] },
+  });
+}
+
+/** Remove a tag from a contact */
+export async function removeTagFromGhlContact(contactId, tag) {
+  return ghlRequest(`/contacts/${contactId}/tags/`, {
+    method: "DELETE",
     body: { tags: [tag] },
   });
 }

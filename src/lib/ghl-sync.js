@@ -66,8 +66,11 @@ export async function syncNewUserToGhl(user) {
       update: { userId: user.id },
     });
 
-    // Add the "app-user" tag (also sent during creation, but this ensures it)
-    await addTagToGhlContact(ghlContactId, "app-user");
+    // Add the "app-user" and "funnel-started" tags
+    await Promise.all([
+      addTagToGhlContact(ghlContactId, "app-user"),
+      addTagToGhlContact(ghlContactId, "funnel-started"),
+    ]);
 
     console.log(
       `[GHL Sync] User ${user.email} synced as contact ${ghlContactId}`,

@@ -1730,7 +1730,14 @@ function TextAlertsStep({ step, onNext }) {
 
       <div className="space-y-2 pt-1">
         <button
-          onClick={() => onNext("opted_in")}
+          onClick={() => {
+            fetch("/api/ghl/sync-funnel", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ smsOptedIn: true }),
+            }).catch(() => {});
+            onNext("opted_in");
+          }}
           className={PRIMARY_PILL_BUTTON_CLASS}
         >
           Yes, I&apos;d like to receive updates
@@ -2198,6 +2205,10 @@ function CheckoutStep({
 
     const createIntent = async () => {
       try {
+        const contactInfo = Object.values(data || {}).find(
+          (v) => v && typeof v === "object" && typeof v.phone === "string" && v.phone.trim(),
+        );
+        const smsOptedIn = Object.values(data || {}).includes("opted_in");
         const res = await fetch("/api/onboarding-checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -2206,6 +2217,12 @@ function CheckoutStep({
             medicationId: checkoutSelection.medicationId,
             planId: checkoutSelection.planId,
             preferredPricingMode: pricingState.pricingMode,
+            contactInfo: contactInfo ? {
+              firstName: contactInfo.firstName,
+              lastName: contactInfo.lastName,
+              phone: contactInfo.phone,
+            } : undefined,
+            smsOptedIn,
           }),
         });
         const json = await res.json();
@@ -3599,6 +3616,26 @@ function Glp1ProvenResultsStep({ onNext }) {
 function Glp1ContactCaptureStep({ step, value, onChange, onNext }) {
   const [stateMenuOpen, setStateMenuOpen] = useState(false);
   const statePickerRef = useRef(null);
+  const syncedRef = useRef(false);
+
+  const handleNext = useCallback(() => {
+    const v = typeof value === "object" && value ? value : {};
+    if (!syncedRef.current && (v.phone || v.firstName || v.lastName)) {
+      syncedRef.current = true;
+      fetch("/api/ghl/sync-funnel", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contactInfo: {
+            firstName: v.firstName,
+            lastName: v.lastName,
+            phone: v.phone,
+          },
+        }),
+      }).catch(() => {});
+    }
+    onNext();
+  }, [value, onNext]);
 
   useEffect(() => {
     function handlePointerDown(event) {
@@ -3686,6 +3723,7 @@ function Glp1ContactCaptureStep({ step, value, onChange, onNext }) {
   const isValid =
     v.firstName.trim() &&
     v.lastName.trim() &&
+    v.phone.trim() &&
     v.streetAddress.trim() &&
     v.city.trim() &&
     v.state.trim() &&
@@ -3743,8 +3781,7 @@ function Glp1ContactCaptureStep({ step, value, onChange, onNext }) {
 
         <div className="mt-4 space-y-1.5">
           <label className="text-[0.95rem] font-semibold text-[#0f172a]">
-            Phone Number{" "}
-            <span className="font-normal text-[#6b7280]">(optional)</span>
+            Phone Number
           </label>
           <input
             type="tel"
@@ -3892,7 +3929,7 @@ function Glp1ContactCaptureStep({ step, value, onChange, onNext }) {
           </p>
           <button
             type="button"
-            onClick={onNext}
+            onClick={handleNext}
             disabled={!isValid}
             className="hs-solid-btn inline-flex min-w-[230px] items-center justify-center gap-2 rounded-[0.85rem] px-6 py-3.5 font-headline text-[1.1rem] font-bold text-white disabled:cursor-not-allowed disabled:opacity-40"
           >
