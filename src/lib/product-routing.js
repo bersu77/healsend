@@ -30,6 +30,7 @@ export const PRODUCT_ONBOARDING = {
   "sermorelin-enclomiphene": "growth-hormone-support",
   "cjc-1295-ipamorelin": "growth-hormone-support",
   enclomiphene: "growth-hormone-support",
+  "testosterone-injections": "growth-hormone-support",
   "generic-remeron-mirtazapine": "sleep",
   "generic-trazodone": "sleep",
 };

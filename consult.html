@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>See Your Savings — Vantascript</title>
+<meta name="description" content="Work with a Supply Chain Sourcing Engineer to model exactly how much margin Vantascript can add back to your bottom line." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#0A0B0A;--ink-2:#101110;--ink-3:#16171A;
+  --paper:#F4F1EA;--paper-2:#E8E3D6;--bone:#D9D2BE;
+  --scalpel:#7DFF8A;--scalpel-d:#4FE05E;--amber:#E8A23B;--rust:#B73E2C;
+  --rule:#1F1E1A;--rule-2:#28271F;--muted:#7A786E;--muted-2:#52514A;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:var(--ink);color:var(--paper);font-family:'Inter Tight',sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+body{overflow-x:hidden;position:relative;cursor:none;min-height:100vh;}
+img{max-width:100%;display:block;}
+a,button{color:inherit;text-decoration:none;}
+button{font-family:inherit;border:none;background:none;}
+::selection{background:var(--scalpel);color:var(--ink);}
+a,button,input,select,textarea{cursor:none;}
+
+.cursor-dot,.cursor-ring{position:fixed;pointer-events:none;z-index:9999;top:0;left:0;transform:translate(-50%,-50%);mix-blend-mode:difference;will-change:transform;}
+.cursor-dot{width:5px;height:5px;background:var(--paper);border-radius:50%;}
+.cursor-ring{width:34px;height:34px;border:1px solid var(--paper);border-radius:50%;transition:width .25s cubic-bezier(.2,.8,.2,1), height .25s cubic-bezier(.2,.8,.2,1), border-color .2s ease, background .2s ease;}
+.cursor-ring.hover{width:64px;height:64px;border-color:var(--scalpel);background:rgba(125,255,138,.06);}
+.cursor-ring.click{width:24px;height:24px;}
+@media (max-width:980px),(pointer:coarse){body,a,button,input,select,textarea{cursor:auto;}.cursor-dot,.cursor-ring{display:none;}}
+
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");}
+
+nav.top{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:18px 32px;background:rgba(10,11,10,.55);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%);border-bottom:1px solid rgba(244,241,234,.05);transition:padding .35s cubic-bezier(.2,.8,.2,1), background .35s ease;}
+nav.top.scrolled{padding:12px 32px;background:rgba(10,11,10,.85);}
+.logo{font-family:'Fraunces',serif;font-weight:500;font-size:22px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px;}
+.logo .mark{width:22px;height:22px;background:var(--scalpel);border-radius:50%;position:relative;box-shadow:0 0 24px rgba(125,255,138,.35);animation:mb 4s ease-in-out infinite;}
+@keyframes mb{0%,100%{box-shadow:0 0 24px rgba(125,255,138,.35);}50%{box-shadow:0 0 36px rgba(125,255,138,.6);}}
+.logo .mark::after{content:"";position:absolute;inset:6px;background:var(--ink);border-radius:50%;}
+.nav-back{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-2);transition:color .2s ease;display:flex;align-items:center;gap:8px;}
+.nav-back:hover{color:var(--scalpel);}
+
+.page{padding:120px 32px 80px;position:relative;overflow:hidden;min-height:100vh;}
+.mesh{position:absolute;inset:-10%;pointer-events:none;z-index:0;}
+.mesh::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center, transparent 0%, rgba(10,11,10,.4) 55%, var(--ink) 95%);pointer-events:none;}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);will-change:transform;}
+.orb-1{width:46vw;height:46vw;background:radial-gradient(circle,#0a3618,transparent 60%);top:-10%;right:-10%;opacity:.4;}
+.orb-2{width:40vw;height:40vw;background:radial-gradient(circle,#1a2f0a,transparent 60%);bottom:-30%;left:-15%;opacity:.28;}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(244,241,234,.025) 1px, transparent 1px),linear-gradient(90deg, rgba(244,241,234,.025) 1px, transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse at center, black 30%, transparent 75%);-webkit-mask-image:radial-gradient(ellipse at center, black 30%, transparent 75%);z-index:0;}
+
+.shell{max-width:1280px;margin:0 auto;position:relative;z-index:2;display:grid;grid-template-columns:1.05fr 1fr;gap:60px;align-items:start;}
+
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--scalpel);display:flex;align-items:center;gap:14px;margin-bottom:32px;}
+.eyebrow::before{content:"";width:24px;height:1px;background:var(--scalpel);}
+
+.pitch h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(40px,5.6vw,82px);line-height:.96;letter-spacing:-.035em;margin-bottom:32px;color:var(--paper);text-shadow:0 2px 24px rgba(0,0,0,.35);}
+.pitch h1 em{font-style:italic;font-weight:400;background:linear-gradient(105deg, var(--scalpel) 0%, #B6FFD9 50%, var(--scalpel) 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 6s linear infinite;}
+@keyframes shimmer{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
+
+.pitch-sub{font-size:18px;line-height:1.55;color:var(--paper);font-weight:300;max-width:520px;margin-bottom:48px;text-shadow:0 1px 12px rgba(0,0,0,.3);}
+.pitch-sub b{font-weight:500;color:var(--paper);}
+
+.engineer{border:1px solid var(--rule);border-radius:16px;padding:28px;background:linear-gradient(160deg, var(--ink-2), #0d0e0c);display:flex;gap:20px;align-items:center;margin-bottom:48px;position:relative;box-shadow:0 24px 60px rgba(0,0,0,.4);}
+.engineer::before{content:"YOUR SOURCING TEAM";position:absolute;top:-9px;left:24px;background:var(--ink);padding:0 10px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--muted);}
+.eng-avatar{width:64px;height:64px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg, #1a3a20, #0a3618);border:1px solid rgba(125,255,138,.3);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-style:italic;color:var(--scalpel);font-size:24px;position:relative;}
+.eng-avatar::after{content:"";position:absolute;bottom:2px;right:2px;width:12px;height:12px;border-radius:50%;background:var(--scalpel);border:2px solid var(--ink-2);box-shadow:0 0 10px var(--scalpel);}
+.eng-info .role{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.eng-info .name{font-family:'Fraunces',serif;font-weight:400;font-size:22px;letter-spacing:-.01em;margin-bottom:2px;}
+.eng-info .meta{font-size:13px;color:var(--paper-2);font-weight:300;}
+
+.included{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule);}
+.inc-row{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid var(--rule);align-items:flex-start;}
+.inc-row .num{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;color:var(--scalpel);flex-shrink:0;width:32px;padding-top:4px;}
+.inc-row .text h4{font-family:'Fraunces',serif;font-weight:400;font-size:20px;letter-spacing:-.01em;margin-bottom:6px;}
+.inc-row .text p{font-size:14px;line-height:1.55;color:var(--paper-2);font-weight:300;}
+
+.form-shell{position:sticky;top:120px;}
+.form-card{background:linear-gradient(160deg, var(--ink-2), #0d0e0c);border:1px solid var(--rule);border-radius:18px;padding:44px;position:relative;box-shadow:0 32px 80px rgba(0,0,0,.5);}
+.form-card::before{content:"VS-CONSULT / SAVINGS REVIEW";position:absolute;top:-9px;left:32px;background:var(--ink);padding:0 12px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--muted);}
+
+.form-head{margin-bottom:36px;padding-bottom:28px;border-bottom:1px solid var(--rule);}
+.form-head .h{font-family:'Fraunces',serif;font-weight:300;font-size:32px;letter-spacing:-.025em;line-height:1.05;margin-bottom:10px;}
+.form-head .h em{font-style:italic;color:var(--scalpel);}
+.form-head .s{font-size:13px;color:var(--paper-2);font-weight:300;line-height:1.55;}
+
+.steps-bar{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.step-dot{flex:1;height:3px;background:var(--rule-2);border-radius:2px;position:relative;overflow:hidden;}
+.step-dot.done{background:var(--scalpel);}
+.step-dot.now{background:var(--rule-2);}
+.step-dot.now::after{content:"";position:absolute;inset:0;background:var(--scalpel);transform-origin:left;transform:scaleX(.5);}
+.step-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:28px;}
+
+.step-panel{display:none;}
+.step-panel.active{display:block;animation:slideIn .4s ease-out;}
+@keyframes slideIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+.form-row{margin-bottom:22px;position:relative;}
+.form-row label{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;transition:color .25s ease;}
+.form-row input,.form-row select,.form-row textarea{width:100%;background:transparent;border:none;border-bottom:1px solid var(--rule-2);color:var(--paper);font-family:'Inter Tight',sans-serif;font-size:16px;padding:10px 0;outline:none;transition:border-color .25s ease;}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--scalpel);}
+.form-row:focus-within label{color:var(--scalpel);}
+.form-row select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%237DFF8A' stroke-width='1.5' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 4px center;}
+.form-row select option{background:var(--ink-2);color:var(--paper);}
+.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+
+.chip-group{display:flex;flex-wrap:wrap;gap:8px;}
+.chip-pick{padding:10px 14px;border:1px solid var(--rule-2);border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--paper-2);transition:all .25s ease;}
+.chip-pick.on{background:var(--scalpel);color:var(--ink);border-color:var(--scalpel);}
+.chip-pick:hover:not(.on){border-color:var(--paper-2);color:var(--paper);}
+
+.slot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:28px;}
+.slot{padding:14px 10px;border:1px solid var(--rule-2);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.05em;color:var(--paper-2);transition:all .25s ease;text-align:center;}
+.slot.on{background:var(--scalpel);color:var(--ink);border-color:var(--scalpel);font-weight:600;}
+.slot:hover:not(.on){border-color:var(--scalpel);color:var(--scalpel);}
+.slot-day{font-size:9px;color:var(--muted);letter-spacing:.18em;display:block;margin-bottom:4px;}
+.slot.on .slot-day{color:rgba(10,11,10,.6);}
+
+.form-nav{display:flex;gap:12px;margin-top:32px;}
+.btn-primary{flex:1;padding:18px 24px;background:var(--scalpel);color:var(--ink);font-weight:600;font-size:14px;letter-spacing:.01em;border-radius:100px;transition:transform .25s ease, box-shadow .25s ease;position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;}
+.btn-primary::before{content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg, transparent, rgba(255,255,255,.4), transparent);transition:left .6s ease;}
+.btn-primary:hover::before{left:100%;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(125,255,138,.25);}
+.btn-primary svg{width:14px;height:14px;}
+.btn-back{padding:18px 24px;border:1px solid var(--rule-2);border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--paper-2);transition:all .25s ease;}
+.btn-back:hover{border-color:var(--paper-2);color:var(--paper);}
+
+.fine{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.05em;line-height:1.5;margin-top:18px;}
+
+.success{text-align:center;padding:30px 0;}
+.success .check{width:80px;height:80px;border:1.5px solid var(--scalpel);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;color:var(--scalpel);font-size:36px;animation:pop .5s cubic-bezier(.2,1.4,.4,1) forwards;position:relative;}
+.success .check::after{content:"";position:absolute;inset:-12px;border:1px solid rgba(125,255,138,.3);border-radius:50%;animation:ringp 2s ease-out infinite;opacity:0;}
+@keyframes pop{0%{transform:scale(0);}100%{transform:scale(1);}}
+@keyframes ringp{0%{transform:scale(.8);opacity:.6;}100%{transform:scale(1.4);opacity:0;}}
+.success h3{font-family:'Fraunces',serif;font-weight:300;font-size:36px;letter-spacing:-.02em;margin-bottom:16px;line-height:1.05;}
+.success h3 em{font-style:italic;color:var(--scalpel);}
+.success p{font-size:15px;color:var(--paper-2);font-weight:300;line-height:1.55;max-width:380px;margin:0 auto 28px;}
+.success .booking-meta{border-top:1px dashed var(--rule);border-bottom:1px dashed var(--rule);padding:20px 0;margin:0 0 28px;display:flex;justify-content:space-around;gap:20px;text-align:left;}
+.success .booking-meta .b-cell .l{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.success .booking-meta .b-cell .v{font-family:'Fraunces',serif;font-style:italic;font-size:18px;color:var(--paper);}
+.success .next-steps{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;color:var(--paper-2);}
+.success .next-steps a{color:var(--scalpel);}
+
+@media (max-width:980px){
+  nav.top{padding:14px 20px;}
+  nav.top.scrolled{padding:10px 20px;}
+  .page{padding:100px 20px 60px;}
+  .shell{grid-template-columns:1fr;gap:50px;}
+  .form-shell{position:static;}
+  .form-card{padding:28px;}
+  .pitch-sub{font-size:16px;}
+  .engineer{flex-direction:column;text-align:center;align-items:center;}
+}
+@media (max-width:580px){
+  .form-grid-2{grid-template-columns:1fr;}
+  .slot-grid{grid-template-columns:repeat(2,1fr);}
+  .success .booking-meta{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<nav class="top" id="nav">
+  <a href="vantascript.html" class="logo"><span class="mark"></span>vantascript</a>
+  <a href="vantascript.html" class="nav-back" data-magnetic>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to site
+  </a>
+</nav>
+
+<main class="page">
+  <div class="mesh">
+    <div class="orb orb-1" data-parallax="0.12"></div>
+    <div class="orb orb-2" data-parallax="-0.08"></div>
+  </div>
+  <div class="grid-bg"></div>
+
+  <div class="shell">
+
+    <div class="pitch">
+      <div class="eyebrow">Sourcing consultation · Not a sales pitch</div>
+      <h1>See how much you can <em>add back</em> to your bottom line.</h1>
+      <p class="pitch-sub">A 30-minute working session with a Vantascript <b>Supply Chain Sourcing Engineer</b>. Bring your current formulary spend — leave with a line-item model showing exactly where the margin is hiding in your pharmacy contracts.</p>
+
+      <div class="engineer">
+        <div class="eng-avatar">J</div>
+        <div class="eng-info">
+          <div class="role">SUPPLY CHAIN SOURCING ENGINEER</div>
+          <div class="name">Jordan Park</div>
+          <div class="meta">12 yrs in 503A/B procurement · Available this week</div>
+        </div>
+      </div>
+
+      <div class="included">
+        <div class="inc-row">
+          <span class="num">01</span>
+          <div class="text">
+            <h4>Line-item spend audit</h4>
+            <p>We review your current SKU mix, monthly volumes, and per-vial costs. No sales rep — a sourcing engineer who does this for a living.</p>
+          </div>
+        </div>
+        <div class="inc-row">
+          <span class="num">02</span>
+          <div class="text">
+            <h4>Side-by-side savings model</h4>
+            <p>You leave the call with a written model showing your current annualized spend, the Vantascript contracted rate, and the recaptured margin in dollars.</p>
+          </div>
+        </div>
+        <div class="inc-row">
+          <span class="num">03</span>
+          <div class="text">
+            <h4>Routing &amp; logistics walkthrough</h4>
+            <p>How patient Rxs get routed across our network in all 50 states + DC, average fulfillment time, and how to plug into your existing EHR or order via portal.</p>
+          </div>
+        </div>
+        <div class="inc-row">
+          <span class="num">04</span>
+          <div class="text">
+            <h4>Clean MSA in your inbox</h4>
+            <p>If the model makes sense, you sign one master agreement. Average application-to-contracted is 5 business days — start ordering same day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-shell">
+      <div class="form-card" id="card">
+        <div class="form-head">
+          <div class="h">Book your <em>savings review.</em></div>
+          <div class="s">Three short steps. We'll confirm by email within the hour and send a calendar invite.</div>
+        </div>
+
+        <div class="steps-bar">
+          <span class="step-dot now" id="d1"></span>
+          <span class="step-dot" id="d2"></span>
+          <span class="step-dot" id="d3"></span>
+        </div>
+        <div class="step-label" id="stepLabel">Step 01 / Your practice</div>
+
+        <form id="consultForm" onsubmit="return submitConsult(event)">
+
+          <div class="step-panel active" data-step="1">
+            <div class="form-row"><label>Practice / clinic name</label><input type="text" required placeholder="e.g. Meridian Medical"></div>
+            <div class="form-grid-2">
+              <div class="form-row"><label>Your name</label><input type="text" required placeholder="Marisol Verde"></div>
+              <div class="form-row"><label>Role</label>
+                <select required>
+                  <option value="">Select…</option>
+                  <option>Founder / owner</option>
+                  <option>Medical director</option>
+                  <option>Clinical operations</option>
+                  <option>Procurement</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-row"><label>Work email</label><input type="email" required placeholder="dr.verde@clinic.com"></div>
+              <div class="form-row"><label>Mobile (optional)</label><input type="tel" placeholder="+1"></div>
+            </div>
+            <div class="form-nav">
+              <button type="button" class="btn-primary" data-magnetic onclick="nextStep(2)">Continue → Step 02 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+
+          <div class="step-panel" data-step="2">
+            <div class="form-row"><label>Monthly Rx volume</label>
+              <select required>
+                <option value="">Select…</option>
+                <option>0–50</option><option>50–250</option><option>250–1,000</option><option>1,000–5,000</option><option>5,000+</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label>Categories you're sourcing today</label>
+              <div class="chip-group" id="catGroup">
+                <button type="button" class="chip-pick" data-cat="GLP-1">GLP-1</button>
+                <button type="button" class="chip-pick" data-cat="Peptides">Peptides</button>
+                <button type="button" class="chip-pick" data-cat="Hormone">Hormone</button>
+                <button type="button" class="chip-pick" data-cat="IV">IV</button>
+                <button type="button" class="chip-pick" data-cat="Hair">Hair</button>
+                <button type="button" class="chip-pick" data-cat="Other">Other</button>
+              </div>
+            </div>
+            <div class="form-row"><label>Current pharmacy partner (optional)</label><input type="text" placeholder="So we know who we're benchmarking against"></div>
+            <div class="form-row"><label>Anything else we should know?</label><textarea rows="3" placeholder="Backorder pain, multi-state routing, EHR integration, etc."></textarea></div>
+            <div class="form-nav">
+              <button type="button" class="btn-back" data-magnetic onclick="nextStep(1)">← Back</button>
+              <button type="button" class="btn-primary" data-magnetic onclick="nextStep(3)">Continue → Step 03 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+
+          <div class="step-panel" data-step="3">
+            <div class="form-row"><label>Pick a time that works</label></div>
+            <div class="slot-grid" id="slotGrid"></div>
+            <div class="form-row"><label>Timezone</label>
+              <select required id="tzSelect">
+                <option>Eastern (ET)</option><option>Central (CT)</option><option>Mountain (MT)</option><option>Pacific (PT)</option><option>Other</option>
+              </select>
+            </div>
+            <div class="form-nav">
+              <button type="button" class="btn-back" data-magnetic onclick="nextStep(2)">← Back</button>
+              <button type="submit" class="btn-primary" data-magnetic>Book my savings review <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+            <p class="fine">By booking you agree to receive a calendar invite and a one-time confirmation email. We won't add you to any list. Questions: <a href="mailto:vineethisreddy@gmail.com" style="color:var(--scalpel);">vineethisreddy@gmail.com</a></p>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+const dot = document.querySelector('.cursor-dot');
+const ring = document.querySelector('.cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.transform=`translate(${mx}px, ${my}px) translate(-50%,-50%)`;});
+function loop(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.transform=`translate(${rx}px, ${ry}px) translate(-50%,-50%)`;requestAnimationFrame(loop);}
+loop();
+function rebindCursor(){
+  document.querySelectorAll('a, button, input, select, textarea, [data-magnetic], .slot, .chip-pick').forEach(el=>{
+    el.onmouseenter=()=>{ring.classList.add('hover');dot.classList.add('hover');};
+    el.onmouseleave=()=>{ring.classList.remove('hover');dot.classList.remove('hover');};
+  });
+}
+rebindCursor();
+window.addEventListener('mousedown',()=>ring.classList.add('click'));
+window.addEventListener('mouseup',()=>ring.classList.remove('click'));
+
+function rebindMagnetic(){
+  document.querySelectorAll('[data-magnetic]').forEach(btn=>{
+    btn.onmousemove=(e)=>{const r=btn.getBoundingClientRect();const x=e.clientX-(r.left+r.width/2);const y=e.clientY-(r.top+r.height/2);btn.style.transform=`translate(${x*.2}px, ${y*.3}px)`;};
+    btn.onmouseleave=()=>{btn.style.transform='';};
+  });
+}
+rebindMagnetic();
+
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{if(window.scrollY>24)nav.classList.add('scrolled');else nav.classList.remove('scrolled');});
+
+window.addEventListener('scroll',()=>{const y=window.scrollY;document.querySelectorAll('[data-parallax]').forEach(el=>{const f=parseFloat(el.dataset.parallax);el.style.transform=`translateY(${y*f}px)`;});});
+
+const stepLabels = {1:'Step 01 / Your practice',2:'Step 02 / Your sourcing',3:'Step 03 / Pick a time'};
+function nextStep(n){
+  document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector(`.step-panel[data-step="${n}"]`).classList.add('active');
+  document.getElementById('stepLabel').textContent = stepLabels[n];
+  ['d1','d2','d3'].forEach((id,i)=>{
+    const el = document.getElementById(id);
+    el.classList.remove('done','now');
+    if(i+1 < n) el.classList.add('done');
+    if(i+1 === n) el.classList.add('now');
+  });
+  rebindCursor();rebindMagnetic();
+  document.getElementById('card').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+document.querySelectorAll('#catGroup .chip-pick').forEach(b=>{
+  b.addEventListener('click',()=>b.classList.toggle('on'));
+});
+
+function buildSlots(){
+  const grid = document.getElementById('slotGrid');
+  const days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  const times = ['10:00 AM','1:00 PM','3:30 PM'];
+  const today = new Date();
+  let added = 0;
+  let i = 1;
+  const slots = [];
+  while(added < 3){
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    const dow = d.getDay();
+    if(dow !== 0 && dow !== 6){ slots.push(d); added++; }
+    i++;
+    if(i>14) break;
+  }
+  let html = '';
+  slots.forEach(d=>{
+    const dayLabel = `${days[d.getDay()]} ${months[d.getMonth()]} ${d.getDate()}`;
+    times.forEach(t=>{
+      html += `<button type="button" class="slot" data-slot="${dayLabel} · ${t}"><span class="slot-day">${dayLabel}</span>${t}</button>`;
+    });
+  });
+  grid.innerHTML = html;
+  grid.querySelectorAll('.slot').forEach(s=>{
+    s.addEventListener('click',()=>{
+      grid.querySelectorAll('.slot').forEach(x=>x.classList.remove('on'));
+      s.classList.add('on');
+    });
+  });
+  rebindCursor();
+}
+buildSlots();
+
+function submitConsult(e){
+  e.preventDefault();
+  const slot = document.querySelector('.slot.on');
+  const slotText = slot ? slot.dataset.slot : 'TBD';
+  const tz = document.getElementById('tzSelect').value;
+  const form = document.getElementById('consultForm');
+  const card = document.getElementById('card');
+  const data = new FormData(form);
+  data.append('access_key', 'YOUR_WEB3FORMS_KEY');
+  data.append('subject', 'New Vantascript Savings Review Booking');
+  data.append('from_name', 'Vantascript Consult');
+  data.append('selected_slot', slotText);
+  data.append('timezone', tz);
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    body: data
+  }).catch(()=>{});
+  card.innerHTML = `
+    <div class="success">
+      <div class="check">✓</div>
+      <h3>You're booked.<br><em>Welcome aboard.</em></h3>
+      <p>A confirmation email is headed to your inbox now. Bring a recent pharmacy invoice or your top 5 SKUs by volume — that's all we need to model your savings live on the call.</p>
+      <div class="booking-meta">
+        <div class="b-cell"><div class="l">Booked for</div><div class="v">${slotText}</div></div>
+        <div class="b-cell"><div class="l">Timezone</div><div class="v">${tz}</div></div>
+        <div class="b-cell"><div class="l">Duration</div><div class="v">30 min</div></div>
+      </div>
+      <div class="next-steps">Need to reschedule? Email <a href="mailto:vineethisreddy@gmail.com">vineethisreddy@gmail.com</a></div>
+    </div>`;
+  return false;
+}
+</script>
+</body>
+</html>

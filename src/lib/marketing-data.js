@@ -994,6 +994,121 @@ const SYNTHETIC_MARKETING_PRODUCT_PAGE_CONFIG = {
       },
     ],
   },
+  "testosterone-injections": {
+    name: "TRT (Testosterone Injections)",
+    summary:
+      "Clinical-grade testosterone replacement therapy for men with low T — restore energy, strength, mood, and drive with clinician-guided care.",
+    image: "/images/articles/wmremove-transformed-2%20(1).jpeg",
+    price: {
+      firstMonth: 99,
+      regular: 149,
+      savings: 50,
+    },
+    seoTitle: "TRT — Testosterone Replacement Therapy | HealSend",
+    seoDescription:
+      "Clinician-guided TRT with at-home labs, 48-hour prescriptions, and ongoing optimization. Restore your energy, strength, mood, and drive.",
+    tabs: {
+      benefits: [
+        {
+          iconName: "TrendingUp",
+          text: "Restores testosterone to optimal levels (600–900 ng/dL) for energy, strength, and mood.",
+        },
+        {
+          iconName: "Heart",
+          text: "Enhances libido, sleep quality, and overall vitality within weeks of starting treatment.",
+        },
+        {
+          iconName: "ShieldCheck",
+          text: "At-home blood draw, clinician-guided dosing, and ongoing lab monitoring included in all plans.",
+        },
+      ],
+      pricing: {
+        title: "Choose the plan that fits your goals.",
+        sizes: [
+          {
+            title: "Testosterone Cypionate Injections",
+            subtitle:
+              "The gold standard in TRT — clinician-guided with at-home labs and ongoing optimization.",
+            plans: [
+              { name: "12 Month Plan", firstMonthPrice: 99, regularPrice: 149 },
+              { name: "3 Month Plan", firstMonthPrice: 129, regularPrice: 179 },
+              { name: "Monthly Plan", firstMonthPrice: 149, regularPrice: 199 },
+            ],
+          },
+        ],
+      },
+      description:
+        "Testosterone Replacement Therapy delivers pharmaceutical-grade testosterone cypionate to restore levels in men with clinically low T. Includes at-home blood work, clinician-guided dosing, and ongoing monitoring.",
+    },
+    faqs: [
+      {
+        question: "What is TRT?",
+        answer:
+          "Testosterone Replacement Therapy restores testosterone to optimal levels in men diagnosed with low T. HealSend uses testosterone cypionate — the gold standard — with clinician-guided dosing and ongoing monitoring.",
+      },
+      {
+        question: "How quickly will I see results?",
+        answer:
+          "Most members notice improved energy and mood within 2–4 weeks. Strength and body composition changes typically appear by weeks 6–8. Full optimization by week 12.",
+      },
+      {
+        question: "Is lab work included?",
+        answer:
+          "Yes. Initial and follow-up labs are included in all plans — total testosterone, free T, SHBG, estradiol, CBC, and metabolic panel.",
+      },
+    ],
+    featureSection: {
+      title: "TRT care built around results and follow-through.",
+      description: [
+        "At-home labs, clinician-guided dosing, and 48-hour prescription delivery.",
+        "91% of HealSend TRT members continue past 90 days — because the results speak for themselves.",
+      ],
+      image: "/images/articles/wmremove-transformed-2%20(1).jpeg",
+    },
+    supportSection: {
+      title: "Built for men who want their edge back.",
+      subtitle:
+        "Clinician-guided TRT with transparent pricing and ongoing optimization.",
+      features: [
+        {
+          iconName: "Zap",
+          title: "Energy and drive",
+          description:
+            "Restore the energy, focus, and motivation that low T took away.",
+        },
+        {
+          iconName: "Dumbbell",
+          title: "Strength and performance",
+          description:
+            "Support lean muscle growth, faster recovery, and better body composition.",
+        },
+        {
+          iconName: "Heart",
+          title: "Mood and libido",
+          description:
+            "Improve mood stability, confidence, sleep quality, and sexual function.",
+        },
+        {
+          iconName: "ShieldCheck",
+          title: "Lab-monitored safety",
+          description:
+            "Regular blood work and clinician check-ins to keep levels optimized safely.",
+        },
+      ],
+    },
+    relatedProducts: [
+      {
+        id: "enclomiphene",
+        name: "Enclomiphene",
+        image: "/images/marketing/enclomiphene.png",
+      },
+      {
+        id: "sermorelin-injection",
+        name: "Sermorelin Injection",
+        image: "/images/marketing/sermorelin.png",
+      },
+    ],
+  },
 };
 
 function buildNativeLandingPage(basePage, config, nativeTemplate) {

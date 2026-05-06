@@ -19,15 +19,15 @@ export const productContent = {
     benefits: [
       {
         icon: Zap,
-        text: "Helps power cellular energy production at the mitochondrial level, the powerhouse of your cells.",
+        text: "Restores energy, sharpens focus, and supports recovery at the cellular level.",
       },
       {
         icon: Syringe,
-        text: "Only $15/shot*, homekit included.",
+        text: "Only $15/shot* — at-home kit included, no clinic visits.",
       },
       {
         icon: Droplet,
-        text: "Full-strength dosages of 500-1000mg per vial (200mg/mL).",
+        text: "Full-strength 500–1000mg vials (200mg/mL) from a licensed U.S. pharmacy.",
       },
     ],
     pricing: {

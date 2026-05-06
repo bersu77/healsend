@@ -55,8 +55,9 @@ import {
 } from "@/lib/product-routing";
 import { formatUsdCompact } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
+import Autoplay from "embla-carousel-autoplay";
 
-function FadeInSection({ children, delay = 0, y = 48, className }) {
+export function FadeInSection({ children, delay = 0, y = 48, className }) {
   return (
     <motion.div
       initial={{ opacity: 0, y }}
@@ -94,7 +95,7 @@ const MEMBER_FACE_STACK_IMAGE_SRCS_SIX = [
   "/images/4_Home_Doctors_Online_Consultation-Testimonials_03.jpg",
 ];
 
-function MediaLogosBanner() {
+export function MediaLogosBanner() {
   return (
     <div className="overflow-hidden bg-[#5b3cdd] py-6">
       <div className="flex animate-[mediaLogoScroll_22s_linear_infinite]">
@@ -176,33 +177,30 @@ const buildSliderItem = (filename, index) => ({
 const WILLPOWER_LEFT_MARQUEE_ITEMS = [
   "/images/add.png",
   "Copy of Gemini_Generated_Image_ctnnloctnnloctnn.png",
-
-  "240_F_554794353_4b7WK5XeFkemnF1o7RXL2WFt4ITps4jX.jpg",
-
+  "/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Uses & Benefits(background)/Man-lifting.jpeg",
   "Box_2.png",
-  "Copy of 240_F_1859749441_tdF1skYaEk8hSO9lo4tAYXdwVvq7Km4c.jpg",
+  "/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Extra/image 1.webp",
   "Copy of 240_F_1861119733_Y7uOou4SbKCsL0DzOOy5RA0UASKblWIO.jpg",
   "Copy of 240_F_255843378_E2xPB7yqctJZrRIgyeAj8HxXzg5N2mr6.jpg",
-  "Copy of pexels-tima-miroshnichenko-5928317.jpg",
-
+  "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Redefine wellness with science/pexels-ivan-samkov-4164510-scaled-1.jpeg",
   "Copy of Gemini_Generated_Image_r1o81rr1o81rr1o8.png",
   "Copy of Gemini_Generated_Image_schuohschuohschu.png",
-  "Copy of happyveganfit-remove-4559326 (1).jpg",
-  "Copy of natali-hordiiuk-OIn0cEu0iQ0-unsplash.jpg",
-  "Copy of pexels-cottonbro-6941311.jpg",
+  "/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Ready to feel like you again_/Testosterone-Therapy-for-men-1-optimized.jpg",
+  "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Why do people explore Sermorelin therapy_/pexels-julia-larson-6455960-scaled-1-optimized.jpg",
+  "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Why do people explore Sermorelin therapy_/pexels-dmitry-ovsyannikov-271243380-17542096-scaled-1-optimized.jpg",
 ].map(buildSliderItem);
 
 const WILLPOWER_RIGHT_MARQUEE_ITEMS = [
   "/images/addslider.jpg",
-  "Copy of pexels-daniel-dan-47825192-7558820.jpg",
-  "Copy of pexels-farhadirani-34650790.jpg",
-  "Copy of pexels-karola-g-4498158.jpg",
-  "Copy of pexels-lara-stratiychuk-1606923648-27536859.jpg",
-  "Copy of pexels-olly-3807548.jpg",
+  "/images/peptides-20260506T071409Z-3-001/peptides/Ready to Buy Peptides Online the Safe Way_Ready to Buy Peptides Online the Safe Way_/424dbc50-9966-4389-a6bd-3e1e201de2cf-e1761771693727.webp",
+  "/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Ready to feel like you again_/Testosterone-Therapy-for-men-1-optimized.jpg",
+  "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Redefine wellness with science/pexels-ivan-samkov-4164510-scaled-1.jpeg",
+  "/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Extra/image 1.webp",
+  "/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Uses & Benefits(background)/Man-lifting.jpeg",
   "Copy of pexels-tima-miroshnichenko-6011604.jpg",
-  "Copy of pexels-tirachard-kumtanom-112571-347135.jpg",
+  "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Why do people explore Sermorelin therapy_/pexels-julia-larson-6455960-scaled-1-optimized.jpg",
   "Gemini_Generated_Image_n1o1o6n1o1o6n1o1.png",
-  "Copy of look-studio-S0T98VD2KZs-unsplash.jpg",
+  "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Why do people explore Sermorelin therapy_/pexels-dmitry-ovsyannikov-271243380-17542096-scaled-1-optimized.jpg",
   "Gemini_Generated_Image_4a1v034a1v034a1v.png",
   "Gemini_Generated_Image_neknhtneknhtnekn.png",
   "PHOTO-2026-03-29-18-10-25(1).jpg",
@@ -284,43 +282,16 @@ function WillpowerSection() {
         {/* Same 55% / 45% (+ xl 450px) split as ProductHero so the right column lines up down the page */}
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
-            <div className="inline-flex w-fit max-w-full flex-col gap-2 self-start rounded-2xl border border-gray-100 bg-slate-50 px-3 py-2 shadow-[0px_9.54px_42.93px_0px_#0000002B] md:px-5 md:py-3">
-              <p className="whitespace-nowrap text-5xl font-medium leading-[42px] tracking-tighter text-gray-950 md:text-[57px] md:leading-[57px]">
-                1,000,000+
-              </p>
-              <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1.5">
-                <span className="shrink-0 text-[10px] font-medium leading-[14px] text-gray-950 md:text-xl">
-                  Prescriptions written
-                </span>
-                <div className="flex shrink-0 -space-x-2">
-                  {MEMBER_FACE_STACK_IMAGE_SRCS.map((src) => (
-                    <span
-                      key={src}
-                      className="relative h-7 w-7 overflow-hidden rounded-full border-2 border-white bg-[#eef0f8] md:h-9 md:w-9"
-                    >
-                      <Image
-                        src={src}
-                        alt=""
-                        fill
-                        sizes="36px"
-                        className="object-cover object-center"
-                      />
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
             <div className="mt-5 max-w-[34rem]">
               <h2 className="text-balance font-title text-4xl font-medium leading-tight tracking-tight text-gray-950 md:text-5xl">
-                Your weight isn&apos;t a willpower problem.{" "}
+                Your health isn&apos;t a willpower problem.{" "}
                 <span className="font-playfair italic font-medium text-[#6d6ffc]">
-                  It&apos;s a medical one.
+                  It&apos;s a hormonal one.
                 </span>
               </h2>
               <p className="mt-4 max-w-[30rem] text-[1rem] leading-6 text-gray-800 lg:text-[1.05rem]">
-                Personalized GLP-1 treatment. Unlimited clinician-led care.
-                Delivered to your door. Guaranteed or it&apos;s free
+                Weight loss, TRT, and testosterone support &mdash; all
+                clinician-led. Delivered to your door. Guaranteed or it&apos;s free.
               </p>
             </div>
 
@@ -329,8 +300,8 @@ function WillpowerSection() {
                 <div className="flex items-center gap-4 text-base md:text-sm">
                   <PillBottle className="h-6 w-6 shrink-0" strokeWidth={2} />
                   <span>
-                    Compounded Semaglutide &amp; Tirzepatide — the most
-                    prescribed GLP-1s in clinical weight loss
+                    GLP-1 weight loss, TRT, and enclomiphene &mdash;
+                    prescribed by board-certified clinicians
                   </span>
                 </div>
               </li>
@@ -643,7 +614,7 @@ function getProductSlug(productData) {
   return productData.slug || productData.id;
 }
 
-function getPrimaryCtaHref(productData) {
+export function getPrimaryCtaHref(productData) {
   return (
     getProductOnboardingPath(getProductSlug(productData)) ||
     productData.primaryCta?.href ||
@@ -655,7 +626,7 @@ function hasNumericPrice(value) {
   return typeof value === "number" && Number.isFinite(value) && value > 0;
 }
 
-function getPricePresentation(productData) {
+export function getPricePresentation(productData) {
   const firstMonth = hasNumericPrice(productData.price?.firstMonth)
     ? formatUsdCompact(productData.price.firstMonth)
     : productData.price?.primaryLabel || "Provider reviewed";
@@ -710,29 +681,83 @@ function mergeIconItems(items, fallbackItems) {
 /** Default slides when a Tirzepatide PDP has no CMS `benefitsCarousel` (avoid NAD+ fallback). */
 const TIRZEPATIDE_BENEFITS_CAROUSEL = [
   {
-    text: "Combines GLP-1 & GIP hormones for superior fat loss results",
+    text: "TRT (Testosterone Injections)",
     image: "/images/articles/wmremove-transformed-2%20(1).jpeg",
-    alt: "Dual-action Tirzepatide support",
+    alt: "TRT Testosterone Injections",
+    description: [
+      "Boosts energy and overall daily vitality",
+      "Supports lean muscle growth efficiently naturally",
+      "Enhances mood, focus, and mental clarity",
+      "Promotes healthy libido and hormone balance",
+    ],
+    ctaHref: "/trt",
   },
   {
-    text: "Supports stronger appetite control and fewer food cravings",
-    image: "/images/wmremove-transformed-4-1%20(1).jpeg",
-    alt: "Improved appetite control",
+    text: "Enclomiphene",
+    image: "/images/marketing/enclomiphene.png",
+    alt: "Enclomiphene therapy",
+    description: [
+      "Boosts energy and overall daily vitality",
+      "Supports lean muscle growth efficiently naturally",
+      "Enhances mood, focus, and mental clarity",
+      "Promotes healthy libido and hormone balance",
+    ],
+    ctaHref: "/enclomiphene",
   },
-  // {
-  //   text: "Built for consistent weekly progress with clinician-guided dosing",
-  //   image: "/images/4_Home_Doctors_Online_Consultation-Doctors_04.jpg",
-  //   alt: "Clinician-guided Tirzepatide plan",
-  // },
   {
-    text: "Helps improve metabolic markers alongside sustainable weight loss",
+    text: "GHRH Peptide Therapy",
+    image: "/images/marketing/bundle/cjc-1295-ipamorelin-product.png",
+    alt: "GHRH peptide therapy",
+    description: [
+      "Stimulates natural growth hormone production for vitality",
+      "Enhances muscle recovery and rapid tissue repair",
+      "Improves deep sleep quality and cognitive function",
+      "Boosts metabolism and fat-burning efficiency",
+    ],
+  },
+  {
+    text: "Wolverine Blend Healing Peptide Protocol",
     image: "/images/wmremove-transformed-3-1%20(1).jpeg",
-    alt: "Metabolic health benefits",
+    alt: "Wolverine Blend Healing Peptide Protocol",
+    description: [
+      "Relieves persistent joint pain and muscle soreness",
+      "Accelerates healing of tendons and ligaments",
+      "Reduces systemic inflammation for faster recovery",
+      "Supports targetness and overall structural health",
+    ],
   },
   {
-    text: "A strong option when you need next-level support beyond basics",
+    text: "Glow Blend",
     image: "/images/articles/med1.webp",
-    alt: "Support beyond basics for your weight-loss journey",
+    alt: "Glow Blend skincare peptide",
+    description: [
+      "Promotes youthful skin through collagen production",
+      "Reduces fine lines and improves skin texture",
+      "Accelerates wound healing and skin repair",
+      "Enhances hair follicle health and thickness",
+    ],
+  },
+  {
+    text: "Sermorelin",
+    image: "/images/home/reference/nad-cellular-energy.jpeg",
+    alt: "Sermorelin growth hormone therapy",
+    description: [
+      "Stimulates natural growth hormone release for anti-aging",
+      "Improves body composition by reducing fat and building lean muscle",
+      "Enhances deep restorative sleep and overnight recovery",
+      "Supports stronger immune function and cellular repair",
+    ],
+  },
+  {
+    text: "Tesamorelin",
+    image: "/images/marketing/bundle/strength-lifestyle.jpg",
+    alt: "Tesamorelin peptide therapy",
+    description: [
+      "Targets and reduces stubborn visceral abdominal fat",
+      "Boosts growth hormone levels without disrupting natural rhythms",
+      "Supports improved cognitive function and mental sharpness",
+      "Promotes healthier lipid profiles and metabolic markers",
+    ],
     ctaText: "Get Started",
   },
 ];
@@ -783,7 +808,7 @@ function showWeightLossBenefitsCarousel(p, isHomepage) {
 const benefitCarouselNavButtonClassName =
   "inline-flex size-11 shrink-0 aspect-square items-center justify-center rounded-full border border-gray-200 bg-white p-0 text-gray-700 shadow-none transition-colors hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-300/80 focus-visible:ring-offset-2";
 
-function mergeProductContent(product) {
+export function mergeProductContent(product) {
   if (!product) {
     return defaultProductContent;
   }
@@ -885,7 +910,7 @@ function mergeProductContent(product) {
   };
 }
 
-function ProductHero({ productData, isHomepage: _isHomepage = false }) {
+export function ProductHero({ productData, isHomepage: _isHomepage = false }) {
   const [activeTab, setActiveTab] = useState("benefits");
   const [openFaq, setOpenFaq] = useState(null);
   const [showPriceFootnote, setShowPriceFootnote] = useState(false);
@@ -909,10 +934,10 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
               <div className="flex h-full min-h-0 w-full flex-1 items-stretch justify-stretch">
                 <div className="relative h-full min-h-0 w-full">
                   {productData.inStock ? (
-                    <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-[1rem] bg-white/92 px-4 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-white/80 backdrop-blur-sm md:left-5 md:top-5 md:px-5 md:py-2 md:text-base">
+                    <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-semibold text-emerald-700 shadow-[0_2px_12px_rgba(0,0,0,0.08)] ring-1 ring-black/[0.04] md:left-5 md:top-5 md:px-6 md:py-2.5 md:text-base">
                       <div className="relative h-2.5 w-2.5 md:h-3 md:w-3">
-                        <span className="absolute inset-0 rounded-full bg-emerald-400/60 blur-[2px]" />
-                        <span className="absolute inset-0 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="absolute inset-0 rounded-full bg-emerald-400/40 blur-[3px]" />
+                        <span className="absolute inset-0 rounded-full bg-emerald-500" />
                       </div>
                       In Stock
                     </div>
@@ -932,13 +957,13 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
           <div className="mb-6 overflow-hidden rounded-[1rem] border border-gray-200 bg-white">
             {pricePresentation.savings ? (
               <div className="flex items-center justify-center gap-2 bg-[#fde073] px-5 py-3.5 text-sm font-medium text-gray-900 md:text-base">
-                <BadgeCheck className="h-4 w-4 md:h-5 md:w-5" />
-                Save up to {pricePresentation.savings} on your first order
+                <ShieldCheck className="h-4 w-4 md:h-5 md:w-5" />
+                FSA &amp; HSA Eligible
               </div>
             ) : (
               <div className="flex items-center justify-center gap-2 bg-[#fde073] px-5 py-3.5 text-sm font-medium text-gray-900 md:text-base">
-                <BadgeCheck className="h-4 w-4 md:h-5 md:w-5" />
-                Clinician-guided treatment with clear next steps
+                <ShieldCheck className="h-4 w-4 md:h-5 md:w-5" />
+                FSA &amp; HSA Eligible
               </div>
             )}
             <div className="px-6 py-6 md:px-7 md:py-7">
@@ -1245,20 +1270,6 @@ function ProductHero({ productData, isHomepage: _isHomepage = false }) {
           ) : null}
 
           <div className="space-y-5">
-            <div className="flex items-center justify-center gap-2 text-base">
-              <span className="font-medium">Google</span>
-              <div className="flex gap-1">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <div key={i} className="rounded-sm bg-[#7b75f0] p-1">
-                    <Star className="h-3.5 w-3.5 fill-white text-white" />
-                  </div>
-                ))}
-              </div>
-              <span className="flex items-center gap-1 font-medium">
-                <Star className="h-4 w-4 fill-black" /> 5.0 rating
-              </span>
-            </div>
-
             <div className="rounded-[1rem] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
               The statements on this page have not been evaluated by the Food
               and Drug Administration. This product is not intended to diagnose,
@@ -1416,7 +1427,7 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
       style={minHeight ? { minHeight } : undefined}
       className={cn(
         "flex min-w-0 flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-[0_20px_40px_-24px_rgba(91,60,221,0.12)] ring-1 ring-[#ece8f3]",
-        isMinimal ? "h-auto self-start w-full" : "w-full",
+        isMinimal ? "w-full" : "w-full",
       )}
     >
       <div
@@ -1654,7 +1665,7 @@ function MedicalWeightLossSection({ productData }) {
                   src="/images/clean/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
+                  className="z-20 h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
                 />
                 <img
                   src="/images/healsend-2k-members-trust.png"
@@ -1666,7 +1677,7 @@ function MedicalWeightLossSection({ productData }) {
                   src="/images/articles/blogs/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="z-20 h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
+                  className="z-20 -ml-4 h-12 w-auto shrink-0 object-contain sm:-ml-5 sm:h-16 md:-ml-6 md:h-20 lg:-ml-8 lg:h-24"
                 />
               </div>
             </div>
@@ -1715,7 +1726,7 @@ function _FeatureSplit({ productData }) {
   );
 }
 
-function SupportFeatures({ productData }) {
+export function SupportFeatures({ productData }) {
   return (
     <section className="bg-[#f4f4f4] px-4 py-16 md:px-8 md:py-20 lg:px-16">
       <div className="mx-auto max-w-7xl text-center">
@@ -1881,7 +1892,7 @@ function TransformationMonthLabel({ month }) {
   );
 }
 
-function TestimonialsSection() {
+export function TestimonialsSection() {
   const [api, setApi] = useState(null);
   const carouselTransformations = buildLoopingItems(
     TRANSFORMATION_TESTIMONIALS,
@@ -2035,19 +2046,19 @@ function TestimonialsSection() {
   );
 }
 
-function MemberResultsStatsSection() {
+export function MemberResultsStatsSection() {
   const memberStats = [
     {
       label: "Faster Results",
       value: "2",
       unit: "x",
       description:
-        "HealSend members lose weight twice as fast as the industry average within 90 days.",
+        "HealSend members raise total T levels at twice the speed of monitor-and-wait clinics within 90 days.",
       icon: TrendingUp,
     },
     {
       label: "Avg. Weight Loss",
-      value: "-14",
+      value: "-20",
       unit: "lbs",
       description: "Average weight loss within 90 days of starting HealSend's program.",
       icon: ArrowRight,
@@ -2056,14 +2067,14 @@ function MemberResultsStatsSection() {
       label: "Success Rate",
       value: "96.8",
       unit: "%",
-      description: "of HealSend members lose 5% or more of their body weight on treatment.",
+      description: "of HealSend members report higher energy, mood, and libido by week 6 of treatment.",
       icon: BadgeCheck,
     },
     {
       label: "Member Retention",
       value: "91",
       unit: "%",
-      description: "of HealSend members stay past 90 days.",
+      description: "of HealSend members continue their protocol past 90 days — because the results speak for themselves.",
       icon: Star,
     },
   ];
@@ -2183,7 +2194,124 @@ function MemberResultsStatsSection() {
   );
 }
 
-function BMICalculatorPreviewSection() {
+export function LowTSymptomScreenerSection() {
+  const questions = [
+    "Persistent low energy?",
+    "Reduced libido?",
+    "Trouble building muscle?",
+    "Brain fog or low motivation?",
+  ];
+  const [answers, setAnswers] = useState({});
+  const yesCount = Object.values(answers).filter(Boolean).length;
+  const answered = Object.keys(answers).length;
+  const score = answered === 0 ? 0 : Math.round((yesCount / questions.length) * 10);
+  const scoreLabel = score === 0 ? "no symptoms" : score <= 3 ? "low likelihood" : score <= 6 ? "moderate likelihood" : "high likelihood";
+  const barPercent = (score / 10) * 100;
+
+  const resultMessage = score <= 3
+    ? "Your symptoms are minimal. If anything changes, we’re here."
+    : score <= 6
+      ? "Worth checking your bloodwork — TRT may help."
+      : "Strong indicators of low T. A clinician review is recommended.";
+
+  return (
+    <section className="scroll-mt-24 bg-[#F7F5FA] py-16 md:py-24">
+      <div className="mx-auto max-w-[1100px] px-4 md:px-8">
+        <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
+          <div>
+            <h2 className="font-title text-[2.2rem] font-bold leading-[1.05] tracking-tight text-[#101726] sm:text-[2.8rem] lg:text-[3.2rem]">
+              Find out if <em className="text-[#6D6FFC]">TRT is right</em> for you.
+            </h2>
+            <p className="mt-4 max-w-md text-[1.05rem] leading-relaxed text-gray-500 md:text-[1.1rem]">
+              Take our 60-second symptom screener. We&apos;ll tell you if your symptoms suggest low testosterone — and if HealSend is the right fit.
+            </p>
+          </div>
+
+          <div className="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-black/5 md:p-8">
+            <p className="text-sm font-medium text-gray-400">Your Low-T Symptom Score</p>
+            <div className="mt-2 flex items-baseline gap-1.5">
+              <span className="font-title text-[3.5rem] font-bold leading-none tracking-tight text-[#101726]">{score}</span>
+              <span className="text-base text-gray-400">/ 10 — {scoreLabel}</span>
+            </div>
+
+            <div className="mt-4">
+              <div className="h-2.5 w-full overflow-hidden rounded-full bg-gray-100">
+                <div
+                  className="h-full rounded-full transition-all duration-500 ease-out"
+                  style={{
+                    width: `${Math.max(barPercent, 2)}%`,
+                    background: score <= 3 ? '#22c55e' : score <= 6 ? '#f59e0b' : '#ef4444',
+                  }}
+                />
+              </div>
+              <div className="mt-1.5 flex justify-between text-[0.7rem] text-gray-400">
+                <span>No symptoms</span>
+                <span>High likelihood</span>
+              </div>
+            </div>
+
+            <div className="mt-6 space-y-3">
+              {questions.map((q, i) => (
+                <div key={i} className={cn(
+                  "flex items-center justify-between rounded-xl px-4 py-3 transition-colors duration-300",
+                  answers[i] === true ? "bg-[#EDE9F6]" : answers[i] === false ? "bg-gray-50" : "bg-[#FAF8FB]"
+                )}>
+                  <span className="text-[0.92rem] font-medium text-[#101726]">{q}</span>
+                  <div className="flex gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => setAnswers(prev => ({ ...prev, [i]: true }))}
+                      className={cn(
+                        "rounded-full px-3.5 py-1 text-xs font-bold transition-all duration-200",
+                        answers[i] === true
+                          ? "bg-[#6D6FFC] text-white shadow-sm"
+                          : "bg-white text-gray-400 ring-1 ring-gray-200 hover:ring-[#6D6FFC]/30"
+                      )}
+                    >Yes</button>
+                    <button
+                      type="button"
+                      onClick={() => setAnswers(prev => ({ ...prev, [i]: false }))}
+                      className={cn(
+                        "rounded-full px-3.5 py-1 text-xs font-bold transition-all duration-200",
+                        answers[i] === false
+                          ? "bg-[#101726] text-white shadow-sm"
+                          : "bg-white text-gray-400 ring-1 ring-gray-200 hover:ring-gray-300"
+                      )}
+                    >No</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {answered === questions.length && (
+              <div className={cn(
+                "mt-5 flex items-center gap-2.5 rounded-xl px-4 py-3 transition-all duration-500",
+                score <= 3 ? "bg-emerald-50" : score <= 6 ? "bg-[#EDE9F6]" : "bg-red-50"
+              )}>
+                <span className={cn(
+                  "flex h-6 w-6 shrink-0 items-center justify-center rounded-full",
+                  score <= 3 ? "bg-emerald-500" : score <= 6 ? "bg-[#6D6FFC]" : "bg-red-500"
+                )}>
+                  <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />
+                </span>
+                <span className="text-[0.9rem] font-medium text-[#101726]">{resultMessage}</span>
+              </div>
+            )}
+
+            <Link
+              href="/quiz"
+              className="hs-solid-btn mt-5 flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-full text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)]"
+            >
+              See my eligibility →
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function _DeprecatedBMICalculatorPreviewSection() {
   const [heightFt, setHeightFt] = useState("5");
   const [heightIn, setHeightIn] = useState("10");
   const [weightLbs, setWeightLbs] = useState("210");
@@ -2639,7 +2767,7 @@ function BMIEligibilityModal({
   );
 }
 
-function ResearchSplit({ productData }) {
+export function ResearchSplit({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
   const researchImage =
     productData.researchSection?.title?.includes("NAD+")
@@ -2685,7 +2813,7 @@ function ResearchSplit({ productData }) {
   );
 }
 
-function SimpleSteps({ productData }) {
+export function SimpleSteps({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
   const steps = defaultSimpleSteps;
 
@@ -2753,7 +2881,7 @@ function SimpleSteps({ productData }) {
   );
 }
 
-function LabTested({ productData: _productData }) {
+export function LabTested({ productData: _productData }) {
   const content = staticLabTestedSection;
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -2914,7 +3042,7 @@ function LabTested({ productData: _productData }) {
   );
 }
 
-function ComprehensiveCare({ productData }) {
+export function ComprehensiveCare({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
   const content = productData.comprehensiveCare || defaultComprehensiveCare;
   const features =
@@ -2998,7 +3126,7 @@ function ComprehensiveCare({ productData }) {
   );
 }
 
-function CleanSimpleEffective({ productData }) {
+export function CleanSimpleEffective({ productData }) {
   const items =
     productData.cleanIngredients?.length > 0
       ? productData.cleanIngredients
@@ -3344,20 +3472,19 @@ function SameMedicationSection() {
   );
 }
 
-function SupportAvailabilitySection() {
+export function SupportAvailabilitySection() {
   return (
     <section className="bg-white px-5 pb-20 pt-4 md:px-8 lg:px-10">
       <div className="mx-auto grid max-w-[1320px] gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
-        <div className="overflow-hidden rounded-[1rem] bg-[#f2f5fb] shadow-[0_18px_34px_rgba(18,26,42,0.08)]">
-          <div className="relative aspect-[1.08/1]">
-            <Image
-              src="/images/articles/care-support-lifestyle.webp"
-              alt="HealSend care support"
-              fill
-              sizes="(max-width: 1024px) 100vw, 42vw"
-              className="object-cover object-center"
-            />
-          </div>
+        <div className="relative aspect-[1.08/1]">
+          <Image
+            src="/images/clean/2k_+_Memebers__3_-removebg-preview.png"
+            alt="HealSend care support"
+            fill
+            sizes="(max-width: 1024px) 100vw, 42vw"
+            className="object-contain object-center drop-shadow-[0_0_40px_rgba(255,255,255,1)]"
+            style={{ filter: "drop-shadow(0 0 20px white) drop-shadow(0 0 40px white)" }}
+          />
         </div>
 
         <div className="max-w-[34rem] lg:justify-self-center">
@@ -3422,7 +3549,7 @@ function SupportAvailabilitySection() {
 /**
  * Tirzepatide benefits carousel (static slide set), same layout as main carousel but separate from CMS data.
  */
-function RestoredTirzepatideBenefitsCarouselSection({
+export function RestoredTirzepatideBenefitsCarouselSection({
   productData,
   isHomepage = false,
 }) {
@@ -3469,6 +3596,7 @@ function RestoredTirzepatideBenefitsCarouselSection({
         alt: item.alt || item.title || item.text || "Benefit card image",
         ctaText: isLast ? (rawCta.trim() || "Get Started") : rawCta.trim(),
         ctaHref: item.ctaHref || ctaHref,
+        description: item.description || [],
       };
     });
   })();
@@ -3484,7 +3612,7 @@ function RestoredTirzepatideBenefitsCarouselSection({
           id="tirzepatide-benefits-classic-heading"
           className="mb-10 text-center font-title text-3xl font-bold tracking-tight text-[#101726] md:mb-12 md:text-4xl lg:text-5xl"
         >
-          What Are the Benefits of Tirzepatide?
+          Explore Our Treatments &amp; Benefits
         </h2>
 
         {benefits.length === 0 ? (
@@ -3498,9 +3626,15 @@ function RestoredTirzepatideBenefitsCarouselSection({
               opts={{
                 align: "start",
                 containScroll: "trimSnaps",
-                /* loop disables Embla’s scroll edges — turn off so prev/next gray out at ends */
-                loop: false,
+                loop: true,
               }}
+              plugins={[
+                Autoplay({
+                  delay: 3000,
+                  stopOnInteraction: false,
+                  stopOnMouseEnter: true,
+                }),
+              ]}
               className="w-full"
             >
               <CarouselContent className="-ml-4 items-stretch md:-ml-6">
@@ -3510,29 +3644,47 @@ function RestoredTirzepatideBenefitsCarouselSection({
                     item.ctaText?.trim() ||
                     (isFinal ? "Get Started" : "");
                   const showCta = Boolean(label);
+                  const hasDesc = item.description && item.description.length > 0;
                   return (
                     <CarouselItem
                       key={`restored-${item.title}-${index}`}
                       className="basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[33.333%]"
                     >
-                      <article className="relative h-[420px] overflow-hidden rounded-[1.25rem] shadow-md ring-1 ring-black/5 md:h-[460px]">
+                      <article className="group relative h-[420px] overflow-hidden rounded-[1.25rem] shadow-md ring-1 ring-black/5 md:h-[460px]">
                         <img
                           src={item.image}
                           alt={item.alt}
-                          className="absolute inset-0 h-full w-full object-cover object-center"
+                          className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                         />
-                        <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_60%,rgba(0,0,0,0.85)_100%)] p-6 md:p-7">
-                          <p className="text-[1.05rem] font-semibold leading-tight text-white md:text-[1.15rem]">
-                            {item.title}
-                          </p>
-                          {showCta ? (
-                            <Link
-                              href={item.ctaHref || ctaHref}
-                              className="hs-solid-btn mt-4 inline-flex min-h-[3.5rem] w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-base font-semibold shadow-[0_10px_28px_rgba(109,111,252,0.4)] md:min-h-[3.75rem] md:px-8 md:py-4 md:text-[1.05rem]"
-                            >
-                              {label}
-                            </Link>
-                          ) : null}
+                        <div className={cn(
+                          "absolute inset-x-0 bottom-0 p-6 transition-all duration-500 ease-out md:p-7",
+                          hasDesc
+                            ? "inset-y-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.5)_20%,rgba(0,0,0,0.93)_50%)] lg:inset-y-[unset] lg:bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_40%,rgba(0,0,0,0.92)_100%)] lg:group-hover:inset-y-0 lg:group-hover:bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.5)_20%,rgba(0,0,0,0.93)_50%)]"
+                            : "bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_60%,rgba(0,0,0,0.85)_100%)]"
+                        )}>
+                          <div className={cn("flex h-full flex-col", hasDesc ? "justify-end" : "justify-end")}>
+                            <p className="text-[1.25rem] font-semibold leading-snug text-white md:text-[1.45rem]">
+                              {item.title}
+                            </p>
+                            {hasDesc && (
+                              <ul className="mt-3 max-h-[300px] space-y-1.5 overflow-hidden opacity-100 transition-all duration-500 ease-out lg:max-h-0 lg:opacity-0 lg:group-hover:max-h-[300px] lg:group-hover:opacity-100">
+                                {item.description.map((line, i) => (
+                                  <li key={i} className="flex items-start gap-2 text-[0.85rem] leading-snug text-white/90">
+                                    <span className="mt-1 block h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+                                    {line}
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                            {showCta ? (
+                              <Link
+                                href={item.ctaHref || ctaHref}
+                                className="hs-solid-btn mt-4 inline-flex min-h-[3.5rem] w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-base font-semibold shadow-[0_10px_28px_rgba(109,111,252,0.4)] md:min-h-[3.75rem] md:px-8 md:py-4 md:text-[1.05rem]"
+                              >
+                                {label}
+                              </Link>
+                            ) : null}
+                          </div>
                         </div>
                       </article>
                     </CarouselItem>
@@ -3589,7 +3741,767 @@ function RestoredTirzepatideBenefitsCarouselSection({
   );
 }
 
-function MobileStickyCta({ productData }) {
+const COMPARE_ROWS = [
+  { feature: "Monthly cost", healsend: "From $89/mo", others: "$99–$199/mo", doctor: "$250–$500+/mo" },
+  { feature: "Lab work included", healsend: true, others: "Extra $145+", doctor: "Extra $200+" },
+  { feature: "At-home blood draw", healsend: true, others: false, doctor: false },
+  { feature: "Free shipping", healsend: true, others: "Varies", doctor: "N/A" },
+  { feature: "Clinician messaging", healsend: "Unlimited", others: "Limited", doctor: "Office visits only" },
+  { feature: "Time to prescription", healsend: "48 hours", others: "1–2 weeks", doctor: "2–4 weeks" },
+  { feature: "Cancel anytime", healsend: true, others: "Annual lock-in", doctor: "N/A" },
+  { feature: "Fertility preservation options", healsend: true, others: "Some", doctor: "Rarely discussed" },
+  { feature: "503B FDA-registered pharmacy", healsend: true, others: "Varies", doctor: "Retail pharmacy" },
+];
+
+const ENCLO_VS_TRT_ROWS = [
+  { feature: "How it works", enclo: "Signals your body to make more testosterone naturally", trt: "Replaces your natural production with external testosterone" },
+  { feature: "Average T increase", enclo: "2× baseline", trt: "5× baseline", note: true },
+  { feature: "Fertility preserved", enclo: true, trt: false },
+  { feature: "Sperm production", enclo: "Maintained or improved", trt: "Often suppressed or eliminated" },
+  { feature: "Testicular size", enclo: "Preserved", trt: "Commonly shrinks" },
+  { feature: "Delivery", enclo: "One pill daily", trt: "Weekly injections" },
+  { feature: "Dependency risk", enclo: "None — stop anytime, levels return to baseline", trt: "High — stopping can crash T below original levels" },
+  { feature: "Estrogen management", enclo: "Built-in (blocks estrogen receptors)", trt: "Often requires additional AI medication" },
+  { feature: "Lab monitoring", enclo: "Every 6 weeks", trt: "Every 6–12 weeks" },
+  { feature: "Best for", enclo: "Men wanting natural optimization + fertility", trt: "Men wanting maximum T regardless of trade-offs" },
+];
+
+export function EnclomipheneVsTrtSection() {
+  const rows = ENCLO_VS_TRT_ROWS;
+
+  function renderIcon(val) {
+    if (val === true) return <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100"><Check className="h-3.5 w-3.5 text-emerald-600" strokeWidth={3} /></span>;
+    if (val === false) return <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-50"><X className="h-3.5 w-3.5 text-red-400" strokeWidth={3} /></span>;
+    return null;
+  }
+
+  return (
+    <section className="scroll-mt-24 bg-[#F7F5FA] py-16 md:py-24">
+      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
+        <div className="text-center">
+          <span className="inline-block rounded-full bg-white px-5 py-1.5 text-xs font-bold uppercase tracking-widest text-[#6D6FFC] ring-1 ring-[#6D6FFC]/10">
+            Head-to-head
+          </span>
+          <h2 className="mx-auto mt-5 max-w-3xl font-title text-[2rem] font-bold leading-[1.1] tracking-tight text-[#101726] sm:text-[2.5rem] lg:text-[3rem]">
+            Enclomiphene vs TRT — <em className="text-[#6D6FFC]">the real trade-offs.</em>
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-[1rem] leading-relaxed text-gray-500 md:text-[1.05rem]">
+            Both raise testosterone. Only one keeps your body&apos;s own production running.
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          {/* Enclomiphene card */}
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-[#6D6FFC] to-[#5550E8] p-6 text-white shadow-xl md:p-8">
+            <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/5" />
+            <div className="absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-white/5" />
+            <div className="relative">
+              <span className="inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-bold uppercase tracking-wider backdrop-blur-sm">Recommended</span>
+              <h3 className="mt-3 text-2xl font-bold md:text-3xl">Enclomiphene</h3>
+              <p className="mt-1 text-sm text-white/70">Oral capsule · No injections · No dependency</p>
+              <div className="mt-6 space-y-0">
+                {rows.map((row) => (
+                  <div key={`e-${row.feature}`} className="flex items-start gap-3 border-t border-white/10 py-3.5">
+                    <div className="mt-0.5 shrink-0">
+                      {typeof row.enclo === 'boolean' ? (
+                        row.enclo
+                          ? <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-400/25"><Check className="h-3 w-3 text-emerald-300" strokeWidth={3} /></span>
+                          : <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-400/20"><X className="h-3 w-3 text-red-300" strokeWidth={3} /></span>
+                      ) : <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/15"><span className="h-1.5 w-1.5 rounded-full bg-white/60" /></span>}
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-white/50">{row.feature}</p>
+                      <p className="mt-0.5 text-[0.92rem] font-medium leading-snug text-white/95">
+                        {typeof row.enclo === 'boolean' ? (row.enclo ? 'Yes' : 'No') : row.enclo}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* TRT card */}
+          <div className="relative overflow-hidden rounded-3xl bg-white p-6 shadow-md ring-1 ring-gray-100 md:p-8">
+            <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gray-50" />
+            <div className="absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-gray-50" />
+            <div className="relative">
+              <span className="inline-block rounded-full bg-gray-100 px-3 py-1 text-xs font-bold uppercase tracking-wider text-gray-400">Alternative</span>
+              <h3 className="mt-3 text-2xl font-bold text-[#101726] md:text-3xl">Injectable TRT</h3>
+              <p className="mt-1 text-sm text-gray-400">Testosterone Cypionate · Weekly injection</p>
+              <div className="mt-6 space-y-0">
+                {rows.map((row) => (
+                  <div key={`t-${row.feature}`} className="flex items-start gap-3 border-t border-gray-100 py-3.5">
+                    <div className="mt-0.5 shrink-0">
+                      {typeof row.trt === 'boolean' ? renderIcon(row.trt) : <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-100"><span className="h-1.5 w-1.5 rounded-full bg-gray-300" /></span>}
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-gray-300">{row.feature}</p>
+                      <p className="mt-0.5 text-[0.92rem] font-medium leading-snug text-gray-500">
+                        {typeof row.trt === 'boolean' ? (row.trt ? 'Yes' : 'No') : row.trt}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-6 max-w-[1200px] rounded-2xl bg-white px-6 py-4 shadow-sm ring-1 ring-gray-100 md:px-8">
+          <div className="flex items-start gap-3">
+            <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]/10 text-sm font-bold text-[#6D6FFC]">&#9432;</span>
+            <p className="text-[0.88rem] leading-relaxed text-gray-500">
+              <strong className="text-[#101726]">Note on T levels:</strong> TRT delivers higher absolute testosterone because it&apos;s direct replacement. Enclomiphene produces a more moderate increase (typically 2×) but preserves your body&apos;s natural hormone axis, fertility, and testicular function. Your clinician will help you decide which trade-off fits your goals.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function ComparisonTableSection() {
+  function renderCell(val) {
+    if (val === true) return <Check className="mx-auto h-5 w-5 text-emerald-500" strokeWidth={2.5} />;
+    if (val === false) return <X className="mx-auto h-5 w-5 text-gray-300" strokeWidth={2.5} />;
+    return <span>{val}</span>;
+  }
+
+  return (
+    <section className="scroll-mt-24 bg-white py-16 md:py-24">
+      <div className="mx-auto max-w-[1100px] px-4 md:px-8">
+        <div className="text-center">
+          <span className="inline-block rounded-full bg-[#EDE9F6] px-5 py-1.5 text-xs font-bold uppercase tracking-widest text-[#6D6FFC]">
+            Why HealSend
+          </span>
+          <h2 className="mx-auto mt-5 max-w-3xl font-title text-[2rem] font-bold leading-[1.1] tracking-tight text-[#101726] sm:text-[2.5rem] lg:text-[3rem]">
+            How we compare — <em className="text-[#6D6FFC]">honestly.</em>
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-[1rem] leading-relaxed text-gray-500 md:text-[1.05rem]">
+            We publish what others bury. Here&apos;s a side-by-side look at what you actually get.
+          </p>
+        </div>
+
+        <div className="relative mt-12 overflow-x-auto rounded-2xl ring-1 ring-gray-100">
+          <table className="w-full min-w-[640px] text-left text-sm">
+            <thead>
+              <tr className="bg-[#F7F5FA]">
+                <th className="py-4 pl-6 pr-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-400 md:pl-8">Feature</th>
+                <th className="px-4 py-4 text-center">
+                  <div className="inline-flex flex-col items-center gap-1">
+                    <span className="rounded-full bg-[#6D6FFC] px-3 py-0.5 text-xs font-bold text-white">Recommended</span>
+                    <span className="text-sm font-bold text-[#101726]">HealSend</span>
+                  </div>
+                </th>
+                <th className="px-4 py-4 text-center text-sm font-semibold text-gray-400">Online TRT Clinics</th>
+                <th className="px-4 py-4 pr-6 text-center text-sm font-semibold text-gray-400 md:pr-8">Local Doctor</th>
+              </tr>
+            </thead>
+            <tbody>
+              {COMPARE_ROWS.map((row, i) => (
+                <tr key={row.feature} className={cn("transition-colors hover:bg-[#FAF8FB]", i % 2 === 0 ? "bg-white" : "bg-[#FDFCFE]")}>
+                  <td className="py-3.5 pl-6 pr-4 text-[0.9rem] font-medium text-[#101726] md:pl-8">{row.feature}</td>
+                  <td className="px-4 py-3.5 text-center text-[0.9rem] font-semibold text-[#6D6FFC]">{renderCell(row.healsend)}</td>
+                  <td className="px-4 py-3.5 text-center text-[0.9rem] text-gray-400">{renderCell(row.others)}</td>
+                  <td className="px-4 py-3.5 pr-6 text-center text-[0.9rem] text-gray-400 md:pr-8">{renderCell(row.doctor)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <p className="mt-4 text-center text-xs text-gray-400">
+          Based on publicly available pricing and features as of 2026. Individual experiences may vary.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+export function NinetyDayLevelsSection() {
+  const dataPoints = [
+    { label: "Day 0", value: 280, x: 10 },
+    { label: "Week 2", value: 380, x: 27.5 },
+    { label: "Week 4", value: 540, x: 47.5 },
+    { label: "Week 8", value: 780, x: 70 },
+    { label: "Week 12", value: 920, x: 92 },
+  ];
+
+  const yMin = 200;
+  const yMax = 1050;
+  const chartH = 260;
+  const chartW = 540;
+  const padL = 50;
+  const padR = 20;
+  const padT = 20;
+  const padB = 50;
+  const innerW = chartW - padL - padR;
+  const innerH = chartH - padT - padB;
+
+  function toX(pct) { return padL + (pct / 100) * innerW; }
+  function toY(val) { return padT + innerH - ((val - yMin) / (yMax - yMin)) * innerH; }
+
+  const optimalTop = toY(1000);
+  const optimalBot = toY(800);
+  const baselineY = toY(280);
+
+  const pathD = dataPoints.map((p, i) => `${i === 0 ? "M" : "L"}${toX(p.x)},${toY(p.value)}`).join(" ");
+
+  const curveD = (() => {
+    const pts = dataPoints.map(p => ({ x: toX(p.x), y: toY(p.value) }));
+    let d = `M${pts[0].x},${pts[0].y}`;
+    for (let i = 1; i < pts.length; i++) {
+      const cp1x = pts[i - 1].x + (pts[i].x - pts[i - 1].x) * 0.4;
+      const cp1y = pts[i - 1].y;
+      const cp2x = pts[i].x - (pts[i].x - pts[i - 1].x) * 0.4;
+      const cp2y = pts[i].y;
+      d += ` C${cp1x},${cp1y} ${cp2x},${cp2y} ${pts[i].x},${pts[i].y}`;
+    }
+    return d;
+  })();
+
+  const yTicks = [200, 400, 600, 800, 1000];
+
+  return (
+    <section className="scroll-mt-24 bg-[#F7F5FA] py-16 md:py-24">
+      <div className="mx-auto max-w-[1340px] px-4 md:px-8">
+        <div className="text-center">
+          <h2 className="font-title text-[2rem] font-bold leading-[1.1] tracking-tight text-[#101726] sm:text-[2.5rem] lg:text-[3rem]">
+            What your levels actually do
+            <br />
+            over <em className="text-[#6D6FFC]">90 days.</em>
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-[1rem] leading-relaxed text-gray-500 md:text-[1.05rem]">
+            Average HealSend member labs vs. baseline, measured over the first 12 weeks of treatment.
+          </p>
+        </div>
+
+        <div className="mx-auto mt-12 grid max-w-[1100px] gap-6 md:grid-cols-[380px_1fr] md:items-start lg:grid-cols-[420px_1fr]">
+          {/* Left — member card */}
+          <div className="overflow-hidden rounded-2xl bg-white shadow-md ring-1 ring-black/5">
+            <div className="relative">
+              <div className="h-[300px] bg-gray-200 md:h-[340px]">
+                <img
+                  src="/images/slider/Copy of look-studio-S0T98VD2KZs-unsplash.jpg"
+                  alt="Marcus T., verified HealSend member"
+                  className="h-full w-full object-cover object-top"
+                />
+              </div>
+              <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-emerald-600 shadow-sm backdrop-blur-sm">
+                <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                Verified member
+              </span>
+            </div>
+            <div className="p-6">
+              <h3 className="text-xl font-bold text-[#101726]">Marcus T., 42</h3>
+              <p className="mt-1 text-sm text-gray-400">Father of two · Started enclomiphene 12 weeks ago</p>
+              <blockquote className="mt-4 border-l-[3px] border-[#6D6FFC] py-1 pl-4 text-[0.95rem] italic leading-relaxed text-gray-600">
+                &ldquo;By week 6 I felt like myself again. Energy back, gym numbers back, and we&apos;re still trying for our third.&rdquo;
+              </blockquote>
+              <div className="mt-5 flex gap-8">
+                <div>
+                  <p className="text-xl font-bold text-[#6D6FFC]">280→920</p>
+                  <p className="text-xs text-gray-400">Total T (ng/dL)</p>
+                </div>
+                <div>
+                  <p className="text-xl font-bold text-[#6D6FFC]">3.3×</p>
+                  <p className="text-xs text-gray-400">Increase in 12 weeks</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right — chart */}
+          <div className="rounded-2xl bg-white p-5 shadow-md ring-1 ring-black/5 md:p-7">
+            <svg viewBox={`0 0 ${chartW} ${chartH + 30}`} className="w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* Optimal zone */}
+              <rect x={padL} y={optimalTop} width={innerW} height={optimalBot - optimalTop} fill="#6D6FFC" opacity="0.08" rx="4" />
+              <text x={padL + 6} y={optimalTop + 14} fill="#6D6FFC" fontSize="8" fontWeight="600" fontFamily="sans-serif" opacity="0.7">
+                OPTIMAL ZONE · 800–1000 ng/dL
+              </text>
+
+              {/* Y axis ticks */}
+              {yTicks.map(v => (
+                <g key={v}>
+                  <line x1={padL} y1={toY(v)} x2={padL + innerW} y2={toY(v)} stroke="#E5E7EB" strokeWidth="0.7" />
+                  <text x={padL - 8} y={toY(v) + 3} fill="#9CA3AF" fontSize="8" textAnchor="end" fontFamily="sans-serif">{v}</text>
+                </g>
+              ))}
+
+              {/* Y axis label */}
+              <text x="12" y={padT + innerH / 2} fill="#9CA3AF" fontSize="7" textAnchor="middle" fontFamily="sans-serif" transform={`rotate(-90, 12, ${padT + innerH / 2})`}>
+                Total T (ng/dL)
+              </text>
+
+              {/* Baseline dashed line */}
+              <line x1={padL} y1={baselineY} x2={padL + innerW} y2={baselineY} stroke="#9CA3AF" strokeWidth="1" strokeDasharray="5 4" />
+
+              {/* Curve */}
+              <path d={curveD} stroke="#6D6FFC" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+
+              {/* Data points + labels */}
+              {dataPoints.map((p, i) => {
+                const cx = toX(p.x);
+                const cy = toY(p.value);
+                const isLast = i === dataPoints.length - 1;
+                return (
+                  <g key={p.label}>
+                    <circle cx={cx} cy={cy} r={isLast ? 6 : 4} fill={isLast ? "#E87461" : "#6D6FFC"} />
+                    {isLast && <circle cx={cx} cy={cy} r="10" fill="#E87461" opacity="0.2" />}
+                    {/* X label */}
+                    <text x={cx} y={padT + innerH + 18} fill="#6B7280" fontSize="8" textAnchor="middle" fontFamily="sans-serif">{p.label}</text>
+                    {/* Value */}
+                    <text x={cx} y={padT + innerH + 30} fill={isLast ? "#E87461" : "#6D6FFC"} fontSize="9" fontWeight="700" textAnchor="middle" fontFamily="sans-serif">{p.value}</text>
+                    {/* Callout for last point */}
+                    {isLast && (
+                      <g>
+                        <rect x={cx - 48} y={cy - 24} width="58" height="18" rx="9" fill="#E87461" />
+                        <text x={cx - 19} y={cy - 12} fill="white" fontSize="8" fontWeight="700" textAnchor="middle" fontFamily="sans-serif">+640 ng/dL · 3.3×</text>
+                      </g>
+                    )}
+                  </g>
+                );
+              })}
+            </svg>
+
+            {/* Legend */}
+            <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.78rem] text-gray-500">
+              <span className="flex items-center gap-2">
+                <span className="h-[3px] w-5 rounded-full bg-[#6D6FFC]" />
+                Average HealSend member on enclomiphene
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="h-[2px] w-5 border-t-[2px] border-dashed border-gray-400" />
+                Untreated baseline (no medication)
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="inline-block h-3.5 w-5 rounded-sm bg-[#6D6FFC]/10" />
+                Optimal range (800–1000 ng/dL)
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function HowEnclomipheneWorksSection() {
+  const pathwaySteps = [
+    {
+      num: 1,
+      title: "Hypothalamus",
+      desc: "Enclomiphene blocks estrogen receptors in your brain — removing the brake on your hormone signal.",
+      tag: "Where it acts",
+    },
+    {
+      num: 2,
+      title: "Pituitary",
+      desc: "Your brain releases more LH and FSH — the messenger hormones that talk to your testicles.",
+      tag: "Signal cascade",
+    },
+    {
+      num: 3,
+      title: "Testicles",
+      desc: "Your testicles ramp up natural testosterone production — and keep producing sperm normally.",
+      tag: "Production restored",
+    },
+    {
+      num: 4,
+      title: "Bloodstream",
+      desc: "Total and free T rise to optimal levels — without the shutdown TRT causes.",
+      tag: "2× T levels",
+    },
+  ];
+
+  return (
+    <section className="scroll-mt-24 bg-white py-16 md:py-24">
+      <div className="mx-auto max-w-[1340px] px-4 md:px-8">
+        <div className="text-center">
+          <span className="inline-block rounded-full bg-[#EDE9F6] px-5 py-1.5 text-xs font-bold uppercase tracking-widest text-[#6D6FFC]">
+            How Enclomiphene Works
+          </span>
+          <h2 className="mx-auto mt-5 max-w-3xl font-title text-[2rem] font-bold leading-[1.1] tracking-tight text-[#101726] sm:text-[2.5rem] lg:text-[3rem]">
+            Your body already makes testosterone.
+            <br />
+            <em className="text-[#6D6FFC]">Enclomiphene tells it to make more.</em>
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-[1rem] leading-relaxed text-gray-500 md:text-[1.05rem]">
+            Unlike TRT, which replaces what your body makes, enclomiphene gently restarts your own production by targeting one tiny signal in your brain.
+          </p>
+        </div>
+
+        <div className="mx-auto mt-12 max-w-[1100px] rounded-3xl bg-[#FAFAFE] p-6 ring-1 ring-gray-100 md:p-10">
+          <div className="grid items-end gap-6 md:grid-cols-[220px_1fr]">
+            {/* Body diagram */}
+            <div className="relative mx-auto flex w-[180px] items-end justify-center md:mx-0 md:w-full">
+              <svg viewBox="0 0 220 380" className="h-full max-h-[420px] w-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Human body silhouette */}
+                <path d="M 110 14 Q 86 14 86 38 Q 86 56 100 64 L 100 76 Q 76 80 70 110 L 56 156 Q 50 218 64 222 L 76 220 L 80 250 L 80 320 Q 80 332 88 332 L 96 332 L 96 296 L 110 296 L 124 296 L 124 332 L 132 332 Q 140 332 140 320 L 140 250 L 144 220 L 156 222 Q 170 218 164 196 L 150 110 Q 144 80 120 76 L 120 64 Q 134 56 134 38 Q 134 14 110 14 Z" fill="#FAF8FB" stroke="#D2C2DC" strokeWidth="1.2" />
+
+                {/* Brain dot */}
+                <circle cx="110" cy="32" r="5" fill="#3D3270" />
+                {/* Pituitary dot */}
+                <circle cx="110" cy="58" r="3.5" fill="#3D3270" />
+
+                {/* Dashed line from brain down through body */}
+                <line x1="110" y1="64" x2="110" y2="250" stroke="#3D3270" strokeWidth="1.5" strokeDasharray="6 5" />
+
+                {/* LH label */}
+                <text x="118" y="140" fill="#3D3270" fontSize="12" fontWeight="600" fontFamily="sans-serif">LH</text>
+                {/* FSH label */}
+                <text x="118" y="200" fill="#3D3270" fontSize="12" fontWeight="600" fontFamily="sans-serif">FSH</text>
+
+                {/* Orange arrow up */}
+                <line x1="110" y1="280" x2="110" y2="258" stroke="#E87461" strokeWidth="2" />
+                <polygon points="105,262 110,250 115,262" fill="#E87461" />
+
+                {/* Testicle dots */}
+                <ellipse cx="100" cy="290" rx="6" ry="7" fill="#3D3270" />
+                <ellipse cx="120" cy="290" rx="6" ry="7" fill="#3D3270" />
+
+                {/* T↑ label */}
+                <text x="132" y="294" fill="#E87461" fontSize="11" fontWeight="700" fontFamily="sans-serif">T↑</text>
+
+                {/* Badge 1 - right of head */}
+                <line x1="115" y1="32" x2="145" y2="28" stroke="#3D3270" strokeWidth="0.75" />
+                <circle cx="158" cy="28" r="13" fill="#3D3270" />
+                <text x="158" y="33" fill="white" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="sans-serif">1</text>
+
+                {/* Badge 2 - below badge 1 */}
+                <line x1="114" y1="58" x2="145" y2="58" stroke="#3D3270" strokeWidth="0.75" />
+                <circle cx="158" cy="58" r="13" fill="#3D3270" />
+                <text x="158" y="63" fill="white" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="sans-serif">2</text>
+
+                {/* Badge 4 - left of abdomen (orange) */}
+                <circle cx="30" cy="230" r="13" fill="#E87461" />
+                <text x="30" y="235" fill="white" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="sans-serif">4</text>
+                <line x1="43" y1="230" x2="58" y2="230" stroke="#E87461" strokeWidth="0.75" />
+
+                {/* Badge 3 - right of testicles */}
+                <circle cx="185" cy="290" r="13" fill="#3D3270" />
+                <text x="185" y="295" fill="white" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="sans-serif">3</text>
+                <line x1="172" y1="290" x2="148" y2="290" stroke="#3D3270" strokeWidth="0.75" />
+              </svg>
+            </div>
+
+            {/* 4 cards grid */}
+            <div className="mb-8 grid auto-rows-min gap-4 sm:grid-cols-2">
+              {pathwaySteps.map((step) => (
+                <div key={step.num} className="cursor-default rounded-2xl bg-[#F4F1FA] px-4 py-4 transition-all duration-300 hover:bg-[#6D6FFC] hover:shadow-lg hover:ring-1 hover:ring-[#6D6FFC]/30 [&:hover_h3]:text-white [&:hover_p]:text-white/80 [&:hover_span.tag]:border-white/30 [&:hover_span.tag]:bg-white/15 [&:hover_span.tag]:text-white md:px-5 md:py-4">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#6D6FFC] text-xs font-bold text-white">
+                      {step.num}
+                    </span>
+                    <h3 className="text-[1.05rem] font-bold text-[#101726] transition-colors duration-300">{step.title}</h3>
+                  </div>
+                  <p className="mt-2 text-[0.88rem] leading-relaxed text-gray-500 transition-colors duration-300 md:line-clamp-2">{step.desc}</p>
+                  <span className="tag mt-2 inline-block rounded-full border border-[#6D6FFC]/20 bg-white px-3 py-0.5 text-xs font-semibold text-[#6D6FFC] transition-all duration-300">
+                    {step.tag}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Why this matters callout */}
+        <div className="mx-auto mt-6 max-w-[1100px] rounded-2xl bg-white px-6 py-5 shadow-sm ring-1 ring-gray-100 md:px-8">
+          <div className="flex items-start gap-3">
+            <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]/10 text-sm font-bold text-[#6D6FFC]">&#9432;</span>
+            <p className="text-[0.92rem] leading-relaxed text-gray-600 md:text-[0.95rem]">
+              <strong className="text-[#101726]">Why this matters:</strong> Traditional TRT shuts down this entire pathway because your body senses external testosterone and stops making its own. Enclomiphene does the opposite — it keeps the whole system running, just at a higher set point. That&apos;s why fertility and testicular size are preserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function DailyProtocolSection() {
+  const days = [
+    { label: "M", filled: true },
+    { label: "T", filled: true },
+    { label: "W", filled: true },
+    { label: "T", filled: true, active: true },
+    { label: "F", filled: false },
+    { label: "S", filled: false },
+    { label: "S", filled: false },
+  ];
+
+  const steps = [
+    {
+      num: 1,
+      title: "Take with breakfast",
+      desc: "One capsule, swallowed whole. Most patients pair it with their morning coffee or first meal.",
+    },
+    {
+      num: 2,
+      title: "Track in your dashboard",
+      desc: "Optional check-ins so your clinician sees your symptoms, energy, and side effects in real time.",
+    },
+    {
+      num: 3,
+      title: "Bloodwork at week 6",
+      desc: "Phlebotomist comes to your home. Your dose is titrated based on the result — not guessed.",
+    },
+    {
+      num: 4,
+      title: "Stop anytime",
+      desc: "Unlike TRT, you can pause or quit without shutdown protocols. Your levels return to baseline naturally.",
+    },
+  ];
+
+  const timeline = [
+    { week: "Week 1–2:", result: "Energy and morning wood return." },
+    { week: "Week 3–4:", result: "Mood lifts, drive comes back." },
+    { week: "Week 6–8:", result: "Total T peaks. Body comp shifts." },
+    { week: "Week 12+:", result: "Steady-state. Strength gains." },
+  ];
+
+  return (
+    <section className="scroll-mt-24 bg-[#F4F1FA] py-16 md:py-24">
+      <div className="mx-auto grid max-w-[1340px] gap-12 px-4 md:grid-cols-2 md:items-start md:gap-16 md:px-8">
+        <div>
+          <h2 className="font-title text-[2.2rem] font-bold leading-[1.05] tracking-tight text-[#101726] sm:text-[2.8rem] lg:text-[3.5rem]">
+            One pill. Same time.
+            <br />
+            <em className="text-[#6D6FFC]">Every day.</em>
+          </h2>
+          <p className="mt-5 max-w-md text-[1.05rem] leading-relaxed text-gray-600 md:text-[1.1rem]">
+            No injections to schedule. No creams to apply. No clinic visits. The simplest TRT-alternative protocol on the market.
+          </p>
+
+          <div className="mt-10 space-y-0">
+            {steps.map((step, i) => (
+              <div key={step.num} className={cn("flex items-start gap-4 py-5", i < steps.length - 1 && "border-b border-gray-200/80")}>
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC] text-sm font-bold text-white">
+                  {step.num}
+                </span>
+                <div>
+                  <h3 className="text-[1.05rem] font-bold text-[#101726] md:text-[1.1rem]">{step.title}</h3>
+                  <p className="mt-1 text-[0.95rem] leading-relaxed text-gray-500">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-5">
+          <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5">
+            <img
+              src="/images/marketing/bundle/care-support-lifestyle.webp"
+              alt="Morning ritual"
+              className="h-[260px] w-full object-cover object-center md:h-[300px]"
+            />
+            <div className="flex items-center gap-2 bg-white px-4 py-3">
+              <span className="h-2.5 w-2.5 rounded-full bg-orange-400" />
+              <span className="text-sm font-medium text-[#101726]">7:42 AM · Morning ritual</span>
+            </div>
+          </div>
+
+          <div className="rounded-2xl bg-white p-6 shadow-md ring-1 ring-black/5">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-400">This week&apos;s routine</p>
+            <div className="flex justify-between gap-2">
+              {days.map((d, i) => (
+                <div key={i} className="flex flex-col items-center gap-1.5">
+                  <span className={cn(
+                    "flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold transition-colors",
+                    d.active
+                      ? "bg-[#6D6FFC] text-white"
+                      : d.filled
+                        ? "bg-[#EDE9F6] text-[#6D6FFC]"
+                        : "bg-gray-100 text-gray-300"
+                  )}>
+                    {d.label}
+                  </span>
+                  <span className={cn(
+                    "h-2 w-2 rounded-full",
+                    d.active ? "bg-orange-400" : d.filled ? "bg-[#6D6FFC]/60" : "bg-gray-200"
+                  )} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-2xl bg-[#EDE9F6] p-6 ring-1 ring-[#6D6FFC]/10">
+            <p className="mb-3 text-sm font-bold uppercase tracking-wider text-[#6D6FFC]">What to expect</p>
+            <div className="space-y-2">
+              {timeline.map((t) => (
+                <div key={t.week} className="flex gap-3 text-[0.92rem]">
+                  <span className="w-[5.5rem] shrink-0 font-bold text-[#101726]">{t.week}</span>
+                  <span className="text-gray-600">{t.result}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const TREATMENT_CARDS = [
+  {
+    title: "GLP-1 Weight Loss",
+    subtitle: "Tirzepatide & Semaglutide",
+    description:
+      "Clinician-prescribed GLP-1 injections that target appetite at the source. Real weight loss, not willpower.",
+    image: "/images/marketing/bundle/tirzepatide-injections-product.png",
+    href: "/weight-loss",
+    tag: "Most Popular",
+    accent: "from-violet-500/10 to-fuchsia-500/10",
+    iconAccent: "bg-violet-100 text-violet-600",
+  },
+  {
+    title: "TRT — Testosterone Therapy",
+    subtitle: "Testosterone Cypionate Injections",
+    description:
+      "Restore energy, strength, and drive with clinician-guided testosterone replacement. Lab-monitored and delivered to your door.",
+    image: "/images/marketing/bundle/sermorelin-product.png",
+    href: "/trt",
+    tag: "For Men",
+    accent: "from-blue-500/10 to-cyan-500/10",
+    iconAccent: "bg-blue-100 text-blue-600",
+  },
+  {
+    title: "Enclomiphene",
+    subtitle: "Natural Testosterone Support",
+    description:
+      "Boost testosterone naturally without shutting down your body's own production. Fertility-safe, one pill daily.",
+    image: "/images/marketing/bundle/enclomiphene-product.webp",
+    href: "/enclomiphene",
+    tag: "Fertility Safe",
+    accent: "from-emerald-500/10 to-teal-500/10",
+    iconAccent: "bg-emerald-100 text-emerald-600",
+  },
+];
+
+const ENCLO_COMPARISON_TABLE_ROWS = [
+  { label: "Testosterone increase", sub: "How much your total T rises", enclo: "2× healthy, sustained range", trt: "5× often supraphysiological", encloWin: true },
+  { label: "Maintains fertility", sub: "Sperm production & testicular size", enclo: "Yes — fully preserved", trt: "Suppressed", encloWin: true },
+  { label: "Reversibility", sub: "Can you stop and return to baseline?", enclo: "Fully reversible", trt: "May need PCT", encloWin: true },
+  { label: "Dependency risk", sub: "Will your body stop making its own T?", enclo: "No dependency", trt: "Shuts down HPG axis", encloWin: true },
+  { label: "Convenience", sub: "How you take it", enclo: "One pill / day", trt: "Weekly injection or daily cream", encloWin: true },
+  { label: "Side effect profile", sub: "Frequency & severity", enclo: "Low — mild, infrequent", trt: "Medium — acne, hematocrit, mood", encloWin: true },
+  { label: "Best for", sub: "Who should choose this", enclo: "Men who want kids, fear dependency, or want a gentler first option", trt: "Men with severe primary hypogonadism", encloWin: false },
+];
+
+function EncloVsTrtComparisonSection() {
+  return (
+    <section className="bg-[#F1F5F9] py-16 md:py-20">
+      <div className="mx-auto max-w-[1000px] px-4 md:px-8">
+        <div className="mx-auto mb-14 max-w-[740px] text-center">
+          <h2 className="mb-4 font-title text-4xl font-medium text-gray-900 md:text-5xl">
+            Enclomiphene <span className="font-playfair italic text-[#6D6FFC]">vs.</span> Traditional TRT
+          </h2>
+          <p className="text-base text-gray-600">
+            Both raise testosterone. Only one preserves fertility, avoids dependency, and lets you stop without consequence.
+          </p>
+        </div>
+
+        <div className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm">
+          <div className="grid grid-cols-[1.4fr_1fr_1fr] border-b border-gray-100 bg-gray-50 text-[11px] font-semibold uppercase tracking-widest">
+            <div className="px-5 py-4" />
+            <div className="bg-[#6D6FFC] px-5 py-4 text-center text-white">Enclomiphene</div>
+            <div className="px-5 py-4 text-center text-gray-500">Traditional TRT</div>
+          </div>
+          {ENCLO_COMPARISON_TABLE_ROWS.map((row) => (
+            <div key={row.label} className="grid grid-cols-[1.4fr_1fr_1fr] border-b border-gray-50 last:border-0">
+              <div className="px-5 py-4">
+                <p className="text-sm font-medium text-gray-900">{row.label}</p>
+                <p className="text-xs text-gray-400">{row.sub}</p>
+              </div>
+              <div className="flex flex-col items-center justify-center bg-[#6D6FFC]/[0.03] px-3 py-4 text-center">
+                {row.encloWin ? <Check className="mb-1 h-4 w-4 text-[#6D6FFC]" /> : null}
+                <p className="text-xs font-medium text-gray-700">{row.enclo}</p>
+              </div>
+              <div className="flex flex-col items-center justify-center px-3 py-4 text-center">
+                {!row.encloWin ? null : <X className="mb-1 h-4 w-4 text-gray-300" />}
+                <p className="text-xs text-gray-400">{row.trt}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-10 text-center">
+          <Link href="/enclomiphene" className="hs-solid-btn inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-base font-semibold">
+            See if enclomiphene fits your goals <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function OurTreatmentsSection() {
+  return (
+    <section className="relative overflow-hidden bg-[#f9f9f9] py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-5">
+        <div className="mb-14 text-center">
+          <span className="mb-3 inline-block rounded-full bg-[#6D6FFC]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#6D6FFC]">
+            Our Treatments
+          </span>
+          <h2 className="font-title text-3xl font-bold tracking-tight text-[#101726] md:text-4xl lg:text-5xl">
+            One platform. Multiple paths to{" "}
+            <span className="font-playfair italic text-[#6D6FFC]">better health.</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base text-slate-500 md:text-lg">
+            Every treatment is prescribed by U.S.-licensed clinicians, delivered
+            to your door, and backed by ongoing care.
+          </p>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          {TREATMENT_CARDS.map((card) => (
+            <Link
+              key={card.title}
+              href={card.href}
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+            >
+              <div
+                className={`relative flex h-56 items-center justify-center bg-gradient-to-br ${card.accent} p-6`}
+              >
+                <span
+                  className={`absolute left-4 top-4 rounded-full ${card.iconAccent} px-3 py-1 text-[11px] font-semibold uppercase tracking-wide`}
+                >
+                  {card.tag}
+                </span>
+                <Image
+                  src={card.image}
+                  alt={card.title}
+                  width={200}
+                  height={200}
+                  className="h-40 w-40 object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+
+              <div className="flex flex-1 flex-col p-6">
+                <p className="text-xs font-semibold uppercase tracking-wider text-[#6D6FFC]">
+                  {card.subtitle}
+                </p>
+                <h3 className="mt-1 font-title text-xl font-bold text-[#101726]">
+                  {card.title}
+                </h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-500">
+                  {card.description}
+                </p>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#6D6FFC] transition-colors group-hover:text-[#5558e6]">
+                  Learn more
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function MobileStickyCta({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
   const [visible, setVisible] = useState(false);
   const lastScrollY = useRef(0);
@@ -3656,6 +4568,10 @@ export default function MarketingProductPage({ product, isHomepage = false }) {
         isHomepage={isHomepage}
       />
 
+      <FadeInSection><OurTreatmentsSection /></FadeInSection>
+
+      <FadeInSection><EncloVsTrtComparisonSection /></FadeInSection>
+
       <FadeInSection><NegativeSellSection /></FadeInSection>
 
 
@@ -3663,13 +4579,13 @@ export default function MarketingProductPage({ product, isHomepage = false }) {
       <FadeInSection><SupportFeatures productData={productData} /></FadeInSection>
       <FadeInSection><TestimonialsSection /></FadeInSection>
       <FadeInSection><MemberResultsStatsSection /></FadeInSection>
-      <FadeInSection><BMICalculatorPreviewSection /></FadeInSection>
+      <FadeInSection><LowTSymptomScreenerSection /></FadeInSection>
       <ResearchSplit productData={productData} />
       <FadeInSection><SimpleSteps productData={productData} /></FadeInSection>
       <FadeInSection><LabTested productData={productData} /></FadeInSection>
       <FadeInSection><ComprehensiveCare productData={productData} /></FadeInSection>
       <FadeInSection><CleanSimpleEffective productData={productData} /></FadeInSection>
-      <FadeInSection><SameMedicationSection /></FadeInSection>
+      {/* <FadeInSection><SameMedicationSection /></FadeInSection> */}
       <FadeInSection><FAQSection /></FadeInSection>
       <FadeInSection><SupportAvailabilitySection /></FadeInSection>
       {/* <ProductPageTestSections /> */}
