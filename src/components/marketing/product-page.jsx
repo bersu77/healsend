@@ -3659,7 +3659,7 @@ export function RestoredTirzepatideBenefitsCarouselSection({
                         <div className={cn(
                           "absolute inset-x-0 bottom-0 p-6 transition-all duration-500 ease-out md:p-7",
                           hasDesc
-                            ? "inset-y-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.5)_20%,rgba(0,0,0,0.93)_50%)] lg:inset-y-[unset] lg:bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_40%,rgba(0,0,0,0.92)_100%)] lg:group-hover:inset-y-0 lg:group-hover:bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.5)_20%,rgba(0,0,0,0.93)_50%)]"
+                            ? "bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_30%,rgba(0,0,0,0.92)_100%)] lg:bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_40%,rgba(0,0,0,0.92)_100%)] lg:group-hover:inset-y-0 lg:group-hover:bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.5)_20%,rgba(0,0,0,0.93)_50%)]"
                             : "bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_60%,rgba(0,0,0,0.85)_100%)]"
                         )}>
                           <div className={cn("flex h-full flex-col", hasDesc ? "justify-end" : "justify-end")}>
