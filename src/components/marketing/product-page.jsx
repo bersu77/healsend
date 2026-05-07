@@ -22,6 +22,7 @@ import {
   ClipboardList,
   Minus,
   Mail,
+  Phone,
   PillBottle,
   Plus,
   PlusCircle,
@@ -101,13 +102,14 @@ const MEMBER_FACE_STACK_IMAGE_SRCS_SIX = [
 ];
 
 export function MediaLogosBanner() {
+  const copies = Array.from({ length: 8 }, (_, i) => i);
   return (
-    <div className="overflow-hidden bg-[#5b3cdd] py-6">
-      <div className="flex animate-[mediaLogoScroll_22s_linear_infinite]">
-        {[0, 1].map((copy) => (
+    <div className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-[#5b3cdd] py-6">
+      <div className="flex min-w-max animate-[mediaLogoScroll_22s_linear_infinite]" style={{ width: "max-content" }}>
+        {copies.map((copy) => (
           <div
             key={copy}
-            aria-hidden={copy === 1 ? true : undefined}
+            aria-hidden={copy > 0 ? true : undefined}
             className="flex shrink-0 items-center gap-12 px-6 md:gap-16 md:px-10"
           >
             {MEDIA_LOGOS.map((logo, i) => (
@@ -2815,16 +2817,16 @@ export function SimpleSteps({ productData }) {
           <h2 className="mx-auto mb-10 w-full text-[2.5rem] font-semibold leading-[1.15] tracking-tight text-[#1c1d20] md:text-[3rem] lg:text-[3.5rem]">
             Hit your health goals safely &amp; affordably in 3 simple steps
           </h2>
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
               href={ctaHref}
-              className="hs-solid-btn w-full rounded-full px-10 py-4 text-center text-[1.1rem] font-bold transition-colors sm:w-auto"
+              className="hs-solid-btn inline-flex w-full items-center justify-center rounded-full px-8 py-3.5 text-center text-base font-semibold transition-colors sm:w-auto"
             >
               Get started
             </Link>
             <Link
               href={ctaHref}
-              className="hs-outline-btn w-full rounded-full px-10 py-4 text-center text-[1.1rem] font-bold transition-colors sm:w-auto"
+              className="hs-outline-btn inline-flex w-full items-center justify-center rounded-full px-8 py-3.5 text-center text-base font-semibold transition-colors sm:w-auto"
             >
               See if you&apos;re eligible
             </Link>
@@ -2966,11 +2968,11 @@ export function ComprehensiveCare({ productData }) {
                       ))}
                     </ul>
                   </div>
-                  <div className="mx-auto mt-1 flex h-48 w-48 shrink-0 items-center justify-center bg-white sm:h-56 sm:w-56 lg:mx-0 lg:mt-0 lg:h-64 lg:w-64">
+                  <div className="mx-auto mt-1 h-48 w-48 shrink-0 overflow-hidden bg-white sm:h-56 sm:w-56 lg:mx-0 lg:mt-0 lg:h-64 lg:w-64">
                     <img
                       src={feature.image}
                       alt={feature.title}
-                      className="h-full w-full object-contain"
+                      className="h-full w-full object-contain object-top"
                     />
                   </div>
                 </div>
@@ -3165,7 +3167,7 @@ const SAME_MED_HEALSEND_POINTS = [
 /** Trust strip icons (client assets in /public/images). Mixed “clinical” + brand-style marks per line. */
 const SAME_MED_MARQUEE_ITEMS = [
   { text: "Free & Fast Shipping", Icon: Truck },
-  { text: "U.S. Only Certified Pharmacies", Icon: ShieldCheck },
+  { text: "U.S. Only Certified Pharmacies", Icon: null, flagSrc: "/images/marketing/logos/flag-usa.svg" },
   { text: "Always On Clinician Support", Icon: Headset },
   { text: "1,200,000+ prescriptions written", Icon: ClipboardCheck },
   { text: "250,000+ members", Icon: Users },
@@ -3204,7 +3206,11 @@ function SameMedicationMarquee() {
               key={`${item.text}-${index}`}
               className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[13px] font-medium leading-none text-gray-500"
             >
-              <item.Icon className="h-4 w-4 shrink-0" />
+              {item.flagSrc ? (
+                <img src={item.flagSrc} alt="" className="h-4 w-4 shrink-0" />
+              ) : (
+                <item.Icon className="h-4 w-4 shrink-0" />
+              )}
               <span>{item.text}</span>
             </div>
           ))}
@@ -3308,14 +3314,13 @@ export function SupportAvailabilitySection() {
   return (
     <section className="bg-white px-5 pb-20 pt-4 md:px-8 lg:px-10">
       <div className="mx-auto grid max-w-[1320px] gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
-        <div className="relative aspect-[1.08/1]">
+        <div className="relative aspect-[1.08/1] overflow-hidden rounded-2xl">
           <Image
-            src="/images/clean/2k_+_Memebers__3_-removebg-preview.png"
+            src="/images/marketing/bundle/care-support-lifestyle.webp"
             alt="HealSend care support"
             fill
             sizes="(max-width: 1024px) 100vw, 42vw"
-            className="object-contain object-center drop-shadow-[0_0_40px_rgba(255,255,255,1)]"
-            style={{ filter: "drop-shadow(0 0 20px white) drop-shadow(0 0 40px white)" }}
+            className="object-cover object-center"
           />
         </div>
 
@@ -3368,6 +3373,23 @@ export function SupportAvailabilitySection() {
                   className="mt-1 inline-block text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d] underline decoration-[#aeb7ca] underline-offset-4"
                 >
                   yourhealth@healsend.com
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <span className="mt-1 flex h-12 w-12 items-center justify-center rounded-full border border-[#d7deeb] text-[#30394d]">
+                <Phone className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-[0.98rem] font-medium text-[#626b7f]">
+                  Patient care line
+                </p>
+                <a
+                  href="tel:+16318009294"
+                  className="mt-1 inline-block text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d]"
+                >
+                  1-631-800-9294
                 </a>
               </div>
             </div>
@@ -4636,12 +4658,12 @@ export default function MarketingProductPage({ product, isHomepage = false }) {
       <ProductHero productData={productData} isHomepage={isHomepage} />
       <MediaLogosBanner />
 
+      <FadeInSection><OurTreatmentsSection /></FadeInSection>
+
       <RestoredTirzepatideBenefitsCarouselSection
         productData={productData}
         isHomepage={isHomepage}
       />
-
-      <FadeInSection><OurTreatmentsSection /></FadeInSection>
 
       <FadeInSection><EncloVsTrtComparisonSection /></FadeInSection>
 

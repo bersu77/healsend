@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion, useInView } from "framer-motion";
@@ -8,6 +8,8 @@ import {
   ArrowRight,
   ArrowUp,
   Check,
+  ChevronLeft,
+  ChevronRight,
   Clock3,
   Minus,
   Plus,
@@ -36,6 +38,8 @@ import {
   LabTested,
   OurTreatmentsSection,
   TREATMENT_PLAN_CARDS,
+  SupportAvailabilitySection,
+  RestoredTirzepatideBenefitsCarouselSection,
   WillpowerVerticalColumn,
   WillpowerHorizontalRow,
   WILLPOWER_LEFT_MARQUEE_ITEMS,
@@ -819,8 +823,16 @@ const SUPPORT_CARDS = [
 ];
 
 function TRTDesignedToSupportSection() {
+  const scrollRef = useRef(null);
+  const scroll = (dir) => {
+    if (!scrollRef.current) return;
+    const card = scrollRef.current.querySelector("[data-support-card]");
+    const w = card ? card.offsetWidth + 20 : 300;
+    scrollRef.current.scrollBy({ left: dir * w, behavior: "smooth" });
+  };
+
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-20">
+    <section className="overflow-hidden bg-[#F1F5F9] py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <p className="mb-3 text-center font-playfair text-lg italic text-gray-600">Rooted in Science</p>
         <h2 className="mx-auto mb-4 max-w-[760px] text-center font-title text-4xl font-medium text-gray-900 md:text-5xl">
@@ -829,10 +841,13 @@ function TRTDesignedToSupportSection() {
         <p className="mx-auto mb-12 text-center text-base text-gray-600">
           You will notice differences in how you sleep, train, and feel.
         </p>
-        <div className="grid gap-5 md:grid-cols-3">
+        <div
+          ref={scrollRef}
+          className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-2 scrollbar-hide md:grid md:grid-cols-3 md:overflow-visible md:pb-0"
+        >
           {SUPPORT_CARDS.map((c) => (
-            <FadeIn key={c.title}>
-              <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+            <div key={c.title} data-support-card className="w-[calc(100vw-2rem)] shrink-0 snap-center md:w-auto">
+              <div className="h-full overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
                 <div className="relative aspect-[5/3]">
                   <Image src={c.img} alt={c.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
                 </div>
@@ -841,8 +856,26 @@ function TRTDesignedToSupportSection() {
                   <p className="text-sm text-gray-600">{c.desc}</p>
                 </div>
               </div>
-            </FadeIn>
+            </div>
           ))}
+        </div>
+        <div className="mt-4 flex justify-center gap-2 md:hidden">
+          <button
+            type="button"
+            onClick={() => scroll(-1)}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm hover:bg-gray-50"
+            aria-label="Previous"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            onClick={() => scroll(1)}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm hover:bg-gray-50"
+            aria-label="Next"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
         </div>
       </div>
     </section>
@@ -862,9 +895,84 @@ const MEMBER_RESULTS = [
   { name: "Tom V., 44", before: 267, after: 892, months: 5 },
 ];
 
-function TRTMemberResultsSection() {
+function MemberResultCard({ r }) {
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
+    <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+      <div className="relative grid grid-cols-2 border-b border-gray-100 bg-gray-50 p-6">
+        <div className="text-center">
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Month 0</p>
+          <p className="mt-1 font-title text-3xl text-gray-400">{r.before}</p>
+          <p className="text-[10px] text-gray-400">ng/dL Total T</p>
+        </div>
+        <div className="border-l border-dashed border-gray-200 text-center">
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Month {r.months}</p>
+          <p className="mt-1 font-title text-3xl text-[#6D6FFC]">{r.after}</p>
+          <p className="text-[10px] text-gray-400">ng/dL Total T</p>
+        </div>
+        <div className="absolute left-1/2 top-1/2 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#6D6FFC] text-white">
+          <ArrowUp className="h-4 w-4" />
+        </div>
+      </div>
+      <div className="px-5 py-4">
+        <p className="font-title text-lg text-gray-900">{r.name}</p>
+        <p className="mt-1 flex items-center gap-1.5 text-xs text-[#6D6FFC]">
+          <Check className="h-3.5 w-3.5" /> Verified HealSend Member
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function ResultsRow({ items, reverse = false }) {
+  const scrollRef = useRef(null);
+  const scroll = (dir) => {
+    if (!scrollRef.current) return;
+    const card = scrollRef.current.querySelector("[data-card]");
+    const w = card ? card.offsetWidth + 20 : 300;
+    scrollRef.current.scrollBy({ left: dir * w, behavior: "smooth" });
+  };
+
+  return (
+    <div className="relative">
+      <div
+        ref={scrollRef}
+        className="flex gap-5 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0"
+        style={reverse ? { direction: "rtl" } : undefined}
+      >
+        {items.map((r) => (
+          <div key={r.name} data-card className="min-w-full shrink-0 snap-center lg:min-w-0" style={reverse ? { direction: "ltr" } : undefined}>
+            <MemberResultCard r={r} />
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 flex justify-center gap-2 lg:hidden">
+        <button
+          type="button"
+          onClick={() => scroll(reverse ? 1 : -1)}
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm hover:bg-gray-50"
+          aria-label={reverse ? "Scroll right" : "Scroll left"}
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </button>
+        <button
+          type="button"
+          onClick={() => scroll(reverse ? -1 : 1)}
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm hover:bg-gray-50"
+          aria-label={reverse ? "Scroll left" : "Scroll right"}
+        >
+          <ChevronRight className="h-4 w-4" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function TRTMemberResultsSection() {
+  const row1 = MEMBER_RESULTS.slice(0, 3);
+  const row2 = MEMBER_RESULTS.slice(3, 6);
+
+  return (
+    <section className="overflow-hidden bg-[#f9f9f9] py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-14 text-center">
           <p className="font-title text-6xl font-medium text-gray-900 md:text-7xl">
@@ -877,34 +985,9 @@ function TRTMemberResultsSection() {
             </Link>
           </div>
         </div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {MEMBER_RESULTS.map((r) => (
-            <FadeIn key={r.name}>
-              <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-                <div className="relative grid grid-cols-2 border-b border-gray-100 bg-gray-50 p-6">
-                  <div className="text-center">
-                    <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Month 0</p>
-                    <p className="mt-1 font-title text-3xl text-gray-400">{r.before}</p>
-                    <p className="text-[10px] text-gray-400">ng/dL Total T</p>
-                  </div>
-                  <div className="border-l border-dashed border-gray-200 text-center">
-                    <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Month {r.months}</p>
-                    <p className="mt-1 font-title text-3xl text-[#6D6FFC]">{r.after}</p>
-                    <p className="text-[10px] text-gray-400">ng/dL Total T</p>
-                  </div>
-                  <div className="absolute left-1/2 top-1/2 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#6D6FFC] text-white">
-                    <ArrowUp className="h-4 w-4" />
-                  </div>
-                </div>
-                <div className="px-5 py-4">
-                  <p className="font-title text-lg text-gray-900">{r.name}</p>
-                  <p className="mt-1 flex items-center gap-1.5 text-xs text-[#6D6FFC]">
-                    <Check className="h-3.5 w-3.5" /> Verified HealSend Member
-                  </p>
-                </div>
-              </div>
-            </FadeIn>
-          ))}
+        <div className="space-y-6">
+          <ResultsRow items={row1} />
+          <ResultsRow items={row2} reverse />
         </div>
       </div>
     </section>
@@ -922,11 +1005,31 @@ const TRT_STATS = [
   { label: "Member Retention", value: "93%", desc: "of HealSend members continue treatment past 90 days because the results speak for themselves." },
 ];
 
-function TRTStatsSection() {
+function StatCard({ s }) {
   return (
-    <section className="relative overflow-hidden bg-[#101726] py-16 text-white md:py-20">
+    <div className="border-t border-white/20 pt-6">
+      <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-white/50">{s.label}</p>
+      <p className="mb-4 font-title text-5xl leading-none md:text-6xl">
+        {s.value}
+        {s.unit && <span className="ml-1 text-2xl text-white/50">{s.unit}</span>}
+      </p>
+      <p className="text-sm text-white/60">{s.desc}</p>
+    </div>
+  );
+}
+
+function TRTStatsSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const prev = () => setActiveIndex((i) => (i === 0 ? TRT_STATS.length - 1 : i - 1));
+  const next = () => setActiveIndex((i) => (i === TRT_STATS.length - 1 ? 0 : i + 1));
+
+  return (
+    <section className="relative overflow-hidden bg-[#101726] text-white">
       <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-[#6D6FFC]/20 blur-3xl" />
-      <div className="relative mx-auto max-w-[1200px] px-4 md:px-8">
+
+      {/* Desktop: normal grid */}
+      <div className="relative mx-auto hidden max-w-[1200px] px-4 py-16 md:block md:px-8 md:py-20">
         <h2 className="mb-3 max-w-[800px] font-title text-4xl font-medium md:text-5xl">
           Why members{" "}
           <span className="font-playfair italic">
@@ -940,16 +1043,52 @@ function TRTStatsSection() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {TRT_STATS.map((s) => (
             <FadeIn key={s.label}>
-              <div className="border-t border-white/20 pt-6">
-                <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-white/50">{s.label}</p>
-                <p className="mb-4 font-title text-5xl leading-none md:text-6xl">
-                  {s.value}
-                  {s.unit && <span className="ml-1 text-2xl text-white/50">{s.unit}</span>}
-                </p>
-                <p className="text-sm text-white/60">{s.desc}</p>
-              </div>
+              <StatCard s={s} />
             </FadeIn>
           ))}
+        </div>
+      </div>
+
+      {/* Mobile: chevron carousel */}
+      <div className="relative px-6 py-14 md:hidden">
+        <h2 className="mb-3 font-title text-3xl font-medium">
+          Why members{" "}
+          <span className="font-playfair italic">
+            start and <span className="text-[#6D6FFC]">stay</span>
+          </span>{" "}
+          with HealSend.
+        </h2>
+        <p className="mb-8 text-sm text-white/70">
+          9 out of 10 members reach optimal T levels in 90 days.
+        </p>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeIndex}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+          >
+            <StatCard s={TRT_STATS[activeIndex]} />
+          </motion.div>
+        </AnimatePresence>
+        <div className="mt-6 flex items-center gap-4">
+          <div className="flex gap-2">
+            <button type="button" onClick={prev} className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white hover:bg-white/10" aria-label="Previous">
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button type="button" onClick={next} className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white hover:bg-white/10" aria-label="Next">
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+          <div className="flex gap-2">
+            {TRT_STATS.map((_, i) => (
+              <span
+                key={i}
+                className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? "w-6 bg-[#6D6FFC]" : "w-1.5 bg-white/30"}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -1179,28 +1318,33 @@ function TRTIncludedSection() {
 /* ------------------------------------------------------------------ */
 
 const TRUST_ITEMS = [
-  "FSA & HSA eligible",
-  "Personalized Rx TRT plans",
-  "No memberships or hidden fees",
-  "Free & fast shipping",
-  "US-only certified pharmacies",
-  "Always-on clinician support",
-  "1,000,000+ prescriptions written",
-  "2,000+ members",
+  { text: "FSA & HSA eligible", Icon: ShieldCheck },
+  { text: "Personalized Rx TRT plans", Icon: Syringe },
+  { text: "No memberships or hidden fees", Icon: Shield },
+  { text: "Free & fast shipping", Icon: Truck },
+  { text: "US-only certified pharmacies", flagSrc: "/images/marketing/logos/flag-usa.svg" },
+  { text: "Always-on clinician support", Icon: Stethoscope },
+  { text: "1,000,000+ prescriptions written", Icon: FlaskConical },
+  { text: "2,000+ members", Icon: Users },
 ];
 
 function TRTTrustMarquee() {
+  const loopItems = [...TRUST_ITEMS, ...TRUST_ITEMS, ...TRUST_ITEMS];
   return (
-    <section className="overflow-hidden border-y border-gray-200 bg-[#f9f9f9] py-5">
+    <section className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden border-y border-gray-200 bg-[#f9f9f9] py-5">
       <motion.div
-        className="flex gap-10 whitespace-nowrap"
-        animate={{ x: ["0%", "-50%"] }}
+        className="flex min-w-max gap-10 whitespace-nowrap"
+        animate={{ x: ["0%", "-33.33%"] }}
         transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
       >
-        {[...TRUST_ITEMS, ...TRUST_ITEMS].map((item, i) => (
-          <span key={`${item}-${i}`} className="inline-flex items-center gap-2.5 text-sm text-gray-500">
-            <span className="h-2 w-2 rounded-full bg-[#6D6FFC]" />
-            {item}
+        {loopItems.map((item, i) => (
+          <span key={`${item.text}-${i}`} className="inline-flex shrink-0 items-center gap-2.5 text-sm text-gray-500">
+            {item.flagSrc ? (
+              <img src={item.flagSrc} alt="" className="h-4 w-4 shrink-0" />
+            ) : (
+              <item.Icon className="h-4 w-4 shrink-0" />
+            )}
+            {item.text}
           </span>
         ))}
       </motion.div>
@@ -1378,12 +1522,13 @@ export default function TRTLandingPage({ product }) {
   const productData = mergeProductContent(product);
 
   return (
-    <div className="min-h-screen bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
+    <div className="min-h-screen overflow-x-hidden bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
       <MinimalMarketingNavbar />
       <TRTWillpowerSection />
       <TRTProductHeroSection />
+      <FadeIn><OurTreatmentsSection cards={TREATMENT_PLAN_CARDS.filter(c => c.id !== "trt")} /></FadeIn>
       <FadeIn><TRTPlansSection /></FadeIn>
-      <FadeIn><TRTBenefitsSection /></FadeIn>
+      <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage />
       <FadeIn><TRTSymptomsSection /></FadeIn>
       <FadeIn><TRTDesignedToSupportSection /></FadeIn>
       <FadeIn><TRTMemberResultsSection /></FadeIn>
@@ -1391,11 +1536,10 @@ export default function TRTLandingPage({ product }) {
       <FadeIn><TRTEligibilitySection /></FadeIn>
       <FadeIn><TRTProcessSection /></FadeIn>
       <FadeIn><LabTested productData={productData} /></FadeIn>
-      <FadeIn><OurTreatmentsSection cards={TREATMENT_PLAN_CARDS.filter(c => c.id !== "trt")} /></FadeIn>
       <TRTTrustMarquee />
       <FadeIn><TRTComparisonSection /></FadeIn>
       <TRTFAQSection />
-      <FadeIn><TRTCareSection /></FadeIn>
+      <FadeIn><SupportAvailabilitySection /></FadeIn>
       <TRTFinalCTASection />
       <MarketingFooter />
     </div>

@@ -37,6 +37,7 @@ import {
   SimpleSteps,
   OurTreatmentsSection,
   TREATMENT_PLAN_CARDS,
+  SupportAvailabilitySection,
   WillpowerVerticalColumn,
   WillpowerHorizontalRow,
   WILLPOWER_LEFT_MARQUEE_ITEMS,
@@ -1487,16 +1488,17 @@ const TRUST_ITEMS = [
 ];
 
 function EncoTrustMarquee() {
+  const loopItems = [...TRUST_ITEMS, ...TRUST_ITEMS, ...TRUST_ITEMS];
   return (
-    <section className="overflow-hidden border-y border-gray-200 bg-[#f9f9f9] py-5">
+    <section className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden border-y border-gray-200 bg-[#f9f9f9] py-5">
       <motion.div
-        className="flex gap-10 whitespace-nowrap"
-        animate={{ x: ["0%", "-50%"] }}
+        className="flex min-w-max gap-10 whitespace-nowrap"
+        animate={{ x: ["0%", "-33.33%"] }}
         transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
       >
-        {[...TRUST_ITEMS, ...TRUST_ITEMS].map((item, i) => (
-          <span key={`${item}-${i}`} className="inline-flex items-center gap-2.5 text-sm text-gray-500">
-            <span className="h-2 w-2 rounded-full bg-[#6D6FFC]" />
+        {loopItems.map((item, i) => (
+          <span key={`${item}-${i}`} className="inline-flex shrink-0 items-center gap-2.5 text-sm text-gray-500">
+            <span className="h-2 w-2 shrink-0 rounded-full bg-[#6D6FFC]" />
             {item}
           </span>
         ))}
@@ -1786,6 +1788,7 @@ export default function EnclomipheneLandingPage({ product }) {
       <EncloWillpowerSection />
       <EncloProductHeroSection />
       <EncoStatBarSection />
+      <FadeIn><OurTreatmentsSection cards={TREATMENT_PLAN_CARDS.filter(c => c.id !== "enclomiphene")} /></FadeIn>
       <FadeIn><EncoHowItWorksSection /></FadeIn>
       <FadeIn><EncoComparisonSection /></FadeIn>
       <FadeIn><EncoDailyProtocolSection /></FadeIn>
@@ -1796,9 +1799,9 @@ export default function EnclomipheneLandingPage({ product }) {
       <FadeIn><SimpleSteps productData={productData} /></FadeIn>
       <FadeIn><EncoIncludedSection /></FadeIn>
       <FadeIn><LabTested productData={productData} /></FadeIn>
-      <FadeIn><OurTreatmentsSection cards={TREATMENT_PLAN_CARDS.filter(c => c.id !== "enclomiphene")} /></FadeIn>
       <EncoTrustMarquee />
       <EnclomipheneFAQSection />
+      <FadeIn><SupportAvailabilitySection /></FadeIn>
       <EncoFinalCTASection />
       <MarketingFooter />
     </div>
