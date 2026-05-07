@@ -31,7 +31,16 @@ import {
   MinimalMarketingNavbar,
   MarketingFooter,
 } from "@/components/marketing/shared";
-import { mergeProductContent } from "@/components/marketing/product-page";
+import {
+  mergeProductContent,
+  LabTested,
+  OurTreatmentsSection,
+  TREATMENT_PLAN_CARDS,
+  WillpowerVerticalColumn,
+  WillpowerHorizontalRow,
+  WILLPOWER_LEFT_MARQUEE_ITEMS,
+  WILLPOWER_RIGHT_MARQUEE_ITEMS,
+} from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/growth-hormone-support";
 
@@ -243,70 +252,321 @@ function TRTHeroFaqs() {
   );
 }
 
-function TRTHeroSection() {
+function TRTWillpowerSection() {
   return (
-    <section className="relative bg-[#F1F5F9] px-4 py-12 md:px-[3.25rem] md:py-16 lg:py-20">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col gap-8 lg:flex-row lg:items-stretch lg:gap-6 xl:gap-8">
-        {/* ---- Left: copy (sticky) ---- */}
-        <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[55%] lg:max-w-[740px]">
-          <div className="flex flex-col gap-6 lg:sticky lg:top-24">
-            <h1 className="text-balance font-title text-4xl font-medium leading-tight tracking-tight text-gray-950 md:text-[52px] md:leading-[1.1]">
-              Your low energy isn&apos;t a willpower problem.{" "}
-              It&apos;s a{" "}
-              <span className="font-playfair italic text-[#6D6FFC]">hormonal one.</span>
-            </h1>
+    <section className="relative overflow-hidden bg-[#F1F5F9]">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-80px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+        <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
+          <div className="w-full max-w-[34rem]">
+            <div className="mt-5 max-w-[34rem]">
+              <h2 className="text-balance font-title text-4xl font-medium leading-tight tracking-tight text-gray-950 md:text-5xl">
+                Your low energy isn&apos;t a willpower problem.{" "}
+                <span className="font-playfair italic font-medium text-[#6d6ffc]">
+                  It&apos;s a hormonal one.
+                </span>
+              </h2>
+              <p className="mt-4 max-w-[30rem] text-[1rem] leading-6 text-gray-800 lg:text-[1.05rem]">
+                Personalized injectable TRT. Unlimited clinician-led care.
+                Delivered to your door. Guaranteed or it&apos;s free.
+              </p>
+            </div>
 
-            <p className="max-w-[34rem] text-base leading-relaxed text-gray-600 lg:text-[1.05rem]">
-              Personalized injectable TRT. Unlimited clinician-led care.
-              Delivered to your door. Guaranteed or it&apos;s free.
-            </p>
-
-            <ul className="space-y-3 text-sm text-gray-700 md:text-base">
-              {[
-                "Testosterone Cypionate — the most prescribed and clinically-studied form of TRT",
-                "Month-to-month · Cancel anytime · HSA/FSA accepted",
-                "Lab work and clinician follow-ups included with every plan",
-              ].map((t) => (
-                <li key={t} className="flex items-start gap-3">
-                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]">
-                    <Check className="h-3 w-3 text-white" strokeWidth={3} />
+            <ul className="mt-5 max-w-[34rem] space-y-4 text-[#4d5160]">
+              <li className="grid grid-cols-[auto_1fr] items-start gap-1 text-sm md:text-lg">
+                <div className="flex items-center gap-4 text-base md:text-sm">
+                  <Syringe className="h-6 w-6 shrink-0" strokeWidth={2} />
+                  <span>
+                    Testosterone Cypionate &mdash; the most prescribed and
+                    clinically-studied form of TRT
                   </span>
-                  {t}
-                </li>
-              ))}
+                </div>
+              </li>
+              <li className="grid grid-cols-[auto_1fr] items-start gap-1 text-sm md:text-lg">
+                <div className="flex items-center gap-4 text-base md:text-sm">
+                  <Stethoscope className="h-6 w-6 shrink-0" strokeWidth={2} />
+                  <span>Month-to-month · Cancel anytime · HSA/FSA accepted</span>
+                </div>
+              </li>
             </ul>
+
+            <div className="mt-5 w-full">
+              <div className="inline-flex w-full max-w-full flex-col items-center gap-2.5 sm:w-auto">
+                <Link
+                  href={CTA_HREF}
+                  className="hs-solid-btn inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold sm:w-auto"
+                >
+                  Get my personalized plan
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <p className="w-full text-center text-sm font-semibold text-gray-700">
+                  Takes 90 seconds · 100% private · free
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* ---- Right: scrollable product card + tabs + faqs ---- */}
-        <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[45%] xl:w-[450px]">
-          <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-gray-200/50">
-            <div className="flex items-center justify-between bg-white px-6 pt-5 pb-3">
-              <div>
-                <h2 className="font-title text-2xl font-medium text-gray-900">Testosterone Cypionate</h2>
-                <p className="mt-1 text-sm text-gray-400">Weekly subcutaneous injections &middot; MCT-oil base</p>
-              </div>
-              <span className="flex items-center gap-1.5 rounded-full bg-[#F1F5F9] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC]">
-                <span className="h-1.5 w-1.5 rounded-full bg-green-500" /> In Stock
-              </span>
+        {/* Mobile: two animated horizontal marquee rows */}
+        <div className="flex flex-col gap-3 overflow-hidden lg:hidden">
+          <WillpowerHorizontalRow items={WILLPOWER_LEFT_MARQUEE_ITEMS} />
+          <WillpowerHorizontalRow items={WILLPOWER_RIGHT_MARQUEE_ITEMS} reverse />
+        </div>
+
+        {/* Desktop: vertical marquee columns */}
+        <div className="relative hidden min-h-0 w-full shrink-0 overflow-hidden lg:block lg:h-full lg:w-[45%] lg:self-stretch xl:w-[450px]">
+          <div className="grid h-full grid-cols-2 gap-3 lg:gap-4">
+            <WillpowerVerticalColumn items={WILLPOWER_LEFT_MARQUEE_ITEMS} />
+            <WillpowerVerticalColumn items={WILLPOWER_RIGHT_MARQUEE_ITEMS} reverse />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TRTProductHeroSection() {
+  const [activeTab, setActiveTab] = useState("benefits");
+  const [openFaq, setOpenFaq] = useState(null);
+  const [showPriceFootnote, setShowPriceFootnote] = useState(false);
+
+  return (
+    <section className="bg-[#f9f9f9] px-4 py-16 md:px-[3.25rem] md:py-20 lg:px-[3.25rem]">
+      <div className="mx-auto flex max-w-[1340px] flex-col gap-5 lg:flex-row lg:items-stretch lg:gap-6 xl:gap-8">
+        <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[55%] lg:max-w-[740px]">
+          <div className="flex flex-col gap-6 sm:gap-7 md:gap-10 lg:isolate lg:sticky lg:top-24 lg:z-10">
+            <div className="relative z-[1] shrink-0 bg-[#f9f9f9] pb-1">
+              <h1 className="text-balance text-start text-3xl font-bold leading-snug tracking-tight text-gray-900 md:text-5xl md:leading-tight">
+                Testosterone Cypionate
+              </h1>
             </div>
-            <div className="relative aspect-[4/3]">
-              <Image
-                src="/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Ready to feel like you again_/Testosterone-Therapy-for-men-1-optimized.jpg"
-                alt="Man feeling energized with TRT therapy"
-                fill
-                sizes="450px"
-                className="object-cover"
-                priority
-              />
+            <div className="relative z-0 flex aspect-[4/5] w-full shrink-0 items-start justify-start overflow-hidden rounded-[1rem] bg-[#f9f9f9] ring-1 ring-black/[0.04]">
+              <div className="flex h-full min-h-0 w-full flex-1 items-stretch justify-stretch">
+                <div className="relative h-full min-h-0 w-full">
+                  <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-semibold text-emerald-700 shadow-[0_2px_12px_rgba(0,0,0,0.08)] ring-1 ring-black/[0.04] md:left-5 md:top-5 md:px-6 md:py-2.5 md:text-base">
+                    <div className="relative h-2.5 w-2.5 md:h-3 md:w-3">
+                      <span className="absolute inset-0 rounded-full bg-emerald-400/40 blur-[3px]" />
+                      <span className="absolute inset-0 rounded-full bg-emerald-500" />
+                    </div>
+                    In Stock
+                  </div>
+                  <Image
+                    src="/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Ready to feel like you again_/Testosterone-Therapy-for-men-1-optimized.jpg"
+                    alt="Testosterone Cypionate — in stock"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 55vw"
+                    className="rounded-2xl object-cover object-center"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[45%] xl:w-[450px]">
+          <div className="mb-6 overflow-hidden rounded-[1rem] border border-gray-200 bg-white">
+            <div className="flex items-center justify-center gap-2 bg-[#fde073] px-5 py-3.5 text-sm font-medium text-gray-900 md:text-base">
+              <ShieldCheck className="h-4 w-4 md:h-5 md:w-5" />
+              FSA &amp; HSA Eligible
+            </div>
+            <div className="px-6 py-6 md:px-7 md:py-7">
+              <div className="mb-7 flex items-center justify-between gap-4">
+                <div className="min-w-0 shrink">
+                  <div className="flex flex-wrap items-baseline gap-2">
+                    <span className="text-3xl font-bold text-gray-900 md:text-4xl">
+                      $0
+                    </span>
+                    <span className="text-lg font-medium text-gray-800 md:text-xl">
+                      first month
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowPriceFootnote((v) => !v)}
+                    aria-expanded={showPriceFootnote}
+                    className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 underline decoration-dotted underline-offset-4 hover:text-gray-700 md:text-base"
+                  >
+                    then $129/mo*
+                  </button>
+                </div>
+                <div className="flex shrink-0 flex-col items-end gap-2">
+                  <span className="flex items-center rounded-[0.6rem] bg-[#FFB3C7] px-3 py-1.5">
+                    <img src="/images/marketing/logos/klarna.png" alt="Klarna" className="h-3 w-auto" />
+                  </span>
+                  <span className="flex items-center rounded-[0.6rem] bg-[#B2FCE4] px-3 py-1.5">
+                    <img src="/images/marketing/logos/afterpay.png" alt="Afterpay" className="h-3 w-auto" />
+                  </span>
+                </div>
+              </div>
+
+              {showPriceFootnote ? (
+                <div className="mb-5 rounded-[0.75rem] bg-gray-50 p-3 text-xs leading-5 text-gray-600 md:text-sm">
+                  *$0 first month covers the clinician visit and initial supply
+                  on the annual plan. Recurring billing of $129/month begins at
+                  month two and continues until you cancel. Includes
+                  medication, follow-up care, and shipping. Cancel anytime in
+                  your account.
+                </div>
+              ) : null}
+
+              <div className="flex w-full flex-col items-stretch gap-3">
+                <Link
+                  href={CTA_HREF}
+                  className="hs-solid-btn flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] transition-colors"
+                >
+                  See if you qualify
+                </Link>
+                <p className="mt-1 w-full text-center text-xs text-gray-500 md:text-sm">
+                  Discount auto-applied at checkout
+                </p>
+              </div>
             </div>
           </div>
 
-          <TRTHeroFaqs />
+          <div className="mb-6 rounded-[1rem] border border-gray-200 bg-white p-2 shadow-sm">
+            <div className="mb-6 flex rounded-full bg-gray-100 p-1.5">
+              {["benefits", "pricing", "description"].map((tab) => (
+                <button
+                  key={tab}
+                  type="button"
+                  onClick={() => setActiveTab(tab)}
+                  className={`flex-1 rounded-full py-2.5 text-sm font-medium capitalize transition-colors ${
+                    activeTab === tab
+                      ? "bg-white text-gray-900 shadow-sm"
+                      : "text-gray-500 hover:text-gray-700"
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+            <div className="overflow-hidden px-5 pb-5 pt-2 md:px-6 md:pb-6">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeTab}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="space-y-5"
+                >
+                  {activeTab === "benefits"
+                    ? TRT_HERO_BENEFITS.map((item, idx) => {
+                        const Icon = item.icon;
+                        return (
+                          <div key={idx} className="flex gap-3">
+                            <Icon className="mt-0.5 h-5 w-5 shrink-0 text-gray-600" />
+                            <p className="text-[0.938rem] leading-relaxed text-gray-700 md:text-base">
+                              {item.text}
+                            </p>
+                          </div>
+                        );
+                      })
+                    : null}
 
-          <TRTHeroTabs />
+                  {activeTab === "pricing" ? (
+                    <div className="space-y-6">
+                      <h3 className="text-lg font-bold leading-tight text-gray-900 md:text-xl">
+                        Testosterone Cypionate
+                      </h3>
+                      <div className="rounded-[1rem] border border-gray-200">
+                        {TRT_HERO_PRICING.map((plan, index) => (
+                          <div
+                            key={plan.name}
+                            className={`relative flex items-center justify-between p-4 ${
+                              index !== TRT_HERO_PRICING.length - 1 ? "border-b border-gray-200" : ""
+                            } ${plan.isMuted ? "bg-gray-50/50" : ""}`}
+                          >
+                            {plan.isBestValue ? (
+                              <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#00a86b] px-3 text-sm font-semibold leading-none text-white">
+                                Best Value
+                              </span>
+                            ) : null}
+                            <span className={`text-sm font-medium md:text-base ${plan.isMuted ? "text-gray-500" : "text-gray-700"}`}>
+                              {plan.name}
+                            </span>
+                            <div className="text-right">
+                              <div className={`text-xl font-bold leading-none ${plan.isMuted ? "text-gray-500" : "text-[#00a86b]"}`}>
+                                ${plan.firstMonth}{" "}
+                                <span className="text-sm font-semibold">first month</span>
+                                <div className="mt-1 text-sm font-normal text-gray-500">
+                                  then ${plan.thenPrice}/mo
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
 
-          <div className="mt-4 rounded-[1rem] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
+                  {activeTab === "description" ? (
+                    <p className="text-sm leading-relaxed text-gray-600 md:text-base">
+                      {TRT_HERO_DESCRIPTION}
+                    </p>
+                  ) : null}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+            <div className="mt-2 flex justify-between border-t border-gray-100 px-5 pb-2 pt-4 text-xs text-gray-500 md:px-6">
+              <span className="flex items-center gap-1.5">
+                <img
+                  draggable={false}
+                  role="img"
+                  alt="us"
+                  src="/images/marketing/logos/flag-usa.svg"
+                  className="h-4 w-4 align-[-0.1em]"
+                />
+                Compounded in the U.S.A
+              </span>
+              <div className="flex items-center gap-1.5">
+                <ShieldCheck className="h-3.5 w-3.5" /> FSA & HSA Eligible
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-6 space-y-3">
+            {TRT_HERO_FAQS.map((faq, idx) => (
+              <div
+                key={faq.question}
+                className="overflow-hidden rounded-[1rem] bg-white shadow-sm"
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="flex w-full items-center justify-between px-5 py-5 text-left md:px-6 md:py-6"
+                >
+                  <span className="pr-4 text-base font-bold text-gray-900 md:text-lg">
+                    {faq.question}
+                  </span>
+                  <div className="flex shrink-0 items-center justify-center rounded-[1rem] bg-[#333333] p-1.5">
+                    {openFaq === idx ? (
+                      <Minus className="h-4 w-4 text-white md:h-5 md:w-5" strokeWidth={2.5} />
+                    ) : (
+                      <Plus className="h-4 w-4 text-white md:h-5 md:w-5" strokeWidth={2.5} />
+                    )}
+                  </div>
+                </button>
+                <AnimatePresence>
+                  {openFaq === idx ? (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-5 pb-5 text-sm leading-relaxed text-gray-600 md:px-6 md:pb-6 md:text-base">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
+
+          <div className="rounded-[1rem] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
             The statements on this page have not been evaluated by the Food
             and Drug Administration. This product is not intended to diagnose,
             treat, cure or prevent any disease.
@@ -1120,7 +1380,8 @@ export default function TRTLandingPage({ product }) {
   return (
     <div className="min-h-screen bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
       <MinimalMarketingNavbar />
-      <TRTHeroSection />
+      <TRTWillpowerSection />
+      <TRTProductHeroSection />
       <FadeIn><TRTPlansSection /></FadeIn>
       <FadeIn><TRTBenefitsSection /></FadeIn>
       <FadeIn><TRTSymptomsSection /></FadeIn>
@@ -1129,7 +1390,8 @@ export default function TRTLandingPage({ product }) {
       <TRTStatsSection />
       <FadeIn><TRTEligibilitySection /></FadeIn>
       <FadeIn><TRTProcessSection /></FadeIn>
-      <FadeIn><TRTLabTestedSection /></FadeIn>
+      <FadeIn><LabTested productData={productData} /></FadeIn>
+      <FadeIn><OurTreatmentsSection cards={TREATMENT_PLAN_CARDS.filter(c => c.id !== "trt")} /></FadeIn>
       <TRTTrustMarquee />
       <FadeIn><TRTComparisonSection /></FadeIn>
       <TRTFAQSection />

@@ -13,9 +13,13 @@ import {
   Clock3,
   ChevronLeft,
   ChevronRight,
+  ClipboardCheck,
   Droplet,
   FlaskConical,
+  Headset,
   Hourglass,
+  Laptop,
+  ClipboardList,
   Minus,
   Mail,
   PillBottle,
@@ -30,6 +34,8 @@ import {
   Target,
   TrendingUp,
   TreePine,
+  Truck,
+  Users,
   Wheat,
   X,
   Zap,
@@ -77,7 +83,6 @@ const MEDIA_LOGOS = [
   { name: "AXIOS", image: "/sponsers/axios.png", alt: "AXIOS logo", sizeClass: "w-40 md:w-44", imageClass: "scale-[0.7]" },
   { name: "Forbes", image: "/sponsers/forbes.webp", alt: "Forbes logo", imageClass: "scale-[0.8]" },
   { name: "Business Insider", image: "/sponsers/business-insider.png", alt: "Business Insider logo", sizeClass: "w-44 md:w-48" },
-  // { name: "Reuters", image: "/sponsers/reuters.png", alt: "Reuters logo", sizeClass: "w-40 md:w-44", imageClass: "scale-[1.55]" },
 ];
 
 /** HealSend consultation/marketing portraits — overlapping stack (Willpower stat + testimonials header). */
@@ -85,14 +90,14 @@ const MEMBER_FACE_STACK_IMAGE_SRCS = [
   "/images/4_Home_Doctors_Online_Consultation-Doctors_02.jpg",
   "/images/4_Home_Doctors_Online_Consultation-Doctors_04.jpg",
   "/images/4_Home_Doctors_Online_Consultation-Avatar.jpg",
-  "/images/4_Home_Doctors_Online_Consultation-Testimonials_01.jpg",
+  "/images/4_Home_Doctors_Online_Consultation-Testimonials_02.jpg",
+  "/images/slider/Copy of pexels-farhadirani-34650790.jpg",
+  "/images/slider/Copy of look-studio-S0T98VD2KZs-unsplash.jpg",
+  "/images/slider/Copy of pexels-tima-miroshnichenko-5928317.jpg",
 ];
 
-/** Same set + two more member portraits — e.g. BMI hero stack (six circles). */
 const MEMBER_FACE_STACK_IMAGE_SRCS_SIX = [
-  ...MEMBER_FACE_STACK_IMAGE_SRCS,
-  "/images/4_Home_Doctors_Online_Consultation-Testimonials_02.jpg",
-  "/images/4_Home_Doctors_Online_Consultation-Testimonials_03.jpg",
+  ...MEMBER_FACE_STACK_IMAGE_SRCS.slice(0, 6),
 ];
 
 export function MediaLogosBanner() {
@@ -174,39 +179,25 @@ const buildSliderItem = (filename, index) => ({
   bgClass: SLIDER_BGS[index % SLIDER_BGS.length],
 });
 
-const WILLPOWER_LEFT_MARQUEE_ITEMS = [
-  "/images/add.png",
-  "Copy of Gemini_Generated_Image_ctnnloctnnloctnn.png",
+export const WILLPOWER_LEFT_MARQUEE_ITEMS = [
   "/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Uses & Benefits(background)/Man-lifting.jpeg",
   "Box_2.png",
-  "/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Extra/image 1.webp",
-  "Copy of 240_F_1861119733_Y7uOou4SbKCsL0DzOOy5RA0UASKblWIO.jpg",
   "Copy of 240_F_255843378_E2xPB7yqctJZrRIgyeAj8HxXzg5N2mr6.jpg",
   "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Redefine wellness with science/pexels-ivan-samkov-4164510-scaled-1.jpeg",
-  "Copy of Gemini_Generated_Image_r1o81rr1o81rr1o8.png",
   "Copy of Gemini_Generated_Image_schuohschuohschu.png",
   "/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Ready to feel like you again_/Testosterone-Therapy-for-men-1-optimized.jpg",
-  "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Why do people explore Sermorelin therapy_/pexels-julia-larson-6455960-scaled-1-optimized.jpg",
-  "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Why do people explore Sermorelin therapy_/pexels-dmitry-ovsyannikov-271243380-17542096-scaled-1-optimized.jpg",
 ].map(buildSliderItem);
 
-const WILLPOWER_RIGHT_MARQUEE_ITEMS = [
-  "/images/addslider.jpg",
+export const WILLPOWER_RIGHT_MARQUEE_ITEMS = [
   "/images/peptides-20260506T071409Z-3-001/peptides/Ready to Buy Peptides Online the Safe Way_Ready to Buy Peptides Online the Safe Way_/424dbc50-9966-4389-a6bd-3e1e201de2cf-e1761771693727.webp",
-  "/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Ready to feel like you again_/Testosterone-Therapy-for-men-1-optimized.jpg",
-  "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Redefine wellness with science/pexels-ivan-samkov-4164510-scaled-1.jpeg",
-  "/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Extra/image 1.webp",
-  "/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Uses & Benefits(background)/Man-lifting.jpeg",
   "Copy of pexels-tima-miroshnichenko-6011604.jpg",
-  "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Why do people explore Sermorelin therapy_/pexels-julia-larson-6455960-scaled-1-optimized.jpg",
   "Gemini_Generated_Image_n1o1o6n1o1o6n1o1.png",
-  "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Why do people explore Sermorelin therapy_/pexels-dmitry-ovsyannikov-271243380-17542096-scaled-1-optimized.jpg",
   "Gemini_Generated_Image_4a1v034a1v034a1v.png",
   "Gemini_Generated_Image_neknhtneknhtnekn.png",
   "PHOTO-2026-03-29-18-10-25(1).jpg",
 ].map(buildSliderItem);
 
-function WillpowerVerticalColumn({ items, reverse = false }) {
+export function WillpowerVerticalColumn({ items, reverse = false }) {
   const loopItems = [...items, ...items];
   return (
     <div className="relative h-full overflow-hidden">
@@ -239,7 +230,7 @@ function WillpowerVerticalColumn({ items, reverse = false }) {
   );
 }
 
-function WillpowerHorizontalRow({ items, reverse = false }) {
+export function WillpowerHorizontalRow({ items, reverse = false }) {
   const loopItems = [...items, ...items];
   return (
     <div className="relative overflow-hidden">
@@ -1636,26 +1627,26 @@ function MedicalWeightLossSection({ productData }) {
             </p>
           </div>
 
-          <div className="flex w-full flex-wrap items-center gap-3 sm:gap-4 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end lg:pt-1">
+          <div className="flex w-full flex-wrap items-center justify-center gap-3 sm:gap-4 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end lg:pt-1">
             <div className="flex min-w-0 flex-initial items-center justify-center">
               <div className="relative flex items-center">
                 <img
                   src="/images/clean/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
+                  className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16"
                 />
                 <img
                   src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`}
                   alt="Google reviews rating"
                   loading="lazy"
-                  className="z-10 -ml-2 -mr-1 h-auto max-h-[60px] max-w-[120px] object-contain mix-blend-multiply sm:-ml-3 sm:-mr-2 sm:max-h-[80px] sm:max-w-none md:max-h-[100px] lg:-ml-5 lg:-mr-3 lg:max-h-[120px]"
+                  className="z-10 -ml-2 -mr-1 h-auto max-h-[40px] w-[120px] object-contain mix-blend-multiply sm:-ml-3 sm:-mr-2 sm:max-h-[50px] sm:w-[140px] md:max-h-[55px] md:w-[150px] lg:-ml-4 lg:-mr-2 lg:max-h-[60px] lg:w-[160px]"
                 />
                 <img
                   src="/images/articles/blogs/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
+                  className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16"
                 />
               </div>
             </div>
@@ -1665,19 +1656,19 @@ function MedicalWeightLossSection({ productData }) {
                   src="/images/clean/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="z-20 h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
+                  className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16"
                 />
                 <img
                   src="/images/healsend-2k-members-trust.png"
                   alt="HealSend — 2K+ members"
                   loading="lazy"
-                  className="z-10 -mx-2 h-auto max-h-[60px] w-auto shrink-0 object-contain sm:-mx-3 sm:max-h-[80px] md:max-h-[100px] lg:-mx-4 lg:max-h-[120px]"
+                  className="z-10 -mx-5 h-auto max-h-[50px] w-[150px] shrink-0 object-contain sm:-mx-6 sm:max-h-[60px] sm:w-[170px] md:-mx-7 md:max-h-[65px] md:w-[180px] lg:-mx-8 lg:max-h-[70px] lg:w-[200px]"
                 />
                 <img
                   src="/images/articles/blogs/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="z-20 -ml-4 h-12 w-auto shrink-0 object-contain sm:-ml-5 sm:h-16 md:-ml-6 md:h-20 lg:-ml-8 lg:h-24"
+                  className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16"
                 />
               </div>
             </div>
@@ -2882,163 +2873,36 @@ export function SimpleSteps({ productData }) {
 }
 
 export function LabTested({ productData: _productData }) {
-  const content = staticLabTestedSection;
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const LAB_TESTS = [
-    {
-      name: "Potency Test",
-      description:
-        "Confirms the medication contains ±10% of the appropriate concentration of the active ingredient.",
-    },
-    {
-      name: "Sterility Test",
-      description:
-        "Ensures the medication is free from bacteria or pathogens and meets USP 797 requirements.",
-    },
-    {
-      name: "Endotoxicity",
-      description:
-        "Ensures endotoxin levels remain below USP 85 thresholds for patient safety.",
-    },
-    {
-      name: "pH Test",
-      description:
-        "Confirms acid/base balance to minimize irritation upon injection.",
-    },
-  ];
-
   return (
-    <>
-      {/* Modal */}
-      {modalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8"
-          onClick={() => setModalOpen(false)}
-        >
-          {/* Backdrop */}
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-
-          {/* Panel */}
-          <div
-            className="relative z-10 w-full max-w-[680px] overflow-y-auto max-h-[90svh] rounded-[2rem] bg-white p-6 shadow-2xl md:p-10"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              type="button"
-              onClick={() => setModalOpen(false)}
-              className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-[#1c1a24] hover:bg-gray-50 transition-colors"
-              aria-label="Close"
-            >
-              <X className="h-5 w-5" />
-            </button>
-
-            <h2 className="mb-3 text-2xl font-bold text-[#1c1a24] md:text-3xl">
-              Lab tested for quality &amp; potency
-            </h2>
-            <p className="mb-7 text-sm leading-relaxed text-[#484555] md:text-base">
-              Our pharmacies perform third party testing through FDA and DEA
-              registered labs to run quality control checks for every compounded
-              lot.
-            </p>
-
-            {/* Cards — 2-col on desktop, stacked on mobile */}
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {LAB_TESTS.map((test) => (
-                <div
-                  key={test.name}
-                  className="rounded-2xl border border-gray-100 bg-[#fafafa] p-5"
-                >
-                  <div className="mb-3 flex items-center justify-between gap-2">
-                    <span className="text-base font-bold text-[#1c1a24]">
-                      {test.name}
-                    </span>
-                    <span className="shrink-0 rounded-full bg-[#22c55e] px-3 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-white">
-                      Passed
-                    </span>
-                  </div>
-                  <p className="text-sm leading-relaxed text-[#484555]">
-                    {test.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+    <section className="bg-[#f9f9f9] py-16 md:py-20">
+      <div className="mx-auto grid max-w-[1200px] items-center gap-12 px-4 md:grid-cols-2 md:gap-14 md:px-8">
+        <div>
+          <h2 className="mb-4 font-title text-4xl font-medium text-gray-900 md:text-5xl">
+            Lab tested medications for{" "}
+            <span className="font-playfair italic text-[#6D6FFC]">quality &amp; potency</span>
+          </h2>
+          <p className="mb-6 text-base text-gray-600">
+            Our medication is delivered from a state-licensed 503B pharmacy in our network, right to your door.
+          </p>
+          <ul className="divide-y divide-gray-100">
+            {[
+              ["Third-party quality control testing", "every batch verified for purity and potency."],
+              ["Compounded in U.S. pharmacies", "no overseas labs, no gray-market suppliers."],
+              ["MCT-oil base", "cleaner absorption and gentler injection than seed-oil formulations."],
+              ["200mg/mL pharmaceutical-grade dosing", "full strength, no dilution."],
+            ].map(([bold, rest]) => (
+              <li key={bold} className="flex gap-3 py-3.5 text-sm text-gray-600">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#6D6FFC]" />
+                <span><strong className="text-gray-900">{bold}</strong> — {rest}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-      )}
-
-      <section className="bg-[#f9f9f9] px-4 py-16 md:px-8 md:py-20 lg:px-16">
-        <div className="mx-auto max-w-[1200px]">
-          <div className="flex flex-col items-center gap-8 rounded-[2.5rem] bg-gradient-to-br from-[#6f68f0] to-[#8f88ff] p-6 md:p-10 lg:flex-row lg:gap-12 lg:p-12">
-            <div className="flex-1 text-white">
-              <h2 className="mb-6 text-3xl font-bold leading-[1.1] tracking-tight md:text-4xl lg:text-[2.75rem]">
-                {content.title}
-              </h2>
-              <p className="mb-10 max-w-lg text-base leading-relaxed text-white/90 md:text-lg">
-                {content.description}
-              </p>
-
-              <div className="max-w-lg space-y-4">
-                <div className="flex flex-col gap-3 rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:gap-4 md:p-5">
-                  <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4">
-                    <BadgeCheck
-                      className="h-6 w-6 shrink-0 text-white"
-                      strokeWidth={1.5}
-                    />
-                    <span className="min-w-0 text-base font-medium leading-snug text-white">
-                      Third party quality control testing
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setModalOpen(true)}
-                    className="hs-outline-btn inline-flex w-full shrink-0 items-center justify-center whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors sm:w-auto sm:px-5"
-                  >
-                    Learn More
-                  </button>
-                </div>
-                <div className="flex items-center gap-4 rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-md md:p-5">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-6 w-6 text-white"
-                  >
-                    <rect x="2" y="4" width="20" height="16" rx="2" />
-                    <path d="M2 8h20" />
-                    <path d="M2 12h20" />
-                    <path d="M2 16h20" />
-                    <rect
-                      x="2"
-                      y="4"
-                      width="8"
-                      height="8"
-                      fill="currentColor"
-                      rx="1"
-                    />
-                  </svg>
-                  <span className="text-base font-medium text-white">
-                    Compounded in U.S. pharmacies
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="w-full lg:w-[45%]">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-2xl">
-                <img
-                  src={content.image}
-                  alt="Lab tested medications"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
+        <div className="relative aspect-square overflow-hidden rounded-3xl">
+          <Image src="/images/67b8bc339365c3a3c21c8190_cta_sermorelin-optimized.jpg" alt="Lab tested medication" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" />
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 
@@ -3300,38 +3164,14 @@ const SAME_MED_HEALSEND_POINTS = [
 
 /** Trust strip icons (client assets in /public/images). Mixed “clinical” + brand-style marks per line. */
 const SAME_MED_MARQUEE_ITEMS = [
-  {
-    text: "FSA & HSA eligible",
-    icon: `/images/${encodeURIComponent("icon_1-removebg-preview (1) (1).png")}`,
-  },
-  {
-    text: "Personalized Rx weight-loss plans",
-    icon: `/images/${encodeURIComponent("note-removebg-preview (1) (1).png")}`,
-  },
-  {
-    text: "No memberships or hidden fees",
-    icon: `/images/${encodeURIComponent("block-removebg-preview (1) (1).png")}`,
-  },
-  {
-    text: "Free & fast shipping",
-    icon: `/images/${encodeURIComponent("Fast-Shipping-1 (1).png")}`,
-  },
-  {
-    text: "US-only certified pharmacies",
-    icon: `/images/${encodeURIComponent("Access-to-medical-1 (1) (1).webp")}`,
-  },
-  {
-    text: "Always-on clinician support",
-    icon: `/images/${encodeURIComponent("medi_im-removebg-preview-1 (2).png")}`,
-  },
-  {
-    text: "1,000,000+ prescriptions written",
-    icon: `/images/${encodeURIComponent("note-removebg-preview (1) (1).png")}`,
-  },
-  {
-    text: "2000+ members",
-    icon: `/images/${encodeURIComponent("icon_1-removebg-preview (1) (1).png")}`,
-  },
+  { text: "Free & Fast Shipping", Icon: Truck },
+  { text: "U.S. Only Certified Pharmacies", Icon: ShieldCheck },
+  { text: "Always On Clinician Support", Icon: Headset },
+  { text: "1,200,000+ prescriptions written", Icon: ClipboardCheck },
+  { text: "250,000+ members", Icon: Users },
+  { text: "FSA & HSA Eligible", Icon: BadgeCheck },
+  { text: "No Memberships or Hidden Fees", Icon: Laptop },
+  { text: "Personalized Rx Weight Loss Plans", Icon: PillBottle },
 ];
 
 const SAME_MED_OTHERS_POINTS = [
@@ -3347,10 +3187,10 @@ function SameMedicationMarquee() {
   const loopItems = [...SAME_MED_MARQUEE_ITEMS, ...SAME_MED_MARQUEE_ITEMS];
 
   return (
-    <div className="relative left-1/2 w-screen -translate-x-1/2 border-y border-[#e2d79a] bg-[#f9eb94] px-3 py-6 shadow-[0_10px_24px_rgba(186,155,33,0.08)]">
+    <div className="relative left-1/2 w-screen -translate-x-1/2 bg-[#fde073] py-2.5">
       <div className="overflow-hidden">
         <motion.div
-          className="flex min-w-max items-center gap-[58px]"
+          className="flex min-w-max items-center gap-12"
           animate={{ x: ["0%", "-50%"] }}
           transition={{
             duration: 26,
@@ -3362,17 +3202,9 @@ function SameMedicationMarquee() {
           {loopItems.map((item, index) => (
             <div
               key={`${item.text}-${index}`}
-              className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[0.76rem] font-semibold leading-none text-[#5b4d12] md:text-[0.82rem]"
+              className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[13px] font-medium leading-none text-gray-500"
             >
-              <span className="relative inline-flex h-5 w-5 shrink-0 items-center justify-center md:h-6 md:w-6">
-                <Image
-                  src={item.icon}
-                  alt=""
-                  fill
-                  sizes="24px"
-                  className="object-contain grayscale opacity-60"
-                />
-              </span>
+              <item.Icon className="h-4 w-4 shrink-0" />
               <span>{item.text}</span>
             </div>
           ))}
@@ -4343,87 +4175,169 @@ export function DailyProtocolSection() {
   );
 }
 
-const TREATMENT_CARDS = [
+export const TREATMENT_PLAN_CARDS = [
   {
-    title: "GLP-1 Weight Loss",
+    id: "glp1",
+    headerClass: "bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20",
+    headerTextClass: "text-[#101726]",
+    useFullImage: false,
+    badges: ["Most Popular", "GLP-1 Weight Loss"],
+    title: "GLP-1\nWeight Loss",
     subtitle: "Tirzepatide & Semaglutide",
-    description:
-      "Clinician-prescribed GLP-1 injections that target appetite at the source. Real weight loss, not willpower.",
     image: "/images/marketing/bundle/tirzepatide-injections-product.png",
+    bulletsHeading: "WHAT YOU GET",
+    bullets: [
+      { icon: Target, text: "Clinician-prescribed GLP-1 injections that target appetite at the source" },
+      { icon: TrendingUp, text: "Real, measurable weight loss — not willpower" },
+      { icon: Syringe, text: "Once-weekly injection your clinician dials in to your body" },
+    ],
+    primaryCta: "Start GLP-1",
+    secondaryCta: "Why GLP-1?",
     href: "/weight-loss",
-    tag: "Most Popular",
-    accent: "from-violet-500/10 to-fuchsia-500/10",
-    iconAccent: "bg-violet-100 text-violet-600",
+    description: "Clinician-prescribed GLP-1 injections that calm food noise, ease cravings, and support steady, predictable progress.",
+    whyItWorks: [
+      "Feel full sooner and stay full longer",
+      "Quiets persistent food cravings between meals",
+      "Supports gradual, sustainable fat loss",
+    ],
+    bestFor: [
+      "Anyone ready for real, clinician-guided weight loss",
+      "Members who want steady, predictable progress",
+    ],
   },
   {
-    title: "TRT — Testosterone Therapy",
+    id: "trt",
+    headerClass: "bg-gradient-to-br from-blue-500/20 to-cyan-500/20",
+    headerTextClass: "text-[#101726]",
+    useFullImage: false,
+    badges: ["For Men", "Testosterone Therapy"],
+    title: "TRT —\nTestosterone",
     subtitle: "Testosterone Cypionate Injections",
-    description:
-      "Restore energy, strength, and drive with clinician-guided testosterone replacement. Lab-monitored and delivered to your door.",
     image: "/images/marketing/bundle/sermorelin-product.png",
+    bulletsHeading: "WHAT YOU GET",
+    bullets: [
+      { icon: Zap, text: "Restore energy, strength, and drive with clinician-guided TRT" },
+      { icon: FlaskConical, text: "Lab-monitored and delivered to your door" },
+      { icon: Stethoscope, text: "Ongoing clinician support and dose optimization" },
+    ],
+    primaryCta: "Start TRT",
+    secondaryCta: "Why TRT?",
     href: "/trt",
-    tag: "For Men",
-    accent: "from-blue-500/10 to-cyan-500/10",
-    iconAccent: "bg-blue-100 text-blue-600",
+    description: "Restore energy, strength, and drive with clinician-guided testosterone replacement. Lab-monitored and delivered to your door.",
+    whyItWorks: [
+      "Boosts energy, mood, and physical performance",
+      "Clinician-monitored dosing for safe, steady results",
+      "Convenient at-home injections with ongoing lab work",
+    ],
+    bestFor: [
+      "Men with clinically low testosterone",
+      "Anyone experiencing fatigue, low drive, or muscle loss",
+    ],
   },
   {
+    id: "enclomiphene",
+    headerClass: "bg-gradient-to-br from-emerald-500/20 to-teal-500/20",
+    headerTextClass: "text-[#101726]",
+    useFullImage: false,
+    badges: ["Fertility Safe", "Natural Support"],
     title: "Enclomiphene",
     subtitle: "Natural Testosterone Support",
-    description:
-      "Boost testosterone naturally without shutting down your body's own production. Fertility-safe, one pill daily.",
     image: "/images/marketing/bundle/enclomiphene-product.webp",
+    bulletsHeading: "WHAT YOU GET",
+    bullets: [
+      { icon: ShieldCheck, text: "Boost testosterone naturally without shutting down your body's own production" },
+      { icon: Star, text: "Fertility-safe — one pill daily" },
+      { icon: TrendingUp, text: "Supports natural hormone balance and energy" },
+    ],
+    primaryCta: "Start Enclomiphene",
+    secondaryCta: "Why Enclomiphene?",
     href: "/enclomiphene",
-    tag: "Fertility Safe",
-    accent: "from-emerald-500/10 to-teal-500/10",
-    iconAccent: "bg-emerald-100 text-emerald-600",
+    description: "Boost testosterone naturally without shutting down your body's own production. Fertility-safe, one pill daily.",
+    whyItWorks: [
+      "Stimulates your body's own testosterone production",
+      "Preserves fertility — unlike traditional TRT",
+      "Simple daily oral pill, no injections required",
+    ],
+    bestFor: [
+      "Men who want to preserve fertility",
+      "Anyone looking for a natural testosterone boost",
+    ],
   },
 ];
 
 const ENCLO_COMPARISON_TABLE_ROWS = [
-  { label: "Testosterone increase", sub: "How much your total T rises", enclo: "2× healthy, sustained range", trt: "5× often supraphysiological", encloWin: true },
-  { label: "Maintains fertility", sub: "Sperm production & testicular size", enclo: "Yes — fully preserved", trt: "Suppressed", encloWin: true },
-  { label: "Reversibility", sub: "Can you stop and return to baseline?", enclo: "Fully reversible", trt: "May need PCT", encloWin: true },
-  { label: "Dependency risk", sub: "Will your body stop making its own T?", enclo: "No dependency", trt: "Shuts down HPG axis", encloWin: true },
-  { label: "Convenience", sub: "How you take it", enclo: "One pill / day", trt: "Weekly injection or daily cream", encloWin: true },
-  { label: "Side effect profile", sub: "Frequency & severity", enclo: "Low — mild, infrequent", trt: "Medium — acne, hematocrit, mood", encloWin: true },
-  { label: "Best for", sub: "Who should choose this", enclo: "Men who want kids, fear dependency, or want a gentler first option", trt: "Men with severe primary hypogonadism", encloWin: false },
+  { label: "Increases testosterone", enclo: "2x", trt: "5x", encloIcon: null, trtIcon: null },
+  { label: "Maintains fertility", enclo: null, trt: null, encloIcon: "check", trtIcon: "x" },
+  { label: "No dependency", enclo: null, trt: null, encloIcon: "check", trtIcon: "x" },
+  { label: "Ease", enclo: null, trt: null, encloIcon: "check", trtIcon: "x" },
+  { label: "Risk of side effects", enclo: "Low", trt: "Medium", encloIcon: null, trtIcon: null },
+  { label: "Function", enclo: "Boosts natural production", trt: "Adds exogenous hormones", encloIcon: null, trtIcon: null },
+  { label: "Liver safety", enclo: null, trt: null, encloIcon: "check", trtIcon: "check" },
 ];
+
+function ComparisonIcon({ type }) {
+  if (type === "check") return (
+    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#101726]">
+      <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />
+    </span>
+  );
+  if (type === "x") return (
+    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200">
+      <X className="h-3.5 w-3.5 text-gray-400" strokeWidth={3} />
+    </span>
+  );
+  return null;
+}
 
 function EncloVsTrtComparisonSection() {
   return (
     <section className="bg-[#F1F5F9] py-16 md:py-20">
-      <div className="mx-auto max-w-[1000px] px-4 md:px-8">
-        <div className="mx-auto mb-14 max-w-[740px] text-center">
-          <h2 className="mb-4 font-title text-4xl font-medium text-gray-900 md:text-5xl">
-            Enclomiphene <span className="font-playfair italic text-[#6D6FFC]">vs.</span> Traditional TRT
-          </h2>
-          <p className="text-base text-gray-600">
-            Both raise testosterone. Only one preserves fertility, avoids dependency, and lets you stop without consequence.
-          </p>
-        </div>
+      <div className="mx-auto max-w-[900px] px-4 md:px-8">
+        <h2 className="mb-10 text-center font-title text-3xl font-bold text-[#101726] md:text-4xl">
+          Enclomiphene <span className="font-playfair italic">vs.</span> TRT
+        </h2>
 
-        <div className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm">
-          <div className="grid grid-cols-[1.4fr_1fr_1fr] border-b border-gray-100 bg-gray-50 text-[11px] font-semibold uppercase tracking-widest">
-            <div className="px-5 py-4" />
-            <div className="bg-[#6D6FFC] px-5 py-4 text-center text-white">Enclomiphene</div>
-            <div className="px-5 py-4 text-center text-gray-500">Traditional TRT</div>
-          </div>
-          {ENCLO_COMPARISON_TABLE_ROWS.map((row) => (
-            <div key={row.label} className="grid grid-cols-[1.4fr_1fr_1fr] border-b border-gray-50 last:border-0">
-              <div className="px-5 py-4">
-                <p className="text-sm font-medium text-gray-900">{row.label}</p>
-                <p className="text-xs text-gray-400">{row.sub}</p>
+        <div className="relative">
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-[#F1F5F9] to-transparent md:hidden" />
+          <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white shadow-sm">
+            <div className="min-w-[560px]">
+              {/* Header */}
+              <div className="grid grid-cols-[1.2fr_1fr_1fr] items-end border-b border-gray-100 px-1 pb-0 pt-4">
+                <div />
+                <div className="mx-auto mb-0 w-full max-w-[180px] rounded-t-lg bg-[#6D6FFC] px-5 py-3 text-center">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/70">HealSend</p>
+                  <p className="text-sm font-semibold text-white">Enclomiphene</p>
+                </div>
+                <div className="pb-4 text-center">
+                  <p className="text-sm font-medium text-gray-400">Traditional TRT</p>
+                </div>
               </div>
-              <div className="flex flex-col items-center justify-center bg-[#6D6FFC]/[0.03] px-3 py-4 text-center">
-                {row.encloWin ? <Check className="mb-1 h-4 w-4 text-[#6D6FFC]" /> : null}
-                <p className="text-xs font-medium text-gray-700">{row.enclo}</p>
-              </div>
-              <div className="flex flex-col items-center justify-center px-3 py-4 text-center">
-                {!row.encloWin ? null : <X className="mb-1 h-4 w-4 text-gray-300" />}
-                <p className="text-xs text-gray-400">{row.trt}</p>
-              </div>
+
+              {/* Rows */}
+              {ENCLO_COMPARISON_TABLE_ROWS.map((row, i) => (
+                <div key={row.label} className={`grid grid-cols-[1.2fr_1fr_1fr] items-center ${i % 2 === 0 ? "bg-gray-50/50" : "bg-white"}`}>
+                  <div className="px-6 py-5">
+                    <p className="text-sm font-semibold text-[#101726]">{row.label}</p>
+                  </div>
+                  <div className="flex justify-center py-5">
+                    {row.encloIcon ? (
+                      <ComparisonIcon type={row.encloIcon} />
+                    ) : (
+                      <span className="text-sm text-gray-600">{row.enclo}</span>
+                    )}
+                  </div>
+                  <div className="flex justify-center py-5">
+                    {row.trtIcon ? (
+                      <ComparisonIcon type={row.trtIcon} />
+                    ) : (
+                      <span className="text-sm text-gray-400">{row.trt}</span>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+          <p className="mt-2 text-center text-xs text-gray-400 md:hidden">Swipe to compare &rarr;</p>
         </div>
 
         <div className="mt-10 text-center">
@@ -4436,64 +4350,225 @@ function EncloVsTrtComparisonSection() {
   );
 }
 
-function OurTreatmentsSection() {
+function TreatmentPlanCard({ plan }) {
+  const [expanded, setExpanded] = useState(false);
+  const hasDetails =
+    plan.description ||
+    (plan.whyItWorks && plan.whyItWorks.length > 0) ||
+    (plan.bestFor && plan.bestFor.length > 0);
+
   return (
-    <section className="relative overflow-hidden bg-[#f9f9f9] py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-5">
-        <div className="mb-14 text-center">
-          <span className="mb-3 inline-block rounded-full bg-[#6D6FFC]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#6D6FFC]">
-            Our Treatments
-          </span>
-          <h2 className="font-title text-3xl font-bold tracking-tight text-[#101726] md:text-4xl lg:text-5xl">
-            One platform. Multiple paths to{" "}
-            <span className="font-playfair italic text-[#6D6FFC]">better health.</span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-slate-500 md:text-lg">
-            Every treatment is prescribed by U.S.-licensed clinicians, delivered
-            to your door, and backed by ongoing care.
-          </p>
+    <div className="flex h-full min-w-0 flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-[0_20px_40px_-24px_rgba(91,60,221,0.12)] ring-1 ring-[#ece8f3]">
+      <div className={`relative h-[222px] shrink-0 overflow-hidden ${plan.headerClass}`}>
+        <div className="absolute inset-0 flex items-center justify-center p-6">
+          <img
+            src={plan.image}
+            alt={plan.title}
+            loading="lazy"
+            className="h-36 w-36 object-contain drop-shadow-md"
+          />
+        </div>
+        <div className="absolute inset-0 z-10 flex flex-col justify-between p-6">
+          <div className="flex flex-col items-start gap-y-2">
+            {plan.badges.map((badge, i) => (
+              <span
+                key={badge}
+                className={`rounded-lg px-2 py-1 text-sm font-medium leading-5 text-gray-800 ${
+                  i === 0
+                    ? "bg-gradient-to-r from-white/80 to-white/50"
+                    : "bg-white/50"
+                }`}
+              >
+                {badge}
+              </span>
+            ))}
+          </div>
+          <div>
+            <p className="text-2xl font-medium leading-tight text-[#101726]">
+              {plan.title.split("\n").map((line, idx, arr) => (
+                <React.Fragment key={idx}>
+                  {line}
+                  {idx < arr.length - 1 ? <br /> : null}
+                </React.Fragment>
+              ))}
+            </p>
+            {plan.subtitle ? (
+              <p className="mt-2 text-sm font-medium text-[#101726]/70">{plan.subtitle}</p>
+            ) : null}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-1 flex-col p-5 sm:p-6 md:p-7">
+        <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[#1c1a24]">
+          {plan.bulletsHeading}
+        </p>
+        <ul className="flex shrink-0 flex-col gap-4">
+          {plan.bullets.map((bullet) => {
+            const Icon = bullet.icon;
+            return (
+              <li key={bullet.text} className="flex min-w-0 items-start gap-3">
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f1ecf9]">
+                  <Icon className="h-3.5 w-3.5 shrink-0 text-[#5b3cdd]" />
+                </span>
+                <span className="text-pretty break-words text-base leading-snug text-gray-700 [overflow-wrap:anywhere] md:leading-6">
+                  {bullet.text}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div className="mt-6 min-h-3 flex-1 shrink" aria-hidden />
+
+        <div className="mt-auto flex w-full shrink-0 flex-col gap-3">
+          <Link
+            href={plan.href}
+            className="flex min-h-[3.375rem] w-full shrink-0 items-center justify-center gap-2 rounded-full bg-[#1c1a24] px-4 py-2.5 text-center text-[13px] font-bold leading-snug tracking-tight text-white transition-colors hover:bg-[#2a2740] sm:px-5 sm:text-sm sm:leading-tight"
+          >
+            <span className="text-balance">{plan.primaryCta}</span>
+            <ArrowRight className="h-4 w-4 shrink-0 self-center" aria-hidden />
+          </Link>
+          {plan.secondaryCta && hasDetails ? (
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              aria-expanded={expanded}
+              className={`flex min-h-[2.875rem] w-full shrink-0 items-center justify-center whitespace-nowrap rounded-full border bg-white px-4 py-2.5 text-center text-[13px] font-semibold leading-snug tracking-tight transition-colors sm:text-sm ${
+                expanded
+                  ? "border-[#d8d2ee] text-[#5b3cdd] hover:bg-[#f1ecf9]"
+                  : "border-[#e5e0ee] text-[#1c1a24] hover:bg-[#f1ecf9]"
+              }`}
+            >
+              {expanded ? "Hide details" : plan.secondaryCta}
+            </button>
+          ) : null}
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {TREATMENT_CARDS.map((card) => (
-            <Link
-              key={card.title}
-              href={card.href}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+        <AnimatePresence initial={false}>
+          {expanded && hasDetails ? (
+            <motion.div
+              key="details"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-4 w-full min-w-0 shrink-0 overflow-hidden"
             >
-              <div
-                className={`relative flex h-56 items-center justify-center bg-gradient-to-br ${card.accent} p-6`}
-              >
-                <span
-                  className={`absolute left-4 top-4 rounded-full ${card.iconAccent} px-3 py-1 text-[11px] font-semibold uppercase tracking-wide`}
-                >
-                  {card.tag}
-                </span>
-                <Image
-                  src={card.image}
-                  alt={card.title}
-                  width={200}
-                  height={200}
-                  className="h-40 w-40 object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-105"
+              <div className="space-y-6 border-t border-[#ece8f3] pt-5 md:pt-6">
+                {plan.description ? (
+                  <p className="text-sm leading-6 text-[#474257]">{plan.description}</p>
+                ) : null}
+                {plan.whyItWorks?.length > 0 ? (
+                  <div>
+                    <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#1c1a24]">
+                      WHY IT WORKS
+                    </p>
+                    <ul className="space-y-2.5">
+                      {plan.whyItWorks.map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5b3cdd]" strokeWidth={3} />
+                          <span className="text-sm leading-6 text-[#1c1a24]">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+                {plan.bestFor?.length > 0 ? (
+                  <div>
+                    <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#1c1a24]">
+                      BEST FOR
+                    </p>
+                    <ul className="space-y-2.5">
+                      {plan.bestFor.map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5b3cdd]" strokeWidth={3} />
+                          <span className="text-sm leading-6 text-[#1c1a24]">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+
+export function OurTreatmentsSection({ cards = TREATMENT_PLAN_CARDS }) {
+  return (
+    <section className="overflow-hidden bg-[#f9f9f9] py-16 md:py-20">
+      <div className="mx-auto max-w-[1400px] px-4 md:px-8 lg:px-16">
+        <div className="mb-10 grid grid-cols-1 gap-8 md:mb-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-x-8 xl:gap-x-12">
+          <div className="min-w-0">
+            <h2 className="font-title text-3xl font-bold leading-[1.05] tracking-tight text-gray-950 sm:text-4xl lg:text-[2.625rem] xl:text-[3.15rem]">
+              Medical care
+            </h2>
+            <p className="mt-2 font-playfair text-2xl italic leading-tight text-[#5d62f3] sm:text-3xl lg:text-[2.125rem] xl:text-[2.5rem]">
+              matched to your stage and goals.
+            </p>
+            <p className="mt-5 max-w-3xl text-base leading-7 text-[#474257] md:text-lg">
+              Every treatment is prescribed by U.S.-licensed clinicians, delivered
+              to your door, and backed by ongoing care.
+            </p>
+          </div>
+
+          <div className="flex w-full flex-wrap items-center justify-center gap-3 sm:gap-4 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end lg:pt-1">
+            <div className="flex min-w-0 flex-initial items-center justify-center">
+              <div className="relative flex items-center">
+                <img
+                  src="/images/clean/image.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16"
+                />
+                <img
+                  src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`}
+                  alt="Google reviews rating"
+                  loading="lazy"
+                  className="z-10 -ml-2 -mr-1 h-auto max-h-[40px] w-[120px] object-contain mix-blend-multiply sm:-ml-3 sm:-mr-2 sm:max-h-[50px] sm:w-[140px] md:max-h-[55px] md:w-[150px] lg:-ml-4 lg:-mr-2 lg:max-h-[60px] lg:w-[160px]"
+                />
+                <img
+                  src="/images/articles/blogs/image.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16"
                 />
               </div>
-
-              <div className="flex flex-1 flex-col p-6">
-                <p className="text-xs font-semibold uppercase tracking-wider text-[#6D6FFC]">
-                  {card.subtitle}
-                </p>
-                <h3 className="mt-1 font-title text-xl font-bold text-[#101726]">
-                  {card.title}
-                </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-500">
-                  {card.description}
-                </p>
-                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#6D6FFC] transition-colors group-hover:text-[#5558e6]">
-                  Learn more
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </span>
+            </div>
+            <div className="flex min-w-0 flex-initial items-center justify-center">
+              <div className="relative flex items-center">
+                <img
+                  src="/images/clean/image.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16"
+                />
+                <img
+                  src="/images/healsend-2k-members-trust.png"
+                  alt="HealSend — 2K+ members"
+                  loading="lazy"
+                  className="z-10 -mx-5 h-auto max-h-[50px] w-[150px] shrink-0 object-contain sm:-mx-6 sm:max-h-[60px] sm:w-[170px] md:-mx-7 md:max-h-[65px] md:w-[180px] lg:-mx-8 lg:max-h-[70px] lg:w-[200px]"
+                />
+                <img
+                  src="/images/articles/blogs/image.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16"
+                />
               </div>
-            </Link>
+            </div>
+          </div>
+        </div>
+
+        <div className={`flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide sm:gap-8 lg:grid lg:overflow-visible lg:pb-0 lg:gap-6 xl:gap-8 ${cards.length === 3 ? "lg:grid-cols-3" : cards.length === 2 ? "lg:grid-cols-2 max-w-4xl mx-auto" : "lg:grid-cols-1 max-w-lg mx-auto"}`}>
+          {cards.map((plan) => (
+            <div key={plan.id} className="min-w-[85%] snap-center sm:min-w-[70%] lg:min-w-0">
+              <TreatmentPlanCard plan={plan} />
+            </div>
           ))}
         </div>
       </div>
@@ -4561,8 +4636,6 @@ export default function MarketingProductPage({ product, isHomepage = false }) {
       <ProductHero productData={productData} isHomepage={isHomepage} />
       <MediaLogosBanner />
 
-      <MedicalWeightLossSection productData={productData} />
-
       <RestoredTirzepatideBenefitsCarouselSection
         productData={productData}
         isHomepage={isHomepage}
@@ -4585,7 +4658,7 @@ export default function MarketingProductPage({ product, isHomepage = false }) {
       <FadeInSection><LabTested productData={productData} /></FadeInSection>
       <FadeInSection><ComprehensiveCare productData={productData} /></FadeInSection>
       <FadeInSection><CleanSimpleEffective productData={productData} /></FadeInSection>
-      {/* <FadeInSection><SameMedicationSection /></FadeInSection> */}
+      <FadeInSection><SameMedicationSection /></FadeInSection>
       <FadeInSection><FAQSection /></FadeInSection>
       <FadeInSection><SupportAvailabilitySection /></FadeInSection>
       {/* <ProductPageTestSections /> */}

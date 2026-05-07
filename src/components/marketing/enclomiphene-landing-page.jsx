@@ -8,12 +8,15 @@ import {
   ArrowRight,
   ArrowUp,
   Check,
+  ChevronLeft,
+  ChevronRight,
   Clock3,
   Minus,
   Pill,
   Plus,
   ShieldCheck,
   Star,
+  Stethoscope,
   TrendingUp,
   Zap,
   Heart,
@@ -28,7 +31,17 @@ import {
   MinimalMarketingNavbar,
   MarketingFooter,
 } from "@/components/marketing/shared";
-import { mergeProductContent } from "@/components/marketing/product-page";
+import {
+  mergeProductContent,
+  LabTested,
+  SimpleSteps,
+  OurTreatmentsSection,
+  TREATMENT_PLAN_CARDS,
+  WillpowerVerticalColumn,
+  WillpowerHorizontalRow,
+  WILLPOWER_LEFT_MARQUEE_ITEMS,
+  WILLPOWER_RIGHT_MARQUEE_ITEMS,
+} from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/growth-hormone-support";
 
@@ -60,7 +73,10 @@ const MEMBER_FACES = [
   "/images/4_Home_Doctors_Online_Consultation-Doctors_02.jpg",
   "/images/4_Home_Doctors_Online_Consultation-Doctors_04.jpg",
   "/images/4_Home_Doctors_Online_Consultation-Avatar.jpg",
-  "/images/4_Home_Doctors_Online_Consultation-Testimonials_01.jpg",
+  "/images/4_Home_Doctors_Online_Consultation-Testimonials_02.jpg",
+  "/images/slider/Copy of pexels-farhadirani-34650790.jpg",
+  "/images/slider/Copy of look-studio-S0T98VD2KZs-unsplash.jpg",
+  "/images/slider/Copy of pexels-tima-miroshnichenko-5928317.jpg",
 ];
 
 /* ------------------------------------------------------------------ */
@@ -257,85 +273,334 @@ function EncoHeroFaqs() {
   );
 }
 
-function EnclomipheneHeroSection() {
+function EncloWillpowerSection() {
   return (
-    <section className="relative bg-[#F1F5F9] px-4 py-12 md:px-[3.25rem] md:py-16 lg:py-20">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col gap-8 lg:flex-row lg:items-stretch lg:gap-6 xl:gap-8">
-        {/* ---- Left: copy (sticky) ---- */}
-        <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[55%] lg:max-w-[740px]">
-          <div className="flex flex-col gap-6 lg:sticky lg:top-24">
-            <h1 className="text-balance font-title text-4xl font-medium leading-tight tracking-tight text-gray-950 md:text-[52px] md:leading-[1.1]">
-              Boost testosterone.{" "}
-              <span className="font-playfair italic text-[#6D6FFC]">
-                Keep your fertility.
-              </span>
-            </h1>
+    <section className="relative overflow-hidden bg-[#F1F5F9]">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-80px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+        <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
+          <div className="w-full max-w-[34rem]">
+            <div className="mt-5 max-w-[34rem]">
+              <h2 className="text-balance font-title text-4xl font-medium leading-tight tracking-tight text-gray-950 md:text-5xl">
+                Boost testosterone.{" "}
+                <span className="font-playfair italic font-medium text-[#6d6ffc]">
+                  Keep your fertility.
+                </span>
+              </h2>
+              <p className="mt-4 max-w-[30rem] text-[1rem] leading-6 text-gray-800 lg:text-[1.05rem]">
+                The smart alternative to TRT. One pill a day stimulates your
+                body&apos;s natural testosterone production &mdash; without
+                shutting down your testicles or your fertility.
+              </p>
+            </div>
 
-            <p className="max-w-[34rem] text-base leading-relaxed text-gray-600 lg:text-[1.05rem]">
-              The smart alternative to TRT. One pill a day stimulates your body&apos;s
-              natural testosterone production &mdash; without shutting down your
-              testicles or your fertility.
-            </p>
-
-            <ul className="space-y-3 text-sm text-gray-700 md:text-base">
-              {[
-                "Up to 2× total testosterone in 8 weeks — clinically validated",
-                "Preserves fertility & testicular function — unlike traditional TRT",
-                "One oral pill, once a day — no needles, no creams, no clinic visits",
-                "Lab work + clinician care included — every plan, every refill",
-              ].map((t) => (
-                <li key={t} className="flex items-start gap-3">
-                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]">
-                    <Check className="h-3 w-3 text-white" strokeWidth={3} />
+            <ul className="mt-5 max-w-[34rem] space-y-4 text-[#4d5160]">
+              <li className="grid grid-cols-[auto_1fr] items-start gap-1 text-sm md:text-lg">
+                <div className="flex items-center gap-4 text-base md:text-sm">
+                  <Pill className="h-6 w-6 shrink-0" strokeWidth={2} />
+                  <span>
+                    Enclomiphene citrate &mdash; boost testosterone naturally,
+                    no needles required
                   </span>
-                  {t}
-                </li>
-              ))}
+                </div>
+              </li>
+              <li className="grid grid-cols-[auto_1fr] items-start gap-1 text-sm md:text-lg">
+                <div className="flex items-center gap-4 text-base md:text-sm">
+                  <Stethoscope className="h-6 w-6 shrink-0" strokeWidth={2} />
+                  <span>Month-to-month · Cancel anytime · HSA/FSA accepted</span>
+                </div>
+              </li>
             </ul>
+
+            <div className="mt-5 w-full">
+              <div className="inline-flex w-full max-w-full flex-col items-center gap-2.5 sm:w-auto">
+                <Link
+                  href={CTA_HREF}
+                  className="hs-solid-btn inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold sm:w-auto"
+                >
+                  Get my personalized plan
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <p className="w-full text-center text-sm font-semibold text-gray-700">
+                  Takes 90 seconds · 100% private · free
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* ---- Right: scrollable product card + tabs + faqs ---- */}
-        <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[45%] xl:w-[450px]">
-            <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-gray-200/50">
-              <div className="flex items-center justify-between bg-white px-6 pt-5 pb-3">
-                <div>
-                  <h2 className="font-title text-2xl font-medium text-gray-900">Enclomiphene Citrate</h2>
-                  <p className="mt-1 text-sm text-gray-400">Once-daily oral capsule &middot; 12.5&ndash;25mg</p>
+        {/* Mobile: two animated horizontal marquee rows */}
+        <div className="flex flex-col gap-3 overflow-hidden lg:hidden">
+          <WillpowerHorizontalRow items={WILLPOWER_LEFT_MARQUEE_ITEMS} />
+          <WillpowerHorizontalRow items={WILLPOWER_RIGHT_MARQUEE_ITEMS} reverse />
+        </div>
+
+        {/* Desktop: vertical marquee columns */}
+        <div className="relative hidden min-h-0 w-full shrink-0 overflow-hidden lg:block lg:h-full lg:w-[45%] lg:self-stretch xl:w-[450px]">
+          <div className="grid h-full grid-cols-2 gap-3 lg:gap-4">
+            <WillpowerVerticalColumn items={WILLPOWER_LEFT_MARQUEE_ITEMS} />
+            <WillpowerVerticalColumn items={WILLPOWER_RIGHT_MARQUEE_ITEMS} reverse />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function EncloProductHeroSection() {
+  const [activeTab, setActiveTab] = useState("benefits");
+  const [openFaq, setOpenFaq] = useState(null);
+  const [showPriceFootnote, setShowPriceFootnote] = useState(false);
+
+  return (
+    <section className="bg-[#f9f9f9] px-4 py-16 md:px-[3.25rem] md:py-20 lg:px-[3.25rem]">
+      <div className="mx-auto flex max-w-[1340px] flex-col gap-5 lg:flex-row lg:items-stretch lg:gap-6 xl:gap-8">
+        <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[55%] lg:max-w-[740px]">
+          <div className="flex flex-col gap-6 sm:gap-7 md:gap-10 lg:isolate lg:sticky lg:top-24 lg:z-10">
+            <div className="relative z-[1] shrink-0 bg-[#f9f9f9] pb-1">
+              <h1 className="text-balance text-start text-3xl font-bold leading-snug tracking-tight text-gray-900 md:text-5xl md:leading-tight">
+                Enclomiphene Citrate
+              </h1>
+            </div>
+            <div className="relative z-0 flex aspect-[4/5] w-full shrink-0 items-start justify-start overflow-hidden rounded-[1rem] bg-[#f9f9f9] ring-1 ring-black/[0.04]">
+              <div className="flex h-full min-h-0 w-full flex-1 items-stretch justify-stretch">
+                <div className="relative h-full min-h-0 w-full">
+                  <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-semibold text-emerald-700 shadow-[0_2px_12px_rgba(0,0,0,0.08)] ring-1 ring-black/[0.04] md:left-5 md:top-5 md:px-6 md:py-2.5 md:text-base">
+                    <div className="relative h-2.5 w-2.5 md:h-3 md:w-3">
+                      <span className="absolute inset-0 rounded-full bg-emerald-400/40 blur-[3px]" />
+                      <span className="absolute inset-0 rounded-full bg-emerald-500" />
+                    </div>
+                    In Stock
+                  </div>
+                  <Image
+                    src="/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Extra/image 1.webp"
+                    alt="Enclomiphene Citrate — in stock"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 55vw"
+                    className="rounded-2xl object-cover object-center"
+                    priority
+                  />
                 </div>
-                <span className="flex items-center gap-1.5 rounded-full bg-[#F1F5F9] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-green-500" /> In Stock
-                </span>
               </div>
-              <div className="relative aspect-[4/3]">
-                <Image
-                  src="/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Extra/image 1.webp"
-                  alt="Man feeling confident with enclomiphene therapy"
-                  fill
-                  sizes="450px"
-                  className="object-cover"
-                  priority
+            </div>
+          </div>
+        </div>
+
+        <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[45%] xl:w-[450px]">
+          <div className="mb-6 overflow-hidden rounded-[1rem] border border-gray-200 bg-white">
+            <div className="flex items-center justify-center gap-2 bg-[#fde073] px-5 py-3.5 text-sm font-medium text-gray-900 md:text-base">
+              <ShieldCheck className="h-4 w-4 md:h-5 md:w-5" />
+              FSA &amp; HSA Eligible
+            </div>
+            <div className="px-6 py-6 md:px-7 md:py-7">
+              <div className="mb-7 flex items-center justify-between gap-4">
+                <div className="min-w-0 shrink">
+                  <div className="flex flex-wrap items-baseline gap-2">
+                    <span className="text-3xl font-bold text-gray-900 md:text-4xl">
+                      $39
+                    </span>
+                    <span className="text-lg font-medium text-gray-800 md:text-xl">
+                      first month
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowPriceFootnote((v) => !v)}
+                    aria-expanded={showPriceFootnote}
+                    className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 underline decoration-dotted underline-offset-4 hover:text-gray-700 md:text-base"
+                  >
+                    then $79/mo*
+                  </button>
+                </div>
+                <div className="flex shrink-0 flex-col items-end gap-2">
+                  <span className="flex items-center rounded-[0.6rem] bg-[#FFB3C7] px-3 py-1.5">
+                    <img src="/images/marketing/logos/klarna.png" alt="Klarna" className="h-3 w-auto" />
+                  </span>
+                  <span className="flex items-center rounded-[0.6rem] bg-[#B2FCE4] px-3 py-1.5">
+                    <img src="/images/marketing/logos/afterpay.png" alt="Afterpay" className="h-3 w-auto" />
+                  </span>
+                </div>
+              </div>
+
+              {showPriceFootnote ? (
+                <div className="mb-5 rounded-[0.75rem] bg-gray-50 p-3 text-xs leading-5 text-gray-600 md:text-sm">
+                  *$39 first month covers the clinician visit and initial supply
+                  on the quarterly plan. Recurring billing of $79/month begins at
+                  month two and continues until you cancel. Includes
+                  medication, follow-up care, and shipping. Cancel anytime in
+                  your account.
+                </div>
+              ) : null}
+
+              <div className="flex w-full flex-col items-stretch gap-3">
+                <Link
+                  href={CTA_HREF}
+                  className="hs-solid-btn flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] transition-colors"
+                >
+                  See if you qualify
+                </Link>
+                <p className="mt-1 w-full text-center text-xs text-gray-500 md:text-sm">
+                  Discount auto-applied at checkout
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-6 rounded-[1rem] border border-gray-200 bg-white p-2 shadow-sm">
+            <div className="mb-6 flex rounded-full bg-gray-100 p-1.5">
+              {["benefits", "pricing", "description"].map((tab) => (
+                <button
+                  key={tab}
+                  type="button"
+                  onClick={() => setActiveTab(tab)}
+                  className={`flex-1 rounded-full py-2.5 text-sm font-medium capitalize transition-colors ${
+                    activeTab === tab
+                      ? "bg-white text-gray-900 shadow-sm"
+                      : "text-gray-500 hover:text-gray-700"
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+            <div className="overflow-hidden px-5 pb-5 pt-2 md:px-6 md:pb-6">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeTab}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="space-y-5"
+                >
+                  {activeTab === "benefits"
+                    ? ENCLO_HERO_BENEFITS.map((item, idx) => {
+                        const Icon = item.icon;
+                        return (
+                          <div key={idx} className="flex gap-3">
+                            <Icon className="mt-0.5 h-5 w-5 shrink-0 text-gray-600" />
+                            <p className="text-[0.938rem] leading-relaxed text-gray-700 md:text-base">
+                              {item.text}
+                            </p>
+                          </div>
+                        );
+                      })
+                    : null}
+
+                  {activeTab === "pricing" ? (
+                    <div className="space-y-6">
+                      <h3 className="text-lg font-bold leading-tight text-gray-900 md:text-xl">
+                        Enclomiphene Citrate
+                      </h3>
+                      <div className="rounded-[1rem] border border-gray-200">
+                        {ENCLO_HERO_PRICING.map((plan, index) => (
+                          <div
+                            key={plan.name}
+                            className={`relative flex items-center justify-between p-4 ${
+                              index !== ENCLO_HERO_PRICING.length - 1 ? "border-b border-gray-200" : ""
+                            } ${plan.isMuted ? "bg-gray-50/50" : ""}`}
+                          >
+                            {plan.isBestValue ? (
+                              <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#00a86b] px-3 text-sm font-semibold leading-none text-white">
+                                Best Value
+                              </span>
+                            ) : null}
+                            <span className={`text-sm font-medium md:text-base ${plan.isMuted ? "text-gray-500" : "text-gray-700"}`}>
+                              {plan.name}
+                            </span>
+                            <div className="text-right">
+                              <div className={`text-xl font-bold leading-none ${plan.isMuted ? "text-gray-500" : "text-[#00a86b]"}`}>
+                                ${plan.firstMonth}{" "}
+                                <span className="text-sm font-semibold">first month</span>
+                                <div className="mt-1 text-sm font-normal text-gray-500">
+                                  then ${plan.thenPrice}/mo
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {activeTab === "description" ? (
+                    <p className="text-sm leading-relaxed text-gray-600 md:text-base">
+                      {ENCLO_HERO_DESCRIPTION}
+                    </p>
+                  ) : null}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+            <div className="mt-2 flex justify-between border-t border-gray-100 px-5 pb-2 pt-4 text-xs text-gray-500 md:px-6">
+              <span className="flex items-center gap-1.5">
+                <img
+                  draggable={false}
+                  role="img"
+                  alt="us"
+                  src="/images/marketing/logos/flag-usa.svg"
+                  className="h-4 w-4 align-[-0.1em]"
                 />
+                Compounded in the U.S.A
+              </span>
+              <div className="flex items-center gap-1.5">
+                <ShieldCheck className="h-3.5 w-3.5" /> FSA & HSA Eligible
               </div>
             </div>
+          </div>
 
-            <EncoHeroFaqs />
+          <div className="mb-6 space-y-3">
+            {ENCLO_HERO_FAQS.map((faq, idx) => (
+              <div
+                key={faq.question}
+                className="overflow-hidden rounded-[1rem] bg-white shadow-sm"
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="flex w-full items-center justify-between px-5 py-5 text-left md:px-6 md:py-6"
+                >
+                  <span className="pr-4 text-base font-bold text-gray-900 md:text-lg">
+                    {faq.question}
+                  </span>
+                  <div className="flex shrink-0 items-center justify-center rounded-[1rem] bg-[#333333] p-1.5">
+                    {openFaq === idx ? (
+                      <Minus className="h-4 w-4 text-white md:h-5 md:w-5" strokeWidth={2.5} />
+                    ) : (
+                      <Plus className="h-4 w-4 text-white md:h-5 md:w-5" strokeWidth={2.5} />
+                    )}
+                  </div>
+                </button>
+                <AnimatePresence>
+                  {openFaq === idx ? (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-5 pb-5 text-sm leading-relaxed text-gray-600 md:px-6 md:pb-6 md:text-base">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
 
-            <EncoHeroTabs />
+          <div className="rounded-[1rem] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
+            The statements on this page have not been evaluated by the Food
+            and Drug Administration. This product is not intended to diagnose,
+            treat, cure or prevent any disease.
+          </div>
 
-            <div className="mt-4 rounded-[1rem] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
-              The statements on this page have not been evaluated by the Food
-              and Drug Administration. This product is not intended to diagnose,
-              treat, cure or prevent any disease.
-            </div>
-
-            <div className="mt-3 space-y-2.5 text-[11px] leading-relaxed text-gray-600">
-              <p>
-                *Price shown applies to Enclomiphene quarterly plan. Actual
-                price will depend on plan prescribed. Final treatment fit
-                depends on clinician review.
-              </p>
-            </div>
+          <div className="mt-3 space-y-2.5 text-[11px] leading-relaxed text-gray-600">
+            <p>
+              *Price shown applies to Enclomiphene quarterly plan. Actual
+              price will depend on plan prescribed. Final treatment fit
+              depends on clinician review.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -371,12 +636,43 @@ function EncoPressStrip() {
 /*  3. Stat bar ("Low T is everywhere")                                */
 /* ------------------------------------------------------------------ */
 
-const LOW_T_STATS = [
-  { value: "1 in 4", label: "men over 30 have clinically low testosterone" },
-  { value: "80%", label: "have never had their levels tested" },
-  { value: "40%", label: "of men over 45 are below the optimal range" },
-  { value: "500K", label: "U.S. men diagnosed every single year" },
-];
+function useCountAnimation(from, to, duration = 1.8, trigger = false) {
+  const [value, setValue] = useState(from);
+  React.useEffect(() => {
+    if (!trigger) {
+      setValue(from);
+      return;
+    }
+    const start = performance.now();
+    let raf;
+    const step = (now) => {
+      const t = Math.min((now - start) / (duration * 1000), 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setValue(Math.round(from + (to - from) * eased));
+      if (t < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [trigger, from, to, duration]);
+  return value;
+}
+
+function AnimatedStat({ from, to, duration, format, label }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: false, margin: "-60px" });
+  const count = useCountAnimation(from, to, duration, inView);
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
+      <p className="mb-3 font-title text-5xl leading-none md:text-6xl">{format(count)}</p>
+      <p className="text-sm text-white/70">{label}</p>
+    </motion.div>
+  );
+}
 
 function EncoStatBarSection() {
   return (
@@ -389,12 +685,10 @@ function EncoStatBarSection() {
         </h2>
         <p className="mb-12 text-center text-sm text-white/60">And most men don&apos;t even know they have it.</p>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 text-center">
-          {LOW_T_STATS.map((s) => (
-            <div key={s.value}>
-              <p className="mb-3 font-title text-5xl leading-none md:text-6xl">{s.value}</p>
-              <p className="text-sm text-white/70">{s.label}</p>
-            </div>
-          ))}
+          <AnimatedStat from={1} to={4} duration={1.5} format={(v) => `1 in ${v}`} label="men over 30 have clinically low testosterone" />
+          <AnimatedStat from={0} to={80} duration={1.8} format={(v) => `${v}%`} label="have never had their levels tested" />
+          <AnimatedStat from={100} to={40} duration={1.8} format={(v) => `${v}%`} label="of men over 45 are below the optimal range" />
+          <AnimatedStat from={0} to={500000} duration={2} format={(v) => v.toLocaleString()} label="U.S. men diagnosed every single year" />
         </div>
       </div>
     </section>
@@ -406,11 +700,75 @@ function EncoStatBarSection() {
 /* ------------------------------------------------------------------ */
 
 const HPG_STEPS = [
-  { num: 1, title: "Hypothalamus", desc: "Enclomiphene blocks estrogen receptors in your brain — removing the brake on your hormone signal.", tag: "Where it acts" },
-  { num: 2, title: "Pituitary", desc: "Your brain releases more LH and FSH — the messenger hormones that talk to your testicles.", tag: "Signal cascade" },
-  { num: 3, title: "Testicles", desc: "Your testicles ramp up natural testosterone production — and keep producing sperm normally.", tag: "Production restored" },
-  { num: 4, title: "Bloodstream", desc: "Total and free T rise to optimal levels — without the shutdown TRT causes.", tag: "2× T levels" },
+  { icon: "/images/img/image.png", title: "Hypothalamus", desc: "Enclomiphene blocks estrogen receptors in your brain — removing the brake on your hormone signal.", tag: "Where it acts" },
+  { icon: "/images/img/pituitary-icon-element-design-260nw-2700802657.webp", title: "Pituitary", desc: "Your brain releases more LH and FSH — the messenger hormones that talk to your testicles.", tag: "Signal cascade" },
+  { icon: "/images/img/Testicles.png", title: "Testicles", desc: "Your testicles ramp up natural testosterone production — and keep producing sperm normally.", tag: "Production restored" },
+  { icon: "/images/img/bloodstram.jpg", title: "Bloodstream", desc: "Total and free T rise to optimal levels — without the shutdown TRT causes.", tag: "2× T levels" },
 ];
+
+function HpgCarousel() {
+  const scrollRef = useRef(null);
+  const scroll = (dir) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const card = el.querySelector("[data-card]");
+    const w = card ? card.offsetWidth + 16 : 280;
+    el.scrollBy({ left: dir * w, behavior: "smooth" });
+  };
+  return (
+    <>
+      {/* Mobile: horizontal scroll + nav buttons */}
+      <div className="relative sm:hidden">
+        <div ref={scrollRef} className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+          {HPG_STEPS.map((step) => (
+            <div key={step.title} data-card className="min-w-[75vw] snap-center">
+              <div className="group h-full rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+                <div className="mb-3 flex items-center gap-3">
+                  <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full">
+                    <Image src={step.icon} alt={step.title} fill sizes="36px" className="object-contain" />
+                  </div>
+                  <h3 className="font-title text-lg font-medium text-gray-900">{step.title}</h3>
+                </div>
+                <p className="mb-3 text-sm leading-relaxed text-gray-600">{step.desc}</p>
+                <span className="inline-block rounded-md bg-gray-50 px-2 py-1 text-[10px] font-semibold text-[#6D6FFC]">
+                  {step.tag}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-3 flex items-center justify-center gap-3">
+          <button onClick={() => scroll(-1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:bg-gray-50">
+            <ChevronLeft className="h-4 w-4 text-gray-600" />
+          </button>
+          <button onClick={() => scroll(1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:bg-gray-50">
+            <ChevronRight className="h-4 w-4 text-gray-600" />
+          </button>
+        </div>
+      </div>
+
+      {/* Desktop: grid */}
+      <div className="hidden gap-5 sm:grid sm:grid-cols-2 lg:grid-cols-4">
+        {HPG_STEPS.map((step) => (
+          <FadeIn key={step.title}>
+            <div className="group h-full rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition hover:border-[#6D6FFC]/30 hover:bg-[#F1F5F9]">
+              <div className="mb-3 flex items-center gap-3">
+                <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full">
+                  <Image src={step.icon} alt={step.title} fill sizes="36px" className="object-contain" />
+                </div>
+                <h3 className="font-title text-lg font-medium text-gray-900">{step.title}</h3>
+              </div>
+              <p className="mb-3 text-sm leading-relaxed text-gray-600">{step.desc}</p>
+              <span className="inline-block rounded-md bg-gray-50 px-2 py-1 text-[10px] font-semibold text-[#6D6FFC] group-hover:bg-white">
+                {step.tag}
+              </span>
+            </div>
+          </FadeIn>
+        ))}
+      </div>
+    </>
+  );
+}
 
 function EncoHowItWorksSection() {
   return (
@@ -430,24 +788,7 @@ function EncoHowItWorksSection() {
           </p>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {HPG_STEPS.map((step) => (
-            <FadeIn key={step.num}>
-              <div className="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition hover:border-[#6D6FFC]/30 hover:bg-[#F1F5F9]">
-                <div className="mb-3 flex items-center gap-3">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#6D6FFC] font-title text-sm text-white">
-                    {step.num}
-                  </span>
-                  <h3 className="font-title text-lg font-medium text-gray-900">{step.title}</h3>
-                </div>
-                <p className="mb-3 text-sm leading-relaxed text-gray-600">{step.desc}</p>
-                <span className="inline-block rounded-md bg-gray-50 px-2 py-1 text-[10px] font-semibold text-[#6D6FFC] group-hover:bg-white">
-                  {step.tag}
-                </span>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
+        <HpgCarousel />
 
         <div className="mt-8 flex items-start gap-3 rounded-2xl bg-[#F1F5F9] p-5 text-sm text-gray-700">
           <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#6D6FFC]" />
@@ -467,50 +808,78 @@ function EncoHowItWorksSection() {
 /* ------------------------------------------------------------------ */
 
 const COMPARISON_ROWS = [
-  { label: "Testosterone increase", sub: "How much your total T rises", enclo: "2× healthy, sustained range", trt: "5× often supraphysiological", encloWin: true },
-  { label: "Maintains fertility", sub: "Sperm production & testicular size", enclo: "Yes — fully preserved", trt: "Suppressed", encloWin: true },
-  { label: "Reversibility", sub: "Can you stop and return to baseline?", enclo: "Fully reversible", trt: "May need PCT", encloWin: true },
-  { label: "Dependency risk", sub: "Will your body stop making its own T?", enclo: "No dependency", trt: "Shuts down HPG axis", encloWin: true },
-  { label: "Convenience", sub: "How you take it", enclo: "One pill / day", trt: "Weekly injection or daily cream", encloWin: true },
-  { label: "Side effect profile", sub: "Frequency & severity", enclo: "Low — mild, infrequent", trt: "Medium — acne, hematocrit, mood", encloWin: true },
-  { label: "Best for", sub: "Who should choose this", enclo: "Men who want kids, fear dependency, or want a gentler first option", trt: "Men with severe primary hypogonadism", encloWin: false },
+  { label: "Increases testosterone", enclo: "2x", trt: "5x", encloIcon: null, trtIcon: null },
+  { label: "Maintains fertility", enclo: null, trt: null, encloIcon: "check", trtIcon: "x" },
+  { label: "No dependency", enclo: null, trt: null, encloIcon: "check", trtIcon: "x" },
+  { label: "Ease", enclo: null, trt: null, encloIcon: "check", trtIcon: "x" },
+  { label: "Risk of side effects", enclo: "Low", trt: "Medium", encloIcon: null, trtIcon: null },
+  { label: "Function", enclo: "Boosts natural production", trt: "Adds exogenous hormones", encloIcon: null, trtIcon: null },
+  { label: "Liver safety", enclo: null, trt: null, encloIcon: "check", trtIcon: "check" },
 ];
+
+function ComparisonIcon({ type }) {
+  if (type === "check") return (
+    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#101726]">
+      <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />
+    </span>
+  );
+  if (type === "x") return (
+    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200">
+      <XIcon className="h-3.5 w-3.5 text-gray-400" strokeWidth={3} />
+    </span>
+  );
+  return null;
+}
 
 function EncoComparisonSection() {
   return (
     <section className="bg-[#F1F5F9] py-16 md:py-20">
-      <div className="mx-auto max-w-[1000px] px-4 md:px-8">
-        <div className="mx-auto mb-14 max-w-[740px] text-center">
-          <h2 className="mb-4 font-title text-4xl font-medium text-gray-900 md:text-5xl">
-            Enclomiphene <span className="font-playfair italic text-[#6D6FFC]">vs.</span> Traditional TRT
-          </h2>
-          <p className="text-base text-gray-600">
-            Both raise testosterone. Only one preserves fertility, avoids dependency, and lets you stop without consequence.
-          </p>
-        </div>
+      <div className="mx-auto max-w-[900px] px-4 md:px-8">
+        <h2 className="mb-10 text-center font-title text-3xl font-bold text-[#101726] md:text-4xl">
+          Enclomiphene <span className="font-playfair italic">vs.</span> TRT
+        </h2>
 
-        <div className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm">
-          <div className="grid grid-cols-[1.4fr_1fr_1fr] border-b border-gray-100 bg-gray-50 text-[11px] font-semibold uppercase tracking-widest">
-            <div className="px-5 py-4" />
-            <div className="bg-[#6D6FFC] px-5 py-4 text-center text-white">Enclomiphene</div>
-            <div className="px-5 py-4 text-center text-gray-500">Traditional TRT</div>
-          </div>
-          {COMPARISON_ROWS.map((row) => (
-            <div key={row.label} className="grid grid-cols-[1.4fr_1fr_1fr] border-b border-gray-50 last:border-0">
-              <div className="px-5 py-4">
-                <p className="text-sm font-medium text-gray-900">{row.label}</p>
-                <p className="text-xs text-gray-400">{row.sub}</p>
+        <div className="relative">
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-[#F1F5F9] to-transparent md:hidden" />
+          <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white shadow-sm">
+            <div className="min-w-[560px]">
+              {/* Header */}
+              <div className="grid grid-cols-[1.2fr_1fr_1fr] items-end border-b border-gray-100 px-1 pb-0 pt-4">
+                <div />
+                <div className="mx-auto mb-0 w-full max-w-[180px] rounded-t-lg bg-[#6D6FFC] px-5 py-3 text-center">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/70">HealSend</p>
+                  <p className="text-sm font-semibold text-white">Enclomiphene</p>
+                </div>
+                <div className="pb-4 text-center">
+                  <p className="text-sm font-medium text-gray-400">Traditional TRT</p>
+                </div>
               </div>
-              <div className="flex flex-col items-center justify-center bg-[#6D6FFC]/[0.03] px-3 py-4 text-center">
-                {row.encloWin ? <Check className="mb-1 h-4 w-4 text-[#6D6FFC]" /> : null}
-                <p className="text-xs font-medium text-gray-700">{row.enclo}</p>
-              </div>
-              <div className="flex flex-col items-center justify-center px-3 py-4 text-center">
-                {!row.encloWin ? null : <XIcon className="mb-1 h-4 w-4 text-gray-300" />}
-                <p className="text-xs text-gray-400">{row.trt}</p>
-              </div>
+
+              {/* Rows */}
+              {COMPARISON_ROWS.map((row, i) => (
+                <div key={row.label} className={`grid grid-cols-[1.2fr_1fr_1fr] items-center ${i % 2 === 0 ? "bg-gray-50/50" : "bg-white"}`}>
+                  <div className="px-6 py-5">
+                    <p className="text-sm font-semibold text-[#101726]">{row.label}</p>
+                  </div>
+                  <div className="flex justify-center py-5">
+                    {row.encloIcon ? (
+                      <ComparisonIcon type={row.encloIcon} />
+                    ) : (
+                      <span className="text-sm text-gray-600">{row.enclo}</span>
+                    )}
+                  </div>
+                  <div className="flex justify-center py-5">
+                    {row.trtIcon ? (
+                      <ComparisonIcon type={row.trtIcon} />
+                    ) : (
+                      <span className="text-sm text-gray-400">{row.trt}</span>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+          <p className="mt-2 text-center text-xs text-gray-400 md:hidden">Swipe to compare &rarr;</p>
         </div>
 
         <div className="mt-10 text-center">
@@ -624,6 +993,12 @@ const TIMELINE_POINTS = [
   { week: "Week 12", value: 920, cx: 700, cy: 56 },
 ];
 
+const ENCLO_RESULTS = [
+  { name: "Marcus T., 34", note: "Trying for kids", before: 312, after: 1022, months: 3 },
+  { name: "David R., 41", note: "Switched from TRT", before: 334, after: 913, months: 3 },
+  { name: "Andrew K., 38", note: "Wanted gentler option", before: 295, after: 812, months: 4 },
+];
+
 function EncoTimelineSection() {
   return (
     <section className="bg-[#F1F5F9] py-16 md:py-20">
@@ -638,112 +1013,144 @@ function EncoTimelineSection() {
           </p>
         </div>
 
-        <div className="grid items-stretch gap-6 lg:grid-cols-[0.85fr_1.15fr]">
-          {/* Patient story card */}
-          <div className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm">
-            <div className="relative aspect-[4/3]">
-              <Image
-                src="/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Ready to feel like you again_/Testosterone-Therapy-for-men-1-optimized.jpg"
-                alt="Marcus T. — HealSend member"
-                fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-cover object-[center_22%]"
-              />
-              <span className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-[#6D6FFC] backdrop-blur-md">
-                <span className="h-1.5 w-1.5 rounded-full bg-green-500" /> Verified member
-              </span>
-            </div>
-            <div className="p-6">
-              <h4 className="font-title text-xl text-gray-900">Marcus T., 42</h4>
-              <p className="mb-4 text-sm text-gray-500">Father of two &middot; Started enclomiphene 12 weeks ago</p>
-              <div className="mb-5 rounded-xl border-l-[3px] border-[#6D6FFC] bg-[#F1F5F9] p-4 text-sm italic text-gray-700">
-                &ldquo;By week 6 I felt like myself again. Energy back, gym numbers back, and we&apos;re still trying for our third.&rdquo;
-              </div>
-              <div className="grid grid-cols-2 gap-3 border-t border-gray-100 pt-4">
-                <div>
-                  <p className="font-title text-2xl text-[#6D6FFC]">280&rarr;920</p>
-                  <p className="text-[11px] text-gray-400">Total T (ng/dL)</p>
-                </div>
-                <div>
-                  <p className="font-title text-2xl text-[#6D6FFC]">3.3&times;</p>
-                  <p className="text-[11px] text-gray-400">Increase in 12 weeks</p>
-                </div>
-              </div>
-            </div>
+        {/* Chart card — full width */}
+        <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
+          <div className="mb-6 w-full">
+            <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Testosterone levels rising from 280 to 920 ng/dL over 12 weeks" className="w-full">
+              <rect x="64" y="30" width="636" height="62" fill="#6D6FFC" opacity="0.08" rx="4" />
+              <text x="74" y="48" fontFamily="sans-serif" fontSize="11" fill="#6D6FFC" fontWeight="600" letterSpacing="0.04em">OPTIMAL ZONE &middot; 800&ndash;1000 ng/dL</text>
+
+              <line x1="64" y1="30" x2="700" y2="30" stroke="#E2E8F0" strokeWidth="1" />
+              <text x="56" y="34" fontFamily="sans-serif" fontSize="11" fill="#94A3B8" textAnchor="end">1000</text>
+
+              <line x1="64" y1="92" x2="700" y2="92" stroke="#E2E8F0" strokeWidth="1" />
+              <text x="56" y="96" fontFamily="sans-serif" fontSize="11" fill="#94A3B8" textAnchor="end">800</text>
+
+              <line x1="64" y1="155" x2="700" y2="155" stroke="#E2E8F0" strokeWidth="1" />
+              <text x="56" y="159" fontFamily="sans-serif" fontSize="11" fill="#94A3B8" textAnchor="end">600</text>
+
+              <line x1="64" y1="218" x2="700" y2="218" stroke="#E2E8F0" strokeWidth="1" />
+              <text x="56" y="222" fontFamily="sans-serif" fontSize="11" fill="#94A3B8" textAnchor="end">400</text>
+
+              <line x1="64" y1="280" x2="700" y2="280" stroke="#CBD5E1" strokeWidth="1" />
+              <text x="56" y="284" fontFamily="sans-serif" fontSize="11" fill="#94A3B8" textAnchor="end">200</text>
+
+              <text x="20" y="160" fontFamily="sans-serif" fontSize="11" fill="#94A3B8" fontWeight="500" transform="rotate(-90 20 160)" textAnchor="middle">Total T (ng/dL)</text>
+
+              <path d="M 64 254 C 150 250, 200 232, 254 200 C 318 168, 380 122, 446 92 C 510 70, 580 60, 700 56 L 700 280 L 64 280 Z" fill="#6D6FFC" opacity="0.06" />
+
+              <line x1="64" y1="255" x2="700" y2="255" stroke="#94A3B8" strokeWidth="2" strokeDasharray="5 5" />
+
+              <path d="M 64 254 C 150 250, 200 232, 254 200 C 318 168, 380 122, 446 92 C 510 70, 580 60, 700 56" stroke="#6D6FFC" strokeWidth="3" fill="none" strokeLinecap="round" />
+
+              {TIMELINE_POINTS.map((pt, i) => (
+                <g key={pt.week}>
+                  <circle cx={pt.cx} cy={pt.cy} r={i === TIMELINE_POINTS.length - 1 ? 9 : 6} fill="#6D6FFC" stroke="white" strokeWidth={i === TIMELINE_POINTS.length - 1 ? 2.5 : 2} />
+                  <text x={pt.cx} y={304} fontFamily="sans-serif" fontSize="12" fill="#94A3B8" textAnchor="middle">{pt.week}</text>
+                  <text x={pt.cx} y={320} fontFamily="sans-serif" fontSize="12" fill="#6D6FFC" textAnchor="middle" fontWeight="700">{pt.value}</text>
+                </g>
+              ))}
+
+              <g transform="translate(560 18)">
+                <rect width="130" height="26" rx="13" fill="#6D6FFC" />
+                <text x="65" y="17" fontFamily="sans-serif" fontSize="11" fill="white" fontWeight="700" textAnchor="middle">+640 ng/dL &middot; 3.3&times;</text>
+              </g>
+            </svg>
           </div>
 
-          {/* Chart card */}
-          <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
-            <div className="mb-6 w-full">
-              <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Testosterone levels rising from 280 to 920 ng/dL over 12 weeks" className="w-full">
-                {/* Optimal zone band */}
-                <rect x="64" y="30" width="636" height="62" fill="#6D6FFC" opacity="0.08" rx="4" />
-                <text x="74" y="48" fontFamily="sans-serif" fontSize="11" fill="#6D6FFC" fontWeight="600" letterSpacing="0.04em">OPTIMAL ZONE &middot; 800&ndash;1000 ng/dL</text>
-
-                {/* Y-axis grid */}
-                <line x1="64" y1="30" x2="700" y2="30" stroke="#E2E8F0" strokeWidth="1" />
-                <text x="56" y="34" fontFamily="sans-serif" fontSize="11" fill="#94A3B8" textAnchor="end">1000</text>
-
-                <line x1="64" y1="92" x2="700" y2="92" stroke="#E2E8F0" strokeWidth="1" />
-                <text x="56" y="96" fontFamily="sans-serif" fontSize="11" fill="#94A3B8" textAnchor="end">800</text>
-
-                <line x1="64" y1="155" x2="700" y2="155" stroke="#E2E8F0" strokeWidth="1" />
-                <text x="56" y="159" fontFamily="sans-serif" fontSize="11" fill="#94A3B8" textAnchor="end">600</text>
-
-                <line x1="64" y1="218" x2="700" y2="218" stroke="#E2E8F0" strokeWidth="1" />
-                <text x="56" y="222" fontFamily="sans-serif" fontSize="11" fill="#94A3B8" textAnchor="end">400</text>
-
-                <line x1="64" y1="280" x2="700" y2="280" stroke="#CBD5E1" strokeWidth="1" />
-                <text x="56" y="284" fontFamily="sans-serif" fontSize="11" fill="#94A3B8" textAnchor="end">200</text>
-
-                {/* Y axis title */}
-                <text x="20" y="160" fontFamily="sans-serif" fontSize="11" fill="#94A3B8" fontWeight="500" transform="rotate(-90 20 160)" textAnchor="middle">Total T (ng/dL)</text>
-
-                {/* Filled area under curve */}
-                <path d="M 64 254 C 150 250, 200 232, 254 200 C 318 168, 380 122, 446 92 C 510 70, 580 60, 700 56 L 700 280 L 64 280 Z" fill="#6D6FFC" opacity="0.06" />
-
-                {/* Baseline dashed line */}
-                <line x1="64" y1="255" x2="700" y2="255" stroke="#94A3B8" strokeWidth="2" strokeDasharray="5 5" />
-
-                {/* Main curve */}
-                <path d="M 64 254 C 150 250, 200 232, 254 200 C 318 168, 380 122, 446 92 C 510 70, 580 60, 700 56" stroke="#6D6FFC" strokeWidth="3" fill="none" strokeLinecap="round" />
-
-                {/* Data points */}
-                {TIMELINE_POINTS.map((pt, i) => (
-                  <g key={pt.week}>
-                    <circle cx={pt.cx} cy={pt.cy} r={i === TIMELINE_POINTS.length - 1 ? 9 : 6} fill={i === TIMELINE_POINTS.length - 1 ? "#6D6FFC" : "#6D6FFC"} stroke="white" strokeWidth={i === TIMELINE_POINTS.length - 1 ? 2.5 : 2} />
-                    <text x={pt.cx} y={304} fontFamily="sans-serif" fontSize="12" fill="#94A3B8" textAnchor="middle">{pt.week}</text>
-                    <text x={pt.cx} y={320} fontFamily="sans-serif" fontSize="12" fill="#6D6FFC" textAnchor="middle" fontWeight="700">{pt.value}</text>
-                  </g>
-                ))}
-
-                {/* Endpoint badge */}
-                <g transform="translate(560 18)">
-                  <rect width="130" height="26" rx="13" fill="#6D6FFC" />
-                  <text x="65" y="17" fontFamily="sans-serif" fontSize="11" fill="white" fontWeight="700" textAnchor="middle">+640 ng/dL &middot; 3.3&times;</text>
-                </g>
-              </svg>
+          <div className="flex flex-wrap gap-6 border-t border-gray-100 pt-5">
+            <div className="flex items-center gap-2 text-xs text-gray-500">
+              <span className="h-[3px] w-[18px] rounded-full bg-[#6D6FFC]" />
+              Avg. HealSend member on enclomiphene
             </div>
-
-            {/* Legend */}
-            <div className="flex flex-wrap gap-6 border-t border-gray-100 pt-5">
-              <div className="flex items-center gap-2 text-xs text-gray-500">
-                <span className="h-[3px] w-[18px] rounded-full bg-[#6D6FFC]" />
-                Avg. HealSend member on enclomiphene
-              </div>
-              <div className="flex items-center gap-2 text-xs text-gray-500">
-                <span className="w-[18px] border-t-2 border-dashed border-gray-400" />
-                Untreated baseline
-              </div>
-              <div className="flex items-center gap-2 text-xs text-gray-500">
-                <span className="h-3 w-[18px] rounded-sm bg-[#6D6FFC]/10" />
-                Optimal range (800&ndash;1000)
-              </div>
+            <div className="flex items-center gap-2 text-xs text-gray-500">
+              <span className="w-[18px] border-t-2 border-dashed border-gray-400" />
+              Untreated baseline
+            </div>
+            <div className="flex items-center gap-2 text-xs text-gray-500">
+              <span className="h-3 w-[18px] rounded-sm bg-[#6D6FFC]/10" />
+              Optimal range (800&ndash;1000)
             </div>
           </div>
         </div>
+
+        {/* Real member lab results */}
+        <LabResultsCarousel />
       </div>
     </section>
+  );
+}
+
+function ResultCard({ r }) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+      <div className="relative grid grid-cols-2 border-b border-gray-100 bg-gray-50 p-6">
+        <div className="text-center">
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Month 0</p>
+          <p className="mt-1 font-title text-3xl text-gray-400">{r.before}</p>
+          <p className="text-[10px] text-gray-400">ng/dL Total T</p>
+        </div>
+        <div className="border-l border-dashed border-gray-200 text-center">
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Month {r.months}</p>
+          <p className="mt-1 font-title text-3xl text-[#6D6FFC]">{r.after}</p>
+          <p className="text-[10px] text-gray-400">ng/dL Total T</p>
+        </div>
+        <div className="absolute left-1/2 top-1/2 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#6D6FFC] text-white">
+          <ArrowUp className="h-4 w-4" />
+        </div>
+      </div>
+      <div className="px-5 py-4">
+        <p className="font-title text-lg text-gray-900">{r.name}</p>
+        <p className="mt-1 flex items-center gap-1.5 text-xs text-[#6D6FFC]">
+          <Check className="h-3.5 w-3.5" /> Verified — {r.note}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function LabResultsCarousel() {
+  const scrollRef = useRef(null);
+  const scroll = (dir) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const card = el.querySelector("[data-card]");
+    const w = card ? card.offsetWidth + 20 : 300;
+    el.scrollBy({ left: dir * w, behavior: "smooth" });
+  };
+  return (
+    <div className="mt-10">
+      <h3 className="mb-6 text-center font-title text-2xl font-medium text-gray-900 md:text-3xl">
+        Real lab results from{" "}
+        <span className="font-playfair italic text-[#6D6FFC]">real members.</span>
+      </h3>
+
+      {/* Mobile: horizontal scroll */}
+      <div className="relative sm:hidden">
+        <div ref={scrollRef} className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+          {ENCLO_RESULTS.map((r) => (
+            <div key={r.name} data-card className="min-w-[80vw] snap-center">
+              <ResultCard r={r} />
+            </div>
+          ))}
+        </div>
+        <div className="mt-2 flex items-center justify-center gap-3">
+          <button onClick={() => scroll(-1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:bg-gray-50">
+            <ChevronLeft className="h-4 w-4 text-gray-600" />
+          </button>
+          <button onClick={() => scroll(1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:bg-gray-50">
+            <ChevronRight className="h-4 w-4 text-gray-600" />
+          </button>
+        </div>
+      </div>
+
+      {/* Desktop: grid */}
+      <div className="hidden gap-5 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+        {ENCLO_RESULTS.map((r) => (
+          <FadeIn key={r.name}><ResultCard r={r} /></FadeIn>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -772,6 +1179,60 @@ const PILLARS = [
   },
 ];
 
+function PillarCard({ p }) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+      <div className="relative aspect-[16/10]">
+        <Image src={p.img} alt={p.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
+      </div>
+      <div className="p-7">
+        <h3 className="mb-2 font-title text-xl font-medium text-gray-900">{p.title}</h3>
+        <p className="text-sm text-gray-600">{p.desc}</p>
+      </div>
+    </div>
+  );
+}
+
+function PillarsCarousel() {
+  const scrollRef = useRef(null);
+  const scroll = (dir) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const card = el.querySelector("[data-card]");
+    const w = card ? card.offsetWidth + 20 : 300;
+    el.scrollBy({ left: dir * w, behavior: "smooth" });
+  };
+  return (
+    <>
+      {/* Mobile: horizontal scroll */}
+      <div className="relative md:hidden">
+        <div ref={scrollRef} className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+          {PILLARS.map((p) => (
+            <div key={p.num} data-card className="min-w-[80vw] snap-center">
+              <PillarCard p={p} />
+            </div>
+          ))}
+        </div>
+        <div className="mt-2 flex items-center justify-center gap-3">
+          <button onClick={() => scroll(-1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:bg-gray-50">
+            <ChevronLeft className="h-4 w-4 text-gray-600" />
+          </button>
+          <button onClick={() => scroll(1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:bg-gray-50">
+            <ChevronRight className="h-4 w-4 text-gray-600" />
+          </button>
+        </div>
+      </div>
+
+      {/* Desktop: grid */}
+      <div className="hidden gap-5 md:grid md:grid-cols-3">
+        {PILLARS.map((p) => (
+          <FadeIn key={p.num}><PillarCard p={p} /></FadeIn>
+        ))}
+      </div>
+    </>
+  );
+}
+
 function EncoWhySection() {
   return (
     <section className="bg-[#f9f9f9] py-16 md:py-20">
@@ -785,83 +1246,12 @@ function EncoWhySection() {
             Three reasons men switch from TRT to enclomiphene — and never look back.
           </p>
         </div>
-        <div className="grid gap-5 md:grid-cols-3">
-          {PILLARS.map((p) => (
-            <FadeIn key={p.num}>
-              <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-                <div className="relative aspect-[16/10]">
-                  <Image src={p.img} alt={p.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
-                </div>
-                <div className="p-7">
-                  <p className="mb-3 font-title text-3xl text-[#6D6FFC]">{p.num}</p>
-                  <h3 className="mb-2 font-title text-xl font-medium text-gray-900">{p.title}</h3>
-                  <p className="text-sm text-gray-600">{p.desc}</p>
-                </div>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
+        <PillarsCarousel />
       </div>
     </section>
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  9. Real lab results (before → after)                               */
-/* ------------------------------------------------------------------ */
-
-const ENCLO_RESULTS = [
-  { name: "Marcus T., 34", note: "Trying for kids", before: 312, after: 748, months: 3 },
-  { name: "David R., 41", note: "Switched from TRT", before: 258, after: 682, months: 3 },
-  { name: "Andrew K., 38", note: "Wanted gentler option", before: 295, after: 812, months: 4 },
-];
-
-function EncoResultsSection() {
-  return (
-    <section className="bg-[#F1F5F9] py-16 md:py-20">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="mb-12 text-center">
-          <h2 className="mb-3 font-title text-4xl font-medium text-gray-900 md:text-5xl">
-            Real lab results from{" "}
-            <span className="font-playfair italic text-[#6D6FFC]">real members.</span>
-          </h2>
-          <p className="text-base text-gray-600">
-            HealSend enclomiphene patients, before and after. Verified bloodwork.
-          </p>
-        </div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {ENCLO_RESULTS.map((r) => (
-            <FadeIn key={r.name}>
-              <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-                <div className="relative grid grid-cols-2 border-b border-gray-100 bg-gray-50 p-6">
-                  <div className="text-center">
-                    <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Month 0</p>
-                    <p className="mt-1 font-title text-3xl text-gray-400">{r.before}</p>
-                    <p className="text-[10px] text-gray-400">ng/dL Total T</p>
-                  </div>
-                  <div className="border-l border-dashed border-gray-200 text-center">
-                    <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Month {r.months}</p>
-                    <p className="mt-1 font-title text-3xl text-[#6D6FFC]">{r.after}</p>
-                    <p className="text-[10px] text-gray-400">ng/dL Total T</p>
-                  </div>
-                  <div className="absolute left-1/2 top-1/2 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#6D6FFC] text-white">
-                    <ArrowUp className="h-4 w-4" />
-                  </div>
-                </div>
-                <div className="px-5 py-4">
-                  <p className="font-title text-lg text-gray-900">{r.name}</p>
-                  <p className="mt-1 flex items-center gap-1.5 text-xs text-[#6D6FFC]">
-                    <Check className="h-3.5 w-3.5" /> Verified — {r.note}
-                  </p>
-                </div>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ------------------------------------------------------------------ */
 /*  10. Testimonials                                                   */
@@ -885,6 +1275,73 @@ const TESTIMONIALS = [
   },
 ];
 
+function TestimonialCard({ t }) {
+  return (
+    <div className="flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-7 shadow-sm">
+      <div className="mb-4 flex gap-0.5 text-amber-400">
+        {[...Array(5)].map((_, i) => (
+          <Star key={i} className="h-4 w-4 fill-current" />
+        ))}
+      </div>
+      <p className="mb-6 flex-1 font-title text-lg leading-relaxed text-gray-900">
+        &ldquo;{t.quote}&rdquo;
+      </p>
+      <div className="flex items-center gap-3 border-t border-gray-50 pt-5">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#6D6FFC] text-sm font-semibold text-white">
+          {t.name.charAt(0)}
+        </div>
+        <div>
+          <p className="text-sm font-medium text-gray-900">{t.name}</p>
+          <p className="text-xs text-gray-400">{t.detail}</p>
+        </div>
+        <span className="ml-auto flex items-center gap-1 text-[10px] font-semibold text-[#6D6FFC]">
+          <Check className="h-3 w-3" /> Verified
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function TestimonialsCarousel() {
+  const scrollRef = useRef(null);
+  const scroll = (dir) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const card = el.querySelector("[data-card]");
+    const w = card ? card.offsetWidth + 20 : 300;
+    el.scrollBy({ left: dir * w, behavior: "smooth" });
+  };
+  return (
+    <>
+      {/* Mobile: horizontal scroll */}
+      <div className="relative md:hidden">
+        <div ref={scrollRef} className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+          {TESTIMONIALS.map((t) => (
+            <div key={t.name} data-card className="min-w-[80vw] snap-center">
+              <TestimonialCard t={t} />
+            </div>
+          ))}
+        </div>
+        <div className="mt-2 flex items-center justify-center gap-3">
+          <button onClick={() => scroll(-1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:bg-gray-50">
+            <ChevronLeft className="h-4 w-4 text-gray-600" />
+          </button>
+          <button onClick={() => scroll(1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:bg-gray-50">
+            <ChevronRight className="h-4 w-4 text-gray-600" />
+          </button>
+        </div>
+      </div>
+
+      {/* Desktop: grid */}
+      <div className="hidden gap-5 md:grid md:grid-cols-3">
+        {TESTIMONIALS.map((t) => (
+          <FadeIn key={t.name}><TestimonialCard t={t} /></FadeIn>
+        ))}
+      </div>
+    </>
+  );
+}
+
 function EncoTestimonialsSection() {
   return (
     <section className="bg-[#f9f9f9] py-16 md:py-20">
@@ -896,34 +1353,7 @@ function EncoTestimonialsSection() {
           </h2>
           <p className="text-base text-gray-600">Verified reviews from HealSend enclomiphene patients.</p>
         </div>
-        <div className="grid gap-5 md:grid-cols-3">
-          {TESTIMONIALS.map((t) => (
-            <FadeIn key={t.name}>
-              <div className="flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-7 shadow-sm">
-                <div className="mb-4 flex gap-0.5 text-amber-400">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-current" />
-                  ))}
-                </div>
-                <p className="mb-6 flex-1 font-title text-lg leading-relaxed text-gray-900">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div className="flex items-center gap-3 border-t border-gray-50 pt-5">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#6D6FFC] text-sm font-semibold text-white">
-                    {t.name.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">{t.name}</p>
-                    <p className="text-xs text-gray-400">{t.detail}</p>
-                  </div>
-                  <span className="ml-auto flex items-center gap-1 text-[10px] font-semibold text-[#6D6FFC]">
-                    <Check className="h-3 w-3" /> Verified
-                  </span>
-                </div>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
+        <TestimonialsCarousel />
       </div>
     </section>
   );
@@ -1353,18 +1783,20 @@ export default function EnclomipheneLandingPage({ product }) {
   return (
     <div className="min-h-screen bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
       <MinimalMarketingNavbar />
-      <EnclomipheneHeroSection />
+      <EncloWillpowerSection />
+      <EncloProductHeroSection />
       <EncoStatBarSection />
       <FadeIn><EncoHowItWorksSection /></FadeIn>
       <FadeIn><EncoComparisonSection /></FadeIn>
       <FadeIn><EncoDailyProtocolSection /></FadeIn>
       <FadeIn><EncoTimelineSection /></FadeIn>
       <FadeIn><EncoWhySection /></FadeIn>
-      <FadeIn><EncoResultsSection /></FadeIn>
       <FadeIn><EncoClinicalResearchSection /></FadeIn>
       <FadeIn><EncoTestimonialsSection /></FadeIn>
-      <FadeIn><EncoProcessSection /></FadeIn>
+      <FadeIn><SimpleSteps productData={productData} /></FadeIn>
       <FadeIn><EncoIncludedSection /></FadeIn>
+      <FadeIn><LabTested productData={productData} /></FadeIn>
+      <FadeIn><OurTreatmentsSection cards={TREATMENT_PLAN_CARDS.filter(c => c.id !== "enclomiphene")} /></FadeIn>
       <EncoTrustMarquee />
       <EnclomipheneFAQSection />
       <EncoFinalCTASection />
