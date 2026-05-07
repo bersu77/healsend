@@ -1,5 +1,5 @@
 import LandingSkeleton from "@/components/marketing/landing-skeleton";
 
-export default function GlobalLoading() {
+export default function TRTLoading() {
   return <LandingSkeleton />;
 }

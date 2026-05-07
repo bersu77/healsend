@@ -849,7 +849,7 @@ function TRTDesignedToSupportSection() {
             <div key={c.title} data-support-card className="w-[calc(100vw-2rem)] shrink-0 snap-center md:w-auto">
               <div className="h-full overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
                 <div className="relative aspect-[5/3]">
-                  <Image src={c.img} alt={c.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
+                  <Image src={c.img} alt={c.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" loading="lazy" />
                 </div>
                 <div className="p-6">
                   <h3 className="mb-2 font-title text-xl font-medium text-gray-900">{c.title}</h3>
@@ -1131,7 +1131,7 @@ function TRTEligibilitySection() {
             Take our 60-second symptom screener. We&apos;ll tell you if your symptoms suggest low testosterone.
           </p>
           <div className="relative hidden aspect-[16/10] overflow-hidden rounded-2xl md:block">
-            <Image src="/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Why do people explore Sermorelin therapy_/pexels-dmitry-ovsyannikov-271243380-17542096-scaled-1-optimized.jpg" alt="Man exercising" fill sizes="50vw" className="object-cover" />
+            <Image src="/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Why do people explore Sermorelin therapy_/pexels-dmitry-ovsyannikov-271243380-17542096-scaled-1-optimized.jpg" alt="Man exercising" fill sizes="50vw" className="object-cover" loading="lazy" />
           </div>
         </div>
 
@@ -1257,7 +1257,7 @@ function TRTLabTestedSection() {
           </ul>
         </div>
         <div className="relative aspect-square overflow-hidden rounded-3xl">
-          <Image src="/images/67b8bc339365c3a3c21c8190_cta_sermorelin-optimized.jpg" alt="Lab tested TRT medication" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" />
+          <Image src="/images/67b8bc339365c3a3c21c8190_cta_sermorelin-optimized.jpg" alt="Lab tested TRT medication" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" loading="lazy" />
         </div>
       </div>
     </section>
@@ -1463,7 +1463,7 @@ function TRTCareSection() {
     <section className="bg-[#f9f9f9] py-16 md:py-20">
       <div className="mx-auto grid max-w-[1200px] items-center gap-12 px-4 md:grid-cols-2 md:gap-14 md:px-8">
         <div className="relative aspect-square overflow-hidden rounded-3xl">
-          <Image src="/images/articles/care-support-lifestyle.webp" alt="HealSend care team" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
+          <Image src="/images/articles/care-support-lifestyle.webp" alt="HealSend care team" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" loading="lazy" />
         </div>
         <div>
           <h2 className="mb-6 font-title text-4xl font-medium text-gray-900 md:text-5xl">

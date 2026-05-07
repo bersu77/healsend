@@ -1,11 +1,16 @@
 import { notFound } from "next/navigation";
-import EnclomipheneLandingPage from "@/components/marketing/enclomiphene-landing-page";
+import dynamic from "next/dynamic";
 import { getMarketingProductPageData } from "@/lib/marketing-data";
 import { buildPageMetadata } from "@/lib/seo";
 
+const EnclomipheneLandingPage = dynamic(
+  () => import("@/components/marketing/enclomiphene-landing-page"),
+  { ssr: true },
+);
+
 const ENCLO_PRODUCT_SLUG = "enclomiphene";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export async function generateMetadata() {
   const product = await getMarketingProductPageData(ENCLO_PRODUCT_SLUG);

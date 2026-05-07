@@ -10,7 +10,7 @@ import {
   normalizePublicCatalogProduct,
 } from "@/lib/public-catalog";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 function stripHtml(value) {
   return String(value || "")

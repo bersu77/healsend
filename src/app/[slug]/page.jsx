@@ -1,10 +1,5 @@
 import { notFound, permanentRedirect } from "next/navigation";
-import MarketingArticlePage from "@/components/marketing/article-page";
-import MarketingCategoryPage from "@/components/marketing/category-page";
-import MarketingCustomPage from "@/components/marketing/custom-page";
-import MarketingLegalPage from "@/components/marketing/legal-page";
-import MarketingPsychiatryPage from "@/components/marketing/psychiatry-page";
-import MarketingProductPage from "@/components/marketing/product-page";
+import dynamic from "next/dynamic";
 import {
   getMarketingCategoryPageData,
   getMarketingCustomPageData,
@@ -15,7 +10,14 @@ import { resolveMarketingProductSlug } from "@/lib/marketing-pages";
 import { getMarketingProductDetailPath } from "@/lib/product-routing";
 import { buildPageMetadata, humanizeSlugTitle, isSlugLikeTitle } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+const MarketingArticlePage = dynamic(() => import("@/components/marketing/article-page"), { ssr: true });
+const MarketingCategoryPage = dynamic(() => import("@/components/marketing/category-page"), { ssr: true });
+const MarketingCustomPage = dynamic(() => import("@/components/marketing/custom-page"), { ssr: true });
+const MarketingLegalPage = dynamic(() => import("@/components/marketing/legal-page"), { ssr: true });
+const MarketingPsychiatryPage = dynamic(() => import("@/components/marketing/psychiatry-page"), { ssr: true });
+const MarketingProductPage = dynamic(() => import("@/components/marketing/product-page"), { ssr: true });
+
+export const revalidate = 60;
 
 function resolveCustomPageTitle(customPage, slug) {
   if (customPage.nativeTemplate === "legalDocument") {

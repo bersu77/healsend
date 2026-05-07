@@ -1,7 +1,7 @@
 import { getPublicSitemapEntries } from "@/lib/marketing-data";
 import { resolveAbsoluteUrl } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export default async function sitemap() {
   const entries = await getPublicSitemapEntries();

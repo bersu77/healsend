@@ -7,7 +7,7 @@ import {
   normalizePublicCatalogProducts,
 } from "@/lib/public-catalog";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const metadata = buildPageMetadata({
   title: "Browse Treatments | HealSend",

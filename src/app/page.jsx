@@ -1,11 +1,16 @@
 import { notFound } from "next/navigation";
-import MarketingProductPage from "@/components/marketing/product-page";
+import dynamic from "next/dynamic";
 import { getMarketingProductPageData } from "@/lib/marketing-data";
 import { buildPageMetadata } from "@/lib/seo";
 
+const MarketingProductPage = dynamic(
+  () => import("@/components/marketing/product-page"),
+  { ssr: true },
+);
+
 const HOME_PRODUCT_SLUG = "tirzepatide-injections";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export async function generateMetadata() {
   const product = await getMarketingProductPageData(HOME_PRODUCT_SLUG);

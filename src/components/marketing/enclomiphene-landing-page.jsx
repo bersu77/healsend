@@ -726,7 +726,7 @@ function HpgCarousel() {
               <div className="group h-full rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
                 <div className="mb-3 flex items-center gap-3">
                   <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full">
-                    <Image src={step.icon} alt={step.title} fill sizes="36px" className="object-contain" />
+                    <Image src={step.icon} alt={step.title} fill sizes="36px" className="object-contain" loading="lazy" />
                   </div>
                   <h3 className="font-title text-lg font-medium text-gray-900">{step.title}</h3>
                 </div>
@@ -755,7 +755,7 @@ function HpgCarousel() {
             <div className="group h-full rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition hover:border-[#6D6FFC]/30 hover:bg-[#F1F5F9]">
               <div className="mb-3 flex items-center gap-3">
                 <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full">
-                  <Image src={step.icon} alt={step.title} fill sizes="36px" className="object-contain" />
+                  <Image src={step.icon} alt={step.title} fill sizes="36px" className="object-contain" loading="lazy" />
                 </div>
                 <h3 className="font-title text-lg font-medium text-gray-900">{step.title}</h3>
               </div>
@@ -1184,7 +1184,7 @@ function PillarCard({ p }) {
   return (
     <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
       <div className="relative aspect-[16/10]">
-        <Image src={p.img} alt={p.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
+        <Image src={p.img} alt={p.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" loading="lazy" />
       </div>
       <div className="p-7">
         <h3 className="mb-2 font-title text-xl font-medium text-gray-900">{p.title}</h3>
@@ -1461,7 +1461,7 @@ function EncoIncludedSection() {
                   </ul>
                 </div>
                 <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl bg-[#F1F5F9]">
-                  <Image src={item.icon} alt={item.title} fill sizes="80px" className="object-contain p-3" />
+                  <Image src={item.icon} alt={item.title} fill sizes="80px" className="object-contain p-3" loading="lazy" />
                 </div>
               </div>
             </FadeIn>

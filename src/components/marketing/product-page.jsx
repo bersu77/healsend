@@ -2901,7 +2901,7 @@ export function LabTested({ productData: _productData }) {
           </ul>
         </div>
         <div className="relative aspect-square overflow-hidden rounded-3xl">
-          <Image src="/images/67b8bc339365c3a3c21c8190_cta_sermorelin-optimized.jpg" alt="Lab tested medication" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" />
+          <Image src="/images/67b8bc339365c3a3c21c8190_cta_sermorelin-optimized.jpg" alt="Lab tested medication" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" loading="lazy" />
         </div>
       </div>
     </section>

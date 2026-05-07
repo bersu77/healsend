@@ -1,11 +1,16 @@
 import { notFound } from "next/navigation";
-import TRTLandingPage from "@/components/marketing/trt-landing-page";
+import dynamic from "next/dynamic";
 import { getMarketingProductPageData } from "@/lib/marketing-data";
 import { buildPageMetadata } from "@/lib/seo";
 
+const TRTLandingPage = dynamic(
+  () => import("@/components/marketing/trt-landing-page"),
+  { ssr: true },
+);
+
 const TRT_PRODUCT_SLUG = "testosterone-injections";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export async function generateMetadata() {
   const product = await getMarketingProductPageData(TRT_PRODUCT_SLUG);
