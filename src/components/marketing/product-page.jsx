@@ -50,8 +50,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
 } from "@/components/ui/carousel";
 import { Dialog, DialogPortal, DialogOverlay } from "@/components/ui/dialog";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
@@ -285,7 +283,7 @@ function WillpowerSection() {
                 </span>
               </h2>
               <p className="mt-4 max-w-[30rem] text-[1rem] leading-6 text-gray-800 lg:text-[1.05rem]">
-               Personalized GLP-1 treatment. Unlimited clinician-led care.
+                Personalized GLP-1 treatment. Unlimited clinician-led care.
                 Delivered to your door. Guaranteed or it&apos;s free
               </p>
             </div>
@@ -585,7 +583,7 @@ const staticLabTestedSection = {
   title: "Lab tested medications for quality & potency",
   description:
     "Our medication is delivered from a state licensed pharmacy in our network, right to your door when you need it.",
-  image: "/images/67b8bc339365c3a3c21c8190_cta_sermorelin-optimized.jpg",
+  image: "/lab-tested-medications.jpeg",
 };
 
 const defaultTestimonials = defaultProductContent.testimonials || [];
@@ -1915,6 +1913,62 @@ function TransformationMonthLabel({ month }) {
   );
 }
 
+function TransformationTestimonialSlide({ person, afterMonth }) {
+  return (
+    <article className="flex h-full flex-col rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm md:p-5">
+      {person.image ? (
+        <div className="flex flex-col gap-3">
+          <div className="relative aspect-[16/10] overflow-hidden rounded-[1rem] bg-gray-100">
+            <img
+              src={person.image}
+              alt={`${person.name} result`}
+              draggable={false}
+              className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
+            />
+          </div>
+          <div className="flex items-center justify-center gap-10 sm:gap-12">
+            <TransformationMonthLabel month={0} />
+            <TransformationMonthLabel month={afterMonth} />
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-3">
+          <div className="flex min-w-0 flex-col items-center gap-3">
+            <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[1rem] bg-gray-100">
+              <img
+                src={person.before}
+                alt={`${person.name} before`}
+                draggable={false}
+                className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
+              />
+            </div>
+            <TransformationMonthLabel month={0} />
+          </div>
+          <div className="flex min-w-0 flex-col items-center gap-3">
+            <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[1rem] bg-gray-100">
+              <img
+                src={person.after}
+                alt={`${person.name} after`}
+                draggable={false}
+                className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
+              />
+            </div>
+            <TransformationMonthLabel month={afterMonth} />
+          </div>
+        </div>
+      )}
+      <p className="mt-5 text-center text-lg font-medium text-gray-700 md:text-xl">
+        {person.name} lost{" "}
+        <span className="font-semibold text-[#00a86b]">{person.weightLoss} lbs</span>
+      </p>
+      <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-[#4d5160] md:text-sm">
+        <BadgeCheck className="h-4 w-4 text-[#00a86b]" />
+        <span>Verified HealSend Members</span>
+      </div>
+    </article>
+  );
+}
+
 export function TestimonialsSection() {
   const [api, setApi] = useState(null);
   const carouselTransformations = buildLoopingItems(
@@ -1971,7 +2025,7 @@ export function TestimonialsSection() {
           </div>
         </div>
 
-        <div className="mb-6 flex gap-3">
+        <div className="mb-6 hidden gap-3 md:flex">
           <button
             type="button"
             onClick={() => api?.scrollPrev()}
@@ -1992,6 +2046,29 @@ export function TestimonialsSection() {
 
       </div>
 
+      <div
+        className="md:hidden flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain px-4 pb-2 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Member transformation results"
+      >
+        {carouselTransformations.map((person, index) => {
+          const afterMonth = transformationAfterMonthNumber(person);
+          return (
+            <div
+              key={`${person.name}-m-${index}`}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${index + 1} of ${carouselTransformations.length}`}
+              className="min-w-0 shrink-0 grow-0 basis-[88%] snap-start snap-always"
+            >
+              <TransformationTestimonialSlide person={person} afterMonth={afterMonth} />
+            </div>
+          );
+        })}
+        <div className="w-4 shrink-0" aria-hidden />
+      </div>
+
       <Carousel
         setApi={setApi}
         opts={{
@@ -2000,7 +2077,7 @@ export function TestimonialsSection() {
           loop: carouselTransformations.length > 1,
           duration: 34,
         }}
-        className="w-full"
+        className="hidden w-full md:block"
       >
         <CarouselContent className="-ml-4 items-stretch md:-ml-6">
           {carouselTransformations.map((person, index) => {
@@ -2010,56 +2087,7 @@ export function TestimonialsSection() {
                 key={`${person.name}-${index}`}
                 className="basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[36%] xl:basis-[32%]"
               >
-                <article className="flex h-full flex-col rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm md:p-5">
-                  {person.image ? (
-                    <div className="flex flex-col gap-3">
-                      <div className="relative aspect-[16/10] overflow-hidden rounded-[1rem] bg-gray-100">
-                        <img
-                          src={person.image}
-                          alt={`${person.name} result`}
-                          className="absolute inset-0 h-full w-full object-cover object-center"
-                        />
-                      </div>
-                      <div className="flex items-center justify-center gap-10 sm:gap-12">
-                        <TransformationMonthLabel month={0} />
-                        <TransformationMonthLabel month={afterMonth} />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="flex min-w-0 flex-col items-center gap-3">
-                        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[1rem] bg-gray-100">
-                          <img
-                            src={person.before}
-                            alt={`${person.name} before`}
-                            className="absolute inset-0 h-full w-full object-cover object-center"
-                          />
-                        </div>
-                        <TransformationMonthLabel month={0} />
-                      </div>
-                      <div className="flex min-w-0 flex-col items-center gap-3">
-                        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[1rem] bg-gray-100">
-                          <img
-                            src={person.after}
-                            alt={`${person.name} after`}
-                            className="absolute inset-0 h-full w-full object-cover object-center"
-                          />
-                        </div>
-                        <TransformationMonthLabel month={afterMonth} />
-                      </div>
-                    </div>
-                  )}
-                  <p className="mt-5 text-center text-lg font-medium text-gray-700 md:text-xl">
-                    {person.name} lost{" "}
-                    <span className="font-semibold text-[#00a86b]">
-                      {person.weightLoss} lbs
-                    </span>
-                  </p>
-                  <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-[#4d5160] md:text-sm">
-                    <BadgeCheck className="h-4 w-4 text-[#00a86b]" />
-                    <span>Verified HealSend Members</span>
-                  </div>
-                </article>
+                <TransformationTestimonialSlide person={person} afterMonth={afterMonth} />
               </CarouselItem>
             );
           })}
@@ -2137,47 +2165,45 @@ export function MemberResultsStatsSection() {
           </div>
 
           <div className="min-w-0">
-            {/* Mobile: carousel */}
-            <div className="md:hidden pl-4">
-              <Carousel opts={{ align: "start" }} className="relative w-full">
-                <CarouselContent className="-ml-4 items-stretch">
-                  {memberStats.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <CarouselItem
-                        key={item.label}
-                        className="min-w-0 shrink-0 grow-0 basis-11/12 pl-4"
-                      >
-                        <div className="h-full">
-                          <div className="overflow-hidden shadow-lg rounded-2xl p-6 bg-white border border-gray-200 h-full">
-                            <div className="flex gap-4 justify-between items-start">
-                              <p className="text-sm tracking-wider uppercase text-slate-700">
-                                {item.label}
-                              </p>
-                              <Icon className="size-[30px] text-slate-500" aria-hidden="true" strokeWidth={1.5} />
-                            </div>
-                            <div className="flex justify-start gap-0.5 items-baseline pb-6 pt-1">
-                              <span className="font-medium text-4xl tracking-tight text-gray-950">
-                                {item.value}
-                              </span>
-                              <span className="font-medium text-4xl tracking-tight text-gray-950">
-                                {item.unit}
-                              </span>
-                            </div>
-                            <p className="text-sm text-slate-500">
-                              {item.description}
-                            </p>
-                          </div>
+            {/* Mobile: native horizontal scroll (reliable swipe + next-card peek) */}
+            <div
+              className="md:hidden flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain px-4 pb-2 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              role="region"
+              aria-roledescription="carousel"
+              aria-label="Member statistics"
+            >
+              {memberStats.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={`m-${item.label}`}
+                    role="group"
+                    aria-roledescription="slide"
+                    className="min-w-0 shrink-0 grow-0 basis-[88%] snap-start snap-always"
+                  >
+                    <div className="h-full">
+                      <div className="h-full overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+                        <div className="flex items-start justify-between gap-4">
+                          <p className="text-sm uppercase tracking-wider text-slate-700">
+                            {item.label}
+                          </p>
+                          <Icon className="size-[30px] shrink-0 text-slate-500" aria-hidden="true" strokeWidth={1.5} />
                         </div>
-                      </CarouselItem>
-                    );
-                  })}
-                </CarouselContent>
-                <div className="flex gap-3 px-4 mt-4">
-                  <CarouselPrevious className="static translate-y-0 size-6 rounded-full text-sm bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-600" />
-                  <CarouselNext className="static translate-y-0 size-6 rounded-full text-sm bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-600" />
-                </div>
-              </Carousel>
+                        <div className="flex items-baseline justify-start gap-0.5 pb-6 pt-1">
+                          <span className="text-4xl font-medium tracking-tight text-gray-950">
+                            {item.value}
+                          </span>
+                          <span className="text-4xl font-medium tracking-tight text-gray-950">
+                            {item.unit}
+                          </span>
+                        </div>
+                        <p className="text-sm text-slate-500">{item.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+              <div className="w-4 shrink-0" aria-hidden />
             </div>
 
             {/* md+: 2x2 grid */}
@@ -3359,8 +3385,14 @@ export function SimpleSteps({ productData }) {
   );
 }
 
-export function LabTested({ productData: _productData }) {
-  const content = staticLabTestedSection;
+export function LabTested({ productData }) {
+  const merged = mergeProductContent(productData);
+  const from = merged.labTestedSection || {};
+  const content = {
+    title: from.title || staticLabTestedSection.title,
+    description: from.description || staticLabTestedSection.description,
+    image: from.image || staticLabTestedSection.image,
+  };
   const [modalOpen, setModalOpen] = useState(false);
 
   const LAB_TESTS = [
@@ -3818,37 +3850,37 @@ function SameMedicationMarquee() {
               key={`${item.text}-${index}`}
               className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[13px] font-medium leading-none text-gray-500"
             >
-              {item.svg ==="True"? (
+              {item.svg === "True" ? (
                 <svg
-  viewBox="0 0 24 24"
-  className="h-4 w-4 text-gray-500"
-  fill="none"
-  stroke="currentColor"
-  strokeWidth="1.5"
-  strokeLinecap="round"
-  strokeLinejoin="round"
->
-  {/* outer border */}
-  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  viewBox="0 0 24 24"
+                  className="h-4 w-4 text-gray-500"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  {/* outer border */}
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
 
-  {/* horizontal lines */}
-  <path d="M2 8h20" />
-  <path d="M2 12h20" />
-  <path d="M2 16h20" />
+                  {/* horizontal lines */}
+                  <path d="M2 8h20" />
+                  <path d="M2 12h20" />
+                  <path d="M2 16h20" />
 
-  {/* top-left "flag area" */}
-  <rect x="2" y="4" width="8" height="8" fill="gray" stroke="none" />
+                  {/* top-left "flag area" */}
+                  <rect x="2" y="4" width="8" height="8" fill="gray" stroke="none" />
 
-  {/* simple stripe effect inside flag area */}
-  {/* <g stroke="black" strokeWidth="0.8">
+                  {/* simple stripe effect inside flag area */}
+                  {/* <g stroke="black" strokeWidth="0.8">
   <path d="M2 6h8" />
   <path d="M2 8h8" />
   <path d="M2 10h8" />
 </g> */}
-  {/* <path d="M2 6h8" stroke="#FFFFFF" strokeWidth="0.8" />
+                  {/* <path d="M2 6h8" stroke="#FFFFFF" strokeWidth="0.8" />
   <path d="M2 8h8" stroke="#B22234" strokeWidth="0.8" />
   <path d="M2 10h8" stroke="#FFFFFF" strokeWidth="0.8" /> */}
-</svg>
+                </svg>
               ) : (
                 <item.Icon className="h-4 w-4 shrink-0" />
               )}
@@ -3903,11 +3935,11 @@ function SameMedicationSection() {
                   <span className="flex items-center justify-center text-center text-sm font-semibold leading-snug md:text-base">
                     {point}
                   </span>
-                 <span className="flex items-center justify-center">
-  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#22c55e]">
-    <Check className="h-4 w-4 text-white" strokeWidth={3} />
-  </span>
-</span>
+                  <span className="flex items-center justify-center">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#22c55e]">
+                      <Check className="h-4 w-4 text-white" strokeWidth={3} />
+                    </span>
+                  </span>
                 </motion.li>
               ))}
             </ul>
@@ -3934,17 +3966,17 @@ function SameMedicationSection() {
                     duration: 0.7,
                     delay: i * 0.12,
                     ease: [0.16, 1, 0.3, 1],
-                  }} 
+                  }}
                   className="grid min-h-[120px] grid-rows-[1fr_1fr] border-t border-white/10 px-2 py-4 text-center"
                 >
-                <span className="flex items-center justify-center text-center text-sm leading-snug text-[#5f5b70] md:text-base">
+                  <span className="flex items-center justify-center text-center text-sm leading-snug text-[#5f5b70] md:text-base">
                     {point}
                   </span>
-                 <span className="flex items-center justify-center">
-  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#cdd0d8]">
-    <Minus className="h-4 w-4 text-white" strokeWidth={3} />
-  </span>
-</span>
+                  <span className="flex items-center justify-center">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#cdd0d8]">
+                      <Minus className="h-4 w-4 text-white" strokeWidth={3} />
+                    </span>
+                  </span>
                 </motion.li>
               ))}
             </ul>
@@ -3975,74 +4007,125 @@ export function SupportAvailabilitySection() {
             <br />
             <span className="italic text-[#5d62f3]">You need us.</span>
           </h2>
-<div className="mt-8 space-y-6">
+          <div className="mt-8 space-y-6">
 
-  <div className="flex items-center gap-4">
-    <span className="w-6 flex-shrink-0 flex items-center justify-center text-[#30394d]">
-      <Clock3 className="h-5 w-5" />
-    </span>
-    <div>
-      <p className="text-[0.98rem] font-medium text-[#626b7f]">
-        Always available
-      </p>
-      <p className="mt-1 whitespace-nowrap text-[0.95rem] font-semibold leading-[1.22] text-[#434b5d] md:text-[1.28rem]">
-        7 days a week · 8:00am - 8:00pm ET
-      </p>
-    </div>
-  </div>
+            <div className="flex items-center gap-4">
+              <span className="w-6 flex-shrink-0 flex items-center justify-center text-[#30394d]">
+                <Clock3 className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-[0.98rem] font-medium text-[#626b7f]">
+                  Always available
+                </p>
+                <p className="mt-1 whitespace-nowrap text-[0.95rem] font-semibold leading-[1.22] text-[#434b5d] md:text-[1.28rem]">
+                  7 days a week · 8:00am - 8:00pm ET
+                </p>
+              </div>
+            </div>
 
-  <div className="flex items-center gap-4">
-    <span className="w-6 flex-shrink-0 flex items-center justify-center text-[#30394d]">
-      <Stethoscope className="h-5 w-5" />
-    </span>
-    <div>
-      <p className="text-[0.98rem] font-medium text-[#626b7f]">
-        Care-team messaging and virtual follow-up
-      </p>
-      <p className="mt-1 text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d]">
-        Secure support inside your HealSend account
-      </p>
-    </div>
-  </div>
+            <div className="flex items-center gap-4">
+              <span className="w-6 flex-shrink-0 flex items-center justify-center text-[#30394d]">
+                <Stethoscope className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-[0.98rem] font-medium text-[#626b7f]">
+                  Care-team messaging and virtual follow-up
+                </p>
+                <p className="mt-1 text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d]">
+                  Secure support inside your HealSend account
+                </p>
+              </div>
+            </div>
 
-  <div className="flex items-center gap-4">
-    <span className="w-6 flex-shrink-0 flex items-center justify-center text-[#30394d]">
-      <Mail className="h-5 w-5" />
-    </span>
-    <div>
-      <p className="text-[0.98rem] font-medium text-[#626b7f]">
-        Email us
-      </p>
-      <a
-        href="mailto:yourhealth@healsend.com"
-        className="mt-1 inline-block text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d] underline decoration-[#aeb7ca] underline-offset-4"
-      >
-        yourhealth@healsend.com
-      </a>
-    </div>
-  </div>
+            <div className="flex items-center gap-4">
+              <span className="w-6 flex-shrink-0 flex items-center justify-center text-[#30394d]">
+                <Mail className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-[0.98rem] font-medium text-[#626b7f]">
+                  Email us
+                </p>
+                <a
+                  href="mailto:yourhealth@healsend.com"
+                  className="mt-1 inline-block text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d] underline decoration-[#aeb7ca] underline-offset-4"
+                >
+                  yourhealth@healsend.com
+                </a>
+              </div>
+            </div>
 
-  <div className="flex items-center gap-4">
-    <span className="w-6 flex-shrink-0 flex items-center justify-center text-[#30394d]">
-      <Phone className="h-5 w-5" />
-    </span>
-    <div>
-      <p className="text-[0.98rem] font-medium text-[#626b7f]">
-        Patient care line
-      </p>
-      <a
-        href="tel:+16318009294"
-        className="mt-1 inline-block text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d]"
-      >
-        1-631-800-9294
-      </a>
-    </div>
-  </div>
+            <div className="flex items-center gap-4">
+              <span className="w-6 flex-shrink-0 flex items-center justify-center text-[#30394d]">
+                <Phone className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-[0.98rem] font-medium text-[#626b7f]">
+                  Patient care line
+                </p>
+                <a
+                  href="tel:+16318009294"
+                  className="mt-1 inline-block text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d]"
+                >
+                  1-631-800-9294
+                </a>
+              </div>
+            </div>
 
-</div>
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+/** Single benefit card (shared by native mobile strip + Embla from md). */
+function TirzepatideBenefitCard({ item, index, benefitsCount }) {
+  const label =
+    item.ctaText?.trim() ||
+    (index === benefitsCount - 1 ? "Get Started" : "");
+  const showCta = Boolean(label);
+  const hasDesc = item.description && item.description.length > 0;
+  return (
+    <article className="group relative h-[420px] select-none overflow-hidden rounded-[1.25rem] shadow-md ring-1 ring-black/5 md:h-[460px]">
+      <img
+        src={item.image}
+        alt={item.alt}
+        draggable={false}
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+      />
+      <div
+        className={cn(
+          "absolute inset-x-0 bottom-0 p-6 transition-all duration-500 ease-out md:p-7",
+          hasDesc
+            ? "bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_30%,rgba(0,0,0,0.92)_100%)] lg:bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_40%,rgba(0,0,0,0.92)_100%)] lg:group-hover:inset-y-0 lg:group-hover:bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.5)_20%,rgba(0,0,0,0.93)_50%)]"
+            : "bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_60%,rgba(0,0,0,0.85)_100%)]",
+        )}
+      >
+        <div className={cn("flex h-full flex-col", hasDesc ? "justify-end" : "justify-end")}>
+          <p className="text-[1.25rem] font-semibold leading-snug text-white md:text-[1.45rem]">
+            {item.title}
+          </p>
+          {hasDesc && (
+            <ul className="mt-3 max-h-[300px] space-y-1.5 overflow-hidden opacity-100 transition-all duration-500 ease-out lg:max-h-0 lg:opacity-0 lg:group-hover:max-h-[300px] lg:group-hover:opacity-100">
+              {item.description.map((line, i) => (
+                <li key={i} className="flex items-start gap-2 text-[0.85rem] leading-snug text-white/90">
+                  <span className="mt-1 block h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+                  {line}
+                </li>
+              ))}
+            </ul>
+          )}
+          {showCta ? (
+            <Link
+              href={item.ctaHref}
+              className="hs-solid-btn mt-4 inline-flex min-h-[3.5rem] w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-base font-semibold shadow-[0_10px_28px_rgba(109,111,252,0.4)] md:min-h-[3.75rem] md:px-8 md:py-4 md:text-[1.05rem]"
+            >
+              {label}
+            </Link>
+          ) : null}
+        </div>
+      </div>
+    </article>
   );
 }
 
@@ -4121,79 +4204,68 @@ export function RestoredTirzepatideBenefitsCarouselSection({
           </p>
         ) : (
           <>
+            {/*
+              Native horizontal scroll below md: Embla touch-drag often cancels when vertical
+              movement competes with horizontal on tall cards (see DragHandler in embla-carousel).
+            */}
+            <div
+              className="flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain py-0.5 pl-3 pr-4 pb-2 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] scroll-pl-3 scroll-pr-4 md:hidden [&::-webkit-scrollbar]:hidden"
+              role="region"
+              aria-roledescription="carousel"
+              aria-label="Treatments and benefits"
+            >
+              {benefits.map((item, index) => (
+                <div
+                  key={`restored-m-${item.title}-${index}`}
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label={`${index + 1} of ${benefits.length}`}
+                  className="min-w-0 shrink-0 grow-0 basis-[88%] snap-start snap-always"
+                >
+                  <TirzepatideBenefitCard
+                    item={item}
+                    index={index}
+                    benefitsCount={benefits.length}
+                  />
+                </div>
+              ))}
+              <div className="w-4 shrink-0" aria-hidden />
+            </div>
+
             <Carousel
               setApi={setApi}
               opts={{
-                align: "end",
+                align: "center",
                 containScroll: "trimSnaps",
                 loop: true,
               }}
-              // plugins={[
-              //   Autoplay({
-              //     delay: 3000,
-              //     stopOnInteraction: false,
-              //     stopOnMouseEnter: true,
-              //   }),
-              // ]}
-              className="w-full"
+              className="hidden w-full md:block"
             >
               <CarouselContent className="-ml-4 items-stretch md:-ml-6">
                 {benefits.map((item, index) => {
-                  const isFinal = index === benefits.length - 1;
-                  const label =
-                    item.ctaText?.trim() ||
-                    (isFinal ? "Get Started" : "");
-                  const showCta = Boolean(label);
-                  const hasDesc = item.description && item.description.length > 0;
+                  const isCenter = index === 1;
+                  const isLeft = index === 0;
                   return (
                     <CarouselItem
                       key={`restored-${item.title}-${index}`}
-                      className="basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[33.333%]"
+                      className={cn(
+                        "basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[33.333%]",
+                        isLeft ? "opacity-50 pointer-events-none" : "",
+                        isCenter ? "md:col-span-2" : "",
+                      )}
                     >
-                      <article className="group relative h-[420px] overflow-hidden rounded-[1.25rem] shadow-md ring-1 ring-black/5 md:h-[460px]">
-                        <img
-                          src={item.image}
-                          alt={item.alt}
-                          className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                        />
-                        <div className={cn(
-                          "absolute inset-x-0 bottom-0 p-6 transition-all duration-500 ease-out md:p-7",
-                          hasDesc
-                            ? "bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_30%,rgba(0,0,0,0.92)_100%)] lg:bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_40%,rgba(0,0,0,0.92)_100%)] lg:group-hover:inset-y-0 lg:group-hover:bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.5)_20%,rgba(0,0,0,0.93)_50%)]"
-                            : "bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.6)_60%,rgba(0,0,0,0.85)_100%)]"
-                        )}>
-                          <div className={cn("flex h-full flex-col", hasDesc ? "justify-end" : "justify-end")}>
-                            <p className="text-[1.25rem] font-semibold leading-snug text-white md:text-[1.45rem]">
-                              {item.title}
-                            </p>
-                            {hasDesc && (
-                              <ul className="mt-3 max-h-[300px] space-y-1.5 overflow-hidden opacity-100 transition-all duration-500 ease-out lg:max-h-0 lg:opacity-0 lg:group-hover:max-h-[300px] lg:group-hover:opacity-100">
-                                {item.description.map((line, i) => (
-                                  <li key={i} className="flex items-start gap-2 text-[0.85rem] leading-snug text-white/90">
-                                    <span className="mt-1 block h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
-                                    {line}
-                                  </li>
-                                ))}
-                              </ul>
-                            )}
-                            {showCta ? (
-                              <Link
-                                href={item.ctaHref || ctaHref}
-                                className="hs-solid-btn mt-4 inline-flex min-h-[3.5rem] w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-base font-semibold shadow-[0_10px_28px_rgba(109,111,252,0.4)] md:min-h-[3.75rem] md:px-8 md:py-4 md:text-[1.05rem]"
-                              >
-                                {label}
-                              </Link>
-                            ) : null}
-                          </div>
-                        </div>
-                      </article>
+                      <TirzepatideBenefitCard
+                        item={item}
+                        index={index}
+                        benefitsCount={benefits.length}
+                      />
                     </CarouselItem>
                   );
                 })}
               </CarouselContent>
             </Carousel>
 
-            <div className="mt-6 flex items-center justify-end gap-4">
+            <div className="mt-6 hidden items-center justify-end gap-4 md:flex">
               {/* <div className="h-px flex-1 bg-gray-200" /> */}
               <div className="flex gap-3">
                 <button
@@ -5102,7 +5174,7 @@ export function MobileStickyCta({ productData }) {
   const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const THRESHOLD = 220;
+    const THRESHOLD = 100;
 
     const handleScroll = () => {
       const current = window.scrollY;

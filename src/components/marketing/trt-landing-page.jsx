@@ -8,8 +8,6 @@ import {
   ArrowRight,
   ArrowUp,
   Check,
-  ChevronLeft,
-  ChevronRight,
   Clock3,
   Minus,
   Plus,
@@ -823,14 +821,6 @@ const SUPPORT_CARDS = [
 ];
 
 function TRTDesignedToSupportSection() {
-  const scrollRef = useRef(null);
-  const scroll = (dir) => {
-    if (!scrollRef.current) return;
-    const card = scrollRef.current.querySelector("[data-support-card]");
-    const w = card ? card.offsetWidth + 20 : 300;
-    scrollRef.current.scrollBy({ left: dir * w, behavior: "smooth" });
-  };
-
   return (
     <section className="overflow-hidden bg-[#F1F5F9] py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
@@ -841,12 +831,13 @@ function TRTDesignedToSupportSection() {
         <p className="mx-auto mb-12 text-center text-base text-gray-600">
           You will notice differences in how you sleep, train, and feel.
         </p>
-        <div
-          ref={scrollRef}
-          className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-2 scrollbar-hide md:grid md:grid-cols-3 md:overflow-visible md:pb-0"
-        >
+        <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain pb-2 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] scrollbar-hide md:grid md:grid-cols-3 md:overflow-visible md:pb-0 [&::-webkit-scrollbar]:hidden">
           {SUPPORT_CARDS.map((c) => (
-            <div key={c.title} data-support-card className="w-[calc(100vw-2rem)] shrink-0 snap-center md:w-auto">
+            <div
+              key={c.title}
+              data-support-card
+              className="w-[88%] shrink-0 snap-start snap-always md:w-auto md:shrink"
+            >
               <div className="h-full overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
                 <div className="relative aspect-[5/3]">
                   <Image src={c.img} alt={c.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" loading="lazy" />
@@ -858,24 +849,7 @@ function TRTDesignedToSupportSection() {
               </div>
             </div>
           ))}
-        </div>
-        <div className="mt-4 flex justify-center gap-2 md:hidden">
-          <button
-            type="button"
-            onClick={() => scroll(-1)}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm hover:bg-gray-50"
-            aria-label="Previous"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
-            onClick={() => scroll(1)}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm hover:bg-gray-50"
-            aria-label="Next"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
+          <div className="w-2 shrink-0 md:hidden" aria-hidden />
         </div>
       </div>
     </section>
@@ -923,45 +897,20 @@ function MemberResultCard({ r }) {
   );
 }
 
-function ResultsRow({ items, reverse = false }) {
-  const scrollRef = useRef(null);
-  const scroll = (dir) => {
-    if (!scrollRef.current) return;
-    const card = scrollRef.current.querySelector("[data-card]");
-    const w = card ? card.offsetWidth + 20 : 300;
-    scrollRef.current.scrollBy({ left: dir * w, behavior: "smooth" });
-  };
-
+function ResultsRow({ items }) {
   return (
     <div className="relative">
-      <div
-        ref={scrollRef}
-        className="flex gap-5 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0"
-        style={reverse ? { direction: "rtl" } : undefined}
-      >
+      <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain py-0.5 pl-3 pr-4 pb-2 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] scroll-pl-3 scroll-pr-4 scrollbar-hide lg:grid lg:grid-cols-3 lg:overflow-visible lg:scroll-p-0 lg:px-0 lg:py-0 lg:pb-0 [&::-webkit-scrollbar]:hidden">
         {items.map((r) => (
-          <div key={r.name} data-card className="min-w-full shrink-0 snap-center lg:min-w-0" style={reverse ? { direction: "ltr" } : undefined}>
+          <div
+            key={r.name}
+            data-card
+            className="min-w-[88%] shrink-0 snap-start snap-always lg:min-w-0"
+          >
             <MemberResultCard r={r} />
           </div>
         ))}
-      </div>
-      <div className="mt-3 flex justify-center gap-2 lg:hidden">
-        <button
-          type="button"
-          onClick={() => scroll(reverse ? 1 : -1)}
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm hover:bg-gray-50"
-          aria-label={reverse ? "Scroll right" : "Scroll left"}
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </button>
-        <button
-          type="button"
-          onClick={() => scroll(reverse ? -1 : 1)}
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm hover:bg-gray-50"
-          aria-label={reverse ? "Scroll left" : "Scroll right"}
-        >
-          <ChevronRight className="h-4 w-4" />
-        </button>
+        <div className="w-2 shrink-0 lg:hidden" aria-hidden />
       </div>
     </div>
   );
@@ -987,7 +936,7 @@ function TRTMemberResultsSection() {
         </div>
         <div className="space-y-6">
           <ResultsRow items={row1} />
-          <ResultsRow items={row2} reverse />
+          <ResultsRow items={row2} />
         </div>
       </div>
     </section>
@@ -1020,9 +969,36 @@ function StatCard({ s }) {
 
 function TRTStatsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const statsScrollRef = useRef(null);
 
-  const prev = () => setActiveIndex((i) => (i === 0 ? TRT_STATS.length - 1 : i - 1));
-  const next = () => setActiveIndex((i) => (i === TRT_STATS.length - 1 ? 0 : i + 1));
+  useEffect(() => {
+    const el = statsScrollRef.current;
+    if (!el) return;
+    const slides = () => [...el.querySelectorAll("[data-stat-slide]")];
+    const onScroll = () => {
+      const list = slides();
+      if (!list.length) return;
+      const mid = el.scrollLeft + el.clientWidth * 0.2;
+      let best = 0;
+      list.forEach((node, i) => {
+        const left = node.offsetLeft;
+        const right = left + node.offsetWidth;
+        if (mid >= left && mid < right) best = i;
+      });
+      setActiveIndex(best);
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollStatTo = useCallback((index) => {
+    const el = statsScrollRef.current;
+    const node = el?.querySelectorAll("[data-stat-slide]")?.[index];
+    if (node && "scrollIntoView" in node) {
+      node.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+    }
+  }, []);
 
   return (
     <section className="relative overflow-hidden bg-[#101726] text-white">
@@ -1049,7 +1025,7 @@ function TRTStatsSection() {
         </div>
       </div>
 
-      {/* Mobile: chevron carousel */}
+      {/* Mobile: horizontal scroll + dot indicators (no chevrons) */}
       <div className="relative px-6 py-14 md:hidden">
         <h2 className="mb-3 font-title text-3xl font-medium">
           Why members{" "}
@@ -1061,34 +1037,34 @@ function TRTStatsSection() {
         <p className="mb-8 text-sm text-white/70">
           9 out of 10 members reach optimal T levels in 90 days.
         </p>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIndex}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-          >
-            <StatCard s={TRT_STATS[activeIndex]} />
-          </motion.div>
-        </AnimatePresence>
-        <div className="mt-6 flex items-center gap-4">
-          <div className="flex gap-2">
-            <button type="button" onClick={prev} className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white hover:bg-white/10" aria-label="Previous">
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-            <button type="button" onClick={next} className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white hover:bg-white/10" aria-label="Next">
-              <ChevronRight className="h-4 w-4" />
-            </button>
-          </div>
-          <div className="flex gap-2">
-            {TRT_STATS.map((_, i) => (
-              <span
-                key={i}
-                className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? "w-6 bg-[#6D6FFC]" : "w-1.5 bg-white/30"}`}
-              />
-            ))}
-          </div>
+        <div
+          ref={statsScrollRef}
+          className="-mx-2 flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain px-2 pb-2 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Member statistics"
+        >
+          {TRT_STATS.map((s) => (
+            <div
+              key={s.label}
+              data-stat-slide
+              className="min-w-0 shrink-0 basis-[88%] snap-start snap-always rounded-2xl border border-white/10 bg-white/[0.06] p-5"
+            >
+              <StatCard s={s} />
+            </div>
+          ))}
+          <div className="w-3 shrink-0" aria-hidden />
+        </div>
+        <div className="mt-5 flex justify-center gap-2">
+          {TRT_STATS.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => scrollStatTo(i)}
+              aria-label={`Show stat ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? "w-6 bg-[#6D6FFC]" : "w-1.5 bg-white/30"}`}
+            />
+          ))}
         </div>
       </div>
     </section>

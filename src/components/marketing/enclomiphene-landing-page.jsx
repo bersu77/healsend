@@ -8,8 +8,6 @@ import {
   ArrowRight,
   ArrowUp,
   Check,
-  ChevronLeft,
-  ChevronRight,
   Clock3,
   Minus,
   Pill,
@@ -708,21 +706,13 @@ const HPG_STEPS = [
 ];
 
 function HpgCarousel() {
-  const scrollRef = useRef(null);
-  const scroll = (dir) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const card = el.querySelector("[data-card]");
-    const w = card ? card.offsetWidth + 16 : 280;
-    el.scrollBy({ left: dir * w, behavior: "smooth" });
-  };
   return (
     <>
-      {/* Mobile: horizontal scroll + nav buttons */}
+      {/* Mobile: horizontal scroll (swipe; next card peeks) */}
       <div className="relative sm:hidden">
-        <div ref={scrollRef} className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] scrollbar-hide [&::-webkit-scrollbar]:hidden">
           {HPG_STEPS.map((step) => (
-            <div key={step.title} data-card className="min-w-[75vw] snap-center">
+            <div key={step.title} data-card className="min-w-0 shrink-0 basis-[88%] snap-start snap-always">
               <div className="group h-full rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
                 <div className="mb-3 flex items-center gap-3">
                   <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full">
@@ -737,14 +727,7 @@ function HpgCarousel() {
               </div>
             </div>
           ))}
-        </div>
-        <div className="mt-3 flex items-center justify-center gap-3">
-          <button onClick={() => scroll(-1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:bg-gray-50">
-            <ChevronLeft className="h-4 w-4 text-gray-600" />
-          </button>
-          <button onClick={() => scroll(1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:bg-gray-50">
-            <ChevronRight className="h-4 w-4 text-gray-600" />
-          </button>
+          <div className="w-3 shrink-0" aria-hidden />
         </div>
       </div>
 
@@ -1111,14 +1094,6 @@ function ResultCard({ r }) {
 }
 
 function LabResultsCarousel() {
-  const scrollRef = useRef(null);
-  const scroll = (dir) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const card = el.querySelector("[data-card]");
-    const w = card ? card.offsetWidth + 20 : 300;
-    el.scrollBy({ left: dir * w, behavior: "smooth" });
-  };
   return (
     <div className="mt-10">
       <h3 className="mb-6 text-center font-title text-2xl font-medium text-gray-900 md:text-3xl">
@@ -1128,20 +1103,13 @@ function LabResultsCarousel() {
 
       {/* Mobile: horizontal scroll */}
       <div className="relative sm:hidden">
-        <div ref={scrollRef} className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+        <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] scrollbar-hide [&::-webkit-scrollbar]:hidden">
           {ENCLO_RESULTS.map((r) => (
-            <div key={r.name} data-card className="min-w-[80vw] snap-center">
+            <div key={r.name} data-card className="min-w-0 shrink-0 basis-[88%] snap-start snap-always">
               <ResultCard r={r} />
             </div>
           ))}
-        </div>
-        <div className="mt-2 flex items-center justify-center gap-3">
-          <button onClick={() => scroll(-1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:bg-gray-50">
-            <ChevronLeft className="h-4 w-4 text-gray-600" />
-          </button>
-          <button onClick={() => scroll(1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:bg-gray-50">
-            <ChevronRight className="h-4 w-4 text-gray-600" />
-          </button>
+          <div className="w-3 shrink-0" aria-hidden />
         </div>
       </div>
 
@@ -1195,32 +1163,17 @@ function PillarCard({ p }) {
 }
 
 function PillarsCarousel() {
-  const scrollRef = useRef(null);
-  const scroll = (dir) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const card = el.querySelector("[data-card]");
-    const w = card ? card.offsetWidth + 20 : 300;
-    el.scrollBy({ left: dir * w, behavior: "smooth" });
-  };
   return (
     <>
       {/* Mobile: horizontal scroll */}
       <div className="relative md:hidden">
-        <div ref={scrollRef} className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+        <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] scrollbar-hide [&::-webkit-scrollbar]:hidden">
           {PILLARS.map((p) => (
-            <div key={p.num} data-card className="min-w-[80vw] snap-center">
+            <div key={p.num} data-card className="min-w-0 shrink-0 basis-[88%] snap-start snap-always">
               <PillarCard p={p} />
             </div>
           ))}
-        </div>
-        <div className="mt-2 flex items-center justify-center gap-3">
-          <button onClick={() => scroll(-1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:bg-gray-50">
-            <ChevronLeft className="h-4 w-4 text-gray-600" />
-          </button>
-          <button onClick={() => scroll(1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:bg-gray-50">
-            <ChevronRight className="h-4 w-4 text-gray-600" />
-          </button>
+          <div className="w-3 shrink-0" aria-hidden />
         </div>
       </div>
 
@@ -1304,32 +1257,17 @@ function TestimonialCard({ t }) {
 }
 
 function TestimonialsCarousel() {
-  const scrollRef = useRef(null);
-  const scroll = (dir) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const card = el.querySelector("[data-card]");
-    const w = card ? card.offsetWidth + 20 : 300;
-    el.scrollBy({ left: dir * w, behavior: "smooth" });
-  };
   return (
     <>
       {/* Mobile: horizontal scroll */}
       <div className="relative md:hidden">
-        <div ref={scrollRef} className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+        <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] scrollbar-hide [&::-webkit-scrollbar]:hidden">
           {TESTIMONIALS.map((t) => (
-            <div key={t.name} data-card className="min-w-[80vw] snap-center">
+            <div key={t.name} data-card className="min-w-0 shrink-0 basis-[88%] snap-start snap-always">
               <TestimonialCard t={t} />
             </div>
           ))}
-        </div>
-        <div className="mt-2 flex items-center justify-center gap-3">
-          <button onClick={() => scroll(-1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:bg-gray-50">
-            <ChevronLeft className="h-4 w-4 text-gray-600" />
-          </button>
-          <button onClick={() => scroll(1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition hover:bg-gray-50">
-            <ChevronRight className="h-4 w-4 text-gray-600" />
-          </button>
+          <div className="w-3 shrink-0" aria-hidden />
         </div>
       </div>
 

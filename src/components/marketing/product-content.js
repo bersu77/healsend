@@ -172,7 +172,7 @@ export const productContent = {
     title: "Lab tested medications for quality & potency",
     description:
       "Our medication is delivered from a state licensed pharmacy in our network, right to your door when you need it.",
-    image: WORDPRESS_MARKETING_IMAGES.nadPatches,
+    image: "/lab-tested-medications.jpeg",
   },
   closingCta: {
     eyebrow: "Ready to feel like you again?",
