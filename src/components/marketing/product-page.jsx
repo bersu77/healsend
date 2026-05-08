@@ -92,13 +92,15 @@ const MEMBER_FACE_STACK_IMAGE_SRCS = [
   "/images/4_Home_Doctors_Online_Consultation-Doctors_04.jpg",
   "/images/4_Home_Doctors_Online_Consultation-Avatar.jpg",
   "/images/4_Home_Doctors_Online_Consultation-Testimonials_02.jpg",
-  "/images/slider/Copy of pexels-farhadirani-34650790.jpg",
-  "/images/slider/Copy of look-studio-S0T98VD2KZs-unsplash.jpg",
-  "/images/slider/Copy of pexels-tima-miroshnichenko-5928317.jpg",
+  // "/images/slider/Copy of pexels-farhadirani-34650790.jpg",
+  // "/images/slider/Copy of look-studio-S0T98VD2KZs-unsplash.jpg",
+  // "/images/slider/Copy of pexels-tima-miroshnichenko-5928317.jpg",
 ];
 
 const MEMBER_FACE_STACK_IMAGE_SRCS_SIX = [
-  ...MEMBER_FACE_STACK_IMAGE_SRCS.slice(0, 6),
+  ...MEMBER_FACE_STACK_IMAGE_SRCS,
+  "/images/4_Home_Doctors_Online_Consultation-Testimonials_02.jpg",
+  "/images/4_Home_Doctors_Online_Consultation-Testimonials_03.jpg",
 ];
 
 export function MediaLogosBanner() {
@@ -277,14 +279,14 @@ function WillpowerSection() {
           <div className="w-full max-w-[34rem]">
             <div className="mt-5 max-w-[34rem]">
               <h2 className="text-balance font-title text-4xl font-medium leading-tight tracking-tight text-gray-950 md:text-5xl">
-                Your health isn&apos;t a willpower problem.{" "}
+                Your weight isn&apos;t a willpower problem.{" "}
                 <span className="font-playfair italic font-medium text-[#6d6ffc]">
-                  It&apos;s a hormonal one.
+                  It&apos;s a medical one.
                 </span>
               </h2>
               <p className="mt-4 max-w-[30rem] text-[1rem] leading-6 text-gray-800 lg:text-[1.05rem]">
-                Weight loss, TRT, and testosterone support &mdash; all
-                clinician-led. Delivered to your door. Guaranteed or it&apos;s free.
+               Personalized GLP-1 treatment. Unlimited clinician-led care.
+                Delivered to your door. Guaranteed or it&apos;s free
               </p>
             </div>
 
@@ -293,8 +295,8 @@ function WillpowerSection() {
                 <div className="flex items-center gap-4 text-base md:text-sm">
                   <PillBottle className="h-6 w-6 shrink-0" strokeWidth={2} />
                   <span>
-                    GLP-1 weight loss, TRT, and enclomiphene &mdash;
-                    prescribed by board-certified clinicians
+                    Compounded Semaglutide &amp; Tirzepatide — the most
+                    prescribed GLP-1s in clinical weight loss
                   </span>
                 </div>
               </li>
@@ -583,7 +585,7 @@ const staticLabTestedSection = {
   title: "Lab tested medications for quality & potency",
   description:
     "Our medication is delivered from a state licensed pharmacy in our network, right to your door when you need it.",
-  image: "/lab-tested-medications.jpeg",
+  image: "/images/67b8bc339365c3a3c21c8190_cta_sermorelin-optimized.jpg",
 };
 
 const defaultTestimonials = defaultProductContent.testimonials || [];
@@ -671,90 +673,118 @@ function mergeIconItems(items, fallbackItems) {
   }));
 }
 
-/** Default slides when a Tirzepatide PDP has no CMS `benefitsCarousel` (avoid NAD+ fallback). */
+// /** Default slides when a Tirzepatide PDP has no CMS `benefitsCarousel` (avoid NAD+ fallback). */
+// const TIRZEPATIDE_BENEFITS_CAROUSEL = [
+//   {
+//     text: "TRT (Testosterone Injections)",
+//     image: "/images/articles/wmremove-transformed-2%20(1).jpeg",
+//     alt: "TRT Testosterone Injections",
+//     description: [
+//       "Boosts energy and overall daily vitality",
+//       "Supports lean muscle growth efficiently naturally",
+//       "Enhances mood, focus, and mental clarity",
+//       "Promotes healthy libido and hormone balance",
+//     ],
+//     ctaHref: "/trt",
+//   },
+//   {
+//     text: "Enclomiphene",
+//     image: "/images/marketing/enclomiphene.png",
+//     alt: "Enclomiphene therapy",
+//     description: [
+//       "Boosts energy and overall daily vitality",
+//       "Supports lean muscle growth efficiently naturally",
+//       "Enhances mood, focus, and mental clarity",
+//       "Promotes healthy libido and hormone balance",
+//     ],
+//     ctaHref: "/enclomiphene",
+//   },
+//   {
+//     text: "GHRH Peptide Therapy",
+//     image: "/images/marketing/bundle/cjc-1295-ipamorelin-product.png",
+//     alt: "GHRH peptide therapy",
+//     description: [
+//       "Stimulates natural growth hormone production for vitality",
+//       "Enhances muscle recovery and rapid tissue repair",
+//       "Improves deep sleep quality and cognitive function",
+//       "Boosts metabolism and fat-burning efficiency",
+//     ],
+//   },
+//   {
+//     text: "Wolverine Blend Healing Peptide Protocol",
+//     image: "/images/wmremove-transformed-3-1%20(1).jpeg",
+//     alt: "Wolverine Blend Healing Peptide Protocol",
+//     description: [
+//       "Relieves persistent joint pain and muscle soreness",
+//       "Accelerates healing of tendons and ligaments",
+//       "Reduces systemic inflammation for faster recovery",
+//       "Supports targetness and overall structural health",
+//     ],
+//   },
+//   {
+//     text: "Glow Blend",
+//     image: "/images/articles/med1.webp",
+//     alt: "Glow Blend skincare peptide",
+//     description: [
+//       "Promotes youthful skin through collagen production",
+//       "Reduces fine lines and improves skin texture",
+//       "Accelerates wound healing and skin repair",
+//       "Enhances hair follicle health and thickness",
+//     ],
+//   },
+//   {
+//     text: "Sermorelin",
+//     image: "/images/home/reference/nad-cellular-energy.jpeg",
+//     alt: "Sermorelin growth hormone therapy",
+//     description: [
+//       "Stimulates natural growth hormone release for anti-aging",
+//       "Improves body composition by reducing fat and building lean muscle",
+//       "Enhances deep restorative sleep and overnight recovery",
+//       "Supports stronger immune function and cellular repair",
+//     ],
+//   },
+//   {
+//     text: "Tesamorelin",
+//     image: "/images/marketing/bundle/strength-lifestyle.jpg",
+//     alt: "Tesamorelin peptide therapy",
+//     description: [
+//       "Targets and reduces stubborn visceral abdominal fat",
+//       "Boosts growth hormone levels without disrupting natural rhythms",
+//       "Supports improved cognitive function and mental sharpness",
+//       "Promotes healthier lipid profiles and metabolic markers",
+//     ],
+//     ctaText: "Get Started",
+//   },
+// ];
+
 const TIRZEPATIDE_BENEFITS_CAROUSEL = [
   {
-    text: "TRT (Testosterone Injections)",
+    text: "Combines GLP-1 & GIP hormones for superior fat loss results",
     image: "/images/articles/wmremove-transformed-2%20(1).jpeg",
-    alt: "TRT Testosterone Injections",
-    description: [
-      "Boosts energy and overall daily vitality",
-      "Supports lean muscle growth efficiently naturally",
-      "Enhances mood, focus, and mental clarity",
-      "Promotes healthy libido and hormone balance",
-    ],
-    ctaHref: "/trt",
+    alt: "Dual-action Tirzepatide support",
   },
   {
-    text: "Enclomiphene",
-    image: "/images/marketing/enclomiphene.png",
-    alt: "Enclomiphene therapy",
-    description: [
-      "Boosts energy and overall daily vitality",
-      "Supports lean muscle growth efficiently naturally",
-      "Enhances mood, focus, and mental clarity",
-      "Promotes healthy libido and hormone balance",
-    ],
-    ctaHref: "/enclomiphene",
+    text: "Supports stronger appetite control and fewer food cravings",
+    image: "/images/wmremove-transformed-4-1%20(1).jpeg",
+    alt: "Improved appetite control",
   },
+  // {
+  //   text: "Built for consistent weekly progress with clinician-guided dosing",
+  //   image: "/images/4_Home_Doctors_Online_Consultation-Doctors_04.jpg",
+  //   alt: "Clinician-guided Tirzepatide plan",
+  // },
   {
-    text: "GHRH Peptide Therapy",
-    image: "/images/marketing/bundle/cjc-1295-ipamorelin-product.png",
-    alt: "GHRH peptide therapy",
-    description: [
-      "Stimulates natural growth hormone production for vitality",
-      "Enhances muscle recovery and rapid tissue repair",
-      "Improves deep sleep quality and cognitive function",
-      "Boosts metabolism and fat-burning efficiency",
-    ],
-  },
-  {
-    text: "Wolverine Blend Healing Peptide Protocol",
+    text: "Helps improve metabolic markers alongside sustainable weight loss",
     image: "/images/wmremove-transformed-3-1%20(1).jpeg",
-    alt: "Wolverine Blend Healing Peptide Protocol",
-    description: [
-      "Relieves persistent joint pain and muscle soreness",
-      "Accelerates healing of tendons and ligaments",
-      "Reduces systemic inflammation for faster recovery",
-      "Supports targetness and overall structural health",
-    ],
+    alt: "Metabolic health benefits",
   },
   {
-    text: "Glow Blend",
+    text: "A strong option when you need next-level support beyond basics",
     image: "/images/articles/med1.webp",
-    alt: "Glow Blend skincare peptide",
-    description: [
-      "Promotes youthful skin through collagen production",
-      "Reduces fine lines and improves skin texture",
-      "Accelerates wound healing and skin repair",
-      "Enhances hair follicle health and thickness",
-    ],
-  },
-  {
-    text: "Sermorelin",
-    image: "/images/home/reference/nad-cellular-energy.jpeg",
-    alt: "Sermorelin growth hormone therapy",
-    description: [
-      "Stimulates natural growth hormone release for anti-aging",
-      "Improves body composition by reducing fat and building lean muscle",
-      "Enhances deep restorative sleep and overnight recovery",
-      "Supports stronger immune function and cellular repair",
-    ],
-  },
-  {
-    text: "Tesamorelin",
-    image: "/images/marketing/bundle/strength-lifestyle.jpg",
-    alt: "Tesamorelin peptide therapy",
-    description: [
-      "Targets and reduces stubborn visceral abdominal fat",
-      "Boosts growth hormone levels without disrupting natural rhythms",
-      "Supports improved cognitive function and mental sharpness",
-      "Promotes healthier lipid profiles and metabolic markers",
-    ],
+    alt: "Support beyond basics for your weight-loss journey",
     ctaText: "Get Started",
   },
 ];
-
 /** Research split for Tirzepatide PDPs (avoids NAD+ placeholder from default product content). */
 const TIRZEPATIDE_SURMOUNT_RESEARCH_SECTION = {
   title: "Results from SURMOUNT Clinical Trials",
@@ -1283,7 +1313,6 @@ export function ProductHero({ productData, isHomepage: _isHomepage = false }) {
   );
 }
 
-
 const MEDICAL_PLANS = [
   {
     id: "semaglutide",
@@ -1420,7 +1449,7 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
       style={minHeight ? { minHeight } : undefined}
       className={cn(
         "flex min-w-0 flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-[0_20px_40px_-24px_rgba(91,60,221,0.12)] ring-1 ring-[#ece8f3]",
-        isMinimal ? "w-full" : "w-full",
+        isMinimal ? "h-auto self-start w-full" : "w-full",
       )}
     >
       <div
@@ -1629,26 +1658,26 @@ function MedicalWeightLossSection({ productData }) {
             </p>
           </div>
 
-          <div className="flex w-full flex-wrap items-center justify-center gap-3 sm:gap-4 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end lg:pt-1">
+          <div className="flex w-full flex-wrap items-center gap-3 sm:gap-4 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end lg:pt-1">
             <div className="flex min-w-0 flex-initial items-center justify-center">
               <div className="relative flex items-center">
                 <img
                   src="/images/clean/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16"
+                  className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
                 />
                 <img
                   src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`}
                   alt="Google reviews rating"
                   loading="lazy"
-                  className="z-10 -ml-2 -mr-1 h-auto max-h-[40px] w-[120px] object-contain mix-blend-multiply sm:-ml-3 sm:-mr-2 sm:max-h-[50px] sm:w-[140px] md:max-h-[55px] md:w-[150px] lg:-ml-4 lg:-mr-2 lg:max-h-[60px] lg:w-[160px]"
+                  className="z-10 -ml-2 -mr-1 h-auto max-h-[60px] max-w-[120px] object-contain mix-blend-multiply sm:-ml-3 sm:-mr-2 sm:max-h-[80px] sm:max-w-none md:max-h-[100px] lg:-ml-5 lg:-mr-3 lg:max-h-[120px]"
                 />
                 <img
                   src="/images/articles/blogs/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16"
+                  className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
                 />
               </div>
             </div>
@@ -1658,19 +1687,19 @@ function MedicalWeightLossSection({ productData }) {
                   src="/images/clean/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16"
+                  className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
                 />
                 <img
                   src="/images/healsend-2k-members-trust.png"
                   alt="HealSend — 2K+ members"
                   loading="lazy"
-                  className="z-10 -mx-5 h-auto max-h-[50px] w-[150px] shrink-0 object-contain sm:-mx-6 sm:max-h-[60px] sm:w-[170px] md:-mx-7 md:max-h-[65px] md:w-[180px] lg:-mx-8 lg:max-h-[70px] lg:w-[200px]"
+                  className="z-10 -mx-2 h-auto max-h-[60px] w-auto shrink-0 object-contain sm:-mx-3 sm:max-h-[80px] md:max-h-[100px] lg:-mx-4 lg:max-h-[120px]"
                 />
                 <img
                   src="/images/articles/blogs/image.png"
                   alt=""
                   aria-hidden="true"
-                  className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16"
+                  className="z-20 h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
                 />
               </div>
             </div>
@@ -1692,6 +1721,7 @@ function MedicalWeightLossSection({ productData }) {
     </section>
   );
 }
+
 
 function _FeatureSplit({ productData }) {
   return (
@@ -2875,36 +2905,163 @@ export function SimpleSteps({ productData }) {
 }
 
 export function LabTested({ productData: _productData }) {
+  const content = staticLabTestedSection;
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const LAB_TESTS = [
+    {
+      name: "Potency Test",
+      description:
+        "Confirms the medication contains ±10% of the appropriate concentration of the active ingredient.",
+    },
+    {
+      name: "Sterility Test",
+      description:
+        "Ensures the medication is free from bacteria or pathogens and meets USP 797 requirements.",
+    },
+    {
+      name: "Endotoxicity",
+      description:
+        "Ensures endotoxin levels remain below USP 85 thresholds for patient safety.",
+    },
+    {
+      name: "pH Test",
+      description:
+        "Confirms acid/base balance to minimize irritation upon injection.",
+    },
+  ];
+
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
-      <div className="mx-auto grid max-w-[1200px] items-center gap-12 px-4 md:grid-cols-2 md:gap-14 md:px-8">
-        <div>
-          <h2 className="mb-4 font-title text-4xl font-medium text-gray-900 md:text-5xl">
-            Lab tested medications for{" "}
-            <span className="font-playfair italic text-[#6D6FFC]">quality &amp; potency</span>
-          </h2>
-          <p className="mb-6 text-base text-gray-600">
-            Our medication is delivered from a state-licensed 503B pharmacy in our network, right to your door.
-          </p>
-          <ul className="divide-y divide-gray-100">
-            {[
-              ["Third-party quality control testing", "every batch verified for purity and potency."],
-              ["Compounded in U.S. pharmacies", "no overseas labs, no gray-market suppliers."],
-              ["MCT-oil base", "cleaner absorption and gentler injection than seed-oil formulations."],
-              ["200mg/mL pharmaceutical-grade dosing", "full strength, no dilution."],
-            ].map(([bold, rest]) => (
-              <li key={bold} className="flex gap-3 py-3.5 text-sm text-gray-600">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#6D6FFC]" />
-                <span><strong className="text-gray-900">{bold}</strong> — {rest}</span>
-              </li>
-            ))}
-          </ul>
+    <>
+      {/* Modal */}
+      {modalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8"
+          onClick={() => setModalOpen(false)}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+
+          {/* Panel */}
+          <div
+            className="relative z-10 w-full max-w-[680px] overflow-y-auto max-h-[90svh] rounded-[2rem] bg-white p-6 shadow-2xl md:p-10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setModalOpen(false)}
+              className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-[#1c1a24] hover:bg-gray-50 transition-colors"
+              aria-label="Close"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <h2 className="mb-3 text-2xl font-bold text-[#1c1a24] md:text-3xl">
+              Lab tested for quality &amp; potency
+            </h2>
+            <p className="mb-7 text-sm leading-relaxed text-[#484555] md:text-base">
+              Our pharmacies perform third party testing through FDA and DEA
+              registered labs to run quality control checks for every compounded
+              lot.
+            </p>
+
+            {/* Cards — 2-col on desktop, stacked on mobile */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {LAB_TESTS.map((test) => (
+                <div
+                  key={test.name}
+                  className="rounded-2xl border border-gray-100 bg-[#fafafa] p-5"
+                >
+                  <div className="mb-3 flex items-center justify-between gap-2">
+                    <span className="text-base font-bold text-[#1c1a24]">
+                      {test.name}
+                    </span>
+                    <span className="shrink-0 rounded-full bg-[#22c55e] px-3 py-1 text-[0.65rem] font-bold uppercase tracking-widest text-white">
+                      Passed
+                    </span>
+                  </div>
+                  <p className="text-sm leading-relaxed text-[#484555]">
+                    {test.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="relative aspect-square overflow-hidden rounded-3xl">
-          <Image src="/images/67b8bc339365c3a3c21c8190_cta_sermorelin-optimized.jpg" alt="Lab tested medication" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" loading="lazy" />
+      )}
+
+      <section className="bg-[#f9f9f9] px-4 py-16 md:px-8 md:py-20 lg:px-16">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="flex flex-col items-center gap-8 rounded-[2.5rem] bg-gradient-to-br from-[#6f68f0] to-[#8f88ff] p-6 md:p-10 lg:flex-row lg:gap-12 lg:p-12">
+            <div className="flex-1 text-white">
+              <h2 className="mb-6 text-3xl font-bold leading-[1.1] tracking-tight md:text-4xl lg:text-[2.75rem]">
+                {content.title}
+              </h2>
+              <p className="mb-10 max-w-lg text-base leading-relaxed text-white/90 md:text-lg">
+                {content.description}
+              </p>
+
+              <div className="max-w-lg space-y-4">
+                <div className="flex flex-col gap-3 rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:gap-4 md:p-5">
+                  <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4">
+                    <BadgeCheck
+                      className="h-6 w-6 shrink-0 text-white"
+                      strokeWidth={1.5}
+                    />
+                    <span className="min-w-0 text-base font-medium leading-snug text-white">
+                      Third party quality control testing
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setModalOpen(true)}
+                    className="hs-outline-btn inline-flex w-full shrink-0 items-center justify-center whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors sm:w-auto sm:px-5"
+                  >
+                    Learn More
+                  </button>
+                </div>
+                <div className="flex items-center gap-4 rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-md md:p-5">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-6 w-6 text-white"
+                  >
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="M2 8h20" />
+                    <path d="M2 12h20" />
+                    <path d="M2 16h20" />
+                    <rect
+                      x="2"
+                      y="4"
+                      width="8"
+                      height="8"
+                      fill="currentColor"
+                      rx="1"
+                    />
+                  </svg>
+                  <span className="text-base font-medium text-white">
+                    Compounded in U.S. pharmacies
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="w-full lg:w-[45%]">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-2xl">
+                <img
+                  src={content.image}
+                  alt="Lab tested medications"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 
@@ -4372,155 +4529,7 @@ function EncloVsTrtComparisonSection() {
   );
 }
 
-function TreatmentPlanCard({ plan }) {
-  const [expanded, setExpanded] = useState(false);
-  const hasDetails =
-    plan.description ||
-    (plan.whyItWorks && plan.whyItWorks.length > 0) ||
-    (plan.bestFor && plan.bestFor.length > 0);
-
-  return (
-    <div className="flex h-full min-w-0 flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-[0_20px_40px_-24px_rgba(91,60,221,0.12)] ring-1 ring-[#ece8f3]">
-      <div className={`relative h-[222px] shrink-0 overflow-hidden ${plan.headerClass}`}>
-        <div className="absolute inset-0 flex items-center justify-center p-6">
-          <img
-            src={plan.image}
-            alt={plan.title}
-            loading="lazy"
-            className="h-36 w-36 object-contain drop-shadow-md"
-          />
-        </div>
-        <div className="absolute inset-0 z-10 flex flex-col justify-between p-6">
-          <div className="flex flex-col items-start gap-y-2">
-            {plan.badges.map((badge, i) => (
-              <span
-                key={badge}
-                className={`rounded-lg px-2 py-1 text-sm font-medium leading-5 text-gray-800 ${
-                  i === 0
-                    ? "bg-gradient-to-r from-white/80 to-white/50"
-                    : "bg-white/50"
-                }`}
-              >
-                {badge}
-              </span>
-            ))}
-          </div>
-          <div>
-            <p className="text-2xl font-medium leading-tight text-[#101726]">
-              {plan.title.split("\n").map((line, idx, arr) => (
-                <React.Fragment key={idx}>
-                  {line}
-                  {idx < arr.length - 1 ? <br /> : null}
-                </React.Fragment>
-              ))}
-            </p>
-            {plan.subtitle ? (
-              <p className="mt-2 text-sm font-medium text-[#101726]/70">{plan.subtitle}</p>
-            ) : null}
-          </div>
-        </div>
-      </div>
-
-      <div className="flex flex-1 flex-col p-5 sm:p-6 md:p-7">
-        <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[#1c1a24]">
-          {plan.bulletsHeading}
-        </p>
-        <ul className="flex shrink-0 flex-col gap-4">
-          {plan.bullets.map((bullet) => {
-            const Icon = bullet.icon;
-            return (
-              <li key={bullet.text} className="flex min-w-0 items-start gap-3">
-                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f1ecf9]">
-                  <Icon className="h-3.5 w-3.5 shrink-0 text-[#5b3cdd]" />
-                </span>
-                <span className="text-pretty break-words text-base leading-snug text-gray-700 [overflow-wrap:anywhere] md:leading-6">
-                  {bullet.text}
-                </span>
-              </li>
-            );
-          })}
-        </ul>
-
-        <div className="mt-6 min-h-3 flex-1 shrink" aria-hidden />
-
-        <div className="mt-auto flex w-full shrink-0 flex-col gap-3">
-          <Link
-            href={plan.href}
-            className="flex min-h-[3.375rem] w-full shrink-0 items-center justify-center gap-2 rounded-full bg-[#1c1a24] px-4 py-2.5 text-center text-[13px] font-bold leading-snug tracking-tight text-white transition-colors hover:bg-[#2a2740] sm:px-5 sm:text-sm sm:leading-tight"
-          >
-            <span className="text-balance">{plan.primaryCta}</span>
-            <ArrowRight className="h-4 w-4 shrink-0 self-center" aria-hidden />
-          </Link>
-          {plan.secondaryCta && hasDetails ? (
-            <button
-              type="button"
-              onClick={() => setExpanded((v) => !v)}
-              aria-expanded={expanded}
-              className={`flex min-h-[2.875rem] w-full shrink-0 items-center justify-center whitespace-nowrap rounded-full border bg-white px-4 py-2.5 text-center text-[13px] font-semibold leading-snug tracking-tight transition-colors sm:text-sm ${
-                expanded
-                  ? "border-[#d8d2ee] text-[#5b3cdd] hover:bg-[#f1ecf9]"
-                  : "border-[#e5e0ee] text-[#1c1a24] hover:bg-[#f1ecf9]"
-              }`}
-            >
-              {expanded ? "Hide details" : plan.secondaryCta}
-            </button>
-          ) : null}
-        </div>
-
-        <AnimatePresence initial={false}>
-          {expanded && hasDetails ? (
-            <motion.div
-              key="details"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-4 w-full min-w-0 shrink-0 overflow-hidden"
-            >
-              <div className="space-y-6 border-t border-[#ece8f3] pt-5 md:pt-6">
-                {plan.description ? (
-                  <p className="text-sm leading-6 text-[#474257]">{plan.description}</p>
-                ) : null}
-                {plan.whyItWorks?.length > 0 ? (
-                  <div>
-                    <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#1c1a24]">
-                      WHY IT WORKS
-                    </p>
-                    <ul className="space-y-2.5">
-                      {plan.whyItWorks.map((item) => (
-                        <li key={item} className="flex items-start gap-3">
-                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5b3cdd]" strokeWidth={3} />
-                          <span className="text-sm leading-6 text-[#1c1a24]">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-                {plan.bestFor?.length > 0 ? (
-                  <div>
-                    <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#1c1a24]">
-                      BEST FOR
-                    </p>
-                    <ul className="space-y-2.5">
-                      {plan.bestFor.map((item) => (
-                        <li key={item} className="flex items-start gap-3">
-                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5b3cdd]" strokeWidth={3} />
-                          <span className="text-sm leading-6 text-[#1c1a24]">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-              </div>
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
-      </div>
-    </div>
-  );
-}
-
-export function OurTreatmentsSection({ cards = TREATMENT_PLAN_CARDS }) {
+export function OurTreatmentsSection({ cards = MEDICAL_PLANS }) {
   return (
     <section className="overflow-hidden bg-[#f9f9f9] py-16 md:py-20">
       <div className="mx-auto max-w-[1400px] px-4 md:px-8 lg:px-16">
@@ -4586,10 +4595,10 @@ export function OurTreatmentsSection({ cards = TREATMENT_PLAN_CARDS }) {
           </div>
         </div>
 
-        <div className={`flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide sm:gap-8 lg:grid lg:overflow-visible lg:pb-0 lg:gap-6 xl:gap-8 ${cards.length === 3 ? "lg:grid-cols-3" : cards.length === 2 ? "lg:grid-cols-2 max-w-4xl mx-auto" : "lg:grid-cols-1 max-w-lg mx-auto"}`}>
+        <div className={`grid gap-6 sm:grid-cols-1 lg:grid-cols-3 xl:gap-8 ${cards.length === 2 ? "lg:max-w-4xl mx-auto" : cards.length === 1 ? "lg:max-w-lg mx-auto" : ""}`}>
           {cards.map((plan) => (
-            <div key={plan.id} className="min-w-[85%] snap-center sm:min-w-[70%] lg:min-w-0">
-              <TreatmentPlanCard plan={plan} />
+            <div key={plan.id} className="flex items-stretch">
+              <MedicalPlanCard plan={plan} ctaHref={plan.href || "/weight-loss"} />
             </div>
           ))}
         </div>
@@ -4665,7 +4674,7 @@ export default function MarketingProductPage({ product, isHomepage = false }) {
         isHomepage={isHomepage}
       />
 
-      <FadeInSection><EncloVsTrtComparisonSection /></FadeInSection>
+      {/* <FadeInSection><EncloVsTrtComparisonSection /></FadeInSection> */}
 
       <FadeInSection><NegativeSellSection /></FadeInSection>
 

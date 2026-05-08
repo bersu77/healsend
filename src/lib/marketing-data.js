@@ -4413,7 +4413,9 @@ export async function getMarketingProductPageData(slug) {
           },
         })
       : null;
-
+console.log("marketingpage", 
+  marketingPage
+)
     const primaryProduct = await prisma.product.findFirst({
       where: buildPublicCatalogProductWhere({
         published: true,
@@ -4439,7 +4441,7 @@ export async function getMarketingProductPageData(slug) {
       },
       orderBy: [{ featured: "desc" }, { priority: "desc" }, { createdAt: "asc" }],
     });
-
+              console.log("primaryProduct", primaryProduct)
     if (!primaryProduct || !isPublicCatalogProductReady(primaryProduct)) {
       return syntheticFallback;
     }
@@ -4458,6 +4460,8 @@ export async function getMarketingProductPageData(slug) {
       orderBy: [{ featured: "desc" }, { priority: "desc" }, { createdAt: "asc" }],
       take: 2,
     }));
+
+    console.log("relatedProducts",relatedProducts)
 
     return mergeWithFallbackProductData(
       primaryProduct,
