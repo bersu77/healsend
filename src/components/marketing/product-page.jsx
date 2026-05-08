@@ -1451,7 +1451,12 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
       )}
     >
       <div
-        className={`relative h-[222px] shrink-0 overflow-hidden ${plan.headerClass} ${plan.headerTextClass}`}
+        className={cn(
+          "relative shrink-0 overflow-hidden",
+          plan.useFullImage ? "h-[222px]" : "min-h-[248px] sm:min-h-[268px] md:min-h-[288px]",
+          plan.headerClass,
+          plan.headerTextClass,
+        )}
       >
         {plan.useFullImage ? (
           <img
@@ -1463,17 +1468,18 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
         ) : (
           <img
             src={plan.image}
-            alt={plan.title}
+            alt=""
+            aria-hidden
             loading="lazy"
-            className="pointer-events-none absolute right-0 top-0 h-full w-[55%] object-contain object-right"
+            className="pointer-events-none absolute bottom-0 right-0 h-[78%] max-h-[220px] w-auto max-w-[min(46%,11.5rem)] object-contain object-bottom sm:max-h-[240px] sm:max-w-[min(48%,13rem)] md:max-h-[260px] md:max-w-[min(50%,15rem)]"
           />
         )}
-        <div className="absolute inset-0 z-10 flex flex-col justify-between gap-y-6 p-6">
-          <div className="flex flex-col items-start gap-y-2">
+        <div className="absolute inset-0 z-10 flex flex-col justify-between gap-y-5 p-6 sm:p-7 md:gap-y-6 md:p-8">
+          <div className="flex max-w-[min(100%,18rem)] flex-col items-start gap-y-2 sm:max-w-[20rem]">
             {plan.badges.map((badge, i) => (
               <span
                 key={badge}
-                className={`rounded-lg px-2 py-1 text-sm font-medium leading-5 text-gray-800 ${i === 0
+                className={`rounded-lg px-2.5 py-1 text-sm font-medium leading-5 text-gray-800 ${i === 0
                   ? "bg-gradient-to-r from-white/80 to-white/50"
                   : "bg-white/50"
                   }`}
@@ -1482,8 +1488,8 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
               </span>
             ))}
           </div>
-          <div>
-            <p className="text-2xl font-medium leading-tight">
+          <div className="max-w-[min(100%,calc(100%-7.5rem))] sm:max-w-[min(100%,calc(100%-9rem))] md:max-w-[min(100%,calc(100%-10.5rem))]">
+            <p className="text-2xl font-medium leading-snug tracking-tight sm:text-[1.65rem] sm:leading-snug">
               {plan.title.split("\n").map((line, idx, arr) => (
                 <React.Fragment key={idx}>
                   {line}
@@ -1492,7 +1498,9 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
               ))}
             </p>
             {plan.subtitle ? (
-              <p className="mt-2 text-sm font-medium">{plan.subtitle}</p>
+              <p className="mt-2 text-sm font-medium leading-snug sm:text-[0.9375rem] sm:leading-relaxed">
+                {plan.subtitle}
+              </p>
             ) : null}
           </div>
         </div>
@@ -1503,23 +1511,23 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
           "flex min-h-0 flex-col",
           isMinimal
             ? "shrink-0 px-5 pb-5 pt-4 sm:px-6 sm:pb-6 md:px-7 md:pb-7"
-            : "flex-1 p-5 sm:p-6 md:p-7",
+            : "flex-1 px-6 pb-7 pt-6 sm:px-7 sm:pb-8 sm:pt-7 md:px-8 md:pb-9 md:pt-8",
         )}
       >
         {!isMinimal ? (
           <>
-            <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[#1c1a24]">
+            <p className="mb-5 text-xs font-bold uppercase tracking-wider text-[#1c1a24]">
               {plan.bulletsHeading}
             </p>
-            <ul className="flex shrink-0 flex-col gap-4">
+            <ul className="flex shrink-0 flex-col gap-5">
               {plan.bullets.map((bullet) => {
                 const Icon = bullet.icon;
                 return (
-                  <li key={bullet.text} className="flex min-w-0 items-start gap-3">
-                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f1ecf9]">
-                      <Icon className="h-3.5 w-3.5 shrink-0 text-[#5b3cdd]" />
+                  <li key={bullet.text} className="flex min-w-0 items-start gap-3.5">
+                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#f1ecf9]">
+                      <Icon className="h-4 w-4 shrink-0 text-[#5b3cdd]" />
                     </span>
-                    <span className="text-pretty break-words text-base leading-snug text-gray-700 [overflow-wrap:anywhere] md:leading-6">
+                    <span className="text-pretty break-words text-base leading-relaxed text-gray-700 [overflow-wrap:anywhere] md:text-[1.0625rem] md:leading-relaxed">
                       {bullet.text}
                     </span>
                   </li>
@@ -1527,13 +1535,13 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
               })}
             </ul>
             {/* Flexible spacer: equal-height row keeps CTAs pinned to card bottom */}
-            <div className="mt-6 min-h-3 flex-1 shrink" aria-hidden />
+            <div className="mt-8 min-h-3 flex-1 shrink" aria-hidden />
           </>
         ) : null}
 
         <div
           className={cn(
-            "shrink-0 flex w-full flex-col gap-3",
+            "shrink-0 flex w-full flex-col gap-3.5",
             !isMinimal && "mt-auto",
           )}
         >
@@ -5156,7 +5164,14 @@ export function OurTreatmentsSection({ cards = MEDICAL_PLANS }) {
           </div>
         </div>
 
-        <div className={`grid gap-6 sm:grid-cols-1 lg:grid-cols-3 xl:gap-8 ${cards.length === 2 ? "lg:max-w-4xl mx-auto" : cards.length === 1 ? "lg:max-w-lg mx-auto" : ""}`}>
+        <div
+          className={cn(
+            "mx-auto grid gap-7 sm:gap-8 lg:gap-10",
+            cards.length === 1 && "max-w-lg sm:grid-cols-1",
+            cards.length === 2 && "max-w-[1200px] sm:grid-cols-1 lg:grid-cols-2",
+            cards.length >= 3 && "max-w-[1400px] sm:grid-cols-1 lg:grid-cols-3",
+          )}
+        >
           {cards.map((plan) => (
             <div key={plan.id} className="flex items-stretch">
               <MedicalPlanCard plan={plan} ctaHref={plan.href || "/weight-loss"} />

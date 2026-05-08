@@ -1434,9 +1434,11 @@ export function MarketingFooter() {
           </ul>
         </div>
       </div>
-      <div className="mx-auto max-w-[1340px]">
-        <div className="flex flex-col items-center gap-3 md:flex-row md:items-end md:justify-between">
-          <div className="order-1 md:order-2">
+
+      {/* Mobile: LegitScript above HealSend, centered, below accordions. Desktop: row with logo left. */}
+      <div className="mx-auto mt-2 max-w-[1340px] md:mt-12">
+        <div className="flex flex-col items-center justify-center gap-5 md:flex-row md:items-end md:justify-between">
+          <div className="order-1 shrink-0 md:order-2">
             <a
               href={LEGITSCRIPT_VERIFICATION_URL}
               target="_blank"
@@ -1444,32 +1446,33 @@ export function MarketingFooter() {
               aria-label="Verify HealSend with LegitScript"
               className="block transition-opacity hover:opacity-90"
             >
-              <Image
+              <img
                 src="/legitscript-verification-badge.png"
                 alt="LegitScript verification badge"
                 width={400}
                 height={140}
-                className="h-24 w-auto object-contain sm:h-[6.75rem] md:h-28 lg:h-32"
+                decoding="async"
+                className="h-24 w-auto max-w-full object-contain sm:h-[6.75rem] md:h-28 lg:h-32"
               />
             </a>
           </div>
 
-          <div className="order-2 md:order-1">
+          <div className="order-2 shrink-0 md:order-1">
             <Link
               href={ROUTES.home}
               className="block transition-opacity hover:opacity-90"
             >
-              <Image
+              <img
                 src="/logo.png"
                 alt="HealSend"
                 width={320}
                 height={80}
-                className="h-[4.5rem] w-auto object-contain md:h-[5rem]"
+                decoding="async"
+                className="h-[4.5rem] w-auto max-w-full object-contain md:h-[5rem]"
               />
             </Link>
           </div>
         </div>
-
       </div>
     </footer>
   );

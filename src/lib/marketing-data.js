@@ -3963,10 +3963,10 @@ function mergeWithFallbackProductData(product, relatedProducts, marketingPage) {
       ...fallbackProductContent.labTestedSection,
       ...normalizeContentObject(pageContent.labTestedSection),
       image:
-        pageContent.labTestedSection?.image ||
-        pageContent.image ||
-        getPublicCatalogPrimaryImage(product, null) ||
-        fallbackProductContent.labTestedSection.image,
+        normalizeMarketingImage(
+          pageContent.labTestedSection?.image,
+          fallbackProductContent.labTestedSection.image,
+        ) || fallbackProductContent.labTestedSection.image,
     },
     pricingHighlights:
       normalizeStringArray(pageContent.pricingHighlights).length > 0
@@ -4413,9 +4413,7 @@ export async function getMarketingProductPageData(slug) {
           },
         })
       : null;
-console.log("marketingpage", 
-  marketingPage
-)
+
     const primaryProduct = await prisma.product.findFirst({
       where: buildPublicCatalogProductWhere({
         published: true,
@@ -4441,7 +4439,7 @@ console.log("marketingpage",
       },
       orderBy: [{ featured: "desc" }, { priority: "desc" }, { createdAt: "asc" }],
     });
-              console.log("primaryProduct", primaryProduct)
+
     if (!primaryProduct || !isPublicCatalogProductReady(primaryProduct)) {
       return syntheticFallback;
     }
@@ -4460,8 +4458,6 @@ console.log("marketingpage",
       orderBy: [{ featured: "desc" }, { priority: "desc" }, { createdAt: "asc" }],
       take: 2,
     }));
-
-    console.log("relatedProducts",relatedProducts)
 
     return mergeWithFallbackProductData(
       primaryProduct,

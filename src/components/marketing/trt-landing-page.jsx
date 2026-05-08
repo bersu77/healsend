@@ -513,7 +513,7 @@ function TRTProductHeroSection() {
                 </motion.div>
               </AnimatePresence>
             </div>
-            <div className="mt-2 flex justify-between border-t border-gray-100 px-5 pb-2 pt-4 text-xs text-gray-500 md:px-6">
+            <div className="mt-2 flex flex-col items-center gap-2 border-t border-gray-100 px-5 pb-2 pt-4 text-center text-xs text-gray-500 md:flex-row md:items-center md:justify-between md:text-left md:px-6">
               <span className="flex items-center gap-1.5">
                 <img
                   draggable={false}
@@ -525,7 +525,7 @@ function TRTProductHeroSection() {
                 Compounded in the U.S.A
               </span>
               <div className="flex items-center gap-1.5">
-                <ShieldCheck className="h-3.5 w-3.5" /> FSA & HSA Eligible
+                <ShieldCheck className="h-4 w-4 md:h-4.5 md:w-4.5" /> FSA & HSA Eligible
               </div>
             </div>
           </div>
@@ -1099,14 +1099,14 @@ function TRTEligibilitySection() {
 
   return (
     <section className="bg-[#f9f9f9] py-16 md:py-20">
-      <div className="mx-auto grid max-w-[1200px] gap-12 px-4 md:grid-cols-2 md:gap-14 md:px-8">
-        <div>
+      <div className="mx-auto grid max-w-[1200px] gap-12 px-4 md:grid-cols-2 md:items-stretch md:gap-14 md:px-8">
+        <div className="min-w-0 md:flex md:min-h-0 md:flex-col md:justify-center">
           <h2 className="mb-4 font-title text-4xl font-medium text-gray-900 md:text-5xl">
             Find out if{" "}
             <span className="font-playfair italic text-[#6D6FFC]">TRT is right</span>{" "}
             for you.
           </h2>
-          <p className="mb-6 text-base text-gray-600">
+          <p className="mb-6 text-base leading-relaxed text-gray-600 md:mb-8">
             Take our 60-second symptom screener. We&apos;ll tell you if your symptoms suggest low testosterone.
           </p>
           <div className="relative hidden aspect-[16/10] overflow-hidden rounded-2xl md:block">
@@ -1114,7 +1114,7 @@ function TRTEligibilitySection() {
           </div>
         </div>
 
-        <div className="rounded-3xl border border-gray-100 bg-white p-8 shadow-md">
+        <div className="rounded-3xl border border-gray-100 bg-white p-7 shadow-md sm:p-8 md:self-stretch">
           <p className="mb-1 text-sm text-gray-400">Your Low-T Symptom Score</p>
           <div className="mb-6 flex items-baseline gap-2">
             <span className="font-title text-6xl text-[#6D6FFC]">{score}</span>
@@ -1126,16 +1126,17 @@ function TRTEligibilitySection() {
           <div className="mb-6 flex justify-between text-[10px] text-gray-400">
             <span>No symptoms</span><span>High likelihood</span>
           </div>
-          <div className="mb-6 space-y-3">
+          <div className="mb-6 space-y-4">
             {SCREENER_QUESTIONS.map((q, i) => (
-              <div key={q} className="flex items-center justify-between rounded-xl bg-gray-50 px-4 py-3 text-sm">
-                <span className="text-gray-700">{q}</span>
-                <div className="flex gap-1">
+              <div key={q} className="flex items-center justify-between gap-4 rounded-xl bg-gray-50 px-4 py-4 text-sm sm:px-5 sm:py-5">
+                <span className="min-w-0 flex-1 leading-snug text-gray-700">{q}</span>
+                <div className="flex shrink-0 gap-2">
                   {[true, false].map((val) => (
                     <button
                       key={String(val)}
+                      type="button"
                       onClick={() => setAnswers((a) => a.map((v, j) => (j === i ? val : v)))}
-                      className={`rounded-full px-3 py-1 text-xs font-medium transition ${answers[i] === val ? "bg-[#6D6FFC] text-white" : "border border-gray-200 bg-white text-gray-500"}`}
+                      className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition ${answers[i] === val ? "bg-[#6D6FFC] text-white" : "border border-gray-200 bg-white text-gray-500"}`}
                     >
                       {val ? "Yes" : "No"}
                     </button>
@@ -1144,7 +1145,7 @@ function TRTEligibilitySection() {
               </div>
             ))}
           </div>
-          <div className="mb-5 flex items-center gap-2.5 rounded-xl bg-[#F1F5F9] px-4 py-3 text-sm font-medium text-[#6D6FFC]">
+          <div className="mb-5 flex items-center gap-2.5 rounded-xl bg-[#F1F5F9] px-4 py-3.5 text-sm font-medium text-[#6D6FFC] sm:px-5">
             <Check className="h-5 w-5 shrink-0" /> {message}
           </div>
           <Link href={CTA_HREF} className="hs-solid-btn flex w-full items-center justify-center gap-2 rounded-full py-3.5 text-base font-semibold">
