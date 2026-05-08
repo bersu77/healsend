@@ -107,7 +107,7 @@ export function MediaLogosBanner() {
   const copies = Array.from({ length: 8 }, (_, i) => i);
   return (
     <div className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-[#5b3cdd] py-6">
-      <div className="flex min-w-max animate-[mediaLogoScroll_22s_linear_infinite]" style={{ width: "max-content" }}>
+      <div className="flex min-w-max animate-[mediaLogoScroll_50s_linear_infinite]" style={{ width: "max-content" }}>
         {copies.map((copy) => (
           <div
             key={copy}
@@ -1197,7 +1197,7 @@ export function ProductHero({ productData, isHomepage: _isHomepage = false }) {
                 </motion.div>
               </AnimatePresence>
             </div>
-            <div className="mt-2 flex justify-between border-t border-gray-100 px-5 pb-2 pt-4 text-xs text-gray-500 md:px-6">
+            <div className="mt-2 flex flex-col items-center gap-2 border-t border-gray-100 px-5 pb-2 pt-4 text-center text-xs text-gray-500 md:flex-row md:items-center md:justify-between md:text-left md:px-6">
               <span className="flex items-center gap-1.5">
                 <img
                   draggable={false}
@@ -1209,7 +1209,7 @@ export function ProductHero({ productData, isHomepage: _isHomepage = false }) {
                 Compounded in the U.S.A
               </span>
               <div className="flex items-center gap-1.5">
-                <ShieldCheck className="h-3.5 w-3.5" /> FSA & HSA Eligible
+                <ShieldCheck className="h-4.5 w-4.5" /> FSA & HSA Eligible
               </div>
             </div>
           </div>
@@ -1448,7 +1448,7 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
       ref={cardRef}
       style={minHeight ? { minHeight } : undefined}
       className={cn(
-        "flex min-w-0 flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-[0_20px_40px_-24px_rgba(91,60,221,0.12)] ring-1 ring-[#ece8f3]",
+        "flex min-w-0 flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-[0_20px_40px_-24px_rgba(91,60,221,0.12)]",
         isMinimal ? "h-auto self-start w-full" : "w-full",
       )}
     >
@@ -1504,7 +1504,7 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
         className={cn(
           "flex min-h-0 flex-col",
           isMinimal
-            ? "shrink-0 border-t border-[#ece8f3]/60 px-5 pb-5 pt-4 sm:px-6 sm:pb-6 md:px-7 md:pb-7"
+            ? "shrink-0 px-5 pb-5 pt-4 sm:px-6 sm:pb-6 md:px-7 md:pb-7"
             : "flex-1 p-5 sm:p-6 md:p-7",
         )}
       >
@@ -1573,7 +1573,7 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               className="mt-4 w-full min-w-0 shrink-0 overflow-hidden"
             >
-              <div className="space-y-6 border-t border-[#ece8f3] pt-5 md:pt-6">
+              <div className="space-y-6 pt-5 md:pt-6">
                 {plan.description ? (
                   <p className="text-sm leading-6 text-[#474257]">
                     {plan.description}
@@ -2217,124 +2217,7 @@ export function MemberResultsStatsSection() {
   );
 }
 
-export function LowTSymptomScreenerSection() {
-  const questions = [
-    "Persistent low energy?",
-    "Reduced libido?",
-    "Trouble building muscle?",
-    "Brain fog or low motivation?",
-  ];
-  const [answers, setAnswers] = useState({});
-  const yesCount = Object.values(answers).filter(Boolean).length;
-  const answered = Object.keys(answers).length;
-  const score = answered === 0 ? 0 : Math.round((yesCount / questions.length) * 10);
-  const scoreLabel = score === 0 ? "no symptoms" : score <= 3 ? "low likelihood" : score <= 6 ? "moderate likelihood" : "high likelihood";
-  const barPercent = (score / 10) * 100;
-
-  const resultMessage = score <= 3
-    ? "Your symptoms are minimal. If anything changes, we’re here."
-    : score <= 6
-      ? "Worth checking your bloodwork — TRT may help."
-      : "Strong indicators of low T. A clinician review is recommended.";
-
-  return (
-    <section className="scroll-mt-24 bg-[#F7F5FA] py-16 md:py-24">
-      <div className="mx-auto max-w-[1100px] px-4 md:px-8">
-        <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
-          <div>
-            <h2 className="font-title text-[2.2rem] font-bold leading-[1.05] tracking-tight text-[#101726] sm:text-[2.8rem] lg:text-[3.2rem]">
-              Find out if <em className="text-[#6D6FFC]">TRT is right</em> for you.
-            </h2>
-            <p className="mt-4 max-w-md text-[1.05rem] leading-relaxed text-gray-500 md:text-[1.1rem]">
-              Take our 60-second symptom screener. We&apos;ll tell you if your symptoms suggest low testosterone — and if HealSend is the right fit.
-            </p>
-          </div>
-
-          <div className="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-black/5 md:p-8">
-            <p className="text-sm font-medium text-gray-400">Your Low-T Symptom Score</p>
-            <div className="mt-2 flex items-baseline gap-1.5">
-              <span className="font-title text-[3.5rem] font-bold leading-none tracking-tight text-[#101726]">{score}</span>
-              <span className="text-base text-gray-400">/ 10 — {scoreLabel}</span>
-            </div>
-
-            <div className="mt-4">
-              <div className="h-2.5 w-full overflow-hidden rounded-full bg-gray-100">
-                <div
-                  className="h-full rounded-full transition-all duration-500 ease-out"
-                  style={{
-                    width: `${Math.max(barPercent, 2)}%`,
-                    background: score <= 3 ? '#22c55e' : score <= 6 ? '#f59e0b' : '#ef4444',
-                  }}
-                />
-              </div>
-              <div className="mt-1.5 flex justify-between text-[0.7rem] text-gray-400">
-                <span>No symptoms</span>
-                <span>High likelihood</span>
-              </div>
-            </div>
-
-            <div className="mt-6 space-y-3">
-              {questions.map((q, i) => (
-                <div key={i} className={cn(
-                  "flex items-center justify-between rounded-xl px-4 py-3 transition-colors duration-300",
-                  answers[i] === true ? "bg-[#EDE9F6]" : answers[i] === false ? "bg-gray-50" : "bg-[#FAF8FB]"
-                )}>
-                  <span className="text-[0.92rem] font-medium text-[#101726]">{q}</span>
-                  <div className="flex gap-1.5">
-                    <button
-                      type="button"
-                      onClick={() => setAnswers(prev => ({ ...prev, [i]: true }))}
-                      className={cn(
-                        "rounded-full px-3.5 py-1 text-xs font-bold transition-all duration-200",
-                        answers[i] === true
-                          ? "bg-[#6D6FFC] text-white shadow-sm"
-                          : "bg-white text-gray-400 ring-1 ring-gray-200 hover:ring-[#6D6FFC]/30"
-                      )}
-                    >Yes</button>
-                    <button
-                      type="button"
-                      onClick={() => setAnswers(prev => ({ ...prev, [i]: false }))}
-                      className={cn(
-                        "rounded-full px-3.5 py-1 text-xs font-bold transition-all duration-200",
-                        answers[i] === false
-                          ? "bg-[#101726] text-white shadow-sm"
-                          : "bg-white text-gray-400 ring-1 ring-gray-200 hover:ring-gray-300"
-                      )}
-                    >No</button>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {answered === questions.length && (
-              <div className={cn(
-                "mt-5 flex items-center gap-2.5 rounded-xl px-4 py-3 transition-all duration-500",
-                score <= 3 ? "bg-emerald-50" : score <= 6 ? "bg-[#EDE9F6]" : "bg-red-50"
-              )}>
-                <span className={cn(
-                  "flex h-6 w-6 shrink-0 items-center justify-center rounded-full",
-                  score <= 3 ? "bg-emerald-500" : score <= 6 ? "bg-[#6D6FFC]" : "bg-red-500"
-                )}>
-                  <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />
-                </span>
-                <span className="text-[0.9rem] font-medium text-[#101726]">{resultMessage}</span>
-              </div>
-            )}
-
-            <Link
-              href="/quiz"
-              className="hs-solid-btn mt-5 flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-full text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)]"
-            >
-              See my eligibility →
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function _DeprecatedBMICalculatorPreviewSection() {
+function BMICalculatorPreviewSection() {
   const [heightFt, setHeightFt] = useState("5");
   const [heightIn, setHeightIn] = useState("10");
   const [weightLbs, setWeightLbs] = useState("210");
@@ -2401,7 +2284,6 @@ function _DeprecatedBMICalculatorPreviewSection() {
     if (max !== undefined && value > max) return;
     setter(String(value));
   };
-
   const handleProjectedWeightChange = (event) => {
     const value = Number(event.target.value);
     if (Number.isNaN(value)) return;
@@ -2664,8 +2546,8 @@ function _DeprecatedBMICalculatorPreviewSection() {
       </div>
     </section>
   );
-}
 
+}
 function BMIEligibilityModal({
   open,
   onOpenChange,
@@ -2789,6 +2671,579 @@ function BMIEligibilityModal({
     </Dialog>
   );
 }
+
+export function LowTSymptomScreenerSection() {
+  const questions = [
+    "Persistent low energy?",
+    "Reduced libido?",
+    "Trouble building muscle?",
+    "Brain fog or low motivation?",
+  ];
+  const [answers, setAnswers] = useState({});
+  const yesCount = Object.values(answers).filter(Boolean).length;
+  const answered = Object.keys(answers).length;
+  const score = answered === 0 ? 0 : Math.round((yesCount / questions.length) * 10);
+  const scoreLabel = score === 0 ? "no symptoms" : score <= 3 ? "low likelihood" : score <= 6 ? "moderate likelihood" : "high likelihood";
+  const barPercent = (score / 10) * 100;
+
+  const resultMessage = score <= 3
+    ? "Your symptoms are minimal. If anything changes, we’re here."
+    : score <= 6
+      ? "Worth checking your bloodwork — TRT may help."
+      : "Strong indicators of low T. A clinician review is recommended.";
+
+  return (
+    <section className="scroll-mt-24 bg-[#F7F5FA] py-16 md:py-24">
+      <div className="mx-auto max-w-[1100px] px-4 md:px-8">
+        <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
+          <div>
+            <h2 className="font-title text-[2.2rem] font-bold leading-[1.05] tracking-tight text-[#101726] sm:text-[2.8rem] lg:text-[3.2rem]">
+              Find out if <em className="text-[#6D6FFC]">TRT is right</em> for you.
+            </h2>
+            <p className="mt-4 max-w-md text-[1.05rem] leading-relaxed text-gray-500 md:text-[1.1rem]">
+              Take our 60-second symptom screener. We&apos;ll tell you if your symptoms suggest low testosterone — and if HealSend is the right fit.
+            </p>
+          </div>
+
+          <div className="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-black/5 md:p-8">
+            <p className="text-sm font-medium text-gray-400">Your Low-T Symptom Score</p>
+            <div className="mt-2 flex items-baseline gap-1.5">
+              <span className="font-title text-[3.5rem] font-bold leading-none tracking-tight text-[#101726]">{score}</span>
+              <span className="text-base text-gray-400">/ 10 — {scoreLabel}</span>
+            </div>
+
+            <div className="mt-4">
+              <div className="h-2.5 w-full overflow-hidden rounded-full bg-gray-100">
+                <div
+                  className="h-full rounded-full transition-all duration-500 ease-out"
+                  style={{
+                    width: `${Math.max(barPercent, 2)}%`,
+                    background: score <= 3 ? '#22c55e' : score <= 6 ? '#f59e0b' : '#ef4444',
+                  }}
+                />
+              </div>
+              <div className="mt-1.5 flex justify-between text-[0.7rem] text-gray-400">
+                <span>No symptoms</span>
+                <span>High likelihood</span>
+              </div>
+            </div>
+
+            <div className="mt-6 space-y-3">
+              {questions.map((q, i) => (
+                <div key={i} className={cn(
+                  "flex items-center justify-between rounded-xl px-4 py-3 transition-colors duration-300",
+                  answers[i] === true ? "bg-[#EDE9F6]" : answers[i] === false ? "bg-gray-50" : "bg-[#FAF8FB]"
+                )}>
+                  <span className="text-[0.92rem] font-medium text-[#101726]">{q}</span>
+                  <div className="flex gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => setAnswers(prev => ({ ...prev, [i]: true }))}
+                      className={cn(
+                        "rounded-full px-3.5 py-1 text-xs font-bold transition-all duration-200",
+                        answers[i] === true
+                          ? "bg-[#6D6FFC] text-white shadow-sm"
+                          : "bg-white text-gray-400 ring-1 ring-gray-200 hover:ring-[#6D6FFC]/30"
+                      )}
+                    >Yes</button>
+                    <button
+                      type="button"
+                      onClick={() => setAnswers(prev => ({ ...prev, [i]: false }))}
+                      className={cn(
+                        "rounded-full px-3.5 py-1 text-xs font-bold transition-all duration-200",
+                        answers[i] === false
+                          ? "bg-[#101726] text-white shadow-sm"
+                          : "bg-white text-gray-400 ring-1 ring-gray-200 hover:ring-gray-300"
+                      )}
+                    >No</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {answered === questions.length && (
+              <div className={cn(
+                "mt-5 flex items-center gap-2.5 rounded-xl px-4 py-3 transition-all duration-500",
+                score <= 3 ? "bg-emerald-50" : score <= 6 ? "bg-[#EDE9F6]" : "bg-red-50"
+              )}>
+                <span className={cn(
+                  "flex h-6 w-6 shrink-0 items-center justify-center rounded-full",
+                  score <= 3 ? "bg-emerald-500" : score <= 6 ? "bg-[#6D6FFC]" : "bg-red-500"
+                )}>
+                  <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />
+                </span>
+                <span className="text-[0.9rem] font-medium text-[#101726]">{resultMessage}</span>
+              </div>
+            )}
+
+            <Link
+              href="/quiz"
+              className="hs-solid-btn mt-5 flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-full text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)]"
+            >
+              See my eligibility →
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// function _DeprecatedBMICalculatorPreviewSection() {
+//   const [heightFt, setHeightFt] = useState("5");
+//   const [heightIn, setHeightIn] = useState("10");
+//   const [weightLbs, setWeightLbs] = useState("210");
+//   const [modalOpen, setModalOpen] = useState(false);
+//   const [projectedStartWeight, setProjectedStartWeight] = useState(334);
+//   const sliderTimerRef = useRef(null);
+
+//   const totalInches =
+//     (parseFloat(heightFt) || 0) * 12 + (parseFloat(heightIn) || 0);
+//   const weightNum = parseFloat(weightLbs) || 0;
+//   const bmi =
+//     totalInches > 0 && weightNum > 0
+//       ? (weightNum * 703) / (totalInches * totalInches)
+//       : 0;
+//   const bmiDisplay = bmi > 0 ? bmi.toFixed(1) : "—";
+
+//   const bmiCategory =
+//     bmi <= 0
+//       ? null
+//       : bmi < 18.5
+//         ? "underweight"
+//         : bmi < 25
+//           ? "healthy"
+//           : bmi < 30
+//             ? "overweight"
+//             : "obesity";
+
+//   const categoryMessages = {
+//     underweight:
+//       "Your BMI is below the typical healthy range. A licensed clinician can review your full picture and recommend the right next step for you.",
+//     healthy:
+//       "Your BMI is in the healthy range. If you'd like guidance on long-term wellness, our clinicians can help you find the right plan.",
+//     overweight:
+//       "Your BMI is in a range where medical support can help. A licensed clinician can build a personalized plan to help you feel better, move more easily, and regain confidence.",
+//     obesity:
+//       "Your BMI is in a range where medical support can help. A licensed clinician can build a personalized plan to help you feel better, move more easily, and regain confidence.",
+//   };
+
+//   const bmiRanges = [
+//     { key: "underweight", label: "Underweight", value: "<18.5", dot: "#a5a8ff", bg: "bg-[#eef0ff]" },
+//     { key: "healthy", label: "Healthy Weight", value: "18.5+", dot: "#7be0a5", bg: "bg-[#eaf6f0]" },
+//     { key: "overweight", label: "Overweight", value: "25+", dot: "#ffd07a", bg: "bg-[#fbf3e6]" },
+//     { key: "obesity", label: "Obesity", value: "30+", dot: "#ef4444", bg: "bg-[#fde6e6]" },
+//   ];
+
+//   const arcLength = 361;
+//   const fillPercent = Math.max(0, Math.min(1, (bmi - 15) / 20));
+//   const dashFill = (fillPercent * arcLength).toFixed(0);
+//   const projectedLossLbs = Math.round(projectedStartWeight * 0.15);
+//   const projectedFillPercent = Math.max(
+//     0,
+//     Math.min(100, ((projectedStartWeight - 120) / (450 - 120)) * 100),
+//   );
+
+//   const handleNumericChange = (setter, max) => (event) => {
+//     const raw = event.target.value;
+//     if (raw === "") {
+//       setter("");
+//       return;
+//     }
+//     if (!/^\d{0,3}$/.test(raw)) return;
+//     const value = parseInt(raw, 10);
+//     if (Number.isNaN(value)) return;
+//     if (max !== undefined && value > max) return;
+//     setter(String(value));
+//   };
+
+//   const handleProjectedWeightChange = (event) => {
+//     const value = Number(event.target.value);
+//     if (Number.isNaN(value)) return;
+//     setProjectedStartWeight(value);
+//     setModalOpen(true);
+//   };
+
+//   return (
+//     <section className="bg-white px-5 py-20 md:px-8 lg:px-10">
+//       <div className="mx-auto max-w-[1240px]">
+//         <div className="max-w-[72rem]">
+//           <h2 className="font-title text-[2.5rem] font-semibold leading-[0.96] tracking-[-0.055em] text-[#101726] sm:text-[3.1rem] lg:text-[4.25rem]">
+//             Find out what you could lose{" "}
+//             <span className="font-playfair italic text-[#5d62f3]">with HealSend.</span>
+//           </h2>
+//         </div>
+
+//         <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)]">
+//           <article className="rounded-[1rem] border border-[#edf1f7] bg-white p-4 shadow-[0_18px_34px_rgba(20,24,34,0.08)] md:p-8">
+//             <p className="text-center text-[1rem] font-medium tracking-[-0.03em] text-[#121726] md:text-[1.25rem]">
+//               Check your eligibility.
+//             </p>
+
+//             <div className="relative mx-auto mt-4 h-[160px] w-[200px] md:mt-8 md:h-[210px] md:w-[260px]">
+//               <svg viewBox="0 0 280 170" className="h-full w-full overflow-visible">
+//                 <path
+//                   d="M 25 150 A 115 115 0 0 1 255 150"
+//                   fill="none"
+//                   stroke="#e5e7eb"
+//                   strokeWidth="16"
+//                   strokeLinecap="round"
+//                 />
+//                 <path
+//                   d="M 25 150 A 115 115 0 0 1 255 150"
+//                   fill="none"
+//                   stroke="url(#bmiGradientPreview)"
+//                   strokeWidth="16"
+//                   strokeLinecap="round"
+//                   strokeDasharray={`${dashFill} ${arcLength}`}
+//                   strokeDashoffset="0"
+//                   style={{ transition: "stroke-dasharray 0.3s ease" }}
+//                 />
+//                 <defs>
+//                   <linearGradient id="bmiGradientPreview" x1="0%" y1="0%" x2="100%" y2="0%">
+//                     <stop offset="0%" stopColor="#6db1ff" />
+//                     <stop offset="50%" stopColor="#91e2a8" />
+//                     <stop offset="78%" stopColor="#ffd34d" />
+//                     <stop offset="100%" stopColor="#ff845b" />
+//                   </linearGradient>
+//                 </defs>
+//               </svg>
+//               <div className="absolute inset-x-0 bottom-4 text-center md:bottom-6">
+//                 <div className="font-title text-[3.2rem] font-semibold leading-none tracking-[-0.06em] text-[#0b1020] md:text-[4.6rem]">
+//                   {bmiDisplay}
+//                 </div>
+//                 <div className="mt-1 text-xs font-medium uppercase tracking-[0.2em] text-[#7a859c] md:text-sm">
+//                   Your BMI
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="mt-4 space-y-4 md:mt-6 md:space-y-5">
+//               <div>
+//                 <label className="mb-1.5 block text-[0.9rem] font-medium text-[#313948] md:mb-2 md:text-[1rem]">
+//                   Height
+//                 </label>
+//                 <div className="grid grid-cols-2 gap-3 md:gap-4">
+//                   <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-3 py-2.5 focus-within:border-[#5d62f3] md:px-4 md:py-3">
+//                     <input
+//                       type="text"
+//                       inputMode="numeric"
+//                       pattern="[0-9]*"
+//                       value={heightFt}
+//                       onChange={handleNumericChange(setHeightFt, 8)}
+//                       aria-label="Height in feet"
+//                       className="w-full bg-transparent text-[0.9rem] text-[#172030] outline-none md:text-[1.02rem]"
+//                     />
+//                     <span className="text-[0.9rem] font-medium text-[#68748f] md:text-[1.02rem]">ft</span>
+//                   </div>
+//                   <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-3 py-2.5 focus-within:border-[#5d62f3] md:px-4 md:py-3">
+//                     <input
+//                       type="text"
+//                       inputMode="numeric"
+//                       pattern="[0-9]*"
+//                       value={heightIn}
+//                       onChange={handleNumericChange(setHeightIn, 11)}
+//                       aria-label="Height in inches"
+//                       className="w-full bg-transparent text-[0.9rem] text-[#172030] outline-none md:text-[1.02rem]"
+//                     />
+//                     <span className="text-[0.9rem] font-medium text-[#68748f] md:text-[1.02rem]">in</span>
+//                   </div>
+//                 </div>
+//               </div>
+
+//               <div>
+//                 <label className="mb-1.5 block text-[0.9rem] font-medium text-[#313948] md:mb-2 md:text-[1rem]">
+//                   Weight
+//                 </label>
+//                 <div className="flex items-center rounded-[0.9rem] border border-[#ccd5e4] bg-[#fbfcfe] px-3 py-2.5 focus-within:border-[#5d62f3] md:px-4 md:py-3">
+//                   <input
+//                     type="text"
+//                     inputMode="numeric"
+//                     pattern="[0-9]*"
+//                     value={weightLbs}
+//                     onChange={handleNumericChange(setWeightLbs, 999)}
+//                     aria-label="Weight in pounds"
+//                     className="w-full bg-transparent text-[0.9rem] text-[#172030] outline-none md:text-[1.02rem]"
+//                   />
+//                   <span className="text-[0.9rem] font-medium text-[#68748f] md:text-[1.02rem]">lbs</span>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <button
+//               type="button"
+//               onClick={() => setModalOpen(true)}
+//               disabled={bmi <= 0}
+//               className="hs-solid-btn mt-6 inline-flex min-h-[2.8rem] w-full items-center justify-center gap-2 rounded-full px-6 text-[0.9rem] font-semibold disabled:cursor-not-allowed disabled:opacity-60 md:mt-8 md:min-h-[3.4rem] md:px-8 md:text-[1.02rem]"
+//             >
+//               See my BMI eligibility
+//               <ArrowRight className="h-4 w-4" />
+//             </button>
+//           </article>
+
+//           <BMIEligibilityModal
+//             open={modalOpen}
+//             onOpenChange={setModalOpen}
+//             bmi={bmi}
+//             bmiDisplay={bmiDisplay}
+//             dashFill={dashFill}
+//             arcLength={arcLength}
+//             bmiCategory={bmiCategory}
+//             categoryMessages={categoryMessages}
+//             bmiRanges={bmiRanges}
+//           />
+
+//           <article className="hidden overflow-hidden rounded-[1rem] border border-[#edf1f7] bg-white shadow-[0_18px_34px_rgba(20,24,34,0.08)] lg:block">
+//             <div className="relative h-full min-h-[720px]">
+//               <Image
+//                 src="/images/wmremove-transformed%20(1).jpeg"
+//                 alt="Happy HealSend member"
+//                 fill
+//                 unoptimized
+//                 sizes="(max-width: 1280px) 100vw, 32vw"
+//                 className="object-cover object-center"
+//               />
+//               <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(255,255,255,0.88)_44%,rgba(255,255,255,1)_100%)] px-6 pb-5 pt-24">
+//                 <div className="flex justify-center">
+//                   <div className="flex -space-x-2.5">
+//                     {MEMBER_FACE_STACK_IMAGE_SRCS_SIX.map((src) => (
+//                       <span
+//                         key={src}
+//                         className="relative h-10 w-10 overflow-hidden rounded-full border-[3px] border-white bg-[#edf1f8]"
+//                       >
+//                         <Image
+//                           src={src}
+//                           alt=""
+//                           fill
+//                           sizes="40px"
+//                           className="object-cover object-center"
+//                         />
+//                       </span>
+//                     ))}
+//                   </div>
+//                 </div>
+//                 <p className="mx-auto mt-4 max-w-[22rem] text-center text-[0.98rem] leading-7 text-[#4e5a73]">
+//                   Over <span className="font-semibold text-[#141c2b]">2,000</span>{" "}
+//                   members treated. <span className="font-semibold text-[#141c2b]">96.8%</span>{" "}
+//                   success backed by real HealSend member progress nationwide.
+//                 </p>
+//               </div>
+//             </div>
+//           </article>
+
+//           <article className="hidden rounded-[1rem] border border-[#edf1f7] bg-white p-8 shadow-[0_18px_34px_rgba(20,24,34,0.08)] lg:block">
+//             <div className="text-center">
+//               <p className="text-[1.3rem] font-medium leading-[1.2] tracking-[-0.03em] text-[#121726]">
+//                 Your projected
+//                 <br />
+//                 weight loss
+//               </p>
+
+//               <div className="mt-10">
+//                 <span className="font-title text-[5.7rem] font-semibold leading-none tracking-[-0.08em] text-[#0b1020]">
+//                   {projectedLossLbs}
+//                 </span>
+//                 <span className="ml-2 text-[3.25rem] font-medium tracking-[-0.04em] text-[#66748f]">
+//                   lbs
+//                 </span>
+//               </div>
+
+//               <p className="mx-auto mt-7 max-w-[19rem] text-[0.98rem] leading-7 text-[#4f5c76]">
+//                 Based on <span className="font-semibold text-[#121726]">2000+</span>{" "}
+//                 average HealSend member results in guided weight-loss care.
+//               </p>
+//             </div>
+
+//             <div className="mt-10 border-t border-[#d9e1ef] pt-9">
+//               <p className="text-center text-[1.02rem] font-medium text-[#20283a]">
+//                 Starting weight
+//               </p>
+//               <div className="mx-auto mt-4 flex max-w-[10.5rem] items-end justify-center gap-1 rounded-[0.9rem] bg-[#f2f5fa] px-5 py-4">
+//                 <span className="font-title text-[3.2rem] font-semibold leading-none tracking-[-0.06em] text-[#48536b]">
+//                   {projectedStartWeight}
+//                 </span>
+//                 <span className="mb-1 text-[1.15rem] font-medium text-[#68748f]">
+//                   lbs
+//                 </span>
+//               </div>
+
+//               <div className="relative mt-12 py-3">
+//                 <div
+//                   className="relative h-4 w-full overflow-hidden rounded-full bg-[#5d62f3]/10 pointer-events-none"
+//                   role="progressbar"
+//                   aria-valuemin={0}
+//                   aria-valuemax={100}
+//                 >
+//                   <div
+//                     className="h-full w-full flex-1 rounded-full bg-gradient-to-r from-[#4347d9] to-[#5d62f3]"
+//                     style={{ transform: `translateX(-${100 - projectedFillPercent}%)` }}
+//                   />
+//                 </div>
+//                 <div
+//                   aria-label={`Weight: ${projectedStartWeight} lbs`}
+//                   aria-valuenow={projectedStartWeight}
+//                   aria-valuemin={120}
+//                   aria-valuemax={450}
+//                   role="slider"
+//                   tabIndex={0}
+//                   className="absolute top-1/2 size-6 rounded-full bg-white border-2 border-[#3b3ff0] shadow-md cursor-grab active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3b3ff0] focus-visible:ring-offset-2"
+//                   style={{
+//                     left: `${projectedFillPercent}%`,
+//                     top: "50%",
+//                     transform: "translateX(-50%) translateY(-50%)",
+//                   }}
+//                   onPointerDown={(e) => {
+//                     e.currentTarget.setPointerCapture(e.pointerId);
+//                     const bar = e.currentTarget.parentElement;
+//                     clearTimeout(sliderTimerRef.current);
+//                     const move = (ev) => {
+//                       const rect = bar.getBoundingClientRect();
+//                       const pct = Math.max(0, Math.min(1, (ev.clientX - rect.left) / rect.width));
+//                       setProjectedStartWeight(Math.round(120 + pct * (450 - 120)));
+//                     };
+//                     move(e);
+//                     const up = () => {
+//                       bar.removeEventListener("pointermove", move);
+//                       bar.removeEventListener("pointerup", up);
+//                       sliderTimerRef.current = setTimeout(() => setModalOpen(true), 2000);
+//                     };
+//                     bar.addEventListener("pointermove", move);
+//                     bar.addEventListener("pointerup", up);
+//                   }}
+//                   draggable="false"
+//                 />
+//               </div>
+//             </div>
+//           </article>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
+// function BMIEligibilityModal({
+//   open,
+//   onOpenChange,
+//   bmi: _bmi,
+//   bmiDisplay,
+//   dashFill,
+//   arcLength,
+//   bmiCategory,
+//   categoryMessages,
+//   bmiRanges,
+// }) {
+//   return (
+//     <Dialog open={open} onOpenChange={onOpenChange}>
+//       <DialogPortal>
+//         <DialogOverlay className="bg-black/50" />
+//         <DialogPrimitive.Content className="fixed inset-x-3 bottom-0 z-50 grid max-h-[92vh] w-auto overflow-y-auto rounded-t-[1.25rem] bg-white p-4 shadow-2xl outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom md:inset-x-auto md:bottom-auto md:left-1/2 md:top-1/2 md:max-h-[92vh] md:w-[95vw] md:max-w-[1100px] md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-[1.25rem] md:p-10">
+//           <DialogPrimitive.Close
+//             aria-label="Close"
+//             className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50"
+//           >
+//             <X className="h-4 w-4" />
+//           </DialogPrimitive.Close>
+
+//           <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+//             <div className="rounded-[1rem] bg-[#f5f7fb] p-4 md:p-8">
+//               <p className="text-center text-[1.05rem] font-medium tracking-[-0.02em] text-[#121726] md:text-[1.15rem]">
+//                 Check your eligibility.
+//               </p>
+
+//               <div className="relative mx-auto mt-4 h-[160px] w-[220px] md:mt-6 md:h-[200px] md:w-[260px]">
+//                 <svg viewBox="0 0 280 170" className="h-full w-full overflow-visible">
+//                   <path
+//                     d="M 25 150 A 115 115 0 0 1 255 150"
+//                     fill="none"
+//                     stroke="#e5e7eb"
+//                     strokeWidth="16"
+//                     strokeLinecap="round"
+//                   />
+//                   <path
+//                     d="M 25 150 A 115 115 0 0 1 255 150"
+//                     fill="none"
+//                     stroke="url(#bmiGradientModal)"
+//                     strokeWidth="16"
+//                     strokeLinecap="round"
+//                     strokeDasharray={`${dashFill} ${arcLength}`}
+//                     strokeDashoffset="0"
+//                   />
+//                   <defs>
+//                     <linearGradient id="bmiGradientModal" x1="0%" y1="0%" x2="100%" y2="0%">
+//                       <stop offset="0%" stopColor="#6db1ff" />
+//                       <stop offset="50%" stopColor="#91e2a8" />
+//                       <stop offset="78%" stopColor="#ffd34d" />
+//                       <stop offset="100%" stopColor="#ff845b" />
+//                     </linearGradient>
+//                   </defs>
+//                 </svg>
+//                 <div className="absolute inset-x-0 bottom-4 text-center">
+//                   <div className="font-title text-[2.8rem] font-semibold leading-none tracking-[-0.06em] text-[#0b1020] md:text-[3.6rem]">
+//                     {bmiDisplay}
+//                   </div>
+//                   <div className="mt-1 text-xs font-medium text-[#5b6478] md:text-sm">
+//                     Your BMI
+//                   </div>
+//                 </div>
+//               </div>
+
+//               <p className="mt-4 text-center text-[0.82rem] leading-6 text-[#3a4254] md:mt-6 md:text-[0.95rem] md:leading-7">
+//                 Body Mass Index (BMI) is a measurement that uses your height and
+//                 weight to estimate whether your weight is in a healthy range for
+//                 your height.*
+//               </p>
+//             </div>
+
+//             <div className="flex flex-col gap-3">
+//               {bmiRanges.map((range) => {
+//                 const isActive = range.key === bmiCategory;
+//                 return (
+//                   <div
+//                     key={range.key}
+//                     className={`rounded-[1rem] p-4 md:p-5 ${isActive ? range.bg : "bg-[#f5f7fb]"}`}
+//                   >
+//                     <div className="flex items-center justify-between">
+//                       <div className="flex items-center gap-2.5">
+//                         <span
+//                           className="h-2.5 w-2.5 rounded-full"
+//                           style={{ backgroundColor: range.dot }}
+//                         />
+//                         <span className="text-[1rem] font-semibold text-[#101726] md:text-[1.05rem]">
+//                           {range.label}
+//                         </span>
+//                       </div>
+//                       <span className="text-[0.95rem] font-semibold text-[#101726]">
+//                         {range.value}
+//                       </span>
+//                     </div>
+
+//                     {isActive ? (
+//                       <>
+//                         <p className="mt-3 text-[0.92rem] leading-6 text-[#3a4254]">
+//                           {categoryMessages[range.key]}
+//                         </p>
+//                         <Link
+//                           href={range.key === "underweight" ? "mailto:yourhealth@healsend.com" : "/funnels/glp-1"}
+//                           className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#5d62f3] px-6 py-3.5 text-[0.98rem] font-semibold text-white transition-colors hover:bg-[#4b55eb]"
+//                         >
+//                           {range.key === "underweight"
+//                             ? "Talk to a clinician"
+//                             : "Start treatment today"}
+//                           <ArrowRight className="h-4 w-4" />
+//                         </Link>
+//                       </>
+//                     ) : null}
+//                   </div>
+//                 );
+//               })}
+//             </div>
+//           </div>
+
+//         </DialogPrimitive.Content>
+//       </DialogPortal>
+//     </Dialog>
+//   );
+// }
 
 export function ResearchSplit({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
@@ -3001,7 +3456,7 @@ export function LabTested({ productData: _productData }) {
                 {content.description}
               </p>
 
-              <div className="max-w-lg space-y-4">
+              <div className="max-w-lg grid grid-cols-1 gap-4">
                 <div className="flex flex-col gap-3 rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:gap-4 md:p-5">
                   <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4">
                     <BadgeCheck
@@ -3318,7 +3773,7 @@ const SAME_MED_HEALSEND_POINTS = [
   "Treatment precisely matched to your body and goals",
   "Doses titrated by your clinician to minimize side effects",
   "Unlimited video calls and messaging with your clinician",
-  "100% online. Free, discreet shipping.",
+  "100% online. Free, discreet      shipping.",
 ];
 
 /** Trust strip icons (client assets in /public/images). Mixed “clinical” + brand-style marks per line. */
@@ -3402,7 +3857,7 @@ function SameMedicationSection() {
             <div className="font-playfair text-2xl italic md:text-3xl">
               HealSend
             </div>
-            <ul className="w-full space-y-8">
+            <ul className="grid w-full auto-rows-fr gap-6">
               {SAME_MED_HEALSEND_POINTS.map((point, i) => (
                 <motion.li
                   key={point}
@@ -3414,14 +3869,16 @@ function SameMedicationSection() {
                     delay: i * 0.12,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="flex flex-col items-center gap-3 px-1"
+                  className="grid min-h-[120px] grid-rows-[1fr_1fr] border-t border-white/10 px-2 py-4 text-center"
                 >
-                  <span className="text-sm font-semibold leading-snug md:text-base">
+                  <span className="flex items-center justify-center text-center text-sm font-semibold leading-snug md:text-base">
                     {point}
                   </span>
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#22c55e]">
-                    <Check className="h-4 w-4 text-white" strokeWidth={3} />
-                  </span>
+                 <span className="flex items-center justify-center">
+  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#22c55e]">
+    <Check className="h-4 w-4 text-white" strokeWidth={3} />
+  </span>
+</span>
                 </motion.li>
               ))}
             </ul>
@@ -3437,7 +3894,7 @@ function SameMedicationSection() {
             <div className="text-2xl font-medium text-[#5f5b70] md:text-3xl">
               Others
             </div>
-            <ul className="w-full space-y-8">
+            <ul className="grid w-full auto-rows-fr gap-6">
               {SAME_MED_OTHERS_POINTS.map((point, i) => (
                 <motion.li
                   key={point}
@@ -3448,15 +3905,17 @@ function SameMedicationSection() {
                     duration: 0.7,
                     delay: i * 0.12,
                     ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="flex flex-col items-center gap-3 px-1"
+                  }} 
+                  className="grid min-h-[120px] grid-rows-[1fr_1fr] border-t border-white/10 px-2 py-4 text-center"
                 >
-                  <span className="text-sm leading-snug text-[#5f5b70] md:text-base">
+                <span className="flex items-center justify-center text-center text-sm leading-snug text-[#5f5b70] md:text-base">
                     {point}
                   </span>
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#cdd0d8]">
-                    <Minus className="h-4 w-4 text-white" strokeWidth={3} />
-                  </span>
+                 <span className="flex items-center justify-center">
+  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#cdd0d8]">
+    <Minus className="h-4 w-4 text-white" strokeWidth={3} />
+  </span>
+</span>
                 </motion.li>
               ))}
             </ul>
@@ -3635,17 +4094,17 @@ export function RestoredTirzepatideBenefitsCarouselSection({
             <Carousel
               setApi={setApi}
               opts={{
-                align: "start",
+                align: "end",
                 containScroll: "trimSnaps",
                 loop: true,
               }}
-              plugins={[
-                Autoplay({
-                  delay: 3000,
-                  stopOnInteraction: false,
-                  stopOnMouseEnter: true,
-                }),
-              ]}
+              // plugins={[
+              //   Autoplay({
+              //     delay: 3000,
+              //     stopOnInteraction: false,
+              //     stopOnMouseEnter: true,
+              //   }),
+              // ]}
               className="w-full"
             >
               <CarouselContent className="-ml-4 items-stretch md:-ml-6">
@@ -3704,8 +4163,8 @@ export function RestoredTirzepatideBenefitsCarouselSection({
               </CarouselContent>
             </Carousel>
 
-            <div className="mt-6 flex items-center gap-4">
-              <div className="h-px flex-1 bg-gray-200" />
+            <div className="mt-6 flex items-center justify-end gap-4">
+              {/* <div className="h-px flex-1 bg-gray-200" /> */}
               <div className="flex gap-3">
                 <button
                   type="button"
@@ -4683,7 +5142,7 @@ export default function MarketingProductPage({ product, isHomepage = false }) {
       <FadeInSection><SupportFeatures productData={productData} /></FadeInSection>
       <FadeInSection><TestimonialsSection /></FadeInSection>
       <FadeInSection><MemberResultsStatsSection /></FadeInSection>
-      <FadeInSection><LowTSymptomScreenerSection /></FadeInSection>
+      <FadeInSection><BMICalculatorPreviewSection /></FadeInSection>
       <ResearchSplit productData={productData} />
       <FadeInSection><SimpleSteps productData={productData} /></FadeInSection>
       <FadeInSection><LabTested productData={productData} /></FadeInSection>
