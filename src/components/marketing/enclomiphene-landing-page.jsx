@@ -535,7 +535,7 @@ function EncloProductHeroSection() {
                 </motion.div>
               </AnimatePresence>
             </div>
-            <div className="mt-2 flex justify-between border-t border-gray-100 px-5 pb-2 pt-4 text-xs text-gray-500 md:px-6">
+            <div className="mt-2 flex flex-col items-center gap-2 border-t border-gray-100 px-5 pb-2 pt-4 text-center text-xs text-gray-500 md:flex-row md:items-center md:justify-between md:text-left md:px-6">
               <span className="flex items-center gap-1.5">
                 <img
                   draggable={false}
@@ -547,7 +547,7 @@ function EncloProductHeroSection() {
                 Compounded in the U.S.A
               </span>
               <div className="flex items-center gap-1.5">
-                <ShieldCheck className="h-3.5 w-3.5" /> FSA & HSA Eligible
+                <ShieldCheck className="h-4 w-4 md:h-4.5 md:w-4.5" /> FSA & HSA Eligible
               </div>
             </div>
           </div>
@@ -870,11 +870,11 @@ function ComparisonIcon({ type, compact }) {
         className={
           compact
             ? "flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#112f5b]"
-            : "flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#112f5b] md:h-8 md:w-8"
+            : "flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#112f5b] md:h-7 md:w-7"
         }
       >
         <Check
-          className={compact ? "h-2 w-2 text-white" : "h-2.5 w-2.5 text-white md:h-4 md:w-4"}
+          className={compact ? "h-2 w-2 text-white" : "h-2.5 w-2.5 text-white md:h-3.5 md:w-3.5"}
           strokeWidth={3}
         />
       </span>
@@ -885,11 +885,11 @@ function ComparisonIcon({ type, compact }) {
         className={
           compact
             ? "flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#cbd5e1]"
-            : "flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#cbd5e1] md:h-8 md:w-8"
+            : "flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#cbd5e1] md:h-7 md:w-7"
         }
       >
         <XIcon
-          className={compact ? "h-2 w-2 text-white" : "h-2.5 w-2.5 text-white md:h-4 md:w-4"}
+          className={compact ? "h-2 w-2 text-white" : "h-2.5 w-2.5 text-white md:h-3.5 md:w-3.5"}
           strokeWidth={2.5}
         />
       </span>
@@ -902,7 +902,7 @@ function ComparisonCellValue({ value, highTextClassName, stringClassName, compac
   if (value === "x") return <ComparisonIcon type="x" compact={compact} />;
   const textClasses =
     stringClassName ??
-    "whitespace-pre-line px-0.5 text-center text-[9px] font-semibold leading-tight text-[#112f5b] [overflow-wrap:anywhere] sm:text-[10px] md:text-sm md:leading-snug";
+    "whitespace-pre-line px-0.5 text-center text-[9px] font-semibold leading-tight text-[#112f5b] [overflow-wrap:anywhere] sm:text-[10px] md:px-1 md:text-lg md:font-semibold md:leading-snug lg:text-xl lg:leading-snug";
   return (
     <span className={`${textClasses}${highTextClassName ? ` ${highTextClassName}` : ""}`}>
       {value}
@@ -1005,22 +1005,16 @@ function EncoComparisonSection() {
   return (
     <section className="bg-[#f1f5f9] py-12 text-base font-sans text-[#112f5b] antialiased md:py-32">
       <div className="box-border mx-auto w-full max-w-[min(1600px,92%)] px-2 md:px-6 lg:px-8">
-        <h2 className="mb-3 text-start text-[#112f5b] md:mb-12 md:text-center">
+        <h2 className="mb-3 text-start text-[#112f5b] md:mb-10 md:text-start">
           <span className="md:hidden block w-full max-w-full text-balance text-start text-xl leading-[1.1] tracking-tight min-[380px]:text-2xl min-[480px]:text-3xl min-[600px]:text-4xl min-[700px]:text-[2.5rem]">
             <span className="font-title font-bold text-[#112f5b]">{COMPARISON_TITLE_LEFT}</span>{" "}
             <span className="font-playfair font-normal italic text-[#5b7fd4]">{COMPARISON_TITLE_VS}</span>{" "}
             <span className="font-title font-bold text-[#112f5b]">{COMPARISON_TITLE_RIGHT}</span>
           </span>
-          <span className="hidden md:block">
-            <span className="block font-title text-4xl font-bold leading-[1.1] tracking-tight lg:text-5xl">
-              {COMPARISON_TITLE_LEFT}
-            </span>
-            <span className="mt-1 block font-playfair text-2xl font-normal italic text-[#5b7fd4] lg:text-3xl">
-              {COMPARISON_TITLE_VS}
-            </span>
-            <span className="mt-1 block font-title text-4xl font-bold leading-[1.1] tracking-tight lg:text-5xl">
-              {COMPARISON_TITLE_RIGHT}
-            </span>
+          <span className="hidden md:inline font-title text-4xl font-bold leading-[1.08] tracking-tight text-[#112f5b] lg:text-5xl xl:text-[3.25rem]">
+            {COMPARISON_TITLE_LEFT}{" "}
+            <span className="font-playfair font-normal italic text-[#5b7fd4]">{COMPARISON_TITLE_VS}</span>{" "}
+            {COMPARISON_TITLE_RIGHT}
           </span>
         </h2>
 
@@ -1030,32 +1024,32 @@ function EncoComparisonSection() {
           className="hidden max-w-full rounded-xl border border-[#e2e8f0] bg-white p-1.5 sm:rounded-2xl md:block md:p-3"
           style={{ boxShadow: COMPARISON_TABLE_SHELL_SHADOW }}
         >
-          <table className="w-full min-w-0 table-fixed border-collapse text-left text-[#112f5b]">
+          <table className="w-full min-w-0 table-fixed border-collapse text-left font-sans text-[#112f5b]">
             <colgroup>
-              <col className="w-[40%] md:w-[36%]" />
-              <col className="w-[30%] md:w-[34%]" />
-              <col className="w-[30%] md:w-[30%]" />
+              <col className="w-[50%]" />
+              <col className="w-[25%]" />
+              <col className="w-[25%]" />
             </colgroup>
             <thead>
               <tr className="border-b border-[#e8edf3] bg-white">
                 <th className="p-0">
                   <span className="sr-only">Comparison</span>
                 </th>
-                <th className="p-0 align-bottom md:px-2 md:pb-2 md:pt-10" scope="col">
+                <th className="p-0 align-bottom md:px-1 md:pb-2 md:pt-8" scope="col">
                   <div
-                    className="mx-auto rounded-t-xl border border-b-0 border-[#e2e8f0] bg-white px-3 py-3 text-center md:rounded-t-2xl md:px-5 md:py-5"
+                    className="mx-auto w-full rounded-t-xl border border-b-0 border-[#e2e8f0] bg-white px-4 py-4 text-center md:rounded-t-2xl md:px-5 md:py-6"
                     style={{ boxShadow: COMPARISON_CARD_SHADOW }}
                   >
-                    <p className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#5b7fd4] sm:text-[9px] md:text-[10px]">
+                    <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#5b7fd4] md:text-[11px]">
                       {COMPARISON_BRAND_BADGE}
                     </p>
-                    <p className="mt-1 text-[9px] font-bold leading-tight text-[#112f5b] sm:text-[10px] md:mt-1.5 md:text-lg md:leading-snug">
+                    <p className="mt-1.5 text-sm font-bold leading-tight text-[#112f5b] md:text-xl md:leading-snug">
                       {COMPARISON_HEADER_ENCLO}
                     </p>
                   </div>
                 </th>
                 <th
-                  className="px-0 pb-1.5 pt-2 text-center align-bottom text-[9px] font-bold leading-tight text-[#112f5b] sm:px-0.5 sm:pb-2 sm:text-[10px] md:px-4 md:pb-6 md:pt-10 md:text-base"
+                  className="px-2 pb-2 pt-4 text-center align-bottom font-bold leading-tight text-[#112f5b] md:px-4 md:pb-6 md:pt-8 md:text-xl lg:text-2xl"
                   scope="colgroup"
                 >
                   {COMPARISON_HEADER_TRT}
@@ -1065,32 +1059,28 @@ function EncoComparisonSection() {
             <tbody>
               {ENCLO_VS_TRT_ROWS.map((row, i) => {
                 const isLast = i === ENCLO_VS_TRT_ROWS.length - 1;
+                const stripe = i % 2 === 0 ? "bg-[#f8fafc]" : "bg-white";
                 return (
-                  <tr
-                    key={row.label}
-                    className={`border-b border-[#e8edf3] ${
-                      i % 2 === 0 ? "bg-[#f8fafc]" : "bg-white"
-                    }`}
-                  >
-                    <td className="align-middle px-0.5 py-2 sm:px-1 sm:py-3 md:px-7 md:py-6">
-                      <p className="text-[9px] font-bold leading-snug text-[#112f5b] sm:text-[10px] md:text-[0.95rem] md:leading-tight">
+                  <tr key={row.label} className="border-b border-[#e8edf3]">
+                    <td className={`align-middle px-2 py-3 md:px-8 md:py-7 ${stripe}`}>
+                      <p className="text-[9px] font-bold leading-snug text-[#112f5b] sm:text-[10px] md:text-lg md:leading-snug lg:text-xl">
                         {row.label}
                       </p>
-                      <p className="mt-1 text-[8px] font-normal leading-snug text-[#112f5b]/75 sm:text-[9px] md:mt-2 md:text-sm md:leading-relaxed">
+                      <p className="mt-1.5 text-[8px] font-normal leading-snug text-[#64748b] sm:text-[9px] md:mt-2 md:text-sm md:leading-relaxed lg:text-[0.9375rem]">
                         {row.subtitle}
                       </p>
                     </td>
                     <td
-                      className={`relative z-[1] border-x border-[#e2e8f0] p-1 align-middle sm:p-1.5 md:p-2 ${
-                        i % 2 === 0 ? "bg-[#f8fafc]" : "bg-white"
-                      } ${isLast ? "border-b-0" : ""}`}
+                      className={`relative z-[1] border-x border-[#e2e8f0] bg-white p-1 align-middle sm:p-1.5 md:px-4 md:py-7 ${
+                        isLast ? "border-b-0" : ""
+                      }`}
                     >
-                      <div className="flex items-center justify-center px-0.5 py-1 md:px-1 md:py-0">
+                      <div className="flex items-center justify-center px-0.5 py-1 md:px-2 md:py-0">
                         <ComparisonCellValue value={row.enclo} />
                       </div>
                     </td>
-                    <td className="align-middle px-0 py-1.5 text-center sm:px-0.5 sm:py-2 md:px-5 md:py-6">
-                      <div className="flex justify-center px-0.5 md:px-1">
+                    <td className={`align-middle px-2 py-3 text-center md:px-6 md:py-7 ${stripe}`}>
+                      <div className="flex justify-center px-0.5 md:px-2">
                         <ComparisonCellValue value={row.trt} />
                       </div>
                     </td>
