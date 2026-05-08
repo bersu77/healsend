@@ -7,8 +7,12 @@ import { AnimatePresence, motion, useInView } from "framer-motion";
 import {
   ArrowRight,
   ArrowUp,
+  BadgeCheck,
   Check,
+  ClipboardCheck,
   Clock3,
+  Headset,
+  Laptop,
   Minus,
   Plus,
   PillBottle,
@@ -24,7 +28,6 @@ import {
   Phone,
   FlaskConical,
   Users,
-  Shield,
   X as XIcon,
 } from "lucide-react";
 import {
@@ -1293,14 +1296,15 @@ function TRTIncludedSection() {
 /*  13. Trust marquee                                                  */
 /* ------------------------------------------------------------------ */
 
+/** Icons aligned with main landing yellow strip (`SameMedicationMarquee` in product-page). */
 const TRUST_ITEMS = [
-  { text: "FSA & HSA eligible", Icon: ShieldCheck },
-  { text: "Personalized Rx TRT plans", Icon: Syringe },
-  { text: "No memberships or hidden fees", Icon: Shield },
+  { text: "FSA & HSA eligible", Icon: BadgeCheck },
+  { text: "Personalized Rx TRT plans", Icon: PillBottle },
+  { text: "No memberships or hidden fees", Icon: Laptop },
   { text: "Free & fast shipping", Icon: Truck },
-  { text: "US-only certified pharmacies", flagSrc: "/images/marketing/logos/flag-usa.svg" },
-  { text: "Always-on clinician support", Icon: Stethoscope },
-  { text: "1,000,000+ prescriptions written", Icon: FlaskConical },
+  { text: "US-only certified pharmacies", Icon: null, svg: "True" },
+  { text: "Always-on clinician support", Icon: Headset },
+  { text: "1,000,000+ prescriptions written", Icon: ClipboardCheck },
   { text: "2,000+ members", Icon: Users },
 ];
 
@@ -1315,8 +1319,23 @@ function TRTTrustMarquee() {
       >
         {loopItems.map((item, i) => (
           <span key={`${item.text}-${i}`} className="inline-flex shrink-0 items-center gap-2.5 text-sm text-gray-500">
-            {item.flagSrc ? (
-              <img src={item.flagSrc} alt="" className="h-4 w-4 shrink-0" />
+            {item.svg === "True" ? (
+              <svg
+                viewBox="0 0 24 24"
+                className="h-4 w-4 shrink-0 text-gray-500"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="M2 8h20" />
+                <path d="M2 12h20" />
+                <path d="M2 16h20" />
+                <rect x="2" y="4" width="8" height="8" fill="gray" stroke="none" />
+              </svg>
             ) : (
               <item.Icon className="h-4 w-4 shrink-0" />
             )}
@@ -1355,11 +1374,11 @@ function TRTComparisonSection() {
             </ul>
           </div>
           <div className="rounded-3xl border border-gray-200 bg-white p-8">
-            <h3 className="mb-5 font-title text-2xl text-gray-400">Others</h3>
+            <h3 className="mb-5 font-title text-2xl text-gray-800">Others</h3>
             <ul className="space-y-3">
               {["Generic, fixed protocols you have to adapt to", "No education, no support, no community", "Same dose for everyone, basic intake forms", "Side effects handled reactively, not proactively", "No follow-up after your prescription ships", "$70-150 lab fees on top of monthly cost", "Pharmacy lines, long waits, no guarantees"].map((t) => (
-                <li key={t} className="flex items-start gap-3 text-sm text-gray-400">
-                  <XIcon className="mt-0.5 h-4 w-4 shrink-0 text-gray-300" />{t}
+                <li key={t} className="flex items-start gap-3 text-sm leading-relaxed text-gray-700">
+                  <XIcon className="mt-0.5 h-4 w-4 shrink-0 text-gray-500" aria-hidden />{t}
                 </li>
               ))}
             </ul>
