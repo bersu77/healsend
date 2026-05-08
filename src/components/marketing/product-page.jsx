@@ -3779,7 +3779,7 @@ const SAME_MED_HEALSEND_POINTS = [
 /** Trust strip icons (client assets in /public/images). Mixed “clinical” + brand-style marks per line. */
 const SAME_MED_MARQUEE_ITEMS = [
   { text: "Free & Fast Shipping", Icon: Truck },
-  { text: "U.S. Only Certified Pharmacies", Icon: null, flagSrc: "/images/marketing/logos/flag-usa.svg" },
+  { text: "U.S. Only Certified Pharmacies", Icon: null, svg: "True" },
   { text: "Always On Clinician Support", Icon: Headset },
   { text: "1,200,000+ prescriptions written", Icon: ClipboardCheck },
   { text: "250,000+ members", Icon: Users },
@@ -3818,8 +3818,37 @@ function SameMedicationMarquee() {
               key={`${item.text}-${index}`}
               className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[13px] font-medium leading-none text-gray-500"
             >
-              {item.flagSrc ? (
-                <img src={item.flagSrc} alt="" className="h-4 w-4 shrink-0" />
+              {item.svg ==="True"? (
+                <svg
+  viewBox="0 0 24 24"
+  className="h-4 w-4 text-gray-500"
+  fill="none"
+  stroke="currentColor"
+  strokeWidth="1.5"
+  strokeLinecap="round"
+  strokeLinejoin="round"
+>
+  {/* outer border */}
+  <rect x="2" y="4" width="20" height="16" rx="2" />
+
+  {/* horizontal lines */}
+  <path d="M2 8h20" />
+  <path d="M2 12h20" />
+  <path d="M2 16h20" />
+
+  {/* top-left "flag area" */}
+  <rect x="2" y="4" width="8" height="8" fill="gray" stroke="none" />
+
+  {/* simple stripe effect inside flag area */}
+  {/* <g stroke="black" strokeWidth="0.8">
+  <path d="M2 6h8" />
+  <path d="M2 8h8" />
+  <path d="M2 10h8" />
+</g> */}
+  {/* <path d="M2 6h8" stroke="#FFFFFF" strokeWidth="0.8" />
+  <path d="M2 8h8" stroke="#B22234" strokeWidth="0.8" />
+  <path d="M2 10h8" stroke="#FFFFFF" strokeWidth="0.8" /> */}
+</svg>
               ) : (
                 <item.Icon className="h-4 w-4 shrink-0" />
               )}
@@ -3946,70 +3975,71 @@ export function SupportAvailabilitySection() {
             <br />
             <span className="italic text-[#5d62f3]">You need us.</span>
           </h2>
+<div className="mt-8 space-y-6">
 
-          <div className="mt-8 space-y-6">
-            <div className="flex items-start gap-4">
-              <span className="mt-1 flex h-12 w-12 items-center justify-center rounded-full border border-[#d7deeb] text-[#30394d]">
-                <Clock3 className="h-5 w-5" />
-              </span>
-              <div>
-                <p className="text-[0.98rem] font-medium text-[#626b7f]">
-                  Always available
-                </p>
-                <p className="mt-1 whitespace-nowrap text-[0.95rem] font-semibold leading-[1.22] text-[#434b5d] md:text-[1.28rem]">
-                  7 days a week · 8:00am - 8:00pm ET
-                </p>
-              </div>
-            </div>
+  <div className="flex items-center gap-4">
+    <span className="w-6 flex-shrink-0 flex items-center justify-center text-[#30394d]">
+      <Clock3 className="h-5 w-5" />
+    </span>
+    <div>
+      <p className="text-[0.98rem] font-medium text-[#626b7f]">
+        Always available
+      </p>
+      <p className="mt-1 whitespace-nowrap text-[0.95rem] font-semibold leading-[1.22] text-[#434b5d] md:text-[1.28rem]">
+        7 days a week · 8:00am - 8:00pm ET
+      </p>
+    </div>
+  </div>
 
-            <div className="flex items-start gap-4">
-              <span className="mt-1 flex h-12 w-12 items-center justify-center rounded-full border border-[#d7deeb] text-[#30394d]">
-                <Stethoscope className="h-5 w-5" />
-              </span>
-              <div>
-                <p className="text-[0.98rem] font-medium text-[#626b7f]">
-                  Care-team messaging and virtual follow-up
-                </p>
-                <p className="mt-1 text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d]">
-                  Secure support inside your HealSend account
-                </p>
-              </div>
-            </div>
+  <div className="flex items-center gap-4">
+    <span className="w-6 flex-shrink-0 flex items-center justify-center text-[#30394d]">
+      <Stethoscope className="h-5 w-5" />
+    </span>
+    <div>
+      <p className="text-[0.98rem] font-medium text-[#626b7f]">
+        Care-team messaging and virtual follow-up
+      </p>
+      <p className="mt-1 text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d]">
+        Secure support inside your HealSend account
+      </p>
+    </div>
+  </div>
 
-            <div className="flex items-start gap-4">
-              <span className="mt-1 flex h-12 w-12 items-center justify-center rounded-full border border-[#d7deeb] text-[#30394d]">
-                <Mail className="h-5 w-5" />
-              </span>
-              <div>
-                <p className="text-[0.98rem] font-medium text-[#626b7f]">
-                  Email us
-                </p>
-                <a
-                  href="mailto:yourhealth@healsend.com"
-                  className="mt-1 inline-block text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d] underline decoration-[#aeb7ca] underline-offset-4"
-                >
-                  yourhealth@healsend.com
-                </a>
-              </div>
-            </div>
+  <div className="flex items-center gap-4">
+    <span className="w-6 flex-shrink-0 flex items-center justify-center text-[#30394d]">
+      <Mail className="h-5 w-5" />
+    </span>
+    <div>
+      <p className="text-[0.98rem] font-medium text-[#626b7f]">
+        Email us
+      </p>
+      <a
+        href="mailto:yourhealth@healsend.com"
+        className="mt-1 inline-block text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d] underline decoration-[#aeb7ca] underline-offset-4"
+      >
+        yourhealth@healsend.com
+      </a>
+    </div>
+  </div>
 
-            <div className="flex items-start gap-4">
-              <span className="mt-1 flex h-12 w-12 items-center justify-center rounded-full border border-[#d7deeb] text-[#30394d]">
-                <Phone className="h-5 w-5" />
-              </span>
-              <div>
-                <p className="text-[0.98rem] font-medium text-[#626b7f]">
-                  Patient care line
-                </p>
-                <a
-                  href="tel:+16318009294"
-                  className="mt-1 inline-block text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d]"
-                >
-                  1-631-800-9294
-                </a>
-              </div>
-            </div>
-          </div>
+  <div className="flex items-center gap-4">
+    <span className="w-6 flex-shrink-0 flex items-center justify-center text-[#30394d]">
+      <Phone className="h-5 w-5" />
+    </span>
+    <div>
+      <p className="text-[0.98rem] font-medium text-[#626b7f]">
+        Patient care line
+      </p>
+      <a
+        href="tel:+16318009294"
+        className="mt-1 inline-block text-[1.28rem] font-semibold leading-[1.22] text-[#434b5d]"
+      >
+        1-631-800-9294
+      </a>
+    </div>
+  </div>
+
+</div>
         </div>
       </div>
     </section>
