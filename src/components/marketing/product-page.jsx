@@ -3837,11 +3837,24 @@ const SAME_MED_OTHERS_POINTS = [
   "Pharmacy lines, long waits, no guarantees",
 ];
 
-function SameMedicationMarquee() {
-  const loopItems = [...SAME_MED_MARQUEE_ITEMS, ...SAME_MED_MARQUEE_ITEMS];
-
+/**
+ * Yellow animated trust strip (matches GLP `SameMedicationMarquee` styling).
+ * Use `edgeToEdge={false}` on standalone pages (e.g. /enclomiphene, /trt): full-bleed
+ * `w-screen` + `-translate-x-1/2` can clip or show the wrong background behind the strip.
+ */
+export function MarketingTrustMarquee({ items, edgeToEdge = true }) {
+  const loopItems = [...items, ...items];
   return (
-    <div className="relative left-1/2 w-screen -translate-x-1/2 bg-[#fde073] py-2.5">
+    <section
+      aria-label="Care and pharmacy highlights"
+      className={cn(
+        "shrink-0 bg-[#fde073] py-3",
+        edgeToEdge
+          ? "relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2"
+          : "relative z-10 w-full",
+      )}
+      style={{ backgroundColor: "#fde073" }}
+    >
       <div className="overflow-hidden">
         <motion.div
           className="flex min-w-max items-center gap-12"
@@ -3861,33 +3874,19 @@ function SameMedicationMarquee() {
               {item.svg === "True" ? (
                 <svg
                   viewBox="0 0 24 24"
-                  className="h-4 w-4 text-gray-500"
+                  className="h-4 w-4 shrink-0 text-gray-500"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  aria-hidden
                 >
-                  {/* outer border */}
                   <rect x="2" y="4" width="20" height="16" rx="2" />
-
-                  {/* horizontal lines */}
                   <path d="M2 8h20" />
                   <path d="M2 12h20" />
                   <path d="M2 16h20" />
-
-                  {/* top-left "flag area" */}
                   <rect x="2" y="4" width="8" height="8" fill="gray" stroke="none" />
-
-                  {/* simple stripe effect inside flag area */}
-                  {/* <g stroke="black" strokeWidth="0.8">
-  <path d="M2 6h8" />
-  <path d="M2 8h8" />
-  <path d="M2 10h8" />
-</g> */}
-                  {/* <path d="M2 6h8" stroke="#FFFFFF" strokeWidth="0.8" />
-  <path d="M2 8h8" stroke="#B22234" strokeWidth="0.8" />
-  <path d="M2 10h8" stroke="#FFFFFF" strokeWidth="0.8" /> */}
                 </svg>
               ) : (
                 <item.Icon className="h-4 w-4 shrink-0" />
@@ -3897,8 +3896,12 @@ function SameMedicationMarquee() {
           ))}
         </motion.div>
       </div>
-    </div>
+    </section>
   );
+}
+
+function SameMedicationMarquee() {
+  return <MarketingTrustMarquee items={SAME_MED_MARQUEE_ITEMS} edgeToEdge />;
 }
 
 function SameMedicationSection() {

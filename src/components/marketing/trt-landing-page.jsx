@@ -37,6 +37,7 @@ import {
 import {
   mergeProductContent,
   LabTested,
+  MarketingTrustMarquee,
   OurTreatmentsSection,
   TREATMENT_PLAN_CARDS,
   SupportAvailabilitySection,
@@ -1297,8 +1298,7 @@ function TRTIncludedSection() {
 /*  13. Trust marquee                                                  */
 /* ------------------------------------------------------------------ */
 
-/** Icons aligned with main landing yellow strip (`SameMedicationMarquee` in product-page). */
-const TRUST_ITEMS = [
+const TRT_TRUST_ITEMS = [
   { text: "FSA & HSA eligible", Icon: BadgeCheck },
   { text: "Personalized Rx TRT plans", Icon: PillBottle },
   { text: "No memberships or hidden fees", Icon: Laptop },
@@ -1308,45 +1308,6 @@ const TRUST_ITEMS = [
   { text: "1,000,000+ prescriptions written", Icon: ClipboardCheck },
   { text: "2,000+ members", Icon: Users },
 ];
-
-function TRTTrustMarquee() {
-  const loopItems = [...TRUST_ITEMS, ...TRUST_ITEMS, ...TRUST_ITEMS];
-  return (
-    <section className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden border-y border-gray-200 bg-[#f9f9f9] py-5">
-      <motion.div
-        className="flex min-w-max gap-10 whitespace-nowrap"
-        animate={{ x: ["0%", "-33.33%"] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-      >
-        {loopItems.map((item, i) => (
-          <span key={`${item.text}-${i}`} className="inline-flex shrink-0 items-center gap-2.5 text-sm text-gray-500">
-            {item.svg === "True" ? (
-              <svg
-                viewBox="0 0 24 24"
-                className="h-4 w-4 shrink-0 text-gray-500"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden
-              >
-                <rect x="2" y="4" width="20" height="16" rx="2" />
-                <path d="M2 8h20" />
-                <path d="M2 12h20" />
-                <path d="M2 16h20" />
-                <rect x="2" y="4" width="8" height="8" fill="gray" stroke="none" />
-              </svg>
-            ) : (
-              <item.Icon className="h-4 w-4 shrink-0" />
-            )}
-            {item.text}
-          </span>
-        ))}
-      </motion.div>
-    </section>
-  );
-}
 
 /* ------------------------------------------------------------------ */
 /*  14. Comparison                                                     */
@@ -1532,7 +1493,7 @@ export default function TRTLandingPage({ product }) {
       <FadeIn><TRTEligibilitySection /></FadeIn>
       <FadeIn><TRTProcessSection /></FadeIn>
       <FadeIn><LabTested productData={productData} /></FadeIn>
-      <TRTTrustMarquee />
+      <MarketingTrustMarquee items={TRT_TRUST_ITEMS} edgeToEdge={false} />
       <FadeIn><TRTComparisonSection /></FadeIn>
       <TRTFAQSection />
       <FadeIn><SupportAvailabilitySection /></FadeIn>

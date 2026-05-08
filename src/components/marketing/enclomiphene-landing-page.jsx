@@ -7,10 +7,15 @@ import { AnimatePresence, motion, useInView } from "framer-motion";
 import {
   ArrowRight,
   ArrowUp,
+  BadgeCheck,
   Check,
+  ClipboardCheck,
   Clock3,
+  Headset,
+  Laptop,
   Minus,
   Pill,
+  PillBottle,
   Plus,
   ShieldCheck,
   Star,
@@ -32,6 +37,7 @@ import {
 import {
   mergeProductContent,
   LabTested,
+  MarketingTrustMarquee,
   SimpleSteps,
   OurTreatmentsSection,
   TREATMENT_PLAN_CARDS,
@@ -788,88 +794,283 @@ function EncoHowItWorksSection() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  5. Enclomiphene vs TRT comparison table                            */
+/*  5. Testosterone Cream vs. Enclomiphene comparison table            */
+/*     Copy matches reference screenshot (word-for-word).              */
 /* ------------------------------------------------------------------ */
 
-const COMPARISON_ROWS = [
-  { label: "Increases testosterone", enclo: "2x", trt: "5x", encloIcon: null, trtIcon: null },
-  { label: "Maintains fertility", enclo: null, trt: null, encloIcon: "check", trtIcon: "x" },
-  { label: "No dependency", enclo: null, trt: null, encloIcon: "check", trtIcon: "x" },
-  { label: "Ease", enclo: null, trt: null, encloIcon: "check", trtIcon: "x" },
-  { label: "Risk of side effects", enclo: "Low", trt: "Medium", encloIcon: null, trtIcon: null },
-  { label: "Function", enclo: "Boosts natural production", trt: "Adds exogenous hormones", encloIcon: null, trtIcon: null },
-  { label: "Liver safety", enclo: null, trt: null, encloIcon: "check", trtIcon: "check" },
+/** Row labels, subcopy, and cells — exact wording from desktop reference. */
+const CREAM_VS_ENCLO_ROWS = [
+  {
+    label: "Increases testosterone",
+    subtitle: "Raises both Free and Total Testosterone levels.",
+    cream: "check",
+    enclo: "check",
+  },
+  {
+    label: "Liver safety",
+    subtitle: "Absorbs through liver-safe mechanisms that don't alter liver function.",
+    cream: "check",
+    enclo: "check",
+  },
+  {
+    label: "Maintains fertility",
+    subtitle:
+      "A fertility-friendly treatment that also maintains size and function of testicles.",
+    cream: "x",
+    enclo: "High",
+  },
+  {
+    label: "All-day peak levels",
+    subtitle:
+      "Sustained increases in testosterone levels, not reliant on diet or lifestyle.",
+    cream: "check",
+    enclo: "x",
+  },
 ];
 
+const COMPARISON_TITLE_CREAM = "Testosterone Cream";
+const COMPARISON_TITLE_VS = "vs.";
+const COMPARISON_TITLE_ENCLO = "Enclomiphene";
+const COMPARISON_HEADER_CREAM = "Testosterone Cream";
+const COMPARISON_HEADER_ENCLO = "Enclomiphene";
+const COMPARISON_CTA_LABEL = "Start my assessment";
+
+/** One outer shadow for the full Testosterone Cream column card (reference v2). */
+const COMPARISON_CARD_SHADOW =
+  "0 0 0 1px rgba(91, 127, 212, 0.14), 0 6px 28px rgba(91, 127, 212, 0.2), 0 4px 16px rgba(17, 47, 91, 0.08)";
+
 function ComparisonIcon({ type }) {
-  if (type === "check") return (
-    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#101726]">
-      <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />
-    </span>
-  );
-  if (type === "x") return (
-    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200">
-      <XIcon className="h-3.5 w-3.5 text-gray-400" strokeWidth={3} />
-    </span>
-  );
+  if (type === "check")
+    return (
+      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#112f5b] md:h-8 md:w-8">
+        <Check className="h-2.5 w-2.5 text-white md:h-4 md:w-4" strokeWidth={3} />
+      </span>
+    );
+  if (type === "x")
+    return (
+      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#cbd5e1] md:h-8 md:w-8">
+        <XIcon className="h-2.5 w-2.5 text-white md:h-4 md:w-4" strokeWidth={2.5} />
+      </span>
+    );
   return null;
 }
 
-function EncoComparisonSection() {
+function ComparisonCellValue({ value, highTextClassName }) {
+  if (value === "check") return <ComparisonIcon type="check" />;
+  if (value === "x") return <ComparisonIcon type="x" />;
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-20">
-      <div className="mx-auto max-w-[900px] px-4 md:px-8">
-        <h2 className="mb-10 text-center font-title text-3xl font-bold text-[#101726] md:text-4xl">
-          Enclomiphene <span className="font-playfair italic">vs.</span> TRT
-        </h2>
+    <span
+      className={`text-center text-[9px] font-semibold leading-none sm:text-[10px] md:text-sm ${
+        highTextClassName ?? "text-[#112f5b]"
+      }`}
+    >
+      {value}
+    </span>
+  );
+}
 
-        <div className="relative">
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-[#F1F5F9] to-transparent md:hidden" />
-          <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white shadow-sm">
-            <div className="min-w-[560px]">
-              {/* Header */}
-              <div className="grid grid-cols-[1.2fr_1fr_1fr] items-end border-b border-gray-100 px-1 pb-0 pt-4">
-                <div />
-                <div className="mx-auto mb-0 w-full max-w-[180px] rounded-t-lg bg-[#6D6FFC] px-5 py-3 text-center">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/70">HealSend</p>
-                  <p className="text-sm font-semibold text-white">Enclomiphene</p>
-                </div>
-                <div className="pb-4 text-center">
-                  <p className="text-sm font-medium text-gray-400">Traditional TRT</p>
-                </div>
+const ENC_COMPARISON_MOBILE_ROW_COUNT = CREAM_VS_ENCLO_ROWS.length + 1;
+
+/** Mobile-only: 3-column comparison; middle column is one floating card; feature column = labels only. */
+function EncoComparisonMobileBlock() {
+  return (
+    <>
+      <div className="rounded-xl border border-[#e2e8f0] bg-white p-2 shadow-[0_1px_3px_rgba(0,0,0,0.06)] min-[400px]:p-2.5 md:hidden">
+        <div
+          className="grid w-full min-w-0 grid-cols-[minmax(0,1.12fr)_minmax(0,0.88fr)_minmax(0,0.88fr)] gap-x-1.5 min-[400px]:gap-x-2"
+          style={{
+            gridTemplateRows: `auto repeat(${CREAM_VS_ENCLO_ROWS.length}, minmax(3.5rem, auto))`,
+          }}
+        >
+          <div className="col-start-1 row-start-1 border-b border-transparent p-1" aria-hidden="true" />
+
+          <div
+            className="col-start-2 -my-2 flex min-h-0 self-stretch px-0.5 min-[400px]:-my-2.5"
+            style={{ gridRow: `1 / span ${ENC_COMPARISON_MOBILE_ROW_COUNT}` }}
+          >
+            <div
+              className="flex w-full min-w-0 flex-col overflow-hidden rounded-xl border border-[#e2e8f0] bg-white"
+              style={{ boxShadow: COMPARISON_CARD_SHADOW }}
+            >
+              <div className="border-b border-[#e8edf3] bg-white px-1.5 py-2.5 text-center min-[400px]:py-3">
+                <p className="text-[10px] font-bold leading-tight text-[#112f5b] min-[400px]:text-[11px]">
+                  {COMPARISON_HEADER_CREAM}
+                </p>
               </div>
-
-              {/* Rows */}
-              {COMPARISON_ROWS.map((row, i) => (
-                <div key={row.label} className={`grid grid-cols-[1.2fr_1fr_1fr] items-center ${i % 2 === 0 ? "bg-gray-50/50" : "bg-white"}`}>
-                  <div className="px-6 py-5">
-                    <p className="text-sm font-semibold text-[#101726]">{row.label}</p>
-                  </div>
-                  <div className="flex justify-center py-5">
-                    {row.encloIcon ? (
-                      <ComparisonIcon type={row.encloIcon} />
-                    ) : (
-                      <span className="text-sm text-gray-600">{row.enclo}</span>
-                    )}
-                  </div>
-                  <div className="flex justify-center py-5">
-                    {row.trtIcon ? (
-                      <ComparisonIcon type={row.trtIcon} />
-                    ) : (
-                      <span className="text-sm text-gray-400">{row.trt}</span>
-                    )}
-                  </div>
+              {CREAM_VS_ENCLO_ROWS.map((row, j) => (
+                <div
+                  key={row.label}
+                  className={`flex min-h-[3.25rem] items-center justify-center border-b border-[#e8edf3] px-1 py-3 last:border-b-0 min-[400px]:min-h-[3.5rem] min-[400px]:py-3.5 ${
+                    j % 2 === 0 ? "bg-[#f8fafc]" : "bg-white"
+                  }`}
+                >
+                  <ComparisonCellValue value={row.cream} />
                 </div>
               ))}
             </div>
           </div>
-          <p className="mt-2 text-center text-xs text-gray-400 md:hidden">Swipe to compare &rarr;</p>
-        </div>
 
-        <div className="mt-10 text-center">
-          <Link href={CTA_HREF} className="hs-solid-btn inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-base font-semibold">
-            See if enclomiphene fits your goals <ArrowRight className="h-4 w-4" />
-          </Link>
+          <div className="col-start-3 row-start-1 flex items-end justify-center border-b border-[#e8edf3] px-0.5 pb-2 pt-3 text-center min-[400px]:px-1">
+            <span className="text-[10px] font-bold leading-tight text-[#112f5b] min-[400px]:text-[11px]">
+              {COMPARISON_HEADER_ENCLO}
+            </span>
+          </div>
+
+          {CREAM_VS_ENCLO_ROWS.map((row, i) => (
+            <React.Fragment key={row.label}>
+              <div
+                className={`col-start-1 flex items-center border-b border-[#e8edf3] px-1.5 py-3.5 min-[400px]:px-2 min-[400px]:py-4 ${
+                  i % 2 === 0 ? "bg-[#f8fafc]" : "bg-white"
+                } ${i === CREAM_VS_ENCLO_ROWS.length - 1 ? "border-b-0" : ""}`}
+                style={{ gridRowStart: i + 2 }}
+              >
+                <p className="text-[11px] font-bold leading-snug text-[#112f5b] min-[400px]:text-xs">
+                  {row.label}
+                </p>
+              </div>
+              <div
+                className={`col-start-3 flex items-center justify-center border-b border-[#e8edf3] py-3.5 min-[400px]:py-4 ${
+                  i % 2 === 0 ? "bg-[#f8fafc]" : "bg-white"
+                } ${i === CREAM_VS_ENCLO_ROWS.length - 1 ? "border-b-0" : ""}`}
+                style={{ gridRowStart: i + 2 }}
+              >
+                <ComparisonCellValue
+                  value={row.enclo}
+                  highTextClassName="text-[11px] font-semibold text-[#5b7fd4] min-[400px]:text-xs"
+                />
+              </div>
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-6 text-center md:hidden">
+        <Link
+          href={CTA_HREF}
+          className="hs-solid-btn inline-flex w-full max-w-sm items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold"
+        >
+          {COMPARISON_CTA_LABEL}
+          <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
+        </Link>
+      </div>
+    </>
+  );
+}
+
+function EncoComparisonSection() {
+  return (
+    <section className="bg-[#f1f5f9] py-12 text-[#112f5b] antialiased min-[1101px]:py-32">
+      <div className="mx-auto w-full max-w-[960px] px-1.5 sm:px-4 md:max-w-[880px] md:px-8">
+        <h2 className="mb-5 text-center text-[#112f5b] md:mb-12">
+          <span className="md:hidden">
+            <span className="block font-title text-[1.35rem] font-bold leading-[1.15] tracking-tight min-[400px]:text-2xl">
+              {COMPARISON_TITLE_CREAM}
+            </span>
+            <span className="mt-1 block font-playfair text-base font-normal italic text-[#5b7fd4] min-[400px]:text-lg">
+              {COMPARISON_TITLE_VS}
+            </span>
+            <span className="mt-1 block font-title text-[1.35rem] font-bold leading-[1.15] tracking-tight min-[400px]:text-2xl">
+              {COMPARISON_TITLE_ENCLO}
+            </span>
+          </span>
+          <span className="hidden md:block">
+            <span className="block font-title text-4xl font-bold leading-[1.1] tracking-tight lg:text-5xl">
+              {COMPARISON_TITLE_CREAM}
+            </span>
+            <span className="mt-1 block font-playfair text-2xl font-normal italic text-[#5b7fd4] lg:text-3xl">
+              {COMPARISON_TITLE_VS}
+            </span>
+            <span className="mt-1 block font-title text-4xl font-bold leading-[1.1] tracking-tight lg:text-5xl">
+              {COMPARISON_TITLE_ENCLO}
+            </span>
+          </span>
+        </h2>
+
+        <EncoComparisonMobileBlock />
+
+        <div className="hidden max-w-full rounded-xl border border-[#e2e8f0] bg-white p-1.5 shadow-[0_1px_3px_rgba(0,0,0,0.06)] sm:rounded-2xl md:block md:p-3 md:shadow-[0_2px_12px_rgba(17,47,91,0.06)]">
+          <table className="w-full min-w-0 table-fixed border-collapse text-left text-[#112f5b]">
+            <colgroup>
+              <col className="w-[40%] md:w-[38%]" />
+              <col className="w-[30%] md:w-[31%]" />
+              <col className="w-[30%] md:w-[31%]" />
+            </colgroup>
+            <thead>
+              <tr className="border-b border-[#e8edf3] bg-white">
+                <th className="p-0">
+                  <span className="sr-only">Comparison</span>
+                </th>
+                <th className="p-0 align-bottom md:px-2 md:pb-2 md:pt-10" scope="col">
+                  <div
+                    className="mx-auto rounded-t-xl border border-b-0 border-[#e2e8f0] bg-white px-3 py-3 text-center md:rounded-t-2xl md:px-5 md:py-5"
+                    style={{ boxShadow: COMPARISON_CARD_SHADOW }}
+                  >
+                    <p className="text-[9px] font-bold leading-tight text-[#112f5b] sm:text-[10px] md:text-lg md:leading-snug">
+                      {COMPARISON_HEADER_CREAM}
+                    </p>
+                  </div>
+                </th>
+                <th
+                  className="px-0 pb-1.5 pt-2 text-center align-bottom text-[9px] font-bold leading-tight text-[#112f5b] sm:px-0.5 sm:pb-2 sm:text-[10px] md:px-4 md:pb-6 md:pt-10 md:text-base"
+                  scope="colgroup"
+                >
+                  {COMPARISON_HEADER_ENCLO}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {CREAM_VS_ENCLO_ROWS.map((row, i) => {
+                const isLast = i === CREAM_VS_ENCLO_ROWS.length - 1;
+                return (
+                  <tr
+                    key={row.label}
+                    className={`border-b border-[#e8edf3] ${
+                      i % 2 === 0 ? "bg-[#f8fafc]" : "bg-white"
+                    }`}
+                  >
+                    <td className="align-middle px-0.5 py-2 sm:px-1 sm:py-3 md:px-7 md:py-6">
+                      <p className="text-[9px] font-bold leading-snug text-[#112f5b] sm:text-[10px] md:text-[0.95rem] md:leading-tight">
+                        {row.label}
+                      </p>
+                      <p className="mt-1 text-[8px] font-normal leading-snug text-[#112f5b]/75 sm:text-[9px] md:mt-2 md:text-sm md:leading-relaxed">
+                        {row.subtitle}
+                      </p>
+                    </td>
+                    <td
+                      className={`relative z-[1] border-x border-[#e2e8f0] p-1 align-middle sm:p-1.5 md:p-2 ${
+                        i % 2 === 0 ? "bg-[#f8fafc]" : "bg-white"
+                      } ${isLast ? "border-b-0" : ""}`}
+                    >
+                      <div className="flex items-center justify-center py-1 md:py-0">
+                        <ComparisonCellValue value={row.cream} />
+                      </div>
+                    </td>
+                    <td className="align-middle px-0 py-1.5 text-center sm:px-0.5 sm:py-2 md:px-5 md:py-6">
+                      <div className="flex justify-center">
+                        <ComparisonCellValue value={row.enclo} />
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+              <tr className="border-b-0 bg-white">
+                <td className="border-b-0 bg-white px-0.5 py-2 sm:px-1 md:px-7 md:py-4" aria-hidden="true" />
+                <td
+                  className="relative z-[1] border-x border-b border-t border-[#e2e8f0] bg-white px-2 pb-5 pt-3 text-center align-middle sm:px-3 md:rounded-b-2xl md:px-5 md:pb-6 md:pt-4"
+                  style={{ boxShadow: COMPARISON_CARD_SHADOW }}
+                >
+                  <Link
+                    href={CTA_HREF}
+                    className="hs-solid-btn mx-auto inline-flex w-full max-w-[220px] items-center justify-center gap-2 rounded-full px-4 py-2.5 text-xs font-semibold md:max-w-[280px] md:py-3.5 md:text-base"
+                  >
+                    {COMPARISON_CTA_LABEL}
+                    <ArrowRight className="h-3.5 w-3.5 shrink-0 md:h-4 md:w-4" aria-hidden />
+                  </Link>
+                </td>
+                <td className="border-b-0 bg-white px-0.5 py-2 sm:px-1 md:px-5 md:py-4" aria-hidden="true" />
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -1259,16 +1460,13 @@ function TestimonialCard({ t }) {
 function TestimonialsCarousel() {
   return (
     <>
-      {/* Mobile: horizontal scroll */}
-      <div className="relative md:hidden">
-        <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] scrollbar-hide [&::-webkit-scrollbar]:hidden">
-          {TESTIMONIALS.map((t) => (
-            <div key={t.name} data-card className="min-w-0 shrink-0 basis-[88%] snap-start snap-always">
-              <TestimonialCard t={t} />
-            </div>
-          ))}
-          <div className="w-3 shrink-0" aria-hidden />
-        </div>
+      {/* Mobile: vertical stack (no horizontal carousel) */}
+      <div className="flex flex-col gap-5 md:hidden">
+        {TESTIMONIALS.map((t) => (
+          <FadeIn key={t.name}>
+            <TestimonialCard t={t} />
+          </FadeIn>
+        ))}
       </div>
 
       {/* Desktop: grid */}
@@ -1411,39 +1609,19 @@ function EncoIncludedSection() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  13. Trust Marquee (NEW)                                            */
+/*  13. Trust strip (yellow — shared `MarketingTrustMarquee`)          */
 /* ------------------------------------------------------------------ */
 
-const TRUST_ITEMS = [
-  "FSA & HSA eligible",
-  "Personalized Rx enclomiphene",
-  "No memberships or hidden fees",
-  "Free & fast shipping",
-  "US-only certified pharmacies",
-  "Always-on clinician support",
-  "1,000,000+ prescriptions written",
-  "Cancel anytime",
+const ENCLO_TRUST_ITEMS = [
+  { text: "FSA & HSA eligible", Icon: BadgeCheck },
+  { text: "Personalized Rx enclomiphene", Icon: PillBottle },
+  { text: "No memberships or hidden fees", Icon: Laptop },
+  { text: "Free & fast shipping", Icon: Truck },
+  { text: "US-only certified pharmacies", Icon: null, svg: "True" },
+  { text: "Always-on clinician support", Icon: Headset },
+  { text: "1,000,000+ prescriptions written", Icon: ClipboardCheck },
+  { text: "Cancel anytime", Icon: Star },
 ];
-
-function EncoTrustMarquee() {
-  const loopItems = [...TRUST_ITEMS, ...TRUST_ITEMS, ...TRUST_ITEMS];
-  return (
-    <section className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden border-y border-gray-200 bg-[#f9f9f9] py-5">
-      <motion.div
-        className="flex min-w-max gap-10 whitespace-nowrap"
-        animate={{ x: ["0%", "-33.33%"] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-      >
-        {loopItems.map((item, i) => (
-          <span key={`${item}-${i}`} className="inline-flex shrink-0 items-center gap-2.5 text-sm text-gray-500">
-            <span className="h-2 w-2 shrink-0 rounded-full bg-[#6D6FFC]" />
-            {item}
-          </span>
-        ))}
-      </motion.div>
-    </section>
-  );
-}
 
 /* ------------------------------------------------------------------ */
 /*  14. FAQ                                                            */
@@ -1465,7 +1643,7 @@ function EnclomipheneFAQSection() {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <section className="relative -mt-7 rounded-t-[32px] bg-[#F7F7F8] py-12 md:!pb-10 md:!pt-20 md:mt-0 md:py-20">
+    <section className="relative rounded-t-[32px] bg-[#F7F7F8] py-12 md:py-20">
       <div className="container mx-auto max-w-4xl px-4 md:px-8">
         <h2 className="mb-3 text-4xl font-medium text-slate-900 md:text-5xl text-balance font-title">
           Your questions.{" "}
@@ -1737,7 +1915,7 @@ export default function EnclomipheneLandingPage({ product }) {
       <FadeIn><SimpleSteps productData={productData} /></FadeIn>
       <FadeIn><EncoIncludedSection /></FadeIn>
       <FadeIn><LabTested productData={productData} /></FadeIn>
-      <EncoTrustMarquee />
+      <MarketingTrustMarquee items={ENCLO_TRUST_ITEMS} edgeToEdge={false} />
       <EnclomipheneFAQSection />
       <FadeIn><SupportAvailabilitySection /></FadeIn>
       <EncoFinalCTASection />
