@@ -315,6 +315,10 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "plus.unsplash.com",
+      },
+      {
+        protocol: "https",
         hostname: "healsend.com",
       },
       {
