@@ -3570,7 +3570,7 @@ export function ComprehensiveCare({ productData }) {
       : defaultComprehensiveCare.features;
 
   return (
-    <section className="bg-[#f9f9f9] pt-16 pb-4 md:pt-20 md:pb-6">
+    <section className="bg-[#f9f9f9] pt-4 pb-4 md:pt-6 md:pb-6">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-8 text-left">
           <h2 className="mb-4 font-title text-4xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl lg:text-6xl">
@@ -3632,7 +3632,19 @@ export function ComprehensiveCare({ productData }) {
   );
 }
 
+const CLEAN_CARD_DESCRIPTIONS = {
+  "Evidence-Based Treatments": "Protocols backed by clinical research, not trends.",
+  "100% Online & Private": "No waiting rooms. No awkward in-person visits.",
+  "Automatic refills": "Your medication ships before you ever run out.",
+  "Same-Day Prescriptions": "Clinician review and Rx issued the same day.",
+  "Affordable, Transparent Pricing": "No hidden fees. Know exactly what you pay.",
+  "Fast free delivery": "Discreet, free shipping straight to your door.",
+};
+
+const CLEAN_CARD_HIGHLIGHT = "Same-Day Prescriptions";
+
 export function CleanSimpleEffective({ productData }) {
+  const ctaHref = getPrimaryCtaHref(productData);
   const items =
     productData.cleanIngredients?.length > 0
       ? productData.cleanIngredients
@@ -3642,57 +3654,76 @@ export function CleanSimpleEffective({ productData }) {
       );
 
   return (
-    <section className="relative overflow-hidden bg-[#F9F9F9] pt-10 pb-12 md:pt-14 md:pb-16">
+    <section className="relative overflow-hidden bg-[#F9F9F9] pt-8 pb-16 md:pt-10 md:pb-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <h2 className="mb-10 text-center text-2xl font-bold tracking-tight text-black sm:text-3xl md:mb-14 md:text-4xl">
-          Fast, safe, doctor-led care
-        </h2>
+        <div className="mb-12 text-center md:mb-16">
+          <h2 className="mb-4 text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
+            Fast, safe, doctor-led care
+          </h2>
+          <p className="mx-auto max-w-xl text-base text-gray-500">
+            Clinician-guided from first visit to final goal — everything you need, nothing you don&apos;t.
+          </p>
+        </div>
 
         {/* Mobile: horizontal scroll */}
         <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-2 scrollbar-hide md:hidden">
-          {items.map((item) => (
-            <div
-              key={item.text || item.name}
-              className="flex w-[calc(50vw-1.5rem)] shrink-0 snap-start flex-col items-center justify-center rounded-[1.25rem] bg-white p-5 text-center shadow-sm"
-            >
-              <div className="mb-4 flex h-16 w-16 items-center justify-center">
-                {item.iconImage ? (
-                  <img src={item.iconImage} alt="" aria-hidden="true" className="h-14 w-14 object-contain" />
-                ) : (
-                  <item.icon className="h-8 w-8 text-[#1c1a24]" strokeWidth={1.75} />
-                )}
+          {items.map((item) => {
+            const label = item.text || item.name;
+            const desc = CLEAN_CARD_DESCRIPTIONS[label];
+            const highlighted = label === CLEAN_CARD_HIGHLIGHT;
+            return (
+              <div
+                key={label}
+                className={`flex w-[calc(50vw-1.5rem)] shrink-0 snap-start flex-col items-center rounded-[1.25rem] p-5 text-center shadow-sm ${highlighted ? "bg-[#6D6FFC]/10 ring-2 ring-[#6D6FFC]/30" : "bg-white"}`}
+              >
+                <div className="mb-4 flex h-14 w-14 items-center justify-center">
+                  {item.iconImage ? (
+                    <img src={item.iconImage} alt="" aria-hidden="true" className="h-12 w-12 object-contain" />
+                  ) : (
+                    <item.icon className="h-7 w-7 text-[#6D6FFC]" strokeWidth={1.75} />
+                  )}
+                </div>
+                <p className="mb-1.5 whitespace-pre-line text-[12px] font-bold leading-snug text-[#1c1a24]">{label}</p>
+                {desc && <p className="text-[11px] leading-snug text-gray-500">{desc}</p>}
               </div>
-              <p className="whitespace-pre-line text-[12px] font-bold leading-snug text-[#1c1a24]">
-                {item.text || item.name}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Desktop: grid */}
         <div className="hidden gap-4 md:grid md:grid-cols-3 lg:grid-cols-6">
-          {items.map((item) => (
-            <div
-              key={item.text || item.name}
-              className="flex flex-col items-center justify-center rounded-[1.25rem] bg-white p-6 text-center shadow-sm transition-transform duration-300 ease-out hover:-translate-y-1 hover:scale-[1.04] hover:shadow-md"
-            >
-              <div className="mb-5 flex h-20 w-20 items-center justify-center">
-                {item.iconImage ? (
-                  <img
-                    src={item.iconImage}
-                    alt=""
-                    aria-hidden="true"
-                    className={`object-contain ${item.iconImage.includes("fast-free-delivery") ? "h-30 w-20" : "h-19 w-16"}`}
-                  />
-                ) : (
-                  <item.icon className="h-9 w-9 text-[#1c1a24]" strokeWidth={1.75} />
-                )}
+          {items.map((item) => {
+            const label = item.text || item.name;
+            const desc = CLEAN_CARD_DESCRIPTIONS[label];
+            const highlighted = label === CLEAN_CARD_HIGHLIGHT;
+            return (
+              <div
+                key={label}
+                className={`flex flex-col items-center rounded-[1.25rem] px-5 py-10 text-center shadow-sm transition-transform duration-300 ease-out hover:-translate-y-1 hover:scale-[1.04] hover:shadow-md ${highlighted ? "bg-[#6D6FFC]/10 ring-2 ring-[#6D6FFC]/30" : "bg-white"}`}
+              >
+                <div className="mb-5 flex h-16 w-16 items-center justify-center">
+                  {item.iconImage ? (
+                    <img
+                      src={item.iconImage}
+                      alt=""
+                      aria-hidden="true"
+                      className={`object-contain ${item.iconImage.includes("fast-free-delivery") ? "h-30 w-20" : "h-14 w-14"}`}
+                    />
+                  ) : (
+                    <item.icon className={`h-8 w-8 ${highlighted ? "text-[#6D6FFC]" : "text-[#1c1a24]"}`} strokeWidth={1.75} />
+                  )}
+                </div>
+                <p className="mb-2 whitespace-pre-line text-[13px] font-bold leading-snug text-[#1c1a24]">{label}</p>
+                {desc && <p className="text-[11px] leading-relaxed text-gray-500">{desc}</p>}
               </div>
-              <p className="whitespace-pre-line text-[13px] font-bold leading-snug text-[#1c1a24]">
-                {item.text || item.name}
-              </p>
-            </div>
-          ))}
+            );
+          })}
+        </div>
+
+        <div className="mt-10 flex justify-center">
+          <Link href={ctaHref} className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#6D6FFC] hover:underline">
+            Learn how it works <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </div>
     </section>
@@ -4262,7 +4293,7 @@ export function RestoredTirzepatideBenefitsCarouselSection({
     <section
       id="tirzepatide-benefits-classic"
       aria-labelledby="tirzepatide-benefits-classic-heading"
-      className="scroll-mt-24 bg-white py-14 md:py-20"
+      className="scroll-mt-24 bg-white pt-8 pb-14 md:pt-10 md:pb-20"
     >
       <div className="mx-auto max-w-[1340px] px-4 md:px-8">
         <h2
@@ -4318,13 +4349,11 @@ export function RestoredTirzepatideBenefitsCarouselSection({
               <CarouselContent className="-ml-4 items-stretch md:-ml-6">
                 {benefits.map((item, index) => {
                   const isCenter = index === 1;
-                  const isLeft = index === 0;
                   return (
                     <CarouselItem
                       key={`restored-${item.title}-${index}`}
                       className={cn(
                         "basis-[88%] pl-4 sm:basis-[60%] md:pl-6 lg:basis-[33.333%]",
-                        isLeft ? "opacity-50 pointer-events-none" : "",
                         isCenter ? "md:col-span-2" : "",
                       )}
                     >
@@ -5166,7 +5195,7 @@ function EncloVsTrtComparisonSection() {
 
 export function OurTreatmentsSection({ cards = MEDICAL_PLANS }) {
   return (
-    <section className="overflow-hidden bg-[#f9f9f9] py-16 md:py-20">
+    <section className="overflow-hidden bg-[#f9f9f9] pt-8 pb-16 md:pt-10 md:pb-20">
       <div className="mx-auto max-w-[1400px] px-4 md:px-8 lg:px-16">
         <div className="mb-10 grid grid-cols-1 gap-8 md:mb-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-x-8 xl:gap-x-12">
           <div className="min-w-0">
