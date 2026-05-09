@@ -54,6 +54,7 @@ import {
 import { Dialog, DialogPortal, DialogOverlay } from "@/components/ui/dialog";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { productContent as defaultProductContent } from "@/components/marketing/product-content";
+import { WORDPRESS_MARKETING_IMAGES } from "@/lib/marketing-images";
 import {
   getMarketingProductDetailPath,
   getProductOnboardingPath,
@@ -1320,7 +1321,7 @@ const MEDICAL_PLANS = [
     badges: ["Just starting GLP-1?", "Recommended starter plan"],
     title: "Semaglutide\nPlan",
     subtitle: "GLP-1 receptor agonist",
-    image: "/semaglutide-injections-product.webp",
+    image: WORDPRESS_MARKETING_IMAGES.semaglutide,
     bulletsHeading: "WHAT YOU GET",
     bullets: [
       {
@@ -3641,13 +3642,35 @@ export function CleanSimpleEffective({ productData }) {
       );
 
   return (
-    <section className="relative bg-[#F9F9F9] pt-1 pb-12 md:pt-4 md:pb-16">
+    <section className="relative overflow-hidden bg-[#F9F9F9] pt-10 pb-12 md:pt-14 md:pb-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <h2 className="mb-10 text-center text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
+        <h2 className="mb-10 text-center text-2xl font-bold tracking-tight text-black sm:text-3xl md:mb-14 md:text-4xl">
           Fast, safe, doctor-led care
         </h2>
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:grid-cols-6">
+        {/* Mobile: horizontal scroll */}
+        <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-2 scrollbar-hide md:hidden">
+          {items.map((item) => (
+            <div
+              key={item.text || item.name}
+              className="flex w-[calc(50vw-1.5rem)] shrink-0 snap-start flex-col items-center justify-center rounded-[1.25rem] bg-white p-5 text-center shadow-sm"
+            >
+              <div className="mb-4 flex h-16 w-16 items-center justify-center">
+                {item.iconImage ? (
+                  <img src={item.iconImage} alt="" aria-hidden="true" className="h-14 w-14 object-contain" />
+                ) : (
+                  <item.icon className="h-8 w-8 text-[#1c1a24]" strokeWidth={1.75} />
+                )}
+              </div>
+              <p className="whitespace-pre-line text-[12px] font-bold leading-snug text-[#1c1a24]">
+                {item.text || item.name}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: grid */}
+        <div className="hidden gap-4 md:grid md:grid-cols-3 lg:grid-cols-6">
           {items.map((item) => (
             <div
               key={item.text || item.name}
@@ -3659,16 +3682,10 @@ export function CleanSimpleEffective({ productData }) {
                     src={item.iconImage}
                     alt=""
                     aria-hidden="true"
-                    className={`object-contain ${item.iconImage.includes("fast-free-delivery")
-                      ? "h-30 w-20"
-                      : "h-19 w-16"
-                      }`}
+                    className={`object-contain ${item.iconImage.includes("fast-free-delivery") ? "h-30 w-20" : "h-19 w-16"}`}
                   />
                 ) : (
-                  <item.icon
-                    className="h-9 w-9 text-[#1c1a24]"
-                    strokeWidth={1.75}
-                  />
+                  <item.icon className="h-9 w-9 text-[#1c1a24]" strokeWidth={1.75} />
                 )}
               </div>
               <p className="whitespace-pre-line text-[13px] font-bold leading-snug text-[#1c1a24]">

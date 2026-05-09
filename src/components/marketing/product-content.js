@@ -106,7 +106,7 @@ export const productContent = {
     {
       id: "semaglutide-injections",
       name: "Semaglutide Injections",
-      image: WORDPRESS_MARKETING_IMAGES.semaglutide,
+      image: "/semaglutide-injections-product.webp",
     },
   ],
   featureSection: {
