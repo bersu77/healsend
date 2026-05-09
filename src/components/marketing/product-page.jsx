@@ -3813,7 +3813,7 @@ const SAME_MED_HEALSEND_POINTS = [
   "Treatment precisely matched to your body and goals",
   "Doses titrated by your clinician to minimize side effects",
   "Unlimited video calls and messaging with your clinician",
-  "100% online. Free, discreet      shipping.",
+  "100% online. Free, discreet shipping.",
 ];
 
 /** Trust strip icons (client assets in /public/images). Mixed “clinical” + brand-style marks per line. */
@@ -3905,6 +3905,17 @@ function SameMedicationMarquee() {
 }
 
 function SameMedicationSection() {
+  const comparisonRowMotion = (i) => ({
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: false, amount: 0.4 },
+    transition: {
+      duration: 0.7,
+      delay: i * 0.12,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  });
+
   return (
     <section className="bg-slate-100 py-12 md:py-20">
       <SameMedicationMarquee />
@@ -3918,32 +3929,86 @@ function SameMedicationSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 md:gap-8">
-          <div className="flex flex-col items-center gap-6 rounded-2xl bg-gradient-to-b from-[#15204a] to-[#2a3360] px-4 py-8 text-center text-white md:px-6 md:py-10">
+        {/* Mobile: one grid so each feature row shares height across columns */}
+        <div className="grid grid-cols-2 gap-x-3 md:hidden">
+          <div className="flex flex-col items-center gap-6 rounded-tl-2xl bg-gradient-to-b from-[#15204a] to-[#2a3360] px-4 pb-2 pt-8 text-center text-white">
             <img
               src="/images/marketing/glp1-hero-merged.png"
               alt="HealSend GLP-1 medications"
               loading="lazy"
-              className="h-28 w-auto object-contain md:h-40"
+              className="h-28 w-auto object-contain"
             />
-            <div className="font-playfair text-2xl italic md:text-3xl">
-              HealSend
-            </div>
+            <div className="font-playfair text-2xl italic">HealSend</div>
+          </div>
+          <div className="flex flex-col items-center gap-6 rounded-tr-2xl border border-b-0 border-gray-200 bg-white px-4 pb-2 pt-8 text-center">
+            <img
+              src="/images/marketing/others.webp"
+              alt="Other providers' medications"
+              loading="lazy"
+              className="h-28 w-auto object-contain"
+            />
+            <div className="text-2xl font-medium text-[#5f5b70]">Others</div>
+          </div>
+
+          {SAME_MED_HEALSEND_POINTS.map((healPoint, i) => {
+            const otherPoint = SAME_MED_OTHERS_POINTS[i];
+            const isLast = i === SAME_MED_HEALSEND_POINTS.length - 1;
+            return (
+              <React.Fragment key={healPoint}>
+                <motion.div
+                  {...comparisonRowMotion(i)}
+                  className={cn(
+                    "flex h-full min-h-0 flex-col items-center justify-between gap-3 border-t border-white/10 bg-gradient-to-b from-[#15204a] to-[#2a3360] px-2 py-4 text-center text-white",
+                    isLast && "rounded-bl-2xl pb-8",
+                  )}
+                >
+                  <span className="flex flex-1 items-center text-center text-sm font-semibold leading-snug">
+                    {healPoint}
+                  </span>
+                  <span className="flex shrink-0 items-center justify-center">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#22c55e]">
+                      <Check className="h-4 w-4 text-white" strokeWidth={3} />
+                    </span>
+                  </span>
+                </motion.div>
+                <motion.div
+                  {...comparisonRowMotion(i)}
+                  className={cn(
+                    "flex h-full min-h-0 flex-col items-center justify-between gap-3 border-l border-r border-t border-gray-200 bg-white px-2 py-4 text-center",
+                    isLast && "rounded-br-2xl border-b border-gray-200 pb-8",
+                  )}
+                >
+                  <span className="flex flex-1 items-center text-center text-sm leading-snug text-[#5f5b70]">
+                    {otherPoint}
+                  </span>
+                  <span className="flex shrink-0 items-center justify-center">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#cdd0d8]">
+                      <Minus className="h-4 w-4 text-white" strokeWidth={3} />
+                    </span>
+                  </span>
+                </motion.div>
+              </React.Fragment>
+            );
+          })}
+        </div>
+
+        <div className="hidden grid-cols-2 gap-8 md:grid">
+          <div className="flex flex-col items-center gap-6 rounded-2xl bg-gradient-to-b from-[#15204a] to-[#2a3360] px-6 py-10 text-center text-white">
+            <img
+              src="/images/marketing/glp1-hero-merged.png"
+              alt="HealSend GLP-1 medications"
+              loading="lazy"
+              className="h-40 w-auto object-contain"
+            />
+            <div className="font-playfair text-3xl italic">HealSend</div>
             <ul className="grid w-full auto-rows-fr gap-6">
               {SAME_MED_HEALSEND_POINTS.map((point, i) => (
                 <motion.li
                   key={point}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, amount: 0.4 }}
-                  transition={{
-                    duration: 0.7,
-                    delay: i * 0.12,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
+                  {...comparisonRowMotion(i)}
                   className="grid min-h-[120px] grid-rows-[1fr_1fr] border-t border-white/10 px-2 py-4 text-center"
                 >
-                  <span className="flex items-center justify-center text-center text-sm font-semibold leading-snug md:text-base">
+                  <span className="flex items-center justify-center text-center text-base font-semibold leading-snug">
                     {point}
                   </span>
                   <span className="flex items-center justify-center">
@@ -3956,31 +4021,22 @@ function SameMedicationSection() {
             </ul>
           </div>
 
-          <div className="flex flex-col items-center gap-6 rounded-2xl bg-white px-4 py-8 text-center md:px-6 md:py-10">
+          <div className="flex flex-col items-center gap-6 rounded-2xl bg-white px-6 py-10 text-center">
             <img
               src="/images/marketing/others.webp"
               alt="Other providers' medications"
               loading="lazy"
-              className="h-28 w-auto object-contain md:h-40"
+              className="h-40 w-auto object-contain"
             />
-            <div className="text-2xl font-medium text-[#5f5b70] md:text-3xl">
-              Others
-            </div>
+            <div className="text-3xl font-medium text-[#5f5b70]">Others</div>
             <ul className="grid w-full auto-rows-fr gap-6">
               {SAME_MED_OTHERS_POINTS.map((point, i) => (
                 <motion.li
                   key={point}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, amount: 0.4 }}
-                  transition={{
-                    duration: 0.7,
-                    delay: i * 0.12,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
+                  {...comparisonRowMotion(i)}
                   className="grid min-h-[120px] grid-rows-[1fr_1fr] border-t border-white/10 px-2 py-4 text-center"
                 >
-                  <span className="flex items-center justify-center text-center text-sm leading-snug text-[#5f5b70] md:text-base">
+                  <span className="flex items-center justify-center text-center text-base leading-snug text-[#5f5b70]">
                     {point}
                   </span>
                   <span className="flex items-center justify-center">
