@@ -533,7 +533,7 @@ const defaultComprehensiveCare = {
     "Most GLP-1 programs stop at medications. We deliver expert-led care and clinician support for faster, safer results.",
   introLabel: "HealSend",
   introText:
-    "You're not just getting medication. You're getting full care on demand to keep you motivated, safe, and reaching your weight-loss goals.",
+    "Most wellness programs stop at product access. HealSend pairs your treatment with clinician guidance, support, and ongoing care.",
   ctaText: "Lose Fat Now",
   features: [
     {
@@ -1320,7 +1320,7 @@ const MEDICAL_PLANS = [
     badges: ["Just starting GLP-1?", "Recommended starter plan"],
     title: "Semaglutide\nPlan",
     subtitle: "GLP-1 receptor agonist",
-    image: "/images/marketing/semaglutide.webp",
+    image: "/semaglutide-injections-product.webp",
     bulletsHeading: "WHAT YOU GET",
     bullets: [
       {
@@ -3287,7 +3287,7 @@ export function ResearchSplit({ productData }) {
       : productData.researchSection.image;
 
   return (
-    <section className="bg-[#f9f9f9] px-4 pt-16 pb-0 md:px-8 md:pt-20 lg:px-16">
+    <section className="bg-[#f9f9f9] px-4 pt-8 pb-0 md:px-8 md:pt-20 lg:px-16">
       <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div className="order-2 relative overflow-hidden lg:order-1">
           <img
@@ -3330,7 +3330,7 @@ export function SimpleSteps({ productData }) {
   const steps = defaultSimpleSteps;
 
   return (
-    <section className="bg-[#f4f5f9] py-16 md:py-20">
+    <section className="bg-[#f4f5f9] pt-16 pb-8 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-12 text-center">
           <h2 className="mx-auto mb-10 w-full text-[2.5rem] font-semibold leading-[1.15] tracking-tight text-[#1c1d20] md:text-[3rem] lg:text-[3.5rem]">
@@ -3485,7 +3485,7 @@ export function LabTested({ productData }) {
         </div>
       )}
 
-      <section className="bg-[#f9f9f9] px-4 py-16 md:px-8 md:py-20 lg:px-16">
+      <section className="bg-[#f9f9f9] px-4 pt-8 pb-16 md:px-8 md:py-20 lg:px-16">
         <div className="mx-auto max-w-[1200px]">
           <div className="flex flex-col items-center gap-8 rounded-[2.5rem] bg-gradient-to-br from-[#6f68f0] to-[#8f88ff] p-6 md:p-10 lg:flex-row lg:gap-12 lg:p-12">
             <div className="flex-1 text-white">
@@ -3569,33 +3569,20 @@ export function ComprehensiveCare({ productData }) {
       : defaultComprehensiveCare.features;
 
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
+    <section className="bg-[#f9f9f9] pt-16 pb-4 md:pt-20 md:pb-6">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="mb-12 text-center">
-          <h2 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-[#7b75f0] md:text-5xl lg:text-6xl">
-            {content.title}
+        <div className="mb-8 text-left">
+          <h2 className="mb-4 font-title text-4xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl lg:text-6xl">
+            Doctor guided{" "}
+            <span className="font-playfair italic text-[#5b3cdd]">weight loss.</span>
           </h2>
-          <p className="mx-auto max-w-4xl text-lg text-gray-700 md:text-xl">
-            {content.description}
+          <p className="max-w-2xl text-lg text-gray-600">
+            Most wellness programs stop at product access. HealSend pairs your treatment with clinician guidance, support, and ongoing care.
           </p>
         </div>
 
-        <div className="rounded-[2rem] bg-white p-6 shadow-sm md:p-10 lg:p-12">
-          <div className="mb-12 flex flex-col items-center text-center">
-            <Image
-              src="/logo.png"
-              alt={content.introLabel || "HealSend"}
-              width={220}
-              height={68}
-              className="mb-6 h-12 w-auto md:h-14"
-              priority
-            />
-            <p className="mx-auto max-w-4xl text-lg leading-relaxed text-gray-700 md:text-xl">
-              {content.introText}
-            </p>
-          </div>
-
-          <div className="mb-12 grid grid-cols-1 gap-6 xl:grid-cols-2">
+        <div className="rounded-[2rem] bg-white p-6 pb-4 shadow-sm md:p-10 md:pb-6 lg:p-12 lg:pb-8">
+          <div className="mb-8 grid grid-cols-1 gap-6 xl:grid-cols-2">
             {features.map((feature) => (
               <div
                 key={feature.title}
@@ -3654,7 +3641,7 @@ export function CleanSimpleEffective({ productData }) {
       );
 
   return (
-    <section className="relative bg-[#F9F9F9] pt-6 pb-12 md:pt-8 md:pb-16">
+    <section className="relative bg-[#F9F9F9] pt-1 pb-12 md:pt-4 md:pb-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <h2 className="mb-10 text-center text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
           Fast, safe, doctor-led care
@@ -3838,7 +3825,15 @@ const SAME_MED_OTHERS_POINTS = [
 ];
 
 /**
- * Yellow animated trust strip (matches GLP `SameMedicationMarquee` styling).
+ * Yellow animated trust strip for the GLP marketing homepage only.
+ * Renders its own `<section>` — keep it a sibling of `SameMedicationSection`, not nested inside it.
+ */
+export function SameMedicationTrustMarqueeSection() {
+  return <MarketingTrustMarquee items={SAME_MED_MARQUEE_ITEMS} edgeToEdge />;
+}
+
+/**
+ * Yellow animated trust strip (shared; used by `SameMedicationTrustMarqueeSection` and other landings).
  * Use `edgeToEdge={false}` on standalone pages (e.g. /enclomiphene, /trt): full-bleed
  * `w-screen` + `-translate-x-1/2` can clip or show the wrong background behind the strip.
  */
@@ -3900,10 +3895,6 @@ export function MarketingTrustMarquee({ items, edgeToEdge = true }) {
   );
 }
 
-function SameMedicationMarquee() {
-  return <MarketingTrustMarquee items={SAME_MED_MARQUEE_ITEMS} edgeToEdge />;
-}
-
 function SameMedicationSection() {
   const comparisonRowMotion = (i) => ({
     initial: { opacity: 0, y: 20 },
@@ -3917,9 +3908,8 @@ function SameMedicationSection() {
   });
 
   return (
-    <section className="bg-slate-100 py-12 md:py-20">
-      <SameMedicationMarquee />
-      <div className="container mx-auto mt-8 max-w-screen-md space-y-10 px-4 md:mt-10 md:space-y-14 md:px-8">
+    <section className="bg-slate-100 pt-6 pb-12 md:pt-8 md:pb-20">
+      <div className="container mx-auto max-w-screen-md space-y-10 px-4 md:space-y-14 md:px-8">
         <div className="space-y-2 text-center">
           <h2 className="font-title text-4xl font-bold tracking-tight text-gray-950 md:text-6xl">
             Same medication.
@@ -5324,6 +5314,7 @@ export default function MarketingProductPage({ product, isHomepage = false }) {
       <FadeInSection><LabTested productData={productData} /></FadeInSection>
       <FadeInSection><ComprehensiveCare productData={productData} /></FadeInSection>
       <FadeInSection><CleanSimpleEffective productData={productData} /></FadeInSection>
+      <SameMedicationTrustMarqueeSection />
       <FadeInSection><SameMedicationSection /></FadeInSection>
       <FadeInSection><FAQSection /></FadeInSection>
       <FadeInSection><SupportAvailabilitySection /></FadeInSection>
