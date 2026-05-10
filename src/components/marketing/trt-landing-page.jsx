@@ -305,7 +305,7 @@ function TRTWillpowerSection() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <p className="w-full text-center text-sm">
-                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-slate-500">100% private · free</span>
                 </p>
               </div>
             </div>
@@ -415,15 +415,16 @@ function TRTProductHeroSection() {
                 </div>
               ) : null}
 
-              <div className="flex w-full flex-col items-stretch gap-3">
+              <div className="inline-flex w-full flex-col items-center gap-2.5">
                 <Link
                   href={CTA_HREF}
-                  className="hs-solid-btn flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] transition-colors"
+                  className="hs-solid-btn inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold sm:w-auto"
                 >
-                  See if you qualify
+                  Start consultation
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
-                <p className="mt-1 w-full text-center text-xs text-gray-500 md:text-sm">
-                  Discount auto-applied at checkout
+                <p className="w-full text-center text-sm">
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
                 </p>
               </div>
             </div>
@@ -770,10 +771,10 @@ function TRTBenefitsSection() {
 /* ------------------------------------------------------------------ */
 
 const SYMPTOM_CARDS = [
-  { title: "The energy that vanishes by 2 PM.", bullets: ["Eight hours of sleep — and you're still drained.", "Coffee stopped working. The afternoon wall is now your whole afternoon."] },
-  { title: "Your body turned on you.", bullets: ["Belly fat showed up and won't leave — same diet, different result.", "Lifts feel heavier. Recovery takes days, not hours."] },
-  { title: "The drive that quietly disappeared.", bullets: ["Libido dimmed. Morning erections faded.", "You miss feeling like yourself, and you've stopped bringing it up."] },
-  { title: "This was never about discipline.", bullets: ["Feeling like you should 'push through' keeps you stuck.", "You've Googled this before — you just needed the right care."] },
+  { title: "The energy that vanishes by 2 PM.", bullets: ["Eight hours of sleep — and you're still drained.", "Coffee stopped working. The afternoon wall is now your whole afternoon."], image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=80" },
+  { title: "Your body turned on you.", bullets: ["Belly fat showed up and won't leave — same diet, different result.", "Lifts feel heavier. Recovery takes days, not hours."], image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80" },
+  { title: "The drive that quietly disappeared.", bullets: ["Libido dimmed. Morning erections faded.", "You miss feeling like yourself, and you've stopped bringing it up."], image: "https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?auto=format&fit=crop&w=800&q=80" },
+  { title: "This was never about discipline.", bullets: ["Feeling like you should 'push through' keeps you stuck.", "You've Googled this before — you just needed the right care."], image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80" },
 ];
 
 function TRTSymptomsSection() {
@@ -790,16 +791,28 @@ function TRTSymptomsSection() {
         <div className="grid gap-5 md:grid-cols-2">
           {SYMPTOM_CARDS.map((s) => (
             <FadeIn key={s.title}>
-              <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
-                <h3 className="mb-4 font-title text-xl font-medium text-gray-900 md:text-2xl">{s.title}</h3>
-                <ul className="space-y-2">
-                  {s.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-2 text-sm text-gray-600 md:text-base">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#6D6FFC]" />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
+              <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+                <div className="relative h-44">
+                  <Image
+                    src={s.image}
+                    alt={s.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/70" />
+                </div>
+                <div className="p-6 md:p-8">
+                  <h3 className="mb-4 font-title text-xl font-medium text-gray-900 md:text-2xl">{s.title}</h3>
+                  <ul className="space-y-2">
+                    {s.bullets.map((b) => (
+                      <li key={b} className="flex items-start gap-2 text-sm text-gray-600 md:text-base">
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#6D6FFC]" />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </FadeIn>
           ))}

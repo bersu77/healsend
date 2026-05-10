@@ -317,8 +317,8 @@ function WillpowerSection() {
                   Get my personalized plan
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-                <p className="w-full text-center text-sm font-semibold text-gray-700">
-                  Takes 90 seconds · 100% private · free
+                <p className="w-full text-center text-sm">
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-slate-500">100% private · free</span>
                 </p>
               </div>
             </div>
@@ -605,13 +605,14 @@ const defaultClosingCta = defaultProductContent.closingCta || {
 };
 
 function getProductSlug(productData) {
+  if (!productData) return null;
   return productData.slug || productData.id;
 }
 
 export function getPrimaryCtaHref(productData) {
   return (
     getProductOnboardingPath(getProductSlug(productData)) ||
-    productData.primaryCta?.href ||
+    productData?.primaryCta?.href ||
     MARKETING_ROUTES.nad
   );
 }

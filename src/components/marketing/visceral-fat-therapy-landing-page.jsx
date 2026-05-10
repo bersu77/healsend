@@ -97,10 +97,6 @@ function VFWillpowerSection() {
       <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-80px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#6D6FFC]/30 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#6D6FFC]" />
-              Visceral Fat-Targeting Therapy
-            </span>
             <div className="mt-5 max-w-[34rem]">
               <h1 className="text-balance font-title text-4xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl">
                 The belly{" "}
@@ -123,22 +119,6 @@ function VFWillpowerSection() {
                 deep abdominal fat that diet, exercise, and even GLP-1s
                 consistently leave behind.
               </p>
-            </div>
-
-            {/* Promise box */}
-            <div className="mt-6 max-w-[34rem] rounded-2xl bg-[#6D6FFC] px-6 py-5 text-white">
-              <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-white/70">
-                The Promise
-              </p>
-              <div className="flex items-start gap-3">
-                <Check className="mt-0.5 h-5 w-5 shrink-0 text-white" strokeWidth={2.5} />
-                <p className="text-[0.95rem] font-medium leading-snug">
-                  If your waist measurement doesn&apos;t measurably decrease by week 12,{" "}
-                  <span className="font-bold italic text-[#FF6B35]">
-                    your first month is free.
-                  </span>
-                </p>
-              </div>
             </div>
 
             <ul className="mt-5 max-w-[34rem] space-y-4 text-[#4d5160]">
@@ -339,15 +319,16 @@ function VFProductHeroSection() {
                 </div>
               )}
 
-              <div className="flex w-full flex-col items-stretch gap-3">
+              <div className="inline-flex w-full flex-col items-center gap-2.5">
                 <Link
                   href={CTA_HREF}
-                  className="hs-solid-btn flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)]"
+                  className="hs-solid-btn inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold sm:w-auto"
                 >
                   Start consultation
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
-                <p className="w-full text-center text-xs text-gray-500">
-                  No charge until your protocol is approved
+                <p className="w-full text-center text-sm">
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
                 </p>
               </div>
             </div>
@@ -838,7 +819,7 @@ function VFComparisonSection() {
 
   function Cell({ data, isVF = false }) {
     return (
-      <td className={`px-4 py-4 text-center align-top text-sm ${isVF ? "text-[#6D6FFC]" : "text-gray-600"}`}>
+      <td className={`px-4 py-4 text-center align-top text-sm ${isVF ? "bg-[#F1F0FF]/70 text-[#6D6FFC]" : "text-gray-600"}`}>
         <div className="flex flex-col items-center gap-1">
           {data.icon === "check" && (
             <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#6D6FFC]">
@@ -882,7 +863,7 @@ function VFComparisonSection() {
               <thead>
                 <tr className="border-b border-gray-100">
                   <th className="w-[180px] px-4 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-400" />
-                  <th className="px-4 py-4 text-center">
+                  <th className="bg-[#F1F0FF]/70 px-4 py-4 text-center">
                     <div className="inline-block">
                       <span className="mb-1 block rounded-full bg-[#FF6B35] px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
                         Targets Visceral Fat

@@ -1718,21 +1718,25 @@ const CARE_FEATURES = [
     icon: Stethoscope,
     title: "Board-certified clinician",
     desc: "Every GH protocol is reviewed and prescribed by a U.S. board-certified physician with endocrinology or men's/women's health experience.",
+    image: "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: FlaskConical,
     title: "Quarterly IGF-1 labs",
     desc: "Labs are included in your protocol — not an add-on. Quarterly IGF-1 rechecks keep your dose calibrated throughout your program.",
+    image: "https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: Headset,
     title: "Always-on messaging",
     desc: "Message your care team anytime through the HealSend portal. Questions about your dose, side effects, or results get a response within 24 hours.",
+    image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=600&q=80",
   },
   {
     icon: RefreshCw,
     title: "Auto-refill, zero friction",
     desc: "Your medication ships automatically each month. No refill requests, no clinic visits, no interruption to your protocol.",
+    image: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=600&q=80",
   },
 ];
 
@@ -1761,12 +1765,24 @@ function GHCareProgramSection() {
             const Icon = f.icon;
             return (
               <FadeIn key={f.title}>
-                <div className="flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#6D6FFC]/10">
-                    <Icon className="h-5 w-5 text-[#6D6FFC]" strokeWidth={2} />
+                <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+                  <div className="relative h-36">
+                    <Image
+                      src={f.image}
+                      alt={f.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-[#6D6FFC]/30" />
+                    <div className="absolute bottom-3 left-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+                      <Icon className="h-4 w-4 text-white" strokeWidth={2} />
+                    </div>
                   </div>
-                  <h3 className="mb-2 font-title text-lg font-bold text-gray-900">{f.title}</h3>
-                  <p className="text-sm leading-relaxed text-gray-600">{f.desc}</p>
+                  <div className="flex flex-1 flex-col p-5">
+                    <h3 className="mb-2 font-title text-lg font-bold text-gray-900">{f.title}</h3>
+                    <p className="text-sm leading-relaxed text-gray-600">{f.desc}</p>
+                  </div>
                 </div>
               </FadeIn>
             );

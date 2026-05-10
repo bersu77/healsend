@@ -870,6 +870,7 @@ const GLOW_TESTIMONIALS = [
       { val: "+18%", label: "Hydration" },
     ],
     verified: "Verified - Enhanced Optimization",
+    image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=80",
   },
   {
     name: "Marcus R., 44",
@@ -881,6 +882,7 @@ const GLOW_TESTIMONIALS = [
       { val: "+28%", label: "Skin tone evenness" },
     ],
     verified: "Verified - Advanced Stack",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80",
   },
   {
     name: "Jenna P., 41",
@@ -892,6 +894,7 @@ const GLOW_TESTIMONIALS = [
       { val: "+12%", label: "Hydration" },
     ],
     verified: "Started Foundational, upgraded to Enhanced",
+    image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=600&q=80",
   },
 ];
 
@@ -920,7 +923,15 @@ function GlowTestimonialsSection() {
               className="w-[88%] shrink-0 snap-start snap-always md:w-auto md:shrink"
             >
               <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-                <div className="h-48 w-full bg-[#e8e8f0]" />
+                <div className="relative h-48 w-full">
+                  <Image
+                    src={t.image}
+                    alt={t.name}
+                    fill
+                    sizes="(max-width: 768px) 88vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
                 <div className="flex flex-1 flex-col p-5 md:p-6">
                   <div className="mb-3">
                     <p className="font-title text-base font-bold text-gray-900">{t.name}</p>
@@ -1135,8 +1146,24 @@ function GlowResearchSection() {
                 </p>
                 <div className="flex items-center gap-3">
                   <div className="flex -space-x-2">
-                    <div className="h-10 w-10 rounded-full bg-gray-300 ring-2 ring-white" />
-                    <div className="h-10 w-10 rounded-full bg-gray-200 ring-2 ring-white" />
+                    <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-white">
+                      <Image
+                        src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=80&q=80"
+                        alt="Dr. R. Adler"
+                        fill
+                        sizes="40px"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-white">
+                      <Image
+                        src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=80&q=80"
+                        alt="Clinical team member"
+                        fill
+                        sizes="40px"
+                        className="object-cover"
+                      />
+                    </div>
                   </div>
                   <div>
                     <p className="text-sm font-bold text-gray-900">Dr. R. Adler &amp; team</p>
@@ -1198,16 +1225,19 @@ const GLOW_STEPS = [
     step: "STEP 1",
     title: "Online intake",
     desc: "90-second medical assessment focused on your skin/hair concerns and overall regenerative goals. Baseline labs ordered.",
+    image: "https://images.unsplash.com/photo-1587440871875-191322ee64b0?auto=format&fit=crop&w=600&q=80",
   },
   {
     step: "STEP 2",
     title: "Tier & protocol",
     desc: "A licensed clinician reviews your goals, recommends a tier, and prescribes your personalized regenerative protocol.",
+    image: "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?auto=format&fit=crop&w=600&q=80",
   },
   {
     step: "STEP 3",
     title: "Medication shipped",
     desc: "Discreet packaging, free shipping, all supplies and a video walkthrough for your first dose.",
+    image: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=600&q=80",
   },
 ];
 
@@ -1230,13 +1260,24 @@ function GlowStepsSection() {
         <div className="grid gap-5 md:grid-cols-3">
           {GLOW_STEPS.map((s) => (
             <FadeIn key={s.step}>
-              <div className="flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-                <span className="mb-4 inline-block rounded-full bg-[#1a1a2e] px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
-                  {s.step}
-                </span>
-                <div className="mb-4 h-40 w-full rounded-xl bg-[#e8e8f0]" />
-                <h3 className="mb-2 font-title text-xl font-bold text-gray-900">{s.title}</h3>
-                <p className="text-sm leading-relaxed text-gray-600">{s.desc}</p>
+              <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+                <div className="relative h-40">
+                  <Image
+                    src={s.image}
+                    alt={s.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/40" />
+                  <span className="absolute bottom-3 left-4 rounded-full bg-[#1a1a2e] px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+                    {s.step}
+                  </span>
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="mb-2 font-title text-xl font-bold text-gray-900">{s.title}</h3>
+                  <p className="text-sm leading-relaxed text-gray-600">{s.desc}</p>
+                </div>
               </div>
             </FadeIn>
           ))}

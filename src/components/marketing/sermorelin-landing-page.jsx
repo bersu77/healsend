@@ -315,15 +315,16 @@ function SermorelinProductHeroSection() {
                 </div>
               )}
 
-              <div className="flex w-full flex-col items-stretch gap-3">
+              <div className="inline-flex w-full flex-col items-center gap-2.5">
                 <Link
                   href={CTA_HREF}
-                  className="hs-solid-btn flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)]"
+                  className="hs-solid-btn inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold sm:w-auto"
                 >
                   Start consultation
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
-                <p className="w-full text-center text-xs text-gray-500">
-                  No charge until your protocol is approved
+                <p className="w-full text-center text-sm">
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
                 </p>
               </div>
             </div>

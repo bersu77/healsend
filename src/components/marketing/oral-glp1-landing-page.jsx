@@ -121,11 +121,11 @@ function OralGLP1WillpowerSection() {
                   href={CTA_HREF}
                   className="hs-solid-btn inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold sm:w-auto"
                 >
-                  See the options
+                  Start consultation
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <p className="w-full text-center text-sm">
-                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-slate-500">100% private · free</span>
                 </p>
               </div>
             </div>
@@ -204,7 +204,7 @@ function OralGLP1ProductHeroSection() {
                 Two oral options · Daily protocol · No injections
               </p>
             </div>
-            <div className="relative z-0 flex aspect-[4/3] w-full shrink-0 items-start justify-start overflow-hidden rounded-[1rem] bg-[#f9f9f9] ring-1 ring-black/[0.04]">
+            <div className="relative z-0 flex aspect-[4/5] w-full shrink-0 items-start justify-start overflow-hidden rounded-[1rem] bg-[#f9f9f9] ring-1 ring-black/[0.04]">
               <div className="flex h-full min-h-0 w-full flex-1 items-stretch justify-stretch">
                 <div className="relative h-full min-h-0 w-full">
                   <div className="absolute left-4 top-4 z-10 flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-semibold text-emerald-700 shadow-[0_2px_12px_rgba(0,0,0,0.08)] ring-1 ring-black/[0.04] md:left-5 md:top-5 md:px-6 md:py-2.5 md:text-base">
@@ -243,11 +243,10 @@ function OralGLP1ProductHeroSection() {
                 <button
                   type="button"
                   onClick={() => setSelectedProtocol("orforglipron")}
-                  className={`flex w-full items-center justify-between rounded-xl border-2 px-4 py-3.5 text-left transition-colors ${
-                    selectedProtocol === "orforglipron"
+                  className={`flex w-full items-center justify-between rounded-xl border-2 px-4 py-3.5 text-left transition-colors ${selectedProtocol === "orforglipron"
                       ? "border-[#6D6FFC] bg-[#6D6FFC]/5"
                       : "border-gray-200 hover:border-gray-300"
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-bold text-gray-900">Orforglipron + B6</span>
@@ -260,11 +259,10 @@ function OralGLP1ProductHeroSection() {
                 <button
                   type="button"
                   onClick={() => setSelectedProtocol("semaglutide")}
-                  className={`flex w-full items-center justify-between rounded-xl border-2 px-4 py-3.5 text-left transition-colors ${
-                    selectedProtocol === "semaglutide"
+                  className={`flex w-full items-center justify-between rounded-xl border-2 px-4 py-3.5 text-left transition-colors ${selectedProtocol === "semaglutide"
                       ? "border-[#6D6FFC] bg-[#6D6FFC]/5"
                       : "border-gray-200 hover:border-gray-300"
-                  }`}
+                    }`}
                 >
                   <span className="text-sm font-bold text-gray-900">Semaglutide RDT</span>
                   <span className="text-base font-bold text-[#6D6FFC]">$249/mo</span>
@@ -304,15 +302,16 @@ function OralGLP1ProductHeroSection() {
                 </div>
               ) : null}
 
-              <div className="flex w-full flex-col items-stretch gap-3">
+              <div className="inline-flex w-full flex-col items-center gap-2.5">
                 <Link
                   href={CTA_HREF}
-                  className="hs-solid-btn flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] transition-colors"
+                  className="hs-solid-btn inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold sm:w-auto"
                 >
-                  See both options →
+                  Start consultation
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
-                <p className="mt-1 w-full text-center text-xs text-gray-500 md:text-sm">
-                  No charge until your protocol is approved
+                <p className="w-full text-center text-sm">
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-slate-500">100% private · free</span>
                 </p>
               </div>
             </div>
@@ -334,11 +333,10 @@ function OralGLP1ProductHeroSection() {
                   key={tab}
                   type="button"
                   onClick={() => setActiveTab(tab)}
-                  className={`flex-1 rounded-full py-2.5 text-sm font-medium capitalize transition-colors ${
-                    activeTab === tab
+                  className={`flex-1 rounded-full py-2.5 text-sm font-medium capitalize transition-colors ${activeTab === tab
                       ? "bg-white text-gray-900 shadow-sm"
                       : "text-gray-500 hover:text-gray-700"
-                  }`}
+                    }`}
                 >
                   {tab}
                 </button>
@@ -356,16 +354,16 @@ function OralGLP1ProductHeroSection() {
                 >
                   {activeTab === "benefits"
                     ? ORAL_HERO_BENEFITS.map((item, idx) => {
-                        const Icon = item.icon;
-                        return (
-                          <div key={idx} className="flex gap-3">
-                            <Icon className="mt-0.5 h-5 w-5 shrink-0 text-gray-600" />
-                            <p className="text-[0.938rem] leading-relaxed text-gray-700 md:text-base">
-                              {item.text}
-                            </p>
-                          </div>
-                        );
-                      })
+                      const Icon = item.icon;
+                      return (
+                        <div key={idx} className="flex gap-3">
+                          <Icon className="mt-0.5 h-5 w-5 shrink-0 text-gray-600" />
+                          <p className="text-[0.938rem] leading-relaxed text-gray-700 md:text-base">
+                            {item.text}
+                          </p>
+                        </div>
+                      );
+                    })
                     : null}
 
                   {activeTab === "pricing" ? (
@@ -377,9 +375,8 @@ function OralGLP1ProductHeroSection() {
                         {ORAL_HERO_PRICING.map((plan, index) => (
                           <div
                             key={plan.name}
-                            className={`relative flex items-center justify-between p-4 ${
-                              index !== ORAL_HERO_PRICING.length - 1 ? "border-b border-gray-200" : ""
-                            }`}
+                            className={`relative flex items-center justify-between p-4 ${index !== ORAL_HERO_PRICING.length - 1 ? "border-b border-gray-200" : ""
+                              }`}
                           >
                             {plan.isNew ? (
                               <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#FF6B35] px-3 text-sm font-semibold leading-none text-white">
@@ -515,25 +512,37 @@ function OralGLP1WhyNowSection() {
         <div className="relative grid gap-6 md:grid-cols-2 md:items-stretch">
           {/* Old card */}
           <FadeIn>
-            <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-7 md:p-8">
-              <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-white/40">
-                Old Oral GLP-1s (Rybelsus, 2019–2024)
-              </p>
-              <h3 className="mb-3 text-xl font-bold text-white md:text-2xl">
-                Underpowered, finicky, fasted-stomach.
-              </h3>
-              <p className="mb-6 flex-1 text-sm leading-relaxed text-white/50 md:text-base">
-                Required taking on empty stomach, 30-minute food wait, only ~5–7% average weight
-                loss. Most patients never came close to injectable-tier results.
-              </p>
-              <div className="flex items-center gap-8 border-t border-white/10 pt-5">
-                <div>
-                  <p className="text-2xl font-bold text-white/60">~6%</p>
-                  <p className="text-xs text-white/30">avg weight loss</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-white/60">Strict</p>
-                  <p className="text-xs text-white/30">fasting + timing rules</p>
+            <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+              <div className="relative h-40">
+                <Image
+                  src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80"
+                  alt="Old oral GLP-1"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover grayscale opacity-30"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0d0d1a]/90" />
+                <span className="absolute bottom-3 left-4 text-[10px] font-bold uppercase tracking-widest text-white/40">
+                  Old Oral GLP-1s (Rybelsus, 2019–2024)
+                </span>
+              </div>
+              <div className="flex flex-1 flex-col p-7 md:p-8">
+                <h3 className="mb-3 text-xl font-bold text-white md:text-2xl">
+                  Underpowered, finicky, fasted-stomach.
+                </h3>
+                <p className="mb-6 flex-1 text-sm leading-relaxed text-white/50 md:text-base">
+                  Required taking on empty stomach, 30-minute food wait, only ~5–7% average weight
+                  loss. Most patients never came close to injectable-tier results.
+                </p>
+                <div className="flex items-center gap-8 border-t border-white/10 pt-5">
+                  <div>
+                    <p className="text-2xl font-bold text-white/60">~6%</p>
+                    <p className="text-xs text-white/30">avg weight loss</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-white/60">Strict</p>
+                    <p className="text-xs text-white/30">fasting + timing rules</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -548,26 +557,38 @@ function OralGLP1WhyNowSection() {
 
           {/* New card */}
           <FadeIn>
-            <div className="flex h-full flex-col rounded-2xl border-2 border-[#FF6B35] bg-white/5 p-7 md:p-8">
-              <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-[#FF6B35]">
-                New Oral GLP-1s (2025+)
-              </p>
-              <h3 className="mb-3 text-xl font-bold text-white md:text-2xl">
-                Orforglipron just hit injectable-tier results.
-              </h3>
-              <p className="mb-6 flex-1 text-sm leading-relaxed text-white/65 md:text-base">
-                Phase 3 ATTAIN-1 (NEJM, 2025) showed up to 12.4% weight loss at 72 weeks. No food
-                restrictions, no timing rules. The first oral GLP-1 to seriously compete with
-                Wegovy and Zepbound.
-              </p>
-              <div className="flex items-center gap-8 border-t border-white/10 pt-5">
-                <div>
-                  <p className="text-2xl font-bold text-[#FF6B35]">12.4%</p>
-                  <p className="text-xs text-white/30">avg weight loss at high dose</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-[#FF6B35]">Zero</p>
-                  <p className="text-xs text-white/30">food restrictions</p>
+            <div className="flex h-full flex-col overflow-hidden rounded-2xl border-2 border-[#FF6B35] bg-white/5">
+              <div className="relative h-40">
+                <Image
+                  src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80"
+                  alt="New oral GLP-1 breakthrough"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover opacity-60"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0d0d1a]/90" />
+                <span className="absolute bottom-3 left-4 text-[10px] font-bold uppercase tracking-widest text-[#FF6B35]">
+                  New Oral GLP-1s (2025+)
+                </span>
+              </div>
+              <div className="flex flex-1 flex-col p-7 md:p-8">
+                <h3 className="mb-3 text-xl font-bold text-white md:text-2xl">
+                  Orforglipron just hit injectable-tier results.
+                </h3>
+                <p className="mb-6 flex-1 text-sm leading-relaxed text-white/65 md:text-base">
+                  Phase 3 ATTAIN-1 (NEJM, 2025) showed up to 12.4% weight loss at 72 weeks. No food
+                  restrictions, no timing rules. The first oral GLP-1 to seriously compete with
+                  Wegovy and Zepbound.
+                </p>
+                <div className="flex items-center gap-8 border-t border-white/10 pt-5">
+                  <div>
+                    <p className="text-2xl font-bold text-[#FF6B35]">12.4%</p>
+                    <p className="text-xs text-white/30">avg weight loss at high dose</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-[#FF6B35]">Zero</p>
+                    <p className="text-xs text-white/30">food restrictions</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1113,11 +1134,10 @@ function OralGLP1QuizSection() {
                           key={opt}
                           type="button"
                           onClick={() => handleSelect(opt)}
-                          className={`w-full rounded-xl border-2 px-4 py-3.5 text-left text-sm font-medium transition-colors ${
-                            selected === opt
+                          className={`w-full rounded-xl border-2 px-4 py-3.5 text-left text-sm font-medium transition-colors ${selected === opt
                               ? "border-[#6D6FFC] bg-[#6D6FFC]/5 text-[#6D6FFC]"
                               : "border-gray-200 text-gray-700 hover:border-gray-300"
-                          }`}
+                            }`}
                         >
                           {opt}
                         </button>
@@ -1129,42 +1149,57 @@ function OralGLP1QuizSection() {
                       type="button"
                       onClick={handleNext}
                       disabled={selected === null}
-                      className={`w-full rounded-full py-3 text-sm font-semibold transition-colors ${
-                        selected !== null
+                      className={`w-full rounded-full py-3 text-sm font-semibold transition-colors ${selected !== null
                           ? "bg-[#6D6FFC] text-white hover:bg-[#5a5ce8]"
                           : "cursor-not-allowed bg-gray-100 text-gray-400"
-                      }`}
+                        }`}
                     >
                       {currentQ < QUIZ_QUESTIONS.length - 1 ? "Next →" : "See my match →"}
                     </button>
                   </div>
                 </>
               ) : (
-                <div className="p-7">
-                  <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-[#6D6FFC]">
-                    Your Match
-                  </p>
-                  <h3 className="mb-2 text-2xl font-bold text-gray-900">
-                    {isOrf ? "Orforglipron + B6" : "Semaglutide RDT"}
-                  </h3>
-                  <p className="mb-5 text-sm leading-relaxed text-gray-600">
-                    {isOrf
-                      ? "Based on your answers, Orforglipron + B6 looks like the best fit — it offers the highest efficacy and includes B6 to help with tolerability."
-                      : "Based on your answers, Semaglutide RDT looks like a strong match — proven GLP-1 results at the most accessible price point."}
-                  </p>
-                  <Link
-                    href={CTA_HREF}
-                    className="mb-3 flex w-full items-center justify-center rounded-full bg-[#6D6FFC] py-3.5 text-base font-semibold text-white transition hover:bg-[#5a5ce8]"
-                  >
-                    Start {isOrf ? "Orforglipron + B6" : "Semaglutide RDT"} →
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={reset}
-                    className="w-full text-center text-xs text-gray-400 underline underline-offset-4"
-                  >
-                    Retake quiz
-                  </button>
+                <div className="overflow-hidden rounded-xl">
+                  <div className="relative h-44 w-full">
+                    <Image
+                      src={
+                        isOrf
+                          ? "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80"
+                          : "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=800&q=80"
+                      }
+                      alt={isOrf ? "Orforglipron + B6 oral tablet" : "Semaglutide RDT oral tablet"}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 600px"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/80" />
+                  </div>
+                  <div className="p-7">
+                    <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-[#6D6FFC]">
+                      Your Match
+                    </p>
+                    <h3 className="mb-2 text-2xl font-bold text-gray-900">
+                      {isOrf ? "Orforglipron + B6" : "Semaglutide RDT"}
+                    </h3>
+                    <p className="mb-5 text-sm leading-relaxed text-gray-600">
+                      {isOrf
+                        ? "Based on your answers, Orforglipron + B6 looks like the best fit — it offers the highest efficacy and includes B6 to help with tolerability."
+                        : "Based on your answers, Semaglutide RDT looks like a strong match — proven GLP-1 results at the most accessible price point."}
+                    </p>
+                    <Link
+                      href={CTA_HREF}
+                      className="mb-3 flex w-full items-center justify-center rounded-full bg-[#6D6FFC] py-3.5 text-base font-semibold text-white transition hover:bg-[#5a5ce8]"
+                    >
+                      Start {isOrf ? "Orforglipron + B6" : "Semaglutide RDT"} →
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={reset}
+                      className="w-full text-center text-xs text-gray-400 underline underline-offset-4"
+                    >
+                      Retake quiz
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
@@ -1186,6 +1221,16 @@ function OralGLP1B6Section() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <FadeIn>
             <div>
+              <div className="relative mb-8 h-56 w-full overflow-hidden rounded-2xl">
+                <Image
+                  src="https://images.unsplash.com/photo-1631549916768-4119b2e5f926?auto=format&fit=crop&w=900&q=80"
+                  alt="B6 compound pills — nausea support"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-[#6D6FFC]/20" />
+              </div>
               <h2 className="mb-4 font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
                 The{" "}
                 <span className="font-playfair italic text-[#6D6FFC]">B6 difference.</span>
@@ -1592,9 +1637,8 @@ function OralGLP1ResearchSection() {
                 {ATTAIN_CITATIONS.map((c, i) => (
                   <div
                     key={c.key}
-                    className={`flex flex-col gap-0.5 px-5 py-4 sm:grid sm:grid-cols-[auto_1fr] sm:gap-4 ${
-                      i < ATTAIN_CITATIONS.length - 1 ? "border-b border-gray-100" : ""
-                    }`}
+                    className={`flex flex-col gap-0.5 px-5 py-4 sm:grid sm:grid-cols-[auto_1fr] sm:gap-4 ${i < ATTAIN_CITATIONS.length - 1 ? "border-b border-gray-100" : ""
+                      }`}
                   >
                     <span className="text-sm font-bold text-gray-900 sm:whitespace-nowrap">{c.key}</span>
                     <span className="text-sm leading-relaxed text-gray-600">{c.desc}</span>
