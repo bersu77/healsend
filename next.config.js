@@ -171,11 +171,6 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: "/sermorelin",
-        destination: "/strength-recovery",
-        permanent: true,
-      },
-      {
         source: "/sermorelin-therapy",
         destination: "/strength-recovery",
         permanent: true,
