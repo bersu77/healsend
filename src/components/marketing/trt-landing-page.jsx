@@ -304,8 +304,8 @@ function TRTWillpowerSection() {
                   Get my personalized plan
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-                <p className="w-full text-center text-sm font-semibold text-gray-700">
-                  Takes 90 seconds · 100% private · free
+                <p className="w-full text-center text-sm">
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
                 </p>
               </div>
             </div>

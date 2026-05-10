@@ -120,8 +120,8 @@ function GHWillpowerSection() {
                   Check my eligibility
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-                <p className="w-full text-center text-sm font-semibold text-gray-700">
-                  Takes 90 seconds · <span className="text-gray-500">100% private · free</span>
+                <p className="w-full text-center text-sm">
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
                 </p>
               </div>
             </div>
@@ -1647,16 +1647,19 @@ const GH_STEPS = [
     step: "STEP 1",
     title: "Online intake + labs",
     desc: "90-second assessment focused on your GH/IGF-1 history, goals, and health baseline. Baseline blood panel ordered — IGF-1, GH markers, and metabolic panel.",
+    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80",
   },
   {
     step: "STEP 2",
     title: "Clinician prescribes protocol",
     desc: "A board-certified clinician reviews your labs and health history, prescribes your peptide protocol, and sets your starting dose based on your actual IGF-1 baseline.",
+    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=800&q=80",
   },
   {
     step: "STEP 3",
     title: "Medication & kit delivered",
     desc: "Your protocol ships in discreet packaging with all supplies, a video walkthrough for your first dose, and a 90-day follow-up lab already scheduled.",
+    image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=800&q=80",
   },
 ];
 
@@ -1679,13 +1682,24 @@ function GHStepsSection() {
         <div className="grid gap-5 md:grid-cols-3">
           {GH_STEPS.map((s) => (
             <FadeIn key={s.step}>
-              <div className="flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-                <span className="mb-4 inline-block rounded-full bg-[#1a1a2e] px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
-                  {s.step}
-                </span>
-                <div className="mb-4 h-40 w-full overflow-hidden rounded-xl bg-[#e8e8f0]" />
-                <h3 className="mb-2 font-title text-xl font-bold text-gray-900">{s.title}</h3>
-                <p className="text-sm leading-relaxed text-gray-600">{s.desc}</p>
+              <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+                <div className="relative h-44 bg-[#e8e8f0]">
+                  <Image
+                    src={s.image}
+                    alt={s.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  <span className="absolute left-4 top-4 inline-block rounded-full bg-[#1a1a2e] px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+                    {s.step}
+                  </span>
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="mb-2 font-title text-xl font-bold text-gray-900">{s.title}</h3>
+                  <p className="text-sm leading-relaxed text-gray-600">{s.desc}</p>
+                </div>
               </div>
             </FadeIn>
           ))}

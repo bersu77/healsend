@@ -138,38 +138,19 @@ function SermorelinWillpowerSection() {
               </li>
             </ul>
 
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <Link
-                href={CTA_HREF}
-                className="hs-solid-btn inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-base font-semibold"
-              >
-                Start consultation <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="#how-it-works"
-                className="hs-outline-btn inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-base font-semibold"
-              >
-                See how it works
-              </Link>
-            </div>
-
-            <p className="mt-4 text-xs text-gray-500">
-              90-second intake · 100% private · No charge until prescribed
-            </p>
-            <div className="mt-3 flex items-center gap-2">
-              <div className="flex -space-x-2">
-                {["bg-[#c7c3f9]", "bg-[#a5b4fc]", "bg-[#818cf8]"].map(
-                  (bg, i) => (
-                    <div
-                      key={i}
-                      className={`h-7 w-7 rounded-full ${bg} border-2 border-white`}
-                    />
-                  ),
-                )}
+            <div className="mt-5 w-full">
+              <div className="inline-flex w-full max-w-full flex-col items-center gap-2.5 sm:w-auto">
+                <Link
+                  href={CTA_HREF}
+                  className="hs-solid-btn inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold sm:w-auto"
+                >
+                  Start consultation
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <p className="w-full text-center text-sm">
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
+                </p>
               </div>
-              <span className="text-xs text-gray-500">
-                Board-certified clinicians · Licensed in your state
-              </span>
             </div>
           </div>
         </div>
