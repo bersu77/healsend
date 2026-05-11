@@ -1176,38 +1176,101 @@ function VFPainPointsSection() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  11. 60-day promise (contained card)                              */
+/*  11. 60-day promise                                                */
 /* ------------------------------------------------------------------ */
 
 function VFPromiseSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: false, margin: "-100px" });
+
   return (
-    <section className="bg-[#F1F0FF] py-10 md:py-14">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <FadeIn>
-          <div className="flex flex-col items-start gap-6 rounded-3xl border border-[#6D6FFC]/30 bg-white p-7 shadow-sm md:flex-row md:items-center md:gap-8 md:p-10">
-            {/* Circle badge */}
-            <div className="flex h-20 w-20 shrink-0 flex-col items-center justify-center rounded-full border-2 border-[#6D6FFC] text-center">
-              <span className="text-2xl font-bold leading-none text-[#6D6FFC]">60</span>
-              <span className="text-[9px] font-bold uppercase tracking-wider text-[#6D6FFC]">Day Promise</span>
-            </div>
-            {/* Text */}
-            <div className="flex-1">
-              <p className="mb-1.5 text-lg font-bold leading-snug text-gray-900 md:text-xl">
-                If your waist measurement doesn&apos;t decrease by week 12,{" "}
-                <span className="font-playfair italic text-[#6D6FFC]">your first month is free.</span>
-              </p>
-              <p className="text-sm leading-relaxed text-gray-600">
-                We&apos;re so confident in this protocol that we&apos;ll refund your first month if your bloodwork and waist measurement don&apos;t show meaningful change. No fine print. No retention scripts.
-              </p>
-            </div>
-            {/* Link */}
-            <div className="shrink-0">
-              <Link href={CTA_HREF} className="text-sm font-medium text-[#6D6FFC] underline underline-offset-4 hover:text-[#5a5ce8]">
-                Read the full guarantee →
-              </Link>
-            </div>
-          </div>
-        </FadeIn>
+    <section ref={ref} className="relative overflow-hidden bg-[#0d0d1a] py-20 md:py-28">
+      {/* Animated radial glow — pulses when in view */}
+      <motion.div
+        className="pointer-events-none absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ duration: 1.2 }}
+      >
+        <motion.div
+          className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#6D6FFC]/10 blur-[120px]"
+          animate={inView ? { scale: [1, 1.15, 1], opacity: [0.6, 1, 0.6] } : {}}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+        {/* Secondary glow ring */}
+        <motion.div
+          className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#6D6FFC]/10"
+          animate={inView ? { scale: [1, 1.6], opacity: [0.4, 0] } : {}}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeOut", repeatDelay: 1 }}
+        />
+      </motion.div>
+
+      <div className="relative mx-auto max-w-[800px] px-4 text-center md:px-8">
+        {/* Animated number with scale + blur reveal */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.6, filter: "blur(16px)" }}
+          animate={inView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="relative"
+        >
+          <span className="font-title text-8xl font-black tracking-tight text-white md:text-9xl">
+            60
+          </span>
+          <motion.p
+            initial={{ opacity: 0, letterSpacing: "0.5em" }}
+            animate={inView ? { opacity: 1, letterSpacing: "0.25em" } : {}}
+            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+            className="mt-1 text-sm font-semibold uppercase text-[#6D6FFC]"
+          >
+            Day Promise
+          </motion.p>
+        </motion.div>
+
+        {/* Animated divider — expands from center with glow */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={inView ? { scaleX: 1, opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="relative mx-auto my-8 origin-center"
+        >
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-[#6D6FFC] to-transparent" />
+          <div className="absolute inset-0 h-px w-24 bg-gradient-to-r from-transparent via-[#6D6FFC] to-transparent blur-sm" />
+        </motion.div>
+
+        {/* Headline — slides up */}
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-4 font-title text-2xl font-bold leading-snug text-white md:text-3xl"
+        >
+          No change by week 12?{" "}
+          <span className="font-playfair italic text-[#6D6FFC]">First month free.</span>
+        </motion.h2>
+
+        {/* Subtext — fades in */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.85 }}
+          className="mb-8 text-sm text-white/40"
+        >
+          No fine print. No retention scripts.
+        </motion.p>
+
+        {/* CTA — scales up with glow */}
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.8, delay: 1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Link
+            href={CTA_HREF}
+            className="inline-flex items-center gap-2 rounded-full bg-[#6D6FFC] px-8 py-4 text-base font-semibold text-white shadow-[0_8px_32px_rgba(109,111,252,0.35)] transition hover:bg-[#5a5ce8] hover:shadow-[0_8px_40px_rgba(109,111,252,0.5)]"
+          >
+            Start consultation →
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
