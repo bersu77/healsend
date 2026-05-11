@@ -17,6 +17,7 @@ import {
   Stethoscope,
   Target,
   Truck,
+  X,
 } from "lucide-react";
 import {
   MinimalMarketingNavbar,
@@ -474,7 +475,7 @@ function VFAudienceSection() {
           </p>
         </FadeIn>
 
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain pl-4 pr-4 pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-3 md:overflow-visible md:p-0">
           {[
             {
               tag: "AUDIENCE 1",
@@ -492,95 +493,24 @@ function VFAudienceSection() {
               body: "You don't want food noise gone — you like food. You don't want GI side effects, \"Ozempic face,\" or social weirdness. You want targeted fat loss without losing the parts of eating you actually enjoy.",
             },
           ].map((card) => (
-            <FadeIn key={card.tag}>
-              <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-7">
-                <p className="mb-3 text-xs font-bold uppercase tracking-widest text-[#FF6B35]">{card.tag}</p>
-                <h3 className="mb-3 text-xl font-bold leading-snug text-white">{card.title}</h3>
-                <p className="mb-6 flex-1 text-sm leading-relaxed text-white/60">{card.body}</p>
-                <Link
-                  href={CTA_HREF}
-                  className="inline-flex w-fit items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/80 transition hover:bg-white/15"
-                >
-                  → This might be you
-                </Link>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  4. Check eligibility                                              */
-/* ------------------------------------------------------------------ */
-
-function VFEligibilitySection() {
-  const [heightFt, setHeightFt] = useState("5");
-  const [heightIn, setHeightIn] = useState("10");
-  const [weight, setWeight] = useState("180");
-
-  return (
-    <section className="bg-[#F1F0FF] py-16 md:py-20">
-      <div className="mx-auto max-w-[720px] px-4 text-center md:px-8">
-        <FadeIn>
-          <h2 className="mb-4 font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
-            Check what fits you{" "}
-            <br className="hidden sm:block" />
-            in{" "}
-            <span className="font-playfair italic text-[#6D6FFC]">20 seconds.</span>
-          </h2>
-          <p className="mb-10 text-base text-gray-600">
-            Enter your height and weight. We&apos;ll tell you whether GLP-1s, Visceral Fat Therapy, or both might be appropriate — and route you to the right consultation.
-          </p>
-        </FadeIn>
-
-        <FadeIn>
-          <div className="rounded-2xl bg-white p-6 shadow-sm md:p-8">
-            <div className="mb-5 grid grid-cols-2 gap-4">
-              {/* Height */}
-              <div className="flex flex-col gap-1.5 text-left">
-                <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">Height</label>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="number"
-                    value={heightFt}
-                    onChange={(e) => setHeightFt(e.target.value)}
-                    className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-900 focus:border-[#6D6FFC] focus:outline-none focus:ring-2 focus:ring-[#6D6FFC]/20"
-                  />
-                  <span className="shrink-0 text-sm text-gray-500">ft</span>
-                  <input
-                    type="number"
-                    value={heightIn}
-                    onChange={(e) => setHeightIn(e.target.value)}
-                    className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-900 focus:border-[#6D6FFC] focus:outline-none focus:ring-2 focus:ring-[#6D6FFC]/20"
-                  />
-                  <span className="shrink-0 text-sm text-gray-500">in</span>
+            <div key={card.tag} className="flex w-[80vw] shrink-0 snap-start snap-always md:w-auto md:shrink">
+              <FadeIn className="h-full w-full">
+                <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-7">
+                  <p className="mb-3 text-xs font-bold uppercase tracking-widest text-[#FF6B35]">{card.tag}</p>
+                  <h3 className="mb-3 text-xl font-bold leading-snug text-white">{card.title}</h3>
+                  <p className="mb-6 flex-1 text-sm leading-relaxed text-white/60">{card.body}</p>
+                  <Link
+                    href={CTA_HREF}
+                    className="inline-flex w-fit items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/80 transition hover:bg-white/15"
+                  >
+                    → This might be you
+                  </Link>
                 </div>
-              </div>
-              {/* Weight */}
-              <div className="flex flex-col gap-1.5 text-left">
-                <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">Weight</label>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="number"
-                    value={weight}
-                    onChange={(e) => setWeight(e.target.value)}
-                    className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-900 focus:border-[#6D6FFC] focus:outline-none focus:ring-2 focus:ring-[#6D6FFC]/20"
-                  />
-                  <span className="shrink-0 text-sm text-gray-500">lbs</span>
-                </div>
-              </div>
+              </FadeIn>
             </div>
-            <Link
-              href={CTA_HREF}
-              className="flex w-full items-center justify-center rounded-full bg-[#6D6FFC] py-3.5 text-base font-semibold text-white shadow-[0_8px_24px_rgba(109,111,252,0.3)] transition hover:bg-[#5a5ce8]"
-            >
-              Check eligibility →
-            </Link>
-          </div>
-        </FadeIn>
+          ))}
+          <div className="w-2 shrink-0 md:hidden" aria-hidden />
+        </div>
       </div>
     </section>
   );
@@ -677,9 +607,9 @@ function VFVisceralFatSection() {
                     Stored deep around your organs. Releases inflammatory hormones into your bloodstream 24/7. Linked to insulin resistance, fatty liver, cardiovascular disease, type 2 diabetes, and metabolic syndrome.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <span className="rounded-full bg-[#FF6B35]/10 px-3 py-1 text-xs font-semibold text-[#FF6B35]">Hidden</span>
-                    <span className="rounded-full bg-[#FF6B35]/10 px-3 py-1 text-xs font-semibold text-[#FF6B35]">Diet-resistant</span>
-                    <span className="rounded-full bg-[#FF6B35]/10 px-3 py-1 text-xs font-semibold text-[#FF6B35]">Dangerous</span>
+                    <span className="rounded-full bg-red-100/60 px-3 py-1 text-xs font-semibold text-red-300">Hidden</span>
+                    <span className="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-600">Diet-resistant</span>
+                    <span className="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-600">Dangerous</span>
                   </div>
                 </div>
               </div>
@@ -688,7 +618,7 @@ function VFVisceralFatSection() {
         </FadeIn>
 
         {/* Stat cards */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className="mx-auto grid max-w-sm grid-cols-1 gap-4 sm:max-w-none sm:grid-cols-3">
           {[
             { value: 10, suffix: "×", label: "Higher risk of type 2 diabetes with elevated visceral fat" },
             { value: 2, suffix: ".4×", label: "Cardiovascular event risk vs. subcutaneous fat at same BMI", prefix: "" },
@@ -729,32 +659,53 @@ function VFMechanismSection() {
           </div>
         </FadeIn>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0 lg:grid-cols-4">
           {[
             {
               title: "Daily subcutaneous injection",
               desc: "One small injection per day, typically into the abdominal area. Painless, and most members say it's easier than they expected.",
+              image: "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?auto=format&fit=crop&w=600&q=80",
             },
             {
               title: "Restores GH-axis signaling",
               desc: "Activates your body's natural growth hormone-releasing pathway, which triggers fat-mobilizing enzymes specifically active around visceral tissue.",
+              image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=600&q=80",
             },
             {
               title: "Visceral fat preferentially mobilized",
               desc: "Unlike GLP-1s (which reduce overall food intake) or general fat burners, this protocol preferentially targets visceral adipose — sparing lean muscle.",
+              image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80",
             },
             {
               title: "Waistline reduction by week 12",
               desc: "Most members see measurable waist circumference change by the end of the 12-week protocol, alongside improvements in metabolic markers (lipids, glucose).",
+              image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=600&q=80",
             },
           ].map((card) => (
-            <FadeIn key={card.title}>
-              <div className="flex h-full flex-col rounded-2xl bg-white p-6 shadow-sm">
-                <h3 className="mb-2 text-base font-bold text-gray-900">{card.title}</h3>
-                <p className="text-sm leading-relaxed text-gray-600">{card.desc}</p>
-              </div>
-            </FadeIn>
+            <div
+              key={card.title}
+              className="flex w-[75vw] shrink-0 snap-start snap-always sm:w-auto sm:shrink"
+            >
+              <FadeIn className="h-full w-full">
+                <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm">
+                  <div className="relative h-36">
+                    <Image
+                      src={card.image}
+                      alt={card.title}
+                      fill
+                      sizes="(max-width: 640px) 75vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <h3 className="mb-2 text-base font-bold text-gray-900">{card.title}</h3>
+                    <p className="text-sm leading-relaxed text-gray-600">{card.desc}</p>
+                  </div>
+                </div>
+              </FadeIn>
+            </div>
           ))}
+          <div className="w-2 shrink-0 sm:hidden" aria-hidden />
         </div>
       </div>
     </section>
@@ -1057,7 +1008,7 @@ function VFOutcomesSection() {
           </p>
         </FadeIn>
 
-        <div className="-mx-4 flex gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4">
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain pl-4 pr-4 pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:overflow-visible sm:p-0 lg:grid-cols-4">
           {[
             {
               title: "Smaller waistline",
@@ -1080,9 +1031,9 @@ function VFOutcomesSection() {
               image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80",
             },
           ].map((card) => (
-            <div key={card.title} className="w-[72vw] shrink-0 sm:w-auto">
-              <FadeIn>
-                <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+            <div key={card.title} className="flex w-[72vw] shrink-0 snap-start snap-always sm:w-auto sm:shrink">
+              <FadeIn className="h-full w-full">
+                <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
                   <div className="relative h-40 bg-[#E8E3FF]">
                     <Image
                       src={card.image}
@@ -1122,75 +1073,98 @@ function VFOutcomesSection() {
 /*  10. Pain points                                                   */
 /* ------------------------------------------------------------------ */
 
+const VF_PAIN_CARDS = [
+  {
+    title: "You lose weight everywhere except your stomach.",
+    bullets: [
+      "Arms, face, legs all leaned out. The belly stayed.",
+      "The midsection is the last place to go — and the first to come back.",
+    ],
+    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80",
+    bg: "#F0E8FF",
+  },
+  {
+    title: "Your labs are sliding even though you feel fine.",
+    bullets: [
+      "Fasting glucose creeping up. Triglycerides not where they were.",
+      "The visceral fat is doing something — even silently.",
+    ],
+    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+    bg: "#E8F0FF",
+  },
+  {
+    title: "You're not heavy enough to qualify for a GLP-1.",
+    bullets: [
+      'BMI under 27. No diabetes diagnosis. No "official" reason for treatment.',
+      "But the belly says otherwise — and your doctor shrugs.",
+    ],
+    image: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=800&q=80",
+    bg: "#E8FFF0",
+  },
+  {
+    title: "You tried a GLP-1. The face thinned. The belly didn't.",
+    bullets: [
+      "30 pounds lost. Same waist circumference.",
+      "You need something that targets, not blanket-suppresses.",
+    ],
+    image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80",
+    bg: "#FFF8E8",
+  },
+];
+
 function VFPainPointsSection() {
   return (
-    <section className="bg-[#F1F0FF] py-16 md:py-24">
+    <section className="bg-white py-16 md:py-24">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <FadeIn>
-          <div className="mb-10 text-center">
-            <p className="mb-2 font-playfair italic text-gray-500">Sound familiar?</p>
-            <h2 className="mb-3 font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
-              The belly that{" "}
-              <span className="font-playfair italic text-[#6D6FFC]">won&apos;t quit.</span>
-            </h2>
-            <p className="mx-auto max-w-2xl text-base text-gray-600">
-              If you&apos;ve done the work — the diet, the gym, the discipline — and the abdominal fat still won&apos;t move, it&apos;s not a willpower issue. It&apos;s a hormonal one.
-            </p>
-          </div>
+        <FadeIn className="text-center">
+          <p className="mb-2 font-playfair italic text-gray-400">Sound familiar?</p>
+          <h2 className="mb-3 font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
+            The belly that{" "}
+            <span className="font-playfair italic text-[#6D6FFC]">won&apos;t quit.</span>
+          </h2>
+          <p className="mx-auto mb-12 max-w-2xl text-base text-gray-600 md:text-lg">
+            If you&apos;ve done the work — the diet, the gym, the discipline — and the abdominal fat still won&apos;t move, it&apos;s not a willpower issue. It&apos;s a hormonal one.
+          </p>
         </FadeIn>
 
-        <div className="grid gap-5 md:grid-cols-2">
-          {[
-            {
-              title: "You lose weight everywhere except your stomach.",
-              bullets: [
-                "Arms, face, legs all leaned out. The belly stayed.",
-                "The midsection is the last place to go — and the first to come back.",
-              ],
-            },
-            {
-              title: "Your labs are sliding even though you feel fine.",
-              bullets: [
-                "Fasting glucose creeping up. Triglycerides not where they were.",
-                "The visceral fat is doing something — even silently.",
-              ],
-            },
-            {
-              title: "You're not heavy enough to qualify for a GLP-1.",
-              bullets: [
-                'BMI under 27. No diabetes diagnosis. No "official" reason for treatment.',
-                "But the belly says otherwise — and your doctor shrugs.",
-              ],
-            },
-            {
-              title: "You tried a GLP-1. The face thinned. The belly didn't.",
-              bullets: [
-                "30 pounds lost. Same waist circumference.",
-                "You need something that targets, not blanket-suppresses.",
-              ],
-            },
-          ].map((card) => (
-            <FadeIn key={card.title}>
-              <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-7">
-                <h3 className="mb-4 text-base font-bold text-gray-900 md:text-lg">{card.title}</h3>
-                <ul className="space-y-2">
-                  {card.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-2 text-sm text-gray-600">
-                      <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#FF6B35]" />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </FadeIn>
+        <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain pl-4 pr-4 pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:overflow-visible md:p-0">
+          {VF_PAIN_CARDS.map((card) => (
+            <div key={card.title} className="flex w-[80vw] shrink-0 snap-start snap-always md:w-auto md:shrink">
+              <FadeIn className="h-full w-full">
+                <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-[#F5F4FF]">
+                  <div className="relative h-48" style={{ backgroundColor: card.bg }}>
+                    <Image
+                      src={card.image}
+                      alt={card.title}
+                      fill
+                      sizes="(max-width: 768px) 80vw, 50vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#F5F4FF] via-[#F5F4FF]/10 to-transparent" />
+                  </div>
+                  <div className="flex-1 p-7">
+                    <h3 className="mb-4 text-lg font-bold text-gray-900">{card.title}</h3>
+                    <ul className="space-y-2">
+                      {card.bullets.map((b, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                          <X className="mt-0.5 h-4 w-4 shrink-0 text-[#6D6FFC]" />
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </FadeIn>
+            </div>
           ))}
+          <div className="w-2 shrink-0 md:hidden" aria-hidden />
         </div>
 
         <FadeIn>
           <div className="mt-10 text-center">
             <Link
               href={CTA_HREF}
-              className="inline-flex items-center gap-2 rounded-full bg-[#FF6B35] px-8 py-3.5 text-base font-semibold text-white shadow-lg transition hover:bg-[#e55a26]"
+              className="inline-flex items-center gap-2 rounded-full bg-[#6D6FFC] px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-[#5a5ce8]"
             >
               See if this protocol fits →
             </Link>
@@ -1276,13 +1250,6 @@ function VFResearchSection() {
               ))}
             </div>
 
-            <Link
-              href={CTA_HREF}
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#6D6FFC]/30 bg-white px-5 py-2.5 text-sm font-medium text-[#6D6FFC] shadow-sm transition hover:bg-[#6D6FFC]/5"
-            >
-              Read the HealSend whitepaper →
-            </Link>
-
             <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
               <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-gray-400">Reviewed by HealSend Clinical Team</p>
               <div className="flex items-center gap-3">
@@ -1359,7 +1326,7 @@ function VFStepsSection() {
           </p>
         </FadeIn>
 
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain pl-4 pr-4 pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-3 md:overflow-visible md:p-0">
           {[
             {
               step: "STEP 1",
@@ -1380,28 +1347,31 @@ function VFStepsSection() {
               image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=800&q=80",
             },
           ].map((s) => (
-            <FadeIn key={s.step}>
-              <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-                <div className="relative h-44 bg-[#E8E3FF]">
-                  <Image
-                    src={s.image}
-                    alt={s.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                  <span className="absolute left-4 top-4 inline-block rounded-full bg-gray-900 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
-                    {s.step}
-                  </span>
+            <div key={s.step} className="flex w-[80vw] shrink-0 snap-start snap-always md:w-auto md:shrink">
+              <FadeIn className="h-full w-full">
+                <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+                  <div className="relative h-44 bg-[#E8E3FF]">
+                    <Image
+                      src={s.image}
+                      alt={s.title}
+                      fill
+                      sizes="(max-width: 768px) 80vw, 33vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                    <span className="absolute left-4 top-4 inline-block rounded-full bg-gray-900 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+                      {s.step}
+                    </span>
+                  </div>
+                  <div className="flex-1 p-6">
+                    <h3 className="mb-2 text-base font-bold text-gray-900">{s.title}</h3>
+                    <p className="text-sm leading-relaxed text-gray-600">{s.desc}</p>
+                  </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="mb-2 text-base font-bold text-gray-900">{s.title}</h3>
-                  <p className="text-sm leading-relaxed text-gray-600">{s.desc}</p>
-                </div>
-              </div>
-            </FadeIn>
+              </FadeIn>
+            </div>
           ))}
+          <div className="w-2 shrink-0 md:hidden" aria-hidden />
         </div>
       </div>
     </section>
@@ -1588,7 +1558,6 @@ export default function VisceralFatTherapyLandingPage({ product }) {
       <VFWillpowerSection />
       <VFProductHeroSection />
       <VFAudienceSection />
-      <VFEligibilitySection />
       <VFVisceralFatSection />
       <VFMechanismSection />
       <VFComparisonSection />
