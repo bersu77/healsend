@@ -99,73 +99,87 @@ function VFWillpowerSection() {
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
             <div className="mt-5 max-w-[34rem]">
-              <h1 className="text-balance font-title text-4xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl">
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="text-balance font-title text-4xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl"
+              >
                 The belly{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10 font-playfair italic text-[#6D6FFC]">GLP-1s</span>
-                  <svg
+                  <motion.svg
                     className="absolute left-0 top-1/2 z-20 w-full"
                     style={{ transform: "translateY(-50%)" }}
                     height="3"
                     viewBox="0 0 100 3"
                     preserveAspectRatio="none"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
                   >
                     <line x1="0" y1="1.5" x2="100" y2="1.5" stroke="#FF6B35" strokeWidth="3" />
-                  </svg>
+                  </motion.svg>
                 </span>{" "}
                 can&apos;t reach.
-              </h1>
-              <p className="mt-4 max-w-[30rem] text-[1rem] leading-6 text-gray-700 lg:text-[1.05rem]">
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-4 max-w-[30rem] text-[1rem] leading-6 text-gray-700 lg:text-[1.05rem]"
+              >
                 A clinician-guided protocol targeting visceral adiposity — the
                 deep abdominal fat that diet, exercise, and even GLP-1s
                 consistently leave behind.
-              </p>
+              </motion.p>
             </div>
 
             <ul className="mt-5 max-w-[34rem] space-y-4 text-[#4d5160]">
-              <li className="flex items-start gap-3 text-sm md:text-base">
-                <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]">
-                  <Check className="h-3 w-3 text-white" strokeWidth={3} />
-                </div>
-                <span>
-                  <strong className="text-gray-900">Not just weight loss</strong>{" "}
-                  — specifically targets deep abdominal visceral fat
-                </span>
-              </li>
-              <li className="flex items-start gap-3 text-sm md:text-base">
-                <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]">
-                  <Check className="h-3 w-3 text-white" strokeWidth={3} />
-                </div>
-                <span>
-                  <strong className="text-gray-900">No appetite suppression</strong>{" "}
-                  — works through metabolic pathways, not hunger control
-                </span>
-              </li>
-              <li className="flex items-start gap-3 text-sm md:text-base">
-                <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]">
-                  <Check className="h-3 w-3 text-white" strokeWidth={3} />
-                </div>
-                <span>
-                  <strong className="text-gray-900">Clinician access + baseline labs included</strong>{" "}
-                  — no extra fees
-                </span>
-              </li>
+              {[
+                { bold: "Not just weight loss", rest: "— specifically targets deep abdominal visceral fat" },
+                { bold: "No appetite suppression", rest: "— works through metabolic pathways, not hunger control" },
+                { bold: "Clinician access + baseline labs included", rest: "— no extra fees" },
+              ].map((item, i) => (
+                <motion.li
+                  key={item.bold}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex items-start gap-3 text-sm md:text-base"
+                >
+                  <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]">
+                    <Check className="h-3 w-3 text-white" strokeWidth={3} />
+                  </div>
+                  <span>
+                    <strong className="text-gray-900">{item.bold}</strong>{" "}
+                    {item.rest}
+                  </span>
+                </motion.li>
+              ))}
             </ul>
 
-            <div className="mt-5 w-full">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.95, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-5 w-full"
+            >
               <div className="inline-flex w-full max-w-full flex-col items-center gap-2.5 sm:w-auto">
-                <Link
-                  href={CTA_HREF}
-                  className="hs-solid-btn inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold sm:w-auto"
-                >
-                  Start consultation
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
+                <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.15 }}>
+                  <Link
+                    href={CTA_HREF}
+                    className="hs-solid-btn inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold sm:w-auto"
+                  >
+                    Start consultation
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </motion.div>
                 <p className="w-full text-center text-sm">
                   <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
 
@@ -228,12 +242,19 @@ function VFProductHeroSection() {
   const [activeTab, setActiveTab] = useState("benefits");
   const [openFaq, setOpenFaq] = useState(null);
   const [showPriceFootnote, setShowPriceFootnote] = useState(false);
+  const sectionRef = useRef(null);
+  const sectionInView = useInView(sectionRef, { once: false, margin: "-80px" });
 
   return (
-    <section className="bg-[#f9f9f9] px-4 py-16 md:px-[3.25rem] md:py-20 lg:px-[3.25rem]">
+    <section ref={sectionRef} className="bg-[#f9f9f9] px-4 py-16 md:px-[3.25rem] md:py-20 lg:px-[3.25rem]">
       <div className="mx-auto flex max-w-[1340px] flex-col gap-5 lg:flex-row lg:items-stretch lg:gap-6 xl:gap-8">
         {/* Left — sticky */}
-        <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[55%] lg:max-w-[740px]">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={sectionInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[55%] lg:max-w-[740px]"
+        >
           <div className="flex flex-col gap-6 sm:gap-7 md:gap-10 lg:isolate lg:sticky lg:top-24 lg:z-10">
             <div className="relative z-[1] shrink-0 bg-[#f9f9f9] pb-1">
               <h2 className="text-balance text-start text-3xl font-bold leading-snug tracking-tight text-gray-900 md:text-5xl md:leading-tight">
@@ -276,12 +297,22 @@ function VFProductHeroSection() {
               </span>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Right */}
-        <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[45%] xl:w-[450px]">
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={sectionInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[45%] xl:w-[450px]"
+        >
           {/* Promo + price card */}
-          <div className="mb-6 overflow-hidden rounded-[1rem] border border-gray-200 bg-white">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-6 overflow-hidden rounded-[1rem] border border-gray-200 bg-white"
+          >
             <div className="flex items-center justify-center gap-2 bg-[#FF6B35] px-5 py-3 text-sm font-bold uppercase tracking-wide text-white">
               $50 OFF FIRST MONTH
             </div>
@@ -321,13 +352,15 @@ function VFProductHeroSection() {
               )}
 
               <div className="inline-flex w-full flex-col items-center gap-2.5">
-                <Link
-                  href={CTA_HREF}
-                  className="hs-solid-btn inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold sm:w-auto"
-                >
-                  Start consultation
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
+                <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.15 }} className="w-full sm:w-auto">
+                  <Link
+                    href={CTA_HREF}
+                    className="hs-solid-btn inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold sm:w-auto"
+                  >
+                    Start consultation
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </motion.div>
                 <p className="w-full text-center text-sm">
                   <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
                 </p>
@@ -341,10 +374,15 @@ function VFProductHeroSection() {
                 If your waist measurement doesn&apos;t measurably decrease by week 12, your first month is free.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Tabs card */}
-          <div className="mb-6 rounded-[1rem] border border-gray-200 bg-white p-2 shadow-sm">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-6 rounded-[1rem] border border-gray-200 bg-white p-2 shadow-sm"
+          >
             <div className="mb-6 flex rounded-full bg-gray-100 p-1.5">
               {["benefits", "pricing", "description"].map((tab) => (
                 <button
@@ -412,15 +450,27 @@ function VFProductHeroSection() {
                 Clinician-reviewed
               </span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Mini-FAQ */}
-          <div className="rounded-[1rem] border border-gray-200 bg-white shadow-sm">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="rounded-[1rem] border border-gray-200 bg-white shadow-sm"
+          >
             <div className="border-b border-gray-100 px-6 py-4 md:px-7">
               <p className="text-sm font-semibold text-gray-900">Quick answers</p>
             </div>
             {VF_HERO_FAQS.map((faq, idx) => (
-              <div key={idx} className="border-b border-gray-100 last:border-0">
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="border-b border-gray-100 last:border-0"
+              >
                 <button
                   type="button"
                   onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
@@ -448,10 +498,10 @@ function VFProductHeroSection() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
@@ -492,22 +542,30 @@ function VFAudienceSection() {
               title: "You don't want appetite suppression.",
               body: "You don't want food noise gone — you like food. You don't want GI side effects, \"Ozempic face,\" or social weirdness. You want targeted fat loss without losing the parts of eating you actually enjoy.",
             },
-          ].map((card) => (
-            <div key={card.tag} className="flex w-[80vw] shrink-0 snap-start snap-always md:w-auto md:shrink">
-              <FadeIn className="h-full w-full">
-                <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-7">
-                  <p className="mb-3 text-xs font-bold uppercase tracking-widest text-[#FF6B35]">{card.tag}</p>
-                  <h3 className="mb-3 text-xl font-bold leading-snug text-white">{card.title}</h3>
-                  <p className="mb-6 flex-1 text-sm leading-relaxed text-white/60">{card.body}</p>
-                  <Link
-                    href={CTA_HREF}
-                    className="inline-flex w-fit items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/80 transition hover:bg-white/15"
-                  >
-                    → This might be you
-                  </Link>
-                </div>
-              </FadeIn>
-            </div>
+          ].map((card, i) => (
+            <motion.div
+              key={card.tag}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="flex w-[75vw] shrink-0 snap-start snap-always md:w-auto md:shrink"
+            >
+              <motion.div
+                whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                className="flex h-full w-full flex-col rounded-2xl border border-white/10 bg-white/5 p-7 transition-colors hover:border-white/20 hover:bg-white/[0.08]"
+              >
+                <p className="mb-3 text-xs font-bold uppercase tracking-widest text-[#FF6B35]">{card.tag}</p>
+                <h3 className="mb-3 text-xl font-bold leading-snug text-white">{card.title}</h3>
+                <p className="mb-6 flex-1 text-sm leading-relaxed text-white/60">{card.body}</p>
+                <Link
+                  href={CTA_HREF}
+                  className="inline-flex w-fit items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/80 transition hover:bg-white/15"
+                >
+                  → This might be you
+                </Link>
+              </motion.div>
+            </motion.div>
           ))}
           <div className="w-2 shrink-0 md:hidden" aria-hidden />
         </div>
@@ -560,10 +618,17 @@ function VFOrganDiagram() {
 }
 
 function VFVisceralFatSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: false, margin: "-80px" });
+
   return (
-    <section className="bg-[#F1F0FF] py-16 md:py-24">
+    <section ref={ref} className="bg-[#F1F0FF] py-16 md:py-24">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <FadeIn>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
           <h2 className="mb-4 text-center font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
             Visceral fat isn&apos;t{" "}
             <br />
@@ -573,49 +638,67 @@ function VFVisceralFatSection() {
           <p className="mx-auto mb-12 max-w-2xl text-center text-base text-gray-600 md:text-lg">
             It&apos;s the fat that wraps your liver, pancreas, and intestines. Metabolically active. Hormonally disruptive. Far more dangerous than the fat under your skin — and uniquely resistant to diet alone.
           </p>
-        </FadeIn>
+        </motion.div>
 
         {/* Main card */}
-        <FadeIn>
-          <div className="mb-6 overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-10">
-            <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
-              {/* Left: diagram */}
-              <div className="flex shrink-0 items-center justify-center lg:w-[45%]">
-                <VFOrganDiagram />
-              </div>
-              {/* Right: info panels */}
-              <div className="flex flex-1 flex-col divide-y divide-gray-100">
-                <div className="pb-6">
-                  <div className="mb-2 flex items-center gap-2">
-                    <span className="h-3 w-3 rounded-full border-2 border-[#6D6FFC] bg-[#6D6FFC]/20" />
-                    <span className="text-base font-bold text-gray-900">Subcutaneous fat</span>
-                  </div>
-                  <p className="mb-3 text-sm leading-relaxed text-gray-600">
-                    The fat layer right under your skin. The kind you can pinch on your arms, thighs, hips. Cosmetically annoying — but metabolically harmless.
-                  </p>
-                  <div className="flex gap-2">
-                    <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">Pinchable</span>
-                    <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">Diet-responsive</span>
-                  </div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-6 overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-10"
+        >
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
+            {/* Left: diagram */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="flex shrink-0 items-center justify-center lg:w-[45%]"
+            >
+              <VFOrganDiagram />
+            </motion.div>
+            {/* Right: info panels */}
+            <div className="flex flex-1 flex-col divide-y divide-gray-100">
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+                transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="pb-6"
+              >
+                <div className="mb-2 flex items-center gap-2">
+                  <span className="h-3 w-3 rounded-full border-2 border-[#6D6FFC] bg-[#6D6FFC]/20" />
+                  <span className="text-base font-bold text-gray-900">Subcutaneous fat</span>
                 </div>
-                <div className="pt-6">
-                  <div className="mb-2 flex items-center gap-2">
-                    <span className="h-3 w-3 rounded-full bg-[#FF6B35]" />
-                    <span className="text-base font-bold text-gray-900">Visceral fat (VAT)</span>
-                  </div>
-                  <p className="mb-3 text-sm leading-relaxed text-gray-600">
-                    Stored deep around your organs. Releases inflammatory hormones into your bloodstream 24/7. Linked to insulin resistance, fatty liver, cardiovascular disease, type 2 diabetes, and metabolic syndrome.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="rounded-full bg-red-100/60 px-3 py-1 text-xs font-semibold text-red-300">Hidden</span>
-                    <span className="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-600">Diet-resistant</span>
-                    <span className="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-600">Dangerous</span>
-                  </div>
+                <p className="mb-3 text-sm leading-relaxed text-gray-600">
+                  The fat layer right under your skin. The kind you can pinch on your arms, thighs, hips. Cosmetically annoying — but metabolically harmless.
+                </p>
+                <div className="flex gap-2">
+                  <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">Pinchable</span>
+                  <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">Diet-responsive</span>
                 </div>
-              </div>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+                transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="pt-6"
+              >
+                <div className="mb-2 flex items-center gap-2">
+                  <span className="h-3 w-3 rounded-full bg-[#FF6B35]" />
+                  <span className="text-base font-bold text-gray-900">Visceral fat (VAT)</span>
+                </div>
+                <p className="mb-3 text-sm leading-relaxed text-gray-600">
+                  Stored deep around your organs. Releases inflammatory hormones into your bloodstream 24/7. Linked to insulin resistance, fatty liver, cardiovascular disease, type 2 diabetes, and metabolic syndrome.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="rounded-full bg-red-100/60 px-3 py-1 text-xs font-semibold text-red-300">Hidden</span>
+                  <span className="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-600">Diet-resistant</span>
+                  <span className="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-600">Dangerous</span>
+                </div>
+              </motion.div>
             </div>
           </div>
-        </FadeIn>
+        </motion.div>
 
         {/* Stat cards */}
         <div className="mx-auto grid max-w-sm grid-cols-1 gap-4 sm:max-w-none sm:grid-cols-3">
@@ -623,12 +706,17 @@ function VFVisceralFatSection() {
             { value: 10, suffix: "×", label: "Higher risk of type 2 diabetes with elevated visceral fat" },
             { value: 2, suffix: ".4×", label: "Cardiovascular event risk vs. subcutaneous fat at same BMI", prefix: "" },
             { value: 40, prefix: "~", suffix: "%", label: "Of U.S. adults have clinically elevated visceral fat — most undiagnosed" },
-          ].map((s) => (
-            <FadeIn key={s.label}>
+          ].map((s, i) => (
+            <motion.div
+              key={s.label}
+              initial={{ opacity: 0, y: 25 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
+              transition={{ duration: 0.5, delay: 0.6 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+            >
               <div className="rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm">
                 <CountUpStat {...s} duration={900} />
               </div>
-            </FadeIn>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -681,14 +769,21 @@ function VFMechanismSection() {
               desc: "Most members see measurable waist circumference change by the end of the 12-week protocol, alongside improvements in metabolic markers (lipids, glucose).",
               image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=600&q=80",
             },
-          ].map((card) => (
-            <div
+          ].map((card, i) => (
+            <motion.div
               key={card.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-60px" }}
+              transition={{ duration: 0.5, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
               className="flex w-[75vw] shrink-0 snap-start snap-always sm:w-auto sm:shrink"
             >
-              <FadeIn className="h-full w-full">
-                <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm">
-                  <div className="relative h-36">
+              <motion.div
+                whileHover={{ y: -5, transition: { duration: 0.25 } }}
+                className="flex h-full w-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow hover:shadow-md"
+              >
+                <div className="relative h-36 overflow-hidden">
+                  <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.4 }} className="relative h-full w-full">
                     <Image
                       src={card.image}
                       alt={card.title}
@@ -696,14 +791,14 @@ function VFMechanismSection() {
                       sizes="(max-width: 640px) 75vw, (max-width: 1024px) 50vw, 25vw"
                       className="object-cover"
                     />
-                  </div>
+                  </motion.div>
+                </div>
                   <div className="p-5">
                     <h3 className="mb-2 text-base font-bold text-gray-900">{card.title}</h3>
                     <p className="text-sm leading-relaxed text-gray-600">{card.desc}</p>
                   </div>
-                </div>
-              </FadeIn>
-            </div>
+              </motion.div>
+            </motion.div>
           ))}
           <div className="w-2 shrink-0 sm:hidden" aria-hidden />
         </div>
@@ -830,12 +925,19 @@ function VFComparisonSection() {
               </thead>
               <tbody>
                 {rows.map((row, i) => (
-                  <tr key={row.label} className={i % 2 === 0 ? "bg-white" : "bg-gray-50/40"}>
+                  <motion.tr
+                    key={row.label}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: false, margin: "-40px" }}
+                    transition={{ duration: 0.4, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                    className={i % 2 === 0 ? "bg-white" : "bg-gray-50/40"}
+                  >
                     <td className="px-4 py-4 text-xs font-semibold text-gray-700">{row.label}</td>
                     <Cell data={row.vf} isVF />
                     <Cell data={row.glp} />
                     <Cell data={row.diet} />
-                  </tr>
+                  </motion.tr>
                 ))}
               </tbody>
             </table>
@@ -1030,11 +1132,21 @@ function VFOutcomesSection() {
               desc: "Unlike crash dieting or some GLP-1 protocols, this approach is designed to preserve lean muscle.",
               image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80",
             },
-          ].map((card) => (
-            <div key={card.title} className="flex w-[72vw] shrink-0 snap-start snap-always sm:w-auto sm:shrink">
-              <FadeIn className="h-full w-full">
-                <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-                  <div className="relative h-40 bg-[#E8E3FF]">
+          ].map((card, i) => (
+            <motion.div
+              key={card.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-60px" }}
+              transition={{ duration: 0.5, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+              className="flex w-[72vw] shrink-0 snap-start snap-always sm:w-auto sm:shrink"
+            >
+              <motion.div
+                whileHover={{ y: -5, transition: { duration: 0.25 } }}
+                className="flex h-full w-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+              >
+                <div className="relative h-40 overflow-hidden bg-[#E8E3FF]">
+                  <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.4 }} className="relative h-full w-full">
                     <Image
                       src={card.image}
                       alt={card.title}
@@ -1043,27 +1155,27 @@ function VFOutcomesSection() {
                       className="object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
-                  </div>
-                  <div className="p-5">
-                    <h3 className="mb-1.5 text-base font-bold text-gray-900">{card.title}</h3>
-                    <p className="text-sm leading-relaxed text-gray-600">{card.desc}</p>
-                  </div>
+                  </motion.div>
                 </div>
-              </FadeIn>
-            </div>
+                <div className="p-5">
+                  <h3 className="mb-1.5 text-base font-bold text-gray-900">{card.title}</h3>
+                  <p className="text-sm leading-relaxed text-gray-600">{card.desc}</p>
+                </div>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
 
-        <FadeIn>
-          <div className="mt-10 text-center">
+        <div className="mt-10 text-center">
+          <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.15 }} className="inline-block">
             <Link
               href={CTA_HREF}
               className="inline-flex items-center gap-2 rounded-full bg-[#6D6FFC] px-8 py-3.5 text-base font-semibold text-white shadow-lg transition hover:bg-[#5a5ce8]"
             >
               Start consultation →
             </Link>
-          </div>
-        </FadeIn>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -1128,11 +1240,21 @@ function VFPainPointsSection() {
         </FadeIn>
 
         <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain pl-4 pr-4 pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:overflow-visible md:p-0">
-          {VF_PAIN_CARDS.map((card) => (
-            <div key={card.title} className="flex w-[80vw] shrink-0 snap-start snap-always md:w-auto md:shrink">
-              <FadeIn className="h-full w-full">
-                <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-[#F5F4FF]">
-                  <div className="relative h-48" style={{ backgroundColor: card.bg }}>
+          {VF_PAIN_CARDS.map((card, i) => (
+            <motion.div
+              key={card.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+              className="flex w-[75vw] shrink-0 snap-start snap-always md:w-auto md:shrink"
+            >
+              <motion.div
+                whileHover={{ y: -5, transition: { duration: 0.25 } }}
+                className="flex h-full w-full flex-col overflow-hidden rounded-2xl bg-[#F5F4FF] transition-shadow hover:shadow-lg"
+              >
+                <div className="relative h-48 overflow-hidden" style={{ backgroundColor: card.bg }}>
+                  <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.4 }} className="relative h-full w-full">
                     <Image
                       src={card.image}
                       alt={card.title}
@@ -1141,8 +1263,9 @@ function VFPainPointsSection() {
                       className="object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#F5F4FF] via-[#F5F4FF]/10 to-transparent" />
-                  </div>
-                  <div className="flex-1 p-7">
+                  </motion.div>
+                </div>
+                <div className="flex-1 p-7">
                     <h3 className="mb-4 text-lg font-bold text-gray-900">{card.title}</h3>
                     <ul className="space-y-2">
                       {card.bullets.map((b, i) => (
@@ -1153,23 +1276,22 @@ function VFPainPointsSection() {
                       ))}
                     </ul>
                   </div>
-                </div>
-              </FadeIn>
-            </div>
+              </motion.div>
+            </motion.div>
           ))}
           <div className="w-2 shrink-0 md:hidden" aria-hidden />
         </div>
 
-        <FadeIn>
-          <div className="mt-10 text-center">
+        <div className="mt-10 text-center">
+          <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.15 }} className="inline-block">
             <Link
               href={CTA_HREF}
               className="inline-flex items-center gap-2 rounded-full bg-[#6D6FFC] px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-[#5a5ce8]"
             >
               See if this protocol fits →
             </Link>
-          </div>
-        </FadeIn>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -1262,6 +1384,8 @@ function VFPromiseSection() {
         <motion.div
           initial={{ opacity: 0, y: 20, scale: 0.95 }}
           animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          whileHover={{ scale: 1.06 }}
+          whileTap={{ scale: 0.96 }}
           transition={{ duration: 0.8, delay: 1, ease: [0.16, 1, 0.3, 1] }}
         >
           <Link
@@ -1288,32 +1412,61 @@ const VF_CITATIONS = [
 ];
 
 function VFResearchSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: false, margin: "-80px" });
+
   return (
-    <section className="bg-[#F1F0FF] py-16 md:py-24">
+    <section ref={ref} className="bg-[#F1F0FF] py-16 md:py-24">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
           {/* Left */}
-          <FadeIn>
-            <h2 className="mb-4 font-title text-3xl font-bold leading-tight text-gray-900 md:text-4xl lg:text-5xl">
+          <div>
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-4 font-title text-3xl font-bold leading-tight text-gray-900 md:text-4xl lg:text-5xl"
+            >
               The most studied peptide{" "}
               <br />
               for{" "}
               <span className="font-playfair italic text-[#6D6FFC]">visceral fat reduction.</span>
-            </h2>
-            <p className="mb-8 text-base leading-relaxed text-gray-600">
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-8 text-base leading-relaxed text-gray-600"
+            >
               Unlike most peptides being marketed today, the compound used in this protocol is FDA-approved (for HIV-associated lipodystrophy) with multiple large randomized trials specifically measuring visceral fat reduction in adults.
-            </p>
+            </motion.p>
 
-            <div className="mb-6 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+              transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-6 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm"
+            >
               {VF_CITATIONS.map((c, i) => (
-                <div key={c.author} className={`flex flex-col gap-0.5 px-6 py-4 sm:grid sm:grid-cols-[auto_1fr] sm:gap-4 ${i < VF_CITATIONS.length - 1 ? "border-b border-gray-100" : ""}`}>
+                <motion.div
+                  key={c.author}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -16 }}
+                  transition={{ duration: 0.4, delay: 0.4 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  className={`flex flex-col gap-0.5 px-6 py-4 sm:grid sm:grid-cols-[auto_1fr] sm:gap-4 ${i < VF_CITATIONS.length - 1 ? "border-b border-gray-100" : ""}`}
+                >
                   <span className="text-sm font-bold text-gray-900 sm:whitespace-nowrap">{c.author}</span>
                   <span className="text-sm leading-relaxed text-gray-600">{c.desc}</span>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
-            <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+              transition={{ duration: 0.6, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
+            >
               <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-gray-400">Reviewed by HealSend Clinical Team</p>
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-3">
@@ -1332,11 +1485,15 @@ function VFResearchSection() {
                   <p className="text-xs text-gray-500">Board-certified metabolic medicine &amp; endocrinology</p>
                 </div>
               </div>
-            </div>
-          </FadeIn>
+            </motion.div>
+          </div>
 
           {/* Right — featured study */}
-          <FadeIn>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm md:p-8">
               <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#FF6B35]">Featured Study</p>
               <h3 className="mb-4 text-xl font-bold leading-snug text-gray-900">
@@ -1350,21 +1507,28 @@ function VFResearchSection() {
                   { val: "−15.4%", label: "visceral adipose (vs. placebo)" },
                   { val: '−2.0"', label: "avg waist circumference" },
                   { val: "−50", label: "mg/dL avg triglyceride drop" },
-                ].map((s) => (
-                  <div key={s.label}>
+                ].map((s, i) => (
+                  <motion.div
+                    key={s.label}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+                    transition={{ duration: 0.5, delay: 0.5 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                  >
                     <p className="text-xl font-bold text-[#6D6FFC]">{s.val}</p>
                     <p className="text-xs text-gray-500">{s.label}</p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-              <Link
-                href={CTA_HREF}
-                className="flex w-full items-center justify-center rounded-full bg-[#6D6FFC] py-3.5 text-sm font-semibold text-white transition hover:bg-[#5a5ce8]"
-              >
-                View full study →
-              </Link>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.15 }}>
+                <Link
+                  href={CTA_HREF}
+                  className="flex w-full items-center justify-center rounded-full bg-[#6D6FFC] py-3.5 text-sm font-semibold text-white transition hover:bg-[#5a5ce8]"
+                >
+                  View full study →
+                </Link>
+              </motion.div>
             </div>
-          </FadeIn>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -1376,10 +1540,17 @@ function VFResearchSection() {
 /* ------------------------------------------------------------------ */
 
 function VFStepsSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: false, margin: "-80px" });
+
   return (
-    <section className="bg-[#F1F0FF] py-16 md:py-24">
+    <section ref={ref} className="bg-[#F1F0FF] py-16 md:py-24">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <FadeIn>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
           <h2 className="mb-3 text-center font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
             From intake to protocol{" "}
             <span className="font-playfair italic text-[#6D6FFC]">in one week.</span>
@@ -1387,7 +1558,7 @@ function VFStepsSection() {
           <p className="mx-auto mb-12 max-w-xl text-center text-base text-gray-600">
             Online intake. Provider review. Medication shipped. No clinic visits, no referrals.
           </p>
-        </FadeIn>
+        </motion.div>
 
         <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain pl-4 pr-4 pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-3 md:overflow-visible md:p-0">
           {[
@@ -1409,18 +1580,38 @@ function VFStepsSection() {
               desc: "Discreet packaging, free shipping, all supplies included, video walkthrough for first dose.",
               image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=800&q=80",
             },
-          ].map((s) => (
-            <div key={s.step} className="flex w-[80vw] shrink-0 snap-start snap-always md:w-auto md:shrink">
-              <FadeIn className="h-full w-full">
+          ].map((s, i) => (
+            <motion.div
+              key={s.step}
+              initial={{ opacity: 0, y: -50, scale: 0.85 }}
+              animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: -50, scale: 0.85 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 18,
+                delay: 0.15 + i * 0.18,
+              }}
+              className="relative flex w-[75vw] shrink-0 snap-start snap-always md:w-auto md:shrink"
+            >
+              {/* ripple ring on drop */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.6 }}
+                animate={inView ? { opacity: [0, 0.35, 0], scale: [0.6, 1.25, 1.5] } : { opacity: 0, scale: 0.6 }}
+                transition={{ duration: 0.8, delay: 0.35 + i * 0.18, ease: "easeOut" }}
+                className="pointer-events-none absolute -inset-3 rounded-3xl border-2 border-[#6D6FFC]/30"
+              />
+              <motion.div whileHover={{ y: -6 }} className="h-full w-full transition-shadow hover:shadow-lg">
                 <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-                  <div className="relative h-44 bg-[#E8E3FF]">
-                    <Image
-                      src={s.image}
-                      alt={s.title}
-                      fill
-                      sizes="(max-width: 768px) 80vw, 33vw"
-                      className="object-cover"
-                    />
+                  <div className="relative h-44 overflow-hidden bg-[#E8E3FF]">
+                    <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.4 }} className="relative h-full w-full">
+                      <Image
+                        src={s.image}
+                        alt={s.title}
+                        fill
+                        sizes="(max-width: 768px) 80vw, 33vw"
+                        className="object-cover"
+                      />
+                    </motion.div>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                     <span className="absolute left-4 top-4 inline-block rounded-full bg-gray-900 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
                       {s.step}
@@ -1431,8 +1622,8 @@ function VFStepsSection() {
                     <p className="text-sm leading-relaxed text-gray-600">{s.desc}</p>
                   </div>
                 </div>
-              </FadeIn>
-            </div>
+              </motion.div>
+            </motion.div>
           ))}
           <div className="w-2 shrink-0 md:hidden" aria-hidden />
         </div>
@@ -1449,7 +1640,13 @@ function VFUpgradeBanner() {
   return (
     <section className="bg-[#F1F0FF] py-6 md:py-8">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="flex flex-col items-start gap-5 rounded-2xl bg-[#6D6FFC] px-7 py-7 md:flex-row md:items-center md:gap-10 md:px-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: false, margin: "-60px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col items-start gap-5 rounded-2xl bg-[#6D6FFC] px-7 py-7 md:flex-row md:items-center md:gap-10 md:px-10"
+        >
           <div className="flex-1">
             <h3 className="mb-1.5 text-xl font-bold text-white">Higher BMI? GLP-1s might fit better.</h3>
             <p className="max-w-xl text-sm leading-relaxed text-white/70">
@@ -1462,7 +1659,7 @@ function VFUpgradeBanner() {
           >
             See GLP-1 Options →
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -1532,7 +1729,14 @@ function VFFAQSection() {
           {VF_FAQS.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
-              <div key={faq.question} className="overflow-hidden rounded-[1.25rem] bg-white shadow-sm">
+              <motion.div
+                key={faq.question}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, margin: "-40px" }}
+                transition={{ duration: 0.4, delay: idx * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                className="overflow-hidden rounded-[1.25rem] bg-white shadow-sm transition-shadow hover:shadow-md"
+              >
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : idx)}
@@ -1563,7 +1767,7 @@ function VFFAQSection() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
+              </motion.div>
             );
           })}
         </div>
@@ -1585,26 +1789,63 @@ function VFFAQSection() {
 /* ------------------------------------------------------------------ */
 
 function VFClosingCTA() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: false, margin: "-80px" });
+
   return (
-    <section className="bg-[#3d35b5] py-20 text-center text-white md:py-32">
-      <div className="mx-auto max-w-[640px] px-4">
-        <h2 className="mb-5 font-title text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
+    <section ref={ref} className="relative overflow-hidden bg-[#3d35b5] py-20 text-center text-white md:py-32">
+      <motion.div
+        className="pointer-events-none absolute inset-0"
+        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 1 }}
+      >
+        <motion.div
+          className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FF6B35]/10 blur-[100px]"
+          animate={inView ? { scale: [1, 1.2, 1] } : {}}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </motion.div>
+      <div className="relative mx-auto max-w-[640px] px-4">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-5 font-title text-4xl font-bold leading-tight md:text-5xl lg:text-6xl"
+        >
           Target the fat that actually matters.
           <br />
           <span className="font-playfair italic text-[#FF6B35]">Start today.</span>
-        </h2>
-        <p className="mb-10 text-base leading-relaxed text-white/75 md:text-lg">
-          A clinician reviews your metabolic labs and builds a protocol around your actual visceral fat burden. No guesswork. 60-day money-back guarantee. Results in 12 weeks or your first month is free.
-        </p>
-        <Link
-          href={CTA_HREF}
-          className="inline-flex items-center gap-2 rounded-full bg-[#FF6B35] px-10 py-4 text-lg font-semibold text-white shadow-lg transition hover:bg-[#e55a26]"
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-10 text-base leading-relaxed text-white/75 md:text-lg"
         >
-          Start consultation →
-        </Link>
-        <p className="mt-6 text-xs text-white/40">
+          A clinician reviews your metabolic labs and builds a protocol around your actual visceral fat burden. No guesswork. 60-day money-back guarantee. Results in 12 weeks or your first month is free.
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+          whileHover={{ scale: 1.06 }}
+          whileTap={{ scale: 0.96 }}
+          transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Link
+            href={CTA_HREF}
+            className="inline-flex items-center gap-2 rounded-full bg-[#FF6B35] px-10 py-4 text-lg font-semibold text-white shadow-lg transition hover:bg-[#e55a26] hover:shadow-[0_8px_32px_rgba(255,107,53,0.4)]"
+          >
+            Start consultation →
+          </Link>
+        </motion.div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-6 text-xs text-white/40"
+        >
           By starting, you agree to our terms &amp; privacy policy. Provider-prescribed when appropriate. 60-day money-back guarantee. Cancel anytime.
-        </p>
+        </motion.p>
       </div>
     </section>
   );
