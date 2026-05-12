@@ -42,6 +42,10 @@ import {
   MarketingTrustMarquee,
   LabTested,
   SupportAvailabilitySection,
+  CleanSimpleEffective,
+  SameMedicationSection,
+  RelatedProductsSection,
+  FDADisclaimerSection,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/gh-optimization";
@@ -429,15 +433,47 @@ function GHProductHeroSection() {
             ))}
           </div>
 
-          <div className="rounded-[1rem] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
-            The statements on this page have not been evaluated by the Food and Drug Administration.
-            This product is not intended to diagnose, treat, cure or prevent any disease.
+          <div className="mb-6">
+            <h3 className="mb-4 text-base font-medium text-gray-900">
+              Related Products
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { id: "tirzepatide-injections", name: "Tirzepatide Injections", image: "/images/marketing/bundle/tirzepatide-injections-product.png" },
+                { id: "semaglutide-injections", name: "Semaglutide Injections", image: "/images/marketing/semaglutide.webp" },
+              ].map((product) => (
+                <Link
+                  key={product.id}
+                  href={`/${product.id}`}
+                  className="flex flex-col items-center rounded-[1rem] border border-gray-200 bg-white p-4 text-center shadow-sm"
+                >
+                  <div className="mb-3 flex aspect-square w-full items-center justify-center overflow-hidden rounded-[1rem]">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      loading="lazy"
+                      className="h-full max-h-[160px] w-full rounded-[1rem] object-contain"
+                    />
+                  </div>
+                  <span className="text-xs font-medium text-gray-500">
+                    {product.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
-          <div className="mt-3 text-[11px] leading-relaxed text-gray-600">
-            <p>
-              *Pricing shown applies to the Sermorelin Starter tier. Final treatment fit and
-              pricing depend on clinician review and IGF-1 lab results.
-            </p>
+
+          <div className="space-y-5">
+            <div className="rounded-[1rem] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
+              The statements on this page have not been evaluated by the Food and Drug Administration.
+              This product is not intended to diagnose, treat, cure or prevent any disease.
+            </div>
+            <div className="space-y-2.5 text-[11px] leading-relaxed text-gray-600">
+              <p>
+                *Pricing shown applies to the Sermorelin Starter tier. Final treatment fit and
+                pricing depend on clinician review and IGF-1 lab results.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -1992,7 +2028,7 @@ function GHClosingCTA() {
 
 export default function GHOptimizationLandingPage({ product }) {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
+    <div className="min-h-screen overflow-x-clip bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
       <MinimalMarketingNavbar />
       <GHWillpowerSection />
       <GHProductHeroSection />
@@ -2009,9 +2045,11 @@ export default function GHOptimizationLandingPage({ product }) {
       <GHResearchSection />
       <GHStepsSection />
       <GHCareProgramSection />
-      <MarketingTrustMarquee items={GH_TRUST_ITEMS} edgeToEdge={false} />
       <GHUpgradeBanner />
+      <CleanSimpleEffective productData={null} />
       <LabTested productData={null} />
+      <MarketingTrustMarquee items={GH_TRUST_ITEMS} edgeToEdge={false} />
+      <SameMedicationSection planLabel="Personalized, clinically-proven GH optimization plans" />
       <GHFAQSection />
       <SupportAvailabilitySection />
       <GHClosingCTA />

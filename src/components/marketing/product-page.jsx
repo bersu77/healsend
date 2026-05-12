@@ -568,7 +568,7 @@ const defaultComprehensiveCare = {
         "absolute bottom-2 right-2 w-32 object-contain mix-blend-multiply md:w-48",
     },
     {
-      title: "Real-Time Access to Member Community & Platform",
+      title: "Member Community & Platform",
       points: [
         "Share tips, advice, and progress with members",
         "Win rewards, get expert help, and more",
@@ -1435,8 +1435,7 @@ const MEDICAL_PLANS = [
   },
 ];
 
-function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
-  const [expanded, setExpanded] = useState(false);
+function MedicalPlanCard({ plan, ctaHref, spanFull, expanded, onToggleExpand, cardRef, style }) {
   const isMinimal = plan.bullets.length === 0;
   const hasDetails =
     plan.description ||
@@ -1446,10 +1445,11 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
   return (
     <div
       ref={cardRef}
-      style={minHeight ? { minHeight } : undefined}
+      style={style}
       className={cn(
         "flex min-w-0 flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-[0_20px_40px_-24px_rgba(91,60,221,0.12)]",
         isMinimal ? "h-auto self-start w-full" : "w-full",
+        spanFull && "col-span-2 lg:col-span-1",
       )}
     >
       <div
@@ -1559,7 +1559,7 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
           {plan.secondaryCta && hasDetails ? (
             <button
               type="button"
-              onClick={() => setExpanded((v) => !v)}
+              onClick={onToggleExpand}
               aria-expanded={expanded}
               className={`flex min-h-[2.875rem] w-full shrink-0 items-center justify-center whitespace-nowrap rounded-full border bg-white px-4 py-2.5 text-center text-[13px] font-semibold leading-snug tracking-tight transition-colors sm:text-sm ${expanded
                 ? "border-[#d8d2ee] text-[#5b3cdd] hover:bg-[#f1ecf9]"
@@ -1579,9 +1579,9 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-4 w-full min-w-0 shrink-0 overflow-hidden"
+              className="overflow-hidden"
             >
-              <div className="space-y-6 pt-5 md:pt-6">
+              <div className="space-y-6 border-t border-[#f0ecf7] px-6 py-7 sm:px-7 sm:py-8 md:px-8 md:py-9">
                 {plan.description ? (
                   <p className="text-sm leading-6 text-[#474257]">
                     {plan.description}
@@ -1595,13 +1595,8 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
                     <ul className="space-y-2.5">
                       {plan.whyItWorks.map((item) => (
                         <li key={item} className="flex items-start gap-3">
-                          <Check
-                            className="mt-0.5 h-4 w-4 shrink-0 text-[#5b3cdd]"
-                            strokeWidth={3}
-                          />
-                          <span className="text-sm leading-6 text-[#1c1a24]">
-                            {item}
-                          </span>
+                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5b3cdd]" strokeWidth={3} />
+                          <span className="text-sm leading-6 text-[#1c1a24]">{item}</span>
                         </li>
                       ))}
                     </ul>
@@ -1615,13 +1610,8 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
                     <ul className="space-y-2.5">
                       {plan.bestFor.map((item) => (
                         <li key={item} className="flex items-start gap-3">
-                          <Check
-                            className="mt-0.5 h-4 w-4 shrink-0 text-[#5b3cdd]"
-                            strokeWidth={3}
-                          />
-                          <span className="text-sm leading-6 text-[#1c1a24]">
-                            {item}
-                          </span>
+                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#5b3cdd]" strokeWidth={3} />
+                          <span className="text-sm leading-6 text-[#1c1a24]">{item}</span>
                         </li>
                       ))}
                     </ul>
@@ -1631,6 +1621,7 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
             </motion.div>
           ) : null}
         </AnimatePresence>
+
       </div>
     </div>
   );
@@ -1638,18 +1629,11 @@ function MedicalPlanCard({ plan, ctaHref, cardRef, minHeight }) {
 
 function MedicalWeightLossSection({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
-  const cardRefs = useRef([]);
-  const [minCardH, setMinCardH] = useState(0);
-
-  useEffect(() => {
-    const els = cardRefs.current.filter(Boolean);
-    if (els.length === 0) return;
-    const max = Math.max(...els.map((el) => el.offsetHeight));
-    if (max > 0) setMinCardH(max);
-  }, []);
+  const [expandedId, setExpandedId] = useState(null);
+  const expandedPlan = expandedId ? MEDICAL_PLANS.find((p) => p.id === expandedId) : null;
 
   return (
-    <section className="overflow-hidden bg-[#f9f9f9] py-16 md:py-20">
+    <section className="bg-[#f9f9f9] py-16 md:py-20">
       <div className="mx-auto max-w-[1400px] px-4 md:px-8 lg:px-16">
         <div className="mb-10 grid grid-cols-1 gap-8 md:mb-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-x-8 xl:gap-x-12">
           <div className="min-w-0">
@@ -1714,17 +1698,79 @@ function MedicalWeightLossSection({ productData }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-3 lg:items-start lg:gap-6 xl:gap-8">
-          {MEDICAL_PLANS.map((plan, idx) => (
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3 lg:gap-6 xl:gap-8">
+          {MEDICAL_PLANS.map((plan) => (
             <MedicalPlanCard
               key={plan.id}
               plan={plan}
               ctaHref={ctaHref}
-              cardRef={plan.bullets.length > 0 ? (el) => { cardRefs.current[idx] = el; } : undefined}
-              minHeight={plan.bullets.length > 0 ? minCardH : undefined}
+              spanFull={plan.bullets.length === 0}
+              expanded={expandedId === plan.id}
+              onToggleExpand={() => setExpandedId(expandedId === plan.id ? null : plan.id)}
             />
           ))}
         </div>
+
+        <AnimatePresence initial={false}>
+          {expandedPlan && (expandedPlan.description || expandedPlan.whyItWorks?.length > 0 || expandedPlan.bestFor?.length > 0) ? (
+            <motion.div
+              key={expandedPlan.id}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-6 overflow-hidden rounded-[1.5rem] bg-white shadow-[0_20px_40px_-24px_rgba(91,60,221,0.12)]"
+            >
+              <div className="space-y-6 px-6 py-7 sm:px-8 sm:py-8 md:px-10 md:py-9">
+                {expandedPlan.description ? (
+                  <p className="text-sm leading-6 text-[#474257]">
+                    {expandedPlan.description}
+                  </p>
+                ) : null}
+                {expandedPlan.whyItWorks?.length > 0 ? (
+                  <div>
+                    <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#1c1a24]">
+                      WHY IT WORKS
+                    </p>
+                    <ul className="space-y-2.5">
+                      {expandedPlan.whyItWorks.map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <Check
+                            className="mt-0.5 h-4 w-4 shrink-0 text-[#5b3cdd]"
+                            strokeWidth={3}
+                          />
+                          <span className="text-sm leading-6 text-[#1c1a24]">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+                {expandedPlan.bestFor?.length > 0 ? (
+                  <div>
+                    <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#1c1a24]">
+                      BEST FOR
+                    </p>
+                    <ul className="space-y-2.5">
+                      {expandedPlan.bestFor.map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <Check
+                            className="mt-0.5 h-4 w-4 shrink-0 text-[#5b3cdd]"
+                            strokeWidth={3}
+                          />
+                          <span className="text-sm leading-6 text-[#1c1a24]">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </div>
     </section>
   );
@@ -3487,7 +3533,7 @@ export function LabTested({ productData }) {
         </div>
       )}
 
-      <section className="bg-[#f9f9f9] px-4 pt-8 pb-16 md:px-8 md:py-20 lg:px-16">
+      <section className="bg-[#f9f9f9] px-4 py-12 md:px-8 md:py-16 lg:px-16">
         <div className="mx-auto max-w-[1200px]">
           <div className="flex flex-col items-center gap-8 rounded-[2.5rem] bg-gradient-to-br from-[#6f68f0] to-[#8f88ff] p-6 md:p-10 lg:flex-row lg:gap-12 lg:p-12">
             <div className="flex-1 text-white">
@@ -3564,7 +3610,7 @@ export function LabTested({ productData }) {
 
 export function ComprehensiveCare({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
-  const content = productData.comprehensiveCare || defaultComprehensiveCare;
+  const content = productData?.comprehensiveCare || defaultComprehensiveCare;
   const features =
     content.features?.length > 0
       ? content.features
@@ -3588,7 +3634,7 @@ export function ComprehensiveCare({ productData }) {
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="flex flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-sm"
+                className="flex flex-col overflow-hidden rounded-[1.5rem] border border-gray-200 bg-white shadow-md"
               >
                 <div className="flex items-center justify-center gap-1.5 bg-[#7b75f0] py-2 text-xs font-bold text-white">
                   Included <PlusCircle className="h-3.5 w-3.5" />
@@ -3647,7 +3693,7 @@ const CLEAN_CARD_HIGHLIGHT = "Same-Day Prescriptions";
 export function CleanSimpleEffective({ productData }) {
   const ctaHref = getPrimaryCtaHref(productData);
   const items =
-    productData.cleanIngredients?.length > 0
+    productData?.cleanIngredients?.length > 0
       ? productData.cleanIngredients
       : mergeIconItems(
         defaultProductContent.cleanIngredients,
@@ -3655,14 +3701,14 @@ export function CleanSimpleEffective({ productData }) {
       );
 
   return (
-    <section className="relative overflow-hidden bg-[#F9F9F9] pt-8 pb-16 md:pt-10 md:pb-20">
+    <section className="relative overflow-hidden bg-[#F9F9F9] py-12 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-12 text-center md:mb-16">
           <h2 className="mb-4 text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
-            Fast, safe, doctor-led care
+            Healthcare built around real life
           </h2>
           <p className="mx-auto max-w-xl text-base text-gray-500">
-            Clinician-guided from first visit to final goal — everything you need, nothing you don&apos;t.
+            Personalized, evidence-based care from licensed clinicians — all online, on your schedule.
           </p>
         </div>
 
@@ -3675,7 +3721,7 @@ export function CleanSimpleEffective({ productData }) {
             return (
               <div
                 key={label}
-                className={`flex w-[calc(50vw-1.5rem)] shrink-0 snap-start flex-col items-center rounded-[1.25rem] p-5 text-center shadow-sm ${highlighted ? "bg-[#6D6FFC]/10 ring-2 ring-[#6D6FFC]/30" : "bg-white"}`}
+                className="flex w-[calc(50vw-1.5rem)] shrink-0 snap-start flex-col items-center rounded-[1.25rem] bg-white p-5 text-center shadow-sm"
               >
                 <div className="mb-4 flex h-14 w-14 items-center justify-center">
                   {item.iconImage ? (
@@ -3700,7 +3746,7 @@ export function CleanSimpleEffective({ productData }) {
             return (
               <div
                 key={label}
-                className={`flex flex-col items-center rounded-[1.25rem] px-5 py-10 text-center shadow-sm transition-transform duration-300 ease-out hover:-translate-y-1 hover:scale-[1.04] hover:shadow-md ${highlighted ? "bg-[#6D6FFC]/10 ring-2 ring-[#6D6FFC]/30" : "bg-white"}`}
+                className="flex flex-col items-center rounded-[1.25rem] bg-white px-5 py-10 text-center shadow-sm transition-transform duration-300 ease-out hover:-translate-y-1 hover:scale-[1.04] hover:shadow-md"
               >
                 <div className="mb-5 flex h-16 w-16 items-center justify-center">
                   {item.iconImage ? (
@@ -3711,7 +3757,7 @@ export function CleanSimpleEffective({ productData }) {
                       className={`object-contain ${item.iconImage.includes("fast-free-delivery") ? "h-30 w-20" : "h-14 w-14"}`}
                     />
                   ) : (
-                    <item.icon className={`h-8 w-8 ${highlighted ? "text-[#6D6FFC]" : "text-[#1c1a24]"}`} strokeWidth={1.75} />
+                    <item.icon className="h-8 w-8 text-[#1c1a24]" strokeWidth={1.75} />
                   )}
                 </div>
                 <p className="mb-2 whitespace-pre-line text-[13px] font-bold leading-snug text-[#1c1a24]">{label}</p>
@@ -3721,11 +3767,6 @@ export function CleanSimpleEffective({ productData }) {
           })}
         </div>
 
-        <div className="mt-10 flex justify-center">
-          <Link href={ctaHref} className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#6D6FFC] hover:underline">
-            Learn how it works <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
       </div>
     </section>
   );
@@ -3844,7 +3885,7 @@ function FAQSection() {
 }
 
 const SAME_MED_HEALSEND_POINTS = [
-  "Personalized, clinically-proven GLP-1 plans",
+  "Personalized, clinically-proven treatment plans",
   "Expert-led education with an active member community",
   "Treatment precisely matched to your body and goals",
   "Doses titrated by your clinician to minimize side effects",
@@ -3944,7 +3985,11 @@ export function MarketingTrustMarquee({ items, edgeToEdge = true }) {
   );
 }
 
-function SameMedicationSection() {
+export function SameMedicationSection({ planLabel } = {}) {
+  const healPoints = planLabel
+    ? [planLabel, ...SAME_MED_HEALSEND_POINTS.slice(1)]
+    : SAME_MED_HEALSEND_POINTS;
+
   const comparisonRowMotion = (i) => ({
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
@@ -3989,9 +4034,9 @@ function SameMedicationSection() {
             <div className="text-2xl font-medium text-[#5f5b70]">Others</div>
           </div>
 
-          {SAME_MED_HEALSEND_POINTS.map((healPoint, i) => {
+          {healPoints.map((healPoint, i) => {
             const otherPoint = SAME_MED_OTHERS_POINTS[i];
-            const isLast = i === SAME_MED_HEALSEND_POINTS.length - 1;
+            const isLast = i === healPoints.length - 1;
             return (
               <React.Fragment key={healPoint}>
                 <motion.div
@@ -4041,7 +4086,7 @@ function SameMedicationSection() {
             />
             <div className="font-playfair text-3xl italic">HealSend</div>
             <ul className="grid w-full auto-rows-fr gap-6">
-              {SAME_MED_HEALSEND_POINTS.map((point, i) => (
+              {healPoints.map((point, i) => (
                 <motion.li
                   key={point}
                   {...comparisonRowMotion(i)}
@@ -4093,9 +4138,62 @@ function SameMedicationSection() {
   );
 }
 
+export function RelatedProductsSection({ products }) {
+  if (!products || products.length === 0) return null;
+  return (
+    <section className="bg-[#f9f9f9] px-4 pb-12 pt-10 md:px-8 md:pb-16 md:pt-12">
+      <div className="mx-auto max-w-[600px]">
+        <h3 className="mb-5 text-lg font-medium text-gray-900">
+          Related Products
+        </h3>
+        <div className="grid grid-cols-2 gap-4">
+          {products.map((product) => (
+            <Link
+              key={product.id}
+              href={product.href || getMarketingProductDetailPath(product.id)}
+              className="flex flex-col items-center rounded-[1rem] border border-gray-200 bg-white p-4 text-center shadow-sm transition-shadow hover:shadow-md"
+            >
+              <div className="mb-3 flex aspect-square w-full items-center justify-center overflow-hidden rounded-[1rem]">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  loading="lazy"
+                  className="h-full max-h-[160px] w-full rounded-[1rem] object-contain"
+                />
+              </div>
+              <span className="text-xs font-medium text-gray-500">
+                {product.name}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function FDADisclaimerSection({ priceNote } = {}) {
+  return (
+    <section className="bg-[#f9f9f9] px-4 pb-10 pt-6 md:px-8 md:pb-14">
+      <div className="mx-auto max-w-[600px] space-y-5">
+        <div className="rounded-[1rem] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
+          The statements on this page have not been evaluated by the Food and
+          Drug Administration. This product is not intended to diagnose, treat,
+          cure or prevent any disease.
+        </div>
+        {priceNote ? (
+          <div className="text-[11px] leading-relaxed text-gray-600">
+            <p>{priceNote}</p>
+          </div>
+        ) : null}
+      </div>
+    </section>
+  );
+}
+
 export function SupportAvailabilitySection() {
   return (
-    <section className="bg-white px-5 pb-20 pt-4 md:px-8 lg:px-10">
+    <section className="bg-white px-5 py-12 md:px-8 md:py-16 lg:px-10">
       <div className="mx-auto grid max-w-[1320px] gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
         <div className="relative aspect-[1.08/1] overflow-hidden rounded-2xl">
           <Image
@@ -4294,7 +4392,7 @@ export function RestoredTirzepatideBenefitsCarouselSection({
     <section
       id="tirzepatide-benefits-classic"
       aria-labelledby="tirzepatide-benefits-classic-heading"
-      className="scroll-mt-24 bg-white pt-8 pb-14 md:pt-10 md:pb-20"
+      className="scroll-mt-24 bg-white pt-8 pb-8 md:pt-10 md:pb-12"
     >
       <div className="mx-auto max-w-[1340px] px-4 md:px-8">
         <h2
@@ -5195,8 +5293,34 @@ function EncloVsTrtComparisonSection() {
 }
 
 export function OurTreatmentsSection({ cards = MEDICAL_PLANS }) {
+  const [expandedId, setExpandedId] = useState(null);
+  const cardElMap = useRef({});
+  const [cardMinHeight, setCardMinHeight] = useState(0);
+
+  useEffect(() => {
+    const equalize = () => {
+      const els = cards
+        .filter((p) => p.bullets.length > 0)
+        .map((p) => cardElMap.current[p.id])
+        .filter(Boolean);
+      if (els.length < 2) return;
+
+      els.forEach((el) => { el.style.minHeight = ""; });
+
+      requestAnimationFrame(() => {
+        let maxH = 0;
+        els.forEach((el) => { maxH = Math.max(maxH, el.offsetHeight); });
+        setCardMinHeight(maxH);
+      });
+    };
+
+    equalize();
+    window.addEventListener("resize", equalize);
+    return () => window.removeEventListener("resize", equalize);
+  }, [cards]);
+
   return (
-    <section className="overflow-hidden bg-[#f9f9f9] pt-8 pb-16 md:pt-10 md:pb-20">
+    <section className="bg-[#f9f9f9] pt-8 pb-16 md:pt-10 md:pb-20">
       <div className="mx-auto max-w-[1400px] px-4 md:px-8 lg:px-16">
         <div className="mb-10 grid grid-cols-1 gap-8 md:mb-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-x-8 xl:gap-x-12">
           <div className="min-w-0">
@@ -5262,18 +5386,29 @@ export function OurTreatmentsSection({ cards = MEDICAL_PLANS }) {
 
         <div
           className={cn(
-            "mx-auto grid gap-7 sm:gap-8 lg:gap-10",
+            "mx-auto grid items-start gap-7 sm:gap-8 lg:gap-10",
             cards.length === 1 && "max-w-lg sm:grid-cols-1",
             cards.length === 2 && "max-w-[1200px] sm:grid-cols-1 lg:grid-cols-2",
-            cards.length >= 3 && "max-w-[1400px] sm:grid-cols-1 lg:grid-cols-3",
+            cards.length >= 3 && "max-w-[1400px] grid-cols-2 lg:grid-cols-3",
           )}
         >
-          {cards.map((plan) => (
-            <div key={plan.id} className="flex items-stretch">
-              <MedicalPlanCard plan={plan} ctaHref={plan.href || "/weight-loss"} />
-            </div>
-          ))}
+          {cards.map((plan) => {
+            const isMinimal = plan.bullets.length === 0;
+            return (
+              <MedicalPlanCard
+                key={plan.id}
+                plan={plan}
+                ctaHref={plan.href || "/weight-loss"}
+                spanFull={isMinimal}
+                expanded={expandedId === plan.id}
+                onToggleExpand={() => setExpandedId(expandedId === plan.id ? null : plan.id)}
+                cardRef={(el) => { if (el) cardElMap.current[plan.id] = el; }}
+                style={!isMinimal && cardMinHeight ? { minHeight: cardMinHeight } : undefined}
+              />
+            );
+          })}
         </div>
+
       </div>
     </section>
   );
@@ -5362,7 +5497,7 @@ export default function MarketingProductPage({ product, isHomepage = false }) {
       <FadeInSection><ComprehensiveCare productData={productData} /></FadeInSection>
       <FadeInSection><CleanSimpleEffective productData={productData} /></FadeInSection>
       <SameMedicationTrustMarqueeSection />
-      <FadeInSection><SameMedicationSection /></FadeInSection>
+      <FadeInSection><SameMedicationSection planLabel="Personalized, clinically-proven GLP-1 plans" /></FadeInSection>
       <FadeInSection><FAQSection /></FadeInSection>
       <FadeInSection><SupportAvailabilitySection /></FadeInSection>
       {/* <ProductPageTestSections /> */}

@@ -15,7 +15,6 @@ import {
   Minus,
   Plus,
   ShieldCheck,
-  Sparkles,
   Stethoscope,
   TrendingUp,
   Truck,
@@ -33,6 +32,10 @@ import {
   MarketingTrustMarquee,
   LabTested,
   SupportAvailabilitySection,
+  CleanSimpleEffective,
+  SameMedicationSection,
+  RelatedProductsSection,
+  FDADisclaimerSection,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/sermorelin";
@@ -73,10 +76,6 @@ function SermorelinWillpowerSection() {
       <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-80px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#6D6FFC]/30 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#6D6FFC]" />
-              Sermorelin · Entry-Level GH Support
-            </span>
             <div className="mt-5 max-w-[34rem]">
               <h1 className="text-balance font-title text-4xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl">
                 The gentlest way to{" "}
@@ -92,45 +91,23 @@ function SermorelinWillpowerSection() {
               </p>
             </div>
 
-            {/* Promise box */}
-            <div className="mt-6 max-w-[34rem] rounded-2xl bg-[#6D6FFC] px-6 py-5 text-white">
-              <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-white/70">
-                The Promise
-              </p>
-              <div className="flex items-start gap-3">
-                <Check className="mt-0.5 h-5 w-5 shrink-0 text-white" strokeWidth={2.5} />
-                <p className="text-[0.95rem] font-medium leading-snug">
-                  Deeper sleep and steadier energy by week 6 —{" "}
-                  <span className="font-bold italic text-[#FF6B35]">
-                    or your first month is free.
-                  </span>
-                </p>
-              </div>
-            </div>
-
             <ul className="mt-5 max-w-[34rem] space-y-4 text-[#4d5160]">
               <li className="flex items-start gap-3 text-sm md:text-base">
-                <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]">
-                  <Check className="h-3 w-3 text-white" strokeWidth={3} />
-                </div>
+                <Zap className="mt-0.5 h-5 w-5 shrink-0 text-gray-500" strokeWidth={2} />
                 <span>
                   <strong className="text-gray-900">Beginner-friendly</strong>{" "}
                   — designed for first-time peptide users
                 </span>
               </li>
               <li className="flex items-start gap-3 text-sm md:text-base">
-                <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]">
-                  <Check className="h-3 w-3 text-white" strokeWidth={3} />
-                </div>
+                <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-gray-500" strokeWidth={2} />
                 <span>
                   <strong className="text-gray-900">Works with your body</strong>{" "}
                   — supports natural GH release, doesn't override it
                 </span>
               </li>
               <li className="flex items-start gap-3 text-sm md:text-base">
-                <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]">
-                  <Check className="h-3 w-3 text-white" strokeWidth={3} />
-                </div>
+                <Stethoscope className="mt-0.5 h-5 w-5 shrink-0 text-gray-500" strokeWidth={2} />
                 <span>
                   <strong className="text-gray-900">Clinician access + lab work included</strong>{" "}
                   — no extra fees
@@ -247,19 +224,6 @@ function SermorelinProductHeroSection() {
                   priority
                 />
               </div>
-            </div>
-            {/* Product pill */}
-            <div className="flex items-center gap-3 rounded-[1rem] border border-gray-200 bg-white px-5 py-4">
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#EEF0FA]">
-                <Sparkles className="h-4 w-4 text-[#6D6FFC]" />
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-semibold text-gray-900">Sermorelin</p>
-                <p className="text-xs text-gray-500">5mg vial · daily subcutaneous</p>
-              </div>
-              <span className="shrink-0 rounded-md bg-[#6D6FFC]/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#6D6FFC]">
-                Rx
-              </span>
             </div>
           </div>
         </div>
@@ -480,10 +444,49 @@ function SermorelinProductHeroSection() {
             ))}
           </div>
 
-          <div className="rounded-[1rem] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
-            The statements on this page have not been evaluated by the Food and
-            Drug Administration. This product is not intended to diagnose,
-            treat, cure or prevent any disease.
+          <div className="mb-6">
+            <h3 className="mb-4 text-base font-medium text-gray-900">
+              Related Products
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { id: "tirzepatide-injections", name: "Tirzepatide Injections", image: "/images/marketing/bundle/tirzepatide-injections-product.png" },
+                { id: "semaglutide-injections", name: "Semaglutide Injections", image: "/images/marketing/semaglutide.webp" },
+              ].map((product) => (
+                <Link
+                  key={product.id}
+                  href={`/${product.id}`}
+                  className="flex flex-col items-center rounded-[1rem] border border-gray-200 bg-white p-4 text-center shadow-sm"
+                >
+                  <div className="mb-3 flex aspect-square w-full items-center justify-center overflow-hidden rounded-[1rem]">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      loading="lazy"
+                      className="h-full max-h-[160px] w-full rounded-[1rem] object-contain"
+                    />
+                  </div>
+                  <span className="text-xs font-medium text-gray-500">
+                    {product.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-5">
+            <div className="rounded-[1rem] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
+              The statements on this page have not been evaluated by the Food and
+              Drug Administration. This product is not intended to diagnose,
+              treat, cure or prevent any disease.
+            </div>
+            <div className="space-y-2.5 text-[11px] leading-relaxed text-gray-600">
+              <p>
+                *Price shown applies to Sermorelin quarterly plan. Actual price
+                will depend on plan prescribed. Final treatment fit depends on
+                clinician review.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -1161,6 +1164,7 @@ function SermorelinTestimonialSection() {
 const PAIN_POINT_CARDS = [
   {
     title: "You've never taken a peptide before.",
+    image: "/images/negative-sell/negative_1.webp",
     bullets: [
       "The advanced stuff feels like a lot to commit to.",
       "You want to start small and see how your body responds.",
@@ -1168,6 +1172,7 @@ const PAIN_POINT_CARDS = [
   },
   {
     title: "You want to support your body, not override it.",
+    image: "/images/negative-sell/negative_2.jpeg",
     bullets: [
       "Not replacing what your body makes — augmenting it.",
       "Sermorelin signals your pituitary; it doesn't bypass it.",
@@ -1175,6 +1180,7 @@ const PAIN_POINT_CARDS = [
   },
   {
     title: "Your sleep is the first thing that broke.",
+    image: "/images/negative-sell/negative_3.jpg",
     bullets: [
       "Eight hours, but the deep sleep is gone.",
       "You wake up tired before the day even begins.",
@@ -1182,6 +1188,7 @@ const PAIN_POINT_CARDS = [
   },
   {
     title: "You're ready to do something — but cheaper than the longevity clinic.",
+    image: "/images/negative-sell/negative_4.webp",
     bullets: [
       "$2,000/mo wellness clinics aren't realistic for everyone.",
       "You want clinical-grade care without the clinical-grade markup.",
@@ -1191,45 +1198,68 @@ const PAIN_POINT_CARDS = [
 
 function SermorelinPainPointsSection() {
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-24">
+    <section className="bg-white py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="mx-auto mb-12 max-w-[640px] text-center">
-          <p className="mb-2 font-playfair italic text-gray-500">
+        <div className="mb-4 text-center">
+          <span className="inline-block rounded-full bg-[#f0eeff] px-4 py-1.5 text-sm font-semibold text-[#5b3cdd]">
             Sound familiar?
-          </p>
-          <h2 className="font-title text-4xl font-bold text-gray-900 md:text-5xl">
-            Curious — but cautious.
-          </h2>
-          <p className="mt-5 text-base text-gray-600">
-            Sermorelin is for people who want to begin a peptide protocol with
-            the gentlest, most accessible option available.
-          </p>
+          </span>
         </div>
+        <h2 className="mb-4 text-center text-3xl font-bold tracking-tight text-[#1c1a24] md:text-4xl lg:text-5xl">
+          Curious — but{" "}
+          <span className="italic text-[#5b3cdd]">cautious.</span>
+        </h2>
+        <p className="mx-auto mb-12 max-w-[42rem] text-center text-lg leading-relaxed text-[#5d6169]">
+          Sermorelin is for people who want to begin a peptide protocol with
+          the gentlest, most accessible option available.
+        </p>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PAIN_POINT_CARDS.map((card) => (
-            <FadeIn key={card.title} className="rounded-2xl bg-white p-7 shadow-sm">
-              <h3 className="mb-4 text-lg font-bold text-gray-900">
-                {card.title}
-              </h3>
-              <ul className="space-y-2">
-                {card.bullets.map((b) => (
-                  <li key={b} className="flex items-start gap-2 text-sm text-gray-600">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gray-400" />
-                    {b}
-                  </li>
-                ))}
-              </ul>
-            </FadeIn>
+            <div
+              key={card.title}
+              className="flex flex-col overflow-hidden rounded-[1.5rem] border border-[#ebebeb] bg-white shadow-sm"
+            >
+              <div className="relative h-48 w-full overflow-hidden bg-[#f5f5f5]">
+                <Image
+                  src={card.image}
+                  alt={card.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="mb-4 text-base font-bold leading-snug text-[#1c1a24]">
+                  {card.title}
+                </h3>
+                <ul className="flex flex-col gap-3">
+                  {card.bullets.map((bullet) => (
+                    <li
+                      key={bullet}
+                      className="flex items-start gap-2.5 text-sm leading-snug text-[#5d6169]"
+                    >
+                      <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#ffe4e4] text-[#e53e3e]">
+                        <svg width="8" height="8" viewBox="0 0 10 10" fill="none">
+                          <line x1="2" y1="2" x2="8" y2="8" stroke="#e53e3e" strokeWidth="1.8" strokeLinecap="round" />
+                          <line x1="8" y1="2" x2="2" y2="8" stroke="#e53e3e" strokeWidth="1.8" strokeLinecap="round" />
+                        </svg>
+                      </span>
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           ))}
         </div>
 
-        <div className="mt-10 text-center">
+        <div className="mt-12 flex justify-center">
           <Link
             href={CTA_HREF}
-            className="hs-solid-btn inline-flex items-center gap-2 rounded-full px-10 py-4 text-base font-semibold"
+            className="hs-solid-btn rounded-full px-10 py-4 text-base font-semibold transition-all hover:-translate-y-0.5"
           >
-            See if Sermorelin fits <ArrowRight className="h-4 w-4" />
+            See if Sermorelin fits
           </Link>
         </div>
       </div>
@@ -1710,7 +1740,7 @@ function SermorelinClosingCTA() {
 
 export default function SermorelinLandingPage({ product }) {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
+    <div className="min-h-screen overflow-x-clip bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
       <MinimalMarketingNavbar />
       <SermorelinWillpowerSection />
       <SermorelinProductHeroSection />
@@ -1725,11 +1755,18 @@ export default function SermorelinLandingPage({ product }) {
       <SermorelinResearchSection />
       <SermorelinStepsSection />
       <SermorelinUpgradeBanner />
-      <MarketingTrustMarquee items={SERMORELIN_TRUST_ITEMS} edgeToEdge={false} />
+      <CleanSimpleEffective productData={null} />
       <LabTested productData={null} />
+      <MarketingTrustMarquee items={SERMORELIN_TRUST_ITEMS} edgeToEdge={false} />
+      <SameMedicationSection planLabel="Personalized, clinically-proven sermorelin plans" />
       <SermorelinFAQSection />
       <SupportAvailabilitySection />
       <SermorelinClosingCTA />
+      <RelatedProductsSection products={[
+        { id: "tirzepatide-injections", name: "Tirzepatide Injections", image: "/images/marketing/bundle/tirzepatide-injections-product.png" },
+        { id: "semaglutide-injections", name: "Semaglutide Injections", image: "/images/marketing/semaglutide.webp" },
+      ]} />
+      <FDADisclaimerSection />
       <MarketingFooter />
     </div>
   );

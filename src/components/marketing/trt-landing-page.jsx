@@ -46,6 +46,10 @@ import {
   WillpowerHorizontalRow,
   WILLPOWER_LEFT_MARQUEE_ITEMS,
   WILLPOWER_RIGHT_MARQUEE_ITEMS,
+  CleanSimpleEffective,
+  SameMedicationSection,
+  RelatedProductsSection,
+  FDADisclaimerSection,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/growth-hormone-support";
@@ -415,16 +419,15 @@ function TRTProductHeroSection() {
                 </div>
               ) : null}
 
-              <div className="inline-flex w-full flex-col items-center gap-2.5">
+              <div className="flex w-full flex-col items-stretch gap-3">
                 <Link
                   href={CTA_HREF}
-                  className="hs-solid-btn inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold sm:w-auto"
+                  className="hs-solid-btn flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold shadow-[0_8px_24px_rgba(109,111,252,0.35)] transition-colors"
                 >
                   Start consultation
-                  <ArrowRight className="h-4 w-4" />
                 </Link>
-                <p className="w-full text-center text-sm">
-                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
+                <p className="mt-1 w-full text-center text-xs text-gray-500 md:text-sm">
+                  Takes 90 seconds · 100% private · free
                 </p>
               </div>
             </div>
@@ -573,18 +576,50 @@ function TRTProductHeroSection() {
             ))}
           </div>
 
-          <div className="rounded-[1rem] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
-            The statements on this page have not been evaluated by the Food
-            and Drug Administration. This product is not intended to diagnose,
-            treat, cure or prevent any disease.
+          <div className="mb-6">
+            <h3 className="mb-4 text-base font-medium text-gray-900">
+              Related Products
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { id: "tirzepatide-injections", name: "Tirzepatide Injections", image: "/images/marketing/bundle/tirzepatide-injections-product.png" },
+                { id: "semaglutide-injections", name: "Semaglutide Injections", image: "/images/marketing/semaglutide.webp" },
+              ].map((product) => (
+                <Link
+                  key={product.id}
+                  href={`/${product.id}`}
+                  className="flex flex-col items-center rounded-[1rem] border border-gray-200 bg-white p-4 text-center shadow-sm"
+                >
+                  <div className="mb-3 flex aspect-square w-full items-center justify-center overflow-hidden rounded-[1rem]">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      loading="lazy"
+                      className="h-full max-h-[160px] w-full rounded-[1rem] object-contain"
+                    />
+                  </div>
+                  <span className="text-xs font-medium text-gray-500">
+                    {product.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
 
-          <div className="mt-3 space-y-2.5 text-[11px] leading-relaxed text-gray-600">
-            <p>
-              *Price shown applies to TRT annual plan. Actual price will
-              depend on plan prescribed. Final treatment fit depends on
-              clinician review.
-            </p>
+          <div className="space-y-5">
+            <div className="rounded-[1rem] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
+              The statements on this page have not been evaluated by the Food
+              and Drug Administration. This product is not intended to diagnose,
+              treat, cure or prevent any disease.
+            </div>
+
+            <div className="space-y-2.5 text-[11px] leading-relaxed text-gray-600">
+              <p>
+                *Price shown applies to TRT annual plan. Actual price will
+                depend on plan prescribed. Final treatment fit depends on
+                clinician review.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -1492,7 +1527,7 @@ export default function TRTLandingPage({ product }) {
   const productData = mergeProductContent(product);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
+    <div className="min-h-screen overflow-x-clip bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
       <MinimalMarketingNavbar />
       <TRTWillpowerSection />
       <TRTProductHeroSection />
@@ -1505,12 +1540,18 @@ export default function TRTLandingPage({ product }) {
       <TRTStatsSection />
       <FadeIn><TRTEligibilitySection /></FadeIn>
       <FadeIn><TRTProcessSection /></FadeIn>
+      <CleanSimpleEffective productData={productData} />
       <FadeIn><LabTested productData={productData} /></FadeIn>
       <MarketingTrustMarquee items={TRT_TRUST_ITEMS} edgeToEdge={false} />
-      <FadeIn><TRTComparisonSection /></FadeIn>
+      <FadeIn><SameMedicationSection planLabel="Personalized, clinically-proven TRT plans" /></FadeIn>
       <TRTFAQSection />
       <FadeIn><SupportAvailabilitySection /></FadeIn>
       <TRTFinalCTASection />
+      <RelatedProductsSection products={[
+        { id: "tirzepatide-injections", name: "Tirzepatide Injections", image: "/images/marketing/bundle/tirzepatide-injections-product.png" },
+        { id: "semaglutide-injections", name: "Semaglutide Injections", image: "/images/marketing/semaglutide.webp" },
+      ]} />
+      <FDADisclaimerSection />
       <MarketingFooter />
     </div>
   );

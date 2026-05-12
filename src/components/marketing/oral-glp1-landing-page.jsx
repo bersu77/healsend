@@ -12,6 +12,7 @@ import {
   Headset,
   Laptop,
   Minus,
+  PillBottle,
   Plus,
   ShieldCheck,
   Sparkles,
@@ -31,6 +32,10 @@ import {
   LabTested,
   SupportAvailabilitySection,
   SimpleSteps,
+  CleanSimpleEffective,
+  SameMedicationSection,
+  RelatedProductsSection,
+  FDADisclaimerSection,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/oral-glp-1";
@@ -87,27 +92,21 @@ function OralGLP1WillpowerSection() {
 
             <ul className="mt-5 max-w-[34rem] space-y-4 text-[#4d5160]">
               <li className="flex items-start gap-3 text-sm md:text-base">
-                <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]">
-                  <Check className="h-3 w-3 text-white" strokeWidth={3} />
-                </div>
+                <PillBottle className="mt-0.5 h-5 w-5 shrink-0 text-gray-500" strokeWidth={2} />
                 <span>
                   <strong className="text-gray-900">Two oral GLP-1 options</strong>{" "}
                   — Orforglipron + B6 (newest, highest patient-reported efficacy) and Semaglutide RDT
                 </span>
               </li>
               <li className="flex items-start gap-3 text-sm md:text-base">
-                <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]">
-                  <Check className="h-3 w-3 text-white" strokeWidth={3} />
-                </div>
+                <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-gray-500" strokeWidth={2} />
                 <span>
                   <strong className="text-gray-900">BMI 25+ qualifies you</strong>{" "}
                   — broader access than federal GLP-1 guidelines
                 </span>
               </li>
               <li className="flex items-start gap-3 text-sm md:text-base">
-                <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]">
-                  <Check className="h-3 w-3 text-white" strokeWidth={3} />
-                </div>
+                <Stethoscope className="mt-0.5 h-5 w-5 shrink-0 text-gray-500" strokeWidth={2} />
                 <span>
                   <strong className="text-gray-900">B6 added to reduce nausea</strong>{" "}
                   — designed to help GI tolerability so you can stay on the medication
@@ -465,17 +464,47 @@ function OralGLP1ProductHeroSection() {
             ))}
           </div>
 
-          {/* Disclaimer */}
-          <div className="rounded-[1rem] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
-            The statements on this page have not been evaluated by the Food and Drug Administration.
-            This product is not intended to diagnose, treat, cure or prevent any disease.
+          <div className="mb-6">
+            <h3 className="mb-4 text-base font-medium text-gray-900">
+              Related Products
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { id: "tirzepatide-injections", name: "Tirzepatide Injections", image: "/images/marketing/bundle/tirzepatide-injections-product.png" },
+                { id: "semaglutide-injections", name: "Semaglutide Injections", image: "/images/marketing/semaglutide.webp" },
+              ].map((product) => (
+                <Link
+                  key={product.id}
+                  href={`/${product.id}`}
+                  className="flex flex-col items-center rounded-[1rem] border border-gray-200 bg-white p-4 text-center shadow-sm"
+                >
+                  <div className="mb-3 flex aspect-square w-full items-center justify-center overflow-hidden rounded-[1rem]">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      loading="lazy"
+                      className="h-full max-h-[160px] w-full rounded-[1rem] object-contain"
+                    />
+                  </div>
+                  <span className="text-xs font-medium text-gray-500">
+                    {product.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
 
-          <div className="mt-3 space-y-2.5 text-[11px] leading-relaxed text-gray-600">
-            <p>
-              *Discounted first month applies to quarterly plan. Actual price depends on plan prescribed.
-              Final treatment fit depends on clinician review.
-            </p>
+          <div className="space-y-5">
+            <div className="rounded-[1rem] bg-gray-100 p-4 text-xs leading-relaxed text-gray-700">
+              The statements on this page have not been evaluated by the Food and Drug Administration.
+              This product is not intended to diagnose, treat, cure or prevent any disease.
+            </div>
+            <div className="space-y-2.5 text-[11px] leading-relaxed text-gray-600">
+              <p>
+                *Discounted first month applies to quarterly plan. Actual price depends on plan prescribed.
+                Final treatment fit depends on clinician review.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -1914,7 +1943,7 @@ function OralGLP1ClosingCTA() {
 
 export default function OralGLP1LandingPage({ product }) {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
+    <div className="min-h-screen overflow-x-clip bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
       <MinimalMarketingNavbar />
       <OralGLP1WillpowerSection />
       <OralGLP1ProductHeroSection />
@@ -1930,11 +1959,13 @@ export default function OralGLP1LandingPage({ product }) {
       <OralGLP1PromiseSection />
       <OralGLP1ResearchSection />
       <SimpleSteps productData={null} />
-      <MarketingTrustMarquee items={ORAL_GLP1_TRUST_ITEMS} edgeToEdge={false} />
       <div className="bg-[#f9f9f9] pt-10 md:pt-14">
         <OralGLP1UpgradeBanner />
       </div>
+      <CleanSimpleEffective productData={null} />
       <LabTested productData={null} />
+      <MarketingTrustMarquee items={ORAL_GLP1_TRUST_ITEMS} edgeToEdge={false} />
+      <SameMedicationSection planLabel="Personalized, clinically-proven oral GLP-1 plans" />
       <OralGLP1FAQSection />
       <SupportAvailabilitySection />
       <OralGLP1ClosingCTA />
