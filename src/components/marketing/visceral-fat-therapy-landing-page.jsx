@@ -35,6 +35,9 @@ import {
   SameMedicationSection,
   RelatedProductsSection,
   FDADisclaimerSection,
+  MediaLogosBanner,
+  RestoredTirzepatideBenefitsCarouselSection,
+  mergeProductContent,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/visceral-fat-therapy";
@@ -493,7 +496,7 @@ function VFProductHeroSection() {
             ))}
           </motion.div>
 
-          <div className="mb-6">
+          <div className="mb-6 mt-8">
             <h3 className="mb-4 text-base font-medium text-gray-900">
               Related Products
             </h3>
@@ -1260,71 +1263,68 @@ const VF_PAIN_CARDS = [
 
 function VFPainPointsSection() {
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-white py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <FadeIn className="text-center">
-          <p className="mb-2 font-playfair italic text-gray-400">Sound familiar?</p>
-          <h2 className="mb-3 font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
-            The belly that{" "}
-            <span className="font-playfair italic text-[#6D6FFC]">won&apos;t quit.</span>
-          </h2>
-          <p className="mx-auto mb-12 max-w-2xl text-base text-gray-600 md:text-lg">
-            If you&apos;ve done the work — the diet, the gym, the discipline — and the abdominal fat still won&apos;t move, it&apos;s not a willpower issue. It&apos;s a hormonal one.
-          </p>
-        </FadeIn>
+        <div className="mb-4 text-center">
+          <span className="inline-block rounded-full bg-[#f0eeff] px-4 py-1.5 text-sm font-semibold text-[#5b3cdd]">
+            Sound familiar?
+          </span>
+        </div>
+        <h2 className="mb-4 text-center text-3xl font-bold tracking-tight text-[#1c1a24] md:text-4xl lg:text-5xl">
+          The belly that{" "}
+          <span className="font-playfair italic text-[#6D6FFC]">won&apos;t quit.</span>
+        </h2>
+        <p className="mx-auto mb-12 max-w-[42rem] text-center text-lg leading-relaxed text-[#5d6169]">
+          If you&apos;ve done the work — the diet, the gym, the discipline — and the abdominal fat still won&apos;t move, it&apos;s not a willpower issue. It&apos;s a hormonal one.
+        </p>
 
-        <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain pl-4 pr-4 pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:overflow-visible md:p-0">
-          {VF_PAIN_CARDS.map((card, i) => (
-            <motion.div
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pl-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:overflow-visible sm:p-0 lg:grid-cols-4">
+          {VF_PAIN_CARDS.map((card) => (
+            <div
               key={card.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-              className="flex w-[75vw] shrink-0 snap-start snap-always md:w-auto md:shrink"
+              className="w-[75vw] shrink-0 snap-start sm:w-auto sm:shrink flex flex-col overflow-hidden rounded-[1.5rem] border border-[#ebebeb] bg-white shadow-sm"
             >
-              <motion.div
-                whileHover={{ y: -5, transition: { duration: 0.25 } }}
-                className="flex h-full w-full flex-col overflow-hidden rounded-2xl bg-[#F5F4FF] transition-shadow hover:shadow-lg"
-              >
-                <div className="relative h-48 overflow-hidden" style={{ backgroundColor: card.bg }}>
-                  <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.4 }} className="relative h-full w-full">
-                    <Image
-                      src={card.image}
-                      alt={card.title}
-                      fill
-                      sizes="(max-width: 768px) 80vw, 50vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#F5F4FF] via-[#F5F4FF]/10 to-transparent" />
-                  </motion.div>
-                </div>
-                <div className="flex-1 p-7">
-                    <h3 className="mb-4 text-lg font-bold text-gray-900">{card.title}</h3>
-                    <ul className="space-y-2">
-                      {card.bullets.map((b, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                          <X className="mt-0.5 h-4 w-4 shrink-0 text-[#6D6FFC]" />
-                          {b}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-              </motion.div>
-            </motion.div>
+              <div className="relative h-48 w-full overflow-hidden bg-[#f5f5f5]">
+                <Image
+                  src={card.image}
+                  alt={card.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="mb-4 text-base font-bold leading-snug text-[#1c1a24]">
+                  {card.title}
+                </h3>
+                <ul className="flex flex-col gap-3">
+                  {card.bullets.map((bullet) => (
+                    <li
+                      key={bullet}
+                      className="flex items-start gap-2.5 text-sm leading-snug text-[#5d6169]"
+                    >
+                      <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#ffe4e4] text-[#e53e3e]">
+                        <svg width="8" height="8" viewBox="0 0 10 10" fill="none">
+                          <line x1="2" y1="2" x2="8" y2="8" stroke="#e53e3e" strokeWidth="1.8" strokeLinecap="round" />
+                          <line x1="8" y1="2" x2="2" y2="8" stroke="#e53e3e" strokeWidth="1.8" strokeLinecap="round" />
+                        </svg>
+                      </span>
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           ))}
-          <div className="w-2 shrink-0 md:hidden" aria-hidden />
         </div>
 
         <div className="mt-10 text-center">
-          <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.15 }} className="inline-block">
-            <Link
-              href={CTA_HREF}
-              className="inline-flex items-center gap-2 rounded-full bg-[#6D6FFC] px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-[#5a5ce8]"
-            >
-              See if this protocol fits →
-            </Link>
-          </motion.div>
+          <Link
+            href={CTA_HREF}
+            className="inline-flex items-center gap-2 rounded-full bg-[#FF6B35] px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-[#e55a26]"
+          >
+            See if this protocol fits →
+          </Link>
         </div>
       </div>
     </section>
@@ -1878,7 +1878,7 @@ function VFClosingCTA() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-6 text-xs text-white/40"
         >
-          By starting, you agree to our terms &amp; privacy policy. Provider-prescribed when appropriate. 60-day money-back guarantee. Cancel anytime.
+          By starting, you agree to our terms &amp; privacy policy. Provider-prescribed when appropriate.
         </motion.p>
       </div>
     </section>
@@ -1890,18 +1890,22 @@ function VFClosingCTA() {
 /* ------------------------------------------------------------------ */
 
 export default function VisceralFatTherapyLandingPage({ product }) {
+  const productData = mergeProductContent(product);
+
   return (
     <div className="min-h-screen overflow-x-clip bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
       <MinimalMarketingNavbar />
       <VFWillpowerSection />
       <VFProductHeroSection />
+      <MediaLogosBanner />
+      <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="Visceral Fat Therapy Benefits" />
+      <VFPainPointsSection />
       <VFAudienceSection />
       <VFVisceralFatSection />
       <VFMechanismSection />
       <VFComparisonSection />
       <VFTimelineSection />
       <VFOutcomesSection />
-      <VFPainPointsSection />
       <VFPromiseSection />
       <VFResearchSection />
       <VFStepsSection />

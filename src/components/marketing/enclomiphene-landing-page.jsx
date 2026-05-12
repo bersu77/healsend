@@ -50,6 +50,8 @@ import {
   SameMedicationSection,
   RelatedProductsSection,
   FDADisclaimerSection,
+  MediaLogosBanner,
+  RestoredTirzepatideBenefitsCarouselSection,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/growth-hormone-support";
@@ -597,7 +599,7 @@ function EncloProductHeroSection() {
             ))}
           </div>
 
-          <div className="mb-6">
+          <div className="mb-6 mt-8">
             <h3 className="mb-4 text-base font-medium text-gray-900">
               Related Products
             </h3>
@@ -1501,22 +1503,22 @@ const TESTIMONIALS = [
 
 function TestimonialCard({ t }) {
   return (
-    <div className="flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-7 shadow-sm">
-      <div className="mb-4 flex gap-0.5 text-amber-400">
+    <div className="flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white p-4 shadow-sm md:p-7">
+      <div className="mb-2 flex gap-0.5 text-amber-400 md:mb-4">
         {[...Array(5)].map((_, i) => (
-          <Star key={i} className="h-4 w-4 fill-current" />
+          <Star key={i} className="h-3.5 w-3.5 fill-current md:h-4 md:w-4" />
         ))}
       </div>
-      <p className="mb-6 flex-1 font-title text-lg leading-relaxed text-gray-900">
+      <p className="mb-4 flex-1 break-words font-title text-sm leading-relaxed text-gray-900 md:mb-6 md:text-lg">
         &ldquo;{t.quote}&rdquo;
       </p>
-      <div className="flex items-center gap-3 border-t border-gray-50 pt-5">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#6D6FFC] text-sm font-semibold text-white">
+      <div className="flex items-center gap-2.5 border-t border-gray-50 pt-3 md:gap-3 md:pt-5">
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#6D6FFC] text-xs font-semibold text-white md:h-10 md:w-10 md:text-sm">
           {t.name.charAt(0)}
         </div>
         <div>
-          <p className="text-sm font-medium text-gray-900">{t.name}</p>
-          <p className="text-xs text-gray-400">{t.detail}</p>
+          <p className="text-xs font-medium text-gray-900 md:text-sm">{t.name}</p>
+          <p className="text-[10px] text-gray-400 md:text-xs">{t.detail}</p>
         </div>
         <span className="ml-auto flex items-center gap-1 text-[10px] font-semibold text-[#6D6FFC]">
           <Check className="h-3 w-3" /> Verified
@@ -1529,12 +1531,12 @@ function TestimonialCard({ t }) {
 function TestimonialsCarousel() {
   return (
     <>
-      {/* Mobile: vertical stack (no horizontal carousel) */}
-      <div className="flex flex-col gap-5 md:hidden">
+      {/* Mobile: horizontal scroll — one card at a time with peek */}
+      <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pl-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:hidden">
         {TESTIMONIALS.map((t) => (
-          <FadeIn key={t.name}>
+          <div key={t.name} className="w-[80vw] shrink-0 snap-start">
             <TestimonialCard t={t} />
-          </FadeIn>
+          </div>
         ))}
       </div>
 
@@ -1840,13 +1842,6 @@ function EncoClinicalResearchSection() {
               ))}
             </div>
 
-            <Link
-              href={CTA_HREF}
-              className="hs-outline-btn inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold"
-            >
-              Read the HealSend whitepaper <ArrowRight className="h-4 w-4" />
-            </Link>
-
             {/* Clinical reviewer strip */}
             <div className="mt-8 rounded-2xl bg-white p-5">
               <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-gray-400">
@@ -1953,7 +1948,7 @@ function EncoFinalCTASection() {
           Start free assessment <ArrowRight className="h-4 w-4" />
         </Link>
         <p className="mt-4 text-xs text-white/40">
-          By starting, you agree to our terms &amp; privacy policy. Doctor-prescribed only.
+          By starting, you agree to our terms &amp; privacy policy. Provider-prescribed when appropriate.
         </p>
       </div>
     </section>
@@ -1972,8 +1967,10 @@ export default function EnclomipheneLandingPage({ product }) {
       <MinimalMarketingNavbar />
       <EncloWillpowerSection />
       <EncloProductHeroSection />
+      <MediaLogosBanner />
       <EncoStatBarSection />
       <FadeIn><OurTreatmentsSection cards={TREATMENT_PLAN_CARDS.filter(c => c.id !== "enclomiphene")} /></FadeIn>
+      <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="Enclomiphene Benefits" />
       <FadeIn><EncoHowItWorksSection /></FadeIn>
       <FadeIn><EncoComparisonSection /></FadeIn>
       <FadeIn><EncoDailyProtocolSection /></FadeIn>

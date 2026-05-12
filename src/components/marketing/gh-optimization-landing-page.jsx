@@ -46,6 +46,10 @@ import {
   SameMedicationSection,
   RelatedProductsSection,
   FDADisclaimerSection,
+  MedicalPlanCard,
+  MediaLogosBanner,
+  RestoredTirzepatideBenefitsCarouselSection,
+  mergeProductContent,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/gh-optimization";
@@ -433,7 +437,7 @@ function GHProductHeroSection() {
             ))}
           </div>
 
-          <div className="mb-6">
+          <div className="mb-6 mt-8">
             <h3 className="mb-4 text-base font-medium text-gray-900">
               Related Products
             </h3>
@@ -483,137 +487,6 @@ function GHProductHeroSection() {
 
 /* ------------------------------------------------------------------ */
 /*  3. Savings Calculator                                              */
-/* ------------------------------------------------------------------ */
-
-function GHSavingsCalculatorSection() {
-  const STICKER_PRICE = 299;
-  const [federalBracket, setFederalBracket] = useState(24);
-  const [stateSavings, setStateSavings] = useState(10);
-
-  const totalTaxRate = (federalBracket + stateSavings) / 100;
-  const preTaxSavings = Math.round(STICKER_PRICE * totalTaxRate);
-  const realCost = STICKER_PRICE - preTaxSavings;
-  const annualSavings = preTaxSavings * 12;
-
-  return (
-    <section
-      className="py-16 md:py-24"
-      style={{ background: "linear-gradient(135deg, #4c3fd4 0%, #6b5ce7 50%, #7c6ef0 100%)" }}
-    >
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Left */}
-          <div>
-            <h2 className="mb-5 font-title text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
-              Your real cost,
-              <br />
-              <span className="font-playfair italic text-[#FF6B35]">
-                after HSA &amp; FSA savings.
-              </span>
-            </h2>
-            <p className="mb-5 text-base leading-relaxed text-white/80 md:text-lg">
-              Most members pay with pre-tax dollars through their HSA or FSA —
-              which means the real cost is{" "}
-              <strong className="text-white">significantly lower</strong> than the
-              sticker price. Drag the slider to see your specific savings.
-            </p>
-            <p className="text-sm leading-relaxed text-white/60">
-              No premium telehealth program is FSA-eligible by accident. We built
-              HealSend to qualify so you keep more of your money.
-            </p>
-          </div>
-
-          {/* Right — white card */}
-          <div className="rounded-3xl bg-white p-8 shadow-xl md:p-10">
-            <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-gray-400">
-              HSA / FSA SAVINGS CALCULATOR
-            </p>
-            <h3 className="mb-7 text-lg font-bold text-gray-900 md:text-xl">
-              What does GH optimization actually cost you?
-            </h3>
-
-            <div className="mb-6 space-y-6">
-              <div>
-                <div className="mb-2 flex items-center justify-between">
-                  <span className="text-sm font-medium text-gray-700">
-                    Your federal tax bracket
-                  </span>
-                  <span className="rounded-full bg-[#6D6FFC]/15 px-3 py-0.5 text-sm font-bold text-[#6D6FFC]">
-                    {federalBracket}%
-                  </span>
-                </div>
-                <input
-                  type="range"
-                  min={12}
-                  max={35}
-                  step={1}
-                  value={federalBracket}
-                  onChange={(e) => setFederalBracket(Number(e.target.value))}
-                  className="w-full cursor-pointer accent-[#6D6FFC]"
-                />
-                <div className="mt-1 flex justify-between text-xs text-gray-400">
-                  <span>12%</span>
-                  <span>22%</span>
-                  <span>24%</span>
-                  <span>32%</span>
-                  <span>35%</span>
-                </div>
-              </div>
-
-              <div>
-                <div className="mb-2 flex items-center justify-between">
-                  <span className="text-sm font-medium text-gray-700">
-                    State + payroll savings
-                  </span>
-                  <span className="rounded-full bg-[#6D6FFC]/15 px-3 py-0.5 text-sm font-bold text-[#6D6FFC]">
-                    {stateSavings}%
-                  </span>
-                </div>
-                <input
-                  type="range"
-                  min={0}
-                  max={12}
-                  step={1}
-                  value={stateSavings}
-                  onChange={(e) => setStateSavings(Number(e.target.value))}
-                  className="w-full cursor-pointer accent-[#6D6FFC]"
-                />
-                <div className="mt-1 flex justify-between text-xs text-gray-400">
-                  <span>0%</span>
-                  <span>6%</span>
-                  <span>12%</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Breakdown table */}
-            <div className="rounded-2xl bg-[#F7F8FA] p-5 text-sm">
-              <div className="flex justify-between py-2 text-gray-600">
-                <span>Sticker price (quarterly plan)</span>
-                <span>${STICKER_PRICE}/mo</span>
-              </div>
-              <div className="flex justify-between border-t border-gray-200 py-2 text-gray-600">
-                <span>
-                  Pre-tax savings ({federalBracket + stateSavings}%)
-                </span>
-                <span>−${preTaxSavings}/mo</span>
-              </div>
-              <div className="flex justify-between border-t border-gray-200 py-2.5 font-bold text-gray-900">
-                <span>Real cost to you</span>
-                <span>${realCost}/mo</span>
-              </div>
-              <div className="mt-2 flex justify-between rounded-xl bg-emerald-50 px-3 py-3 font-semibold text-emerald-700">
-                <span>You save</span>
-                <span>${annualSavings.toLocaleString()}/year</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ------------------------------------------------------------------ */
 /*  4. GH Decline Stats                                               */
 /* ------------------------------------------------------------------ */
@@ -884,210 +757,112 @@ function GHComparisonSection() {
 /*  7. Two Protocol Options                                           */
 /* ------------------------------------------------------------------ */
 
-const GH_OPTIONS = [
+const GH_PLAN_CARDS = [
   {
-    tag: "OPTION A",
-    title: "Sermorelin Monotherapy",
-    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80",
-    descriptionBullets: [
-      "Single-peptide GHRH analog — the gold standard starter",
-      "Short half-life mimics the body's natural pulsatile rhythm",
-      "Daily subcutaneous injection before bed",
-      "Clinician access + quarterly IGF-1 monitoring",
+    id: "gh-sermorelin",
+    headerClass: "bg-gradient-to-br from-blue-500/20 to-cyan-500/20",
+    headerTextClass: "text-[#101726]",
+    useFullImage: false,
+    badges: ["Best First Step", "GH Optimization"],
+    title: "Sermorelin\nMonotherapy",
+    subtitle: "Single-peptide GHRH analog",
+    image: "/images/marketing/bundle/sermorelin-product.png",
+    bulletsHeading: "MEMBER RESULTS",
+    bullets: [
+      { icon: Moon, text: "Improved sleep quality within 3–4 weeks" },
+      { icon: ShieldCheck, text: "Mimics your body's natural pulsatile GH rhythm" },
+      { icon: Stethoscope, text: "Clinician access + quarterly IGF-1 monitoring" },
     ],
-    price: 149,
-    originalPrice: 199,
-    featured: false,
-    checks: [
-      "Sermorelin 200–500mcg nightly",
-      "Quarterly IGF-1 blood panel",
-      "Clinician access included",
+    primaryCta: "Start Sermorelin",
+    secondaryCta: "Why Sermorelin?",
+    href: CTA_HREF,
+    description: "The gold standard starter. Short half-life mimics the body's natural rhythm. Daily subcutaneous injection before bed.",
+    whyItWorks: [
+      "Sermorelin 200–500mcg nightly dosing",
+      "Quarterly IGF-1 blood panel included",
       "Supplies & injection kit included",
     ],
-    crosses: ["No GHRP co-agonist synergy", "No ipamorelin blending"],
-    orangePlus: [],
-    cta: "Start Sermorelin",
-    footnote: "Cancel anytime · No surprise renewals",
-    ctaClass: "border border-[#6D6FFC] text-[#6D6FFC] hover:bg-[#6D6FFC] hover:text-white",
+    bestFor: [
+      "First-time peptide users starting GH optimization",
+      "Members who want a gentle, proven protocol",
+    ],
   },
   {
-    tag: "OPTION B",
-    title: "CJC-1295 + Ipamorelin Combo",
-    image: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=800&q=80",
-    descriptionBullets: [
-      "Dual-peptide stack: GHRH + GHRP for amplified GH pulse",
-      "CJC-1295 extends half-life for sustained GH elevation",
-      "Ipamorelin adds selective GH release without cortisol spike",
-      "Most effective for body recomp and sleep quality",
+    id: "gh-combo",
+    headerClass: "bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20",
+    headerTextClass: "text-[#101726]",
+    useFullImage: false,
+    badges: ["Most Popular", "Dual-Peptide Stack"],
+    title: "CJC-1295 +\nIpamorelin",
+    subtitle: "GHRH + GHRP amplified GH protocol",
+    image: "/images/marketing/bundle/sermorelin-product.png",
+    bulletsHeading: "MEMBER RESULTS",
+    bullets: [
+      { icon: Dumbbell, text: "Most effective for body recomp and lean mass gains" },
+      { icon: TrendingUp, text: "Amplified GH pulse — faster IGF-1 response" },
+      { icon: FlaskConical, text: "Quarterly labs + bi-monthly clinician check-ins" },
     ],
-    price: 249,
-    originalPrice: 349,
-    featured: true,
-    checks: [
-      "CJC-1295 without DAC + Ipamorelin blend",
-      "2x daily or nightly dosing — clinician-set",
-      "Amplified GH pulse amplitude vs. sermorelin alone",
-      "Designed for faster IGF-1 response",
-      "Quarterly labs + bi-monthly clinician check-ins",
+    primaryCta: "Start CJC + Ipamorelin",
+    secondaryCta: "Why This Combo?",
+    href: CTA_HREF,
+    description: "Dual-peptide stack: CJC-1295 extends half-life for sustained GH elevation while Ipamorelin adds selective GH release without cortisol spike.",
+    whyItWorks: [
+      "GH pulse synergy via GHRH + GHRP dual-pathway",
+      "Better body recomposition results per published data",
+      "Designed for faster IGF-1 response vs. sermorelin alone",
     ],
-    crosses: [],
-    orangePlus: [
-      "+ GH pulse synergy via GHRH + GHRP dual-pathway",
-      "+ Better body recomposition results per published data",
+    bestFor: [
+      "Members who want faster, more visible results",
+      "Anyone focused on body recomp and sleep quality",
     ],
-    cta: "Start CJC + Ipamorelin",
-    footnote: "Most popular combo · Cancel anytime",
-    ctaClass: "bg-[#1a1a2e] text-white hover:bg-[#2d2d4e]",
   },
 ];
 
-function GHOptionCard({ option }) {
-  const [expanded, setExpanded] = useState(false);
-  const hasFeatures = option.checks.length + option.orangePlus.length + option.crosses.length > 0;
-
-  return (
-    <div className="relative flex flex-col">
-      {option.featured && (
-        <div className="absolute -top-4 left-1/2 z-10 -translate-x-1/2">
-          <span className="inline-block rounded-full bg-[#FF6B35] px-5 py-1.5 text-xs font-bold uppercase tracking-wide text-white shadow">
-            Most Members Choose This
-          </span>
-        </div>
-      )}
-      <div
-        className={`flex flex-col overflow-hidden rounded-3xl border bg-white shadow-sm ${
-          option.featured
-            ? "border-2 border-[#6D6FFC] ring-4 ring-[#6D6FFC]/10"
-            : "border-gray-200"
-        } ${option.featured ? "pt-4" : ""}`}
-      >
-        <div className="flex flex-col p-6 md:p-7">
-          <p className="mb-1 text-xs font-bold uppercase tracking-widest text-[#6D6FFC]">
-            {option.tag}
-          </p>
-          <h3 className="mb-3 min-h-[4rem] font-title text-2xl font-bold text-gray-900">
-            {option.title}
-          </h3>
-
-          <div className="relative mb-4 h-48 w-full overflow-hidden rounded-xl">
-            <Image
-              src={option.image}
-              alt={option.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 600px"
-            />
-          </div>
-
-          <ul className="mb-5 space-y-2">
-            {option.descriptionBullets.map((bullet) => (
-              <li key={bullet} className="flex items-start gap-2.5 text-sm text-gray-600">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#6D6FFC]" />
-                {bullet}
-              </li>
-            ))}
-          </ul>
-
-          <div className="mb-5 flex items-baseline gap-2">
-            <span className="font-title text-4xl font-bold text-gray-900">${option.price}</span>
-            <span className="text-sm text-gray-500">/mo</span>
-            <span className="text-sm text-gray-400 line-through">${option.originalPrice}</span>
-          </div>
-
-          <Link
-            href={CTA_HREF}
-            className={`flex items-center justify-center rounded-full py-3.5 text-sm font-semibold transition ${option.ctaClass}`}
-          >
-            {option.cta}
-          </Link>
-          <p className="mt-2 text-center text-xs text-gray-400">{option.footnote}</p>
-
-          {hasFeatures && (
-            <>
-              <button
-                type="button"
-                onClick={() => setExpanded((v) => !v)}
-                className="mt-3 flex w-full items-center justify-center gap-1.5 text-sm text-[#6D6FFC] transition hover:opacity-70"
-              >
-                <span>{expanded ? "Hide details" : "See what's included"}</span>
-                <motion.span
-                  animate={{ rotate: expanded ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="inline-block"
-                >
-                  <ChevronDown className="h-4 w-4" />
-                </motion.span>
-              </button>
-
-              <AnimatePresence initial={false}>
-                {expanded && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="overflow-hidden"
-                  >
-                    <ul className="space-y-2.5 pt-4">
-                      {option.checks.map((f) => (
-                        <li key={f} className="flex items-start gap-2 text-sm text-gray-700">
-                          <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]">
-                            <Check className="h-2.5 w-2.5 text-white" strokeWidth={3} />
-                          </span>
-                          {f}
-                        </li>
-                      ))}
-                      {option.orangePlus.map((f) => (
-                        <li key={f} className="flex items-start gap-2 text-sm font-medium text-[#FF6B35]">
-                          <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#FF6B35]">
-                            <span className="text-[8px] font-bold text-white">+</span>
-                          </span>
-                          {f}
-                        </li>
-                      ))}
-                      {option.crosses.map((f) => (
-                        <li key={f} className="flex items-start gap-2 text-sm text-gray-400">
-                          <XIcon className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={2} />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function GHTwoOptionsSection() {
+  const [expandedId, setExpandedId] = useState(null);
+
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-[#f9f9f9] py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="mb-12 text-center md:mb-16">
-          <span className="mb-4 inline-block rounded-full bg-[#F1F5F9] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC]">
-            Choose Your Protocol
-          </span>
-          <h2 className="mb-3 font-title text-4xl font-bold text-gray-900 md:text-5xl">
-            Two clinically-guided
-          </h2>
-          <p className="font-playfair text-3xl italic text-[#6D6FFC] md:text-4xl">
-            GH protocols.
-          </p>
-          <p className="mx-auto mt-5 max-w-[640px] text-base text-gray-600">
-            Your clinician will help you choose based on your IGF-1 baseline, goals, and health history.
-            Most members who want faster results choose the CJC + Ipamorelin combo.
-          </p>
+        <div className="mb-10 grid grid-cols-1 gap-8 md:mb-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-x-8 xl:gap-x-12">
+          <div className="min-w-0">
+            <h2 className="font-title text-3xl font-bold leading-[1.05] tracking-tight text-gray-950 sm:text-4xl lg:text-[2.625rem]">
+              Two clinically-guided
+            </h2>
+            <p className="mt-2 font-playfair text-2xl italic leading-tight text-[#5d62f3] sm:text-3xl">
+              GH protocols.
+            </p>
+            <p className="mt-5 max-w-3xl text-base leading-7 text-[#474257] md:text-lg">
+              Your clinician will help you choose based on your IGF-1 baseline, goals, and health history.
+            </p>
+          </div>
+          <div className="flex w-full flex-wrap items-center justify-center gap-3 sm:gap-4 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end lg:pt-1">
+            <div className="flex min-w-0 flex-initial items-center justify-center">
+              <div className="relative flex items-center">
+                <img src="/images/clean/image.png" alt="" aria-hidden="true" className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
+                <img src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`} alt="Google reviews rating" loading="lazy" className="z-10 -ml-2 -mr-1 h-auto max-h-[40px] w-[120px] object-contain mix-blend-multiply sm:-ml-3 sm:-mr-2 sm:max-h-[50px] sm:w-[140px] md:max-h-[55px] md:w-[150px] lg:-ml-4 lg:-mr-2 lg:max-h-[60px] lg:w-[160px]" />
+                <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
+              </div>
+            </div>
+            <div className="flex min-w-0 flex-initial items-center justify-center">
+              <div className="relative flex items-center">
+                <img src="/images/clean/image.png" alt="" aria-hidden="true" className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
+                <img src="/images/healsend-2k-members-trust.png" alt="HealSend — 2K+ members" loading="lazy" className="z-10 -mx-5 h-auto max-h-[50px] w-[150px] shrink-0 object-contain sm:-mx-6 sm:max-h-[60px] sm:w-[170px] md:-mx-7 md:max-h-[65px] md:w-[180px] lg:-mx-8 lg:max-h-[70px] lg:w-[200px]" />
+                <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="grid items-start gap-6 lg:grid-cols-2 lg:max-w-[860px] lg:mx-auto">
-          {GH_OPTIONS.map((option) => (
-            <FadeIn key={option.tag}>
-              <GHOptionCard option={option} />
-            </FadeIn>
+        <div className="mx-auto grid max-w-[1200px] items-start gap-7 sm:gap-8 lg:grid-cols-2 lg:gap-10">
+          {GH_PLAN_CARDS.map((plan) => (
+            <MedicalPlanCard
+              key={plan.id}
+              plan={plan}
+              ctaHref={plan.href}
+              expanded={expandedId === plan.id}
+              onToggleExpand={() => setExpandedId(expandedId === plan.id ? null : plan.id)}
+            />
           ))}
         </div>
       </div>
@@ -1322,6 +1097,7 @@ function GHIGFChartSection() {
 const GH_PAIN_CARDS = [
   {
     title: "You train hard but recovery takes longer than it used to.",
+    image: "/images/negative-sell/negative_1.webp",
     bullets: [
       "Soreness lasts 3 days instead of 1. You're not doing less — your GH is.",
       "Muscle gains plateau despite consistent effort.",
@@ -1329,6 +1105,7 @@ const GH_PAIN_CARDS = [
   },
   {
     title: "Your body composition shifted without changing habits.",
+    image: "/images/negative-sell/negative_2.jpeg",
     bullets: [
       "More fat around the midsection. Less lean mass in the mirror.",
       "Diet and training are the same — but the results aren't.",
@@ -1336,6 +1113,7 @@ const GH_PAIN_CARDS = [
   },
   {
     title: "Sleep stopped feeling like recovery.",
+    image: "/images/negative-sell/negative_3.jpg",
     bullets: [
       "You wake up tired. Deep sleep is shorter than it used to be.",
       "GH is secreted almost entirely during deep sleep — and you're getting less of it.",
@@ -1343,6 +1121,7 @@ const GH_PAIN_CARDS = [
   },
   {
     title: "Energy and drive dropped quietly over the years.",
+    image: "/images/negative-sell/negative_4.webp",
     bullets: [
       "Not burned out. Not depressed. Just operating at 70% of what you used to.",
       "This is what low-GH feels like — and most people think it's just aging.",
@@ -1352,35 +1131,59 @@ const GH_PAIN_CARDS = [
 
 function GHPainPointsSection() {
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-20">
+    <section className="bg-white py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="mx-auto mb-12 max-w-[640px] text-center md:mb-16">
-          <p className="mb-3 font-playfair text-lg italic text-gray-600">Sound familiar?</p>
-          <h2 className="mb-3 font-title text-4xl font-bold text-gray-900 md:text-5xl">
-            Grinding harder with{" "}
-            <span className="font-playfair italic text-[#6D6FFC]">less to show.</span>
-          </h2>
-          <p className="text-base text-gray-600">
-            Declining GH isn&apos;t a willpower problem. It&apos;s a signaling problem. And a
-            signaling problem has a signaling solution.
-          </p>
+        <div className="mb-4 text-center">
+          <span className="inline-block rounded-full bg-[#f0eeff] px-4 py-1.5 text-sm font-semibold text-[#5b3cdd]">
+            Sound familiar?
+          </span>
         </div>
+        <h2 className="mb-4 text-center text-3xl font-bold tracking-tight text-[#1c1a24] md:text-4xl lg:text-5xl">
+          Grinding harder with{" "}
+          <span className="font-playfair italic text-[#6D6FFC]">less to show.</span>
+        </h2>
+        <p className="mx-auto mb-12 max-w-[42rem] text-center text-lg leading-relaxed text-[#5d6169]">
+          Declining GH isn&apos;t a willpower problem. It&apos;s a signaling problem. And a
+          signaling problem has a signaling solution.
+        </p>
 
-        <div className="grid gap-5 md:grid-cols-2">
-          {GH_PAIN_CARDS.map((c) => (
-            <FadeIn key={c.title}>
-              <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
-                <h3 className="mb-4 font-title text-xl font-bold text-gray-900">{c.title}</h3>
-                <ul className="space-y-2">
-                  {c.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-2 text-sm text-gray-600 md:text-base">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FF6B35]" />
-                      {b}
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pl-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:overflow-visible sm:p-0 lg:grid-cols-4">
+          {GH_PAIN_CARDS.map((card) => (
+            <div
+              key={card.title}
+              className="w-[75vw] shrink-0 snap-start sm:w-auto sm:shrink flex flex-col overflow-hidden rounded-[1.5rem] border border-[#ebebeb] bg-white shadow-sm"
+            >
+              <div className="relative h-48 w-full overflow-hidden bg-[#f5f5f5]">
+                <Image
+                  src={card.image}
+                  alt={card.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="mb-4 text-base font-bold leading-snug text-[#1c1a24]">
+                  {card.title}
+                </h3>
+                <ul className="flex flex-col gap-3">
+                  {card.bullets.map((bullet) => (
+                    <li
+                      key={bullet}
+                      className="flex items-start gap-2.5 text-sm leading-snug text-[#5d6169]"
+                    >
+                      <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#ffe4e4] text-[#e53e3e]">
+                        <svg width="8" height="8" viewBox="0 0 10 10" fill="none">
+                          <line x1="2" y1="2" x2="8" y2="8" stroke="#e53e3e" strokeWidth="1.8" strokeLinecap="round" />
+                          <line x1="8" y1="2" x2="2" y2="8" stroke="#e53e3e" strokeWidth="1.8" strokeLinecap="round" />
+                        </svg>
+                      </span>
+                      {bullet}
                     </li>
                   ))}
                 </ul>
               </div>
-            </FadeIn>
+            </div>
           ))}
         </div>
 
@@ -1514,34 +1317,92 @@ function GHLabResultsSection() {
 /* ------------------------------------------------------------------ */
 
 function GHPromiseSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: false, margin: "-100px" });
+
   return (
-    <section className="bg-[#F1F5F9] pb-8 pt-0 md:pb-10">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="flex flex-col items-start gap-6 rounded-3xl border border-[#6D6FFC]/30 bg-white p-8 shadow-sm md:flex-row md:items-center md:gap-10 md:p-10">
-          <div className="flex h-24 w-24 shrink-0 flex-col items-center justify-center rounded-full border-2 border-[#6D6FFC]">
-            <span className="font-title text-2xl font-bold text-[#6D6FFC]">90</span>
-            <span className="text-[9px] font-bold uppercase tracking-widest text-[#6D6FFC]">
-              Day Promise
-            </span>
-          </div>
-          <div className="flex-1">
-            <h3 className="mb-2 font-title text-xl font-bold leading-snug text-gray-900 md:text-2xl">
-              If your IGF-1 doesn&apos;t move in 90 days,{" "}
-              <span className="font-playfair italic text-[#6D6FFC]">your first month is free.</span>
-            </h3>
-            <p className="mb-4 text-sm leading-relaxed text-gray-600 md:text-base">
-              We believe in this protocol. If your 90-day IGF-1 recheck shows no meaningful
-              improvement from baseline, we&apos;ll refund your first month — no retention scripts,
-              no fine print. Email us and it&apos;s done.
-            </p>
-            <Link
-              href={CTA_HREF}
-              className="text-sm font-semibold text-[#6D6FFC] underline underline-offset-4 hover:text-[#5b3cdd]"
-            >
-              Read the full guarantee →
-            </Link>
-          </div>
-        </div>
+    <section ref={ref} className="relative overflow-hidden bg-[#0d0d1a] py-20 md:py-28">
+      <motion.div
+        className="pointer-events-none absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ duration: 1.2 }}
+      >
+        <motion.div
+          className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#6D6FFC]/10 blur-[120px]"
+          animate={inView ? { scale: [1, 1.15, 1], opacity: [0.6, 1, 0.6] } : {}}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#6D6FFC]/10"
+          animate={inView ? { scale: [1, 1.6], opacity: [0.4, 0] } : {}}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeOut", repeatDelay: 1 }}
+        />
+      </motion.div>
+
+      <div className="relative mx-auto max-w-[800px] px-4 text-center md:px-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.6, filter: "blur(16px)" }}
+          animate={inView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="relative"
+        >
+          <span className="font-title text-8xl font-black tracking-tight text-white md:text-9xl">
+            90
+          </span>
+          <motion.p
+            initial={{ opacity: 0, letterSpacing: "0.5em" }}
+            animate={inView ? { opacity: 1, letterSpacing: "0.25em" } : {}}
+            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+            className="mt-1 text-sm font-semibold uppercase text-[#6D6FFC]"
+          >
+            Day Promise
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={inView ? { scaleX: 1, opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="relative mx-auto my-8 origin-center"
+        >
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-[#6D6FFC] to-transparent" />
+          <div className="absolute inset-0 h-px w-24 bg-gradient-to-r from-transparent via-[#6D6FFC] to-transparent blur-sm" />
+        </motion.div>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-4 font-title text-2xl font-bold leading-snug text-white md:text-3xl"
+        >
+          If your IGF-1 doesn&apos;t move in 90 days,{" "}
+          <span className="font-playfair italic text-[#6D6FFC]">first month free.</span>
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.85 }}
+          className="mb-8 text-sm text-white/40"
+        >
+          No fine print. No retention scripts.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          whileHover={{ scale: 1.06 }}
+          whileTap={{ scale: 0.96 }}
+          transition={{ duration: 0.8, delay: 1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Link
+            href={CTA_HREF}
+            className="inline-flex items-center gap-2 rounded-full bg-[#6D6FFC] px-8 py-4 text-base font-semibold text-white shadow-[0_8px_32px_rgba(109,111,252,0.35)] transition hover:bg-[#5a5ce8] hover:shadow-[0_8px_40px_rgba(109,111,252,0.5)]"
+          >
+            Start consultation →
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
@@ -1599,13 +1460,6 @@ function GHResearchSection() {
                   </div>
                 ))}
               </div>
-
-              <Link
-                href={CTA_HREF}
-                className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#6D6FFC] px-6 py-2.5 text-sm font-semibold text-[#6D6FFC] transition hover:bg-[#6D6FFC] hover:text-white"
-              >
-                Read the HealSend whitepaper →
-              </Link>
 
               <div className="rounded-2xl border border-gray-100 bg-gray-50 p-5">
                 <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-gray-400">
@@ -2015,7 +1869,7 @@ function GHClosingCTA() {
         </Link>
         <p className="mt-6 text-xs text-white/40">
           By starting, you agree to our terms &amp; privacy policy. Provider-prescribed when
-          appropriate. 90-day money-back guarantee. Cancel anytime.
+          appropriate.
         </p>
       </div>
     </section>
@@ -2027,20 +1881,23 @@ function GHClosingCTA() {
 /* ------------------------------------------------------------------ */
 
 export default function GHOptimizationLandingPage({ product }) {
+  const productData = mergeProductContent(product);
+
   return (
     <div className="min-h-screen overflow-x-clip bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
       <MinimalMarketingNavbar />
       <GHWillpowerSection />
       <GHProductHeroSection />
-      <GHSavingsCalculatorSection />
+      <MediaLogosBanner />
       <GHDeclineStatsSection />
+      <GHPainPointsSection />
+      <GHLabResultsSection />
       <GHHowItWorksSection />
       <GHComparisonSection />
       <GHTwoOptionsSection />
+      <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="Growth Hormone Optimization Benefits" />
       <GHTrackLevelsSection />
       <GHIGFChartSection />
-      <GHPainPointsSection />
-      <GHLabResultsSection />
       <GHPromiseSection />
       <GHResearchSection />
       <GHStepsSection />

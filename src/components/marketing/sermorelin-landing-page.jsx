@@ -36,6 +36,9 @@ import {
   SameMedicationSection,
   RelatedProductsSection,
   FDADisclaimerSection,
+  MediaLogosBanner,
+  RestoredTirzepatideBenefitsCarouselSection,
+  mergeProductContent,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/sermorelin";
@@ -444,7 +447,7 @@ function SermorelinProductHeroSection() {
             ))}
           </div>
 
-          <div className="mb-6">
+          <div className="mb-6 mt-8">
             <h3 className="mb-4 text-base font-medium text-gray-900">
               Related Products
             </h3>
@@ -688,14 +691,14 @@ function SermorelinComparisonSection() {
         </div>
 
         <FadeIn>
-          <div className="overflow-hidden rounded-3xl bg-white shadow-sm">
-            <div className="overflow-x-auto">
+          <div className="rounded-3xl bg-white shadow-sm">
+            <div className="overflow-x-auto rounded-3xl pt-3">
               <table className="w-full min-w-[640px]">
                 <thead>
                   <tr>
                     <th className="w-1/4 p-4" />
                     <th className="relative w-1/4 bg-[#6D6FFC] p-4 text-center">
-                      <span className="absolute -top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-[#FF6B35] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+                      <span className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-[#FF6B35] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
                         Best for First-Timers
                       </span>
                       <span className="text-sm font-bold uppercase tracking-wider text-white">
@@ -1214,11 +1217,11 @@ function SermorelinPainPointsSection() {
           the gentlest, most accessible option available.
         </p>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pl-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:overflow-visible sm:p-0 lg:grid-cols-4">
           {PAIN_POINT_CARDS.map((card) => (
             <div
               key={card.title}
-              className="flex flex-col overflow-hidden rounded-[1.5rem] border border-[#ebebeb] bg-white shadow-sm"
+              className="w-[75vw] shrink-0 snap-start sm:w-auto sm:shrink flex flex-col overflow-hidden rounded-[1.5rem] border border-[#ebebeb] bg-white shadow-sm"
             >
               <div className="relative h-48 w-full overflow-hidden bg-[#f5f5f5]">
                 <Image
@@ -1374,15 +1377,6 @@ function SermorelinResearchSection() {
                   <span className="text-gray-600">{study.text}</span>
                 </div>
               ))}
-            </div>
-
-            <div className="mb-6">
-              <Link
-                href={CTA_HREF}
-                className="inline-flex items-center gap-2 rounded-full border border-gray-300 px-6 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50"
-              >
-                Read the HealSend whitepaper →
-              </Link>
             </div>
 
             <div className="flex items-center gap-3 rounded-2xl border border-gray-200 bg-white px-5 py-4">
@@ -1726,8 +1720,7 @@ function SermorelinClosingCTA() {
         </Link>
         <p className="mt-6 text-xs text-white/40">
           By starting, you agree to our terms &amp; privacy policy.
-          Provider-prescribed when appropriate. 60-day money-back guarantee.
-          Cancel anytime.
+          Provider-prescribed when appropriate.
         </p>
       </div>
     </section>
@@ -1739,13 +1732,17 @@ function SermorelinClosingCTA() {
 /* ------------------------------------------------------------------ */
 
 export default function SermorelinLandingPage({ product }) {
+  const productData = mergeProductContent(product);
+
   return (
     <div className="min-h-screen overflow-x-clip bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
       <MinimalMarketingNavbar />
       <SermorelinWillpowerSection />
       <SermorelinProductHeroSection />
+      <MediaLogosBanner />
       <SermorelinWhySection />
       <SermorelinComparisonSection />
+      <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="Sermorelin Benefits" />
       <SermorelinMechanismSection />
       <SermorelinOutcomesSection />
       <SermorelinTimelineSection />

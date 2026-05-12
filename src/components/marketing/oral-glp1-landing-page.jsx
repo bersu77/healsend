@@ -17,7 +17,10 @@ import {
   ShieldCheck,
   Sparkles,
   Stethoscope,
+  Target,
+  TrendingUp,
   Truck,
+  Zap,
 } from "lucide-react";
 import {
   MinimalMarketingNavbar,
@@ -36,6 +39,10 @@ import {
   SameMedicationSection,
   RelatedProductsSection,
   FDADisclaimerSection,
+  MedicalPlanCard,
+  MediaLogosBanner,
+  RestoredTirzepatideBenefitsCarouselSection,
+  mergeProductContent,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/oral-glp-1";
@@ -464,7 +471,7 @@ function OralGLP1ProductHeroSection() {
             ))}
           </div>
 
-          <div className="mb-6">
+          <div className="mb-6 mt-8">
             <h3 className="mb-4 text-base font-medium text-gray-900">
               Related Products
             </h3>
@@ -648,181 +655,121 @@ function OralGLP1WhyNowSection() {
 /*  4. Two Options                                                     */
 /* ------------------------------------------------------------------ */
 
+const ORAL_GLP1_PLAN_CARDS = [
+  {
+    id: "oral-orforglipron",
+    headerClass: "bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20",
+    headerTextClass: "text-[#101726]",
+    useFullImage: false,
+    badges: ["2025 · Newest", "Highest Efficacy"],
+    title: "Orforglipron\n+ B6",
+    subtitle: "Once-daily oral · No food restrictions",
+    image: "/images/marketing/bundle/tirzepatide-injections-product.png",
+    bulletsHeading: "MEMBER RESULTS",
+    bullets: [
+      { icon: TrendingUp, text: "Up to 12.4% weight loss at 72 weeks (ATTAIN-1 trial)" },
+      { icon: Zap, text: "B6 added to reduce nausea — designed for GI tolerability" },
+      { icon: PillBottle, text: "Daily oral pill · zero needles · zero cold-chain" },
+    ],
+    primaryCta: "Start Orforglipron + B6",
+    secondaryCta: "Why Orforglipron?",
+    href: CTA_HREF,
+    description: "Newest small-molecule oral GLP-1, phase 3 published in NEJM (2025). No fasting, no timing rules — take any time, with or without food.",
+    whyItWorks: [
+      "Highest patient-reported efficacy in our member data",
+      "No fasting or timing rules — take any time",
+      "Quarterly progress check-ins included",
+    ],
+    bestFor: [
+      "Members who want the newest, most effective oral option",
+      "Anyone who wants zero needles with maximum results",
+    ],
+  },
+  {
+    id: "oral-semaglutide",
+    headerClass: "bg-gradient-to-br from-emerald-500/20 to-teal-500/20",
+    headerTextClass: "text-[#101726]",
+    useFullImage: false,
+    badges: ["Established", "Best First Step"],
+    title: "Semaglutide\nRDT",
+    subtitle: "Once-daily rapid-dissolve tablet · Compounded",
+    image: "/images/marketing/bundle/tirzepatide-injections-product.png",
+    bulletsHeading: "MEMBER RESULTS",
+    bullets: [
+      { icon: ShieldCheck, text: "Same active compound as Wegovy / Ozempic — oral form" },
+      { icon: Target, text: "Established efficacy & safety across millions of users" },
+      { icon: Sparkles, text: "Most accessible price point for oral GLP-1" },
+    ],
+    primaryCta: "Start Semaglutide RDT",
+    secondaryCta: "Why Sema?",
+    href: CTA_HREF,
+    description: "Same active compound as Wegovy/Ozempic in oral rapid-dissolve form. Designed for sublingual absorption — fast-acting, predictable.",
+    whyItWorks: [
+      "Established efficacy & safety profile",
+      "Designed for sublingual absorption",
+      "Quarterly progress check-ins included",
+    ],
+    bestFor: [
+      "Cost-conscious members who want proven results",
+      "Anyone new to GLP-1 therapy",
+    ],
+  },
+];
+
 function OralGLP1TwoOptionsSection() {
+  const [expandedId, setExpandedId] = useState(null);
+
   return (
-    <section className="bg-[#F1F0FF] py-16 md:py-24">
+    <section className="bg-[#f9f9f9] py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <FadeIn className="text-center">
-          <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#6D6FFC]/20 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC] shadow-sm">
-            Two Oral Protocols · One Personalized Plan
-          </span>
-          <h2 className="mb-3 font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
-            Newest tech.
-            <br />
-            <span className="font-playfair italic text-[#6D6FFC]">Or proven classic.</span>
-          </h2>
-          <p className="mx-auto mb-12 max-w-2xl text-base text-gray-600 md:text-lg">
-            Both are once-daily oral protocols. Both are clinically guided and provider-prescribed
-            when appropriate. The choice is between newest-generation efficacy (Orforglipron + B6)
-            and established familiarity (Semaglutide RDT).
-          </p>
-        </FadeIn>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          {/* Orforglipron card */}
-          <FadeIn>
-            <div className="flex h-full flex-col overflow-hidden rounded-2xl border-2 border-[#6D6FFC] bg-white shadow-md">
-              {/* Image */}
-              <div className="relative h-52 bg-[#E8E3FF]">
-                <Image
-                  src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80"
-                  alt="Orforglipron + B6 oral tablet"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                <div className="absolute bottom-3 left-4 flex flex-wrap gap-2">
-                  <span className="rounded-full bg-[#FF6B35] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow">
-                    2025 · Newest
-                  </span>
-                  <span className="rounded-full border border-white bg-white/20 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
-                    Highest Efficacy
-                  </span>
-                </div>
-              </div>
-              {/* Content */}
-              <div className="flex flex-1 flex-col p-7 md:p-8">
-                <h3 className="text-2xl font-bold text-gray-900">Orforglipron + B6</h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  Once-daily oral · No food restrictions · B6 for nausea support
-                </p>
-                <div className="mt-5 flex items-baseline gap-2">
-                  <span className="text-4xl font-bold text-gray-900">$349</span>
-                  <span className="text-lg font-medium text-gray-500">/mo</span>
-                  <span className="text-base text-gray-400 line-through">$429</span>
-                </div>
-
-                <ul className="mt-6 flex flex-col gap-4">
-                  {[
-                    { orange: false, text: "Newest small-molecule oral GLP-1", sub: "phase 3 published in NEJM (2025)" },
-                    { orange: false, text: "Up to 12.4% weight loss", sub: "at 72 weeks in ATTAIN-1 trial" },
-                    { orange: true, text: "B6 added to reduce nausea", sub: "designed to help GI tolerability" },
-                    { orange: true, text: "No fasting / no timing rules", sub: "take any time, with or without food" },
-                    { orange: true, text: "Highest patient-reported efficacy", sub: "in our member data" },
-                    { orange: false, text: "Daily oral pill · zero needles · zero cold-chain", sub: null },
-                    { orange: false, text: "Quarterly progress check-ins included", sub: null },
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-[0.925rem] leading-snug">
-                      {item.orange ? (
-                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#FF6B35] text-[10px] font-bold text-white">
-                          +
-                        </span>
-                      ) : (
-                        <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]">
-                          <Check className="h-3 w-3 text-white" strokeWidth={3} />
-                        </div>
-                      )}
-                      <span>
-                        <strong className="text-gray-900">{item.text}</strong>
-                        {item.sub && (
-                          <span className={item.orange ? " text-[#6D6FFC]" : " text-gray-500"}>
-                            {" "}— {item.sub}
-                          </span>
-                        )}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Link
-                  href={CTA_HREF}
-                  className="mt-auto pt-8 flex w-full items-center justify-center rounded-full bg-[#3d35b5] py-4 text-base font-semibold text-white transition hover:bg-[#2d278f]"
-                >
-                  Start Orforglipron + B6
-                </Link>
-                <p className="mt-3 text-center text-xs text-gray-400">Most chosen · Cancel anytime</p>
+        <div className="mb-10 grid grid-cols-1 gap-8 md:mb-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-x-8 xl:gap-x-12">
+          <div className="min-w-0">
+            <h2 className="font-title text-3xl font-bold leading-[1.05] tracking-tight text-gray-950 sm:text-4xl lg:text-[2.625rem]">
+              Newest tech.
+            </h2>
+            <p className="mt-2 font-playfair text-2xl italic leading-tight text-[#5d62f3] sm:text-3xl">
+              Or proven classic.
+            </p>
+            <p className="mt-5 max-w-3xl text-base leading-7 text-[#474257] md:text-lg">
+              Both are once-daily oral protocols. Both are clinically guided and provider-prescribed when appropriate.
+            </p>
+          </div>
+          <div className="flex w-full flex-wrap items-center justify-center gap-3 sm:gap-4 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end lg:pt-1">
+            <div className="flex min-w-0 flex-initial items-center justify-center">
+              <div className="relative flex items-center">
+                <img src="/images/clean/image.png" alt="" aria-hidden="true" className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
+                <img src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`} alt="Google reviews rating" loading="lazy" className="z-10 -ml-2 -mr-1 h-auto max-h-[40px] w-[120px] object-contain mix-blend-multiply sm:-ml-3 sm:-mr-2 sm:max-h-[50px] sm:w-[140px] md:max-h-[55px] md:w-[150px] lg:-ml-4 lg:-mr-2 lg:max-h-[60px] lg:w-[160px]" />
+                <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
               </div>
             </div>
-          </FadeIn>
-
-          {/* Semaglutide RDT card */}
-          <FadeIn>
-            <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-              {/* Image */}
-              <div className="relative h-52 bg-[#E8F5E9]">
-                <Image
-                  src="https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?auto=format&fit=crop&w=800&q=80"
-                  alt="Semaglutide RDT rapid-dissolve tablet"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                <div className="absolute bottom-3 left-4 flex flex-wrap gap-2">
-                  <span className="rounded-full border border-white bg-white/20 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
-                    Established
-                  </span>
-                  <span className="rounded-full bg-emerald-500 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow">
-                    Rapid-Dissolve
-                  </span>
-                </div>
-              </div>
-              {/* Content */}
-              <div className="flex flex-1 flex-col p-7 md:p-8">
-                <h3 className="text-2xl font-bold text-gray-900">Semaglutide RDT</h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  Once-daily rapid-dissolve tablet · Compounded
-                </p>
-                <div className="mt-5 flex items-baseline gap-2">
-                  <span className="text-4xl font-bold text-gray-900">$249</span>
-                  <span className="text-lg font-medium text-gray-500">/mo</span>
-                  <span className="text-base text-gray-400 line-through">$329</span>
-                </div>
-
-                <ul className="mt-6 flex flex-col gap-4">
-                  {[
-                    { text: "Same active compound", sub: "as Wegovy / Ozempic — in oral rapid-dissolve form" },
-                    { text: "Established efficacy & safety profile", sub: "across millions of injectable users" },
-                    { text: "Designed for sublingual absorption", sub: "fast-acting, predictable" },
-                    { text: "Most accessible price point for oral GLP-1", sub: null },
-                    { text: "Daily oral · zero needles · zero cold-chain", sub: null },
-                    { text: "Quarterly progress check-ins included", sub: null },
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-[0.925rem] leading-snug">
-                      <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]">
-                        <Check className="h-3 w-3 text-white" strokeWidth={3} />
-                      </div>
-                      <span>
-                        <strong className="text-gray-900">{item.text}</strong>
-                        {item.sub && <span className="text-gray-500"> — {item.sub}</span>}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Link
-                  href={CTA_HREF}
-                  className="mt-auto pt-8 flex w-full items-center justify-center rounded-full border-2 border-[#6D6FFC] py-4 text-base font-semibold text-[#6D6FFC] transition hover:bg-[#6D6FFC]/5"
-                >
-                  Start Semaglutide RDT
-                </Link>
-                <p className="mt-3 text-center text-xs text-gray-400">
-                  Best for cost-conscious entry · Cancel anytime
-                </p>
+            <div className="flex min-w-0 flex-initial items-center justify-center">
+              <div className="relative flex items-center">
+                <img src="/images/clean/image.png" alt="" aria-hidden="true" className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
+                <img src="/images/healsend-2k-members-trust.png" alt="HealSend — 2K+ members" loading="lazy" className="z-10 -mx-5 h-auto max-h-[50px] w-[150px] shrink-0 object-contain sm:-mx-6 sm:max-h-[60px] sm:w-[170px] md:-mx-7 md:max-h-[65px] md:w-[180px] lg:-mx-8 lg:max-h-[70px] lg:w-[200px]" />
+                <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
               </div>
             </div>
-          </FadeIn>
+          </div>
         </div>
 
-        <FadeIn>
-          <p className="mt-8 text-center text-sm text-gray-600">
-            Not sure which one fits?{" "}
-            <Link href="#quiz" className="font-semibold text-[#6D6FFC] underline decoration-dotted underline-offset-4">
-              Take our 30-second match quiz →
-            </Link>
-          </p>
-        </FadeIn>
+        <div className="mx-auto grid max-w-[1200px] items-start gap-7 sm:gap-8 lg:grid-cols-2 lg:gap-10">
+          {ORAL_GLP1_PLAN_CARDS.map((plan) => (
+            <MedicalPlanCard
+              key={plan.id}
+              plan={plan}
+              ctaHref={plan.href}
+              expanded={expandedId === plan.id}
+              onToggleExpand={() => setExpandedId(expandedId === plan.id ? null : plan.id)}
+            />
+          ))}
+        </div>
+
+        <p className="mt-8 text-center text-sm text-[#474257]">
+          Not sure which one fits?{" "}
+          <Link href="#quiz" className="font-semibold text-[#5d62f3] underline decoration-dotted underline-offset-4">
+            Take our 30-second match quiz →
+          </Link>
+        </p>
       </div>
     </section>
   );
@@ -1531,60 +1478,70 @@ const PAIN_CARDS = [
 
 function OralGLP1PainPointsSection() {
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-white py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <FadeIn className="text-center">
-          <p className="mb-2 font-playfair italic text-gray-400">Sound familiar?</p>
-          <h2 className="mb-3 font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
-            You wanted GLP-1 — but{" "}
-            <span className="font-playfair italic text-[#6D6FFC]">not the needle.</span>
-          </h2>
-          <p className="mx-auto mb-12 max-w-2xl text-base text-gray-600 md:text-lg">
-            Oral GLP-1 wasn&apos;t ready until now. If injection hesitancy, lifestyle, or storage
-            was holding you back, this is the version you&apos;ve been waiting for.
-          </p>
-        </FadeIn>
+        <div className="mb-4 text-center">
+          <span className="inline-block rounded-full bg-[#f0eeff] px-4 py-1.5 text-sm font-semibold text-[#5b3cdd]">
+            Sound familiar?
+          </span>
+        </div>
+        <h2 className="mb-4 text-center text-3xl font-bold tracking-tight text-[#1c1a24] md:text-4xl lg:text-5xl">
+          You wanted GLP-1 — but{" "}
+          <span className="font-playfair italic text-[#6D6FFC]">not the needle.</span>
+        </h2>
+        <p className="mx-auto mb-12 max-w-[42rem] text-center text-lg leading-relaxed text-[#5d6169]">
+          Oral GLP-1 wasn&apos;t ready until now. If injection hesitancy, lifestyle, or storage
+          was holding you back, this is the version you&apos;ve been waiting for.
+        </p>
 
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pl-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:overflow-visible sm:p-0 lg:grid-cols-4">
           {PAIN_CARDS.map((card) => (
-            <FadeIn key={card.title}>
-              <div className="overflow-hidden rounded-2xl bg-[#F5F4FF]">
-                <div className="relative h-48" style={{ backgroundColor: card.bg }}>
-                  <Image
-                    src={card.image}
-                    alt={card.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#F5F4FF] via-[#F5F4FF]/10 to-transparent" />
-                </div>
-                <div className="p-7">
-                  <h3 className="mb-4 text-lg font-bold text-gray-900">{card.title}</h3>
-                  <ul className="space-y-2">
-                    {card.bullets.map((b, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FF6B35]" />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            <div
+              key={card.title}
+              className="w-[75vw] shrink-0 snap-start sm:w-auto sm:shrink flex flex-col overflow-hidden rounded-[1.5rem] border border-[#ebebeb] bg-white shadow-sm"
+            >
+              <div className="relative h-48 w-full overflow-hidden bg-[#f5f5f5]">
+                <Image
+                  src={card.image}
+                  alt={card.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
               </div>
-            </FadeIn>
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="mb-4 text-base font-bold leading-snug text-[#1c1a24]">
+                  {card.title}
+                </h3>
+                <ul className="flex flex-col gap-3">
+                  {card.bullets.map((bullet) => (
+                    <li
+                      key={bullet}
+                      className="flex items-start gap-2.5 text-sm leading-snug text-[#5d6169]"
+                    >
+                      <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#ffe4e4] text-[#e53e3e]">
+                        <svg width="8" height="8" viewBox="0 0 10 10" fill="none">
+                          <line x1="2" y1="2" x2="8" y2="8" stroke="#e53e3e" strokeWidth="1.8" strokeLinecap="round" />
+                          <line x1="8" y1="2" x2="2" y2="8" stroke="#e53e3e" strokeWidth="1.8" strokeLinecap="round" />
+                        </svg>
+                      </span>
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           ))}
         </div>
 
-        <FadeIn>
-          <div className="mt-10 text-center">
-            <Link
-              href={CTA_HREF}
-              className="inline-flex items-center gap-2 rounded-full bg-[#FF6B35] px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-[#e55a26]"
-            >
-              See both options →
-            </Link>
-          </div>
-        </FadeIn>
+        <div className="mt-10 text-center">
+          <Link
+            href={CTA_HREF}
+            className="inline-flex items-center gap-2 rounded-full bg-[#FF6B35] px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-[#e55a26]"
+          >
+            See both options →
+          </Link>
+        </div>
       </div>
     </section>
   );
@@ -1674,13 +1631,6 @@ function OralGLP1ResearchSection() {
                   </div>
                 ))}
               </div>
-
-              <Link
-                href={CTA_HREF}
-                className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#6D6FFC] px-6 py-3 text-sm font-semibold text-[#6D6FFC] transition hover:bg-[#6D6FFC]/5"
-              >
-                Read the HealSend whitepaper →
-              </Link>
 
               <div className="flex items-center gap-4 rounded-2xl border border-gray-100 bg-[#F9F9FF] p-5">
                 <div className="text-[9px] font-bold uppercase tracking-wider text-gray-400 sm:whitespace-nowrap">
@@ -1930,7 +1880,7 @@ function OralGLP1ClosingCTA() {
         </Link>
         <p className="mt-6 text-xs text-white/40">
           By starting, you agree to our terms &amp; privacy policy. Provider-prescribed when
-          appropriate. 60-day money-back guarantee. Cancel anytime.
+          appropriate.
         </p>
       </div>
     </section>
@@ -1942,13 +1892,17 @@ function OralGLP1ClosingCTA() {
 /* ------------------------------------------------------------------ */
 
 export default function OralGLP1LandingPage({ product }) {
+  const productData = mergeProductContent(product);
+
   return (
     <div className="min-h-screen overflow-x-clip bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
       <MinimalMarketingNavbar />
       <OralGLP1WillpowerSection />
       <OralGLP1ProductHeroSection />
+      <MediaLogosBanner />
       <OralGLP1WhyNowSection />
       <OralGLP1TwoOptionsSection />
+      <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="Oral GLP-1 Benefits" />
       <OralGLP1BarChartSection />
       <OralGLP1EligibilitySection />
       <OralGLP1QuizSection />

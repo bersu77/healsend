@@ -14,6 +14,7 @@ import {
   Headset,
   Laptop,
   Layers,
+  Microscope,
   Minus,
   Plus,
   RefreshCw,
@@ -40,6 +41,10 @@ import {
   SameMedicationSection,
   RelatedProductsSection,
   FDADisclaimerSection,
+  MedicalPlanCard,
+  MediaLogosBanner,
+  RestoredTirzepatideBenefitsCarouselSection,
+  mergeProductContent,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/skin-hair";
@@ -162,7 +167,6 @@ const GLOW_HERO_BENEFITS = [
 ];
 
 const GLOW_TIERS_PRICING = [
-  { name: "Foundational", price: 99, isFeatured: false },
   { name: "Enhanced", price: 179, isFeatured: true, badge: "BULLSEYE" },
   { name: "Advanced Stack", price: 299, isFeatured: false },
 ];
@@ -260,7 +264,7 @@ function GlowProductHeroSection() {
 
               {showPriceFootnote && (
                 <div className="mb-5 rounded-[0.75rem] bg-gray-50 p-3 text-xs leading-5 text-gray-600 md:text-sm">
-                  *$99 applies to the Foundational tier first month. Enhanced is $179/mo and Advanced Stack is $299/mo. Final tier and pricing depends on clinician review. Cancel anytime.
+                  *Enhanced is $179/mo and Advanced Stack is $299/mo. Final tier and pricing depends on clinician review. Cancel anytime.
                 </div>
               )}
 
@@ -414,7 +418,7 @@ function GlowProductHeroSection() {
             ))}
           </div>
 
-          <div className="mb-6">
+          <div className="mb-6 mt-8">
             <h3 className="mb-4 text-base font-medium text-gray-900">
               Related Products
             </h3>
@@ -451,8 +455,7 @@ function GlowProductHeroSection() {
             </div>
             <div className="space-y-2.5 text-[11px] leading-relaxed text-gray-600">
               <p>
-                *Pricing shown applies to the Foundational tier. Final treatment fit and pricing depend
-                on clinician review and the tier prescribed.
+                *Final treatment fit and pricing depend on clinician review and the tier prescribed.
               </p>
             </div>
           </div>
@@ -466,245 +469,112 @@ function GlowProductHeroSection() {
 /*  3. Three Tiers                                                     */
 /* ------------------------------------------------------------------ */
 
-const GLOW_TIERS = [
+const GLOW_PLAN_CARDS = [
   {
-    tag: "TIER 01",
-    title: "Foundational Regenerative",
-    image: "https://plus.unsplash.com/premium_photo-1682096433084-b68c0cf072b8?auto=format&fit=crop&w=800&q=80",
-    descriptionBullets: [
-      "Gentle entry-level dose for first-time users",
-      "Supports skin hydration, tone, and texture",
-      "Daily subcutaneous self-injection — painless",
-      "Clinician access included from day one",
+    id: "glow-enhanced",
+    headerClass: "bg-gradient-to-br from-fuchsia-500/20 to-violet-500/20",
+    headerTextClass: "text-[#101726]",
+    useFullImage: false,
+    badges: ["Most Popular", "Skin & Hair"],
+    title: "Enhanced\nSkin & Hair",
+    subtitle: "Dual-compound regenerative protocol",
+    image: "/images/marketing/bundle/sermorelin-product.png",
+    bulletsHeading: "MEMBER RESULTS",
+    bullets: [
+      { icon: Sparkles, text: "Visible texture & tone improvement by week 12" },
+      { icon: RefreshCw, text: "Hair density support included in protocol" },
+      { icon: ShieldCheck, text: "Clinician access + quarterly progress labs" },
     ],
-    price: 99,
-    originalPrice: 129,
-    featured: false,
-    checks: [
-      "Single-compound protocol — gentle entry-level dose",
-      "Designed to help support skin hydration & tone",
-      "Daily subcutaneous, painless",
-      "Clinician access included",
-      "Quarterly progress check-ins",
-    ],
-    crosses: ["No advanced cellular renewal stack", "No hair-density pathway support"],
-    orangePlus: [],
-    cta: "Start Foundational",
-    footnote: "Cancel anytime · No surprise renewals",
-    ctaClass: "border border-[#6D6FFC] text-[#6D6FFC] hover:bg-[#6D6FFC] hover:text-white",
-  },
-  {
-    tag: "TIER 02",
-    title: "Enhanced Skin & Hair Optimization",
-    image: "https://plus.unsplash.com/premium_photo-1682096435591-54a1758e6723?auto=format&fit=crop&w=800&q=80",
-    descriptionBullets: [
-      "Stronger cellular-renewal + collagen pathway",
-      "Hair density support included",
-      "Most visible 12-week results of any tier",
-      "Clinician access + quarterly progress labs",
-    ],
-    price: 179,
-    originalPrice: 229,
-    featured: true,
-    checks: [
-      "Dual-compound protocol — cellular renewal + collagen pathway",
-      "Hair density support included",
-      "May support visible improvement in tone & texture by week 12",
+    primaryCta: "Start Enhanced",
+    secondaryCta: "Why Enhanced?",
+    href: CTA_HREF,
+    description: "Dual-compound protocol targeting the collagen pathway plus hair-density support. Most visible 12-week results at the most accessible price.",
+    whyItWorks: [
+      "Cellular renewal + collagen pathway combined",
       "Designed to help skin barrier function",
-      "Daily subcutaneous, painless",
-      "Clinician access + quarterly labs",
+      "Daily subcutaneous, painless — supplies included",
     ],
-    crosses: ["No regenerative wound-healing add-on"],
-    orangePlus: [],
-    cta: "Start Enhanced",
-    footnote: "Most popular · Cancel anytime",
-    ctaClass: "bg-[#1a1a2e] text-white hover:bg-[#2d2d4e]",
+    bestFor: [
+      "Members who want the strongest 12-week results",
+      "Anyone looking for skin + hair improvement",
+    ],
   },
   {
-    tag: "TIER 03",
-    title: "Advanced Regenerative Stack",
-    image: "https://plus.unsplash.com/premium_photo-1706800175278-4b39bab8ffc2?auto=format&fit=crop&w=800&q=80",
-    descriptionBullets: [
-      "Full cellular-renewal stack — triple compound",
-      "Hair density + tissue repair pathway",
-      "Broader systemic regenerative effect",
-      "Priority same-day clinician access",
+    id: "glow-advanced",
+    headerClass: "bg-gradient-to-br from-violet-500/20 to-indigo-500/20",
+    headerTextClass: "text-[#101726]",
+    useFullImage: false,
+    badges: ["Full Stack", "Advanced"],
+    title: "Advanced\nRegenerative Stack",
+    subtitle: "Triple-compound full regenerative protocol",
+    image: "/images/marketing/bundle/sermorelin-product.png",
+    bulletsHeading: "MEMBER RESULTS",
+    bullets: [
+      { icon: Layers, text: "Full cellular-renewal stack — triple compound" },
+      { icon: Activity, text: "Hair density + tissue repair pathway" },
+      { icon: Zap, text: "Priority same-day clinician access" },
     ],
-    price: 299,
-    originalPrice: 399,
-    featured: false,
-    checks: [
-      "Triple-compound protocol — full regenerative stack",
-      "Hair density + tissue repair pathway",
-      "Broader cellular renewal effect",
-      "Designed to help systemic recovery",
+    primaryCta: "Start Advanced",
+    secondaryCta: "Why Advanced?",
+    href: CTA_HREF,
+    description: "Triple-compound protocol for the full regenerative stack. Hair density, tissue repair, and broader systemic recovery.",
+    whyItWorks: [
+      "Broader cellular renewal effect across pathways",
+      "Includes regenerative wound-healing add-on",
+      "Bi-monthly progress labs for tighter monitoring",
     ],
-    crosses: [],
-    orangePlus: [
-      "+ Includes regenerative wound-healing add-on",
-      "+ Priority clinician access (same-day)",
-      "+ Bi-monthly progress labs",
+    bestFor: [
+      "Experienced peptide users ready to go all-in",
+      "Members upgrading from Enhanced for deeper results",
     ],
-    cta: "Start Advanced",
-    footnote: "For experienced peptide users · Cancel anytime",
-    ctaClass: "border border-[#6D6FFC] text-[#6D6FFC] hover:bg-[#6D6FFC] hover:text-white",
   },
 ];
 
-function GlowTierCard({ tier }) {
-  const [expanded, setExpanded] = useState(false);
-  const hasFeatures =
-    tier.checks.length + tier.orangePlus.length + tier.crosses.length > 0;
-
-  return (
-    <div className="relative flex flex-col">
-      {tier.featured && (
-        <div className="absolute -top-4 left-1/2 z-10 -translate-x-1/2">
-          <span className="inline-block rounded-full bg-[#FF6B35] px-5 py-1.5 text-xs font-bold uppercase tracking-wide text-white shadow">
-            Most Members Start Here
-          </span>
-        </div>
-      )}
-
-      {/* Main card */}
-      <div
-        className={`flex flex-col overflow-hidden rounded-3xl border bg-white shadow-sm ${
-          tier.featured
-            ? "border-2 border-[#6D6FFC] ring-4 ring-[#6D6FFC]/10"
-            : "border-gray-200"
-        } ${tier.featured ? "pt-4" : ""}`}
-      >
-        <div className="flex flex-col p-6 md:p-7">
-          <p className="mb-1 text-xs font-bold uppercase tracking-widest text-[#6D6FFC]">
-            {tier.tag}
-          </p>
-          <h3 className="mb-3 min-h-[4rem] font-title text-2xl font-bold text-gray-900">
-            {tier.title}
-          </h3>
-
-          <div className="relative mb-4 h-48 w-full overflow-hidden rounded-xl">
-            <Image
-              src={tier.image}
-              alt={tier.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 400px"
-            />
-          </div>
-
-          {/* Description as bullet points */}
-          <ul className="mb-5 space-y-2">
-            {tier.descriptionBullets.map((bullet) => (
-              <li key={bullet} className="flex items-start gap-2.5 text-sm text-gray-600">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#6D6FFC]" />
-                {bullet}
-              </li>
-            ))}
-          </ul>
-
-          <div className="mb-5 flex items-baseline gap-2">
-            <span className="font-title text-4xl font-bold text-gray-900">${tier.price}</span>
-            <span className="text-sm text-gray-500">/mo</span>
-            <span className="text-sm text-gray-400 line-through">${tier.originalPrice}</span>
-          </div>
-
-          {/* CTA button */}
-          <Link
-            href={CTA_HREF}
-            className={`flex items-center justify-center rounded-full py-3.5 text-sm font-semibold transition ${tier.ctaClass}`}
-          >
-            {tier.cta}
-          </Link>
-          <p className="mt-2 text-center text-xs text-gray-400">{tier.footnote}</p>
-
-          {/* See what's included toggle — below CTA, inside card */}
-          {hasFeatures && (
-            <>
-              <button
-                type="button"
-                onClick={() => setExpanded((v) => !v)}
-                className="mt-3 flex w-full items-center justify-center gap-1.5 text-sm text-[#6D6FFC] transition hover:opacity-70"
-              >
-                <span>{expanded ? "Hide details" : "See what's included"}</span>
-                <motion.span
-                  animate={{ rotate: expanded ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="inline-block"
-                >
-                  <ChevronDown className="h-4 w-4" />
-                </motion.span>
-              </button>
-
-              {/* Expandable features — inside the card, pushes card height */}
-              <AnimatePresence initial={false}>
-                {expanded && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="overflow-hidden"
-                  >
-                    <ul className="space-y-2.5 pt-4">
-                      {tier.checks.map((f) => (
-                        <li key={f} className="flex items-start gap-2 text-sm text-gray-700">
-                          <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]">
-                            <Check className="h-2.5 w-2.5 text-white" strokeWidth={3} />
-                          </span>
-                          {f}
-                        </li>
-                      ))}
-                      {tier.orangePlus.map((f) => (
-                        <li key={f} className="flex items-start gap-2 text-sm font-medium text-[#FF6B35]">
-                          <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#FF6B35]">
-                            <span className="text-[8px] font-bold text-white">+</span>
-                          </span>
-                          {f}
-                        </li>
-                      ))}
-                      {tier.crosses.map((f) => (
-                        <li key={f} className="flex items-start gap-2 text-sm text-gray-400">
-                          <XIcon className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={2} />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function GlowThreeTiersSection() {
+  const [expandedId, setExpandedId] = useState(null);
+
   return (
-    <section id="tiers" className="bg-[#F1F5F9] py-16 md:py-20">
+    <section id="tiers" className="bg-[#f9f9f9] py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="mb-12 text-center md:mb-16">
-          <span className="mb-4 inline-block rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC] shadow-sm">
-            Three Tiers · One Protocol
-          </span>
-          <h2 className="mb-3 font-title text-4xl font-bold text-gray-900 md:text-5xl">
-            Start where you are.
-          </h2>
-          <p className="font-playfair text-3xl italic text-[#6D6FFC] md:text-4xl">
-            Step up when you&apos;re ready.
-          </p>
-          <p className="mx-auto mt-5 max-w-[640px] text-base text-gray-600">
-            Most members start at Enhanced — it&apos;s the one with the strongest cellular-renewal
-            effect at the most accessible price. Foundational works gently. Advanced is for the all-in.
-          </p>
+        <div className="mb-10 grid grid-cols-1 gap-8 md:mb-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-x-8 xl:gap-x-12">
+          <div className="min-w-0">
+            <h2 className="font-title text-3xl font-bold leading-[1.05] tracking-tight text-gray-950 sm:text-4xl lg:text-[2.625rem]">
+              Start where you are.
+            </h2>
+            <p className="mt-2 font-playfair text-2xl italic leading-tight text-[#5d62f3] sm:text-3xl">
+              Step up when you&apos;re ready.
+            </p>
+            <p className="mt-5 max-w-3xl text-base leading-7 text-[#474257] md:text-lg">
+              Most members start at Enhanced — the strongest cellular-renewal effect at the most accessible price.
+            </p>
+          </div>
+          <div className="flex w-full flex-wrap items-center justify-center gap-3 sm:gap-4 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end lg:pt-1">
+            <div className="flex min-w-0 flex-initial items-center justify-center">
+              <div className="relative flex items-center">
+                <img src="/images/clean/image.png" alt="" aria-hidden="true" className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
+                <img src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`} alt="Google reviews rating" loading="lazy" className="z-10 -ml-2 -mr-1 h-auto max-h-[40px] w-[120px] object-contain mix-blend-multiply sm:-ml-3 sm:-mr-2 sm:max-h-[50px] sm:w-[140px] md:max-h-[55px] md:w-[150px] lg:-ml-4 lg:-mr-2 lg:max-h-[60px] lg:w-[160px]" />
+                <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
+              </div>
+            </div>
+            <div className="flex min-w-0 flex-initial items-center justify-center">
+              <div className="relative flex items-center">
+                <img src="/images/clean/image.png" alt="" aria-hidden="true" className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
+                <img src="/images/healsend-2k-members-trust.png" alt="HealSend — 2K+ members" loading="lazy" className="z-10 -mx-5 h-auto max-h-[50px] w-[150px] shrink-0 object-contain sm:-mx-6 sm:max-h-[60px] sm:w-[170px] md:-mx-7 md:max-h-[65px] md:w-[180px] lg:-mx-8 lg:max-h-[70px] lg:w-[200px]" />
+                <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="grid items-start gap-6 lg:grid-cols-3">
-          {GLOW_TIERS.map((tier) => (
-            <FadeIn key={tier.tag}>
-              <GlowTierCard tier={tier} />
-            </FadeIn>
+        <div className="mx-auto grid max-w-[1200px] items-start gap-7 sm:gap-8 lg:grid-cols-2 lg:gap-10">
+          {GLOW_PLAN_CARDS.map((plan) => (
+            <MedicalPlanCard
+              key={plan.id}
+              plan={plan}
+              ctaHref={plan.href}
+              expanded={expandedId === plan.id}
+              onToggleExpand={() => setExpandedId(expandedId === plan.id ? null : plan.id)}
+            />
           ))}
         </div>
       </div>
@@ -864,24 +734,36 @@ function GlowHowItWorksSection() {
           </p>
         </div>
 
-        <div className="overflow-hidden rounded-3xl bg-white p-6 shadow-sm md:p-10 lg:p-12">
+        {/* Mobile: horizontal scroll with peek */}
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pl-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:hidden">
+          {HOW_STEPS.map((step) => (
+            <div key={step.n} className="w-[75vw] shrink-0 snap-start">
+              <div className="flex h-full flex-col rounded-2xl bg-white p-6 shadow-sm">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#6D6FFC] text-white">
+                  <step.icon className="h-5 w-5" strokeWidth={2.5} />
+                </div>
+                <h3 className="mb-2 font-title text-lg font-bold text-gray-900">{step.title}</h3>
+                <p className="text-sm leading-relaxed text-gray-600">{step.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: diagram + steps grid */}
+        <div className="hidden overflow-hidden rounded-3xl bg-white p-6 shadow-sm md:block md:p-10 lg:p-12">
           <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-            <FadeIn>
-              <CellDiagram />
-            </FadeIn>
+            <CellDiagram />
             <div className="space-y-6">
               {HOW_STEPS.map((step) => (
-                <FadeIn key={step.n}>
-                  <div className="flex gap-4">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC] text-white">
-                      <step.icon className="h-4 w-4" strokeWidth={2.5} />
-                    </div>
-                    <div>
-                      <h3 className="mb-1 font-title text-lg font-bold text-gray-900">{step.title}</h3>
-                      <p className="text-sm leading-relaxed text-gray-600">{step.desc}</p>
-                    </div>
+                <div key={step.n} className="flex gap-4">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC] text-white">
+                    <step.icon className="h-4 w-4" strokeWidth={2.5} />
                   </div>
-                </FadeIn>
+                  <div>
+                    <h3 className="mb-1 font-title text-lg font-bold text-gray-900">{step.title}</h3>
+                    <p className="text-sm leading-relaxed text-gray-600">{step.desc}</p>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -922,14 +804,14 @@ const GLOW_TESTIMONIALS = [
   },
   {
     name: "Jenna P., 41",
-    tier: "Foundational → Enhanced · 10 weeks",
+    tier: "Enhanced · 10 weeks",
     quote:
-      "Started Foundational because I wasn't sure. Felt like I was 80% there at week 6, so my clinician moved me to Enhanced. The remaining 20% showed up in the next month.",
+      "Wasn't sure at first, but by week 6 I was 80% there. The remaining 20% showed up in the next month. My clinician was great about adjusting the protocol.",
     stats: [
-      { val: "+27%", label: "Texture (post-upgrade)" },
+      { val: "+27%", label: "Texture" },
       { val: "+12%", label: "Hydration" },
     ],
-    verified: "Started Foundational, upgraded to Enhanced",
+    verified: "Verified - Enhanced",
     image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=600&q=80",
   },
 ];
@@ -1006,6 +888,7 @@ function GlowTestimonialsSection() {
 const PAIN_CARDS = [
   {
     title: "Your skincare routine plateaued.",
+    image: "/images/negative-sell/negative_1.webp",
     bullets: [
       "The 8-product routine isn't doing more than the 3-product one used to.",
       "Texture isn't holding the way it did at 28.",
@@ -1013,6 +896,7 @@ const PAIN_CARDS = [
   },
   {
     title: "Hair quietly thinned over the last few years.",
+    image: "/images/negative-sell/negative_2.jpeg",
     bullets: [
       "The part is wider. The crown looks thinner in photos.",
       "You've watched it happen but haven't found a real fix.",
@@ -1020,6 +904,7 @@ const PAIN_CARDS = [
   },
   {
     title: "Cuts & injuries take longer to heal.",
+    image: "/images/negative-sell/negative_3.jpg",
     bullets: [
       "Small things linger. Bruises stay too long.",
       "Your body's repair machinery is moving slower than it used to.",
@@ -1027,6 +912,7 @@ const PAIN_CARDS = [
   },
   {
     title: "You want regenerative — not just cosmetic.",
+    image: "/images/negative-sell/negative_4.webp",
     bullets: [
       "You've done filler. You've done laser. You're tired of treating symptoms.",
       "You want the underlying cell biology to do its job again.",
@@ -1036,35 +922,59 @@ const PAIN_CARDS = [
 
 function GlowPainPointsSection() {
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-20">
+    <section className="bg-white py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="mx-auto mb-12 max-w-[640px] text-center md:mb-16">
-          <p className="mb-3 font-playfair text-lg italic text-gray-600">Sound familiar?</p>
-          <h2 className="mb-3 font-title text-4xl font-bold text-gray-900 md:text-5xl">
-            Topicals stopped{" "}
-            <span className="font-playfair italic text-[#6D6FFC]">holding.</span>
-          </h2>
-          <p className="text-base text-gray-600">
-            If creams and serums plateau every six months, it&apos;s not your routine. Topicals only
-            work on the surface. Real change has to happen below it.
-          </p>
+        <div className="mb-4 text-center">
+          <span className="inline-block rounded-full bg-[#f0eeff] px-4 py-1.5 text-sm font-semibold text-[#5b3cdd]">
+            Sound familiar?
+          </span>
         </div>
+        <h2 className="mb-4 text-center text-3xl font-bold tracking-tight text-[#1c1a24] md:text-4xl lg:text-5xl">
+          Topicals stopped{" "}
+          <span className="font-playfair italic text-[#6D6FFC]">holding.</span>
+        </h2>
+        <p className="mx-auto mb-12 max-w-[42rem] text-center text-lg leading-relaxed text-[#5d6169]">
+          If creams and serums plateau every six months, it&apos;s not your routine. Topicals only
+          work on the surface. Real change has to happen below it.
+        </p>
 
-        <div className="grid gap-5 md:grid-cols-2">
-          {PAIN_CARDS.map((c) => (
-            <FadeIn key={c.title}>
-              <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm md:p-8">
-                <h3 className="mb-4 font-title text-xl font-bold text-gray-900">{c.title}</h3>
-                <ul className="space-y-2">
-                  {c.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-2 text-sm text-gray-600 md:text-base">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FF6B35]" />
-                      {b}
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pl-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:overflow-visible sm:p-0 lg:grid-cols-4">
+          {PAIN_CARDS.map((card) => (
+            <div
+              key={card.title}
+              className="w-[75vw] shrink-0 snap-start sm:w-auto sm:shrink flex flex-col overflow-hidden rounded-[1.5rem] border border-[#ebebeb] bg-white shadow-sm"
+            >
+              <div className="relative h-48 w-full overflow-hidden bg-[#f5f5f5]">
+                <Image
+                  src={card.image}
+                  alt={card.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="mb-4 text-base font-bold leading-snug text-[#1c1a24]">
+                  {card.title}
+                </h3>
+                <ul className="flex flex-col gap-3">
+                  {card.bullets.map((bullet) => (
+                    <li
+                      key={bullet}
+                      className="flex items-start gap-2.5 text-sm leading-snug text-[#5d6169]"
+                    >
+                      <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#ffe4e4] text-[#e53e3e]">
+                        <svg width="8" height="8" viewBox="0 0 10 10" fill="none">
+                          <line x1="2" y1="2" x2="8" y2="8" stroke="#e53e3e" strokeWidth="1.8" strokeLinecap="round" />
+                          <line x1="8" y1="2" x2="2" y2="8" stroke="#e53e3e" strokeWidth="1.8" strokeLinecap="round" />
+                        </svg>
+                      </span>
+                      {bullet}
                     </li>
                   ))}
                 </ul>
               </div>
-            </FadeIn>
+            </div>
           ))}
         </div>
 
@@ -1086,34 +996,92 @@ function GlowPainPointsSection() {
 /* ------------------------------------------------------------------ */
 
 function GlowPromiseSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: false, margin: "-100px" });
+
   return (
-    <section className="bg-[#F1F5F9] pb-8 pt-0 md:pb-10">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="flex flex-col items-start gap-6 rounded-3xl border border-[#6D6FFC]/30 bg-white p-8 shadow-sm md:flex-row md:items-center md:gap-10 md:p-10">
-          <div className="flex h-24 w-24 shrink-0 flex-col items-center justify-center rounded-full border-2 border-[#6D6FFC]">
-            <span className="font-title text-2xl font-bold text-[#6D6FFC]">60</span>
-            <span className="text-[9px] font-bold uppercase tracking-widest text-[#6D6FFC]">
-              Day Promise
-            </span>
-          </div>
-          <div className="flex-1">
-            <h3 className="mb-2 font-title text-xl font-bold leading-snug text-gray-900 md:text-2xl">
-              If you don&apos;t see visible change by week 12,{" "}
-              <span className="font-playfair italic text-[#6D6FFC]">your first month is free.</span>
-            </h3>
-            <p className="mb-4 text-sm leading-relaxed text-gray-600 md:text-base">
-              We&apos;re confident enough in this protocol that we&apos;ll refund your first month if
-              you don&apos;t notice meaningful improvement in skin texture, tone, or hair density. No
-              fine print. No retention scripts. Email us and it&apos;s done.
-            </p>
-            <Link
-              href={CTA_HREF}
-              className="text-sm font-semibold text-[#6D6FFC] underline underline-offset-4 hover:text-[#5b3cdd]"
-            >
-              Read the full guarantee →
-            </Link>
-          </div>
-        </div>
+    <section ref={ref} className="relative overflow-hidden bg-[#0d0d1a] py-20 md:py-28">
+      <motion.div
+        className="pointer-events-none absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ duration: 1.2 }}
+      >
+        <motion.div
+          className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#6D6FFC]/10 blur-[120px]"
+          animate={inView ? { scale: [1, 1.15, 1], opacity: [0.6, 1, 0.6] } : {}}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#6D6FFC]/10"
+          animate={inView ? { scale: [1, 1.6], opacity: [0.4, 0] } : {}}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeOut", repeatDelay: 1 }}
+        />
+      </motion.div>
+
+      <div className="relative mx-auto max-w-[800px] px-4 text-center md:px-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.6, filter: "blur(16px)" }}
+          animate={inView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="relative"
+        >
+          <span className="font-title text-8xl font-black tracking-tight text-white md:text-9xl">
+            60
+          </span>
+          <motion.p
+            initial={{ opacity: 0, letterSpacing: "0.5em" }}
+            animate={inView ? { opacity: 1, letterSpacing: "0.25em" } : {}}
+            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+            className="mt-1 text-sm font-semibold uppercase text-[#6D6FFC]"
+          >
+            Day Promise
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={inView ? { scaleX: 1, opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="relative mx-auto my-8 origin-center"
+        >
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-[#6D6FFC] to-transparent" />
+          <div className="absolute inset-0 h-px w-24 bg-gradient-to-r from-transparent via-[#6D6FFC] to-transparent blur-sm" />
+        </motion.div>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-4 font-title text-2xl font-bold leading-snug text-white md:text-3xl"
+        >
+          If you don&apos;t see visible change by week 12,{" "}
+          <span className="font-playfair italic text-[#6D6FFC]">your first month is free.</span>
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.85 }}
+          className="mb-8 text-sm text-white/40"
+        >
+          No fine print. No retention scripts. Email us and it&apos;s done.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          whileHover={{ scale: 1.06 }}
+          whileTap={{ scale: 0.96 }}
+          transition={{ duration: 0.8, delay: 1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Link
+            href={CTA_HREF}
+            className="inline-flex items-center gap-2 rounded-full bg-[#6D6FFC] px-8 py-4 text-base font-semibold text-white shadow-[0_8px_32px_rgba(109,111,252,0.35)] transition hover:bg-[#5a5ce8] hover:shadow-[0_8px_40px_rgba(109,111,252,0.5)]"
+          >
+            Start consultation →
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
@@ -1125,58 +1093,102 @@ function GlowPromiseSection() {
 
 const RESEARCH_CITATIONS = [
   {
-    author: "Pickart & Margolina (2018):",
+    focus: "Skin Remodeling & Collagen",
+    author: "Pickart & Margolina (2018)",
     desc: "Comprehensive review of GHK-Cu in skin remodeling, collagen synthesis, and barrier repair.",
+    icon: Sparkles,
   },
   {
-    author: "Bickers et al. (2017):",
+    focus: "Dermal Density Support",
+    author: "Bickers et al. (2017)",
     desc: "Regenerative peptide effects on fibroblast activity and dermal density.",
+    icon: Activity,
   },
   {
-    author: "Trink et al. (2013):",
+    focus: "Follicle Cycling Science",
+    author: "Trink et al. (2013)",
     desc: "Peptide signaling in hair follicle cycling and density support.",
+    icon: RefreshCw,
   },
   {
-    author: "Sigalos & Pastuszak (2018):",
+    focus: "Peptide Safety Profiles",
+    author: "Sigalos & Pastuszak (2018)",
     desc: "Systematic review of regenerative peptide safety profiles in adults.",
+    icon: ShieldCheck,
   },
 ];
 
+function ResearchAccordionItem({ item }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="flex w-full items-center gap-4 p-5 text-left transition hover:bg-gray-50"
+      >
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC]/10">
+          <item.icon className="h-5 w-5 text-[#6D6FFC]" strokeWidth={2} />
+        </div>
+        <span className="flex-1 text-base font-bold text-gray-900">{item.focus}</span>
+        <motion.div
+          animate={{ rotate: open ? 45 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-gray-200 text-gray-400"
+        >
+          <Plus className="h-4 w-4" />
+        </motion.div>
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+          >
+            <div className="border-t border-gray-100 px-5 pb-5 pt-4">
+              <p className="mb-1 text-sm font-semibold text-[#6D6FFC]">{item.author}</p>
+              <p className="text-sm leading-relaxed text-gray-600">{item.desc}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 function GlowResearchSection() {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-[#F9F9F9] py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="grid gap-12 lg:grid-cols-[55fr_45fr] lg:gap-16">
           <FadeIn>
             <div>
-              <h2 className="mb-3 font-title text-4xl font-bold text-gray-900 md:text-5xl">
-                Backed by published
+              <div className="mb-6 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#6D6FFC]">
+                  <Microscope className="h-5 w-5 text-white" strokeWidth={2} />
+                </div>
+                <span className="text-xs font-bold uppercase tracking-widest text-[#6D6FFC]">Peer-Reviewed Excellence</span>
+              </div>
+              <h2 className="mb-3 font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
+                Decades of clinical
               </h2>
-              <p className="mb-5 font-playfair text-3xl italic text-[#6D6FFC] md:text-4xl">
-                regenerative research.
+              <p className="mb-5 font-playfair text-2xl italic text-[#6D6FFC] md:text-3xl">
+                validation.
               </p>
               <p className="mb-8 max-w-[480px] text-base leading-relaxed text-gray-600">
                 The compounds in this protocol family come from the most studied regenerative peptide
                 literature available — including dermatology, wound-healing, and hair-cycle research.
               </p>
 
-              <div className="mb-8 divide-y divide-gray-100">
+              <div className="space-y-3">
                 {RESEARCH_CITATIONS.map((c) => (
-                  <div key={c.author} className="grid grid-cols-[auto_1fr] gap-4 py-4">
-                    <span className="text-sm font-bold text-gray-900 whitespace-nowrap">{c.author}</span>
-                    <span className="text-sm text-gray-600">{c.desc}</span>
-                  </div>
+                  <ResearchAccordionItem key={c.author} item={c} />
                 ))}
               </div>
 
-              <Link
-                href={CTA_HREF}
-                className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#6D6FFC] px-6 py-2.5 text-sm font-semibold text-[#6D6FFC] transition hover:bg-[#6D6FFC] hover:text-white"
-              >
-                Read the HealSend whitepaper →
-              </Link>
-
-              <div className="rounded-2xl border border-gray-100 bg-gray-50 p-5">
+              <div className="mt-8 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
                 <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-gray-400">
                   Reviewed by HealSend Clinical Team
                 </p>
@@ -1372,12 +1384,12 @@ const GLOW_FAQS = [
   {
     question: "What's actually in each tier?",
     answer:
-      "Foundational uses a single compound. Enhanced adds a second compound targeting the collagen pathway plus hair-density support. Advanced adds a third compound with wound-healing and tissue-repair support.",
+      "Enhanced uses a dual-compound protocol targeting the collagen pathway plus hair-density support. Advanced adds a third compound with wound-healing and tissue-repair support.",
   },
   {
     question: "Which tier should I start at?",
     answer:
-      "Most members start at Enhanced — it has the strongest 12-week results at the most accessible price. If you're new to peptides or want to start gently, Foundational is a valid first step.",
+      "Most members start at Enhanced — it has the strongest 12-week results at the most accessible price. Advanced is for those ready for the full regenerative stack.",
   },
   {
     question: "How quickly will I see changes?",
@@ -1504,7 +1516,7 @@ function GlowClosingCTA() {
         </Link>
         <p className="mt-6 text-xs text-white/50">
           By starting, you agree to our terms &amp; privacy policy. Provider-prescribed when
-          appropriate. 60-day money-back guarantee. Cancel anytime.
+          appropriate.
         </p>
       </div>
     </section>
@@ -1516,12 +1528,16 @@ function GlowClosingCTA() {
 /* ------------------------------------------------------------------ */
 
 export default function GlowLandingPage({ product }) {
+  const productData = mergeProductContent(product);
+
   return (
     <div className="min-h-screen overflow-x-clip bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
       <MinimalMarketingNavbar />
       <GlowWillpowerSection />
       <GlowProductHeroSection />
+      <MediaLogosBanner />
       <GlowThreeTiersSection />
+      <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="Glow Benefits" />
       <GlowProtocolSupportSection />
       <GlowHowItWorksSection />
       <GlowTestimonialsSection />
@@ -1529,7 +1545,7 @@ export default function GlowLandingPage({ product }) {
       <GlowPromiseSection />
       <GlowResearchSection />
       <GlowStepsSection />
-      <GlowUpgradeBanner />
+      {/* <GlowUpgradeBanner /> */}
       <CleanSimpleEffective productData={null} />
       <LabTested productData={null} />
       <MarketingTrustMarquee items={GLOW_TRUST_ITEMS} edgeToEdge={false} />

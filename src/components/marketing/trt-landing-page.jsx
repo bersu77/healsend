@@ -50,6 +50,7 @@ import {
   SameMedicationSection,
   RelatedProductsSection,
   FDADisclaimerSection,
+  MediaLogosBanner,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/growth-hormone-support";
@@ -576,7 +577,7 @@ function TRTProductHeroSection() {
             ))}
           </div>
 
-          <div className="mb-6">
+          <div className="mb-6 mt-8">
             <h3 className="mb-4 text-base font-medium text-gray-900">
               Related Products
             </h3>
@@ -814,46 +815,63 @@ const SYMPTOM_CARDS = [
 
 function TRTSymptomsSection() {
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
+    <section className="bg-white py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <p className="mb-3 text-center font-playfair text-lg italic text-gray-600">Sound familiar?</p>
-        <h2 className="mx-auto mb-4 max-w-[800px] text-center font-title text-4xl font-medium text-gray-900 md:text-5xl">
-          Low T isn&apos;t just about getting older.
+        <div className="mb-4 text-center">
+          <span className="inline-block rounded-full bg-[#f0eeff] px-4 py-1.5 text-sm font-semibold text-[#5b3cdd]">
+            Sound familiar?
+          </span>
+        </div>
+        <h2 className="mb-4 text-center text-3xl font-bold tracking-tight text-[#1c1a24] md:text-4xl lg:text-5xl">
+          Low T isn&apos;t just about{" "}
+          <span className="font-playfair italic text-[#6D6FFC]">getting older.</span>
         </h2>
-        <p className="mx-auto mb-14 max-w-[640px] text-center text-base text-gray-600">
+        <p className="mx-auto mb-12 max-w-[42rem] text-center text-lg leading-relaxed text-[#5d6169]">
           It&apos;s about understanding why your body stopped producing what it used to.
         </p>
-        <div className="grid gap-5 md:grid-cols-2">
-          {SYMPTOM_CARDS.map((s) => (
-            <FadeIn key={s.title}>
-              <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-                <div className="relative h-44">
-                  <Image
-                    src={s.image}
-                    alt={s.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/70" />
-                </div>
-                <div className="p-6 md:p-8">
-                  <h3 className="mb-4 font-title text-xl font-medium text-gray-900 md:text-2xl">{s.title}</h3>
-                  <ul className="space-y-2">
-                    {s.bullets.map((b) => (
-                      <li key={b} className="flex items-start gap-2 text-sm text-gray-600 md:text-base">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#6D6FFC]" />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pl-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:overflow-visible sm:p-0 lg:grid-cols-4">
+          {SYMPTOM_CARDS.map((card) => (
+            <div
+              key={card.title}
+              className="w-[75vw] shrink-0 snap-start sm:w-auto sm:shrink flex flex-col overflow-hidden rounded-[1.5rem] border border-[#ebebeb] bg-white shadow-sm"
+            >
+              <div className="relative h-48 w-full overflow-hidden bg-[#f5f5f5]">
+                <Image
+                  src={card.image}
+                  alt={card.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
               </div>
-            </FadeIn>
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="mb-4 text-base font-bold leading-snug text-[#1c1a24]">
+                  {card.title}
+                </h3>
+                <ul className="flex flex-col gap-3">
+                  {card.bullets.map((bullet) => (
+                    <li
+                      key={bullet}
+                      className="flex items-start gap-2.5 text-sm leading-snug text-[#5d6169]"
+                    >
+                      <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#ffe4e4] text-[#e53e3e]">
+                        <svg width="8" height="8" viewBox="0 0 10 10" fill="none">
+                          <line x1="2" y1="2" x2="8" y2="8" stroke="#e53e3e" strokeWidth="1.8" strokeLinecap="round" />
+                          <line x1="8" y1="2" x2="2" y2="8" stroke="#e53e3e" strokeWidth="1.8" strokeLinecap="round" />
+                        </svg>
+                      </span>
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           ))}
         </div>
+
         <div className="mt-10 text-center">
-          <Link href={CTA_HREF} className="hs-solid-btn inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-base font-semibold">
+          <Link href={CTA_HREF} className="inline-flex items-center gap-2 rounded-full bg-[#FF6B35] px-8 py-4 text-base font-semibold text-white shadow-md transition hover:bg-[#e55a26]">
             See if TRT is right for you <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -871,6 +889,60 @@ const SUPPORT_CARDS = [
   { title: "Build Lean Strength", desc: "Recover faster. Train harder. Real changes in body composition you can see.", img: "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Why do people explore Sermorelin therapy_/pexels-julia-larson-6455960-scaled-1-optimized.jpg" },
   { title: "Reignite Drive", desc: "Libido and confidence return. Most patients notice within the first 4-6 weeks.", img: "/images/marketing/bundle/strength-lifestyle.jpg" },
 ];
+
+function TRTCombinedTreatmentsSection({ cards }) {
+  return (
+    <>
+      <OurTreatmentsSection cards={cards} />
+
+      <section className="bg-[#f9f9f9] py-16 md:py-20">
+        <div className="mx-auto max-w-[1200px] px-4 md:px-8">
+          <div className="mb-10 text-center">
+            <p className="mb-3 font-playfair text-lg italic text-gray-600">Rooted in Science</p>
+            <h2 className="font-title text-3xl font-bold tracking-tight text-gray-950 sm:text-4xl md:text-5xl">
+              Designed to support how you feel &amp; function
+            </h2>
+            <p className="mt-3 text-base text-gray-600 md:text-lg">
+              You will notice differences in how you sleep, train, and feel.
+            </p>
+          </div>
+
+          <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-3 md:overflow-visible md:pb-0">
+            {SUPPORT_CARDS.map((c) => (
+              <div key={c.title} className="w-[80vw] shrink-0 snap-start md:w-auto md:shrink">
+                <div className="h-full overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+                  <div className="relative aspect-[5/3]">
+                    <Image src={c.img} alt={c.title} fill sizes="(max-width: 768px) 80vw, 33vw" className="object-cover" loading="lazy" />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="mb-2 font-title text-xl font-medium text-gray-900">{c.title}</h3>
+                    <p className="text-sm text-gray-600">{c.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {TRT_BENEFITS.map((b) => (
+              <div key={b.title} className="flex flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+                <b.icon className="mb-4 h-8 w-8 text-[#6D6FFC]" strokeWidth={1.6} />
+                <h3 className="mb-2 font-title text-lg font-medium text-gray-900">{b.title}</h3>
+                <p className="text-sm leading-relaxed text-gray-600">{b.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <Link href={CTA_HREF} className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-8 py-3.5 text-base font-semibold text-white transition hover:bg-slate-900">
+              Get started <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
 
 function TRTDesignedToSupportSection() {
   return (
@@ -913,65 +985,52 @@ function TRTDesignedToSupportSection() {
 /* ------------------------------------------------------------------ */
 
 const MEMBER_RESULTS = [
-  { name: "Daniel R., 47", before: 218, after: 812, months: 4 },
-  { name: "Marcus S., 39", before: 298, after: 945, months: 5 },
-  { name: "James T., 52", before: 245, after: 880, months: 6 },
-  { name: "Vineeth R., 41", before: 312, after: 1024, months: 5 },
-  { name: "Brian K., 55", before: 189, after: 756, months: 6 },
-  { name: "Tom V., 44", before: 267, after: 892, months: 5 },
+  { name: "Daniel R., 47", before: 218, after: 812, months: 4, image: "/images/negative-sell/negative_1.webp" },
+  { name: "Marcus S., 39", before: 298, after: 945, months: 5, image: "/images/negative-sell/negative_2.jpeg" },
+  { name: "James T., 52", before: 245, after: 880, months: 6, image: "/images/negative-sell/negative_3.jpg" },
+  { name: "Vineeth R., 41", before: 312, after: 1024, months: 5, image: "/images/negative-sell/negative_4.webp" },
+  { name: "Brian K., 55", before: 189, after: 756, months: 6, image: "/images/negative-sell/negative_1.webp" },
+  { name: "Tom V., 44", before: 267, after: 892, months: 5, image: "/images/negative-sell/negative_2.jpeg" },
 ];
 
 function MemberResultCard({ r }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-      <div className="relative grid grid-cols-2 border-b border-gray-100 bg-gray-50 p-6">
+    <article className="flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-gray-200 bg-white shadow-sm">
+      <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
+        <Image
+          src={r.image}
+          alt={`${r.name} result`}
+          fill
+          className="object-cover object-center"
+          sizes="(max-width: 640px) 88vw, (max-width: 1024px) 36vw, 25vw"
+        />
+      </div>
+      <div className="relative grid grid-cols-2 border-b border-gray-100 bg-gray-50 p-5">
         <div className="text-center">
           <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Month 0</p>
-          <p className="mt-1 font-title text-3xl text-gray-400">{r.before}</p>
+          <p className="mt-1 font-title text-2xl text-gray-400">{r.before}</p>
           <p className="text-[10px] text-gray-400">ng/dL Total T</p>
         </div>
         <div className="border-l border-dashed border-gray-200 text-center">
           <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400">Month {r.months}</p>
-          <p className="mt-1 font-title text-3xl text-[#6D6FFC]">{r.after}</p>
+          <p className="mt-1 font-title text-2xl text-[#6D6FFC]">{r.after}</p>
           <p className="text-[10px] text-gray-400">ng/dL Total T</p>
         </div>
-        <div className="absolute left-1/2 top-1/2 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#6D6FFC] text-white">
-          <ArrowUp className="h-4 w-4" />
+        <div className="absolute left-1/2 top-1/2 flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#6D6FFC] text-white">
+          <ArrowUp className="h-3.5 w-3.5" />
         </div>
       </div>
       <div className="px-5 py-4">
-        <p className="font-title text-lg text-gray-900">{r.name}</p>
-        <p className="mt-1 flex items-center gap-1.5 text-xs text-[#6D6FFC]">
+        <p className="text-center text-base font-medium text-gray-900">{r.name}</p>
+        <p className="mt-1 flex items-center justify-center gap-1.5 text-xs text-[#6D6FFC]">
           <Check className="h-3.5 w-3.5" /> Verified HealSend Member
         </p>
       </div>
-    </div>
-  );
-}
-
-function ResultsRow({ items }) {
-  return (
-    <div className="relative">
-      <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain py-0.5 pl-3 pr-4 pb-2 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] scroll-pl-3 scroll-pr-4 scrollbar-hide lg:grid lg:grid-cols-3 lg:overflow-visible lg:scroll-p-0 lg:px-0 lg:py-0 lg:pb-0 [&::-webkit-scrollbar]:hidden">
-        {items.map((r) => (
-          <div
-            key={r.name}
-            data-card
-            className="min-w-[88%] shrink-0 snap-start snap-always lg:min-w-0"
-          >
-            <MemberResultCard r={r} />
-          </div>
-        ))}
-        <div className="w-2 shrink-0 lg:hidden" aria-hidden />
-      </div>
-    </div>
+    </article>
   );
 }
 
 function TRTMemberResultsSection() {
-  const row1 = MEMBER_RESULTS.slice(0, 3);
-  const row2 = MEMBER_RESULTS.slice(3, 6);
-
   return (
     <section className="overflow-hidden bg-[#f9f9f9] py-16 md:py-20">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
@@ -979,16 +1038,24 @@ function TRTMemberResultsSection() {
           <p className="font-title text-6xl font-medium text-gray-900 md:text-7xl">
             <span className="text-[#6D6FFC]">2,000+</span> members.
           </p>
-          <p className="mt-2 text-base text-gray-600">Life-changing results</p>
+          <p className="mt-2 font-playfair text-2xl italic text-[#6D6FFC] md:text-3xl">Life-changing results</p>
           <div className="mt-5">
-            <Link href={CTA_HREF} className="hs-solid-btn inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-base font-semibold">
-              See what&apos;s possible for you
+            <Link href={CTA_HREF} className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-8 py-3.5 text-base font-semibold text-white transition hover:bg-slate-900">
+              See what&apos;s possible for you <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
-        <div className="space-y-6">
-          <ResultsRow items={row1} />
-          <ResultsRow items={row2} />
+
+        <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain px-4 pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {MEMBER_RESULTS.map((r) => (
+            <div
+              key={r.name}
+              className="w-[80vw] shrink-0 snap-start sm:w-[48%] lg:w-[30%]"
+            >
+              <MemberResultCard r={r} />
+            </div>
+          ))}
+          <div className="w-2 shrink-0" aria-hidden />
         </div>
       </div>
     </section>
@@ -1513,7 +1580,7 @@ function TRTFinalCTASection() {
         <Link href={CTA_HREF} className="hs-solid-btn inline-flex items-center gap-2 rounded-full px-10 py-4 text-base font-semibold">
           Get my personalized plan <ArrowRight className="h-4 w-4" />
         </Link>
-        <p className="mt-4 text-xs text-white/40">By starting, you agree to our terms &amp; privacy policy. Doctor-prescribed only.</p>
+        <p className="mt-4 text-xs text-white/40">By starting, you agree to our terms &amp; privacy policy. Provider-prescribed when appropriate.</p>
       </div>
     </section>
   );
@@ -1531,11 +1598,12 @@ export default function TRTLandingPage({ product }) {
       <MinimalMarketingNavbar />
       <TRTWillpowerSection />
       <TRTProductHeroSection />
-      <FadeIn><OurTreatmentsSection cards={TREATMENT_PLAN_CARDS.filter(c => c.id !== "trt")} /></FadeIn>
-      <FadeIn><TRTPlansSection /></FadeIn>
-      <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage />
+      <MediaLogosBanner />
+      <FadeIn><TRTCombinedTreatmentsSection cards={TREATMENT_PLAN_CARDS.filter(c => c.id !== "trt")} /></FadeIn>
+      {/* <FadeIn><TRTPlansSection /></FadeIn> */}
+      <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="TRT Benefits" />
       <FadeIn><TRTSymptomsSection /></FadeIn>
-      <FadeIn><TRTDesignedToSupportSection /></FadeIn>
+      {/* <FadeIn><TRTDesignedToSupportSection /></FadeIn> — merged into TRTCombinedTreatmentsSection */}
       <FadeIn><TRTMemberResultsSection /></FadeIn>
       <TRTStatsSection />
       <FadeIn><TRTEligibilitySection /></FadeIn>

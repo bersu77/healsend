@@ -46,6 +46,9 @@ import {
   SameMedicationSection,
   RelatedProductsSection,
   FDADisclaimerSection,
+  MediaLogosBanner,
+  RestoredTirzepatideBenefitsCarouselSection,
+  mergeProductContent,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/healing-peptide-therapy";
@@ -335,7 +338,7 @@ function HPProductHeroSection() {
               ))}
             </motion.div>
 
-            <div className="mb-6">
+            <div className="mb-6 mt-8">
               <h3 className="mb-4 text-base font-medium text-gray-900">
                 Related Products
               </h3>
@@ -1448,11 +1451,15 @@ function HPClosingCTA() {
 /* ------------------------------------------------------------------ */
 
 export default function HealingPeptideTherapyLandingPage({ product }) {
+  const productData = mergeProductContent(product);
+
   return (
     <div className="min-h-screen overflow-x-clip bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
       <MinimalMarketingNavbar />
       <HPWillpowerSection />
       <HPProductHeroSection />
+      <MediaLogosBanner />
+      <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="Healing Peptide Therapy Benefits" />
       <HPWhoItsForSection />
       <HPMechanismSection />
       <HPPricingSection />

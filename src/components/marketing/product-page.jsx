@@ -403,11 +403,11 @@ function NegativeSellSection() {
           from years of yo-yo dieting — this is why GLP-1 therapy exists.
         </p>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pl-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:overflow-visible sm:p-0 lg:grid-cols-4">
           {NEGATIVE_SELL_CARDS.map((card) => (
             <div
               key={card.title}
-              className="flex flex-col overflow-hidden rounded-[1.5rem] border border-[#ebebeb] bg-white shadow-sm"
+              className="w-[75vw] shrink-0 snap-start sm:w-auto sm:shrink flex flex-col overflow-hidden rounded-[1.5rem] border border-[#ebebeb] bg-white shadow-sm"
             >
               <div className="relative h-48 w-full overflow-hidden bg-[#f5f5f5]">
                 <Image
@@ -942,7 +942,7 @@ export function ProductHero({ productData, isHomepage: _isHomepage = false }) {
   const relatedProducts = productData.relatedProducts || [];
 
   return (
-    <section className="bg-[#f9f9f9] px-4 py-16 md:px-[3.25rem] md:py-20 lg:px-[3.25rem]">
+    <section className="bg-[#f9f9f9] px-4 pb-16 pt-8 md:px-[3.25rem] md:pb-20 md:pt-10 lg:px-[3.25rem]">
       <div className="mx-auto flex max-w-[1340px] flex-col gap-5 lg:flex-row lg:items-stretch lg:gap-6 xl:gap-8">
         {/* Tall right column stretches this cell; sticky block pins until section scrolls past */}
         <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[55%] lg:max-w-[740px]">
@@ -1435,7 +1435,7 @@ const MEDICAL_PLANS = [
   },
 ];
 
-function MedicalPlanCard({ plan, ctaHref, spanFull, expanded, onToggleExpand, cardRef, style }) {
+export function MedicalPlanCard({ plan, ctaHref, spanFull, expanded, onToggleExpand, cardRef, style }) {
   const isMinimal = plan.bullets.length === 0;
   const hasDetails =
     plan.description ||
@@ -1449,7 +1449,7 @@ function MedicalPlanCard({ plan, ctaHref, spanFull, expanded, onToggleExpand, ca
       className={cn(
         "flex min-w-0 flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-[0_20px_40px_-24px_rgba(91,60,221,0.12)]",
         isMinimal ? "h-auto self-start w-full" : "w-full",
-        spanFull && "col-span-2 lg:col-span-1",
+        spanFull && "sm:col-span-2 lg:col-span-1",
       )}
     >
       <div
@@ -1536,8 +1536,8 @@ function MedicalPlanCard({ plan, ctaHref, spanFull, expanded, onToggleExpand, ca
                 );
               })}
             </ul>
-            {/* Flexible spacer: equal-height row keeps CTAs pinned to card bottom */}
             <div className="mt-8 min-h-3 flex-1 shrink" aria-hidden />
+            <div className="mb-6 h-px w-full bg-gray-200" />
           </>
         ) : null}
 
@@ -1698,7 +1698,7 @@ function MedicalWeightLossSection({ productData }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3 lg:gap-6 xl:gap-8">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-6 xl:gap-8">
           {MEDICAL_PLANS.map((plan) => (
             <MedicalPlanCard
               key={plan.id}
@@ -3712,8 +3712,8 @@ export function CleanSimpleEffective({ productData }) {
           </p>
         </div>
 
-        {/* Mobile: horizontal scroll */}
-        <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-2 scrollbar-hide md:hidden">
+        {/* Mobile: horizontal scroll — one card at a time with peek */}
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pl-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:hidden">
           {items.map((item) => {
             const label = item.text || item.name;
             const desc = CLEAN_CARD_DESCRIPTIONS[label];
@@ -3721,7 +3721,7 @@ export function CleanSimpleEffective({ productData }) {
             return (
               <div
                 key={label}
-                className="flex w-[calc(50vw-1.5rem)] shrink-0 snap-start flex-col items-center rounded-[1.25rem] bg-white p-5 text-center shadow-sm"
+                className="flex w-[75vw] shrink-0 snap-start flex-col items-center rounded-[1.25rem] bg-white p-5 text-center shadow-sm"
               >
                 <div className="mb-4 flex h-14 w-14 items-center justify-center">
                   {item.iconImage ? (
@@ -4339,6 +4339,7 @@ function TirzepatideBenefitCard({ item, index, benefitsCount }) {
 export function RestoredTirzepatideBenefitsCarouselSection({
   productData,
   isHomepage = false,
+  heading = "Explore Our Treatments & Benefits",
 }) {
   const [api, setApi] = useState(null);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -4399,7 +4400,7 @@ export function RestoredTirzepatideBenefitsCarouselSection({
           id="tirzepatide-benefits-classic-heading"
           className="mb-10 text-center font-title text-3xl font-bold tracking-tight text-[#101726] md:mb-12 md:text-4xl lg:text-5xl"
         >
-          Explore Our Treatments &amp; Benefits
+          {heading}
         </h2>
 
         {benefits.length === 0 ? (
@@ -5389,7 +5390,7 @@ export function OurTreatmentsSection({ cards = MEDICAL_PLANS }) {
             "mx-auto grid items-start gap-7 sm:gap-8 lg:gap-10",
             cards.length === 1 && "max-w-lg sm:grid-cols-1",
             cards.length === 2 && "max-w-[1200px] sm:grid-cols-1 lg:grid-cols-2",
-            cards.length >= 3 && "max-w-[1400px] grid-cols-2 lg:grid-cols-3",
+            cards.length >= 3 && "max-w-[1400px] sm:grid-cols-2 lg:grid-cols-3",
           )}
         >
           {cards.map((plan) => {
@@ -5478,6 +5479,7 @@ export default function MarketingProductPage({ product, isHomepage = false }) {
 
       <RestoredTirzepatideBenefitsCarouselSection
         productData={productData}
+        heading="GLP-1 Benefits"
         isHomepage={isHomepage}
       />
 
