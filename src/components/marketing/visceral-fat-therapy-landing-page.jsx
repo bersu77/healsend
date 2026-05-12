@@ -1913,11 +1913,6 @@ export default function VisceralFatTherapyLandingPage({ product }) {
       <VFFAQSection />
       <SupportAvailabilitySection />
       <VFClosingCTA />
-      <RelatedProductsSection products={[
-        { id: "tirzepatide-injections", name: "Tirzepatide Injections", image: "/images/marketing/bundle/tirzepatide-injections-product.png" },
-        { id: "semaglutide-injections", name: "Semaglutide Injections", image: "/images/marketing/semaglutide.webp" },
-      ]} />
-      <FDADisclaimerSection />
       <MarketingFooter />
     </div>
   );
