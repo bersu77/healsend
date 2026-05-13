@@ -51,7 +51,9 @@ import {
   RelatedProductsSection,
   FDADisclaimerSection,
   MediaLogosBanner,
+  SimpleSteps,
 } from "@/components/marketing/product-page";
+import { EncoStatBarSection } from "@/components/marketing/enclomiphene-landing-page";
 
 const CTA_HREF = "/funnels/growth-hormone-support";
 
@@ -1599,6 +1601,7 @@ export default function TRTLandingPage({ product }) {
       <TRTWillpowerSection />
       <TRTProductHeroSection />
       <MediaLogosBanner />
+      <EncoStatBarSection />
       <FadeIn><TRTCombinedTreatmentsSection cards={TREATMENT_PLAN_CARDS.filter(c => c.id !== "trt")} /></FadeIn>
       {/* <FadeIn><TRTPlansSection /></FadeIn> */}
       <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="TRT Benefits" />
@@ -1607,7 +1610,7 @@ export default function TRTLandingPage({ product }) {
       <FadeIn><TRTMemberResultsSection /></FadeIn>
       <TRTStatsSection />
       <FadeIn><TRTEligibilitySection /></FadeIn>
-      <FadeIn><TRTProcessSection /></FadeIn>
+      <SimpleSteps productData={productData} />
       <CleanSimpleEffective productData={productData} />
       <FadeIn><LabTested productData={productData} /></FadeIn>
       <MarketingTrustMarquee items={TRT_TRUST_ITEMS} edgeToEdge={false} />

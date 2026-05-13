@@ -543,7 +543,7 @@ const defaultComprehensiveCare = {
         "See a licensed clinician same-day",
         "Unlimited visits, all online",
       ],
-      image: "/images/Exploring-Clinic-Telemedicine-Photoroom.png",
+      image: "/images/clean/Gemini_Generated_Image_pmzg64pmzg64pmzg-removebg-preview.png",
       imageClass:
         "absolute bottom-0 right-6 h-30 w-32 object-contain md:h-35s md:w-40",
     },
@@ -2299,7 +2299,7 @@ export function MemberResultsStatsSection() {
   );
 }
 
-function BMICalculatorPreviewSection() {
+export function BMICalculatorPreviewSection() {
   const [heightFt, setHeightFt] = useState("5");
   const [heightIn, setHeightIn] = useState("10");
   const [weightLbs, setWeightLbs] = useState("210");
@@ -3659,7 +3659,7 @@ export function ComprehensiveCare({ productData }) {
                     <img
                       src={feature.image}
                       alt={feature.title}
-                      className="h-full w-full object-contain object-top"
+                      className="h-full w-full object-contain object-top mix-blend-multiply"
                     />
                   </div>
                 </div>

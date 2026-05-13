@@ -45,6 +45,7 @@ import {
   MediaLogosBanner,
   RestoredTirzepatideBenefitsCarouselSection,
   mergeProductContent,
+  SimpleSteps,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/skin-hair";
@@ -1159,108 +1160,171 @@ function ResearchAccordionItem({ item }) {
 }
 
 function GlowResearchSection() {
+  const researchRef = useRef(null);
+  const researchInView = useInView(researchRef, { once: true, margin: "-60px" });
+
+  const FEATURED_STATS = [
+    { val: "+72%", label: "collagen synthesis" },
+    { val: "+34%", label: "skin density" },
+    { val: "−27%", label: "visible fine lines" },
+  ];
+
   return (
-    <section className="bg-[#F9F9F9] py-16 md:py-20">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="grid gap-12 lg:grid-cols-[55fr_45fr] lg:gap-16">
-          <FadeIn>
-            <div>
-              <div className="mb-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#6D6FFC]">
-                  <Microscope className="h-5 w-5 text-white" strokeWidth={2} />
-                </div>
-                <span className="text-xs font-bold uppercase tracking-widest text-[#6D6FFC]">Peer-Reviewed Excellence</span>
-              </div>
-              <h2 className="mb-3 font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
-                Decades of clinical
-              </h2>
-              <p className="mb-5 font-playfair text-2xl italic text-[#6D6FFC] md:text-3xl">
-                validation.
-              </p>
-              <p className="mb-8 max-w-[480px] text-base leading-relaxed text-gray-600">
-                The compounds in this protocol family come from the most studied regenerative peptide
-                literature available — including dermatology, wound-healing, and hair-cycle research.
-              </p>
+    <section ref={researchRef} className="relative overflow-hidden bg-[#0B1120] py-20 md:py-28">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#6D6FFC]/8 blur-[120px]" />
+      </div>
+      <div className="relative mx-auto max-w-[1200px] px-4 md:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={researchInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="mx-auto mb-14 max-w-[640px] text-center"
+        >
+          <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC]">
+            <Microscope className="h-3.5 w-3.5" />
+            Peer-Reviewed Excellence
+          </span>
+          <h2 className="font-title text-3xl font-bold text-white md:text-4xl lg:text-5xl">
+            Decades of clinical{" "}
+            <span className="font-playfair italic text-[#6D6FFC]">validation.</span>
+          </h2>
+          <p className="mt-4 text-base text-gray-400">
+            The compounds in this protocol family come from the most studied regenerative peptide
+            literature available — including dermatology, wound-healing, and hair-cycle research.
+          </p>
+        </motion.div>
 
-              <div className="space-y-3">
-                {RESEARCH_CITATIONS.map((c) => (
-                  <ResearchAccordionItem key={c.author} item={c} />
-                ))}
-              </div>
-
-              <div className="mt-8 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-                <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                  Reviewed by HealSend Clinical Team
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="flex -space-x-2">
-                    <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-white">
-                      <Image
-                        src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=80&q=80"
-                        alt="Dr. R. Adler"
-                        fill
-                        sizes="40px"
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-white">
-                      <Image
-                        src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=80&q=80"
-                        alt="Clinical team member"
-                        fill
-                        sizes="40px"
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-gray-900">Dr. R. Adler &amp; team</p>
-                    <p className="text-xs text-gray-500">
-                      Board-certified dermatology &amp; regenerative medicine
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </FadeIn>
-
-          <FadeIn>
-            <div className="rounded-3xl border border-gray-100 bg-white p-8 shadow-sm">
-              <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-[#6D6FFC]">
-                Featured Study
-              </p>
-              <h3 className="mb-4 font-title text-xl font-bold leading-snug text-gray-900">
-                &ldquo;Regenerative Peptide Effects on Skin Remodeling and Barrier Function&rdquo;
-              </h3>
-              <blockquote className="mb-6 border-l-2 border-[#6D6FFC] pl-4 text-sm italic leading-relaxed text-gray-500">
-                Pickart L, Margolina A. International Journal of Molecular Sciences. Comprehensive
-                review of regenerative copper-peptide effects across multiple clinical trials.
-              </blockquote>
-
-              <div className="mb-6 grid grid-cols-3 gap-3">
-                {[
-                  { val: "+72%", label: "collagen synthesis" },
-                  { val: "+34%", label: "skin density" },
-                  { val: "−27%", label: "visible fine lines" },
-                ].map((s) => (
-                  <div key={s.label} className="rounded-xl bg-[#6D6FFC]/5 p-3 text-center">
-                    <p className="text-xl font-bold text-[#6D6FFC]">{s.val}</p>
-                    <p className="text-[11px] text-gray-500">{s.label}</p>
-                  </div>
-                ))}
-              </div>
-
-              <Link
-                href={CTA_HREF}
-                className="flex w-full items-center justify-center rounded-full bg-[#3d35b5] py-4 text-sm font-semibold text-white transition hover:bg-[#2d2880]"
+        <div className="grid gap-6 lg:grid-cols-2">
+          {/* Left — accordion */}
+          <div className="space-y-3">
+            {RESEARCH_CITATIONS.map((c, idx) => (
+              <motion.div
+                key={c.author}
+                initial={{ opacity: 0, x: -20 }}
+                animate={researchInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.2 + idx * 0.1 }}
               >
-                View full study →
-              </Link>
+                <ResearchAccordionItemDark item={c} />
+              </motion.div>
+            ))}
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={researchInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.7 }}
+              className="mt-4 flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4"
+            >
+              <div className="flex -space-x-2">
+                <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-[#0B1120]">
+                  <Image
+                    src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=80&q=80"
+                    alt="Dr. R. Adler"
+                    fill
+                    sizes="40px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-[#0B1120]">
+                  <Image
+                    src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=80&q=80"
+                    alt="Clinical team member"
+                    fill
+                    sizes="40px"
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+              <div>
+                <p className="text-sm font-bold text-white">Dr. R. Adler &amp; team</p>
+                <p className="text-xs text-gray-500">Board-certified dermatology &amp; regenerative medicine</p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right — featured study card */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={researchInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-col rounded-2xl border border-white/10 bg-white/5 p-7 backdrop-blur-sm md:p-8"
+          >
+            <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-[#6D6FFC]">
+              Featured Study
+            </p>
+            <h3 className="mb-4 font-title text-xl font-bold leading-snug text-white">
+              &ldquo;Regenerative Peptide Effects on Skin Remodeling and Barrier Function&rdquo;
+            </h3>
+            <blockquote className="mb-6 border-l-2 border-[#6D6FFC]/40 pl-4 text-sm italic leading-relaxed text-gray-400">
+              Pickart L, Margolina A. International Journal of Molecular Sciences. Comprehensive
+              review of regenerative copper-peptide effects across multiple clinical trials.
+            </blockquote>
+
+            <div className="mb-6 grid grid-cols-3 gap-3">
+              {FEATURED_STATS.map((s, idx) => (
+                <motion.div
+                  key={s.label}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={researchInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.4, delay: 0.5 + idx * 0.1 }}
+                  className="rounded-xl bg-[#6D6FFC]/10 p-3 text-center"
+                >
+                  <p className="text-xl font-bold text-[#6D6FFC]">{s.val}</p>
+                  <p className="text-[11px] text-gray-500">{s.label}</p>
+                </motion.div>
+              ))}
             </div>
-          </FadeIn>
+
+            <Link
+              href={CTA_HREF}
+              className="mt-auto flex w-full items-center justify-center rounded-full bg-[#6D6FFC] py-4 text-sm font-semibold text-white shadow-[0_8px_32px_rgba(109,111,252,0.3)] transition hover:bg-[#5a5ce8]"
+            >
+              View full study →
+            </Link>
+          </motion.div>
         </div>
       </div>
     </section>
+  );
+}
+
+function ResearchAccordionItemDark({ item }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="flex w-full items-center gap-4 p-4 text-left transition hover:bg-white/[0.08]"
+      >
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#6D6FFC]/20">
+          <item.icon className="h-4 w-4 text-[#6D6FFC]" strokeWidth={2} />
+        </div>
+        <span className="flex-1 text-sm font-bold text-white">{item.focus}</span>
+        <motion.div
+          animate={{ rotate: open ? 45 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/20 text-gray-400"
+        >
+          <Plus className="h-3.5 w-3.5" />
+        </motion.div>
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+          >
+            <div className="border-t border-white/5 px-4 pb-4 pt-3">
+              <p className="mb-1 text-sm font-semibold text-[#6D6FFC]">{item.author}</p>
+              <p className="text-sm leading-relaxed text-gray-400">{item.desc}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 
@@ -1544,7 +1608,7 @@ export default function GlowLandingPage({ product }) {
       <GlowPainPointsSection />
       <GlowPromiseSection />
       <GlowResearchSection />
-      <GlowStepsSection />
+      <SimpleSteps productData={productData} />
       {/* <GlowUpgradeBanner /> */}
       <CleanSimpleEffective productData={null} />
       <LabTested productData={null} />

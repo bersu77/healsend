@@ -3,7 +3,10 @@
     "allow": [
       "Bash(npx eslint *)",
       "Bash(npx next *)",
-      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3001/visceral-fat-therapy\" -UseBasicParsing -TimeoutSec 10 -ErrorAction Stop; \"Status: $\\($r.StatusCode\\) - Page loaded OK, length: $\\($r.Content.Length\\)\" } catch { \"Error: $\\($_.Exception.Message\\)\" })"
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3001/visceral-fat-therapy\" -UseBasicParsing -TimeoutSec 10 -ErrorAction Stop; \"Status: $\\($r.StatusCode\\) - Page loaded OK, length: $\\($r.Content.Length\\)\" } catch { \"Error: $\\($_.Exception.Message\\)\" })",
+      "Bash(curl *)",
+      "Bash(Select-String -Pattern \"error|Error|failed|Failed\")",
+      "Bash(Select-Object -First 30)"
     ]
   }
 }

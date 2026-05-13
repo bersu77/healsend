@@ -50,6 +50,7 @@ import {
   MediaLogosBanner,
   RestoredTirzepatideBenefitsCarouselSection,
   mergeProductContent,
+  SimpleSteps,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/gh-optimization";
@@ -525,8 +526,8 @@ function CountUpStat({ value, prefix = "", suffix = "", label, duration = 1000 }
   }, [inView, value, duration]);
 
   return (
-    <div ref={ref} className="flex flex-col items-center text-center">
-      <p className="font-title text-6xl font-bold text-white md:text-7xl lg:text-8xl">
+    <div ref={ref} className="flex w-full flex-col items-center text-center">
+      <p className="whitespace-nowrap font-title text-5xl font-bold text-white md:text-6xl lg:text-7xl">
         {prefix}{count}{suffix}
       </p>
       <p className="mt-4 max-w-[180px] text-sm leading-relaxed text-white/55 md:text-base">
@@ -552,7 +553,7 @@ function GHDeclineStatsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-4 md:gap-6">
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
           {DECLINE_STATS.map((stat) => (
             <CountUpStat key={stat.label} {...stat} />
           ))}
@@ -568,108 +569,96 @@ function GHDeclineStatsSection() {
 
 const GH_HOW_STEPS = [
   {
-    icon: Zap,
     title: "Peptide signals your pituitary",
     desc: "Sermorelin and CJC-1295 bind to GHRH receptors on your pituitary gland — triggering a natural pulse of growth hormone. No bypassing your body's own system.",
+    image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=600&q=80",
   },
   {
-    icon: Activity,
     title: "GH pulse stimulates the liver",
     desc: "The natural GH pulse travels to your liver and stimulates IGF-1 (Insulin-like Growth Factor 1) production — the downstream hormone responsible for most of GH's anabolic effects.",
+    image: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=600&q=80",
   },
   {
-    icon: RefreshCw,
     title: "IGF-1 activates muscle & fat metabolism",
     desc: "IGF-1 signals muscle cells to grow and repair, and signals fat cells to release stored energy. The combined effect: more lean mass, less fat, faster recovery.",
+    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80",
   },
   {
-    icon: Sparkles,
     title: "Sleep, skin, and cognition improve",
     desc: "GH is secreted primarily during deep sleep. As your pulse amplitude restores, sleep architecture improves — and with it, mental clarity, skin quality, and systemic recovery.",
+    image: "https://images.unsplash.com/photo-1531353826977-0941b4779a1c?auto=format&fit=crop&w=600&q=80",
   },
 ];
 
-function GHDiagram() {
-  return (
-    <div className="flex items-center justify-center p-6 md:p-10">
-      <svg viewBox="0 0 260 260" className="w-full max-w-[280px]" aria-hidden="true">
-        <defs>
-          <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-            <path d="M0,0 L0,8 L8,4 Z" fill="#6D6FFC" />
-          </marker>
-        </defs>
-        {/* Center: Pituitary */}
-        <circle cx="130" cy="130" r="36" fill="#6D6FFC" />
-        <text x="130" y="125" textAnchor="middle" fill="white" fontSize="9" fontWeight="700">PITUITARY</text>
-        <text x="130" y="138" textAnchor="middle" fill="white" fontSize="9" fontWeight="700">GLAND</text>
-        {/* Top: Peptide Signal */}
-        <line x1="130" y1="60" x2="130" y2="91" stroke="#6D6FFC" strokeWidth="2" markerEnd="url(#arr)" />
-        <circle cx="130" cy="42" r="20" fill="#6D6FFC" />
-        <text x="130" y="38" textAnchor="middle" fill="white" fontSize="7.5" fontWeight="700">PEPTIDE</text>
-        <text x="130" y="49" textAnchor="middle" fill="white" fontSize="7.5" fontWeight="700">SIGNAL</text>
-        {/* Right: GH Pulse */}
-        <line x1="201" y1="130" x2="170" y2="130" stroke="#6D6FFC" strokeWidth="2" markerEnd="url(#arr)" />
-        <circle cx="218" cy="130" r="20" fill="#FF6B35" />
-        <text x="218" y="126" textAnchor="middle" fill="white" fontSize="7.5" fontWeight="700">GH</text>
-        <text x="218" y="137" textAnchor="middle" fill="white" fontSize="7.5" fontWeight="700">PULSE</text>
-        {/* Bottom: IGF-1 */}
-        <line x1="130" y1="200" x2="130" y2="169" stroke="#6D6FFC" strokeWidth="2" markerEnd="url(#arr)" />
-        <circle cx="130" cy="218" r="20" fill="#FF6B35" />
-        <text x="130" y="214" textAnchor="middle" fill="white" fontSize="7.5" fontWeight="700">IGF-1</text>
-        <text x="130" y="225" textAnchor="middle" fill="white" fontSize="7.5" fontWeight="700">LIVER</text>
-        {/* Left: Results */}
-        <line x1="59" y1="130" x2="90" y2="130" stroke="#6D6FFC" strokeWidth="2" markerEnd="url(#arr)" />
-        <circle cx="42" cy="130" r="20" fill="#6D6FFC" />
-        <text x="42" y="126" textAnchor="middle" fill="white" fontSize="7" fontWeight="700">LEAN</text>
-        <text x="42" y="137" textAnchor="middle" fill="white" fontSize="7" fontWeight="700">MASS</text>
-      </svg>
-    </div>
-  );
-}
-
 function GHHowItWorksSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
   return (
-    <section id="how-it-works" className="bg-white py-16 md:py-20">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="mb-10 text-center md:mb-12">
-          <span className="mb-4 inline-block rounded-full bg-[#F1F5F9] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC]">
+    <section id="how-it-works" className="relative overflow-hidden bg-[#0B1120] py-20 md:py-28">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/2 top-0 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/3 rounded-full bg-[#6D6FFC]/10 blur-[120px]" />
+      </div>
+      <div className="relative mx-auto max-w-[1200px] px-4 md:px-8">
+        <div className="mb-14 text-center md:mb-16">
+          <span className="mb-4 inline-block rounded-full bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC]">
             The Science
           </span>
-          <h2 className="mb-2 font-title text-4xl font-bold text-gray-900 md:text-5xl">
+          <h2 className="mb-2 font-title text-4xl font-bold text-white md:text-5xl">
             Peptides that work with
           </h2>
           <p className="font-playfair text-3xl italic text-[#6D6FFC] md:text-4xl">
             your own pituitary.
           </p>
-          <p className="mx-auto mt-5 max-w-[580px] text-base text-gray-600">
+          <p className="mx-auto mt-5 max-w-[580px] text-base text-gray-400">
             Synthetic HGH shuts down your body&apos;s own production. Peptide secretagogues stimulate
             it — keeping the natural feedback loop intact.
           </p>
         </div>
 
-        <div className="overflow-hidden rounded-3xl bg-[#F1F5F9] p-6 shadow-sm md:p-10 lg:p-12">
-          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-            <FadeIn>
-              <GHDiagram />
-            </FadeIn>
-            <div className="space-y-6">
-              {GH_HOW_STEPS.map((step, idx) => (
-                <FadeIn key={idx}>
-                  <div className="flex gap-4">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC] text-white">
-                      <step.icon className="h-4 w-4" strokeWidth={2.5} />
-                    </div>
-                    <div>
-                      <h3 className="mb-1 font-title text-lg font-bold text-gray-900">
-                        {step.title}
-                      </h3>
-                      <p className="text-sm leading-relaxed text-gray-600">{step.desc}</p>
-                    </div>
-                  </div>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
+        <div ref={ref} className="relative grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {/* Connecting arrows between cards — desktop only */}
+          {[0, 1, 2].map((i) => (
+            <motion.div
+              key={`arrow-${i}`}
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={inView ? { opacity: 1, scaleX: 1 } : {}}
+              transition={{ duration: 0.4, delay: 0.5 + i * 0.2 }}
+              className="pointer-events-none absolute top-[30%] z-10 hidden origin-left items-center gap-0.5 lg:flex"
+              style={{ left: `${25 * (i + 1)}%`, transform: `translateX(-50%) translateY(-50%)` }}
+              aria-hidden="true"
+            >
+              <div className="h-px w-8 bg-gradient-to-r from-[#6D6FFC]/60 to-[#6D6FFC]/20" />
+              <ArrowRight className="h-3 w-3 text-[#6D6FFC]/50" />
+            </motion.div>
+          ))}
+
+          {GH_HOW_STEPS.map((step, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 32 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, ease: "easeOut", delay: idx * 0.15 }}
+              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-colors hover:border-[#6D6FFC]/30 hover:bg-white/[0.08]"
+            >
+              <div className="relative aspect-[16/10] w-full overflow-hidden">
+                <Image
+                  src={step.image}
+                  alt={step.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-[#0B1120]/40 to-transparent" />
+              </div>
+              <div className="p-5">
+                <h3 className="mb-2 text-base font-bold text-white">
+                  {step.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-gray-400">{step.desc}</p>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
@@ -693,24 +682,27 @@ const COMPARISON_ROWS = [
 
 function GHComparisonSection() {
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-20">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="mx-auto mb-12 max-w-[640px] text-center md:mb-16">
-          <h2 className="mb-3 font-title text-4xl font-bold text-gray-900 md:text-5xl">
+    <section className="relative overflow-hidden bg-[#0B1120] py-20 md:py-28">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute right-0 top-1/3 h-[400px] w-[400px] translate-x-1/4 rounded-full bg-[#6D6FFC]/8 blur-[120px]" />
+      </div>
+      <div className="relative mx-auto max-w-[900px] px-4 md:px-8">
+        <div className="mx-auto mb-14 max-w-[640px] text-center md:mb-16">
+          <h2 className="mb-3 font-title text-4xl font-bold text-white md:text-5xl">
             Peptide secretagogues vs.
           </h2>
           <p className="font-playfair text-3xl italic text-[#6D6FFC] md:text-4xl">
             synthetic HGH.
           </p>
-          <p className="mt-5 text-base text-gray-600">
+          <p className="mt-5 text-base text-gray-400">
             The protocol uses GHRH peptides, not synthetic HGH. Here&apos;s why that distinction matters.
           </p>
         </div>
 
         <FadeIn>
-          <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm">
-            <div className="grid grid-cols-3 border-b border-gray-100 bg-gray-50 px-5 py-4 md:px-8">
-              <p className="text-sm font-semibold text-gray-600">Feature</p>
+          <div className="overflow-hidden rounded-2xl border border-white/10">
+            <div className="grid grid-cols-3 bg-[#6D6FFC]/10 px-5 py-4 md:px-8">
+              <p className="text-sm font-semibold text-gray-400">Feature</p>
               <p className="text-center text-sm font-bold text-[#6D6FFC]">HealSend Peptides</p>
               <p className="text-center text-sm font-semibold text-gray-500">Synthetic HGH</p>
             </div>
@@ -718,28 +710,28 @@ function GHComparisonSection() {
               <div
                 key={row.label}
                 className={`grid grid-cols-3 items-center px-5 py-4 md:px-8 ${
-                  idx !== COMPARISON_ROWS.length - 1 ? "border-b border-gray-100" : ""
-                }`}
+                  idx % 2 === 0 ? "bg-white/[0.03]" : "bg-white/[0.06]"
+                } ${idx !== COMPARISON_ROWS.length - 1 ? "border-b border-white/5" : ""}`}
               >
-                <p className="text-sm text-gray-700">{row.label}</p>
+                <p className="text-sm text-gray-300">{row.label}</p>
                 <div className="flex justify-center">
                   {row.peptide ? (
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#6D6FFC]">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#6D6FFC] shadow-lg shadow-[#6D6FFC]/25">
                       <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />
                     </span>
                   ) : (
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-red-50">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-red-500/10">
                       <XIcon className="h-3.5 w-3.5 text-red-400" strokeWidth={2.5} />
                     </span>
                   )}
                 </div>
                 <div className="flex justify-center">
                   {row.synthetic ? (
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-50">
-                      <Check className="h-3.5 w-3.5 text-emerald-500" strokeWidth={3} />
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/10">
+                      <Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={3} />
                     </span>
                   ) : (
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-red-50">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-red-500/10">
                       <XIcon className="h-3.5 w-3.5 text-red-400" strokeWidth={2.5} />
                     </span>
                   )}
@@ -1900,7 +1892,7 @@ export default function GHOptimizationLandingPage({ product }) {
       <GHIGFChartSection />
       <GHPromiseSection />
       <GHResearchSection />
-      <GHStepsSection />
+      <SimpleSteps productData={productData} />
       <GHCareProgramSection />
       <GHUpgradeBanner />
       <CleanSimpleEffective productData={null} />

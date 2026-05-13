@@ -38,6 +38,7 @@ import {
   MediaLogosBanner,
   RestoredTirzepatideBenefitsCarouselSection,
   mergeProductContent,
+  SimpleSteps,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/visceral-fat-therapy";
@@ -558,7 +559,7 @@ function VFAudienceSection() {
             <span className="font-playfair italic text-[#FF6B35]">weren&apos;t built for.</span>
           </h2>
           <p className="mx-auto mb-14 max-w-2xl text-center text-base text-white/70 md:text-lg">
-            <strong className="text-white">40% of U.S. adults</strong> have clinically significant visceral fat. Most aren&apos;t candidates for Wegovy or Zepbound. Most have nowhere to go. This protocol exists for them.
+            <strong className="text-white">40% of U.S. adults</strong>{" "}have clinically significant visceral fat. Most aren&apos;t candidates for Wegovy or Zepbound. Most have nowhere to go. This protocol exists for them.
           </p>
         </FadeIn>
 
@@ -617,39 +618,39 @@ function VFAudienceSection() {
 
 function VFOrganDiagram() {
   return (
-    <svg viewBox="0 0 320 320" className="w-full max-w-[320px]" fill="none">
+    <svg viewBox="0 0 400 400" className="w-full max-w-[400px]" fill="none">
       {/* Outer ring — subcutaneous */}
-      <circle cx="160" cy="160" r="148" fill="#EEE9FF" stroke="#C4B5FD" strokeWidth="1.5" strokeDasharray="5 3" />
+      <circle cx="200" cy="200" r="170" fill="#EEE9FF" stroke="#C4B5FD" strokeWidth="1.5" strokeDasharray="5 3" />
       {/* Mid ring */}
-      <circle cx="160" cy="160" r="118" fill="#E8E2FF" stroke="#A78BFA" strokeWidth="1" />
+      <circle cx="200" cy="200" r="140" fill="#E8E2FF" stroke="#A78BFA" strokeWidth="1" />
       {/* Inner visceral zone */}
-      <circle cx="160" cy="160" r="84" fill="#D4C8FF" />
+      <circle cx="200" cy="200" r="100" fill="#D4C8FF" />
       {/* Organ: Stomach */}
-      <ellipse cx="130" cy="148" rx="28" ry="22" fill="#7C5CBF" opacity="0.85" />
-      <text x="130" y="152" textAnchor="middle" fontSize="9" fill="white" fontWeight="700">STOMACH</text>
+      <ellipse cx="168" cy="186" rx="32" ry="26" fill="#7C5CBF" opacity="0.85" />
+      <text x="168" y="191" textAnchor="middle" fontSize="13" fill="white" fontWeight="700">STOMACH</text>
       {/* Organ: Liver */}
-      <ellipse cx="182" cy="138" rx="26" ry="18" fill="#7C5CBF" opacity="0.85" />
-      <text x="182" y="142" textAnchor="middle" fontSize="9" fill="white" fontWeight="700">LIVER</text>
+      <ellipse cx="226" cy="175" rx="30" ry="22" fill="#7C5CBF" opacity="0.85" />
+      <text x="226" y="180" textAnchor="middle" fontSize="13" fill="white" fontWeight="700">LIVER</text>
       {/* Organ: Intestines */}
-      <ellipse cx="160" cy="185" rx="34" ry="18" fill="#7C5CBF" opacity="0.85" />
-      <text x="160" y="189" textAnchor="middle" fontSize="9" fill="white" fontWeight="700">INTESTINES</text>
+      <ellipse cx="200" cy="230" rx="40" ry="22" fill="#7C5CBF" opacity="0.85" />
+      <text x="200" y="235" textAnchor="middle" fontSize="13" fill="white" fontWeight="700">INTESTINES</text>
       {/* Fat dots (visceral) */}
-      {[[148,168],[175,165],[155,155],[170,178],[140,178],[162,158],[185,172]].map(([cx,cy], i) => (
-        <circle key={i} cx={cx} cy={cy} r="4" fill="#FF6B35" opacity="0.75" />
+      {[[185,210],[218,206],[195,195],[212,222],[178,222],[202,198],[230,215]].map(([cx,cy], i) => (
+        <circle key={i} cx={cx} cy={cy} r="5" fill="#FF6B35" opacity="0.75" />
       ))}
       {/* Label: Subcutaneous */}
-      <line x1="20" y1="90" x2="55" y2="115" stroke="#6D6FFC" strokeWidth="1" />
-      <text x="6" y="84" fontSize="9" fill="#6D6FFC" fontWeight="600">Subcutaneous fat</text>
-      <text x="6" y="95" fontSize="8" fill="#6D6FFC">(you pinch)</text>
+      <line x1="22" y1="100" x2="70" y2="132" stroke="#6D6FFC" strokeWidth="1.5" />
+      <text x="6" y="88" fontSize="14" fill="#6D6FFC" fontWeight="700">Subcutaneous fat</text>
+      <text x="6" y="104" fontSize="12" fill="#6D6FFC">(you pinch)</text>
       {/* Label: Visceral */}
-      <line x1="268" y1="88" x2="235" y2="118" stroke="#FF6B35" strokeWidth="1" />
-      <text x="248" y="82" fontSize="9" fill="#FF6B35" fontWeight="600">Visceral</text>
-      <text x="248" y="93" fontSize="8" fill="#FF6B35">(wraps your</text>
-      <text x="248" y="103" fontSize="8" fill="#FF6B35">organs)</text>
+      <line x1="332" y1="100" x2="290" y2="138" stroke="#FF6B35" strokeWidth="1.5" />
+      <text x="308" y="88" fontSize="14" fill="#FF6B35" fontWeight="700">Visceral</text>
+      <text x="308" y="104" fontSize="12" fill="#FF6B35">(wraps your</text>
+      <text x="308" y="118" fontSize="12" fill="#FF6B35">organs)</text>
       {/* Label: VAT */}
-      <line x1="258" y1="248" x2="218" y2="210" stroke="#FF6B35" strokeWidth="1" />
-      <text x="248" y="244" fontSize="9" fill="#FF6B35" fontWeight="600">VAT cluster</text>
-      <text x="248" y="255" fontSize="8" fill="#FF6B35">(metabolic)</text>
+      <line x1="320" y1="298" x2="270" y2="260" stroke="#FF6B35" strokeWidth="1.5" />
+      <text x="308" y="296" fontSize="14" fill="#FF6B35" fontWeight="700">VAT cluster</text>
+      <text x="308" y="312" fontSize="12" fill="#FF6B35">(metabolic)</text>
     </svg>
   );
 }
@@ -1903,12 +1904,12 @@ export default function VisceralFatTherapyLandingPage({ product }) {
       <VFAudienceSection />
       <VFVisceralFatSection />
       <VFMechanismSection />
-      <VFComparisonSection />
+      {/* VFComparisonSection removed per client request */}
       <VFTimelineSection />
       <VFOutcomesSection />
       <VFPromiseSection />
       <VFResearchSection />
-      <VFStepsSection />
+      <SimpleSteps productData={productData} />
       <VFUpgradeBanner />
       <CleanSimpleEffective productData={null} />
       <LabTested productData={null} />

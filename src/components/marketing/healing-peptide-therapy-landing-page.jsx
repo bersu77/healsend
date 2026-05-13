@@ -49,6 +49,7 @@ import {
   MediaLogosBanner,
   RestoredTirzepatideBenefitsCarouselSection,
   mergeProductContent,
+  SimpleSteps,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/healing-peptide-therapy";
@@ -1466,7 +1467,7 @@ export default function HealingPeptideTherapyLandingPage({ product }) {
       <HPComparisonSection />
       <HPOutcomesSection />
       <HPProtocolSection />
-      <HPStepsSection />
+      <SimpleSteps productData={productData} />
       <HPPromiseSection />
       <CleanSimpleEffective productData={null} />
       <LabTested productData={null} />

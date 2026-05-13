@@ -42,6 +42,9 @@ import {
   MedicalPlanCard,
   MediaLogosBanner,
   RestoredTirzepatideBenefitsCarouselSection,
+  BMICalculatorPreviewSection,
+  TestimonialsSection,
+  MemberResultsStatsSection,
   mergeProductContent,
 } from "@/components/marketing/product-page";
 
@@ -220,13 +223,10 @@ function OralGLP1ProductHeroSection() {
                     </div>
                     In Stock
                   </div>
-                  <Image
-                    src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1200&q=80"
+                  <img
+                    src="/images/marketing/instock.jpeg"
                     alt="Oral GLP-1 Therapy — in stock"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 55vw"
-                    className="rounded-[1rem] object-cover object-center"
-                    priority
+                    className="h-full w-full rounded-2xl object-cover object-bottom object-right"
                   />
                 </div>
               </div>
@@ -1344,9 +1344,6 @@ function OralGLP1MechanismSection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
                 </div>
                 <div className="flex flex-1 flex-col p-6">
-                  <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-full bg-[#6D6FFC] text-sm font-bold text-white">
-                    {step.num}
-                  </div>
                   <h3 className="mb-2 text-base font-bold text-gray-900">{step.title}</h3>
                   <p className="text-sm leading-relaxed text-gray-600">{step.desc}</p>
                 </div>
@@ -1552,38 +1549,92 @@ function OralGLP1PainPointsSection() {
 /* ------------------------------------------------------------------ */
 
 function OralGLP1PromiseSection() {
+  const promiseRef = useRef(null);
+  const promiseInView = useInView(promiseRef, { once: false, margin: "-100px" });
+
   return (
-    <section className="bg-white py-10 md:py-12">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <FadeIn>
-          <div className="flex flex-col items-start gap-6 rounded-3xl border-2 border-[#6D6FFC]/30 bg-[#F9F9FF] px-7 py-8 md:flex-row md:items-center md:gap-10 md:px-10">
-            <div className="flex h-20 w-20 shrink-0 flex-col items-center justify-center rounded-full border-2 border-[#6D6FFC] bg-white">
-              <span className="font-title text-2xl font-black text-[#6D6FFC]">60</span>
-              <span className="text-[8px] font-bold uppercase tracking-widest text-[#6D6FFC]">
-                Day Promise
-              </span>
-            </div>
-            <div className="flex-1">
-              <h3 className="mb-2 text-xl font-bold leading-snug text-gray-900 md:text-2xl">
-                If you don&apos;t see measurable weight loss by week 8,{" "}
-                <span className="font-playfair italic text-[#6D6FFC]">your first month is free.</span>
-              </h3>
-              <p className="text-sm leading-relaxed text-gray-600 md:text-base">
-                We&apos;re confident enough in this protocol that we&apos;ll refund your first month
-                if you don&apos;t see real change by day 56. No fine print. No retention scripts.
-                Email us and it&apos;s done.
-              </p>
-            </div>
-            <div className="shrink-0">
-              <Link
-                href={CTA_HREF}
-                className="whitespace-nowrap text-sm font-semibold text-[#6D6FFC] underline decoration-dotted underline-offset-4 hover:text-[#5a5ce8]"
-              >
-                Read the full guarantee →
-              </Link>
-            </div>
-          </div>
-        </FadeIn>
+    <section ref={promiseRef} className="relative overflow-hidden bg-[#0d0d1a] py-20 md:py-28">
+      <motion.div
+        className="pointer-events-none absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={promiseInView ? { opacity: 1 } : {}}
+        transition={{ duration: 1.2 }}
+      >
+        <motion.div
+          className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#6D6FFC]/10 blur-[120px]"
+          animate={promiseInView ? { scale: [1, 1.15, 1], opacity: [0.6, 1, 0.6] } : {}}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#6D6FFC]/10"
+          animate={promiseInView ? { scale: [1, 1.6], opacity: [0.4, 0] } : {}}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeOut", repeatDelay: 1 }}
+        />
+      </motion.div>
+
+      <div className="relative mx-auto max-w-[800px] px-4 text-center md:px-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.6, filter: "blur(16px)" }}
+          animate={promiseInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="relative"
+        >
+          <span className="font-title text-8xl font-black tracking-tight text-white md:text-9xl">
+            60
+          </span>
+          <motion.p
+            initial={{ opacity: 0, letterSpacing: "0.5em" }}
+            animate={promiseInView ? { opacity: 1, letterSpacing: "0.25em" } : {}}
+            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+            className="mt-1 text-sm font-semibold uppercase text-[#6D6FFC]"
+          >
+            Day Promise
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={promiseInView ? { scaleX: 1, opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="relative mx-auto my-8 origin-center"
+        >
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-[#6D6FFC] to-transparent" />
+          <div className="absolute inset-0 h-px w-24 bg-gradient-to-r from-transparent via-[#6D6FFC] to-transparent blur-sm" />
+        </motion.div>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={promiseInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-4 font-title text-2xl font-bold leading-snug text-white md:text-3xl"
+        >
+          If you don&apos;t see measurable weight loss by week 8,{" "}
+          <span className="font-playfair italic text-[#6D6FFC]">your first month is free.</span>
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={promiseInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.85 }}
+          className="mb-8 text-sm text-white/40"
+        >
+          No fine print. No retention scripts. Email us and it&apos;s done.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={promiseInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          whileHover={{ scale: 1.06 }}
+          whileTap={{ scale: 0.96 }}
+          transition={{ duration: 0.8, delay: 1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Link
+            href={CTA_HREF}
+            className="inline-flex items-center gap-2 rounded-full bg-[#6D6FFC] px-8 py-4 text-base font-semibold text-white shadow-[0_8px_32px_rgba(109,111,252,0.35)] transition hover:bg-[#5a5ce8] hover:shadow-[0_8px_40px_rgba(109,111,252,0.5)]"
+          >
+            Start consultation →
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
@@ -1904,11 +1955,12 @@ export default function OralGLP1LandingPage({ product }) {
       <OralGLP1TwoOptionsSection />
       <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="Oral GLP-1 Benefits" />
       <OralGLP1BarChartSection />
-      <OralGLP1EligibilitySection />
+      <BMICalculatorPreviewSection />
       <OralGLP1QuizSection />
       <OralGLP1B6Section />
       <OralGLP1MechanismSection />
-      <OralGLP1ResultsSection />
+      <TestimonialsSection />
+      <MemberResultsStatsSection />
       <OralGLP1PainPointsSection />
       <OralGLP1PromiseSection />
       <OralGLP1ResearchSection />

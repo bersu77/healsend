@@ -716,7 +716,7 @@ function AnimatedStat({ from, to, duration, format, label }) {
   );
 }
 
-function EncoStatBarSection() {
+export function EncoStatBarSection() {
   return (
     <section className="relative overflow-hidden bg-[#101726] py-14 text-white md:py-16">
       <div className="pointer-events-none absolute -right-24 -top-36 h-96 w-96 rounded-full bg-[#6D6FFC]/20 blur-3xl" />
@@ -758,8 +758,8 @@ function HpgCarousel() {
             <div key={step.title} data-card className="min-w-0 shrink-0 basis-[88%] snap-start snap-always">
               <div className="group h-full rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
                 <div className="mb-3 flex items-center gap-3">
-                  <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full">
-                    <Image src={step.icon} alt={step.title} fill sizes="36px" className="object-contain" loading="lazy" />
+                  <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-[#F1F0FF] p-1.5">
+                    <Image src={step.icon} alt={step.title} fill sizes="40px" className="object-contain grayscale-0 brightness-0 [filter:grayscale(1)_sepia(1)_hue-rotate(210deg)_saturate(2.5)_brightness(0.75)]" loading="lazy" />
                   </div>
                   <h3 className="font-title text-lg font-medium text-gray-900">{step.title}</h3>
                 </div>
@@ -780,8 +780,8 @@ function HpgCarousel() {
           <FadeIn key={step.title}>
             <div className="group h-full rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition hover:border-[#6D6FFC]/30 hover:bg-[#F1F5F9]">
               <div className="mb-3 flex items-center gap-3">
-                <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full">
-                  <Image src={step.icon} alt={step.title} fill sizes="36px" className="object-contain" loading="lazy" />
+                <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-[#F1F0FF] p-1.5">
+                  <Image src={step.icon} alt={step.title} fill sizes="40px" className="object-contain [filter:grayscale(1)_sepia(1)_hue-rotate(210deg)_saturate(2.5)_brightness(0.75)]" loading="lazy" />
                 </div>
                 <h3 className="font-title text-lg font-medium text-gray-900">{step.title}</h3>
               </div>
@@ -1968,10 +1968,10 @@ export default function EnclomipheneLandingPage({ product }) {
       <EncloWillpowerSection />
       <EncloProductHeroSection />
       <MediaLogosBanner />
-      <EncoStatBarSection />
       <FadeIn><OurTreatmentsSection cards={TREATMENT_PLAN_CARDS.filter(c => c.id !== "enclomiphene")} /></FadeIn>
       <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="Enclomiphene Benefits" />
       <FadeIn><EncoHowItWorksSection /></FadeIn>
+      <EncoStatBarSection />
       <FadeIn><EncoComparisonSection /></FadeIn>
       <FadeIn><EncoDailyProtocolSection /></FadeIn>
       <FadeIn><EncoTimelineSection /></FadeIn>

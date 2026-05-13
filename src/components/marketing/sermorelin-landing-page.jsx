@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import {
   Activity,
   ArrowRight,
+  ChevronLeft,
+  ChevronRight,
   BadgeCheck,
   Check,
   ClipboardCheck,
@@ -17,6 +19,10 @@ import {
   ShieldCheck,
   Stethoscope,
   TrendingUp,
+  Heart,
+  Shield,
+  Star,
+  Quote,
   Truck,
   Zap,
 } from "lucide-react";
@@ -39,6 +45,7 @@ import {
   MediaLogosBanner,
   RestoredTirzepatideBenefitsCarouselSection,
   mergeProductContent,
+  SimpleSteps,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/sermorelin";
@@ -794,117 +801,106 @@ function SermorelinComparisonSection() {
 /* ------------------------------------------------------------------ */
 
 function SermorelinMechanismSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  const MECHANISM_STEPS = [
+    {
+      num: "01",
+      title: "Hypothalamus",
+      desc: "Sermorelin mimics GHRH — the natural signal that tells your brain it's time to produce growth hormone.",
+      image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=600&q=80",
+    },
+    {
+      num: "02",
+      title: "Pituitary",
+      desc: "Your pituitary gland responds with stronger natural GH pulses — especially during deep sleep, when most GH is released.",
+      image: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=600&q=80",
+    },
+    {
+      num: "03",
+      title: "Whole body",
+      desc: "Sleep deepens, recovery improves, energy stabilizes — gradually, over 4–8 weeks.",
+      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80",
+    },
+  ];
+
   return (
-    <section id="how-it-works" className="bg-[#F1F5F9] py-16 md:py-24">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="mx-auto mb-12 max-w-[640px] text-center">
-          <p className="mb-2 text-sm font-medium text-gray-500">
+    <section id="how-it-works" className="relative overflow-hidden bg-[#0B1120] py-20 md:py-28">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/2 top-0 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#6D6FFC]/10 blur-[120px]" />
+      </div>
+      <div className="relative mx-auto max-w-[1200px] px-4 md:px-8">
+        <div className="mx-auto mb-16 max-w-[640px] text-center">
+          <span className="mb-4 inline-block rounded-full bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC]">
             How Sermorelin works
-          </p>
-          <h2 className="font-title text-4xl font-bold text-gray-900 md:text-5xl">
+          </span>
+          <h2 className="font-title text-4xl font-bold text-white md:text-5xl">
             Tap your body's own
             <br />
             <span className="font-playfair italic text-[#6D6FFC]">
               natural rhythm.
             </span>
           </h2>
-          <p className="mt-5 text-base text-gray-600">
+          <p className="mt-5 text-base text-gray-400">
             Sermorelin doesn't replace growth hormone — it whispers to the
             part of your brain that already knows how to make it.
           </p>
         </div>
 
-        <FadeIn>
-          <div className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
-            <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-start lg:gap-12">
-              {/* Body SVG diagram */}
-              <div className="flex shrink-0 justify-center lg:w-[200px]">
-                <svg
-                  viewBox="0 0 120 280"
-                  className="h-[280px] w-[120px]"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {/* Head */}
-                  <circle cx="60" cy="28" r="22" stroke="#CBD5E1" strokeWidth="2" fill="#F8FAFC" />
-                  {/* Body */}
-                  <path d="M38 50 L30 130 L40 200 L50 260" stroke="#CBD5E1" strokeWidth="2" fill="none" />
-                  <path d="M82 50 L90 130 L80 200 L70 260" stroke="#CBD5E1" strokeWidth="2" fill="none" />
-                  <path d="M38 50 L82 50" stroke="#CBD5E1" strokeWidth="2" />
-                  <path d="M36 90 L84 90" stroke="#CBD5E1" strokeWidth="2" />
-                  {/* Arms */}
-                  <path d="M38 60 L15 110" stroke="#CBD5E1" strokeWidth="2" />
-                  <path d="M82 60 L105 110" stroke="#CBD5E1" strokeWidth="2" />
-                  {/* Dashed vertical line */}
-                  <line x1="60" y1="50" x2="60" y2="200" stroke="#6D6FFC" strokeWidth="1.5" strokeDasharray="4 3" />
-                  {/* Dot 1 - brain */}
-                  <circle cx="60" cy="22" r="8" fill="#6D6FFC" />
-                  <text x="60" y="26" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">1</text>
-                  {/* Dot 2 - pituitary */}
-                  <circle cx="72" cy="38" r="8" fill="#8B5CF6" />
-                  <text x="72" y="42" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">2</text>
-                  {/* Dot 3 - body */}
-                  <circle cx="20" cy="120" r="8" fill="#FF6B35" />
-                  <text x="20" y="124" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">3</text>
-                  {/* Labels */}
-                  <text x="68" y="110" fill="#6D6FFC" fontSize="9" fontWeight="600">GH</text>
-                  <text x="62" y="165" fill="#94A3B8" fontSize="8">pulse</text>
-                </svg>
+        <div ref={ref} className="grid grid-rows-[1fr] gap-6 md:grid-cols-3">
+          {MECHANISM_STEPS.map((step, idx) => (
+            <motion.div
+              key={step.title}
+              initial={{ opacity: 0, y: 32 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, ease: "easeOut", delay: idx * 0.2 }}
+              className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-colors hover:border-[#6D6FFC]/30 hover:bg-white/[0.08]"
+            >
+              <div className="relative aspect-[16/9] w-full shrink-0 overflow-hidden">
+                <Image
+                  src={step.image}
+                  alt={step.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-[#0B1120]/40 to-transparent" />
               </div>
+              <div className="flex flex-1 flex-col p-6">
+                <h3 className="mb-2 text-lg font-bold text-white">
+                  {step.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-gray-400">
+                  {step.desc}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
 
-              {/* 2x2 cards */}
-              <div className="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-2">
-                <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-                  <h3 className="mb-2 text-base font-bold text-gray-900">
-                    Hypothalamus
-                  </h3>
-                  <p className="mb-3 text-sm leading-relaxed text-gray-600">
-                    Sermorelin mimics GHRH — the natural signal that tells your
-                    brain it's time to produce growth hormone.
-                  </p>
-                  <span className="inline-block rounded-full bg-[#EEF0FA] px-3 py-1 text-xs font-medium text-[#6D6FFC]">
-                    Where it acts
-                  </span>
-                </div>
-                <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-                  <h3 className="mb-2 text-base font-bold text-gray-900">
-                    Pituitary
-                  </h3>
-                  <p className="mb-3 text-sm leading-relaxed text-gray-600">
-                    Your pituitary gland responds with stronger natural GH
-                    pulses — especially during deep sleep, when most GH is
-                    released.
-                  </p>
-                  <span className="inline-block rounded-full bg-[#EEF0FA] px-3 py-1 text-xs font-medium text-[#6D6FFC]">
-                    Pulse restored
-                  </span>
-                </div>
-                <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-                  <h3 className="mb-2 text-base font-bold text-gray-900">
-                    Whole body
-                  </h3>
-                  <p className="mb-3 text-sm leading-relaxed text-gray-600">
-                    Sleep deepens, recovery improves, energy stabilizes —
-                    gradually, over 4–8 weeks.
-                  </p>
-                  <span className="inline-block rounded-full bg-[#EEF0FA] px-3 py-1 text-xs font-medium text-[#6D6FFC]">
-                    You feel it
-                  </span>
-                </div>
-                <div className="rounded-2xl border border-[#6D6FFC]/20 bg-[#EEF0FA] p-5">
-                  <h3 className="mb-2 text-base font-bold text-gray-900">
-                    Why "gentle"?
-                  </h3>
-                  <p className="text-sm leading-relaxed text-gray-700">
-                    Sermorelin works with your body's natural pulse pattern —
-                    no overriding, no forcing. That's what makes it the safest
-                    first step.
-                  </p>
-                </div>
-              </div>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mt-8 rounded-2xl border border-[#6D6FFC]/20 bg-[#6D6FFC]/5 p-6 md:p-8"
+        >
+          <div className="flex flex-col items-start gap-4 md:flex-row md:items-center">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#6D6FFC]/20">
+              <Shield className="h-5 w-5 text-[#6D6FFC]" />
+            </div>
+            <div>
+              <h3 className="mb-1 text-base font-bold text-white">
+                Why "gentle"?
+              </h3>
+              <p className="text-sm leading-relaxed text-gray-400">
+                Sermorelin works with your body's natural pulse pattern —
+                no overriding, no forcing. That's what makes it the safest
+                first step.
+              </p>
             </div>
           </div>
-        </FadeIn>
+        </motion.div>
       </div>
     </section>
   );
@@ -1034,72 +1030,92 @@ const TIMELINE_ROWS = [
 ];
 
 function SermorelinTimelineSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-24">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="mx-auto mb-12 max-w-[640px] text-center">
-          <h2 className="font-title text-4xl font-bold text-gray-900 md:text-5xl">
+    <section className="relative overflow-hidden bg-[#0B1120] py-20 md:py-28">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute right-0 top-1/2 h-[500px] w-[500px] -translate-y-1/2 translate-x-1/4 rounded-full bg-[#6D6FFC]/8 blur-[120px]" />
+      </div>
+      <div className="relative mx-auto max-w-[1200px] px-4 md:px-8">
+        <div className="mx-auto mb-16 max-w-[640px] text-center">
+          <h2 className="font-title text-4xl font-bold text-white md:text-5xl">
             What happens,{" "}
             <span className="font-playfair italic text-[#6D6FFC]">
               week by week.
             </span>
           </h2>
-          <p className="mt-5 text-base text-gray-600">
+          <p className="mt-5 text-base text-gray-400">
             The honest timeline. Most members notice changes in this order —
             though individual results vary.
           </p>
         </div>
 
-        <FadeIn className="mx-auto max-w-3xl">
-          <div className="overflow-hidden rounded-3xl bg-white shadow-sm">
-            {/* Image with overlay */}
-            <div className="relative aspect-[16/7] w-full">
-              <Image
-                src="https://images.unsplash.com/photo-1531353826977-0941b4779a1c?auto=format&fit=crop&w=1200&q=80"
-                alt="The honest timeline"
-                fill
-                sizes="(max-width: 768px) 100vw, 768px"
-                className="object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-              <div className="absolute bottom-5 left-6">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-white/70">
-                  Day 1 — Day 90
-                </p>
-                <p className="text-xl font-bold text-white">
-                  The honest timeline.
-                </p>
-              </div>
+        <div ref={ref} className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: -32 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl lg:aspect-auto lg:min-h-[480px]"
+          >
+            <Image
+              src="https://images.unsplash.com/photo-1531353826977-0941b4779a1c?auto=format&fit=crop&w=1200&q=80"
+              alt="The honest timeline"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120]/80 via-transparent to-transparent" />
+            <div className="absolute bottom-6 left-6">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-white/60">
+                Day 1 — Day 90
+              </p>
+              <p className="text-2xl font-bold text-white">
+                The honest timeline.
+              </p>
             </div>
+          </motion.div>
 
-            {/* Timeline rows */}
-            <div>
-              {TIMELINE_ROWS.map((row, i) => (
-                <div
-                  key={row.weeks}
-                  className={`flex gap-5 px-6 py-5 md:gap-8 md:px-8 md:py-6 ${
-                    i !== 0 ? "border-t border-gray-100" : ""
-                  } ${row.highlight ? "bg-[#EEF0FA]" : ""}`}
-                >
-                  <div className="w-[72px] shrink-0">
-                    <p className="text-sm font-bold leading-tight text-[#6D6FFC]">
-                      {row.weeks}
-                    </p>
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="mb-1 font-bold text-gray-900">{row.title}</p>
-                    <p className="text-sm leading-relaxed text-gray-600">
-                      {row.desc}
-                    </p>
-                    <span className="mt-2 inline-block rounded-full bg-white px-3 py-1 text-xs font-medium text-gray-500 shadow-sm">
-                      {row.tag}
-                    </span>
-                  </div>
+          <div className="relative flex flex-col gap-4">
+            {/* Vertical connecting line */}
+            <motion.div
+              initial={{ scaleY: 0 }}
+              animate={inView ? { scaleY: 1 } : {}}
+              transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+              className="absolute left-[19px] top-[40px] hidden h-[calc(100%-80px)] w-px origin-top bg-gradient-to-b from-[#6D6FFC]/40 via-[#6D6FFC]/20 to-transparent lg:block"
+            />
+            {TIMELINE_ROWS.map((row, i) => (
+              <motion.div
+                key={row.weeks}
+                initial={{ opacity: 0, x: 24 }}
+                animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 + i * 0.15 }}
+                className={`relative rounded-xl border p-5 transition-colors ${
+                  row.highlight
+                    ? "border-[#6D6FFC]/30 bg-[#6D6FFC]/10"
+                    : "border-white/10 bg-white/5"
+                }`}
+              >
+                <div className="mb-2 flex items-center gap-3">
+                  <span className="relative z-10 flex h-8 w-8 items-center justify-center rounded-lg bg-[#6D6FFC] text-xs font-bold text-white shadow-lg shadow-[#6D6FFC]/25">
+                    {i + 1}
+                  </span>
+                  <span className="text-sm font-bold text-[#6D6FFC]">
+                    {row.weeks}
+                  </span>
+                  <span className="ml-auto rounded-full bg-white/10 px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400">
+                    {row.tag}
+                  </span>
                 </div>
-              ))}
-            </div>
+                <h3 className="mb-1 text-base font-bold text-white">{row.title}</h3>
+                <p className="text-sm leading-relaxed text-gray-400">
+                  {row.desc}
+                </p>
+              </motion.div>
+            ))}
           </div>
-        </FadeIn>
+        </div>
       </div>
     </section>
   );
@@ -1109,54 +1125,212 @@ function SermorelinTimelineSection() {
 /*  8. Testimonial                                                     */
 /* ------------------------------------------------------------------ */
 
-function SermorelinTestimonialSection() {
-  return (
-    <section className="bg-[#f9f9f9] py-16 md:py-24">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <FadeIn>
-          <div className="grid grid-cols-1 gap-10 rounded-3xl bg-[#F1F5F9] p-8 lg:grid-cols-2 lg:gap-16 lg:p-12">
-            {/* Image */}
-            <div className="relative aspect-[3/4] w-full overflow-hidden rounded-3xl bg-[#EEF0FA]">
-              <Image
-                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80"
-                alt="Aisha M."
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover object-center"
-              />
-            </div>
+const SERMORELIN_TESTIMONIALS = [
+  {
+    name: "Aisha M., 39",
+    started: "Started Sermorelin 4 months ago",
+    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80",
+    heading: (
+      <>
+        From &ldquo;I'm not sure if I should&rdquo; to{" "}
+        <span className="font-playfair italic text-[#6D6FFC]">
+          &ldquo;I should have started sooner.&rdquo;
+        </span>
+      </>
+    ),
+    quote:
+      "I almost didn’t try it. Felt like I was being dramatic — I was 39, not 60. By week 4 I was sleeping like college again. By month 3 I was thinking about the harder protocol. Sermorelin gave me a soft place to land.",
+  },
+  {
+    name: "Marcus T., 47",
+    started: "Started Sermorelin 6 months ago",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
+    heading: (
+      <>
+        &ldquo;My recovery changed{" "}
+        <span className="font-playfair italic text-[#6D6FFC]">
+          before anything else did.&rdquo;
+        </span>
+      </>
+    ),
+    quote:
+      "I train 5 days a week. The soreness used to linger for days. By week 3 on Sermorelin, I noticed I was bouncing back faster. By month 2, my sleep was deeper and I had energy I hadn’t felt in years.",
+  },
+  {
+    name: "Rachel K., 34",
+    started: "Started Sermorelin 3 months ago",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=800&q=80",
+    heading: (
+      <>
+        &ldquo;I finally feel like{" "}
+        <span className="font-playfair italic text-[#6D6FFC]">
+          my body is working with me.&rdquo;
+        </span>
+      </>
+    ),
+    quote:
+      "I was skeptical about peptides. But the sleep improvements alone were worth it. I fall asleep faster, wake up less, and my morning brain fog is basically gone. My skin even looks better.",
+  },
+];
 
-            {/* Quote */}
-            <div className="flex flex-col justify-center">
-              <h2 className="mb-8 font-title text-2xl font-bold leading-snug text-gray-900 md:text-3xl">
-                From &ldquo;I'm not sure if I should&rdquo; to{" "}
-                <span className="font-playfair italic text-[#6D6FFC]">
-                  &ldquo;I should have started sooner.&rdquo;
-                </span>
-              </h2>
-              <blockquote className="border-l-4 border-[#6D6FFC] pl-5 text-base italic leading-relaxed text-gray-700 md:text-lg">
-                &ldquo;I almost didn't try it. Felt like I was being dramatic —
-                I was 39, not 60. By week 4 I was sleeping like college again.
-                By month 3 I was thinking about the harder protocol. Sermorelin
-                gave me a soft place to land.&rdquo;
-              </blockquote>
-              <div className="mt-6">
-                <p className="font-bold text-gray-900">Aisha M., 39</p>
-                <p className="text-sm text-gray-500">
-                  Started Sermorelin 4 months ago
-                </p>
-                <div className="mt-2 flex items-center gap-1.5 text-sm text-emerald-600">
-                  <div className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-600">
-                    <Check className="h-2.5 w-2.5 text-white" strokeWidth={3} />
-                  </div>
-                  Verified HealSend Member
+function SermorelinTestimonialSection() {
+  const count = SERMORELIN_TESTIMONIALS.length;
+  const wrapperRef = useRef(null);
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+
+    const handleScroll = () => {
+      const rect = wrapper.getBoundingClientRect();
+      const scrollableHeight = wrapper.offsetHeight - window.innerHeight;
+      if (scrollableHeight <= 0) return;
+      const progress = Math.min(
+        Math.max(-rect.top / scrollableHeight, 0),
+        0.999
+      );
+      const idx = Math.floor(progress * count);
+      setActive(idx);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [count]);
+
+  const testimonial = SERMORELIN_TESTIMONIALS[active];
+
+  return (
+    <div
+      ref={wrapperRef}
+      style={{ height: `${count * 100}vh` }}
+    >
+      <section className="sticky top-0 flex min-h-screen items-center overflow-hidden bg-[#0B1120]">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-0 top-0 h-[400px] w-[400px] -translate-x-1/3 -translate-y-1/3 rounded-full bg-[#6D6FFC]/8 blur-[100px]" />
+        </div>
+        <div className="relative mx-auto flex w-full max-w-[1200px] items-center gap-8 px-4 py-20 md:gap-12 md:px-8 md:py-28">
+          {/* Left chevron */}
+          <button
+            type="button"
+            onClick={() => setActive((prev) => (prev - 1 + count) % count)}
+            className="hidden shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 p-3 text-white/60 transition-colors hover:border-[#6D6FFC]/30 hover:bg-white/10 hover:text-white lg:flex"
+            aria-label="Previous testimonial"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+
+          {/* Review content */}
+          <div className="flex-1">
+            <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+              <div className="relative mx-auto aspect-[3/4] w-full max-w-[420px] overflow-hidden rounded-2xl ring-1 ring-white/10">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={active}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover object-center"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120]/60 via-transparent to-transparent" />
+              </div>
+
+              <div className="flex flex-col">
+                <div className="mb-6 flex gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-5 w-5 fill-[#FBBF24] text-[#FBBF24]" />
+                  ))}
+                </div>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={active}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -16 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <h2 className="mb-6 font-title text-2xl font-bold leading-snug text-white md:text-3xl">
+                      {testimonial.heading}
+                    </h2>
+                    <blockquote className="relative rounded-xl border border-white/10 bg-white/5 p-6 text-base italic leading-relaxed text-gray-300 backdrop-blur-sm md:text-lg">
+                      <Quote className="absolute -top-3 left-4 h-6 w-6 fill-[#6D6FFC] text-[#6D6FFC]" />
+                      &ldquo;{testimonial.quote}&rdquo;
+                    </blockquote>
+                    <div className="mt-6 flex items-center gap-4">
+                      <div>
+                        <p className="font-bold text-white">{testimonial.name}</p>
+                        <p className="text-sm text-gray-500">
+                          {testimonial.started}
+                        </p>
+                      </div>
+                      <div className="ml-auto flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1.5 text-sm text-emerald-400">
+                        <div className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
+                          <Check className="h-2.5 w-2.5 text-white" strokeWidth={3} />
+                        </div>
+                        Verified Member
+                      </div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Progress dots + mobile arrows */}
+                <div className="mt-8 flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setActive((prev) => (prev - 1 + count) % count)}
+                    className="flex shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 p-1.5 text-white/60 transition-colors hover:text-white lg:hidden"
+                    aria-label="Previous testimonial"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </button>
+                  {SERMORELIN_TESTIMONIALS.map((_, i) => (
+                    <div
+                      key={i}
+                      className={`h-2.5 rounded-full transition-all duration-300 ${
+                        i === active
+                          ? "w-8 bg-[#6D6FFC]"
+                          : "w-2.5 bg-white/20"
+                      }`}
+                    />
+                  ))}
+                  <span className="text-xs text-gray-500">
+                    {active + 1} / {count}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setActive((prev) => (prev + 1) % count)}
+                    className="flex shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 p-1.5 text-white/60 transition-colors hover:text-white lg:hidden"
+                    aria-label="Next testimonial"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-        </FadeIn>
-      </div>
-    </section>
+
+          {/* Right chevron */}
+          <button
+            type="button"
+            onClick={() => setActive((prev) => (prev + 1) % count)}
+            className="hidden shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 p-3 text-white/60 transition-colors hover:border-[#6D6FFC]/30 hover:bg-white/10 hover:text-white lg:flex"
+            aria-label="Next testimonial"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </button>
+        </div>
+      </section>
+    </div>
   );
 }
 
@@ -1275,47 +1449,92 @@ function SermorelinPainPointsSection() {
 /* ------------------------------------------------------------------ */
 
 function SermorelinPromiseSection() {
+  const promiseRef = useRef(null);
+  const promiseInView = useInView(promiseRef, { once: false, margin: "-100px" });
+
   return (
-    <section className="bg-[#f9f9f9] py-8 md:py-12">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <FadeIn>
-          <div className="flex flex-col items-center gap-6 rounded-3xl bg-[#EEF0FA] px-8 py-8 md:flex-row md:gap-10 md:px-12">
-            {/* Circle badge */}
-            <div className="relative flex h-28 w-28 shrink-0 flex-col items-center justify-center rounded-full border-4 border-[#6D6FFC] ring-4 ring-[#6D6FFC]/20">
-              <span className="font-title text-4xl font-bold leading-none text-[#6D6FFC]">
-                60
-              </span>
-              <span className="text-[9px] font-bold uppercase tracking-wider text-gray-500">
-                Day Promise
-              </span>
-            </div>
+    <section ref={promiseRef} className="relative overflow-hidden bg-[#0d0d1a] py-20 md:py-28">
+      <motion.div
+        className="pointer-events-none absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={promiseInView ? { opacity: 1 } : {}}
+        transition={{ duration: 1.2 }}
+      >
+        <motion.div
+          className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#6D6FFC]/10 blur-[120px]"
+          animate={promiseInView ? { scale: [1, 1.15, 1], opacity: [0.6, 1, 0.6] } : {}}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#6D6FFC]/10"
+          animate={promiseInView ? { scale: [1, 1.6], opacity: [0.4, 0] } : {}}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeOut", repeatDelay: 1 }}
+        />
+      </motion.div>
 
-            {/* Text */}
-            <div className="flex-1 text-center md:text-left">
-              <p className="mb-2 text-lg font-bold leading-snug text-gray-900 md:text-xl">
-                If you don't notice deeper sleep or steadier energy by week 6,{" "}
-                <span className="font-playfair italic text-[#6D6FFC]">
-                  your first month is free.
-                </span>
-              </p>
-              <p className="text-sm leading-relaxed text-gray-600">
-                We're so confident in this protocol that we'll refund your first
-                month if you don't feel real changes by day 42. No fine print.
-                No retention scripts. Email us and it's done.
-              </p>
-            </div>
+      <div className="relative mx-auto max-w-[800px] px-4 text-center md:px-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.6, filter: "blur(16px)" }}
+          animate={promiseInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="relative"
+        >
+          <span className="font-title text-8xl font-black tracking-tight text-white md:text-9xl">
+            60
+          </span>
+          <motion.p
+            initial={{ opacity: 0, letterSpacing: "0.5em" }}
+            animate={promiseInView ? { opacity: 1, letterSpacing: "0.25em" } : {}}
+            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+            className="mt-1 text-sm font-semibold uppercase text-[#6D6FFC]"
+          >
+            Day Promise
+          </motion.p>
+        </motion.div>
 
-            {/* Link */}
-            <div className="shrink-0">
-              <Link
-                href={CTA_HREF}
-                className="text-sm font-medium text-[#6D6FFC] underline underline-offset-4 hover:opacity-80"
-              >
-                Read the full guarantee →
-              </Link>
-            </div>
-          </div>
-        </FadeIn>
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={promiseInView ? { scaleX: 1, opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="relative mx-auto my-8 origin-center"
+        >
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-[#6D6FFC] to-transparent" />
+          <div className="absolute inset-0 h-px w-24 bg-gradient-to-r from-transparent via-[#6D6FFC] to-transparent blur-sm" />
+        </motion.div>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={promiseInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-4 font-title text-2xl font-bold leading-snug text-white md:text-3xl"
+        >
+          If you don&apos;t notice deeper sleep or steadier energy by week 6,{" "}
+          <span className="font-playfair italic text-[#6D6FFC]">your first month is free.</span>
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={promiseInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.85 }}
+          className="mb-8 text-sm text-white/40"
+        >
+          No fine print. No retention scripts. Email us and it&apos;s done.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={promiseInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          whileHover={{ scale: 1.06 }}
+          whileTap={{ scale: 0.96 }}
+          transition={{ duration: 0.8, delay: 1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Link
+            href={CTA_HREF}
+            className="inline-flex items-center gap-2 rounded-full bg-[#6D6FFC] px-8 py-4 text-base font-semibold text-white shadow-[0_8px_32px_rgba(109,111,252,0.35)] transition hover:bg-[#5a5ce8] hover:shadow-[0_8px_40px_rgba(109,111,252,0.5)]"
+          >
+            Start consultation →
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
@@ -1750,7 +1969,7 @@ export default function SermorelinLandingPage({ product }) {
       <SermorelinPainPointsSection />
       <SermorelinPromiseSection />
       <SermorelinResearchSection />
-      <SermorelinStepsSection />
+      <SimpleSteps productData={productData} />
       <SermorelinUpgradeBanner />
       <CleanSimpleEffective productData={null} />
       <LabTested productData={null} />
