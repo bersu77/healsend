@@ -8,7 +8,7 @@ export default function LandingSkeleton() {
       </div>
 
       {/* Hero */}
-      <div className="mx-auto max-w-[1200px] px-4 py-12 md:py-20">
+      <div className="mx-auto max-w-[1200px] px-4 py-8 md:py-14">
         <div className="mx-auto max-w-2xl space-y-4 text-center">
           <div className="mx-auto h-4 w-40 rounded bg-gray-200" />
           <div className="mx-auto h-10 w-full max-w-lg rounded bg-gray-200" />

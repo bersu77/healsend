@@ -39,6 +39,7 @@ import {
   RestoredTirzepatideBenefitsCarouselSection,
   mergeProductContent,
   SimpleSteps,
+  PricingPlansTable,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/visceral-fat-therapy";
@@ -103,7 +104,7 @@ function CountUpStat({ value, prefix = "", suffix = "", label, duration = 1000 }
 function VFWillpowerSection() {
   return (
     <section className="relative overflow-hidden bg-[#F1F5F9]">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-80px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
             <div className="mt-5 max-w-[34rem]">
@@ -254,7 +255,7 @@ function VFProductHeroSection() {
   const sectionInView = useInView(sectionRef, { once: false, margin: "-80px" });
 
   return (
-    <section ref={sectionRef} className="bg-[#f9f9f9] px-4 py-16 md:px-[3.25rem] md:py-20 lg:px-[3.25rem]">
+    <section ref={sectionRef} className="bg-[#f9f9f9] px-4 py-6 md:px-[3.25rem] md:py-10 lg:px-[3.25rem]">
       <div className="mx-auto flex max-w-[1340px] flex-col gap-5 lg:flex-row lg:items-stretch lg:gap-6 xl:gap-8">
         {/* Left — sticky */}
         <motion.div
@@ -413,19 +414,7 @@ function VFProductHeroSection() {
                       );
                     })}
                   {activeTab === "pricing" && (
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-bold text-gray-900">Visceral Fat Therapy</h3>
-                      <div className="rounded-[1rem] border border-[#6D6FFC] bg-gray-50/50 p-4">
-                        <div className="flex items-center justify-between">
-                          <span className="font-medium text-[#6D6FFC]">Monthly Plan</span>
-                          <div className="text-right">
-                            <div className="text-xl font-bold text-[#6D6FFC]">$249 <span className="text-sm font-semibold">/mo</span></div>
-                            <div className="text-xs text-gray-500">$199 first month</div>
-                          </div>
-                        </div>
-                      </div>
-                      <p className="text-xs text-gray-500">Includes clinician review, baseline metabolic labs, and all injection supplies. Final pricing depends on clinician approval.</p>
-                    </div>
+                    <PricingPlansTable footnote="Includes clinician review, labs, and supplies. Cancel anytime." />
                   )}
                   {activeTab === "description" && (
                     <p className="text-sm leading-relaxed text-gray-600 md:text-base">
@@ -551,7 +540,7 @@ function VFProductHeroSection() {
 
 function VFAudienceSection() {
   return (
-    <section className="bg-[#0d0d1a] py-16 md:py-24">
+    <section className="bg-[#0d0d1a] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <FadeIn>
           <h2 className="mb-4 text-center font-title text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl">
@@ -660,7 +649,7 @@ function VFVisceralFatSection() {
   const inView = useInView(ref, { once: false, margin: "-80px" });
 
   return (
-    <section ref={ref} className="bg-[#F1F0FF] py-16 md:py-24">
+    <section ref={ref} className="bg-[#F1F0FF] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -768,7 +757,7 @@ function VFVisceralFatSection() {
 
 function VFMechanismSection() {
   return (
-    <section id="how-it-works" className="bg-[#F1F0FF] py-16 md:py-24">
+    <section id="how-it-works" className="bg-[#F1F0FF] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <FadeIn>
           <div className="mb-12 text-center">
@@ -929,7 +918,7 @@ function VFComparisonSection() {
   }
 
   return (
-    <section className="bg-[#F1F0FF] py-16 md:py-24">
+    <section className="bg-[#F1F0FF] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <FadeIn>
           <h2 className="mb-3 text-center font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
@@ -1058,7 +1047,7 @@ function VFWaistlineChart() {
 
 function VFTimelineSection() {
   return (
-    <section className="bg-[#F1F0FF] py-16 md:py-24">
+    <section className="bg-[#F1F0FF] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <FadeIn>
           <h2 className="mb-3 text-center font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
@@ -1136,7 +1125,7 @@ function VFTimelineSection() {
 
 function VFOutcomesSection() {
   return (
-    <section className="bg-[#F1F0FF] py-16 md:py-24">
+    <section className="bg-[#F1F0FF] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <FadeIn>
           <h2 className="mb-3 text-center font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
@@ -1264,7 +1253,7 @@ const VF_PAIN_CARDS = [
 
 function VFPainPointsSection() {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-white py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-4 text-center">
           <span className="inline-block rounded-full bg-[#f0eeff] px-4 py-1.5 text-sm font-semibold text-[#5b3cdd]">
@@ -1451,7 +1440,7 @@ function VFResearchSection() {
   const inView = useInView(ref, { once: false, margin: "-80px" });
 
   return (
-    <section ref={ref} className="bg-[#F1F0FF] py-16 md:py-24">
+    <section ref={ref} className="bg-[#F1F0FF] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
           {/* Left */}
@@ -1579,7 +1568,7 @@ function VFStepsSection() {
   const inView = useInView(ref, { once: false, margin: "-80px" });
 
   return (
-    <section ref={ref} className="bg-[#F1F0FF] py-16 md:py-24">
+    <section ref={ref} className="bg-[#F1F0FF] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

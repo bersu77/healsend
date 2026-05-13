@@ -373,6 +373,46 @@ html.hs-nav-loading body {
   font-family: "Inter", sans-serif;
 }
 
+.bmi-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 10px;
+  border-radius: 999px;
+  outline: none;
+}
+.bmi-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2.5px solid #3b3ff0;
+  box-shadow: 0 2px 8px rgba(59, 63, 240, 0.25);
+  cursor: grab;
+}
+.bmi-slider::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  box-shadow: 0 2px 12px rgba(59, 63, 240, 0.4);
+}
+.bmi-slider::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2.5px solid #3b3ff0;
+  box-shadow: 0 2px 8px rgba(59, 63, 240, 0.25);
+  cursor: grab;
+}
+.bmi-slider::-moz-range-thumb:active {
+  cursor: grabbing;
+}
+.bmi-slider::-moz-range-track {
+  height: 10px;
+  border-radius: 999px;
+  background: transparent;
+}
+
 @layer utilities {
   :is(
     .rounded-3xl,

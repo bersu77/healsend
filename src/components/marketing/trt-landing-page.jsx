@@ -52,6 +52,7 @@ import {
   FDADisclaimerSection,
   MediaLogosBanner,
   SimpleSteps,
+  PricingPlansTable,
 } from "@/components/marketing/product-page";
 import { EncoStatBarSection } from "@/components/marketing/enclomiphene-landing-page";
 
@@ -171,39 +172,7 @@ function TRTHeroTabs() {
               : null}
 
             {activeTab === "pricing" ? (
-              <div className="space-y-6">
-                <h3 className="text-lg font-bold leading-tight text-gray-900 md:text-xl">
-                  Testosterone Cypionate
-                </h3>
-                <div className="rounded-[1rem] border border-gray-200">
-                  {TRT_HERO_PRICING.map((plan, index) => (
-                    <div
-                      key={plan.name}
-                      className={`relative flex items-center justify-between p-4 ${
-                        index !== TRT_HERO_PRICING.length - 1 ? "border-b border-gray-200" : ""
-                      } ${plan.isMuted ? "bg-gray-50/50" : ""}`}
-                    >
-                      {plan.isBestValue ? (
-                        <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#00a86b] px-3 text-sm font-semibold leading-none text-white">
-                          Best Value
-                        </span>
-                      ) : null}
-                      <span className={`text-sm font-medium md:text-base ${plan.isMuted ? "text-gray-500" : "text-gray-700"}`}>
-                        {plan.name}
-                      </span>
-                      <div className="text-right">
-                        <div className={`text-xl font-bold leading-none ${plan.isMuted ? "text-gray-500" : "text-[#00a86b]"}`}>
-                          ${plan.firstMonth}{" "}
-                          <span className="text-sm font-semibold">first month</span>
-                          <div className="mt-1 text-sm font-normal text-gray-500">
-                            then ${plan.thenPrice}/mo
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <PricingPlansTable footnote="Includes clinician review, labs, and supplies. Cancel anytime." />
             ) : null}
 
             {activeTab === "description" ? (
@@ -268,7 +237,7 @@ function TRTHeroFaqs() {
 function TRTWillpowerSection() {
   return (
     <section className="relative overflow-hidden bg-[#F1F5F9]">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-80px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
             <div className="mt-5 max-w-[34rem]">
@@ -343,7 +312,7 @@ function TRTProductHeroSection() {
   const [showPriceFootnote, setShowPriceFootnote] = useState(false);
 
   return (
-    <section className="bg-[#f9f9f9] px-4 py-16 md:px-[3.25rem] md:py-20 lg:px-[3.25rem]">
+    <section className="bg-[#f9f9f9] px-4 py-6 md:px-[3.25rem] md:py-10 lg:px-[3.25rem]">
       <div className="mx-auto flex max-w-[1340px] flex-col gap-5 lg:flex-row lg:items-stretch lg:gap-6 xl:gap-8">
         <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[55%] lg:max-w-[740px]">
           <div className="flex flex-col gap-6 sm:gap-7 md:gap-10 lg:isolate lg:sticky lg:top-24 lg:z-10">
@@ -478,39 +447,7 @@ function TRTProductHeroSection() {
                     : null}
 
                   {activeTab === "pricing" ? (
-                    <div className="space-y-6">
-                      <h3 className="text-lg font-bold leading-tight text-gray-900 md:text-xl">
-                        Testosterone Cypionate
-                      </h3>
-                      <div className="rounded-[1rem] border border-gray-200">
-                        {TRT_HERO_PRICING.map((plan, index) => (
-                          <div
-                            key={plan.name}
-                            className={`relative flex items-center justify-between p-4 ${
-                              index !== TRT_HERO_PRICING.length - 1 ? "border-b border-gray-200" : ""
-                            } ${plan.isMuted ? "bg-gray-50/50" : ""}`}
-                          >
-                            {plan.isBestValue ? (
-                              <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#00a86b] px-3 text-sm font-semibold leading-none text-white">
-                                Best Value
-                              </span>
-                            ) : null}
-                            <span className={`text-sm font-medium md:text-base ${plan.isMuted ? "text-gray-500" : "text-gray-700"}`}>
-                              {plan.name}
-                            </span>
-                            <div className="text-right">
-                              <div className={`text-xl font-bold leading-none ${plan.isMuted ? "text-gray-500" : "text-[#00a86b]"}`}>
-                                ${plan.firstMonth}{" "}
-                                <span className="text-sm font-semibold">first month</span>
-                                <div className="mt-1 text-sm font-normal text-gray-500">
-                                  then ${plan.thenPrice}/mo
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                    <PricingPlansTable footnote="Includes clinician review, labs, and supplies. Cancel anytime." />
                   ) : null}
 
                   {activeTab === "description" ? (
@@ -701,7 +638,7 @@ const TRT_PLANS = [
 
 function TRTPlansSection() {
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
+    <section className="bg-[#f9f9f9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mx-auto mb-12 max-w-[640px] text-center">
           <span className="mb-4 inline-block rounded-full bg-[#F1F5F9] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC]">
@@ -777,7 +714,7 @@ const TRT_BENEFITS = [
 
 function TRTBenefitsSection() {
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-20">
+    <section className="bg-[#F1F5F9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <h2 className="mb-12 text-center font-title text-4xl font-medium text-gray-900 md:text-5xl">
           What are the{" "}
@@ -817,7 +754,7 @@ const SYMPTOM_CARDS = [
 
 function TRTSymptomsSection() {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-white py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-4 text-center">
           <span className="inline-block rounded-full bg-[#f0eeff] px-4 py-1.5 text-sm font-semibold text-[#5b3cdd]">
@@ -897,7 +834,7 @@ function TRTCombinedTreatmentsSection({ cards }) {
     <>
       <OurTreatmentsSection cards={cards} />
 
-      <section className="bg-[#f9f9f9] py-16 md:py-20">
+      <section className="bg-[#f9f9f9] py-10 md:py-14">
         <div className="mx-auto max-w-[1200px] px-4 md:px-8">
           <div className="mb-10 text-center">
             <p className="mb-3 font-playfair text-lg italic text-gray-600">Rooted in Science</p>
@@ -948,7 +885,7 @@ function TRTCombinedTreatmentsSection({ cards }) {
 
 function TRTDesignedToSupportSection() {
   return (
-    <section className="overflow-hidden bg-[#F1F5F9] py-16 md:py-20">
+    <section className="overflow-hidden bg-[#F1F5F9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <p className="mb-3 text-center font-playfair text-lg italic text-gray-600">Rooted in Science</p>
         <h2 className="mx-auto mb-4 max-w-[760px] text-center font-title text-4xl font-medium text-gray-900 md:text-5xl">
@@ -1034,7 +971,7 @@ function MemberResultCard({ r }) {
 
 function TRTMemberResultsSection() {
   return (
-    <section className="overflow-hidden bg-[#f9f9f9] py-16 md:py-20">
+    <section className="overflow-hidden bg-[#f9f9f9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-14 text-center">
           <p className="font-title text-6xl font-medium text-gray-900 md:text-7xl">
@@ -1216,7 +1153,7 @@ function TRTEligibilitySection() {
         : "Few symptoms — but a baseline lab still gives you peace of mind.";
 
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
+    <section className="bg-[#f9f9f9] py-10 md:py-14">
       <div className="mx-auto grid max-w-[1200px] gap-12 px-4 md:grid-cols-2 md:items-stretch md:gap-14 md:px-8">
         <div className="min-w-0 md:flex md:min-h-0 md:flex-col md:justify-center">
           <h2 className="mb-4 font-title text-4xl font-medium text-gray-900 md:text-5xl">
@@ -1287,7 +1224,7 @@ const PROCESS_STEPS = [
 
 function TRTProcessSection() {
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-20">
+    <section className="bg-[#F1F5F9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <h2 className="mx-auto mb-4 max-w-[800px] text-center font-title text-4xl font-medium text-gray-900 md:text-5xl">
           Hit your hormone goals safely &amp; affordably{" "}
@@ -1330,7 +1267,7 @@ function TRTProcessSection() {
 
 function TRTLabTestedSection() {
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
+    <section className="bg-[#f9f9f9] py-10 md:py-14">
       <div className="mx-auto grid max-w-[1200px] items-center gap-12 px-4 md:grid-cols-2 md:gap-14 md:px-8">
         <div>
           <h2 className="mb-4 font-title text-4xl font-medium text-gray-900 md:text-5xl">
@@ -1375,7 +1312,7 @@ const INCLUDED_ITEMS = [
 
 function TRTIncludedSection() {
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-20">
+    <section className="bg-[#F1F5F9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <h2 className="mx-auto mb-3 max-w-[760px] text-center font-title text-4xl font-medium text-gray-900 md:text-5xl">
           The most comprehensive TRT care{" "}
@@ -1432,7 +1369,7 @@ const TRT_TRUST_ITEMS = [
 
 function TRTComparisonSection() {
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
+    <section className="bg-[#f9f9f9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <h2 className="mb-3 text-center font-title text-4xl font-medium text-gray-900 md:text-5xl">
           Same medication.{" "}
@@ -1534,7 +1471,7 @@ function TRTFAQSection() {
 
 function TRTCareSection() {
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
+    <section className="bg-[#f9f9f9] py-10 md:py-14">
       <div className="mx-auto grid max-w-[1200px] items-center gap-12 px-4 md:grid-cols-2 md:gap-14 md:px-8">
         <div className="relative aspect-square overflow-hidden rounded-3xl">
           <Image src="/images/articles/care-support-lifestyle.webp" alt="HealSend care team" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" loading="lazy" />
@@ -1602,7 +1539,7 @@ export default function TRTLandingPage({ product }) {
       <TRTProductHeroSection />
       <MediaLogosBanner />
       <EncoStatBarSection />
-      <FadeIn><TRTCombinedTreatmentsSection cards={TREATMENT_PLAN_CARDS.filter(c => c.id !== "trt")} /></FadeIn>
+      <FadeIn><TRTCombinedTreatmentsSection cards={[TREATMENT_PLAN_CARDS.find(c => c.id === "trt"), ...TREATMENT_PLAN_CARDS.filter(c => c.id !== "trt" && c.id !== "glp1")]} /></FadeIn>
       {/* <FadeIn><TRTPlansSection /></FadeIn> */}
       <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="TRT Benefits" />
       <FadeIn><TRTSymptomsSection /></FadeIn>

@@ -50,6 +50,7 @@ import {
   RestoredTirzepatideBenefitsCarouselSection,
   mergeProductContent,
   SimpleSteps,
+  PricingPlansTable,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/healing-peptide-therapy";
@@ -120,7 +121,7 @@ const HP_HERO_FAQS = [
 function HPWillpowerSection() {
   return (
     <section className="relative overflow-hidden bg-[#F1F5F9]">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-80px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
             <motion.div
@@ -214,7 +215,7 @@ function HPProductHeroSection() {
   const sectionInView = useInView(sectionRef, { once: false, margin: "-80px" });
 
   return (
-    <section ref={sectionRef} className="bg-[#F1F5F9] pb-16 md:pb-24">
+    <section ref={sectionRef} className="bg-[#F1F5F9] pb-10 md:pb-16">
       <div className="mx-auto flex max-w-[1200px] flex-col gap-8 px-4 md:px-8 lg:flex-row lg:gap-12">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -267,23 +268,7 @@ function HPProductHeroSection() {
                     </ul>
                   )}
                   {activeTab === "pricing" && (
-                    <div className="space-y-3">
-                      <div className="flex items-end gap-3">
-                        <div>
-                          <p className="text-xs text-gray-500">Foundation protocol</p>
-                          <p className="text-2xl font-bold text-gray-900">$149<span className="text-sm font-normal text-gray-500">/mo</span></p>
-                        </div>
-                        <p className="text-sm text-gray-400 line-through">$199</p>
-                      </div>
-                      <div className="flex items-end gap-3">
-                        <div>
-                          <p className="text-xs text-gray-500">Complete protocol</p>
-                          <p className="text-2xl font-bold text-gray-900">$249<span className="text-sm font-normal text-gray-500">/mo</span></p>
-                        </div>
-                        <p className="text-sm text-gray-400 line-through">$329</p>
-                      </div>
-                      <p className="text-xs text-gray-500">Includes clinician review, protocol design, medication, and all supplies. Cancel anytime.</p>
-                    </div>
+                    <PricingPlansTable footnote="Includes clinician review, labs, and supplies. Cancel anytime." />
                   )}
                   {activeTab === "description" && (
                     <p className="text-sm leading-relaxed text-gray-600 md:text-base">
@@ -496,7 +481,7 @@ function HPWhoItsForSection() {
   const condition = CONDITIONS.find((c) => c.id === activeCondition);
 
   return (
-    <section ref={ref} className="bg-white py-16 md:py-24">
+    <section ref={ref} className="bg-white py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -655,7 +640,7 @@ function HPMechanismSection() {
   ];
 
   return (
-    <section ref={ref} className="bg-[#FAFAFA] py-16 md:py-24">
+    <section ref={ref} className="bg-[#FAFAFA] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-16">
           <motion.div
@@ -725,7 +710,7 @@ function HPPricingSection() {
   const inView = useInView(ref, { once: false, margin: "-80px" });
 
   return (
-    <section ref={ref} className="bg-white py-16 md:py-24">
+    <section ref={ref} className="bg-white py-10 md:py-16">
       <div className="mx-auto max-w-[960px] px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -876,7 +861,7 @@ function HPComparisonSection() {
   const inView = useInView(ref, { once: false, margin: "-80px" });
 
   return (
-    <section ref={ref} className="bg-[#FAFAFA] py-16 md:py-24">
+    <section ref={ref} className="bg-[#FAFAFA] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -948,7 +933,7 @@ function HPOutcomesSection() {
   const inView = useInView(ref, { once: false, margin: "-80px" });
 
   return (
-    <section ref={ref} className="bg-white py-16 md:py-24">
+    <section ref={ref} className="bg-white py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -1066,7 +1051,7 @@ function HPProtocolSection() {
   const inView = useInView(ref, { once: false, margin: "-80px" });
 
   return (
-    <section ref={ref} className="bg-[#FAFAFA] py-16 md:py-24">
+    <section ref={ref} className="bg-[#FAFAFA] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
           <motion.div
@@ -1138,7 +1123,7 @@ function HPStepsSection() {
   ];
 
   return (
-    <section ref={ref} id="how-it-works" className="bg-white py-16 md:py-24">
+    <section ref={ref} id="how-it-works" className="bg-white py-10 md:py-16">
       <div className="mx-auto max-w-[1100px] px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -1196,7 +1181,7 @@ function HPPromiseSection() {
   const inView = useInView(ref, { once: false, margin: "-100px" });
 
   return (
-    <section ref={ref} className="bg-[#FAFAFA] py-16 md:py-24">
+    <section ref={ref} className="bg-[#FAFAFA] py-10 md:py-16">
       <div className="mx-auto max-w-[700px] px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -1272,7 +1257,7 @@ function HPFAQSection() {
   const inView = useInView(ref, { once: false, margin: "-80px" });
 
   return (
-    <section ref={ref} className="bg-white py-16 md:py-24">
+    <section ref={ref} className="bg-white py-10 md:py-16">
       <div className="mx-auto max-w-[780px] px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

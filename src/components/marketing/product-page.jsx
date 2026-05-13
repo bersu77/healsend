@@ -272,7 +272,7 @@ export function WillpowerHorizontalRow({ items, reverse = false }) {
 function WillpowerSection() {
   return (
     <section className="relative overflow-hidden bg-[#F1F5F9]">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-80px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
         {/* Same 55% / 45% (+ xl 450px) split as ProductHero so the right column lines up down the page */}
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
@@ -386,7 +386,7 @@ const NEGATIVE_SELL_CARDS = [
 
 function NegativeSellSection() {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-white py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-4 text-center">
           <span className="inline-block rounded-full bg-[#f0eeff] px-4 py-1.5 text-sm font-semibold text-[#5b3cdd]">
@@ -942,7 +942,7 @@ export function ProductHero({ productData, isHomepage: _isHomepage = false }) {
   const relatedProducts = productData.relatedProducts || [];
 
   return (
-    <section className="bg-[#f9f9f9] px-4 pb-16 pt-8 md:px-[3.25rem] md:pb-20 md:pt-10 lg:px-[3.25rem]">
+    <section className="bg-[#f9f9f9] px-4 pb-10 pt-6 md:px-[3.25rem] md:pb-14 md:pt-8 lg:px-[3.25rem]">
       <div className="mx-auto flex max-w-[1340px] flex-col gap-5 lg:flex-row lg:items-stretch lg:gap-6 xl:gap-8">
         {/* Tall right column stretches this cell; sticky block pins until section scrolls past */}
         <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[55%] lg:max-w-[740px]">
@@ -1099,93 +1099,8 @@ export function ProductHero({ productData, isHomepage: _isHomepage = false }) {
 
                   {activeTab === "pricing" ? (
                     <div className="space-y-8">
-                      {/* Tirzepatide Injections Pricing */}
-                      <div className="space-y-6">
-                        <h3 className="text-lg font-bold leading-tight text-gray-900 md:text-xl">
-                          Tirzepatide Injections
-                        </h3>
-                        <div className="rounded-[1rem] border border-gray-200">
-                          {[
-                            { name: "12 Month Plan", firstMonth: 0, thenPrice: 299, isBestValue: true },
-                            { name: "3 Month Plan", firstMonth: 149, thenPrice: 299, isBestValue: false },
-                            { name: "Monthly Plan", firstMonth: 199, thenPrice: 199, isBestValue: false, isMuted: true }
-                          ].map((plan, index) => (
-                            <div
-                              key={plan.name}
-                              className={`relative flex items-center justify-between p-4 ${index !== 2 ? "border-b border-gray-200" : ""
-                                } ${plan.isMuted ? "bg-gray-50/50" : ""}`}
-                            >
-                              {plan.isBestValue ? (
-                                <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#00a86b] px-3 text-sm font-semibold leading-none text-white">
-                                  Best Value
-                                </span>
-                              ) : null}
-                              <span className={`text-sm font-medium md:text-base ${plan.isMuted ? "text-gray-500" : "text-gray-700"}`}>
-                                {plan.name}
-                              </span>
-                              <div className="text-right">
-                                <div className={`text-xl font-bold leading-none ${plan.isMuted ? "text-gray-500" : "text-[#00a86b]"}`}>
-                                  ${plan.firstMonth === 0 ? "0" : plan.firstMonth}{" "}
-                                  <span className="text-sm font-semibold">
-                                    {plan.firstMonth === 0 ? "first month" : "first month"}
-                                  </span>
-                                  {plan.thenPrice && (
-                                    <div className="mt-1 text-sm font-normal text-gray-500">
-                                      {plan.name === "Monthly Plan"
-                                        ? `$${plan.thenPrice}/mo*`
-                                        : `then $${plan.thenPrice}/mo*`}
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Semaglutide Injections Pricing */}
-                      <div className="space-y-6">
-                        <h3 className="text-lg font-bold leading-tight text-gray-900 md:text-xl">
-                          Semaglutide Injections
-                        </h3>
-                        <div className="rounded-[1rem] border border-gray-200">
-                          {[
-                            { name: "12 Month Plan", firstMonth: 0, thenPrice: 249, isBestValue: true },
-                            { name: "3 Month Plan", firstMonth: 149, thenPrice: 249, isBestValue: false },
-                            { name: "Monthly Plan", firstMonth: 199, thenPrice: 199, isBestValue: false, isMuted: true }
-                          ].map((plan, index) => (
-                            <div
-                              key={plan.name}
-                              className={`relative flex items-center justify-between p-4 ${index !== 2 ? "border-b border-gray-200" : ""
-                                } ${plan.isMuted ? "bg-gray-50/50" : ""}`}
-                            >
-                              {plan.isBestValue ? (
-                                <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#00a86b] px-3 text-sm font-semibold leading-none text-white">
-                                  Best Value
-                                </span>
-                              ) : null}
-                              <span className={`text-sm font-medium md:text-base ${plan.isMuted ? "text-gray-500" : "text-gray-700"}`}>
-                                {plan.name}
-                              </span>
-                              <div className="text-right">
-                                <div className={`text-xl font-bold leading-none ${plan.isMuted ? "text-gray-500" : "text-[#00a86b]"}`}>
-                                  ${plan.firstMonth === 0 ? "0" : plan.firstMonth}{" "}
-                                  <span className="text-sm font-semibold">
-                                    {plan.firstMonth === 0 ? "first month" : "first month"}
-                                  </span>
-                                  {plan.thenPrice && (
-                                    <div className="mt-1 text-sm font-normal text-gray-500">
-                                      {plan.name === "Monthly Plan"
-                                        ? `$${plan.thenPrice}/mo*`
-                                        : `then $${plan.thenPrice}/mo*`}
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
+                      <PricingPlansTable productName="Tirzepatide Injections" />
+                      <PricingPlansTable productName="Semaglutide Injections" />
                     </div>
                   ) : null}
 
@@ -1633,7 +1548,7 @@ function MedicalWeightLossSection({ productData }) {
   const expandedPlan = expandedId ? MEDICAL_PLANS.find((p) => p.id === expandedId) : null;
 
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
+    <section className="bg-[#f9f9f9] py-10 md:py-14">
       <div className="mx-auto max-w-[1400px] px-4 md:px-8 lg:px-16">
         <div className="mb-10 grid grid-cols-1 gap-8 md:mb-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-x-8 xl:gap-x-12">
           <div className="min-w-0">
@@ -2034,7 +1949,7 @@ export function TestimonialsSection() {
   const ctaHref = "/funnels/glp-1";
 
   return (
-    <section className="bg-[#f4f5f9] py-16 md:py-20">
+    <section className="bg-[#f4f5f9] py-10 md:py-14">
       <div className="mx-auto max-w-[1340px] px-4 md:px-8">
         <div className="mb-8 flex flex-col gap-6 md:mb-10 md:flex-row md:items-start  md:justify-between">
           <div className="max-w-2xl">
@@ -2153,6 +2068,48 @@ export function TestimonialsSection() {
   );
 }
 
+export function PricingPlansTable({ productName, footnote }) {
+  const plans = [
+    { name: "12 Month Plan", firstMonth: 0, thenPrice: 249, isBestValue: true },
+    { name: "3 Month Plan", firstMonth: 149, thenPrice: 249, isBestValue: false },
+    { name: "Monthly Plan", firstMonth: 199, thenPrice: 199, isBestValue: false, isMuted: true },
+  ];
+  return (
+    <div className="space-y-4">
+      {productName && (
+        <h3 className="text-lg font-bold text-gray-900">{productName}</h3>
+      )}
+      <div className="mt-2 overflow-visible rounded-[1rem] border border-gray-200">
+        {plans.map((plan, index) => (
+          <div
+            key={plan.name}
+            className={`relative flex items-center justify-between p-4 ${index !== 2 ? "border-b border-gray-200" : ""} ${plan.isMuted ? "bg-gray-50/50" : ""}`}
+          >
+            {plan.isBestValue && (
+              <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#00a86b] px-3 text-sm font-semibold leading-none text-white">
+                Best Value
+              </span>
+            )}
+            <span className={`text-sm font-medium md:text-base ${plan.isMuted ? "text-gray-500" : "text-gray-700"}`}>
+              {plan.name}
+            </span>
+            <div className="text-right">
+              <div className={`text-xl font-bold leading-none ${plan.isMuted ? "text-gray-500" : "text-[#00a86b]"}`}>
+                ${plan.firstMonth}{" "}
+                <span className="text-sm font-semibold">first month</span>
+              </div>
+              <div className="mt-1 text-sm font-normal text-gray-500">
+                {plan.name === "Monthly Plan" ? `$${plan.thenPrice}/mo*` : `then $${plan.thenPrice}/mo*`}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      {footnote && <p className="text-xs text-gray-500">{footnote}</p>}
+    </div>
+  );
+}
+
 export function MemberResultsStatsSection() {
   const memberStats = [
     {
@@ -2187,7 +2144,7 @@ export function MemberResultsStatsSection() {
   ];
 
   return (
-    <section className="relative overflow-hidden py-12 md:py-20 bg-slate-50">
+    <section className="relative overflow-hidden py-8 md:py-14 bg-slate-50">
       <img
         src="/images/articles/liquid-bubbles-desktop.webp"
         alt=""
@@ -2540,86 +2497,51 @@ export function BMICalculatorPreviewSection() {
             </div>
           </article>
 
-          <article className="hidden rounded-[1rem] border border-[#edf1f7] bg-white p-8 shadow-[0_18px_34px_rgba(20,24,34,0.08)] lg:block">
+          <article className="rounded-[1rem] border border-[#edf1f7] bg-white p-4 shadow-[0_18px_34px_rgba(20,24,34,0.08)] md:p-8">
             <div className="text-center">
-              <p className="text-[1.3rem] font-medium leading-[1.2] tracking-[-0.03em] text-[#121726]">
-                Your projected
-                <br />
-                weight loss
+              <p className="text-[1rem] font-medium leading-[1.2] tracking-[-0.03em] text-[#121726] md:text-[1.3rem]">
+                Your projected weight loss
               </p>
 
-              <div className="mt-10">
-                <span className="font-title text-[5.7rem] font-semibold leading-none tracking-[-0.08em] text-[#0b1020]">
+              <div className="mt-5 md:mt-10">
+                <span className="font-title text-[3.5rem] font-semibold leading-none tracking-[-0.08em] text-[#0b1020] md:text-[5.7rem]">
                   {projectedLossLbs}
                 </span>
-                <span className="ml-2 text-[3.25rem] font-medium tracking-[-0.04em] text-[#66748f]">
+                <span className="ml-1.5 text-[2rem] font-medium tracking-[-0.04em] text-[#66748f] md:ml-2 md:text-[3.25rem]">
                   lbs
                 </span>
               </div>
 
-              <p className="mx-auto mt-7 max-w-[19rem] text-[0.98rem] leading-7 text-[#4f5c76]">
+              <p className="mx-auto mt-4 max-w-[19rem] text-[0.85rem] leading-6 text-[#4f5c76] md:mt-7 md:text-[0.98rem] md:leading-7">
                 Based on <span className="font-semibold text-[#121726]">2000+</span>{" "}
                 average HealSend member results in guided weight-loss care.
               </p>
             </div>
 
-            <div className="mt-10 border-t border-[#d9e1ef] pt-9">
-              <p className="text-center text-[1.02rem] font-medium text-[#20283a]">
+            <div className="mt-6 border-t border-[#d9e1ef] pt-6 md:mt-10 md:pt-9">
+              <p className="text-center text-[0.9rem] font-medium text-[#20283a] md:text-[1.02rem]">
                 Starting weight
               </p>
-              <div className="mx-auto mt-4 flex max-w-[10.5rem] items-end justify-center gap-1 rounded-[0.9rem] bg-[#f2f5fa] px-5 py-4">
-                <span className="font-title text-[3.2rem] font-semibold leading-none tracking-[-0.06em] text-[#48536b]">
+              <div className="mx-auto mt-3 flex max-w-[9rem] items-end justify-center gap-1 rounded-[0.9rem] bg-[#f2f5fa] px-4 py-3 md:mt-4 md:max-w-[10.5rem] md:px-5 md:py-4">
+                <span className="font-title text-[2.4rem] font-semibold leading-none tracking-[-0.06em] text-[#48536b] md:text-[3.2rem]">
                   {projectedStartWeight}
                 </span>
-                <span className="mb-1 text-[1.15rem] font-medium text-[#68748f]">
+                <span className="mb-0.5 text-[1rem] font-medium text-[#68748f] md:mb-1 md:text-[1.15rem]">
                   lbs
                 </span>
               </div>
 
-              <div className="relative mt-12 py-3">
-                <div
-                  className="relative h-4 w-full overflow-hidden rounded-full bg-[#5d62f3]/10 pointer-events-none"
-                  role="progressbar"
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                >
-                  <div
-                    className="h-full w-full flex-1 rounded-full bg-gradient-to-r from-[#4347d9] to-[#5d62f3]"
-                    style={{ transform: `translateX(-${100 - projectedFillPercent}%)` }}
-                  />
-                </div>
-                <div
-                  aria-label={`Weight: ${projectedStartWeight} lbs`}
-                  aria-valuenow={projectedStartWeight}
-                  aria-valuemin={120}
-                  aria-valuemax={450}
-                  role="slider"
-                  tabIndex={0}
-                  className="absolute top-1/2 size-6 rounded-full bg-white border-2 border-[#3b3ff0] shadow-md cursor-grab active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3b3ff0] focus-visible:ring-offset-2"
-                  style={{
-                    left: `${projectedFillPercent}%`,
-                    top: "50%",
-                    transform: "translateX(-50%) translateY(-50%)",
+              <div className="mt-8 md:mt-12">
+                <input
+                  type="range"
+                  min={120}
+                  max={450}
+                  value={projectedStartWeight}
+                  onChange={(e) => {
+                    setProjectedStartWeight(Number(e.target.value));
                   }}
-                  onPointerDown={(e) => {
-                    e.currentTarget.setPointerCapture(e.pointerId);
-                    const bar = e.currentTarget.parentElement;
-                    clearTimeout(sliderTimerRef.current);
-                    const move = (ev) => {
-                      const rect = bar.getBoundingClientRect();
-                      const pct = Math.max(0, Math.min(1, (ev.clientX - rect.left) / rect.width));
-                      setProjectedStartWeight(Math.round(120 + pct * (450 - 120)));
-                    };
-                    move(e);
-                    const up = () => {
-                      bar.removeEventListener("pointermove", move);
-                      bar.removeEventListener("pointerup", up);
-                      sliderTimerRef.current = setTimeout(() => setModalOpen(true), 2000);
-                    };
-                    bar.addEventListener("pointermove", move);
-                    bar.addEventListener("pointerup", up);
-                  }}
-                  draggable="false"
+                  className="bmi-slider w-full cursor-grab active:cursor-grabbing"
+                  style={{ background: `linear-gradient(90deg, #5d62f3 ${projectedFillPercent}%, #e5e7f0 ${projectedFillPercent}%)` }}
                 />
               </div>
             </div>
@@ -2645,21 +2567,30 @@ function BMIEligibilityModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogPortal>
         <DialogOverlay className="bg-black/50" />
-        <DialogPrimitive.Content className="fixed inset-x-3 bottom-0 z-50 grid max-h-[92vh] w-auto overflow-y-auto rounded-t-[1.25rem] bg-white p-4 shadow-2xl outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom md:inset-x-auto md:bottom-auto md:left-1/2 md:top-1/2 md:max-h-[92vh] md:w-[95vw] md:max-w-[1100px] md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-[1.25rem] md:p-10">
+        <DialogPrimitive.Content
+          onPointerDownOutside={() => onOpenChange(false)}
+          onEscapeKeyDown={() => onOpenChange(false)}
+          className="fixed inset-x-0 bottom-0 z-50 grid max-h-[90vh] w-auto overflow-y-auto rounded-t-[1.25rem] bg-white px-5 pb-5 pt-0 shadow-2xl outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom md:inset-x-auto md:bottom-auto md:left-1/2 md:top-1/2 md:max-h-[92vh] md:w-[95vw] md:max-w-[1100px] md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-[1.25rem] md:p-10"
+        >
           <DialogPrimitive.Close
             aria-label="Close"
-            className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50"
+            className="absolute right-5 top-4 z-10 hidden h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 transition-colors hover:bg-gray-50 md:flex"
           >
             <X className="h-4 w-4" />
           </DialogPrimitive.Close>
 
-          <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-            <div className="rounded-[1rem] bg-[#f5f7fb] p-4 md:p-8">
-              <p className="text-center text-[1.05rem] font-medium tracking-[-0.02em] text-[#121726] md:text-[1.15rem]">
-                Check your eligibility.
-              </p>
-
-              <div className="relative mx-auto mt-4 h-[160px] w-[220px] md:mt-6 md:h-[200px] md:w-[260px]">
+          <div className="grid gap-3 md:grid-cols-2 md:gap-8">
+            <div className="rounded-[0.75rem] bg-[#f5f7fb] px-3 pb-3 pt-2 md:rounded-[1rem] md:p-8">
+              <div className="flex items-center justify-between md:hidden">
+                <span className="text-[0.8rem] font-semibold text-[#121726]">Your BMI result</span>
+                <DialogPrimitive.Close
+                  aria-label="Close"
+                  className="flex h-7 w-7 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </DialogPrimitive.Close>
+              </div>
+              <div className="relative mx-auto h-[100px] w-[150px] md:mt-6 md:h-[200px] md:w-[260px]">
                 <svg viewBox="0 0 280 170" className="h-full w-full overflow-visible">
                   <path
                     d="M 25 150 A 115 115 0 0 1 255 150"
@@ -2686,59 +2617,58 @@ function BMIEligibilityModal({
                     </linearGradient>
                   </defs>
                 </svg>
-                <div className="absolute inset-x-0 bottom-4 text-center">
-                  <div className="font-title text-[2.8rem] font-semibold leading-none tracking-[-0.06em] text-[#0b1020] md:text-[3.6rem]">
+                <div className="absolute inset-x-0 bottom-1 text-center md:bottom-4">
+                  <div className="font-title text-[2rem] font-semibold leading-none tracking-[-0.06em] text-[#0b1020] md:text-[3.6rem]">
                     {bmiDisplay}
                   </div>
-                  <div className="mt-1 text-xs font-medium text-[#5b6478] md:text-sm">
+                  <div className="mt-0.5 text-[0.65rem] font-medium text-[#5b6478] md:mt-1 md:text-sm">
                     Your BMI
                   </div>
                 </div>
               </div>
 
-              <p className="mt-4 text-center text-[0.82rem] leading-6 text-[#3a4254] md:mt-6 md:text-[0.95rem] md:leading-7">
-                Body Mass Index (BMI) is a measurement that uses your height and
-                weight to estimate whether your weight is in a healthy range for
-                your height.*
+              <p className="mt-1 text-center text-[0.7rem] leading-4 text-[#3a4254] md:mt-6 md:text-[0.95rem] md:leading-7">
+                Body Mass Index (BMI) uses your height and weight to estimate
+                whether your weight is in a healthy range.*
               </p>
             </div>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-1.5 md:gap-3">
               {bmiRanges.map((range) => {
                 const isActive = range.key === bmiCategory;
                 return (
                   <div
                     key={range.key}
-                    className={`rounded-[1rem] p-4 md:p-5 ${isActive ? range.bg : "bg-[#f5f7fb]"}`}
+                    className={`rounded-[0.6rem] px-3 py-2 md:rounded-[1rem] md:p-5 ${isActive ? range.bg : "bg-[#f5f7fb]"}`}
                   >
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2.5">
+                      <div className="flex items-center gap-2">
                         <span
-                          className="h-2.5 w-2.5 rounded-full"
+                          className="h-2 w-2 rounded-full md:h-2.5 md:w-2.5"
                           style={{ backgroundColor: range.dot }}
                         />
-                        <span className="text-[1rem] font-semibold text-[#101726] md:text-[1.05rem]">
+                        <span className="text-[0.8rem] font-semibold text-[#101726] md:text-[1.05rem]">
                           {range.label}
                         </span>
                       </div>
-                      <span className="text-[0.95rem] font-semibold text-[#101726]">
+                      <span className="text-[0.75rem] font-semibold text-[#101726] md:text-[0.95rem]">
                         {range.value}
                       </span>
                     </div>
 
                     {isActive ? (
                       <>
-                        <p className="mt-3 text-[0.92rem] leading-6 text-[#3a4254]">
+                        <p className="mt-1.5 text-[0.72rem] leading-4 text-[#3a4254] md:mt-3 md:text-[0.92rem] md:leading-6">
                           {categoryMessages[range.key]}
                         </p>
                         <Link
                           href={range.key === "underweight" ? "mailto:yourhealth@healsend.com" : "/funnels/glp-1"}
-                          className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#5d62f3] px-6 py-3.5 text-[0.98rem] font-semibold text-white transition-colors hover:bg-[#4b55eb]"
+                          className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#5d62f3] px-5 py-2.5 text-[0.8rem] font-semibold text-white transition-colors hover:bg-[#4b55eb] md:mt-4 md:py-3.5 md:text-[0.98rem]"
                         >
                           {range.key === "underweight"
                             ? "Talk to a clinician"
                             : "Start treatment today"}
-                          <ArrowRight className="h-4 w-4" />
+                          <ArrowRight className="h-3.5 w-3.5 md:h-4 md:w-4" />
                         </Link>
                       </>
                     ) : null}
@@ -2775,7 +2705,7 @@ export function LowTSymptomScreenerSection() {
       : "Strong indicators of low T. A clinician review is recommended.";
 
   return (
-    <section className="scroll-mt-24 bg-[#F7F5FA] py-16 md:py-24">
+    <section className="scroll-mt-24 bg-[#F7F5FA] py-10 md:py-16">
       <div className="mx-auto max-w-[1100px] px-4 md:px-8">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <div>
@@ -3701,14 +3631,15 @@ export function CleanSimpleEffective({ productData }) {
       );
 
   return (
-    <section className="relative overflow-hidden bg-[#F9F9F9] py-12 md:py-16">
+    <section className="relative overflow-hidden bg-[#F9F9F9] py-8 md:py-12">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-12 text-center md:mb-16">
-          <h2 className="mb-4 text-2xl font-bold tracking-tight text-black sm:text-3xl md:text-4xl">
-            Healthcare built around real life
+          <h2 className="mb-4 font-title text-3xl font-medium tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
+            Everything you need for{" "}
+            <span className="font-playfair italic text-[#6D6FFC]">complete care.</span>
           </h2>
-          <p className="mx-auto max-w-xl text-base text-gray-500">
-            Personalized, evidence-based care from licensed clinicians — all online, on your schedule.
+          <p className="mx-auto max-w-xl text-base text-gray-600 md:text-lg">
+            Medication is just the start. Your plan includes ongoing clinician support, lab work, and everything you need to optimize.
           </p>
         </div>
 
@@ -3721,17 +3652,17 @@ export function CleanSimpleEffective({ productData }) {
             return (
               <div
                 key={label}
-                className="flex w-[75vw] shrink-0 snap-start flex-col items-center rounded-[1.25rem] bg-white p-5 text-center shadow-sm"
+                className="flex w-[75vw] shrink-0 snap-start flex-col items-center rounded-[1.25rem] bg-white px-7 py-12 text-center shadow-sm"
               >
-                <div className="mb-4 flex h-14 w-14 items-center justify-center">
+                <div className="mb-5 flex h-16 w-16 items-center justify-center">
                   {item.iconImage ? (
-                    <img src={item.iconImage} alt="" aria-hidden="true" className="h-12 w-12 object-contain" />
+                    <img src={item.iconImage} alt="" aria-hidden="true" className="h-14 w-14 object-contain" />
                   ) : (
-                    <item.icon className="h-7 w-7 text-[#6D6FFC]" strokeWidth={1.75} />
+                    <item.icon className="h-9 w-9 text-[#6D6FFC]" strokeWidth={1.5} />
                   )}
                 </div>
-                <p className="mb-1.5 whitespace-pre-line text-[12px] font-bold leading-snug text-[#1c1a24]">{label}</p>
-                {desc && <p className="text-[11px] leading-snug text-gray-500">{desc}</p>}
+                <p className="mb-2 whitespace-pre-line text-sm font-bold leading-snug text-[#1c1a24]">{label}</p>
+                {desc && <p className="text-xs leading-snug text-gray-500">{desc}</p>}
               </div>
             );
           })}
@@ -3746,22 +3677,22 @@ export function CleanSimpleEffective({ productData }) {
             return (
               <div
                 key={label}
-                className="flex flex-col items-center rounded-[1.25rem] bg-white px-5 py-10 text-center shadow-sm transition-transform duration-300 ease-out hover:-translate-y-1 hover:scale-[1.04] hover:shadow-md"
+                className="flex flex-col items-center rounded-[1.25rem] bg-white px-6 py-16 text-center shadow-sm transition-transform duration-300 ease-out hover:-translate-y-1 hover:scale-[1.04] hover:shadow-md"
               >
-                <div className="mb-5 flex h-16 w-16 items-center justify-center">
+                <div className="mb-6 flex h-20 w-20 items-center justify-center">
                   {item.iconImage ? (
                     <img
                       src={item.iconImage}
                       alt=""
                       aria-hidden="true"
-                      className={`object-contain ${item.iconImage.includes("fast-free-delivery") ? "h-30 w-20" : "h-14 w-14"}`}
+                      className={`object-contain ${item.iconImage.includes("fast-free-delivery") ? "h-30 w-20" : "h-16 w-16"}`}
                     />
                   ) : (
-                    <item.icon className="h-8 w-8 text-[#1c1a24]" strokeWidth={1.75} />
+                    <item.icon className="h-10 w-10 text-[#6D6FFC]" strokeWidth={1.5} />
                   )}
                 </div>
-                <p className="mb-2 whitespace-pre-line text-[13px] font-bold leading-snug text-[#1c1a24]">{label}</p>
-                {desc && <p className="text-[11px] leading-relaxed text-gray-500">{desc}</p>}
+                <p className="mb-2 whitespace-pre-line text-sm font-bold leading-snug text-[#1c1a24]">{label}</p>
+                {desc && <p className="text-xs leading-relaxed text-gray-500">{desc}</p>}
               </div>
             );
           })}
@@ -4551,7 +4482,7 @@ export function EnclomipheneVsTrtSection() {
   }
 
   return (
-    <section className="scroll-mt-24 bg-[#F7F5FA] py-16 md:py-24">
+    <section className="scroll-mt-24 bg-[#F7F5FA] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="text-center">
           <span className="inline-block rounded-full bg-white px-5 py-1.5 text-xs font-bold uppercase tracking-widest text-[#6D6FFC] ring-1 ring-[#6D6FFC]/10">
@@ -4644,7 +4575,7 @@ export function ComparisonTableSection() {
   }
 
   return (
-    <section className="scroll-mt-24 bg-white py-16 md:py-24">
+    <section className="scroll-mt-24 bg-white py-10 md:py-16">
       <div className="mx-auto max-w-[1100px] px-4 md:px-8">
         <div className="text-center">
           <span className="inline-block rounded-full bg-[#EDE9F6] px-5 py-1.5 text-xs font-bold uppercase tracking-widest text-[#6D6FFC]">
@@ -4739,7 +4670,7 @@ export function NinetyDayLevelsSection() {
   const yTicks = [200, 400, 600, 800, 1000];
 
   return (
-    <section className="scroll-mt-24 bg-[#F7F5FA] py-16 md:py-24">
+    <section className="scroll-mt-24 bg-[#F7F5FA] py-10 md:py-16">
       <div className="mx-auto max-w-[1340px] px-4 md:px-8">
         <div className="text-center">
           <h2 className="font-title text-[2rem] font-bold leading-[1.1] tracking-tight text-[#101726] sm:text-[2.5rem] lg:text-[3rem]">
@@ -4891,7 +4822,7 @@ export function HowEnclomipheneWorksSection() {
   ];
 
   return (
-    <section className="scroll-mt-24 bg-white py-16 md:py-24">
+    <section className="scroll-mt-24 bg-white py-10 md:py-16">
       <div className="mx-auto max-w-[1340px] px-4 md:px-8">
         <div className="text-center">
           <span className="inline-block rounded-full bg-[#EDE9F6] px-5 py-1.5 text-xs font-bold uppercase tracking-widest text-[#6D6FFC]">
@@ -5037,7 +4968,7 @@ export function DailyProtocolSection() {
   ];
 
   return (
-    <section className="scroll-mt-24 bg-[#F4F1FA] py-16 md:py-24">
+    <section className="scroll-mt-24 bg-[#F4F1FA] py-10 md:py-16">
       <div className="mx-auto grid max-w-[1340px] gap-12 px-4 md:grid-cols-2 md:items-start md:gap-16 md:px-8">
         <div>
           <h2 className="font-title text-[2.2rem] font-bold leading-[1.05] tracking-tight text-[#101726] sm:text-[2.8rem] lg:text-[3.5rem]">
@@ -5234,7 +5165,7 @@ function ComparisonIcon({ type }) {
 
 function EncloVsTrtComparisonSection() {
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-20">
+    <section className="bg-[#F1F5F9] py-10 md:py-14">
       <div className="mx-auto max-w-[900px] px-4 md:px-8">
         <h2 className="mb-10 text-center font-title text-3xl font-bold text-[#101726] md:text-4xl">
           Enclomiphene <span className="font-playfair italic">vs.</span> TRT

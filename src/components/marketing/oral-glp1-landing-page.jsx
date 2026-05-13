@@ -45,7 +45,9 @@ import {
   BMICalculatorPreviewSection,
   TestimonialsSection,
   MemberResultsStatsSection,
+  ComprehensiveCare,
   mergeProductContent,
+  PricingPlansTable,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/oral-glp-1";
@@ -83,7 +85,7 @@ function FadeIn({ children, className = "" }) {
 function OralGLP1WillpowerSection() {
   return (
     <section className="relative overflow-hidden bg-[#F1F0FF]">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-80px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
             <div className="max-w-[34rem]">
@@ -200,7 +202,7 @@ function OralGLP1ProductHeroSection() {
   const [showPriceFootnote, setShowPriceFootnote] = useState(false);
 
   return (
-    <section className="bg-[#f9f9f9] px-4 py-16 md:px-[3.25rem] md:py-20 lg:px-[3.25rem]">
+    <section className="bg-[#f9f9f9] px-4 py-6 md:px-[3.25rem] md:py-10 lg:px-[3.25rem]">
       <div className="mx-auto flex max-w-[1340px] flex-col gap-5 lg:flex-row lg:items-stretch lg:gap-6 xl:gap-8">
         {/* Left — sticky */}
         <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[55%] lg:max-w-[740px]">
@@ -373,35 +375,7 @@ function OralGLP1ProductHeroSection() {
                     : null}
 
                   {activeTab === "pricing" ? (
-                    <div className="space-y-6">
-                      <h3 className="text-lg font-bold leading-tight text-gray-900 md:text-xl">
-                        Oral GLP-1 Therapy
-                      </h3>
-                      <div className="rounded-[1rem] border border-gray-200">
-                        {ORAL_HERO_PRICING.map((plan, index) => (
-                          <div
-                            key={plan.name}
-                            className={`relative flex items-center justify-between p-4 ${index !== ORAL_HERO_PRICING.length - 1 ? "border-b border-gray-200" : ""
-                              }`}
-                          >
-                            {plan.isNew ? (
-                              <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#FF6B35] px-3 text-sm font-semibold leading-none text-white">
-                                Newest
-                              </span>
-                            ) : null}
-                            <span className="text-sm font-medium text-gray-700 md:text-base">
-                              {plan.name}
-                            </span>
-                            <div className="text-right">
-                              <div className="text-xl font-bold leading-none text-[#6D6FFC]">
-                                ${plan.price}{" "}
-                                <span className="text-sm font-semibold">/mo</span>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                    <PricingPlansTable footnote="Includes clinician review, labs, and supplies. Cancel anytime." />
                   ) : null}
 
                   {activeTab === "description" ? (
@@ -525,7 +499,7 @@ function OralGLP1ProductHeroSection() {
 
 function OralGLP1WhyNowSection() {
   return (
-    <section className="bg-[#0d0d1a] py-16 md:py-24">
+    <section className="bg-[#0d0d1a] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <FadeIn className="text-center">
           <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-white/70">
@@ -720,7 +694,7 @@ function OralGLP1TwoOptionsSection() {
   const [expandedId, setExpandedId] = useState(null);
 
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
+    <section className="bg-[#f9f9f9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-10 grid grid-cols-1 gap-8 md:mb-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-x-8 xl:gap-x-12">
           <div className="min-w-0">
@@ -803,7 +777,7 @@ function OralGLP1BarChartSection() {
   const xPos = (i) => padL + i * ((svgW - padL - padR) / BAR_DATA.length) + 4;
 
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-white py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <FadeIn>
           <h2 className="mb-3 font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
@@ -931,7 +905,7 @@ function OralGLP1EligibilitySection() {
   const [weight, setWeight] = useState("180");
 
   return (
-    <section id="eligibility" className="bg-[#F1F0FF] py-16 md:py-20">
+    <section id="eligibility" className="bg-[#F1F0FF] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <FadeIn className="text-center">
           <h2 className="mb-3 font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
@@ -1060,7 +1034,7 @@ function OralGLP1QuizSection() {
   const isOrf = recommend() === "orforglipron";
 
   return (
-    <section id="quiz" className="bg-white py-16 md:py-24">
+    <section id="quiz" className="bg-white py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
           <FadeIn>
@@ -1192,7 +1166,7 @@ function OralGLP1QuizSection() {
 
 function OralGLP1B6Section() {
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-white py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <FadeIn>
@@ -1312,7 +1286,7 @@ const MECHANISM_STEPS = [
 
 function OralGLP1MechanismSection() {
   return (
-    <section className="bg-[#F1F0FF] py-16 md:py-24">
+    <section className="bg-[#F1F0FF] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <FadeIn className="text-center">
           <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#6D6FFC]/20 bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC] shadow-sm">
@@ -1368,7 +1342,7 @@ const MEMBER_RESULTS = [
 
 function OralGLP1ResultsSection() {
   return (
-    <section className="bg-[#F1F0FF] py-16 md:py-24">
+    <section className="bg-[#F1F0FF] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <FadeIn className="text-center">
           <h2 className="mb-3 font-title text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
@@ -1438,8 +1412,8 @@ const PAIN_CARDS = [
   {
     title: "You can't get past the needle.",
     bullets: [
-      "You've researched GLP-1s for months but the injection is the wall.",
-      "Daily oral fits how you actually live — and works.",
+      { text: "You've researched GLP-1s for months but the injection is the wall.", type: "x" },
+      { text: "Daily oral fits how you actually live — and works.", type: "check" },
     ],
     image: "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?auto=format&fit=crop&w=800&q=80",
     bg: "#F0E8FF",
@@ -1447,8 +1421,8 @@ const PAIN_CARDS = [
   {
     title: "You travel constantly.",
     bullets: [
-      "The cold chain, the syringes through TSA, the schedule disruption.",
-      "Oral fits in any toiletry kit, anywhere in the world.",
+      { text: "The cold chain, the syringes through TSA, the schedule disruption.", type: "x" },
+      { text: "Oral fits in any toiletry kit, anywhere in the world.", type: "check" },
     ],
     image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80",
     bg: "#E8F0FF",
@@ -1456,8 +1430,8 @@ const PAIN_CARDS = [
   {
     title: "You tried injectable GLP-1s — the nausea was too much.",
     bullets: [
-      "You wanted to stay on, but the GI side effects forced you off.",
-      "The B6 formulation is designed to help you stay this time.",
+      { text: "You wanted to stay on, but the GI side effects forced you off.", type: "x" },
+      { text: "The B6 formulation is designed to help you stay this time.", type: "check" },
     ],
     image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80",
     bg: "#E8FFF0",
@@ -1465,8 +1439,8 @@ const PAIN_CARDS = [
   {
     title: "BMI 25–29.9 — locked out of Wegovy.",
     bullets: [
-      "Federal guidelines won't prescribe GLP-1s to you. HealSend will, when appropriate.",
-      "You don't need to be 30+ to need help.",
+      { text: "Federal guidelines won't prescribe GLP-1s to you. HealSend will, when appropriate.", type: "x" },
+      { text: "You don't need to be 30+ to need help.", type: "check" },
     ],
     image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80",
     bg: "#FFF8E8",
@@ -1475,7 +1449,7 @@ const PAIN_CARDS = [
 
 function OralGLP1PainPointsSection() {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-white py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-4 text-center">
           <span className="inline-block rounded-full bg-[#f0eeff] px-4 py-1.5 text-sm font-semibold text-[#5b3cdd]">
@@ -1513,16 +1487,24 @@ function OralGLP1PainPointsSection() {
                 <ul className="flex flex-col gap-3">
                   {card.bullets.map((bullet) => (
                     <li
-                      key={bullet}
+                      key={bullet.text}
                       className="flex items-start gap-2.5 text-sm leading-snug text-[#5d6169]"
                     >
-                      <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#ffe4e4] text-[#e53e3e]">
-                        <svg width="8" height="8" viewBox="0 0 10 10" fill="none">
-                          <line x1="2" y1="2" x2="8" y2="8" stroke="#e53e3e" strokeWidth="1.8" strokeLinecap="round" />
-                          <line x1="8" y1="2" x2="2" y2="8" stroke="#e53e3e" strokeWidth="1.8" strokeLinecap="round" />
-                        </svg>
-                      </span>
-                      {bullet}
+                      {bullet.type === "check" ? (
+                        <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#e4ffe4] text-[#38a169]">
+                          <svg width="8" height="8" viewBox="0 0 10 10" fill="none">
+                            <path d="M2 5.5L4.5 8L8 2" stroke="#38a169" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </span>
+                      ) : (
+                        <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#ffe4e4] text-[#e53e3e]">
+                          <svg width="8" height="8" viewBox="0 0 10 10" fill="none">
+                            <line x1="2" y1="2" x2="8" y2="8" stroke="#e53e3e" strokeWidth="1.8" strokeLinecap="round" />
+                            <line x1="8" y1="2" x2="2" y2="8" stroke="#e53e3e" strokeWidth="1.8" strokeLinecap="round" />
+                          </svg>
+                        </span>
+                      )}
+                      {bullet.text}
                     </li>
                   ))}
                 </ul>
@@ -1653,7 +1635,7 @@ const ATTAIN_CITATIONS = [
 
 function OralGLP1ResearchSection() {
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-white py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
           <FadeIn>
@@ -1956,7 +1938,6 @@ export default function OralGLP1LandingPage({ product }) {
       <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="Oral GLP-1 Benefits" />
       <OralGLP1BarChartSection />
       <BMICalculatorPreviewSection />
-      <OralGLP1QuizSection />
       <OralGLP1B6Section />
       <OralGLP1MechanismSection />
       <TestimonialsSection />
@@ -1969,6 +1950,7 @@ export default function OralGLP1LandingPage({ product }) {
         <OralGLP1UpgradeBanner />
       </div>
       <CleanSimpleEffective productData={null} />
+      <ComprehensiveCare />
       <LabTested productData={null} />
       <MarketingTrustMarquee items={ORAL_GLP1_TRUST_ITEMS} edgeToEdge={false} />
       <SameMedicationSection planLabel="Personalized, clinically-proven oral GLP-1 plans" />

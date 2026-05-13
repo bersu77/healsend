@@ -46,6 +46,7 @@ import {
   RestoredTirzepatideBenefitsCarouselSection,
   mergeProductContent,
   SimpleSteps,
+  PricingPlansTable,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/sermorelin";
@@ -83,7 +84,7 @@ function FadeIn({ children, className = "" }) {
 function SermorelinWillpowerSection() {
   return (
     <section className="relative overflow-hidden bg-[#F1F5F9]">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-80px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
             <div className="mt-5 max-w-[34rem]">
@@ -203,7 +204,7 @@ function SermorelinProductHeroSection() {
   const [showPriceFootnote, setShowPriceFootnote] = useState(false);
 
   return (
-    <section className="bg-[#f9f9f9] px-4 py-16 md:px-[3.25rem] md:py-20 lg:px-[3.25rem]">
+    <section className="bg-[#f9f9f9] px-4 py-6 md:px-[3.25rem] md:py-10 lg:px-[3.25rem]">
       <div className="mx-auto flex max-w-[1340px] flex-col gap-5 lg:flex-row lg:items-stretch lg:gap-6 xl:gap-8">
         {/* Left — sticky */}
         <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[55%] lg:max-w-[740px]">
@@ -355,32 +356,7 @@ function SermorelinProductHeroSection() {
                     })}
 
                   {activeTab === "pricing" && (
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-bold text-gray-900">
-                        Sermorelin Therapy
-                      </h3>
-                      <div className="rounded-[1rem] border border-[#6D6FFC] bg-gray-50/50 p-4">
-                        <div className="flex items-center justify-between">
-                          <span className="font-medium text-[#6D6FFC]">
-                            Sermorelin Therapy
-                          </span>
-                          <div className="text-right">
-                            <div className="text-xl font-bold text-[#6D6FFC]">
-                              $129{" "}
-                              <span className="text-sm font-semibold">/mo</span>
-                            </div>
-                            <div className="text-xs text-gray-500">
-                              $99 first month
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <p className="text-xs text-gray-500">
-                        Includes clinician review, baseline IGF-1 labs, and all
-                        injection supplies. Final pricing depends on clinician
-                        approval.
-                      </p>
-                    </div>
+                    <PricingPlansTable footnote="Includes clinician review, labs, and supplies. Cancel anytime." />
                   )}
 
                   {activeTab === "description" && (
@@ -534,7 +510,7 @@ const WHY_CARDS = [
 
 function SermorelinWhySection() {
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-24">
+    <section className="bg-[#F1F5F9] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mx-auto mb-12 max-w-[640px] text-center">
           <span className="mb-4 inline-block rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC]">
@@ -682,7 +658,7 @@ function SermorelinComparisonSection() {
   }
 
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-24">
+    <section className="bg-[#f9f9f9] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mx-auto mb-12 max-w-[640px] text-center">
           <h2 className="font-title text-4xl font-bold text-gray-900 md:text-5xl">
@@ -939,7 +915,7 @@ const OUTCOME_CARDS = [
 
 function SermorelinOutcomesSection() {
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-24">
+    <section className="bg-[#f9f9f9] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mx-auto mb-12 max-w-[640px] text-center">
           <h2 className="font-title text-4xl font-bold text-gray-900 md:text-5xl">
@@ -1375,7 +1351,7 @@ const PAIN_POINT_CARDS = [
 
 function SermorelinPainPointsSection() {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-white py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-4 text-center">
           <span className="inline-block rounded-full bg-[#f0eeff] px-4 py-1.5 text-sm font-semibold text-[#5b3cdd]">
@@ -1565,7 +1541,7 @@ const RESEARCH_STUDIES = [
 
 function SermorelinResearchSection() {
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-24">
+    <section className="bg-[#F1F5F9] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left */}
@@ -1705,7 +1681,7 @@ const STEPS = [
 
 function SermorelinStepsSection() {
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-24">
+    <section className="bg-[#f9f9f9] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mx-auto mb-12 max-w-[640px] text-center">
           <h2 className="font-title text-4xl font-bold text-gray-900 md:text-5xl">

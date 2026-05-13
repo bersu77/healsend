@@ -1760,8 +1760,8 @@ export function MinimalMarketingNavbar() {
         }`}
       />
 
-      <div className="relative px-3 py-3 sm:px-5 md:px-6">
-        <div className="mx-auto max-w-[1340px] py-2 md:px-8">
+      <div className="relative px-3 py-1.5 sm:px-5 md:px-6">
+        <div className="mx-auto max-w-[1340px] py-1 md:px-8">
           <div className="flex min-w-0 w-full max-w-full items-center justify-between gap-2 rounded-[1.7rem] sm:gap-3 md:px-5">
             <Link
               href={ROUTES.home}

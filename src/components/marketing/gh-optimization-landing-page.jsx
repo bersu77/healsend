@@ -51,6 +51,7 @@ import {
   RestoredTirzepatideBenefitsCarouselSection,
   mergeProductContent,
   SimpleSteps,
+  PricingPlansTable,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/gh-optimization";
@@ -88,7 +89,7 @@ function FadeIn({ children, className = "" }) {
 function GHWillpowerSection() {
   return (
     <section className="relative overflow-hidden bg-[#F1F5F9]">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-80px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
             <div className="mt-5 max-w-[34rem]">
@@ -195,7 +196,7 @@ function GHProductHeroSection() {
   const [showPriceFootnote, setShowPriceFootnote] = useState(false);
 
   return (
-    <section className="bg-[#f9f9f9] px-4 py-16 md:px-[3.25rem] md:py-20 lg:px-[3.25rem]">
+    <section className="bg-[#f9f9f9] px-4 py-6 md:px-[3.25rem] md:py-10 lg:px-[3.25rem]">
       <div className="mx-auto flex max-w-[1340px] flex-col gap-5 lg:flex-row lg:items-stretch lg:gap-6 xl:gap-8">
         {/* Left — sticky image */}
         <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[55%] lg:max-w-[740px]">
@@ -324,48 +325,7 @@ function GHProductHeroSection() {
                     : null}
 
                   {activeTab === "pricing" ? (
-                    <div className="space-y-6">
-                      <h3 className="text-lg font-bold leading-tight text-gray-900 md:text-xl">
-                        GH Optimization Protocol
-                      </h3>
-                      <div className="rounded-[1rem] border border-gray-200">
-                        {GH_TIERS_PRICING.map((tier, index) => (
-                          <div
-                            key={tier.name}
-                            className={`relative flex items-center justify-between p-4 ${
-                              index !== GH_TIERS_PRICING.length - 1
-                                ? "border-b border-gray-200"
-                                : ""
-                            } ${tier.isFeatured ? "bg-gray-50/50" : ""}`}
-                          >
-                            {tier.isFeatured && (
-                              <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#FF6B35] px-3 text-[11px] font-semibold leading-none text-white">
-                                Most Popular
-                              </span>
-                            )}
-                            <div className="flex items-center gap-2">
-                              <span
-                                className={`text-sm font-medium md:text-base ${
-                                  tier.isFeatured ? "text-[#6D6FFC]" : "text-gray-700"
-                                }`}
-                              >
-                                {tier.name}
-                              </span>
-                            </div>
-                            <div className="text-right">
-                              <div
-                                className={`text-xl font-bold leading-none ${
-                                  tier.isFeatured ? "text-[#6D6FFC]" : "text-gray-900"
-                                }`}
-                              >
-                                ${tier.price}{" "}
-                                <span className="text-sm font-semibold">/mo</span>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                    <PricingPlansTable footnote="Includes clinician review, labs, and supplies. Cancel anytime." />
                   ) : null}
 
                   {activeTab === "description" ? (
@@ -539,7 +499,7 @@ function CountUpStat({ value, prefix = "", suffix = "", label, duration = 1000 }
 
 function GHDeclineStatsSection() {
   return (
-    <section className="bg-[#0d0d18] py-16 md:py-24">
+    <section className="bg-[#0d0d18] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mx-auto mb-14 max-w-[640px] text-center md:mb-20">
           <h2 className="mb-3 font-title text-4xl font-bold text-white md:text-5xl">
@@ -814,7 +774,7 @@ function GHTwoOptionsSection() {
   const [expandedId, setExpandedId] = useState(null);
 
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
+    <section className="bg-[#f9f9f9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-10 grid grid-cols-1 gap-8 md:mb-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-x-8 xl:gap-x-12">
           <div className="min-w-0">
@@ -886,7 +846,7 @@ const TRACK_FEATURES = [
 
 function GHTrackLevelsSection() {
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-20">
+    <section className="bg-[#F1F5F9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14 lg:items-center">
           <FadeIn>
@@ -995,7 +955,7 @@ function GHIGFChartSection() {
   const areaD = `M ${pts[0]} L ${pts.join(" L ")} L ${padL + chartW},${padT + chartH} L ${padL},${padT + chartH} Z`;
 
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-white py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="grid gap-10 lg:grid-cols-[55fr_45fr] lg:gap-16 lg:items-center">
           <FadeIn>
@@ -1123,7 +1083,7 @@ const GH_PAIN_CARDS = [
 
 function GHPainPointsSection() {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-white py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-4 text-center">
           <span className="inline-block rounded-full bg-[#f0eeff] px-4 py-1.5 text-sm font-semibold text-[#5b3cdd]">
@@ -1237,7 +1197,7 @@ const LAB_OUTCOMES = [
 
 function GHLabResultsSection() {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-white py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mx-auto mb-12 max-w-[640px] text-center md:mb-16">
           <span className="mb-4 inline-block rounded-full bg-[#F1F5F9] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC]">
@@ -1425,7 +1385,7 @@ const GH_RESEARCH_CITATIONS = [
 
 function GHResearchSection() {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-white py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="grid gap-12 lg:grid-cols-[55fr_45fr] lg:gap-16">
           <FadeIn>
@@ -1547,7 +1507,7 @@ const GH_STEPS = [
 
 function GHStepsSection() {
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-20">
+    <section className="bg-[#F1F5F9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mx-auto mb-12 max-w-[580px] text-center md:mb-16">
           <h2 className="mb-2 font-title text-4xl font-bold text-gray-900 md:text-5xl">
@@ -1624,7 +1584,7 @@ const CARE_FEATURES = [
 
 function GHCareProgramSection() {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-white py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mx-auto mb-12 max-w-[640px] text-center md:mb-16">
           <span className="mb-4 inline-block rounded-full bg-[#F1F5F9] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC]">

@@ -52,6 +52,8 @@ import {
   FDADisclaimerSection,
   MediaLogosBanner,
   RestoredTirzepatideBenefitsCarouselSection,
+  PricingPlansTable,
+  MemberResultsStatsSection,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/growth-hormone-support";
@@ -172,39 +174,7 @@ function EncoHeroTabs() {
               : null}
 
             {activeTab === "pricing" ? (
-              <div className="space-y-6">
-                <h3 className="text-lg font-bold leading-tight text-gray-900 md:text-xl">
-                  Enclomiphene Citrate
-                </h3>
-                <div className="rounded-[1rem] border border-gray-200">
-                  {ENCLO_HERO_PRICING.map((plan, index) => (
-                    <div
-                      key={plan.name}
-                      className={`relative flex items-center justify-between p-4 ${
-                        index !== ENCLO_HERO_PRICING.length - 1 ? "border-b border-gray-200" : ""
-                      } ${plan.isMuted ? "bg-gray-50/50" : ""}`}
-                    >
-                      {plan.isBestValue ? (
-                        <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#00a86b] px-3 text-sm font-semibold leading-none text-white">
-                          Best Value
-                        </span>
-                      ) : null}
-                      <span className={`text-sm font-medium md:text-base ${plan.isMuted ? "text-gray-500" : "text-gray-700"}`}>
-                        {plan.name}
-                      </span>
-                      <div className="text-right">
-                        <div className={`text-xl font-bold leading-none ${plan.isMuted ? "text-gray-500" : "text-[#00a86b]"}`}>
-                          ${plan.firstMonth}{" "}
-                          <span className="text-sm font-semibold">first month</span>
-                          <div className="mt-1 text-sm font-normal text-gray-500">
-                            then ${plan.thenPrice}/mo
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <PricingPlansTable footnote="Includes clinician review, labs, and supplies. Cancel anytime." />
             ) : null}
 
             {activeTab === "description" ? (
@@ -287,7 +257,7 @@ function EncoHeroFaqs() {
 function EncloWillpowerSection() {
   return (
     <section className="relative overflow-hidden bg-[#F1F5F9]">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-80px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
             <div className="mt-5 max-w-[34rem]">
@@ -363,7 +333,7 @@ function EncloProductHeroSection() {
   const [showPriceFootnote, setShowPriceFootnote] = useState(false);
 
   return (
-    <section className="bg-[#f9f9f9] px-4 py-16 md:px-[3.25rem] md:py-20 lg:px-[3.25rem]">
+    <section className="bg-[#f9f9f9] px-4 py-6 md:px-[3.25rem] md:py-10 lg:px-[3.25rem]">
       <div className="mx-auto flex max-w-[1340px] flex-col gap-5 lg:flex-row lg:items-stretch lg:gap-6 xl:gap-8">
         <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[55%] lg:max-w-[740px]">
           <div className="flex flex-col gap-6 sm:gap-7 md:gap-10 lg:isolate lg:sticky lg:top-24 lg:z-10">
@@ -498,39 +468,7 @@ function EncloProductHeroSection() {
                     : null}
 
                   {activeTab === "pricing" ? (
-                    <div className="space-y-6">
-                      <h3 className="text-lg font-bold leading-tight text-gray-900 md:text-xl">
-                        Enclomiphene Citrate
-                      </h3>
-                      <div className="rounded-[1rem] border border-gray-200">
-                        {ENCLO_HERO_PRICING.map((plan, index) => (
-                          <div
-                            key={plan.name}
-                            className={`relative flex items-center justify-between p-4 ${
-                              index !== ENCLO_HERO_PRICING.length - 1 ? "border-b border-gray-200" : ""
-                            } ${plan.isMuted ? "bg-gray-50/50" : ""}`}
-                          >
-                            {plan.isBestValue ? (
-                              <span className="absolute right-4 top-0 z-10 flex h-[1.4rem] -translate-y-1/2 items-center rounded-full bg-[#00a86b] px-3 text-sm font-semibold leading-none text-white">
-                                Best Value
-                              </span>
-                            ) : null}
-                            <span className={`text-sm font-medium md:text-base ${plan.isMuted ? "text-gray-500" : "text-gray-700"}`}>
-                              {plan.name}
-                            </span>
-                            <div className="text-right">
-                              <div className={`text-xl font-bold leading-none ${plan.isMuted ? "text-gray-500" : "text-[#00a86b]"}`}>
-                                ${plan.firstMonth}{" "}
-                                <span className="text-sm font-semibold">first month</span>
-                                <div className="mt-1 text-sm font-normal text-gray-500">
-                                  then ${plan.thenPrice}/mo
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                    <PricingPlansTable footnote="Includes clinician review, labs, and supplies. Cancel anytime." />
                   ) : null}
 
                   {activeTab === "description" ? (
@@ -605,8 +543,8 @@ function EncloProductHeroSection() {
             </h3>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { id: "tirzepatide-injections", name: "Tirzepatide Injections", image: "/images/marketing/bundle/tirzepatide-injections-product.png" },
-                { id: "semaglutide-injections", name: "Semaglutide Injections", image: "/images/marketing/semaglutide.webp" },
+                { id: "trt", name: "Testosterone Injections", image: "/images/marketing/bundle/sermorelin-product.png" },
+                { id: "gh-optimization", name: "GH Optimization", image: "/images/marketing/bundle/gh-optimization-product.png" },
               ].map((product) => (
                 <Link
                   key={product.id}
@@ -799,7 +737,7 @@ function HpgCarousel() {
 
 function EncoHowItWorksSection() {
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
+    <section className="bg-[#f9f9f9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mx-auto mb-14 max-w-[720px] text-center">
           <span className="mb-4 inline-block rounded-full bg-[#F1F5F9] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC]">
@@ -1163,7 +1101,7 @@ const DAYS = ["M", "T", "W", "T", "F", "S", "S"];
 
 function EncoDailyProtocolSection() {
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
+    <section className="bg-[#f9f9f9] py-10 md:py-14">
       <div className="mx-auto grid max-w-[1200px] gap-12 px-4 md:grid-cols-2 md:gap-14 md:px-8 items-start">
         <div>
           <h2 className="mb-4 font-title text-4xl font-medium text-gray-900 md:text-5xl">
@@ -1257,7 +1195,7 @@ const ENCLO_RESULTS = [
 
 function EncoTimelineSection() {
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-20">
+    <section className="bg-[#F1F5F9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mx-auto mb-14 max-w-[720px] text-center">
           <h2 className="mb-3 font-title text-4xl font-medium text-gray-900 md:text-5xl">
@@ -1461,7 +1399,7 @@ function PillarsCarousel() {
 
 function EncoWhySection() {
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
+    <section className="bg-[#f9f9f9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mx-auto mb-14 max-w-[700px] text-center">
           <h2 className="mb-3 font-title text-4xl font-medium text-gray-900 md:text-5xl">
@@ -1552,7 +1490,7 @@ function TestimonialsCarousel() {
 
 function EncoTestimonialsSection() {
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
+    <section className="bg-[#f9f9f9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="mb-14 text-center">
           <h2 className="mb-3 font-title text-4xl font-medium text-gray-900 md:text-5xl">
@@ -1579,7 +1517,7 @@ const PROCESS_STEPS = [
 
 function EncoProcessSection() {
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-20">
+    <section className="bg-[#F1F5F9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <h2 className="mx-auto mb-4 max-w-[800px] text-center font-title text-4xl font-medium text-gray-900 md:text-5xl">
           Get started in{" "}
@@ -1640,7 +1578,7 @@ const INCLUDED_ITEMS = [
 
 function EncoIncludedSection() {
   return (
-    <section className="bg-[#f9f9f9] py-16 md:py-20">
+    <section className="bg-[#f9f9f9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <h2 className="mx-auto mb-3 max-w-[780px] text-center font-title text-4xl font-medium text-gray-900 md:text-5xl">
           Everything you need for{" "}
@@ -1714,7 +1652,7 @@ function EnclomipheneFAQSection() {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <section className="relative rounded-t-[32px] bg-[#F7F7F8] py-12 md:py-20">
+    <section className="relative rounded-t-[32px] bg-[#F7F7F8] py-8 md:py-14">
       <div className="container mx-auto max-w-4xl px-4 md:px-8">
         <h2 className="mb-3 text-4xl font-medium text-slate-900 md:text-5xl text-balance font-title">
           Your questions.{" "}
@@ -1812,7 +1750,7 @@ const FEATURED_STUDY_STATS = [
 
 function EncoClinicalResearchSection() {
   return (
-    <section className="bg-[#F1F5F9] py-16 md:py-24">
+    <section className="bg-[#F1F5F9] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left column */}
@@ -1968,7 +1906,7 @@ export default function EnclomipheneLandingPage({ product }) {
       <EncloWillpowerSection />
       <EncloProductHeroSection />
       <MediaLogosBanner />
-      <FadeIn><OurTreatmentsSection cards={TREATMENT_PLAN_CARDS.filter(c => c.id !== "enclomiphene")} /></FadeIn>
+      <FadeIn><OurTreatmentsSection cards={[TREATMENT_PLAN_CARDS.find(c => c.id === "enclomiphene"), ...TREATMENT_PLAN_CARDS.filter(c => c.id !== "enclomiphene" && c.id !== "glp1")]} /></FadeIn>
       <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="Enclomiphene Benefits" />
       <FadeIn><EncoHowItWorksSection /></FadeIn>
       <EncoStatBarSection />
@@ -1978,8 +1916,8 @@ export default function EnclomipheneLandingPage({ product }) {
       <FadeIn><EncoWhySection /></FadeIn>
       <FadeIn><EncoClinicalResearchSection /></FadeIn>
       <FadeIn><EncoTestimonialsSection /></FadeIn>
+      <MemberResultsStatsSection />
       <FadeIn><SimpleSteps productData={productData} /></FadeIn>
-      <FadeIn><EncoIncludedSection /></FadeIn>
       <CleanSimpleEffective productData={productData} />
       <FadeIn><LabTested productData={productData} /></FadeIn>
       <MarketingTrustMarquee items={ENCLO_TRUST_ITEMS} edgeToEdge={false} />
