@@ -6,7 +6,11 @@
       "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:3001/visceral-fat-therapy\" -UseBasicParsing -TimeoutSec 10 -ErrorAction Stop; \"Status: $\\($r.StatusCode\\) - Page loaded OK, length: $\\($r.Content.Length\\)\" } catch { \"Error: $\\($_.Exception.Message\\)\" })",
       "Bash(curl *)",
       "Bash(Select-String -Pattern \"error|Error|failed|Failed\")",
-      "Bash(Select-Object -First 30)"
+      "Bash(Select-Object -First 30)",
+      "Bash(Get-ChildItem -Path \"C:\\\\healsend\" -Directory)",
+      "Bash(Select-Object Name)",
+      "Bash(Get-ChildItem -Path \"C:\\\\healsend\\\\src\\\\app\" -Recurse -Filter \"page.jsx\" -o \"page.tsx\")",
+      "Bash(Select-Object -ExpandProperty FullName)"
     ]
   }
 }

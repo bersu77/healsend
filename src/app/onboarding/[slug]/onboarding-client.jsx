@@ -40,11 +40,11 @@ const fadeVariants = {
 };
 
 const RECT_INPUT_CLASS =
-  "w-full rounded-[1.1rem] border border-[#d7d1e4] bg-white px-4 py-4 text-base transition-colors outline-none focus:border-[#5b3cdd]";
+  "w-full rounded-[1rem] border-[1.5px] border-[rgba(15,18,40,0.16)] bg-[#F4F4F7] px-4 py-4 text-base text-[#0F1228] transition-colors outline-none focus:border-[#696af5] focus:bg-[#EDEDF2] focus:shadow-[0_0_0_3px_rgba(105,106,245,0.15)]";
 const PRIMARY_PILL_BUTTON_CLASS =
   "hs-solid-btn w-full rounded-full px-6 py-4 font-headline text-base font-bold disabled:cursor-not-allowed disabled:opacity-40";
 const SECONDARY_PILL_BUTTON_CLASS =
-  "w-full rounded-full border border-[#d7d1e4] bg-white px-6 py-4 font-headline text-base font-semibold text-[#1c1a24] transition-colors hover:bg-[#f8f8ff] disabled:cursor-not-allowed disabled:opacity-40";
+  "w-full rounded-full border border-[rgba(15,18,40,0.12)] bg-white px-6 py-4 font-headline text-base font-semibold text-[#0F1228] transition-colors hover:bg-[#F4F4F7] disabled:cursor-not-allowed disabled:opacity-40";
 
 function parseAmountValue(value) {
   if (typeof value === "number" && Number.isFinite(value)) {
@@ -432,10 +432,14 @@ function ProgressBar({ current, total }) {
       aria-label={`Step ${safeCurrent} of ${safeTotal}`}
       className="w-full shrink-0"
     >
-      <div className="h-[2px] w-full overflow-hidden bg-[#ebe6f3]">
+      <div className="h-[3px] w-full overflow-hidden bg-[rgba(15,18,40,0.06)]">
         <div
-          className="h-full bg-[#5b3cdd] transition-all duration-500 ease-out"
-          style={{ width: `${pct}%` }}
+          className="h-full rounded-full transition-all duration-500 ease-out"
+          style={{
+            width: `${pct}%`,
+            background: "linear-gradient(90deg, #5558e6, #696af5, #7b7dff)",
+            boxShadow: "0 0 8px rgba(105,106,245,0.45)",
+          }}
         />
       </div>
     </div>
@@ -785,11 +789,11 @@ function QuestionSingleStep({ step, value, onChange, onNext }) {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-headline text-[1.75rem] md:text-[2rem] font-extrabold leading-tight mb-3 text-[#1c1a24]">
+        <h1 className="font-headline text-[1.75rem] md:text-[2rem] font-extrabold leading-tight mb-3 text-[#0F1228]">
           {step.title}
         </h1>
         {step.subtitle && (
-          <p className="text-[#484555] text-base leading-relaxed">
+          <p className="text-[rgba(15,18,40,0.72)] text-base leading-relaxed">
             {step.subtitle}
           </p>
         )}
@@ -805,26 +809,26 @@ function QuestionSingleStep({ step, value, onChange, onNext }) {
                 onChange(opt.value);
                 setTimeout(() => onNext(), 0);
               }}
-              className={`w-full text-left rounded-[1.35rem] border bg-white p-4 transition-all duration-200 ${selected
-                  ? "border-[#5b3cdd] bg-[#faf7ff] shadow-[0_12px_32px_rgba(91,60,221,0.14)]"
-                  : "border-[#d7d1e4] hover:border-[#8d80dd] hover:bg-[#f8f4ff]"
+              className={`w-full text-left rounded-[1.35rem] border-[1.5px] bg-white p-4 transition-all duration-200 ${selected
+                  ? "border-[#696af5] bg-[#F4F4F7] shadow-[0_0_0_3px_rgba(105,106,245,0.15)]"
+                  : "border-[rgba(15,18,40,0.12)] hover:border-[rgba(105,106,245,0.4)] hover:bg-[#FAFAFB]"
                 }`}
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0">
-                  <p className="font-body text-[1.15rem] font-semibold leading-tight text-[#1c1a24]">
+                  <p className="font-body text-[1.15rem] font-semibold leading-tight text-[#0F1228]">
                     {opt.label}
                   </p>
                   {opt.description ? (
-                    <p className="mt-1.5 text-[0.95rem] leading-relaxed text-[#5f5a6d]">
+                    <p className="mt-1.5 text-[0.95rem] leading-relaxed text-[rgba(15,18,40,0.55)]">
                       {opt.description}
                     </p>
                   ) : null}
                 </div>
                 <span
-                  className={`mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border ${selected
-                      ? "border-[#5b3cdd] bg-[#5b3cdd] text-white"
-                      : "border-[#cbc6d8] bg-white text-transparent"
+                  className={`mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-[1.5px] ${selected
+                      ? "border-[#696af5] bg-[#696af5] text-white"
+                      : "border-[rgba(15,18,40,0.16)] bg-white text-transparent"
                     }`}
                 >
                   <AppIcon name="check" className="text-[15px]" />
@@ -4567,8 +4571,8 @@ function OnboardingShell({
   children,
 }) {
   return (
-    <div className="min-h-screen flex flex-col bg-[#fdf8ff] font-body text-[#1c1a24] antialiased">
-      <header className="sticky top-0 z-50 bg-[#fdf8ff]/90 backdrop-blur-xl">
+    <div className="min-h-screen flex flex-col bg-white font-body text-[#0F1228] antialiased">
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl">
         {typeof step === "number" && typeof totalSteps === "number" ? (
           <ProgressBar current={step} total={totalSteps} />
         ) : null}
@@ -4577,7 +4581,7 @@ function OnboardingShell({
             {onBack && (
               <button
                 onClick={onBack}
-                className="inline-flex h-11 w-11 items-center justify-center text-[#1c1a24] transition-opacity hover:opacity-80"
+                className="inline-flex h-11 w-11 items-center justify-center text-[#0F1228] transition-opacity hover:opacity-80"
                 aria-label={backAriaLabel}
               >
                 <AppIcon name="arrow_back" className="text-[2rem]" />
@@ -4608,13 +4612,13 @@ function OnboardingShell({
         {children}
       </main>
 
-      <footer className="bg-[#fdf8ff] w-full py-10 px-6 border-t border-[#c9c4d8]/20 mt-auto">
+      <footer className="bg-white w-full py-10 px-6 border-t border-[rgba(15,18,40,0.06)] mt-auto">
         <div className="flex flex-col md:flex-row justify-between items-start gap-4 max-w-3xl mx-auto">
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2 opacity-60">
               <AppIcon
                 name="verified_user"
-                className="text-[#5b3cdd] text-base"
+                className="text-[#696af5] text-base"
               />
               <span className="font-body text-[0.6875rem] uppercase tracking-widest font-bold">
                 HIPAA Compliant
