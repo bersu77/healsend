@@ -48,6 +48,8 @@ import {
   ComprehensiveCare,
   mergeProductContent,
   PricingPlansTable,
+  MobileStickyCta,
+  BeforeAfterSliderSection,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/oral-glp-1";
@@ -136,7 +138,7 @@ function OralGLP1WillpowerSection() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <p className="w-full text-center text-sm">
-                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-slate-500">100% private · free</span>
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
                 </p>
               </div>
             </div>
@@ -240,50 +242,16 @@ function OralGLP1ProductHeroSection() {
         <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[45%] xl:w-[450px]">
           {/* Price card */}
           <div className="mb-6 overflow-hidden rounded-[1rem] border border-gray-200 bg-white">
-            <div className="flex items-center justify-center gap-2 bg-[#FF6B35] px-5 py-3.5 text-sm font-bold uppercase tracking-wide text-white md:text-base">
-              $50 OFF FIRST MONTH
+            <div className="flex items-center justify-center gap-2 bg-[#fde073] px-5 py-3.5 text-sm font-medium text-gray-900 md:text-base">
+              <ShieldCheck className="h-4 w-4 md:h-5 md:w-5" />
+              FSA &amp; HSA Eligible
             </div>
             <div className="px-6 py-6 md:px-7 md:py-7">
-              <p className="mb-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                Choose Your Protocol
-              </p>
-              <div className="mb-5 flex flex-col gap-3">
-                <button
-                  type="button"
-                  onClick={() => setSelectedProtocol("orforglipron")}
-                  className={`flex w-full items-center justify-between rounded-xl border-2 px-4 py-3.5 text-left transition-colors ${selectedProtocol === "orforglipron"
-                      ? "border-[#6D6FFC] bg-[#6D6FFC]/5"
-                      : "border-gray-200 hover:border-gray-300"
-                    }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-bold text-gray-900">Orforglipron + B6</span>
-                    <span className="rounded-full bg-[#FF6B35] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">
-                      Newest
-                    </span>
-                  </div>
-                  <span className="text-base font-bold text-[#6D6FFC]">$349/mo</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSelectedProtocol("semaglutide")}
-                  className={`flex w-full items-center justify-between rounded-xl border-2 px-4 py-3.5 text-left transition-colors ${selectedProtocol === "semaglutide"
-                      ? "border-[#6D6FFC] bg-[#6D6FFC]/5"
-                      : "border-gray-200 hover:border-gray-300"
-                    }`}
-                >
-                  <span className="text-sm font-bold text-gray-900">Semaglutide RDT</span>
-                  <span className="text-base font-bold text-[#6D6FFC]">$249/mo</span>
-                </button>
-              </div>
-
               <div className="mb-5 flex items-center justify-between gap-4">
                 <div className="min-w-0 shrink">
                   <div className="flex flex-wrap items-baseline gap-2">
-                    <span className="text-3xl font-bold text-gray-900 md:text-4xl">
-                      {selectedProtocol === "orforglipron" ? "$349" : "$249"}
-                    </span>
-                    <span className="text-lg font-medium text-gray-800 md:text-xl">/mo</span>
+                    <span className="text-3xl font-bold text-gray-900 md:text-4xl">$0</span>
+                    <span className="text-lg font-medium text-gray-800 md:text-xl">first month</span>
                   </div>
                   <button
                     type="button"
@@ -291,7 +259,7 @@ function OralGLP1ProductHeroSection() {
                     aria-expanded={showPriceFootnote}
                     className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 underline decoration-dotted underline-offset-4 hover:text-gray-700 md:text-base"
                   >
-                    {selectedProtocol === "orforglipron" ? "$299 first month*" : "$199 first month*"}
+                    then $299/mo*
                   </button>
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-2">
@@ -306,7 +274,7 @@ function OralGLP1ProductHeroSection() {
 
               {showPriceFootnote ? (
                 <div className="mb-5 rounded-[0.75rem] bg-gray-50 p-3 text-xs leading-5 text-gray-600 md:text-sm">
-                  *Discounted first month applies to quarterly plan. Regular price resumes at month two. Includes medication, clinician follow-up, and shipping. Cancel anytime.
+                  *$0 first month on annual plan. Regular price is $299/mo. Includes medication, clinician follow-up, and shipping. Cancel anytime.
                 </div>
               ) : null}
 
@@ -319,18 +287,11 @@ function OralGLP1ProductHeroSection() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <p className="w-full text-center text-sm">
-                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-slate-500">100% private · free</span>
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
                 </p>
               </div>
             </div>
 
-            <div className="flex items-start gap-3 border-t border-gray-100 bg-[#F9F9FF] px-6 py-4 md:px-7">
-              <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-[#6D6FFC]" />
-              <p className="text-xs leading-relaxed text-gray-600">
-                <strong className="text-gray-800">60-day money-back guarantee.</strong>{" "}
-                If you don&apos;t see measurable weight loss by week 8, your first month is free.
-              </p>
-            </div>
           </div>
 
           {/* Tabs card */}
@@ -375,7 +336,10 @@ function OralGLP1ProductHeroSection() {
                     : null}
 
                   {activeTab === "pricing" ? (
-                    <PricingPlansTable footnote="Includes clinician review, labs, and supplies. Cancel anytime." />
+                    <div className="space-y-8">
+                      <PricingPlansTable productName="Orforglipron + B6" />
+                      <PricingPlansTable productName="Semaglutide Tablets" footnote="Includes clinician review, labs, and supplies. Cancel anytime." />
+                    </div>
                   ) : null}
 
                   {activeTab === "description" ? (
@@ -1303,22 +1267,21 @@ function OralGLP1MechanismSection() {
           </p>
         </FadeIn>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-5 sm:grid-cols-2">
           {MECHANISM_STEPS.map((step) => (
             <FadeIn key={step.num}>
-              <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm">
-                <div className="relative h-36" style={{ backgroundColor: step.bg }}>
+              <div className="flex h-full flex-row overflow-hidden rounded-2xl bg-white shadow-sm">
+                <div className="relative w-32 shrink-0 sm:w-40" style={{ backgroundColor: step.bg }}>
                   <Image
                     src={step.image}
                     alt={step.title}
                     fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    sizes="160px"
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
                 </div>
-                <div className="flex flex-1 flex-col p-6">
-                  <h3 className="mb-2 text-base font-bold text-gray-900">{step.title}</h3>
+                <div className="flex flex-1 flex-col justify-center p-5">
+                  <h3 className="mb-1.5 text-base font-bold text-gray-900">{step.title}</h3>
                   <p className="text-sm leading-relaxed text-gray-600">{step.desc}</p>
                 </div>
               </div>
@@ -1942,6 +1905,7 @@ export default function OralGLP1LandingPage({ product }) {
       <OralGLP1MechanismSection />
       <TestimonialsSection />
       <MemberResultsStatsSection />
+      {/* <BeforeAfterSliderSection category="weight-loss" heading="Real transformations." ctaHref={CTA_HREF} /> */}
       <OralGLP1PainPointsSection />
       <OralGLP1PromiseSection />
       <OralGLP1ResearchSection />
@@ -1958,6 +1922,7 @@ export default function OralGLP1LandingPage({ product }) {
       <SupportAvailabilitySection />
       <OralGLP1ClosingCTA />
       <MarketingFooter />
+      <MobileStickyCta ctaHref={CTA_HREF} />
     </div>
   );
 }

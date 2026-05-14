@@ -53,7 +53,9 @@ import {
   MediaLogosBanner,
   RestoredTirzepatideBenefitsCarouselSection,
   PricingPlansTable,
-  MemberResultsStatsSection,
+  DarkMemberStatsSection,
+  MobileStickyCta,
+  BeforeAfterSliderSection,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/growth-hormone-support";
@@ -301,8 +303,8 @@ function EncloWillpowerSection() {
                   Get my personalized plan
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-                <p className="w-full text-center text-sm font-semibold text-gray-700">
-                  Takes 90 seconds · 100% private · free
+                <p className="w-full text-center text-sm">
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
                 </p>
               </div>
             </div>
@@ -658,8 +660,8 @@ export function EncoStatBarSection() {
   return (
     <section className="relative overflow-hidden bg-[#101726] py-14 text-white md:py-16">
       <div className="pointer-events-none absolute -right-24 -top-36 h-96 w-96 rounded-full bg-[#6D6FFC]/20 blur-3xl" />
-      <div className="relative mx-auto max-w-[1200px] px-4 md:px-8">
-        <h2 className="mx-auto mb-3 max-w-[800px] text-center font-title text-3xl font-medium md:text-4xl">
+      <div className="relative mx-auto max-w-[960px] px-4 md:px-8">
+        <h2 className="mx-auto mb-3 max-w-[700px] text-center font-title text-3xl font-medium md:text-4xl">
           You&apos;re not imagining it.{" "}
           <span className="font-playfair italic text-[#6D6FFC]">Low T is everywhere.</span>
         </h2>
@@ -825,7 +827,7 @@ const COMPARISON_TITLE_RIGHT = "TRT";
 const COMPARISON_BRAND_BADGE = "HEALSEND";
 const COMPARISON_HEADER_ENCLO = "Enclomiphene";
 const COMPARISON_HEADER_TRT = "Traditional TRT";
-const COMPARISON_CTA_LABEL = "Start my assessment";
+const COMPARISON_CTA_LABEL = "Get Started";
 
 /** Middle (Enclomiphene) column card — desktop. */
 const COMPARISON_CARD_SHADOW =
@@ -978,7 +980,7 @@ function EncoComparisonMobileBlock() {
 
 function EncoComparisonSection() {
   return (
-    <section className="bg-[#f1f5f9] py-12 text-base font-sans text-[#112f5b] antialiased md:py-32">
+    <section className="bg-[#f1f5f9] py-6 text-base font-sans text-[#112f5b] antialiased md:py-16">
       <div className="box-border mx-auto w-full max-w-[min(1600px,92%)] px-2 md:px-6 lg:px-8">
         <h2 className="mb-3 text-start text-[#112f5b] md:mb-10 md:text-start">
           <span className="md:hidden block w-full max-w-full text-balance text-start text-xl leading-[1.1] tracking-tight min-[380px]:text-2xl min-[480px]:text-3xl min-[600px]:text-4xl min-[700px]:text-[2.5rem]">
@@ -996,7 +998,7 @@ function EncoComparisonSection() {
         <EncoComparisonMobileBlock />
 
         <div
-          className="hidden max-w-full rounded-xl border border-[#e2e8f0] bg-white p-1.5 sm:rounded-2xl md:block md:p-3"
+          className="hidden max-w-full overflow-hidden rounded-xl border border-[#e2e8f0] bg-white p-1.5 sm:rounded-2xl md:block md:p-3"
           style={{ boxShadow: COMPARISON_TABLE_SHELL_SHADOW }}
         >
           <table className="w-full min-w-0 table-fixed border-collapse text-left font-sans text-[#112f5b]">
@@ -1275,6 +1277,32 @@ function EncoTimelineSection() {
   );
 }
 
+export function LabResultsSection({ results, title }) {
+  const data = results || ENCLO_RESULTS;
+  return (
+    <div className="mt-10">
+      <h3 className="mb-6 text-center font-title text-2xl font-medium text-gray-900 md:text-3xl">
+        {title || <>Real lab results from{" "}<span className="font-playfair italic text-[#6D6FFC]">real members.</span></>}
+      </h3>
+      <div className="relative sm:hidden">
+        <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] scrollbar-hide [&::-webkit-scrollbar]:hidden">
+          {data.map((r) => (
+            <div key={r.name} data-card className="min-w-0 shrink-0 basis-[88%] snap-start snap-always">
+              <ResultCard r={r} />
+            </div>
+          ))}
+          <div className="w-3 shrink-0" aria-hidden />
+        </div>
+      </div>
+      <div className="hidden gap-5 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+        {data.map((r) => (
+          <FadeIn key={r.name}><ResultCard r={r} /></FadeIn>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function ResultCard({ r }) {
   return (
     <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
@@ -1304,33 +1332,7 @@ function ResultCard({ r }) {
 }
 
 function LabResultsCarousel() {
-  return (
-    <div className="mt-10">
-      <h3 className="mb-6 text-center font-title text-2xl font-medium text-gray-900 md:text-3xl">
-        Real lab results from{" "}
-        <span className="font-playfair italic text-[#6D6FFC]">real members.</span>
-      </h3>
-
-      {/* Mobile: horizontal scroll */}
-      <div className="relative sm:hidden">
-        <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden overscroll-x-contain pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] scrollbar-hide [&::-webkit-scrollbar]:hidden">
-          {ENCLO_RESULTS.map((r) => (
-            <div key={r.name} data-card className="min-w-0 shrink-0 basis-[88%] snap-start snap-always">
-              <ResultCard r={r} />
-            </div>
-          ))}
-          <div className="w-3 shrink-0" aria-hidden />
-        </div>
-      </div>
-
-      {/* Desktop: grid */}
-      <div className="hidden gap-5 sm:grid sm:grid-cols-2 lg:grid-cols-3">
-        {ENCLO_RESULTS.map((r) => (
-          <FadeIn key={r.name}><ResultCard r={r} /></FadeIn>
-        ))}
-      </div>
-    </div>
-  );
+  return <LabResultsSection />;
 }
 
 /* ------------------------------------------------------------------ */
@@ -1426,16 +1428,19 @@ const TESTIMONIALS = [
     quote: "I almost did injections. Then my urologist said 'try enclomiphene first — you're 32, your wife wants a second kid.' Three months in, T doubled, sperm count untouched. This is the move.",
     name: "Daniel R., 32",
     detail: "Quarterly plan · Texas",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
   },
   {
     quote: "Switched from TRT injections after 18 months. The shutdown was real — I felt locked in. On enclomiphene I'm at 740 ng/dL, my own production is back, and the convenience is night and day.",
     name: "Marcus S., 41",
     detail: "Annual plan · Florida",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80",
   },
   {
     quote: "What I appreciated most: the clinician explained the trade-offs honestly. Said TRT might be stronger but enclomiphene was a smarter starting point at my age. Wish more doctors talked like this.",
     name: "James T., 38",
     detail: "Quarterly plan · California",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80",
   },
 ];
 
@@ -1451,8 +1456,8 @@ function TestimonialCard({ t }) {
         &ldquo;{t.quote}&rdquo;
       </p>
       <div className="flex items-center gap-2.5 border-t border-gray-50 pt-3 md:gap-3 md:pt-5">
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#6D6FFC] text-xs font-semibold text-white md:h-10 md:w-10 md:text-sm">
-          {t.name.charAt(0)}
+        <div className="relative h-8 w-8 overflow-hidden rounded-full md:h-10 md:w-10">
+          <Image src={t.image} alt={t.name} fill sizes="40px" className="object-cover" />
         </div>
         <div>
           <p className="text-xs font-medium text-gray-900 md:text-sm">{t.name}</p>
@@ -1916,7 +1921,8 @@ export default function EnclomipheneLandingPage({ product }) {
       <FadeIn><EncoWhySection /></FadeIn>
       <FadeIn><EncoClinicalResearchSection /></FadeIn>
       <FadeIn><EncoTestimonialsSection /></FadeIn>
-      <MemberResultsStatsSection />
+      <DarkMemberStatsSection />
+      <BeforeAfterSliderSection category="fitness" heading="Real transformations." ctaHref={CTA_HREF} />
       <FadeIn><SimpleSteps productData={productData} /></FadeIn>
       <CleanSimpleEffective productData={productData} />
       <FadeIn><LabTested productData={productData} /></FadeIn>
@@ -1926,6 +1932,7 @@ export default function EnclomipheneLandingPage({ product }) {
       <FadeIn><SupportAvailabilitySection /></FadeIn>
       <EncoFinalCTASection />
       <MarketingFooter />
+      <MobileStickyCta ctaHref={CTA_HREF} />
     </div>
   );
 }

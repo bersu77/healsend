@@ -52,6 +52,9 @@ import {
   mergeProductContent,
   SimpleSteps,
   PricingPlansTable,
+  MobileStickyCta,
+  BeforeAfterSliderSection,
+  DarkMemberStatsSection,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/gh-optimization";
@@ -88,8 +91,8 @@ function FadeIn({ children, className = "" }) {
 
 function GHWillpowerSection() {
   return (
-    <section className="relative overflow-hidden bg-[#F1F5F9]">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+    <section className="relative overflow-hidden bg-[#F1F5F9] px-3 sm:px-5 md:px-6">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
             <div className="mt-5 max-w-[34rem]">
@@ -555,7 +558,7 @@ function GHHowItWorksSection() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section id="how-it-works" className="relative overflow-hidden bg-[#0B1120] py-20 md:py-28">
+    <section id="how-it-works" className="relative overflow-hidden bg-[#0B1120] pt-20 pb-10 md:pt-28 md:pb-14">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-0 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/3 rounded-full bg-[#6D6FFC]/10 blur-[120px]" />
       </div>
@@ -642,7 +645,7 @@ const COMPARISON_ROWS = [
 
 function GHComparisonSection() {
   return (
-    <section className="relative overflow-hidden bg-[#0B1120] py-20 md:py-28">
+    <section className="relative overflow-hidden bg-[#0B1120] pt-10 pb-20 md:pt-14 md:pb-28">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute right-0 top-1/3 h-[400px] w-[400px] translate-x-1/4 rounded-full bg-[#6D6FFC]/8 blur-[120px]" />
       </div>
@@ -721,9 +724,9 @@ const GH_PLAN_CARDS = [
     image: "/images/marketing/bundle/sermorelin-product.png",
     bulletsHeading: "MEMBER RESULTS",
     bullets: [
-      { icon: Moon, text: "Improved sleep quality within 3–4 weeks" },
-      { icon: ShieldCheck, text: "Mimics your body's natural pulsatile GH rhythm" },
-      { icon: Stethoscope, text: "Clinician access + quarterly IGF-1 monitoring" },
+      { icon: Moon, text: "Better sleep within 3–4 weeks" },
+      { icon: ShieldCheck, text: "Mimics natural pulsatile GH rhythm" },
+      { icon: Stethoscope, text: "Clinician + quarterly IGF-1 labs" },
     ],
     primaryCta: "Start Sermorelin",
     secondaryCta: "Why Sermorelin?",
@@ -750,9 +753,9 @@ const GH_PLAN_CARDS = [
     image: "/images/marketing/bundle/sermorelin-product.png",
     bulletsHeading: "MEMBER RESULTS",
     bullets: [
-      { icon: Dumbbell, text: "Most effective for body recomp and lean mass gains" },
-      { icon: TrendingUp, text: "Amplified GH pulse — faster IGF-1 response" },
-      { icon: FlaskConical, text: "Quarterly labs + bi-monthly clinician check-ins" },
+      { icon: Dumbbell, text: "Best for body recomp and lean mass" },
+      { icon: TrendingUp, text: "Amplified GH pulse — faster IGF-1" },
+      { icon: FlaskConical, text: "Quarterly labs + clinician check-ins" },
     ],
     primaryCta: "Start CJC + Ipamorelin",
     secondaryCta: "Why This Combo?",
@@ -768,6 +771,35 @@ const GH_PLAN_CARDS = [
       "Anyone focused on body recomp and sleep quality",
     ],
   },
+  {
+    id: "gh-oral",
+    headerClass: "bg-gradient-to-br from-emerald-500/20 to-teal-500/20",
+    headerTextClass: "text-[#101726]",
+    useFullImage: false,
+    badges: ["Oral Option", "No Injections"],
+    title: "MK-677\n(Ibutamoren)",
+    subtitle: "Oral GH secretagogue — no needles",
+    image: "/images/marketing/bundle/sermorelin-product.png",
+    bulletsHeading: "MEMBER RESULTS",
+    bullets: [
+      { icon: Zap, text: "Daily oral dosing — no needles" },
+      { icon: TrendingUp, text: "24-hour sustained GH and IGF-1" },
+      { icon: Moon, text: "Sleep improvement within 1–2 weeks" },
+    ],
+    primaryCta: "Start MK-677",
+    secondaryCta: "Why MK-677?",
+    href: CTA_HREF,
+    description: "An oral GH secretagogue that raises GH and IGF-1 levels without injections. Taken once daily — ideal for members who prefer a needle-free protocol.",
+    whyItWorks: [
+      "Oral capsule — 10–25mg daily dosing",
+      "24-hour sustained GH elevation",
+      "Quarterly IGF-1 blood panel included",
+    ],
+    bestFor: [
+      "Members who prefer oral dosing over injections",
+      "Anyone prioritizing convenience and compliance",
+    ],
+  },
 ];
 
 function GHTwoOptionsSection() {
@@ -775,11 +807,11 @@ function GHTwoOptionsSection() {
 
   return (
     <section className="bg-[#f9f9f9] py-10 md:py-14">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
+      <div className="mx-auto max-w-[1340px] px-4 md:px-8">
         <div className="mb-10 grid grid-cols-1 gap-8 md:mb-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-x-8 xl:gap-x-12">
           <div className="min-w-0">
             <h2 className="font-title text-3xl font-bold leading-[1.05] tracking-tight text-gray-950 sm:text-4xl lg:text-[2.625rem]">
-              Two clinically-guided
+              Three clinically-guided
             </h2>
             <p className="mt-2 font-playfair text-2xl italic leading-tight text-[#5d62f3] sm:text-3xl">
               GH protocols.
@@ -806,7 +838,7 @@ function GHTwoOptionsSection() {
           </div>
         </div>
 
-        <div className="mx-auto grid max-w-[1200px] items-start gap-7 sm:gap-8 lg:grid-cols-2 lg:gap-10">
+        <div className="mx-auto grid items-start gap-7 sm:gap-8 lg:grid-cols-2 xl:grid-cols-3 lg:gap-6">
           {GH_PLAN_CARDS.map((plan) => (
             <MedicalPlanCard
               key={plan.id}
@@ -1850,6 +1882,8 @@ export default function GHOptimizationLandingPage({ product }) {
       <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="Growth Hormone Optimization Benefits" />
       <GHTrackLevelsSection />
       <GHIGFChartSection />
+      <BeforeAfterSliderSection category="fitness" heading="Real transformations." ctaHref={CTA_HREF} />
+      <DarkMemberStatsSection variant="igf1" />
       <GHPromiseSection />
       <GHResearchSection />
       <SimpleSteps productData={productData} />
@@ -1863,6 +1897,7 @@ export default function GHOptimizationLandingPage({ product }) {
       <SupportAvailabilitySection />
       <GHClosingCTA />
       <MarketingFooter />
+      <MobileStickyCta ctaHref={CTA_HREF} />
     </div>
   );
 }

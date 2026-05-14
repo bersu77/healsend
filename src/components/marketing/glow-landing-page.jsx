@@ -47,6 +47,8 @@ import {
   mergeProductContent,
   SimpleSteps,
   PricingPlansTable,
+  MobileStickyCta,
+  BeforeAfterSliderSection,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/skin-hair";
@@ -1576,6 +1578,7 @@ export default function GlowLandingPage({ product }) {
       <GlowProtocolSupportSection />
       <GlowHowItWorksSection />
       <GlowTestimonialsSection />
+      <BeforeAfterSliderSection category="skin" heading="Real transformations." ctaHref={CTA_HREF} />
       <GlowPainPointsSection />
       <GlowPromiseSection />
       <GlowResearchSection />
@@ -1589,6 +1592,7 @@ export default function GlowLandingPage({ product }) {
       <SupportAvailabilitySection />
       <GlowClosingCTA />
       <MarketingFooter />
+      <MobileStickyCta ctaHref={CTA_HREF} />
     </div>
   );
 }

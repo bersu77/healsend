@@ -47,6 +47,9 @@ import {
   mergeProductContent,
   SimpleSteps,
   PricingPlansTable,
+  MobileStickyCta,
+  BeforeAfterSliderSection,
+  DarkMemberStatsSection,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/sermorelin";
@@ -243,15 +246,16 @@ function SermorelinProductHeroSection() {
         <div className="flex w-full shrink-0 flex-col lg:min-h-0 lg:w-[45%] xl:w-[450px]">
           {/* Promo + price card */}
           <div className="mb-6 overflow-hidden rounded-[1rem] border border-gray-200 bg-white">
-            <div className="flex items-center justify-center gap-2 bg-[#FF6B35] px-5 py-3 text-sm font-bold uppercase tracking-wide text-white">
-              $30 OFF FIRST MONTH
+            <div className="flex items-center justify-center gap-2 bg-[#fde073] px-5 py-3.5 text-sm font-medium text-gray-900 md:text-base">
+              <ShieldCheck className="h-4 w-4 md:h-5 md:w-5" />
+              FSA &amp; HSA Eligible
             </div>
             <div className="px-6 py-6 md:px-7 md:py-7">
               <div className="mb-5 flex items-end justify-between gap-4">
                 <div>
                   <p className="mb-1 text-xs font-medium text-gray-500">Starting at</p>
                   <div className="flex items-baseline gap-1.5">
-                    <span className="text-4xl font-bold text-gray-900">$129</span>
+                    <span className="text-4xl font-bold text-gray-900">$249</span>
                     <span className="text-lg font-medium text-gray-600">/mo</span>
                   </div>
                   <button
@@ -259,7 +263,7 @@ function SermorelinProductHeroSection() {
                     onClick={() => setShowPriceFootnote((v) => !v)}
                     className="mt-1 text-xs text-gray-500 underline decoration-dotted underline-offset-4 hover:text-gray-700"
                   >
-                    $99 first month on quarterly plan
+                    $199 first month on quarterly plan
                   </button>
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-2">
@@ -285,8 +289,8 @@ function SermorelinProductHeroSection() {
 
               {showPriceFootnote && (
                 <div className="mb-4 rounded-[0.75rem] bg-gray-50 p-3 text-xs leading-5 text-gray-600">
-                  $99 applies to your first month on a quarterly plan. Regular
-                  price is $129/month. Cancel anytime.
+                  $199 applies to your first month on a quarterly plan. Regular
+                  price is $249/month. Includes clinician review, labs, and supplies. Cancel anytime.
                 </div>
               )}
 
@@ -304,14 +308,6 @@ function SermorelinProductHeroSection() {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 border-t border-gray-100 bg-[#F9F9FF] px-6 py-4 md:px-7">
-              <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-[#6D6FFC]" />
-              <p className="text-xs leading-relaxed text-gray-600">
-                <strong className="text-gray-800">60-day money-back guarantee.</strong>{" "}
-                If you don't notice deeper sleep or steadier energy by week 6,
-                your first month is free.
-              </p>
-            </div>
           </div>
 
           {/* Tabs card */}
@@ -1893,27 +1889,25 @@ function SermorelinFAQSection() {
 
 function SermorelinClosingCTA() {
   return (
-    <section className="bg-[#3d35b5] py-20 text-center text-white md:py-32">
-      <div className="mx-auto max-w-[640px] px-4">
-        <h2 className="mb-5 font-title text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
-          The gentlest first step.
-          <br />
+    <section className="relative overflow-hidden bg-[#101726] py-20 text-center text-white md:py-28">
+      <div className="pointer-events-none absolute -bottom-36 -left-24 h-[500px] w-[500px] rounded-full bg-[#FF6B35]/15 blur-3xl" />
+      <div className="relative mx-auto max-w-[700px] px-4">
+        <h2 className="mb-5 font-title text-4xl font-medium md:text-6xl">
+          Recover faster. Sleep deeper.{" "}
           <span className="font-playfair italic text-[#FF6B35]">
-            Start with Sermorelin.
+            Feel like yourself again.
           </span>
         </h2>
-        <p className="mb-10 text-base leading-relaxed text-white/75 md:text-lg">
-          Take the 90-second consultation. A clinician will review your case
-          within 48 hours of your labs. No charge until your protocol is
-          approved.
+        <p className="mb-8 text-lg text-white/70">
+          A clinician reviews your IGF-1 labs and builds a protocol around your actual numbers. No guesswork. No generic doses. Just results.
         </p>
         <Link
           href={CTA_HREF}
-          className="inline-flex items-center gap-2 rounded-full bg-[#FF6B35] px-10 py-4 text-lg font-semibold text-white shadow-lg transition hover:bg-[#e55a26]"
+          className="hs-solid-btn inline-flex items-center gap-2 rounded-full px-10 py-4 text-base font-semibold"
         >
-          Start consultation →
+          Start consultation <ArrowRight className="h-4 w-4" />
         </Link>
-        <p className="mt-6 text-xs text-white/40">
+        <p className="mt-4 text-xs text-white/40">
           By starting, you agree to our terms &amp; privacy policy.
           Provider-prescribed when appropriate.
         </p>
@@ -1942,6 +1936,8 @@ export default function SermorelinLandingPage({ product }) {
       <SermorelinOutcomesSection />
       <SermorelinTimelineSection />
       <SermorelinTestimonialSection />
+      <BeforeAfterSliderSection category="fitness" heading="Real transformations." ctaHref={CTA_HREF} />
+      <DarkMemberStatsSection variant="igf1" />
       <SermorelinPainPointsSection />
       <SermorelinPromiseSection />
       <SermorelinResearchSection />
@@ -1955,6 +1951,7 @@ export default function SermorelinLandingPage({ product }) {
       <SupportAvailabilitySection />
       <SermorelinClosingCTA />
       <MarketingFooter />
+      <MobileStickyCta ctaHref={CTA_HREF} />
     </div>
   );
 }

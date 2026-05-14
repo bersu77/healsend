@@ -19,7 +19,6 @@ import {
   ShieldCheck,
   Stethoscope,
   Syringe,
-  TrendingUp,
   Zap,
   Dumbbell,
   Heart,
@@ -53,8 +52,12 @@ import {
   MediaLogosBanner,
   SimpleSteps,
   PricingPlansTable,
+  MobileStickyCta,
+  BeforeAfterSliderSection,
+  CountUp,
+  HormoneIcon,
 } from "@/components/marketing/product-page";
-import { EncoStatBarSection } from "@/components/marketing/enclomiphene-landing-page";
+import { EncoStatBarSection, LabResultsSection } from "@/components/marketing/enclomiphene-landing-page";
 
 const CTA_HREF = "/funnels/growth-hormone-support";
 
@@ -281,7 +284,7 @@ function TRTWillpowerSection() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <p className="w-full text-center text-sm">
-                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-slate-500">100% private · free</span>
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
                 </p>
               </div>
             </div>
@@ -398,8 +401,8 @@ function TRTProductHeroSection() {
                 >
                   Start consultation
                 </Link>
-                <p className="mt-1 w-full text-center text-xs text-gray-500 md:text-sm">
-                  Takes 90 seconds · 100% private · free
+                <p className="w-full text-center text-sm">
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
                 </p>
               </div>
             </div>
@@ -1006,18 +1009,22 @@ function TRTMemberResultsSection() {
 /* ------------------------------------------------------------------ */
 
 const TRT_STATS = [
-  { label: "Faster Results", value: "2.4×", desc: "HealSend members raise total T levels at twice the speed of monitor-and-wait clinics within 90 days." },
-  { label: "Avg. T Increase", value: "+418", unit: "ng/dL", desc: "Average increase in total testosterone within 90 days of starting HealSend's program." },
-  { label: "Success Rate", value: "94%", desc: "of HealSend members report higher energy, mood, and libido by week 6 of treatment." },
-  { label: "Member Retention", value: "93%", desc: "of HealSend members continue treatment past 90 days because the results speak for themselves." },
+  { label: "Faster Results", target: 2.4, decimals: 1, suffix: "×", icon: Zap, desc: "HealSend members raise total T levels at twice the speed of monitor-and-wait clinics within 90 days." },
+  { label: "Avg. T Increase", target: 418, decimals: 0, prefix: "+", unit: "ng/dL", icon: HormoneIcon, desc: "Average increase in total testosterone within 90 days of starting HealSend's program." },
+  { label: "Success Rate", target: 94, decimals: 0, suffix: "%", icon: BadgeCheck, desc: "of HealSend members report higher energy, mood, and libido by week 6 of treatment." },
+  { label: "Member Retention", target: 93, decimals: 0, suffix: "%", icon: Users, desc: "of HealSend members continue treatment past 90 days because the results speak for themselves." },
 ];
 
 function StatCard({ s }) {
+  const Icon = s.icon;
   return (
     <div className="border-t border-white/20 pt-6">
-      <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-white/50">{s.label}</p>
+      <div className="mb-3 flex items-center justify-between">
+        <p className="text-[11px] font-semibold uppercase tracking-widest text-white/50">{s.label}</p>
+        {Icon && <Icon className="h-5 w-5 text-white/40" strokeWidth={1.5} />}
+      </div>
       <p className="mb-4 font-title text-5xl leading-none md:text-6xl">
-        {s.value}
+        <CountUp target={s.target} decimals={s.decimals} prefix={s.prefix || ""} suffix={s.suffix || ""} />
         {s.unit && <span className="ml-1 text-2xl text-white/50">{s.unit}</span>}
       </p>
       <p className="text-sm text-white/60">{s.desc}</p>
@@ -1541,11 +1548,25 @@ export default function TRTLandingPage({ product }) {
       <EncoStatBarSection />
       <FadeIn><TRTCombinedTreatmentsSection cards={[TREATMENT_PLAN_CARDS.find(c => c.id === "trt"), ...TREATMENT_PLAN_CARDS.filter(c => c.id !== "trt" && c.id !== "glp1")]} /></FadeIn>
       {/* <FadeIn><TRTPlansSection /></FadeIn> */}
-      <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="TRT Benefits" />
+      {/* RestoredTirzepatideBenefitsCarouselSection removed per client — code kept for reuse */}
+      {/* <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="TRT Benefits" /> */}
       <FadeIn><TRTSymptomsSection /></FadeIn>
       {/* <FadeIn><TRTDesignedToSupportSection /></FadeIn> — merged into TRTCombinedTreatmentsSection */}
       <FadeIn><TRTMemberResultsSection /></FadeIn>
+      {/* LabResultsSection commented out — redundant with TRTMemberResultsSection above.
+          Keep code for reuse on enclomiphene page (client request).
+      <section className="bg-[#f9f9f9] pb-10 md:pb-14">
+        <div className="mx-auto max-w-[1200px] px-4 md:px-8">
+          <LabResultsSection results={[
+            { name: "Marcus T., 34", note: "Trying for kids", before: 312, after: 1022, months: 3 },
+            { name: "David R., 41", note: "Switched from self-managed", before: 334, after: 913, months: 3 },
+            { name: "Andrew K., 38", note: "First time on TRT", before: 295, after: 812, months: 4 },
+          ]} />
+        </div>
+      </section>
+      */}
       <TRTStatsSection />
+      <BeforeAfterSliderSection category="fitness" heading="Real transformations." ctaHref={CTA_HREF} />
       <FadeIn><TRTEligibilitySection /></FadeIn>
       <SimpleSteps productData={productData} />
       <CleanSimpleEffective productData={productData} />
@@ -1556,6 +1577,7 @@ export default function TRTLandingPage({ product }) {
       <FadeIn><SupportAvailabilitySection /></FadeIn>
       <TRTFinalCTASection />
       <MarketingFooter />
+      <MobileStickyCta ctaHref={CTA_HREF} />
     </div>
   );
 }

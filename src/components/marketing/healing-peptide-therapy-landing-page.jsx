@@ -51,6 +51,7 @@ import {
   mergeProductContent,
   SimpleSteps,
   PricingPlansTable,
+  MobileStickyCta,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/healing-peptide-therapy";
@@ -375,30 +376,44 @@ function HPProductHeroSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="w-full lg:w-[420px] lg:shrink-0"
         >
-          <div className="sticky top-24 rounded-2xl border border-[#6D6FFC]/20 bg-white p-7 shadow-lg shadow-[#6D6FFC]/5 md:p-8">
-            <span className="mb-4 inline-block rounded-full border border-[#FF6B35]/30 bg-[#FF6B35]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#FF6B35]">
-              ★ Most Chosen · 64%
-            </span>
-            <h3 className="mb-2 font-title text-2xl font-bold text-gray-900">
-              Repair Signal · <span className="font-playfair italic">Complete</span>
-            </h3>
-            <p className="mb-5 text-sm text-gray-500">Full repair protocol — for systemic healing, multi-area issues, or accelerated recovery.</p>
-            <ul className="mb-6 space-y-4">
-              {[
-                { bold: "4-peptide healing stack", rest: "targeting tissue, joint, and inflammation pathways" },
-                { bold: "First effects in 7–14 days", rest: ", full benefit by week 6–8" },
-                { bold: "Clinician-prescribed", rest: ", dosed to your case" },
-                { bold: "Free clinician access", rest: "for the duration of your protocol" },
-              ].map((item) => (
-                <li key={item.bold} className="flex items-start gap-3 text-sm text-gray-700">
-                  <Check className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
-                  <span><strong>{item.bold}</strong> {item.rest}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="flex items-end gap-3">
-              <p className="font-title text-4xl font-bold text-gray-900">$249<span className="text-base font-normal text-gray-500">/mo</span></p>
-              <p className="mb-1 text-lg text-[#6D6FFC] line-through">$329</p>
+          <div className="sticky top-24 overflow-hidden rounded-[1rem] border border-gray-200 bg-white">
+            <div className="flex items-center justify-center gap-2 bg-[#fde073] px-5 py-3.5 text-sm font-medium text-gray-900 md:text-base">
+              <ShieldCheck className="h-4 w-4 md:h-5 md:w-5" />
+              FSA &amp; HSA Eligible
+            </div>
+            <div className="px-6 py-6 md:px-7 md:py-7">
+              <div className="mb-5 flex items-center justify-between gap-4">
+                <div className="min-w-0 shrink">
+                  <div className="flex flex-wrap items-baseline gap-2">
+                    <span className="text-3xl font-bold text-gray-900 md:text-4xl">$249</span>
+                    <span className="text-lg font-medium text-gray-800 md:text-xl">/mo</span>
+                  </div>
+                  <p className="mt-1 text-sm text-gray-500">
+                    Complete repair protocol
+                  </p>
+                </div>
+                <div className="flex shrink-0 flex-col items-end gap-2">
+                  <span className="flex items-center rounded-[0.6rem] bg-[#FFB3C7] px-3 py-1.5">
+                    <img src="/images/marketing/logos/klarna.png" alt="Klarna" className="h-3 w-auto" />
+                  </span>
+                  <span className="flex items-center rounded-[0.6rem] bg-[#B2FCE4] px-3 py-1.5">
+                    <img src="/images/marketing/logos/afterpay.png" alt="Afterpay" className="h-3 w-auto" />
+                  </span>
+                </div>
+              </div>
+
+              <div className="inline-flex w-full flex-col items-center gap-2.5">
+                <Link
+                  href={CTA_HREF}
+                  className="hs-solid-btn inline-flex min-h-[3rem] w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold"
+                >
+                  Start consultation
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <p className="w-full text-center text-sm">
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
+                </p>
+              </div>
             </div>
           </div>
         </motion.div>
@@ -997,8 +1012,8 @@ function HPOutcomesSection() {
           </motion.div>
 
           {[
-            { quote: "Three orthopedists and two cortisone shots later, my shoulder still wasn’t right. Six weeks on this and I’m benching again, pain-free for the first time in two years.", name: "Marcus H., 41", detail: "Rotator cuff · Recovery Stack · 6 weeks", initials: "MH" },
-            { quote: "My Achilles tendinitis lasted 18 months. I tried PT, ice, rest, NSAIDs — everything. Within a month on the Foundation, I was running again.", name: "Priya S., 36", detail: "Achilles · Foundation · 4 weeks", initials: "PS" },
+            { quote: "Three orthopedists and two cortisone shots later, my shoulder still wasn’t right. Six weeks on this and I’m benching again, pain-free for the first time in two years.", name: "Marcus H., 41", detail: "Rotator cuff · Recovery Stack · 6 weeks", image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80" },
+            { quote: "My Achilles tendinitis lasted 18 months. I tried PT, ice, rest, NSAIDs — everything. Within a month on the Foundation, I was running again.", name: "Priya S., 36", detail: "Achilles · Foundation · 4 weeks", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" },
           ].map((t, i) => (
             <motion.div
               key={t.name}
@@ -1015,7 +1030,9 @@ function HPOutcomesSection() {
                 </p>
                 <div className="border-t border-gray-100 pt-4">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#6D6FFC] text-xs font-bold text-white">{t.initials}</div>
+                    <div className="relative h-9 w-9 overflow-hidden rounded-full">
+                      <Image src={t.image} alt={t.name} fill sizes="36px" className="object-cover" />
+                    </div>
                     <div>
                       <p className="text-sm font-bold text-gray-900">{t.name}</p>
                       <p className="text-xs text-gray-500">{t.detail}</p>
@@ -1462,6 +1479,7 @@ export default function HealingPeptideTherapyLandingPage({ product }) {
       <SupportAvailabilitySection />
       <HPClosingCTA />
       <MarketingFooter />
+      <MobileStickyCta ctaHref={CTA_HREF} />
     </div>
   );
 }

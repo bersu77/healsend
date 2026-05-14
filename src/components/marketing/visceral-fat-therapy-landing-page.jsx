@@ -40,6 +40,8 @@ import {
   mergeProductContent,
   SimpleSteps,
   PricingPlansTable,
+  MobileStickyCta,
+  MemberResultsStatsSection,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/visceral-fat-therapy";
@@ -70,7 +72,7 @@ function FadeIn({ children, className = "" }) {
   );
 }
 
-function CountUpStat({ value, prefix = "", suffix = "", label, duration = 1000 }) {
+function CountUpStat({ value, prefix = "", suffix = "", label, duration = 1000, color = "text-[#6D6FFC]" }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: false, margin: "-80px" });
   const [count, setCount] = useState(0);
@@ -89,7 +91,7 @@ function CountUpStat({ value, prefix = "", suffix = "", label, duration = 1000 }
   }, [inView, value, duration]);
   return (
     <div ref={ref} className="flex flex-col items-center text-center">
-      <p className="font-title text-5xl font-bold text-[#6D6FFC] md:text-6xl">
+      <p className={`font-title text-5xl font-bold md:text-6xl ${color}`}>
         {prefix}{count}{suffix}
       </p>
       <p className="mt-3 text-sm leading-relaxed text-gray-600">{label}</p>
@@ -309,8 +311,9 @@ function VFProductHeroSection() {
             transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="mb-6 overflow-hidden rounded-[1rem] border border-gray-200 bg-white"
           >
-            <div className="flex items-center justify-center gap-2 bg-[#FF6B35] px-5 py-3 text-sm font-bold uppercase tracking-wide text-white">
-              $50 OFF FIRST MONTH
+            <div className="flex items-center justify-center gap-2 bg-[#fde073] px-5 py-3.5 text-sm font-medium text-gray-900 md:text-base">
+              <ShieldCheck className="h-4 w-4 md:h-5 md:w-5" />
+              FSA &amp; HSA Eligible
             </div>
             <div className="px-6 py-6 md:px-7 md:py-7">
               <div className="mb-5 flex items-end justify-between gap-4">
@@ -363,13 +366,6 @@ function VFProductHeroSection() {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 border-t border-gray-100 bg-[#F9F9FF] px-6 py-4 md:px-7">
-              <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-[#6D6FFC]" />
-              <p className="text-xs leading-relaxed text-gray-600">
-                <strong className="text-gray-800">60-day money-back guarantee.</strong>{" "}
-                If your waist measurement doesn&apos;t measurably decrease by week 12, your first month is free.
-              </p>
-            </div>
           </motion.div>
 
           {/* Tabs card */}
@@ -649,7 +645,7 @@ function VFVisceralFatSection() {
   const inView = useInView(ref, { once: false, margin: "-80px" });
 
   return (
-    <section ref={ref} className="bg-[#F1F0FF] py-10 md:py-16">
+    <section ref={ref} className="bg-[#FEF2F2] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -660,7 +656,7 @@ function VFVisceralFatSection() {
             Visceral fat isn&apos;t{" "}
             <br />
             the fat you can{" "}
-            <span className="font-playfair italic text-[#6D6FFC]">pinch.</span>
+            <span className="font-playfair italic text-red-600">pinch.</span>
           </h2>
           <p className="mx-auto mb-12 max-w-2xl text-center text-base text-gray-600 md:text-lg">
             It&apos;s the fat that wraps your liver, pancreas, and intestines. Metabolically active. Hormonally disruptive. Far more dangerous than the fat under your skin — and uniquely resistant to diet alone.
@@ -727,7 +723,7 @@ function VFVisceralFatSection() {
           </div>
         </motion.div>
 
-        {/* Stat cards */}
+        {/* Risk stat cards — "negative sell" */}
         <div className="mx-auto grid max-w-sm grid-cols-1 gap-4 sm:max-w-none sm:grid-cols-3">
           {[
             { value: 10, suffix: "×", label: "Higher risk of type 2 diabetes with elevated visceral fat" },
@@ -740,8 +736,8 @@ function VFVisceralFatSection() {
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
               transition={{ duration: 0.5, delay: 0.6 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm">
-                <CountUpStat {...s} duration={900} />
+              <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-center shadow-sm">
+                <CountUpStat {...s} duration={900} color="text-red-600" />
               </div>
             </motion.div>
           ))}
@@ -1896,6 +1892,7 @@ export default function VisceralFatTherapyLandingPage({ product }) {
       {/* VFComparisonSection removed per client request */}
       <VFTimelineSection />
       <VFOutcomesSection />
+      <MemberResultsStatsSection />
       <VFPromiseSection />
       <VFResearchSection />
       <SimpleSteps productData={productData} />
@@ -1908,6 +1905,7 @@ export default function VisceralFatTherapyLandingPage({ product }) {
       <SupportAvailabilitySection />
       <VFClosingCTA />
       <MarketingFooter />
+      <MobileStickyCta ctaHref={CTA_HREF} />
     </div>
   );
 }

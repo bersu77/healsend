@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 import {
   Apple,
   ArrowRight,
@@ -33,6 +33,7 @@ import {
   Stethoscope,
   Syringe,
   Target,
+  TrendingDown,
   TrendingUp,
   TreePine,
   Truck,
@@ -318,7 +319,7 @@ function WillpowerSection() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <p className="w-full text-center text-sm">
-                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-slate-500">100% private · free</span>
+                  <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
                 </p>
               </div>
             </div>
@@ -1720,7 +1721,7 @@ function _FeatureSplit({ productData }) {
 
 export function SupportFeatures({ productData }) {
   return (
-    <section className="bg-[#f4f4f4] px-4 py-16 md:px-8 md:py-20 lg:px-16">
+    <section className="bg-[#f4f4f4] px-4 pt-16 pb-10 md:px-8 md:pt-20 md:pb-12 lg:px-16">
       <div className="mx-auto max-w-7xl text-center">
         <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-gray-500">
           Rooted in Science
@@ -1742,29 +1743,28 @@ export function SupportFeatures({ productData }) {
                 key={feature.title}
                 className="flex flex-col items-center text-center"
               >
-                {hasIconImage ? (
-                  <img
-                    src={feature.iconImage}
-                    alt={feature.title}
-                    className={`mb-6 ${feature.iconClass || "h-20 w-20"} object-contain mix-blend-multiply ${feature.iconTint === "purple"
-                      ? "brightness-0 saturate-100"
-                      : ""
-                      }`}
-                    style={
-                      feature.iconTint === "purple"
-                        ? {
-                          filter:
-                            "brightness(0) saturate(100%) invert(56%) sepia(72%) saturate(1025%) hue-rotate(218deg) brightness(101%) contrast(95%)",
-                        }
-                        : undefined
-                    }
-                  />
-                ) : (
-                  <Icon
-                    className="mb-6 h-16 w-16 text-[#7b75f0]"
-                    strokeWidth={1.5}
-                  />
-                )}
+                <div className="mb-6 flex h-20 w-20 items-center justify-center">
+                  {hasIconImage ? (
+                    <img
+                      src={feature.iconImage}
+                      alt={feature.title}
+                      className="h-full w-full object-contain mix-blend-multiply"
+                      style={
+                        feature.iconTint === "purple"
+                          ? {
+                            filter:
+                              "brightness(0) saturate(100%) invert(56%) sepia(72%) saturate(1025%) hue-rotate(218deg) brightness(101%) contrast(95%)",
+                          }
+                          : undefined
+                      }
+                    />
+                  ) : (
+                    <Icon
+                      className="h-16 w-16 text-[#7b75f0]"
+                      strokeWidth={1.5}
+                    />
+                  )}
+                </div>
                 <h3 className="mb-2 text-lg font-bold text-gray-900">
                   {feature.title}
                 </h3>
@@ -1987,11 +1987,8 @@ export function TestimonialsSection() {
               See what&apos;s possible for you
               <ArrowRight className="h-4 w-4 shrink-0" />
             </Link>
-            <p className="mt-3 w-full text-center text-sm text-gray-700">
-              <span className="text-inherit font-semibold">
-                Take 90 seconds ·
-              </span>{" "}
-              100% private · free
+            <p className="mt-3 w-full text-center text-sm">
+              <span className="font-semibold text-gray-700">Takes 90 seconds</span> · <span className="text-gray-500">100% private · free</span>
             </p>
           </div>
         </div>
@@ -2110,12 +2107,295 @@ export function PricingPlansTable({ productName, footnote }) {
   );
 }
 
+const BEFORE_AFTER_PLACEHOLDER_SLIDES = {
+  "weight-loss": [
+    { name: "Sarah M.", result: "Lost 34 lbs", before: "https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=600&q=80" },
+    { name: "Jessica R.", result: "Lost 28 lbs", before: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=600&q=80" },
+    { name: "Michael T.", result: "Lost 41 lbs", before: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80" },
+  ],
+  fitness: [
+    { name: "James K.", result: "12 week transformation", before: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80" },
+    { name: "Ryan D.", result: "8 week transformation", before: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=600&q=80" },
+    { name: "Alex P.", result: "16 week transformation", before: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=600&q=80" },
+  ],
+  skin: [
+    { name: "Emma L.", result: "12 week glow-up", before: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" },
+    { name: "Olivia W.", result: "8 week results", before: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80" },
+    { name: "Sophia H.", result: "10 week results", before: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=600&q=80" },
+  ],
+};
+
+function BeforeAfterCard({ slide }) {
+  const containerRef = useRef(null);
+  const [sliderPos, setSliderPos] = useState(50);
+
+  const handleMove = (clientX) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const pct = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+    setSliderPos(pct);
+  };
+
+  return (
+    <article className="flex h-full flex-col rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm md:p-5">
+      <div
+        ref={containerRef}
+        className="relative aspect-[3/4] w-full cursor-col-resize select-none overflow-hidden rounded-[1rem] bg-gray-100"
+        style={{ touchAction: "none" }}
+        onPointerDown={(e) => {
+          e.currentTarget.setPointerCapture(e.pointerId);
+          handleMove(e.clientX);
+        }}
+        onPointerMove={(e) => {
+          if (e.buttons > 0) handleMove(e.clientX);
+        }}
+      >
+        <img src={slide.after} alt="After" draggable={false} className="pointer-events-none absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 overflow-hidden" style={{ width: `${sliderPos}%` }}>
+          <img src={slide.before} alt="Before" draggable={false} className="pointer-events-none absolute inset-0 h-full w-full object-cover" style={{ width: containerRef.current ? `${containerRef.current.offsetWidth}px` : "100vw", maxWidth: "none" }} />
+        </div>
+        <div className="absolute inset-y-0 z-10" style={{ left: `${sliderPos}%`, transform: "translateX(-50%)" }}>
+          <div className="flex h-full w-0.5 flex-col items-center bg-white shadow-sm">
+            <div className="absolute top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-white/90 shadow-md backdrop-blur-sm">
+              <ChevronLeft className="h-3.5 w-3.5 text-gray-600" />
+              <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
+            </div>
+          </div>
+        </div>
+        <span className="absolute left-3 top-3 z-10 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">Before</span>
+        <span className="absolute right-3 top-3 z-10 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">After</span>
+      </div>
+      <p className="mt-4 text-center text-lg font-medium text-gray-700 md:text-xl">
+        {slide.name} — <span className="font-semibold text-[#00a86b]">{slide.result}</span>
+      </p>
+      <div className="mt-2 flex items-center justify-center gap-1.5 text-xs text-[#4d5160] md:text-sm">
+        <BadgeCheck className="h-4 w-4 text-[#00a86b]" />
+        <span>Verified HealSend Member</span>
+      </div>
+    </article>
+  );
+}
+
+export function BeforeAfterSliderSection({ category = "fitness", heading, ctaHref = "/funnels/glp-1" }) {
+  const slides = BEFORE_AFTER_PLACEHOLDER_SLIDES[category] || BEFORE_AFTER_PLACEHOLDER_SLIDES.fitness;
+  return (
+    <section className="bg-[#f4f5f9] py-10 md:py-14">
+      <div className="mx-auto max-w-[1340px] px-4 md:px-8">
+        <div className="mb-8 text-center md:mb-10">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-950 sm:text-3xl md:text-4xl lg:text-5xl">
+            {heading || "Real transformations."}
+          </h2>
+          <p className="mt-1 font-playfair text-2xl italic font-medium tracking-tight text-[#6d6ffc] sm:text-3xl md:text-4xl">
+            Life-changing results
+          </p>
+          <p className="mx-auto mt-4 max-w-lg text-sm text-gray-500 md:text-base">
+            Drag the slider to compare before and after. Placeholder images — real member photos coming soon.
+          </p>
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {slides.map((slide) => (
+            <BeforeAfterCard key={slide.name} slide={slide} />
+          ))}
+        </div>
+        <div className="mt-8 text-center">
+          <Link
+            href={ctaHref}
+            className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-10 py-4 text-sm font-medium text-white transition-colors hover:bg-slate-900"
+          >
+            See what&apos;s possible for you
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function CountUp({ target, decimals = 0, prefix = "", suffix = "", duration = 2000 }) {
+  const [display, setDisplay] = useState(target);
+  const ref = useRef(null);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || hasAnimated.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || hasAnimated.current) return;
+        hasAnimated.current = true;
+        observer.disconnect();
+        setDisplay(0);
+        const start = performance.now();
+        const step = (now) => {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          setDisplay(eased * target);
+          if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      },
+      { threshold: 0.1 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [target, duration]);
+
+  return (
+    <span ref={ref}>
+      {prefix}{display.toFixed(decimals)}{suffix}
+    </span>
+  );
+}
+
+export function HormoneIcon({ className, strokeWidth = 1.5 }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
+      {/* Ring A — bottom-left hexagon */}
+      <path d="M2 17 L4 20 L8 20 L10 17 L8 14 L4 14 Z" />
+      {/* Ring B — center-bottom hexagon */}
+      <path d="M10 17 L12 20 L16 20 L18 17 L16 14 L12 14 Z" />
+      {/* Ring C — center-top hexagon */}
+      <path d="M10 11 L12 14 L16 14 L18 11 L16 8 L12 8 Z" />
+      {/* Ring D — top-right pentagon */}
+      <path d="M18 11 L20 8 L19 5 L16 5 L16 8" />
+      {/* Bonds — methyl/hydroxyl stubs */}
+      <line x1="20" y1="8" x2="22" y2="7" />
+      <line x1="4" y1="14" x2="2" y2="12" />
+      {/* Junction dots */}
+      <circle cx="22" cy="7" r="0.7" fill="currentColor" stroke="none" />
+      <circle cx="2" cy="12" r="0.7" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+const DARK_STATS_VARIANTS = {
+  testosterone: {
+    label: "Avg. T Increase",
+    target: 418,
+    unit: "ng/dL",
+    desc: "Average increase in total testosterone within 90 days of starting HealSend's program.",
+    subtitle: "9 out of 10 members reach optimal T levels in 90 days.",
+  },
+  igf1: {
+    label: "Avg. IGF-1 Increase",
+    target: 418,
+    unit: "ng/mL",
+    desc: "Average increase in IGF-1 levels within 90 days of starting HealSend's GH protocol.",
+    subtitle: "9 out of 10 members reach optimal IGF-1 levels in 90 days.",
+  },
+};
+
+export function DarkMemberStatsSection({ variant = "testosterone" }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const statsScrollRef = useRef(null);
+  const v = DARK_STATS_VARIANTS[variant] || DARK_STATS_VARIANTS.testosterone;
+
+  const memberStats = [
+    { label: "Faster Results", target: 2.4, decimals: 1, suffix: "×", icon: Zap, desc: "HealSend members raise total T levels at twice the speed of monitor-and-wait clinics within 90 days." },
+    { label: v.label, target: v.target, decimals: 0, prefix: "+", unit: v.unit, icon: HormoneIcon, desc: v.desc },
+    { label: "Success Rate", target: 94, decimals: 0, suffix: "%", icon: BadgeCheck, desc: "of HealSend members report higher energy, mood, and libido by week 6 of treatment." },
+    { label: "Member Retention", target: 93, decimals: 0, suffix: "%", icon: Star, desc: "of HealSend members continue treatment past 90 days because the results speak for themselves." },
+  ];
+
+  useEffect(() => {
+    const el = statsScrollRef.current;
+    if (!el) return;
+    const slides = () => [...el.querySelectorAll("[data-dark-stat]")];
+    const onScroll = () => {
+      const list = slides();
+      if (!list.length) return;
+      const mid = el.scrollLeft + el.clientWidth * 0.2;
+      let best = 0;
+      list.forEach((node, i) => {
+        if (mid >= node.offsetLeft && mid < node.offsetLeft + node.offsetWidth) best = i;
+      });
+      setActiveIndex(best);
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <section className="relative overflow-hidden bg-[#101726] text-white">
+      <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-[#6D6FFC]/20 blur-3xl" />
+      <div className="relative mx-auto hidden max-w-[1200px] px-4 py-16 md:block md:px-8 md:py-20">
+        <h2 className="mb-3 max-w-[800px] font-title text-4xl font-medium md:text-5xl">
+          Why members{" "}
+          <span className="font-playfair italic">start and <span className="text-[#6D6FFC]">stay</span></span>{" "}
+          with HealSend.
+        </h2>
+        <p className="mb-14 max-w-[640px] text-base text-white/70">{v.subtitle}</p>
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {memberStats.map((s) => {
+            const Icon = s.icon;
+            return (
+              <div key={s.label} className="border-t border-white/20 pt-6">
+                <div className="mb-3 flex items-center justify-between">
+                  <p className="text-[11px] font-semibold uppercase tracking-widest text-white/50">{s.label}</p>
+                  {Icon && <Icon className="h-5 w-5 text-white/40" strokeWidth={1.5} />}
+                </div>
+                <p className="mb-4 font-title text-5xl leading-none md:text-6xl">
+                  <CountUp target={s.target} decimals={s.decimals} prefix={s.prefix || ""} suffix={s.suffix || ""} />
+                  {s.unit && <span className="ml-1 text-2xl text-white/50">{s.unit}</span>}
+                </p>
+                <p className="text-sm text-white/60">{s.desc}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="relative px-6 py-14 md:hidden">
+        <h2 className="mb-3 font-title text-3xl font-medium">
+          Why members{" "}
+          <span className="font-playfair italic">start and <span className="text-[#6D6FFC]">stay</span></span>{" "}
+          with HealSend.
+        </h2>
+        <p className="mb-8 text-sm text-white/70">{v.subtitle}</p>
+        <div
+          ref={statsScrollRef}
+          className="-mx-2 flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain px-2 pb-2 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          role="region" aria-roledescription="carousel" aria-label="Member statistics"
+        >
+          {memberStats.map((s) => {
+            const Icon = s.icon;
+            return (
+              <div key={s.label} data-dark-stat className="min-w-0 shrink-0 basis-[88%] snap-start snap-always rounded-2xl border border-white/10 bg-white/[0.06] p-5">
+                <div className="border-t border-white/20 pt-6">
+                  <div className="mb-3 flex items-center justify-between">
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-white/50">{s.label}</p>
+                    {Icon && <Icon className="h-5 w-5 text-white/40" strokeWidth={1.5} />}
+                  </div>
+                  <p className="mb-4 font-title text-5xl leading-none">
+                    <CountUp target={s.target} decimals={s.decimals} prefix={s.prefix || ""} suffix={s.suffix || ""} />
+                    {s.unit && <span className="ml-1 text-2xl text-white/50">{s.unit}</span>}
+                  </p>
+                  <p className="text-sm text-white/60">{s.desc}</p>
+                </div>
+              </div>
+            );
+          })}
+          <div className="w-3 shrink-0" aria-hidden />
+        </div>
+        <div className="mt-5 flex justify-center gap-2">
+          {memberStats.map((_, i) => (
+            <span key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? "w-6 bg-[#6D6FFC]" : "w-1.5 bg-white/30"}`} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function MemberResultsStatsSection() {
   const memberStats = [
     {
       label: "Faster Results",
       value: "2",
       unit: "x",
+      target: 2,
+      decimals: 0,
       description:
         "HealSend members raise total T levels at twice the speed of monitor-and-wait clinics within 90 days.",
       icon: TrendingUp,
@@ -2124,13 +2404,18 @@ export function MemberResultsStatsSection() {
       label: "Avg. Weight Loss",
       value: "-20",
       unit: "lbs",
+      target: 20,
+      decimals: 0,
+      prefix: "-",
       description: "Average weight loss within 90 days of starting HealSend's program.",
-      icon: ArrowRight,
+      icon: TrendingDown,
     },
     {
       label: "Success Rate",
       value: "96.8",
       unit: "%",
+      target: 96.8,
+      decimals: 1,
       description: "of HealSend members report higher energy, mood, and libido by week 6 of treatment.",
       icon: BadgeCheck,
     },
@@ -2138,6 +2423,8 @@ export function MemberResultsStatsSection() {
       label: "Member Retention",
       value: "91",
       unit: "%",
+      target: 91,
+      decimals: 0,
       description: "of HealSend members continue their protocol past 90 days — because the results speak for themselves.",
       icon: Star,
     },
@@ -2158,7 +2445,7 @@ export function MemberResultsStatsSection() {
         className="absolute inset-0 h-full w-full object-cover object-bottom md:hidden"
       />
       <div className="absolute inset-0 bg-white/70 md:hidden" />
-      <div className="container relative mx-auto max-w-screen-xl space-y-8 px-0 md:px-4">
+      <div className="container relative mx-auto max-w-screen-xl space-y-8 px-4">
         <div className="grid items-start gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
           <div className="flex flex-col gap-y-0 space-y-6 px-4 md:px-0">
             <h2 className="font-medium text-balance font-title text-4xl tracking-[-0.01em] text-gray-950 md:text-5xl">
@@ -2178,7 +2465,7 @@ export function MemberResultsStatsSection() {
           </div>
 
           <div className="min-w-0">
-            {/* Mobile: native horizontal scroll (reliable swipe + next-card peek) */}
+            {/* Mobile: native horizontal scroll */}
             <div
               className="md:hidden flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain px-4 pb-2 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
               role="region"
@@ -2194,24 +2481,22 @@ export function MemberResultsStatsSection() {
                     aria-roledescription="slide"
                     className="min-w-0 shrink-0 grow-0 basis-[88%] snap-start snap-always"
                   >
-                    <div className="h-full">
-                      <div className="h-full overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
-                        <div className="flex items-start justify-between gap-4">
-                          <p className="text-sm uppercase tracking-wider text-slate-700">
-                            {item.label}
-                          </p>
-                          <Icon className="size-[30px] shrink-0 text-slate-500" aria-hidden="true" strokeWidth={1.5} />
-                        </div>
-                        <div className="flex items-baseline justify-start gap-0.5 pb-6 pt-1">
-                          <span className="text-4xl font-medium tracking-tight text-gray-950">
-                            {item.value}
-                          </span>
-                          <span className="text-4xl font-medium tracking-tight text-gray-950">
-                            {item.unit}
-                          </span>
-                        </div>
-                        <p className="text-sm text-slate-500">{item.description}</p>
+                    <div className="h-full overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+                      <div className="flex items-start justify-between gap-4">
+                        <p className="text-sm uppercase tracking-wider text-slate-700">
+                          {item.label}
+                        </p>
+                        <Icon className="size-[30px] shrink-0 text-slate-500" aria-hidden="true" strokeWidth={1.5} />
                       </div>
+                      <div className="flex items-baseline justify-start gap-0.5 pb-6 pt-1">
+                        <span className="text-4xl font-medium tracking-tight text-gray-950">
+                          <CountUp target={item.target} decimals={item.decimals} prefix={item.prefix || ""} />
+                        </span>
+                        <span className="text-4xl font-medium tracking-tight text-gray-950">
+                          {item.unit}
+                        </span>
+                      </div>
+                      <p className="text-sm text-slate-500">{item.description}</p>
                     </div>
                   </div>
                 );
@@ -2236,7 +2521,7 @@ export function MemberResultsStatsSection() {
                     </div>
                     <div className="flex justify-start gap-0.5 items-baseline pb-6 pt-1">
                       <span className="font-medium text-4xl tracking-tight text-gray-950">
-                        {item.value}
+                        <CountUp target={item.target} decimals={item.decimals} prefix={item.prefix || ""} />
                       </span>
                       <span className="font-medium text-4xl tracking-tight text-gray-950">
                         {item.unit}
@@ -3560,7 +3845,7 @@ export function ComprehensiveCare({ productData }) {
         </div>
 
         <div className="rounded-[2rem] bg-white p-6 pb-4 shadow-sm md:p-10 md:pb-6 lg:p-12 lg:pb-8">
-          <div className="mb-8 grid grid-cols-1 gap-6 xl:grid-cols-2">
+          <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
             {features.map((feature) => (
               <div
                 key={feature.title}
@@ -3652,17 +3937,17 @@ export function CleanSimpleEffective({ productData }) {
             return (
               <div
                 key={label}
-                className="flex w-[75vw] shrink-0 snap-start flex-col items-center rounded-[1.25rem] bg-white px-7 py-12 text-center shadow-sm"
+                className="flex w-[75vw] shrink-0 snap-start flex-col items-center justify-center rounded-[1.25rem] bg-white px-7 py-20 text-center shadow-sm"
               >
-                <div className="mb-5 flex h-16 w-16 items-center justify-center">
+                <div className="mb-7 flex h-28 w-28 items-center justify-center">
                   {item.iconImage ? (
-                    <img src={item.iconImage} alt="" aria-hidden="true" className="h-14 w-14 object-contain" />
+                    <img src={item.iconImage} alt="" aria-hidden="true" className="h-24 w-24 object-contain" />
                   ) : (
-                    <item.icon className="h-9 w-9 text-[#6D6FFC]" strokeWidth={1.5} />
+                    <item.icon className="h-[4.5rem] w-[4.5rem] text-[#6D6FFC]" strokeWidth={1.3} />
                   )}
                 </div>
-                <p className="mb-2 whitespace-pre-line text-sm font-bold leading-snug text-[#1c1a24]">{label}</p>
-                {desc && <p className="text-xs leading-snug text-gray-500">{desc}</p>}
+                <p className="mb-3 whitespace-pre-line text-lg font-bold leading-snug text-[#1c1a24]">{label}</p>
+                {desc && <p className="text-base leading-relaxed text-gray-500">{desc}</p>}
               </div>
             );
           })}
@@ -3677,18 +3962,18 @@ export function CleanSimpleEffective({ productData }) {
             return (
               <div
                 key={label}
-                className="flex flex-col items-center rounded-[1.25rem] bg-white px-6 py-16 text-center shadow-sm transition-transform duration-300 ease-out hover:-translate-y-1 hover:scale-[1.04] hover:shadow-md"
+                className="flex flex-col items-center rounded-[1.25rem] bg-white px-5 py-10 text-center shadow-sm transition-transform duration-300 ease-out hover:-translate-y-1 hover:scale-[1.04] hover:shadow-md"
               >
-                <div className="mb-6 flex h-20 w-20 items-center justify-center">
+                <div className="mb-4 flex h-14 w-14 items-center justify-center">
                   {item.iconImage ? (
                     <img
                       src={item.iconImage}
                       alt=""
                       aria-hidden="true"
-                      className={`object-contain ${item.iconImage.includes("fast-free-delivery") ? "h-30 w-20" : "h-16 w-16"}`}
+                      className={`object-contain ${item.iconImage.includes("fast-free-delivery") ? "h-20 w-14" : "h-12 w-12"}`}
                     />
                   ) : (
-                    <item.icon className="h-10 w-10 text-[#6D6FFC]" strokeWidth={1.5} />
+                    <item.icon className="h-9 w-9 text-[#6D6FFC]" strokeWidth={1.5} />
                   )}
                 </div>
                 <p className="mb-2 whitespace-pre-line text-sm font-bold leading-snug text-[#1c1a24]">{label}</p>
@@ -5346,8 +5631,8 @@ export function OurTreatmentsSection({ cards = MEDICAL_PLANS }) {
   );
 }
 
-export function MobileStickyCta({ productData }) {
-  const ctaHref = getPrimaryCtaHref(productData);
+export function MobileStickyCta({ productData, ctaHref: ctaHrefProp }) {
+  const ctaHref = ctaHrefProp || getPrimaryCtaHref(productData);
   const [visible, setVisible] = useState(false);
   const lastScrollY = useRef(0);
 
