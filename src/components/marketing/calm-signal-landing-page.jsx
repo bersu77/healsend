@@ -517,9 +517,14 @@ function CalmSignalTruthSection() {
           The anxiety isn&apos;t{" "}
           <span className="font-playfair italic text-[#6D6FFC]">who you are.</span>
         </h2>
-        <p className="mx-auto mb-12 max-w-[42rem] text-center text-lg leading-relaxed text-[#5d6169]">
+        <p className="mx-auto mb-4 max-w-[42rem] text-center text-lg leading-relaxed text-[#5d6169]">
           It&apos;s a state your nervous system slips into — and gets stuck in — when the signaling
           that should bring you back to baseline isn&apos;t firing. The problem is mechanical, not moral.
+        </p>
+        <p className="mx-auto mb-12 max-w-[42rem] text-center text-base leading-relaxed text-[#5d6169]">
+          What people often describe as &ldquo;high-functioning anxiety&rdquo; is your brain running a stress
+          response that should have ended hours ago. You&apos;re exhausted. The world keeps moving. You keep
+          performing. Underneath, your body never gets to rest.
         </p>
 
         <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pl-4 pr-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-3 sm:overflow-visible sm:p-0">
@@ -696,7 +701,7 @@ function CalmSignalMechanismSection() {
             },
             {
               title: "Break the spiral loop",
-              desc: "Anxious thought spirals are neurological grooves. As your baseline neurochemistry restores, the compulsive return to anxious thinking weakens. Members report this is the first thing they notice.",
+              desc: "Anxious thought spirals are neurological grooves. As your baseline neurochemistry restores, the compulsive return to anxious thinking weakens. Members report this is the first thing they notice — the loop just stops looping.",
               image: "https://images.unsplash.com/photo-1573497019418-b400bb3ab074?auto=format&fit=crop&w=600&q=80",
             },
           ].map((card, i) => (
@@ -1247,7 +1252,28 @@ function CalmSignalFAQSection() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  12. Closing CTA                                                    */
+/*  12a. Urgency Banner                                                */
+/* ------------------------------------------------------------------ */
+
+function CalmSignalUrgencyBanner() {
+  return (
+    <section className="bg-[#f0eeff] py-4">
+      <div className="mx-auto flex max-w-[1200px] items-center justify-center gap-2 px-4 text-center text-sm text-[#3d35b5]">
+        <span className="relative flex h-2.5 w-2.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#6D6FFC] opacity-75" />
+          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#6D6FFC]" />
+        </span>
+        <p>
+          <strong>16</strong> mental health consults available this week
+          <span className="ml-1 text-[#5d6169]">· Capacity is limited by clinician availability</span>
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  12b. Closing CTA                                                   */
 /* ------------------------------------------------------------------ */
 
 function CalmSignalClosingCTA() {
@@ -1343,6 +1369,7 @@ export default function CalmSignalLandingPage({ product }) {
       <SameMedicationSection planLabel="Clinical anxiety protocol — clinician-prescribed" />
       <CalmSignalFAQSection />
       <SupportAvailabilitySection />
+      <CalmSignalUrgencyBanner />
       <CalmSignalClosingCTA />
       <MarketingFooter />
       <MobileStickyCta ctaHref={CTA_HREF} />

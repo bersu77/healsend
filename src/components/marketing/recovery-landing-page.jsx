@@ -126,6 +126,14 @@ function RecoveryHeroSection() {
                 reduce inflammation, and support joint, tendon, and gut healing —
                 at the cellular level. For the injuries that won&apos;t quite go away.
               </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-3 max-w-[30rem] text-sm font-medium text-[#6D6FFC]"
+              >
+                Noticeable reduction in pain, stiffness, or inflammation by week 6 — or your first month is free.
+              </motion.p>
             </div>
 
             <ul className="mt-5 max-w-[34rem] space-y-4 text-[#4d5160]">
@@ -851,7 +859,7 @@ function RecoveryUpgradeBanner() {
             <h3 className="mb-1.5 text-xl font-bold text-white">Healing faster? Stack with GH Optimization.</h3>
             <p className="max-w-xl text-sm leading-relaxed text-white/70">
               Many recovery members add Advanced GH Optimization for systemic recovery support — deeper sleep,
-              faster training bounce-back, and broader tissue regeneration.
+              faster training bounce-back, and broader tissue regeneration. Talk to your clinician about whether the combination is right for you.
             </p>
           </div>
           <Link
@@ -1014,8 +1022,8 @@ function RecoveryClosingCTA() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-5 font-title text-4xl font-bold leading-tight md:text-5xl lg:text-6xl"
         >
-          Get back to{" "}
-          <span className="font-playfair italic text-[#FF6B35]">moving heavy.</span>
+          Heal what didn&apos;t.{" "}
+          <span className="font-playfair italic text-[#FF6B35]">Get back to moving heavy.</span>
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -1023,8 +1031,8 @@ function RecoveryClosingCTA() {
           transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="mb-10 text-base leading-relaxed text-white/75 md:text-lg"
         >
-          A clinician reviews your injury history and builds a recovery protocol around your actual healing needs.
-          60-day money-back guarantee. Results in 6 weeks or your first month is free.
+          Take the 90-second consultation. A clinician reviews your case within 48 hours.
+          No charge until your protocol is approved.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -1046,7 +1054,7 @@ function RecoveryClosingCTA() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-6 text-xs text-white/40"
         >
-          By starting, you agree to our terms &amp; privacy policy. Provider-prescribed when appropriate.
+          By starting, you agree to our terms &amp; privacy policy. Provider-prescribed when appropriate. 60-day money-back guarantee. Cancel anytime.
         </motion.p>
       </div>
     </section>
