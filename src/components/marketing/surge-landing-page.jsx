@@ -90,7 +90,7 @@ function CountUpStat({ value, prefix = "", suffix = "", label, duration = 1000, 
   }, [inView, value, duration]);
   return (
     <div ref={ref} className="flex flex-col items-center text-center">
-      <p className={`font-fraunces text-5xl font-medium md:text-6xl ${color}`}>
+      <p className={`font-headline text-5xl font-medium md:text-6xl ${color}`}>
         {prefix}{count}{suffix}
       </p>
       <p className="mt-3 text-sm leading-relaxed text-gray-600">{label}</p>
@@ -114,11 +114,11 @@ function SurgeHeroSection() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="text-balance font-fraunces text-4xl font-medium leading-tight tracking-tight text-gray-950 md:text-5xl"
+                className="text-balance font-headline text-4xl font-medium leading-tight tracking-tight text-gray-950 md:text-5xl"
               >
                 Not a matter of{" "}
                 <span className="relative inline-block">
-                  <span className="relative z-10 font-fraunces-accent italic text-[#6D6FFC]">trying harder.</span>
+                  <span className="relative z-10 font-accent italic text-[#6D6FFC]">trying harder.</span>
                 </span>
               </motion.h1>
               <motion.p
@@ -526,9 +526,9 @@ function SurgeTruthSection() {
     <section className="bg-[#0d0d1a] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <FadeIn>
-          <h2 className="mb-4 text-center font-fraunces text-3xl font-medium leading-tight text-white md:text-4xl lg:text-5xl">
+          <h2 className="mb-4 text-center font-headline text-3xl font-medium leading-tight text-white md:text-4xl lg:text-5xl">
             You&apos;re not broken.{" "}
-            <span className="font-fraunces-accent italic text-[#FF6B35]">You&apos;re statistically common.</span>
+            <span className="font-accent italic text-[#FF6B35]">You&apos;re statistically common.</span>
           </h2>
           <p className="mx-auto mb-14 max-w-2xl text-center text-base text-white/70 md:text-lg">
             ED is a vascular, hormonal, and neurological signaling problem. It&apos;s about{" "}
@@ -599,9 +599,9 @@ function SurgeFlagshipSection() {
             <span className="mb-4 inline-block rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC] shadow-sm">
               The HealSend Flagship
             </span>
-            <h2 className="mb-3 font-fraunces text-3xl font-medium text-gray-900 md:text-4xl lg:text-5xl">
+            <h2 className="mb-3 font-headline text-3xl font-medium text-gray-900 md:text-4xl lg:text-5xl">
               SURGE.{" "}
-              <span className="font-fraunces-accent italic text-[#6D6FFC]">Both, at once.</span>
+              <span className="font-accent italic text-[#6D6FFC]">Both, at once.</span>
             </h2>
             <p className="mx-auto max-w-2xl text-base text-gray-600 md:text-lg">
               A clinician-prescribed troche that combines fast-acting and long-window performance medications
@@ -683,9 +683,9 @@ function SurgeProtocolsSection() {
             <span className="mb-4 inline-block rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC] shadow-sm">
               Three Options
             </span>
-            <h2 className="mb-3 font-fraunces text-3xl font-medium text-gray-900 md:text-4xl lg:text-5xl">
+            <h2 className="mb-3 font-headline text-3xl font-medium text-gray-900 md:text-4xl lg:text-5xl">
               One{" "}
-              <span className="font-fraunces-accent italic text-[#6D6FFC]">doesn&apos;t fit every man.</span>
+              <span className="font-accent italic text-[#6D6FFC]">doesn&apos;t fit every man.</span>
             </h2>
             <p className="mx-auto max-w-2xl text-base text-gray-600 md:text-lg">
               Match the medication to how you actually live. Your clinician finalizes the prescription
@@ -793,10 +793,10 @@ function SurgeProtocolsSection() {
                 </div>
 
                 <div className="mb-5 flex items-baseline gap-2.5">
-                  <span className="font-fraunces text-4xl font-medium text-gray-900">{tier.price}</span>
+                  <span className="font-headline text-4xl font-medium text-gray-900">{tier.price}</span>
                   <span className="text-sm text-gray-500">/month</span>
                   {tier.strikePrice && (
-                    <span className="ml-auto text-xl font-fraunces text-gray-400 line-through decoration-2">{tier.strikePrice}</span>
+                    <span className="ml-auto text-xl font-headline text-gray-400 line-through decoration-2">{tier.strikePrice}</span>
                   )}
                 </div>
 
@@ -906,9 +906,9 @@ function SurgeComparisonSection() {
     <section className="bg-[#F1F0FF] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <FadeIn>
-          <h2 className="mb-3 text-center font-fraunces text-3xl font-medium text-gray-900 md:text-4xl lg:text-5xl">
+          <h2 className="mb-3 text-center font-headline text-3xl font-medium text-gray-900 md:text-4xl lg:text-5xl">
             SURGE vs{" "}
-            <span className="font-fraunces-accent italic text-[#6D6FFC]">the alternatives.</span>
+            <span className="font-accent italic text-[#6D6FFC]">the alternatives.</span>
           </h2>
           <p className="mx-auto mb-12 max-w-2xl text-center text-base text-gray-600 md:text-lg">
             Not every protocol fits every man. Here&apos;s how SURGE compares with standalone sildenafil and tadalafil.
@@ -1018,7 +1018,7 @@ function SurgePainPointsSection() {
         </div>
         <h2 className="mb-4 text-center text-3xl font-bold tracking-tight text-[#1c1a24] md:text-4xl lg:text-5xl">
           It&apos;s never been about{" "}
-          <span className="font-fraunces-accent italic text-[#6D6FFC]">trying harder.</span>
+          <span className="font-accent italic text-[#6D6FFC]">trying harder.</span>
         </h2>
         <p className="mx-auto mb-12 max-w-[42rem] text-center text-lg leading-relaxed text-[#5d6169]">
           ED is a medical condition, not a character flaw. 52% of men over 40 experience it.
@@ -1087,9 +1087,9 @@ function SurgeTestimonialsSection() {
     <section className="bg-[#F1F0FF] py-10 md:py-16">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
         <FadeIn>
-          <h2 className="mb-3 text-center font-fraunces text-3xl font-medium text-gray-900 md:text-4xl lg:text-5xl">
+          <h2 className="mb-3 text-center font-headline text-3xl font-medium text-gray-900 md:text-4xl lg:text-5xl">
             2,400+ men.{" "}
-            <span className="font-fraunces-accent italic text-[#6D6FFC]">Real results.</span>
+            <span className="font-accent italic text-[#6D6FFC]">Real results.</span>
           </h2>
           <p className="mx-auto mb-12 max-w-xl text-center text-base text-gray-600">
             Verified HealSend members across the three protocols.
@@ -1202,7 +1202,7 @@ function SurgePromiseSection() {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="relative"
         >
-          <span className="font-fraunces text-8xl font-black tracking-tight text-white md:text-9xl">
+          <span className="font-headline text-8xl font-black tracking-tight text-white md:text-9xl">
             60
           </span>
           <motion.p
@@ -1229,10 +1229,10 @@ function SurgePromiseSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-4 font-fraunces text-2xl font-medium leading-snug text-white md:text-3xl"
+          className="mb-4 font-headline text-2xl font-medium leading-snug text-white md:text-3xl"
         >
           Effective dose.{" "}
-          <span className="font-fraunces-accent italic text-[#6D6FFC]">Or your money back.</span>
+          <span className="font-accent italic text-[#6D6FFC]">Or your money back.</span>
         </motion.h2>
 
         <motion.p
@@ -1349,9 +1349,9 @@ function SurgeFAQSection() {
   return (
     <section className="relative -mt-7 rounded-t-[32px] bg-[#F7F7F8] py-12 md:!pb-10 md:!pt-20 md:mt-0 md:py-20">
       <div className="container mx-auto max-w-4xl px-4 md:px-8">
-        <h2 className="mb-3 text-balance font-fraunces text-4xl font-medium text-slate-900 md:text-5xl">
+        <h2 className="mb-3 text-balance font-headline text-4xl font-medium text-slate-900 md:text-5xl">
           Asked.{" "}
-          <span className="font-fraunces-accent italic text-[#6D6FFC]">Answered.</span>
+          <span className="font-accent italic text-[#6D6FFC]">Answered.</span>
         </h2>
         <p className="mb-16 max-w-lg text-start text-sm text-gray-600">
           Everything you&apos;d want to know before getting started. Once you do, you have unlimited clinician access.
@@ -1441,10 +1441,10 @@ function SurgeClosingCTA() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-5 font-fraunces text-4xl font-medium leading-tight md:text-5xl lg:text-6xl"
+          className="mb-5 font-headline text-4xl font-medium leading-tight md:text-5xl lg:text-6xl"
         >
           Two days from your{" "}
-          <span className="font-fraunces-accent italic text-[#FF6B35]">first dose.</span>
+          <span className="font-accent italic text-[#FF6B35]">first dose.</span>
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -1490,7 +1490,7 @@ export default function SurgeLandingPage({ product }) {
   const productData = mergeProductContent(product);
 
   return (
-    <div className="min-h-screen overflow-x-clip bg-[#f9f9f9] font-sans selection:bg-[#7b75f0] selection:text-white">
+    <div className="hs-font-v2 min-h-screen overflow-x-clip bg-[#f9f9f9] selection:bg-[#7b75f0] selection:text-white">
       <MinimalMarketingNavbar />
       <SurgeHeroSection />
       <SurgeProductHeroSection />
