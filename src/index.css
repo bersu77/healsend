@@ -373,18 +373,74 @@ html.hs-nav-loading body {
   font-family: "Inter", sans-serif;
 }
 
-/* New font system — Fraunces + Inter only */
-.font-fraunces {
+/* ── Font v2 scope (Surge demo) ─────────────────────────────────
+   Inside .hs-font-v2: only Fraunces + Inter. Remap ALL old font
+   classes so shared components also obey the 2-font rule.        */
+
+.hs-font-v2 {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hs-font-v2 h1,
+.hs-font-v2 h2,
+.hs-font-v2 h3,
+.hs-font-v2 h4,
+.hs-font-v2 h5,
+.hs-font-v2 h6 {
   font-family: "Fraunces", serif;
   font-weight: 500;
   letter-spacing: -0.02em;
+  line-height: 1.05;
 }
 
-.font-fraunces-accent {
+.hs-font-v2 em {
   font-family: "Fraunces", serif;
-  font-weight: 400;
   font-style: italic;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
   color: var(--brand-purple, #6D6FFC);
+}
+
+/* Headlines — Fraunces 500 */
+.hs-font-v2 .font-headline,
+.hs-font-v2 .font-title,
+.hs-font-v2 .font-fraunces {
+  font-family: "Fraunces", serif !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Italic accent — Fraunces 400 italic + brand purple */
+.hs-font-v2 .font-accent,
+.hs-font-v2 .font-playfair,
+.hs-font-v2 .font-fraunces-accent {
+  font-family: "Fraunces", serif !important;
+  font-weight: 400 !important;
+  font-style: italic !important;
+  font-variation-settings: "opsz" 144, "SOFT" 100 !important;
+  color: var(--brand-purple, #6D6FFC);
+}
+
+/* Body copy — Inter 400 */
+.hs-font-v2 .font-body {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 400 !important;
+}
+
+/* Buttons — Inter 600 */
+.hs-font-v2 .font-button {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 600 !important;
+}
+
+/* Labels / tags — Inter 700 uppercase */
+.hs-font-v2 .font-label {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
 }
 
 .bmi-slider {
