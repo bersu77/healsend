@@ -43,9 +43,11 @@ import {
   Zap,
 } from "lucide-react";
 import {
+  ActiveMembersBanner,
   MarketingFooter,
   MinimalMarketingNavbar,
   MARKETING_ROUTES,
+  TrustBadgesRow,
 } from "@/components/marketing/shared";
 import {
   Carousel,
@@ -273,11 +275,12 @@ export function WillpowerHorizontalRow({ items, reverse = false }) {
 function WillpowerSection() {
   return (
     <section className="relative overflow-hidden bg-[#F1F5F9]">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-6 md:px-[3.25rem] md:py-10 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
         {/* Same 55% / 45% (+ xl 450px) split as ProductHero so the right column lines up down the page */}
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
-            <div className="mt-5 max-w-[34rem]">
+            <div className="mt-3 max-w-[34rem]">
+              <ActiveMembersBanner />
               <h2 className="text-balance font-title text-4xl font-medium leading-tight tracking-tight text-gray-950 md:text-5xl">
                 Your weight isn&apos;t a willpower problem.{" "}
                 <span className="font-playfair italic font-medium text-[#6d6ffc]">
@@ -1005,7 +1008,7 @@ export function ProductHero({ productData, isHomepage: _isHomepage = false }) {
                     type="button"
                     onClick={() => setShowPriceFootnote((v) => !v)}
                     aria-expanded={showPriceFootnote}
-                    className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 underline decoration-dotted underline-offset-4 hover:text-gray-700 md:text-base"
+                    className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 md:text-base"
                   >
                     then $299/mo*
                   </button>
@@ -1566,51 +1569,8 @@ function MedicalWeightLossSection({ productData }) {
             </p>
           </div>
 
-          <div className="flex w-full flex-wrap items-center gap-3 sm:gap-4 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end lg:pt-1">
-            <div className="flex min-w-0 flex-initial items-center justify-center">
-              <div className="relative flex items-center">
-                <img
-                  src="/images/clean/image.png"
-                  alt=""
-                  aria-hidden="true"
-                  className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
-                />
-                <img
-                  src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`}
-                  alt="Google reviews rating"
-                  loading="lazy"
-                  className="z-10 -ml-2 -mr-1 h-auto max-h-[60px] max-w-[120px] object-contain mix-blend-multiply sm:-ml-3 sm:-mr-2 sm:max-h-[80px] sm:max-w-none md:max-h-[100px] lg:-ml-5 lg:-mr-3 lg:max-h-[120px]"
-                />
-                <img
-                  src="/images/articles/blogs/image.png"
-                  alt=""
-                  aria-hidden="true"
-                  className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
-                />
-              </div>
-            </div>
-            <div className="flex min-w-0 flex-initial items-center justify-center">
-              <div className="relative flex items-center">
-                <img
-                  src="/images/clean/image.png"
-                  alt=""
-                  aria-hidden="true"
-                  className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
-                />
-                <img
-                  src="/images/healsend-2k-members-trust.png"
-                  alt="HealSend — 2K+ members"
-                  loading="lazy"
-                  className="z-10 -mx-2 h-auto max-h-[60px] w-auto shrink-0 object-contain sm:-mx-3 sm:max-h-[80px] md:max-h-[100px] lg:-mx-4 lg:max-h-[120px]"
-                />
-                <img
-                  src="/images/articles/blogs/image.png"
-                  alt=""
-                  aria-hidden="true"
-                  className="z-20 h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24"
-                />
-              </div>
-            </div>
+          <div className="hidden w-full lg:block lg:w-auto lg:shrink-0 lg:pt-1">
+            <TrustBadgesRow />
           </div>
         </div>
 
@@ -1625,6 +1585,10 @@ function MedicalWeightLossSection({ productData }) {
               onToggleExpand={() => setExpandedId(expandedId === plan.id ? null : plan.id)}
             />
           ))}
+        </div>
+
+        <div className="mt-8 lg:hidden">
+          <TrustBadgesRow />
         </div>
 
         <AnimatePresence initial={false}>
@@ -2248,24 +2212,15 @@ export function CountUp({ target, decimals = 0, prefix = "", suffix = "", durati
   );
 }
 
-export function HormoneIcon({ className, strokeWidth = 1.5 }) {
+export function HormoneIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
-      {/* Ring A — bottom-left hexagon */}
-      <path d="M2 17 L4 20 L8 20 L10 17 L8 14 L4 14 Z" />
-      {/* Ring B — center-bottom hexagon */}
-      <path d="M10 17 L12 20 L16 20 L18 17 L16 14 L12 14 Z" />
-      {/* Ring C — center-top hexagon */}
-      <path d="M10 11 L12 14 L16 14 L18 11 L16 8 L12 8 Z" />
-      {/* Ring D — top-right pentagon */}
-      <path d="M18 11 L20 8 L19 5 L16 5 L16 8" />
-      {/* Bonds — methyl/hydroxyl stubs */}
-      <line x1="20" y1="8" x2="22" y2="7" />
-      <line x1="4" y1="14" x2="2" y2="12" />
-      {/* Junction dots */}
-      <circle cx="22" cy="7" r="0.7" fill="currentColor" stroke="none" />
-      <circle cx="2" cy="12" r="0.7" fill="currentColor" stroke="none" />
-    </svg>
+    <img
+      src={`/images/${encodeURIComponent("WhatsApp Image 2026-05-14 at 2.00.13 AM.jpeg")}`}
+      alt=""
+      aria-hidden="true"
+      className="h-7 w-7 object-contain"
+      style={{ filter: "invert(1) brightness(1) opacity(0.4)", mixBlendMode: "screen" }}
+    />
   );
 }
 
@@ -5553,51 +5508,8 @@ export function OurTreatmentsSection({ cards = MEDICAL_PLANS }) {
             </p>
           </div>
 
-          <div className="flex w-full flex-wrap items-center justify-center gap-3 sm:gap-4 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end lg:pt-1">
-            <div className="flex min-w-0 flex-initial items-center justify-center">
-              <div className="relative flex items-center">
-                <img
-                  src="/images/clean/image.png"
-                  alt=""
-                  aria-hidden="true"
-                  className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16"
-                />
-                <img
-                  src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`}
-                  alt="Google reviews rating"
-                  loading="lazy"
-                  className="z-10 -ml-2 -mr-1 h-auto max-h-[40px] w-[120px] object-contain mix-blend-multiply sm:-ml-3 sm:-mr-2 sm:max-h-[50px] sm:w-[140px] md:max-h-[55px] md:w-[150px] lg:-ml-4 lg:-mr-2 lg:max-h-[60px] lg:w-[160px]"
-                />
-                <img
-                  src="/images/articles/blogs/image.png"
-                  alt=""
-                  aria-hidden="true"
-                  className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16"
-                />
-              </div>
-            </div>
-            <div className="flex min-w-0 flex-initial items-center justify-center">
-              <div className="relative flex items-center">
-                <img
-                  src="/images/clean/image.png"
-                  alt=""
-                  aria-hidden="true"
-                  className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16"
-                />
-                <img
-                  src="/images/healsend-2k-members-trust.png"
-                  alt="HealSend — 2K+ members"
-                  loading="lazy"
-                  className="z-10 -mx-5 h-auto max-h-[50px] w-[150px] shrink-0 object-contain sm:-mx-6 sm:max-h-[60px] sm:w-[170px] md:-mx-7 md:max-h-[65px] md:w-[180px] lg:-mx-8 lg:max-h-[70px] lg:w-[200px]"
-                />
-                <img
-                  src="/images/articles/blogs/image.png"
-                  alt=""
-                  aria-hidden="true"
-                  className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16"
-                />
-              </div>
-            </div>
+          <div className="hidden w-full lg:block lg:w-auto lg:shrink-0 lg:pt-1">
+            <TrustBadgesRow />
           </div>
         </div>
 
@@ -5624,6 +5536,10 @@ export function OurTreatmentsSection({ cards = MEDICAL_PLANS }) {
               />
             );
           })}
+        </div>
+
+        <div className="mt-8 lg:hidden">
+          <TrustBadgesRow />
         </div>
 
       </div>

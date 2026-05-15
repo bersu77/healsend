@@ -11,6 +11,7 @@ import {
   ChevronDown,
   Menu,
   User2,
+  Users,
   X,
 } from "lucide-react";
 import LoginPageClient from "@/components/auth/LoginPageClient";
@@ -1823,5 +1824,113 @@ export function MinimalMarketingNavbar() {
       />
     ) : null}
     </>
+  );
+}
+
+const MEMBER_AVATARS = [
+  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&q=80",
+  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80",
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&q=80",
+  "https://images.unsplash.com/photo-1573497019418-b400bb3ab074?auto=format&fit=crop&w=80&q=80",
+  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&q=80",
+];
+
+export function ActiveMembersBanner() {
+  return (
+    <div className="flex items-center gap-2.5 pt-1">
+      <div className="flex -space-x-2">
+        {MEMBER_AVATARS.map((src, i) => (
+          <img
+            key={i}
+            src={src}
+            alt=""
+            aria-hidden="true"
+            className="h-6 w-6 rounded-full border-[1.5px] border-white object-cover"
+          />
+        ))}
+      </div>
+      <span className="text-xs text-gray-500">
+        <strong className="font-semibold text-gray-700">2,000+</strong> active members
+      </span>
+    </div>
+  );
+}
+
+const TRUST_AVATARS = [
+  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&q=80",
+  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80",
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&q=80",
+  "https://images.unsplash.com/photo-1573497019418-b400bb3ab074?auto=format&fit=crop&w=80&q=80",
+  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&q=80",
+  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=80&q=80",
+  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=80&q=80",
+  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=80&q=80",
+];
+
+function LaurelLeft({ className }) {
+  return <img src="/images/clean/image.png" alt="" aria-hidden="true" className={className} />;
+}
+
+function LaurelRight({ className }) {
+  return <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className={className} />;
+}
+
+function GoogleStar() {
+  return (
+    <svg viewBox="0 0 18 18" className="h-[18px] w-[18px]" aria-hidden="true">
+      <polygon points="9,0 11.3,6.2 18,6.8 12.9,11 14.5,17.5 9,14.2 3.5,17.5 5.1,11 0,6.8 6.7,6.2" fill="#F5A623" />
+    </svg>
+  );
+}
+
+export function TrustBadgesRow() {
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5 lg:flex-nowrap lg:justify-end">
+      {/* Google Reviews badge */}
+      <div className="flex items-center gap-1">
+        <LaurelLeft className="h-14 w-7 sm:h-16 sm:w-8" />
+        <div className="flex flex-col items-center gap-1.5 px-1">
+          <div className="flex items-center gap-2">
+            <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true">
+              <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.33 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+              <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+              <path fill="#FBBC05" d="M10.53 28.59c-.48-1.37-.76-2.84-.76-4.59s.27-3.22.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+              <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.67 14.62 48 24 48z"/>
+            </svg>
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-gray-500">Google</span>
+          </div>
+          <div className="flex items-center gap-1">
+            {[...Array(5)].map((_, i) => <GoogleStar key={i} />)}
+          </div>
+          <p className="text-center text-sm font-bold text-gray-800">
+            4.9 <span className="font-normal text-gray-500">· Google Reviews</span>
+          </p>
+        </div>
+        <LaurelRight className="h-14 w-7 sm:h-16 sm:w-8" />
+      </div>
+
+      {/* HealSend Members badge */}
+      <div className="flex items-center gap-1">
+        <LaurelLeft className="h-14 w-7 sm:h-16 sm:w-8" />
+        <div className="flex flex-col items-center gap-1.5 px-1">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-gray-500">HealSend</span>
+          <div className="flex -space-x-1.5">
+            {TRUST_AVATARS.slice(0, 7).map((src, i) => (
+              <img
+                key={i}
+                src={src}
+                alt=""
+                aria-hidden="true"
+                className="h-5 w-5 rounded-full border-[1.5px] border-white object-cover"
+              />
+            ))}
+          </div>
+          <p className="text-center text-sm font-bold text-gray-800">
+            2K+ <span className="font-normal text-gray-500">Members</span>
+          </p>
+        </div>
+        <LaurelRight className="h-14 w-7 sm:h-16 sm:w-8" />
+      </div>
+    </div>
   );
 }

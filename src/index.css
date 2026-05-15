@@ -373,6 +373,20 @@ html.hs-nav-loading body {
   font-family: "Inter", sans-serif;
 }
 
+/* New font system — Fraunces + Inter only */
+.font-fraunces {
+  font-family: "Fraunces", serif;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.font-fraunces-accent {
+  font-family: "Fraunces", serif;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--brand-purple, #6D6FFC);
+}
+
 .bmi-slider {
   -webkit-appearance: none;
   appearance: none;

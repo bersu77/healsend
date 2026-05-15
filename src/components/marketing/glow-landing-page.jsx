@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import {
   MinimalMarketingNavbar,
+  ActiveMembersBanner,
   MarketingFooter,
 } from "@/components/marketing/shared";
 import {
@@ -93,10 +94,11 @@ function FadeIn({ children, className = "" }) {
 function GlowWillpowerSection() {
   return (
     <section className="relative overflow-hidden bg-[#F1F5F9]">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-6 md:px-[3.25rem] md:py-10 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
-            <div className="mt-5 max-w-[34rem]">
+            <div className="mt-3 max-w-[34rem]">
+              <ActiveMembersBanner />
               <h1 className="text-balance font-title text-4xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl">
                 Skin that{" "}
                 <span className="font-playfair italic text-[#6D6FFC]">
@@ -251,9 +253,9 @@ function GlowProductHeroSection() {
                     type="button"
                     onClick={() => setShowPriceFootnote((v) => !v)}
                     aria-expanded={showPriceFootnote}
-                    className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 underline decoration-dotted underline-offset-4 hover:text-gray-700 md:text-base"
+                    className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 md:text-base"
                   >
-                    then from $179/mo*
+                    then $179/mo*
                   </button>
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-2">
@@ -659,40 +661,48 @@ const HOW_STEPS = [
 
 function CellDiagram() {
   return (
-    <div className="flex items-center justify-center p-6 md:p-10">
-      <svg viewBox="0 0 220 220" className="w-full max-w-[260px]" aria-hidden="true">
-        {/* Dashed lines */}
-        <line x1="110" y1="55" x2="110" y2="88" stroke="#6D6FFC" strokeWidth="1.5" strokeDasharray="4 3" />
-        <line x1="55" y1="110" x2="88" y2="110" stroke="#6D6FFC" strokeWidth="1.5" strokeDasharray="4 3" />
-        <line x1="132" y1="110" x2="165" y2="110" stroke="#6D6FFC" strokeWidth="1.5" strokeDasharray="4 3" />
-        <line x1="110" y1="132" x2="110" y2="165" stroke="#FF6B35" strokeWidth="1.5" strokeDasharray="4 3" />
-        {/* Outer ring of CELL */}
-        <circle cx="110" cy="110" r="30" fill="none" stroke="#6D6FFC" strokeWidth="1.5" />
-        {/* CELL circle */}
-        <circle cx="110" cy="110" r="24" fill="#6D6FFC" />
-        <text x="110" y="114" textAnchor="middle" fill="white" fontSize="9" fontWeight="700">CELL</text>
-        {/* SIGNAL */}
-        <circle cx="110" cy="36" r="18" fill="#6D6FFC" />
-        <text x="110" y="40" textAnchor="middle" fill="white" fontSize="7.5" fontWeight="700">SIGNAL</text>
-        {/* REPAIR */}
-        <circle cx="36" cy="110" r="18" fill="#6D6FFC" />
-        <text x="36" y="114" textAnchor="middle" fill="white" fontSize="7.5" fontWeight="700">REPAIR</text>
-        {/* RENEW */}
-        <circle cx="184" cy="110" r="18" fill="#6D6FFC" />
-        <text x="184" y="114" textAnchor="middle" fill="white" fontSize="7.5" fontWeight="700">RENEW</text>
-        {/* GLOW */}
-        <circle cx="110" cy="184" r="18" fill="#FF6B35" />
-        <text x="110" y="188" textAnchor="middle" fill="white" fontSize="7.5" fontWeight="700">GLOW</text>
+    <div className="flex items-center justify-center">
+      <svg viewBox="0 0 240 240" className="w-full max-w-[320px]" aria-hidden="true">
+        <defs>
+          <radialGradient id="cellGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#6D6FFC" stopOpacity="0.12" />
+            <stop offset="100%" stopColor="#6D6FFC" stopOpacity="0" />
+          </radialGradient>
+          <filter id="softShadow">
+            <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#6D6FFC" floodOpacity="0.25" />
+          </filter>
+          <filter id="glowShadow">
+            <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#FF6B35" floodOpacity="0.3" />
+          </filter>
+        </defs>
+        <circle cx="120" cy="120" r="90" fill="url(#cellGlow)" />
+        <line x1="120" y1="62" x2="120" y2="92" stroke="#6D6FFC" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.5" />
+        <line x1="62" y1="120" x2="92" y2="120" stroke="#6D6FFC" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.5" />
+        <line x1="148" y1="120" x2="178" y2="120" stroke="#6D6FFC" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.5" />
+        <line x1="120" y1="148" x2="120" y2="178" stroke="#FF6B35" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.5" />
+        <circle cx="120" cy="120" r="34" fill="none" stroke="#6D6FFC" strokeWidth="1" opacity="0.25" />
+        <circle cx="120" cy="120" r="26" fill="#6D6FFC" filter="url(#softShadow)" />
+        <text x="120" y="124" textAnchor="middle" fill="white" fontSize="9" fontWeight="700" fontFamily="system-ui">CELL</text>
+        <circle cx="120" cy="40" r="20" fill="#6D6FFC" filter="url(#softShadow)" />
+        <text x="120" y="44" textAnchor="middle" fill="white" fontSize="7" fontWeight="700" fontFamily="system-ui">SIGNAL</text>
+        <circle cx="40" cy="120" r="20" fill="#6D6FFC" filter="url(#softShadow)" />
+        <text x="40" y="124" textAnchor="middle" fill="white" fontSize="7" fontWeight="700" fontFamily="system-ui">REPAIR</text>
+        <circle cx="200" cy="120" r="20" fill="#6D6FFC" filter="url(#softShadow)" />
+        <text x="200" y="124" textAnchor="middle" fill="white" fontSize="7" fontWeight="700" fontFamily="system-ui">RENEW</text>
+        <circle cx="120" cy="200" r="20" fill="#FF6B35" filter="url(#glowShadow)" />
+        <text x="120" y="204" textAnchor="middle" fill="white" fontSize="7" fontWeight="700" fontFamily="system-ui">GLOW</text>
       </svg>
     </div>
   );
 }
 
 function GlowHowItWorksSection() {
+  const [activeStep, setActiveStep] = useState(0);
+
   return (
     <section id="how-it-works" className="bg-[#F1F5F9] py-10 md:py-14">
       <div className="mx-auto max-w-[1200px] px-4 md:px-8">
-        <div className="mb-10 text-center md:mb-12">
+        <div className="mb-8 text-center md:mb-10">
           <span className="mb-4 inline-block rounded-full bg-white px-4 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-[#6D6FFC] shadow-sm">
             How Regeneration Actually Works
           </span>
@@ -723,22 +733,73 @@ function GlowHowItWorksSection() {
           ))}
         </div>
 
-        {/* Desktop: diagram + steps grid */}
-        <div className="hidden overflow-hidden rounded-3xl bg-white p-6 shadow-sm md:block md:p-10 lg:p-12">
-          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+        {/* Desktop: single card — diagram left + slider right */}
+        <div className="hidden md:flex">
+          {/* Left — cell diagram */}
+          <div className="relative flex w-[320px] shrink-0 items-center justify-center p-8 lg:w-[420px] lg:p-10">
             <CellDiagram />
-            <div className="space-y-6">
-              {HOW_STEPS.map((step) => (
-                <div key={step.n} className="flex gap-4">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#6D6FFC] text-white">
-                    <step.icon className="h-4 w-4" strokeWidth={2.5} />
+          </div>
+
+          {/* Right — step slider */}
+          <div className="flex flex-1 flex-col justify-between py-8 pl-8 lg:py-10 lg:pl-10">
+            <div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeStep}
+                  initial={{ opacity: 0, x: 16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -16 }}
+                  transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                >
+                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-[#6D6FFC] to-[#8b8dff] text-white shadow-md shadow-[#6D6FFC]/20">
+                    {React.createElement(HOW_STEPS[activeStep].icon, { className: "h-5 w-5", strokeWidth: 2.5 })}
                   </div>
-                  <div>
-                    <h3 className="mb-1 font-title text-lg font-bold text-gray-900">{step.title}</h3>
-                    <p className="text-sm leading-relaxed text-gray-600">{step.desc}</p>
-                  </div>
-                </div>
-              ))}
+                  <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.15em] text-[#6D6FFC]/70">
+                    Step {HOW_STEPS[activeStep].n} of {HOW_STEPS.length}
+                  </p>
+                  <h3 className="mb-3 font-title text-2xl font-bold leading-tight text-gray-900 lg:text-[1.75rem]">
+                    {HOW_STEPS[activeStep].title}
+                  </h3>
+                  <p className="max-w-md text-[15px] leading-relaxed text-gray-500">
+                    {HOW_STEPS[activeStep].desc}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Progress bar + arrows */}
+            <div className="mt-8 flex items-center gap-4">
+              <div className="flex flex-1 gap-2">
+                {HOW_STEPS.map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => setActiveStep(i)}
+                    className={`h-[5px] flex-1 rounded-full transition-colors duration-300 ${
+                      i === activeStep ? "bg-[#6D6FFC]" : "bg-gray-300/50"
+                    }`}
+                    aria-label={`Step ${i + 1}`}
+                  />
+                ))}
+              </div>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setActiveStep((p) => (p - 1 + HOW_STEPS.length) % HOW_STEPS.length)}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-gray-400 transition-all hover:border-[#6D6FFC]/30 hover:text-[#6D6FFC]"
+                  aria-label="Previous step"
+                >
+                  <ArrowRight className="h-4 w-4 rotate-180" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveStep((p) => (p + 1) % HOW_STEPS.length)}
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#6D6FFC] text-white shadow-md shadow-[#6D6FFC]/25 transition-all hover:bg-[#5b5df0]"
+                  aria-label="Next step"
+                >
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
             </div>
           </div>
         </div>

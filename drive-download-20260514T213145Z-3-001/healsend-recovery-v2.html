@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Targeted Recovery &amp; Repair Therapy | HealSend</title>
+<meta name="description" content="A clinically guided protocol designed to accelerate healing, reduce inflammation, and support joint, tendon, and tissue repair. Provider-prescribed when appropriate. 60-day money-back guarantee." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #FAFAFE;
+  --bg-2: #F0EFFA;
+  --bg-3: #E5E3F5;
+  --paper: #FFFFFF;
+  --ink: #0F0E1F;
+  --ink-2: #2A2940;
+  --muted: #6E6D85;
+  --line: #E1DFF0;
+  --line-2: #CAC7E0;
+  --brand: #5B4FE3;
+  --brand-2: #7569FF;
+  --brand-3: #4438C2;
+  --brand-deep: #2D2496;
+  --lavender: #E5E2FB;
+  --lavender-2: #D5D0F8;
+  --accent: #FF6B4A;
+  --accent-2: #E5563A;
+  --gold: #B68B3A;
+  --green-dot: #2BAA56;
+  --green-soft: #DBEEDC;
+  --shadow-sm: 0 1px 2px rgba(91,79,227,0.05);
+  --shadow-md: 0 6px 24px -8px rgba(91,79,227,0.18);
+  --shadow-lg: 0 24px 60px -24px rgba(91,79,227,0.32);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--ink); font-family: 'Inter', -apple-system, sans-serif; font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+h1, h2, h3, h4, h5 { font-family: 'DM Serif Display', serif; font-weight: 400; letter-spacing: -0.01em; line-height: 1.08; margin: 0; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+section { padding: 80px 0; }
+@media (max-width: 720px) { section { padding: 56px 0; } }
+
+.promobar { background: var(--brand-deep); color: white; text-align: center; padding: 11px 16px; font-size: 13px; }
+.promobar strong { color: white; font-weight: 600; }
+
+.healsend-logo { display: inline-flex; align-items: center; gap: 10px; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 22px; color: var(--brand); letter-spacing: -0.02em; }
+.healsend-logo svg { flex-shrink: 0; }
+
+header.nav { position: sticky; top: 0; z-index: 50; background: rgba(250, 250, 254, 0.85); backdrop-filter: saturate(180%) blur(14px); -webkit-backdrop-filter: saturate(180%) blur(14px); border-bottom: 1px solid var(--line); }
+.nav-row { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+.nav-pill { display: inline-flex; align-items: center; gap: 8px; background: var(--bg-2); border-radius: 999px; padding: 6px 14px 6px 6px; font-size: 13px; color: var(--ink-2); }
+.nav-pill .num { background: var(--brand); color: white; border-radius: 999px; padding: 4px 10px; font-size: 12px; font-weight: 600; }
+@media (max-width: 720px) { .nav-pill { display: none; } }
+.nav-cta { background: var(--ink); color: white; padding: 10px 20px; border-radius: 999px; font-size: 14px; font-weight: 500; transition: background .15s; }
+.nav-cta:hover { background: var(--brand); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 30px; border-radius: 999px; font-size: 16px; font-weight: 600; cursor: pointer; border: none; transition: transform .12s, background .15s, box-shadow .15s; font-family: inherit; text-decoration: none; }
+.btn-primary { background: var(--accent); color: white; box-shadow: 0 8px 24px -10px rgba(255,107,74,0.55); }
+.btn-primary:hover { background: var(--accent-2); transform: translateY(-1px); }
+.btn-purple { background: var(--brand); color: white; box-shadow: 0 8px 24px -10px rgba(91,79,227,0.5); }
+.btn-purple:hover { background: var(--brand-3); transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line-2); }
+.btn-ghost:hover { background: var(--bg-2); border-color: var(--brand); color: var(--brand); }
+.btn-light { background: white; color: var(--brand); border: 1px solid var(--line); }
+.btn-light:hover { background: var(--bg-2); }
+
+.live-ticker { background: var(--paper); border-bottom: 1px solid var(--line); padding: 10px 0; overflow: hidden; }
+.ticker-track { display: flex; gap: 48px; align-items: center; white-space: nowrap; animation: tickerScroll 60s linear infinite; }
+@keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ticker-item { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-2); flex-shrink: 0; }
+.ticker-item .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-dot); flex-shrink: 0; animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(43,170,86,0.6); } 50% { box-shadow: 0 0 0 6px rgba(43,170,86,0); } }
+.ticker-item strong { color: var(--ink); font-weight: 600; }
+
+/* HERO */
+.hero { padding: 60px 0 80px; position: relative; overflow: hidden; }
+.hero::before { content: ""; position: absolute; top: 0; right: -100px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, var(--lavender) 0%, transparent 70%); opacity: 0.5; pointer-events: none; }
+.hero .container { position: relative; z-index: 1; }
+.hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
+@media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--paper); color: var(--brand); padding: 8px 14px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; border: 1px solid var(--lavender); box-shadow: var(--shadow-sm); }
+.hero-eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--brand); }
+
+.hero h1 { font-size: clamp(40px, 5.8vw, 70px); margin-bottom: 18px; line-height: 1.05; }
+.hero h1 em { font-style: italic; color: var(--brand); }
+.hero h1 mark { background: linear-gradient(180deg, transparent 60%, var(--lavender) 60%); color: inherit; padding: 0 4px; }
+
+.hero .lede { font-size: 19px; color: var(--ink-2); max-width: 540px; margin: 0 0 28px; }
+
+.outcome-promise { display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, var(--brand) 0%, var(--brand-3) 100%); color: white; padding: 18px 22px; border-radius: 16px; margin-bottom: 28px; box-shadow: var(--shadow-md); }
+.outcome-promise .icon-wrap { width: 48px; height: 48px; border-radius: 12px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.outcome-promise .text { flex: 1; }
+.outcome-promise .label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.7); margin-bottom: 4px; }
+.outcome-promise .promise { font-family: 'DM Serif Display', serif; font-size: 17px; line-height: 1.3; }
+.outcome-promise .promise em { font-style: italic; }
+
+.hero-bullets { list-style: none; padding: 0; margin: 0 0 32px; }
+.hero-bullets li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; color: var(--ink-2); }
+.hero-bullets li:last-child { border-bottom: none; }
+.hero-bullets li::before { content: ""; flex-shrink: 0; width: 22px; height: 22px; background: var(--brand); border-radius: 50%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 8.2L7 11l5-6' stroke='white' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-size: 16px; background-repeat: no-repeat; background-position: center; margin-top: 1px; }
+.hero-bullets li strong { color: var(--ink); font-weight: 600; }
+
+.hero-cta-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.hero-microtext { font-size: 13px; color: var(--muted); margin-top: 14px; }
+.hero-microtext strong { color: var(--ink-2); }
+
+.doctor-strip { display: flex; align-items: center; gap: 16px; margin-top: 24px; }
+.avatars { display: flex; }
+.avatars .av { width: 36px; height: 36px; border-radius: 50%; background-size: cover; background-position: center; border: 2px solid var(--bg); margin-left: -10px; background-color: var(--brand); }
+.avatars .av:first-child { margin-left: 0; }
+.doctor-strip .label { font-size: 13px; color: var(--ink-2); }
+.doctor-strip .label strong { font-weight: 600; }
+
+.hero-card { background: var(--paper); border: 1px solid var(--line); border-radius: 24px; padding: 28px; box-shadow: var(--shadow-lg); position: relative; }
+.hero-card .stock { position: absolute; top: 18px; right: 18px; background: var(--green-soft); color: #1F6B47; font-size: 11px; font-weight: 600; padding: 5px 11px; border-radius: 999px; letter-spacing: 0.05em; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+.hero-card .stock::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--green-dot); animation: pulse 2s infinite; }
+.hero-card h2 { font-size: 28px; margin-bottom: 4px; line-height: 1.1; }
+.hero-card .subtitle { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+.product-img { background: var(--bg-2); border-radius: 16px; aspect-ratio: 16/10; margin-bottom: 18px; background-size: cover; background-position: center 20%; position: relative; }
+.product-chip { position: absolute; bottom:12px; left:12px; right:12px; display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding:8px 12px; border-radius:12px; font-size:12px; color:var(--ink-2); }
+.product-chip .icon { width:36px; height:36px; border-radius:8px; background: var(--lavender); display: flex; align-items: center; justify-content: center; flex-shrink:0; color: var(--brand); }
+.product-chip .info { flex:1; }
+.product-chip .info .name { font-weight:600; color:var(--ink); font-size:13px; }
+.product-chip .info .meta { font-size:11px; color:var(--muted); }
+.product-chip .rx { background:var(--lavender); color:var(--brand); font-size:10px; font-weight:600; padding:3px 8px; border-radius:999px; letter-spacing:0.04em; }
+
+.tier-preview { background: var(--bg-2); border-radius: 16px; padding: 18px 20px; margin-bottom: 18px; }
+.tier-preview-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 12px; }
+.tier-preview-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 13px; color: var(--ink-2); }
+.tier-preview-row + .tier-preview-row { border-top: 1px solid var(--line); }
+.tier-preview-row .tier-name { font-weight: 600; color: var(--ink); }
+.tier-preview-row .tier-price { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--brand); }
+.tier-preview-row.featured { background: var(--lavender); margin: 6px -8px; padding: 10px 8px; border-radius: 8px; border: none !important; }
+.tier-preview-row.featured + .tier-preview-row { border-top: 1px solid var(--line); }
+.tier-preview-row.featured .tier-name { color: var(--brand-deep); }
+.tier-preview-row .badge-deepest { display: inline-block; background: var(--accent); color: white; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 999px; margin-left: 6px; letter-spacing: 0.05em; text-transform: uppercase; }
+
+.hero-card .btn { width: 100%; }
+.hero-card .micro { font-size: 12px; color: var(--muted); text-align: center; margin-top: 12px; }
+
+.money-back-ribbon { margin-top: 16px; padding: 14px 16px; background: var(--lavender); border-radius: 12px; display: flex; align-items: center; gap: 12px; }
+.money-back-ribbon .mb-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--brand); color: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.money-back-ribbon .mb-text { flex: 1; font-size: 13px; color: var(--ink-2); line-height: 1.4; }
+.money-back-ribbon .mb-text strong { color: var(--ink); font-weight: 600; }
+
+/* PRESS */
+.press { background: var(--bg); padding: 32px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.press .label { text-align: center; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 18px; }
+.press-row { display: flex; justify-content: space-around; align-items: center; gap: 24px; flex-wrap: wrap; }
+.press-logo { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--muted); opacity: 0.65; letter-spacing: -0.01em; }
+.press-logo.b { font-family: 'Inter', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+
+/* DUAL TIER COMPARISON */
+.tiers-section { background: var(--bg-2); }
+.tiers-head { text-align: center; max-width: 760px; margin: 0 auto 56px; }
+.tiers-eyebrow { display: inline-block; background: var(--lavender); color: var(--brand); padding: 6px 14px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 16px; }
+.tiers-section h2 { font-size: clamp(34px, 4.5vw, 56px); margin-bottom: 14px; }
+.tiers-section h2 em { font-style: italic; color: var(--brand); }
+.tiers-section .lede { font-size: 17px; color: var(--ink-2); }
+
+.tier-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; max-width: 980px; margin: 0 auto; }
+@media (max-width: 900px) { .tier-grid { grid-template-columns: 1fr; max-width: 480px; } }
+
+.tier-card { background: var(--paper); border: 1px solid var(--line); border-radius: 24px; padding: 32px; display: flex; flex-direction: column; position: relative; transition: transform .25s, box-shadow .25s; }
+.tier-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.tier-card.featured { border: 2px solid var(--brand); background: linear-gradient(180deg, var(--paper) 0%, var(--lavender) 100%); box-shadow: var(--shadow-lg); }
+.tier-card.featured::before { content: "Strongest healing protocol"; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--accent); color: white; padding: 6px 16px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; box-shadow: 0 4px 12px -4px rgba(255,107,74,0.5); }
+
+.tier-card .hero-img { aspect-ratio: 16/10; background-size: cover; background-position: center 30%; border-radius: 16px; margin-bottom: 24px; }
+.tier-card .badge-row { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+.tier-card .badge { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px; letter-spacing: 0.04em; text-transform: uppercase; }
+.tier-card .badge.target { background: var(--lavender); color: var(--brand); }
+.tier-card .badge.deeper { background: rgba(255,107,74,0.15); color: var(--accent-2); }
+.tier-card h3 { font-size: 28px; margin-bottom: 6px; line-height: 1.15; }
+.tier-card .subtitle { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.tier-card .price-row { display: flex; align-items: baseline; gap: 8px; padding-bottom: 18px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+.tier-card .price-num { font-family: 'DM Serif Display', serif; font-size: 36px; line-height: 1; color: var(--ink); }
+.tier-card .price-unit { font-size: 13px; color: var(--muted); }
+.tier-card .price-strike { color: var(--muted); text-decoration: line-through; font-size: 14px; margin-left: auto; }
+.tier-features { list-style: none; padding: 0; margin: 0 0 24px; flex: 1; }
+.tier-features li { padding: 9px 0; font-size: 14.5px; color: var(--ink-2); display: flex; gap: 10px; align-items: flex-start; }
+.tier-features li::before { content: ""; flex-shrink: 0; width: 18px; height: 18px; background: var(--brand); border-radius: 50%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 8.2L7 11l5-6' stroke='white' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-size: 16px; background-repeat: no-repeat; background-position: center; margin-top: 1px; }
+.tier-features li strong { color: var(--ink); font-weight: 600; }
+.tier-features li.upgrade { color: var(--brand); font-weight: 500; }
+.tier-features li.upgrade::before { background: var(--accent); }
+.tier-features li.aside { color: var(--muted); font-size: 13.5px; font-style: italic; }
+.tier-features li.aside::before { background: var(--bg-2); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='8' cy='8' r='2' fill='%236E6D85'/%3E%3C/svg%3E"); }
+.tier-card .btn { width: 100%; }
+.tier-microtext { text-align: center; font-size: 12px; color: var(--muted); margin-top: 12px; }
+.tier-microtext strong { color: var(--ink-2); }
+
+.tiers-decision-helper { text-align: center; margin-top: 32px; }
+.tiers-decision-helper a { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; font-size: 14px; }
+
+/* WHY THIS MATTERS — 4 healing pillars */
+.why-recovery { background: var(--bg); }
+.why-head { text-align: center; max-width: 760px; margin: 0 auto 56px; }
+.why-recovery h2 { font-size: clamp(34px, 4.5vw, 52px); margin-bottom: 14px; }
+.why-recovery h2 em { font-style: italic; color: var(--brand); }
+.why-recovery .lede { font-size: 17px; color: var(--ink-2); }
+.pillar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+@media (max-width: 900px) { .pillar-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .pillar-grid { grid-template-columns: 1fr; } }
+.pillar-card { background: var(--paper); border-radius: 20px; overflow: hidden; border: 1px solid var(--line); }
+.pillar-img { aspect-ratio: 1/1; background-size: cover; background-position: center 25%; background-color: var(--bg-2); }
+.pillar-card h4 { font-family: 'DM Serif Display', serif; font-size: 20px; padding: 18px 18px 4px; margin: 0; }
+.pillar-card p { padding: 0 18px 20px; font-size: 14px; color: var(--ink-2); line-height: 1.5; margin: 0; }
+
+/* HOW IT WORKS */
+.how { background: var(--bg-2); }
+.how-head { text-align: center; max-width: 720px; margin: 0 auto 56px; }
+.how-eyebrow { display: inline-block; background: var(--lavender); color: var(--brand); padding: 6px 14px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 16px; }
+.how h2 { font-size: clamp(34px, 4.5vw, 52px); margin-bottom: 14px; }
+.how h2 em { font-style: italic; color: var(--brand); }
+.how .lede { font-size: 17px; color: var(--ink-2); }
+
+.how-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+@media (max-width: 900px) { .how-steps { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .how-steps { grid-template-columns: 1fr; } }
+.how-step-card { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 28px 24px; }
+.how-step-card .step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--brand); color: white; display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 16px; margin-bottom: 16px; }
+.how-step-card h4 { font-family: 'DM Serif Display', serif; font-size: 19px; margin-bottom: 8px; line-height: 1.2; }
+.how-step-card p { font-size: 13.5px; color: var(--ink-2); margin: 0; line-height: 1.55; }
+
+/* TIMELINE — recovery week-by-week */
+.timeline-section { background: var(--bg); }
+.timeline-head { text-align: center; max-width: 720px; margin: 0 auto 56px; }
+.timeline-head h2 { font-size: clamp(34px, 4.5vw, 52px); margin-bottom: 12px; }
+.timeline-head h2 em { font-style: italic; color: var(--brand); }
+.timeline-head p { font-size: 17px; color: var(--ink-2); }
+.tl-track { background: var(--paper); border: 1px solid var(--line); border-radius: 24px; padding: 0; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
+.tl-banner { aspect-ratio: 21/8; background-size: cover; background-position: center 40%; position: relative; }
+.tl-banner::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,14,31,0) 50%, rgba(15,14,31,0.55) 100%); }
+.tl-banner-caption { position: absolute; bottom: 20px; left: 24px; color: white; z-index: 1; }
+.tl-banner-caption .week-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.85); margin-bottom: 4px; }
+.tl-banner-caption .week-headline { font-family: 'DM Serif Display', serif; font-size: 22px; line-height: 1.2; }
+.tl-rows-wrap { padding: 32px 40px 40px; }
+@media (max-width: 720px) { .tl-rows-wrap { padding: 24px 20px 28px; } }
+.tl-row { display: grid; grid-template-columns: 100px 1fr; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.tl-row:last-child { border-bottom: none; }
+.tl-row.peak { background: var(--lavender); margin: 12px -20px 0; padding: 24px 20px; border-radius: 12px; border-bottom: none; }
+.tl-week { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--brand); line-height: 1.1; }
+.tl-week .num { font-size: 32px; }
+.tl-content h4 { font-family: 'DM Serif Display', serif; font-size: 19px; margin-bottom: 6px; }
+.tl-content p { font-size: 14.5px; color: var(--ink-2); margin: 0; line-height: 1.55; }
+.tl-content .marker { display: inline-block; margin-top: 8px; font-size: 11px; font-weight: 600; padding: 3px 8px; background: var(--bg-2); border-radius: 6px; color: var(--brand); letter-spacing: 0.04em; }
+.tl-row.peak .marker { background: var(--paper); }
+
+/* PATIENT QUOTE */
+.quote-section { background: var(--bg-2); }
+.quote-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: center; }
+@media (max-width: 900px) { .quote-grid { grid-template-columns: 1fr; gap: 40px; } }
+.quote-portrait { aspect-ratio: 4/5; background-size: cover; background-position: center 25%; border-radius: 24px; box-shadow: var(--shadow-md); }
+.quote-content h2 { font-size: clamp(28px, 3.5vw, 40px); font-family: 'DM Serif Display', serif; line-height: 1.2; margin-bottom: 24px; }
+.quote-content h2 em { font-style: italic; color: var(--brand); }
+.quote-content blockquote { font-family: 'DM Serif Display', serif; font-size: 22px; line-height: 1.4; color: var(--ink); margin: 0 0 24px; padding: 0; padding-left: 18px; border-left: 3px solid var(--brand); font-style: italic; }
+.quote-meta { display: flex; align-items: center; gap: 14px; }
+.quote-meta .name { font-weight: 600; font-size: 15px; color: var(--ink); }
+.quote-meta .role { font-size: 13px; color: var(--muted); }
+.quote-meta .verify { font-size: 12px; color: var(--brand); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+.quote-meta .verify::before { content: ""; width: 14px; height: 14px; border-radius: 50%; background: var(--brand); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3 7l2.5 2.5L11 4' stroke='white' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-size: 14px; }
+
+/* WHO IT'S FOR */
+.symptoms { background: var(--bg); }
+.symptoms .eyebrow { display: block; text-align: center; font-style: italic; color: var(--ink-2); margin-bottom: 12px; font-family: 'DM Serif Display', serif; font-size: 18px; }
+.symptoms h2 { font-size: clamp(34px, 4.5vw, 52px); text-align: center; max-width: 800px; margin: 0 auto 16px; }
+.symptoms h2 em { font-style: italic; color: var(--brand); }
+.symptoms .lede { text-align: center; color: var(--ink-2); font-size: 17px; max-width: 640px; margin: 0 auto 56px; }
+.sym-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+@media (max-width: 720px) { .sym-grid { grid-template-columns: 1fr; } }
+.sym-card { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; display: grid; grid-template-columns: 200px 1fr; }
+@media (max-width: 600px) { .sym-card { grid-template-columns: 130px 1fr; } }
+.sym-img { background-size: cover; background-position: center 25%; background-color: var(--bg-2); }
+.sym-content { padding: 24px; }
+.sym-content h3 { font-size: 22px; margin-bottom: 12px; line-height: 1.2; }
+.sym-content ul { list-style: none; padding: 0; margin: 0; }
+.sym-content li { font-size: 14px; color: var(--ink-2); padding: 4px 0; padding-left: 16px; position: relative; }
+.sym-content li::before { content: ""; position: absolute; left: 0; top: 12px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.symptoms-cta { text-align: center; margin-top: 40px; }
+
+/* GUARANTEE */
+.guarantee { background: var(--bg-2); padding: 80px 0; }
+.guarantee-card { background: linear-gradient(135deg, var(--paper) 0%, var(--lavender) 100%); border: 2px solid var(--brand); border-radius: 28px; padding: 48px; display: grid; grid-template-columns: 140px 1fr auto; gap: 32px; align-items: center; box-shadow: var(--shadow-lg); }
+@media (max-width: 800px) { .guarantee-card { grid-template-columns: 1fr; text-align: center; gap: 20px; padding: 32px; } }
+.guarantee-seal { width: 140px; height: 140px; border-radius: 50%; background: white; border: 4px solid var(--brand); display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 20px; box-shadow: 0 0 0 6px var(--lavender); }
+@media (max-width: 800px) { .guarantee-seal { margin: 0 auto; } }
+.guarantee-seal .days { font-family: 'DM Serif Display', serif; font-size: 38px; line-height: 1; color: var(--brand); }
+.guarantee-seal .word { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: var(--ink-2); text-transform: uppercase; margin-top: 4px; text-align: center; }
+.guarantee-text h3 { font-size: 28px; line-height: 1.15; margin-bottom: 8px; }
+.guarantee-text h3 em { font-style: italic; color: var(--brand); }
+.guarantee-text p { color: var(--ink-2); margin: 0; font-size: 15px; }
+.guarantee-cta a { color: var(--brand); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; font-size: 14px; }
+
+/* SCIENCE */
+.science { background: var(--bg); }
+.science-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+@media (max-width: 900px) { .science-grid { grid-template-columns: 1fr; gap: 40px; } }
+.science h2 { font-size: clamp(34px, 4.5vw, 52px); margin-bottom: 16px; }
+.science h2 em { font-style: italic; color: var(--brand); }
+.science .lede { font-size: 17px; color: var(--ink-2); margin-bottom: 28px; }
+.science-points { list-style: none; padding: 0; margin: 0 0 32px; }
+.science-points li { padding: 14px 0; border-top: 1px solid var(--line); font-size: 15px; color: var(--ink-2); display: flex; gap: 12px; }
+.science-points li:last-child { border-bottom: 1px solid var(--line); }
+.science-points li strong { color: var(--ink); font-weight: 600; }
+.study-card { background: var(--paper); border: 1px solid var(--line); border-radius: 24px; padding: 32px; box-shadow: var(--shadow-md); }
+.study-card .label { font-size: 11px; color: var(--brand); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px; }
+.study-card h3 { font-size: 24px; margin-bottom: 14px; line-height: 1.2; }
+.study-card .citation { font-size: 13px; color: var(--muted); padding: 14px 16px; background: var(--bg); border-radius: 10px; font-style: italic; margin-bottom: 20px; border-left: 3px solid var(--brand); }
+.study-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+.study-stat { background: var(--bg); border-radius: 12px; padding: 14px; text-align: center; }
+.study-stat .num { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--brand); line-height: 1; margin-bottom: 4px; }
+.study-stat .desc { font-size: 11px; color: var(--ink-2); line-height: 1.3; }
+.study-card .btn { width: 100%; }
+
+/* PROCESS */
+.process { background: var(--bg-2); }
+.process h2 { font-size: clamp(34px, 4.5vw, 52px); text-align: center; max-width: 800px; margin: 0 auto 12px; }
+.process h2 em { font-style: italic; color: var(--brand); }
+.process .lede { text-align: center; font-size: 17px; color: var(--ink-2); margin-bottom: 56px; }
+.step-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+@media (max-width: 900px) { .step-grid { grid-template-columns: 1fr; } }
+.step { background: var(--paper); border-radius: 20px; border: 1px solid var(--line); overflow: hidden; }
+.step-img { aspect-ratio: 5/3; background-size: cover; background-position: center; position: relative; }
+.step-num-pill { position: absolute; top: 16px; left: 16px; background: var(--ink); color: white; font-size: 11px; font-weight: 600; padding: 5px 10px; border-radius: 999px; letter-spacing: 0.1em; }
+.step-body { padding: 24px; }
+.step-body h3 { font-size: 22px; margin-bottom: 10px; line-height: 1.2; }
+.step-body p { color: var(--ink-2); font-size: 14.5px; margin: 0; }
+
+/* CROSS-SELL */
+.cross-sell { background: var(--brand); color: white; padding: 56px 0; position: relative; overflow: hidden; }
+.cross-sell::before { content: ""; position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, var(--brand-2) 0%, transparent 70%); opacity: 0.4; }
+.cross-sell .container { position: relative; z-index: 1; }
+.cs-grid { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; }
+@media (max-width: 720px) { .cs-grid { grid-template-columns: 1fr; text-align: center; } }
+.cross-sell h3 { font-family: 'DM Serif Display', serif; font-size: 28px; color: white; margin-bottom: 6px; }
+.cross-sell h3 em { font-style: italic; color: var(--accent); }
+.cross-sell p { color: rgba(255,255,255,0.78); font-size: 15px; margin: 0; max-width: 540px; }
+
+/* FAQ */
+.faq { background: var(--bg); }
+.faq-grid { display: grid; grid-template-columns: 0.7fr 1.3fr; gap: 56px; }
+@media (max-width: 820px) { .faq-grid { grid-template-columns: 1fr; gap: 32px; } }
+.faq h2 { font-size: clamp(34px, 4.5vw, 52px); margin-bottom: 16px; }
+.faq h2 em { font-style: italic; color: var(--brand); }
+.faq .lede { color: var(--ink-2); font-size: 16px; margin-bottom: 24px; }
+.faq-contact { padding: 20px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 14px; font-size: 14px; }
+.faq-contact strong { display: block; margin-bottom: 6px; color: var(--ink); }
+.faq-contact a { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
+.faq-list details { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 18px 22px; margin-bottom: 12px; }
+.faq-list summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-family: 'DM Serif Display', serif; font-size: 19px; color: var(--ink); }
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary .icon { width: 28px; height: 28px; border-radius: 50%; background: var(--bg-2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: transform .2s, background .2s; font-size: 18px; color: var(--ink-2); }
+.faq-list details[open] summary .icon { background: var(--brand); color: white; transform: rotate(45deg); }
+.faq-list details p { margin: 14px 0 0; color: var(--ink-2); font-size: 15px; line-height: 1.65; }
+
+.trust-row { background: var(--bg); padding: 36px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; }
+.trust-track { display: flex; gap: 36px; align-items: center; white-space: nowrap; animation: scroll 32s linear infinite; }
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.trust-item { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ink-2); flex-shrink: 0; }
+.trust-item .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); }
+
+.final { background: var(--brand-deep); color: white; text-align: center; padding: 100px 0; position: relative; overflow: hidden; }
+.final::before { content: ""; position: absolute; bottom: -150px; left: -100px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, var(--brand) 0%, transparent 70%); opacity: 0.4; }
+.final .container { position: relative; z-index: 1; }
+.final h2 { font-size: clamp(40px, 5.5vw, 68px); color: white; margin-bottom: 18px; }
+.final h2 em { font-style: italic; color: var(--accent); }
+.final p { color: rgba(255,255,255,0.78); font-size: 18px; max-width: 540px; margin: 0 auto 32px; }
+.final .micro { color: rgba(255,255,255,0.55); font-size: 13px; margin-top: 16px; }
+
+footer { background: var(--bg-2); padding: 56px 0 32px; border-top: 1px solid var(--line); }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; margin-bottom: 40px; }
+@media (max-width: 720px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; } }
+.footer-grid h5 { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.footer-grid ul { list-style: none; padding: 0; margin: 0; }
+.footer-grid li { margin-bottom: 10px; font-size: 14px; }
+.footer-grid a { color: var(--ink-2); }
+.footer-grid a:hover { color: var(--brand); }
+.footer-tag { font-size: 14px; color: var(--ink-2); max-width: 280px; margin-top: 14px; line-height: 1.55; }
+.footer-bottom { border-top: 1px solid var(--line); padding-top: 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 12px; color: var(--muted); }
+.footer-bottom .badges { display: flex; gap: 12px; align-items: center; }
+.legit-badge { background: var(--paper); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; font-size: 11px; display: inline-flex; align-items: center; gap: 6px; }
+.legit-badge .led { width: 6px; height: 6px; border-radius: 50%; background: var(--green-dot); }
+.compliance-block { font-size: 11px; color: var(--muted); line-height: 1.6; padding: 24px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; margin-top: 32px; }
+
+.exit-modal { position: fixed; inset: 0; z-index: 1000; background: rgba(15,14,31,0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; padding: 24px; animation: fadeIn .3s ease; }
+.exit-modal.show { display: flex; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.exit-modal-content { background: var(--paper); border-radius: 24px; padding: 40px; max-width: 480px; width: 100%; position: relative; box-shadow: var(--shadow-lg); animation: slideUp .4s ease; }
+@keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+.exit-modal-close { position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; border-radius: 50%; background: var(--bg-2); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--ink-2); }
+.exit-modal-close:hover { background: var(--line); }
+.exit-eyebrow { display: inline-block; background: var(--accent); color: white; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 999px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; }
+.exit-modal-content h3 { font-family: 'DM Serif Display', serif; font-size: 32px; line-height: 1.1; margin-bottom: 12px; }
+.exit-modal-content h3 em { font-style: italic; color: var(--brand); }
+.exit-modal-content p { font-size: 15px; color: var(--ink-2); margin-bottom: 22px; }
+.exit-code-box { background: var(--bg-2); border: 2px dashed var(--brand); border-radius: 12px; padding: 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.exit-code-box .code-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.exit-code-box .code { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--brand); letter-spacing: 0.04em; }
+.exit-code-box .copy-btn { margin-left: auto; background: var(--brand); color: white; border: none; padding: 8px 14px; border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.exit-modal-content .btn { width: 100%; }
+.exit-modal-content .micro { text-align: center; font-size: 12px; color: var(--muted); margin-top: 12px; }
+
+.mobile-cta { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: var(--paper); border-top: 1px solid var(--line); padding: 12px 16px; align-items: center; gap: 12px; box-shadow: 0 -8px 20px -8px rgba(0,0,0,0.08); }
+@media (max-width: 720px) { .mobile-cta { display: flex; } body { padding-bottom: 76px; } }
+.mobile-cta .price-mini { flex: 1; }
+.mobile-cta .from { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.mobile-cta .amt { font-family: 'DM Serif Display', serif; font-size: 22px; line-height: 1; }
+.mobile-cta .btn-primary { padding: 12px 18px; font-size: 14px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s, transform .7s; }
+  .reveal.in { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="promobar">
+  Limited time: <strong>$40 off your first month</strong> &nbsp;·&nbsp; Free clinician consult &nbsp;·&nbsp; Lab work included
+</div>
+
+<header class="nav">
+  <div class="container nav-row">
+    <a href="/" class="healsend-logo">
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+        <path d="M16 2 L4 14 Q4 22 12 28 Q16 30 16 30 L16 16 Z" fill="#5B4FE3"/>
+        <path d="M16 2 L28 14 Q28 22 20 28 Q16 30 16 30 L16 16 Z" fill="#7569FF"/>
+        <path d="M4 14 L16 16 L4 22 Z" fill="#4438C2" opacity="0.7"/>
+      </svg>
+      HealSend
+    </a>
+    <span class="nav-pill"><span class="num">1,000,000+</span> Prescriptions written</span>
+    <a href="#start" class="nav-cta">Sign In</a>
+  </div>
+</header>
+
+<div class="live-ticker">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="live-dot"></span> <strong>54 members</strong> started a Recovery protocol this week</span>
+    <span class="ticker-item"><span class="live-dot"></span> <strong>Most chronic injuries:</strong> shoulder, knee, lower back</span>
+    <span class="ticker-item"><span class="live-dot"></span> <strong>James K.</strong> just started after 6mo of stalled PT</span>
+    <span class="ticker-item"><span class="live-dot"></span> Avg. clinician response time: <strong>4 hrs</strong></span>
+    <span class="ticker-item"><span class="live-dot"></span> <strong>2,341 active members</strong> nationwide</span>
+    <span class="ticker-item"><span class="live-dot"></span> <strong>Tony R.</strong> just upgraded to Full Stack</span>
+    <span class="ticker-item"><span class="live-dot"></span> <strong>54 members</strong> started a Recovery protocol this week</span>
+    <span class="ticker-item"><span class="live-dot"></span> <strong>Most chronic injuries:</strong> shoulder, knee, lower back</span>
+    <span class="ticker-item"><span class="live-dot"></span> <strong>James K.</strong> just started after 6mo of stalled PT</span>
+    <span class="ticker-item"><span class="live-dot"></span> Avg. clinician response time: <strong>4 hrs</strong></span>
+    <span class="ticker-item"><span class="live-dot"></span> <strong>2,341 active members</strong> nationwide</span>
+    <span class="ticker-item"><span class="live-dot"></span> <strong>Tony R.</strong> just upgraded to Full Stack</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="hero-eyebrow">Targeted Recovery &amp; Repair Therapy</span>
+      <h1>Heal what <em>didn't.</em><br>Get back to <mark>moving heavy</mark>.</h1>
+      <p class="lede">A clinically guided protocol designed to accelerate tissue repair, reduce inflammation, and support joint, tendon, and gut healing — at the cellular level. For the injuries that won't quite go away.</p>
+
+      <div class="outcome-promise">
+        <div class="icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M5 12l5 5 9-9"/></svg>
+        </div>
+        <div class="text">
+          <div class="label">The Promise</div>
+          <div class="promise">Noticeable reduction in pain, stiffness, or inflammation by week 6 — <em>or your first month is free.</em></div>
+        </div>
+      </div>
+
+      <ul class="hero-bullets">
+        <li><strong>Two healing protocols</strong> — choose targeted single-compound or full multi-compound stack</li>
+        <li><strong>Supports joint, tendon, gut &amp; soft-tissue repair</strong> — designed to work where rest alone won't</li>
+        <li><strong>Provider-prescribed when appropriate</strong> — every protocol clinician-reviewed</li>
+      </ul>
+      <div class="hero-cta-row">
+        <a href="#tiers" class="btn btn-primary">See the protocols →</a>
+        <a href="#how" class="btn btn-ghost">How it works</a>
+      </div>
+      <div class="hero-microtext"><strong>90-second intake</strong> · 100% private · No charge until prescribed</div>
+      <div class="doctor-strip">
+        <div class="avatars">
+          <div class="av" style="background-image: url('https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=200&auto=format&fit=crop');"></div>
+          <div class="av" style="background-image: url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=200&auto=format&fit=crop');"></div>
+          <div class="av" style="background-image: url('https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=200&auto=format&fit=crop');"></div>
+        </div>
+        <span class="label"><strong>Board-certified clinicians</strong> · Licensed in your state</span>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="stock">In Stock</div>
+      <h2>Recovery &amp; Repair Therapy</h2>
+      <div class="subtitle">Two protocols · One healing path</div>
+      <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=1200&auto=format&fit=crop');">
+        <div class="product-chip">
+          <div class="icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6M12 16v6M2 12h6M16 12h6M5 5l4 4M15 15l4 4M5 19l4-4M15 9l4-4"/></svg>
+          </div>
+          <div class="info">
+            <div class="name">Recovery &amp; Repair Therapy</div>
+            <div class="meta">Subcutaneous · Daily protocol</div>
+          </div>
+          <span class="rx">Rx</span>
+        </div>
+      </div>
+
+      <div class="tier-preview">
+        <div class="tier-preview-label">Choose your protocol</div>
+        <div class="tier-preview-row">
+          <span class="tier-name">Targeted Recovery</span>
+          <span class="tier-price">$179/mo</span>
+        </div>
+        <div class="tier-preview-row featured">
+          <span class="tier-name">Full Regenerative Stack <span class="badge-deepest">Strongest</span></span>
+          <span class="tier-price">$299/mo</span>
+        </div>
+      </div>
+
+      <a href="#tiers" class="btn btn-primary">See the protocols →</a>
+      <div class="micro">No charge until your protocol is approved</div>
+
+      <div class="money-back-ribbon">
+        <div class="mb-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <div class="mb-text"><strong>60-day money-back guarantee.</strong> If you don't notice meaningful change in pain, stiffness, or recovery by week 6, your first month is free.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="press">
+  <div class="container">
+    <div class="label">As featured in</div>
+    <div class="press-row">
+      <div class="press-logo b" style="color:#5F0F8C;">Yahoo!</div>
+      <div class="press-logo b">USA TODAY</div>
+      <div class="press-logo b" style="font-style: italic;">AXIOS</div>
+      <div class="press-logo">Forbes</div>
+      <div class="press-logo b">BUSINESS INSIDER</div>
+    </div>
+  </div>
+</section>
+
+<!-- TWO TIERS — TARGETED VS FULL STACK -->
+<section class="tiers-section" id="tiers">
+  <div class="container">
+    <div class="tiers-head">
+      <span class="tiers-eyebrow">Two protocols · One path</span>
+      <h2>Targeted healing.<br>Or the <em>full stack.</em></h2>
+      <p class="lede">Targeted Recovery is a focused single-compound protocol — ideal for one stubborn injury or isolated tissue concern. The Full Regenerative Stack combines four healing pathways for systemic repair when single-compound therapy isn't enough.</p>
+    </div>
+
+    <div class="tier-grid">
+      <!-- TARGETED — entry tier -->
+      <div class="tier-card">
+        <div class="hero-img" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=1200&auto=format&fit=crop'); background-position: center 50%;"></div>
+        <div class="badge-row">
+          <span class="badge target">Single-compound</span>
+          <span class="badge target">Focused healing</span>
+        </div>
+        <h3>Targeted Recovery</h3>
+        <div class="subtitle">Daily subcutaneous · 6–12 week protocol</div>
+        <div class="price-row">
+          <span class="price-num">$179</span>
+          <span class="price-unit">/mo</span>
+          <span class="price-strike">$229</span>
+        </div>
+        <ul class="tier-features">
+          <li><strong>Single-compound healing protocol</strong> — clinically focused on tissue repair</li>
+          <li><strong>Designed to help joint, tendon &amp; ligament repair</strong></li>
+          <li><strong>May support gut lining &amp; inflammation reduction</strong></li>
+          <li>Daily subcutaneous, painless</li>
+          <li>Clinician access &amp; check-ins included</li>
+          <li>Best for one stubborn injury or area</li>
+        </ul>
+        <a href="#start" class="btn btn-light">Start Targeted Recovery</a>
+        <div class="tier-microtext">Best for <strong>focused</strong> recovery · Cancel anytime</div>
+      </div>
+
+      <!-- FULL STACK — featured -->
+      <div class="tier-card featured">
+        <div class="hero-img" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop'); background-position: center 50%;"></div>
+        <div class="badge-row">
+          <span class="badge deeper">4-compound stack</span>
+          <span class="badge deeper">Deepest healing</span>
+        </div>
+        <h3>Full Regenerative Stack</h3>
+        <div class="subtitle">Daily subcutaneous · 12-week protocol</div>
+        <div class="price-row">
+          <span class="price-num">$299</span>
+          <span class="price-unit">/mo</span>
+          <span class="price-strike">$399</span>
+        </div>
+        <ul class="tier-features">
+          <li><strong>Four-compound healing protocol</strong> — systemic regenerative effect</li>
+          <li class="upgrade">+ <strong>Deeper anti-inflammatory action</strong> across multiple pathways</li>
+          <li class="upgrade">+ <strong>Faster soft-tissue &amp; tendon repair</strong> than single-compound alone</li>
+          <li class="upgrade">+ <strong>Greater efficacy</strong> for chronic or stubborn injuries</li>
+          <li class="upgrade">+ Priority clinician access (same-day)</li>
+          <li>Designed to help with multi-area injuries, post-surgical recovery, gut healing</li>
+          <li class="aside">Note: skin &amp; hair regeneration may occur as a side benefit</li>
+        </ul>
+        <a href="#start" class="btn btn-purple">Start Full Stack</a>
+        <div class="tier-microtext"><strong>Most comprehensive</strong> · Cancel anytime</div>
+      </div>
+    </div>
+
+    <div class="tiers-decision-helper">
+      Not sure which to start with? <a href="#start">Talk to a clinician — it's free.</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT THIS PROTOCOL DOES -->
+<section class="why-recovery">
+  <div class="container">
+    <div class="why-head">
+      <h2>What this protocol may<br><em>support &amp; help with.</em></h2>
+      <p class="lede">Outcomes the literature and our member data both support. Individual results vary — provider-prescribed when appropriate.</p>
+    </div>
+    <div class="pillar-grid">
+      <div class="pillar-card">
+        <div class="pillar-img" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop');"></div>
+        <h4>Joint &amp; tendon repair</h4>
+        <p>Designed to help support tendon, ligament, and joint capsule healing — particularly for chronic strain injuries.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-img" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop');"></div>
+        <h4>Inflammation reduction</h4>
+        <p>May support broader anti-inflammatory effect — the Full Stack works across multiple inflammatory pathways simultaneously.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-img" style="background-image: url('https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=800&auto=format&fit=crop');"></div>
+        <h4>Gut &amp; soft-tissue healing</h4>
+        <p>Designed to help support gut lining repair and soft-tissue regeneration — useful for chronic gut issues or post-surgical recovery.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-img" style="background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800&auto=format&fit=crop');"></div>
+        <h4>Faster training recovery</h4>
+        <p>Members report shorter recovery between hard sessions and reduced post-workout soreness over consistent use.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="container">
+    <div class="how-head">
+      <span class="how-eyebrow">How healing actually accelerates</span>
+      <h2>Your body knows how to heal.<br><em>This signals it to do it faster.</em></h2>
+      <p class="lede">These compounds work upstream of your natural repair machinery — amplifying the same healing pathways your body already uses. The Full Stack hits four of those pathways simultaneously.</p>
+    </div>
+
+    <div class="how-steps">
+      <div class="how-step-card">
+        <div class="step-num">1</div>
+        <h4>Daily injection</h4>
+        <p>Small subcutaneous dose, typically into the abdominal area. Easy, painless, takes seconds.</p>
+      </div>
+      <div class="how-step-card">
+        <div class="step-num">2</div>
+        <h4>Healing pathways activate</h4>
+        <p>Compounds signal fibroblast activity, angiogenesis, and tissue-repair processes — accelerating natural healing at the cellular level.</p>
+      </div>
+      <div class="how-step-card">
+        <div class="step-num">3</div>
+        <h4>Inflammation drops, repair speeds up</h4>
+        <p>Inflammatory markers reduce while reparative cell activity increases. The Full Stack hits this from four angles instead of one.</p>
+      </div>
+      <div class="how-step-card">
+        <div class="step-num">4</div>
+        <h4>Visible recovery by week 6</h4>
+        <p>Pain reduction, increased range of motion, faster training recovery — typically noticeable within 4–6 weeks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="container">
+    <div class="timeline-head">
+      <h2>What happens, <em>week by week.</em></h2>
+      <p>The honest healing timeline. Most members notice changes in this order — though individual results vary.</p>
+    </div>
+
+    <div class="tl-track">
+      <div class="tl-banner" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1600&auto=format&fit=crop');">
+        <div class="tl-banner-caption">
+          <div class="week-label">Day 1 → Day 84</div>
+          <div class="week-headline">From injury to back-in-action.</div>
+        </div>
+      </div>
+      <div class="tl-rows-wrap">
+        <div class="tl-row">
+          <div class="tl-week">Week <span class="num">1–2</span></div>
+          <div class="tl-content">
+            <h4>Inflammation starts dropping</h4>
+            <p>The first thing most members notice. Subtle reduction in chronic ache, stiffness, or that "always there" inflammation. Sleep often deepens too.</p>
+            <span class="marker">First signal</span>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-week">Week <span class="num">3–4</span></div>
+          <div class="tl-content">
+            <h4>Pain &amp; soreness reduce</h4>
+            <p>Old injuries quiet. Post-workout soreness shortens. The areas that always flared up start flaring up less often.</p>
+            <span class="marker">Felt change</span>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-week">Week <span class="num">6–8</span></div>
+          <div class="tl-content">
+            <h4>Range of motion returns</h4>
+            <p>The shoulder you couldn't fully rotate. The knee that wouldn't bend all the way. Mobility comes back. Recovery between sessions shortens.</p>
+            <span class="marker">Functional gain</span>
+          </div>
+        </div>
+        <div class="tl-row peak">
+          <div class="tl-week">Week <span class="num">10–12</span></div>
+          <div class="tl-content">
+            <h4>You feel ready to push again</h4>
+            <p>Lifting heavy without paying for it for three days. Running without that nagging spot lighting up. The thing you stopped doing because it hurt — you can do again. This is when most members renew or step up.</p>
+            <span class="marker">Decision point</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PATIENT QUOTE -->
+<section class="quote-section">
+  <div class="container quote-grid">
+    <div class="quote-portrait" style="background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop');"></div>
+    <div class="quote-content">
+      <h2>From "I just have to live with it" to <em>"I forgot it was even injured."</em></h2>
+      <blockquote>"Tore my labrum two years ago. Did the rehab, did the cortisone, was on the surgery list. Started Full Stack as a hail mary. Eight weeks in I realized I'd done a full press without thinking about it. I haven't been back to the orthopedist since."</blockquote>
+      <div class="quote-meta">
+        <div>
+          <div class="name">Tony R., 42</div>
+          <div class="role">Started Full Regenerative Stack 4 months ago</div>
+          <div class="verify">Verified HealSend Member</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="symptoms">
+  <div class="container">
+    <span class="eyebrow">Sound familiar?</span>
+    <h2>The injuries <em>rest didn't fix.</em></h2>
+    <p class="lede">Some things heal on their own. Some things stop healing and just become "the thing you live with." That second category is what this protocol is for.</p>
+    <div class="sym-grid">
+      <div class="sym-card">
+        <div class="sym-img" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop');"></div>
+        <div class="sym-content">
+          <h3>You have an injury that won't fully go away.</h3>
+          <ul>
+            <li>Months of PT, rest, ice. Still flares up.</li>
+            <li>You've started avoiding the movements that aggravate it.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sym-card">
+        <div class="sym-img" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop');"></div>
+        <div class="sym-content">
+          <h3>One hard workout costs you three days.</h3>
+          <ul>
+            <li>Recovery used to take a day. Now it takes a week.</li>
+            <li>You're training less because the bounce-back doesn't bounce.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sym-card">
+        <div class="sym-img" style="background-image: url('https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=800&auto=format&fit=crop');"></div>
+        <div class="sym-content">
+          <h3>Chronic gut issues that never fully resolve.</h3>
+          <ul>
+            <li>You've tried elimination diets. Probiotics. The whole thing.</li>
+            <li>Some days are great. Then a flare-up out of nowhere.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sym-card">
+        <div class="sym-img" style="background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800&auto=format&fit=crop');"></div>
+        <div class="sym-content">
+          <h3>You're recovering from surgery and want to heal faster.</h3>
+          <ul>
+            <li>The official recovery timeline feels conservative.</li>
+            <li>You want everything that helps without compromising healing.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="symptoms-cta">
+      <a href="#tiers" class="btn btn-primary">See which protocol fits →</a>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="guarantee">
+  <div class="container">
+    <div class="guarantee-card">
+      <div class="guarantee-seal">
+        <div class="days">60</div>
+        <div class="word">Day Promise</div>
+      </div>
+      <div class="guarantee-text">
+        <h3>If you don't notice meaningful change by week 6, <em>your first month is free.</em></h3>
+        <p>We're confident enough in this protocol that we'll refund your first month if you don't notice real improvement in pain, stiffness, range of motion, or recovery by day 42. No fine print. No retention scripts. Email us and it's done.</p>
+      </div>
+      <div class="guarantee-cta">
+        <a href="#faq">Read the full guarantee →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCIENCE -->
+<section class="science">
+  <div class="container science-grid">
+    <div>
+      <h2>Backed by published <em>regenerative research.</em></h2>
+      <p class="lede">The compounds in this protocol family are among the most studied tissue-repair peptides available — with decades of literature supporting their use for healing acceleration, inflammation reduction, and gut/joint repair.</p>
+      <ul class="science-points">
+        <li><strong>Sikiric et al. (2018):</strong> Comprehensive review of body-protection compound effects on tendon, ligament, and gut repair.</li>
+        <li><strong>Goldstein &amp; Hannappel (2018):</strong> Anti-inflammatory peptide effects on tissue regeneration and wound healing.</li>
+        <li><strong>Pickart &amp; Margolina (2018):</strong> Copper-peptide effects on collagen synthesis and connective tissue density.</li>
+        <li><strong>Brzozowski et al. (2017):</strong> Multi-pathway anti-inflammatory peptide effects on systemic healing.</li>
+      </ul>
+      <a href="#" class="btn btn-light">Read the HealSend whitepaper →</a>
+
+      <div style="margin-top: 32px; padding: 20px; background: var(--paper); border: 1px solid var(--line); border-radius: 16px;">
+        <div style="font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px; font-weight: 600;">Reviewed by HealSend clinical team</div>
+        <div style="display: flex; gap: 16px; align-items: center;">
+          <div style="display: flex;">
+            <div style="width: 44px; height: 44px; border-radius: 50%; background-image: url('https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=200&auto=format&fit=crop'); background-size: cover; background-position: center; border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--line); margin-left: 0;"></div>
+            <div style="width: 44px; height: 44px; border-radius: 50%; background-image: url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=200&auto=format&fit=crop'); background-size: cover; background-position: center; border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--line); margin-left: -12px;"></div>
+            <div style="width: 44px; height: 44px; border-radius: 50%; background-image: url('https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=200&auto=format&fit=crop'); background-size: cover; background-position: center; border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--line); margin-left: -12px;"></div>
+          </div>
+          <div style="font-size: 13px; color: var(--ink-2); line-height: 1.5;">
+            <strong style="color: var(--ink); display: block; font-weight: 600;">Dr. R. Adler &amp; team</strong>
+            Board-certified sports medicine &amp; regenerative medicine
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="study-card">
+      <div class="label">Featured study</div>
+      <h3>"Tissue Repair Peptides: Mechanisms of Tendon and Ligament Healing"</h3>
+      <div class="citation">
+        Sikiric P, Seiwerth S, Rucman R, et al. <em>Current Pharmaceutical Design.</em> Comprehensive review of body-protection peptide effects across multiple tissue-repair trials.
+      </div>
+      <div class="study-stats">
+        <div class="study-stat"><div class="num">+62%</div><div class="desc">tendon<br>healing rate</div></div>
+        <div class="study-stat"><div class="num">+48%</div><div class="desc">collagen<br>synthesis</div></div>
+        <div class="study-stat"><div class="num">−39%</div><div class="desc">inflammatory<br>markers</div></div>
+      </div>
+      <a href="#" class="btn btn-purple">View full study →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="container">
+    <h2>From intake to protocol<br><em>in one week.</em></h2>
+    <p class="lede">Same simple process for both protocols. Your clinician helps you pick which one fits.</p>
+    <div class="step-grid">
+      <div class="step">
+        <div class="step-img" style="background-image: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop');">
+          <span class="step-num-pill">STEP 1</span>
+        </div>
+        <div class="step-body">
+          <h3>Online intake</h3>
+          <p>90-second medical assessment focused on your specific injuries, recovery goals, and history. Baseline labs ordered if needed.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-img" style="background-image: url('https://images.unsplash.com/photo-1582719471384-894fbb16e074?q=80&w=1200&auto=format&fit=crop');">
+          <span class="step-num-pill">STEP 2</span>
+        </div>
+        <div class="step-body">
+          <h3>Protocol selected</h3>
+          <p>A licensed clinician reviews your intake, helps you choose between Targeted and Full Stack, and prescribes accordingly.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-img" style="background-image: url('https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?q=80&w=1200&auto=format&fit=crop');">
+          <span class="step-num-pill">STEP 3</span>
+        </div>
+        <div class="step-body">
+          <h3>Medication shipped</h3>
+          <p>Discreet packaging, free shipping, all supplies included, video walkthrough for your first dose.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust-row">
+  <div class="trust-track">
+    <span class="trust-item"><span class="dot"></span> 60-day money-back guarantee</span>
+    <span class="trust-item"><span class="dot"></span> FSA &amp; HSA eligible</span>
+    <span class="trust-item"><span class="dot"></span> Personalized Rx protocols</span>
+    <span class="trust-item"><span class="dot"></span> No memberships or hidden fees</span>
+    <span class="trust-item"><span class="dot"></span> Free &amp; fast shipping</span>
+    <span class="trust-item"><span class="dot"></span> US-only certified pharmacies</span>
+    <span class="trust-item"><span class="dot"></span> Always-on clinician support</span>
+    <span class="trust-item"><span class="dot"></span> 1,000,000+ prescriptions written</span>
+    <span class="trust-item"><span class="dot"></span> 60-day money-back guarantee</span>
+    <span class="trust-item"><span class="dot"></span> FSA &amp; HSA eligible</span>
+    <span class="trust-item"><span class="dot"></span> Personalized Rx protocols</span>
+    <span class="trust-item"><span class="dot"></span> No memberships or hidden fees</span>
+    <span class="trust-item"><span class="dot"></span> Free &amp; fast shipping</span>
+    <span class="trust-item"><span class="dot"></span> US-only certified pharmacies</span>
+    <span class="trust-item"><span class="dot"></span> Always-on clinician support</span>
+    <span class="trust-item"><span class="dot"></span> 1,000,000+ prescriptions written</span>
+  </div>
+</section>
+
+<!-- CROSS-SELL — to GH -->
+<section class="cross-sell">
+  <div class="container cs-grid">
+    <div>
+      <h3>Healing faster?<br><em>Stack with GH Optimization.</em></h3>
+      <p>Many recovery members add Advanced GH Optimization for systemic recovery support — deeper sleep, faster training bounce-back, and broader tissue regeneration. Talk to your clinician about whether the combination is right for you.</p>
+    </div>
+    <a href="/gh-optimization" class="btn btn-primary">See GH Optimization →</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container faq-grid">
+    <div>
+      <h2>Recovery questions,<br><em>answered.</em></h2>
+      <p class="lede">Everything we get asked about Targeted Recovery and the Full Regenerative Stack. Want a real answer? Message a clinician for free.</p>
+      <div class="faq-contact">
+        <strong>Need a real answer?</strong>
+        Talk to a HealSend clinician for free. <a href="#start">Start the consultation →</a>
+      </div>
+    </div>
+    <div class="faq-list">
+      <details>
+        <summary>How does the 60-day money-back guarantee work? <span class="icon">+</span></summary>
+        <p>Simple. Start your protocol. If by week 6 you don't notice meaningful change in pain, stiffness, range of motion, or recovery time, email us at yourhealth@healsend.com and we'll refund your first month. No phone calls, no retention pressure, no fine print.</p>
+      </details>
+      <details>
+        <summary>What's actually prescribed in each protocol? <span class="icon">+</span></summary>
+        <p>Targeted Recovery is a single-compound protocol most commonly prescribed as BPC-157 — one of the most studied body-protection compounds for tendon, ligament, and gut repair. The Full Regenerative Stack combines BPC-157 with TB-500 (broader anti-inflammatory and tissue repair), KPV (potent anti-inflammatory peptide fragment), and GHK-Cu (collagen synthesis and connective tissue density). All four work via different but complementary healing pathways. All compounds are prescribed off-label when appropriate by a licensed U.S. clinician.</p>
+      </details>
+      <details>
+        <summary>Should I start with Targeted or the Full Stack? <span class="icon">+</span></summary>
+        <p>Targeted Recovery is ideal if you have one specific area of concern — a single chronic injury, an isolated tendon issue, or focused gut healing. The Full Regenerative Stack is for members with multi-area injuries, chronic systemic inflammation, post-surgical recovery, or stubborn injuries that haven't responded to single-compound therapy. Your clinician will recommend based on your situation.</p>
+      </details>
+      <details>
+        <summary>How quickly will I notice changes? <span class="icon">+</span></summary>
+        <p>Most members notice subtle inflammation reduction within 2 weeks, pain and stiffness changes by week 3–4, and meaningful functional improvement (range of motion, recovery time) by week 6–8. Full benefits typically stabilize around 90 days.</p>
+      </details>
+      <details>
+        <summary>Is the Full Stack just "more" of the same? <span class="icon">+</span></summary>
+        <p>No — it works through four distinct healing mechanisms. BPC-157 supports tissue repair via angiogenesis and growth factor signaling. TB-500 acts on a different cellular repair pathway and offers broader anti-inflammatory effect. KPV is a potent anti-inflammatory peptide fragment that hits inflammation through yet another mechanism. GHK-Cu supports collagen synthesis and connective tissue density. The result is healing that's not just stronger but more multi-dimensional.</p>
+      </details>
+      <details>
+        <summary>What about side effects? <span class="icon">+</span></summary>
+        <p>Side effects are uncommon and typically mild. Most commonly: injection-site reactions (redness, mild bruising), occasional transient fatigue in the first week as inflammation recalibrates. Your clinician monitors via check-ins and adjusts dose as needed.</p>
+      </details>
+      <details>
+        <summary>Is this legal? <span class="icon">+</span></summary>
+        <p>The compounds in these protocols are prescribed off-label by licensed clinicians for tissue repair and inflammation reduction — a regulated, common practice. Your medication ships from a state-licensed 503B compounding pharmacy. We will discuss the regulatory status and current research on each compound during your consultation.</p>
+      </details>
+      <details>
+        <summary>Can I combine this with PT or other recovery? <span class="icon">+</span></summary>
+        <p>Yes — and many members do. The protocol works at the cellular level; physical therapy, mobility work, and conventional recovery practices all complement it. Your clinician can help integrate it with your existing recovery plan.</p>
+      </details>
+      <details>
+        <summary>Can I switch between Targeted and Full Stack? <span class="icon">+</span></summary>
+        <p>Yes. Many members start with Targeted Recovery for an isolated issue, then upgrade to the Full Stack if they want broader systemic effect or have additional areas of concern. Your clinician adjusts your protocol — you only pay the new tier's monthly price.</p>
+      </details>
+      <details>
+        <summary>Do you accept insurance? <span class="icon">+</span></summary>
+        <p>HealSend operates as a cash-pay telehealth service. Every plan is FSA and HSA eligible, and we provide itemized receipts for any reimbursement claims.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="start">
+  <div class="container">
+    <h2>Heal what didn't.<br><em>Get back to moving heavy.</em></h2>
+    <p>Take the 90-second consultation. A clinician reviews your case within 48 hours. No charge until your protocol is approved.</p>
+    <a href="#tiers" class="btn btn-primary">Choose your protocol →</a>
+    <div class="micro">By starting, you agree to our terms &amp; privacy policy. Provider-prescribed when appropriate. 60-day money-back guarantee. Cancel anytime.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="/" class="healsend-logo">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <path d="M16 2 L4 14 Q4 22 12 28 Q16 30 16 30 L16 16 Z" fill="#5B4FE3"/>
+            <path d="M16 2 L28 14 Q28 22 20 28 Q16 30 16 30 L16 16 Z" fill="#7569FF"/>
+            <path d="M4 14 L16 16 L4 22 Z" fill="#4438C2" opacity="0.7"/>
+          </svg>
+          HealSend
+        </a>
+        <p class="footer-tag">Personalized telehealth that actually feels personal. Licensed providers, transparent pricing, real medicine.</p>
+      </div>
+      <div>
+        <h5>Optimization</h5>
+        <ul>
+          <li><a href="/gh-optimization">GH Optimization</a></li>
+          <li><a href="/sermorelin">Sermorelin</a></li>
+          <li><a href="/visceral-fat">Visceral Fat Therapy</a></li>
+          <li><a href="/glow">Glow Regenerative</a></li>
+          <li><a href="/recovery">Recovery &amp; Repair</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Other Treatments</h5>
+        <ul>
+          <li><a href="#">GLP-1 Weight Loss</a></li>
+          <li><a href="#">PT-141 Nasal Spray</a></li>
+          <li><a href="#">NAD+ Injections</a></li>
+          <li><a href="#">Testosterone Cypionate</a></li>
+          <li><a href="#">Enclomiphene</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Legal &amp; Support</h5>
+        <ul>
+          <li><a href="#">Telehealth Consent</a></li>
+          <li><a href="#">Safety Information</a></li>
+          <li><a href="#">My Health My Data</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Refund Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 HealSend Inc. · 31 Hudson Yards, NY, NY 10001</div>
+      <div class="badges">
+        <span class="legit-badge"><span class="led"></span> LegitScript Certified</span>
+        <span class="legit-badge"><span class="led"></span> HIPAA Secure</span>
+      </div>
+    </div>
+    <div class="compliance-block">
+      The statements on this page have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure or prevent any disease. All recovery and regenerative peptide therapies described on this page are prescribed off-label, when appropriate, by licensed U.S. clinicians and dispensed from state-licensed 503B compounding pharmacies. Results vary by individual and are not guaranteed. Money-back guarantee applies to first month only. Possible side effects, contraindications, and risks will be discussed with your clinician during consultation. Regulatory status of individual peptide compounds may vary; please discuss with your clinician.
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-cta">
+  <div class="price-mini">
+    <div class="from">Starting at</div>
+    <div class="amt">$179</div>
+  </div>
+  <a href="#tiers" class="btn btn-primary">See protocols →</a>
+</div>
+
+<div class="exit-modal" id="exit-modal">
+  <div class="exit-modal-content">
+    <button class="exit-modal-close" onclick="closeExitModal()" aria-label="Close">×</button>
+    <span class="exit-eyebrow">Wait — before you go</span>
+    <h3>Take an extra <em>$30 off</em> your first month.</h3>
+    <p>If price is what's holding you back, this should help. Use the code below at checkout — applies on top of any existing offer.</p>
+    <div class="exit-code-box">
+      <div>
+        <div class="code-label">Exclusive code</div>
+        <div class="code">HEAL30</div>
+      </div>
+      <button class="copy-btn" onclick="copyCode()" id="copy-btn">Copy</button>
+    </div>
+    <a href="#tiers" class="btn btn-primary" onclick="closeExitModal()">Claim my $30 off →</a>
+    <div class="micro">Code expires in 24 hours. One-time use per customer.</div>
+  </div>
+</div>
+
+<script>
+  if ('IntersectionObserver' in window) {
+    var els = document.querySelectorAll('.tier-card, .pillar-card, .step, .sym-card, .how-step-card, .tl-row');
+    els.forEach(function(el){ el.classList.add('reveal'); });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(function(el){ io.observe(el); });
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if (id.length > 1) { var t = document.querySelector(id); if (t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); } }
+    });
+  });
+
+  var exitShown = false;
+  var exitModal = document.getElementById('exit-modal');
+  function showExitModal() { if (!exitShown) { exitShown = true; exitModal.classList.add('show'); } }
+  function closeExitModal() { exitModal.classList.remove('show'); }
+  document.addEventListener('mouseout', function(e) {
+    if (!e.toElement && !e.relatedTarget && e.clientY < 10) showExitModal();
+  });
+  var lastScroll = window.scrollY;
+  var scrolledOnce = false;
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 600) scrolledOnce = true;
+    if (scrolledOnce && window.scrollY < lastScroll - 100 && window.scrollY < 200) {
+      setTimeout(showExitModal, 200);
+    }
+    lastScroll = window.scrollY;
+  });
+  function copyCode() {
+    navigator.clipboard.writeText('HEAL30').then(function() {
+      var btn = document.getElementById('copy-btn');
+      btn.textContent = 'Copied ✓';
+      setTimeout(function(){ btn.textContent = 'Copy'; }, 2000);
+    }).catch(function(){
+      var btn = document.getElementById('copy-btn');
+      btn.textContent = 'Copied ✓';
+      setTimeout(function(){ btn.textContent = 'Copy'; }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>

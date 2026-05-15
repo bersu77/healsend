@@ -9,17 +9,20 @@ import {
   BadgeCheck,
   Check,
   ClipboardCheck,
+  FlaskConical,
   Headset,
   Laptop,
   Minus,
   Plus,
   ShieldCheck,
   Stethoscope,
+  Syringe,
   Target,
   Truck,
 } from "lucide-react";
 import {
   MinimalMarketingNavbar,
+  ActiveMembersBanner,
   MarketingFooter,
 } from "@/components/marketing/shared";
 import {
@@ -39,6 +42,7 @@ import {
   PricingPlansTable,
   MobileStickyCta,
   MemberResultsStatsSection,
+  MedicalPlanCard,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/recovery";
@@ -103,10 +107,11 @@ function CountUpStat({ value, prefix = "", suffix = "", label, duration = 1000, 
 function RecoveryHeroSection() {
   return (
     <section className="relative overflow-hidden bg-[#F1F5F9]">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-6 md:px-[3.25rem] md:py-10 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
-            <div className="mt-5 max-w-[34rem]">
+            <div className="mt-3 max-w-[34rem]">
+              <ActiveMembersBanner />
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -238,6 +243,140 @@ const RECOVERY_HERO_FAQS = [
   },
 ];
 
+const RECOVERY_PLANS = [
+  {
+    id: "targeted",
+    headerClass: "bg-[#f3c787]",
+    headerTextClass: "text-white",
+    useFullImage: true,
+    badges: ["One stubborn injury?", "Recommended starter protocol"],
+    title: "Targeted\nRecovery",
+    subtitle: "Single-compound · daily subcutaneous",
+    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80",
+    bulletsHeading: "WHAT YOU GET",
+    bullets: [
+      {
+        icon: Syringe,
+        text: "Single-compound healing protocol — clinically focused on tissue repair",
+      },
+      {
+        icon: Target,
+        text: "Designed for joint, tendon & ligament repair where rest alone won't work",
+      },
+      {
+        icon: Stethoscope,
+        text: "Clinician access & check-ins included",
+      },
+    ],
+    primaryCta: "Start Targeted Recovery",
+    secondaryCta: "Why Targeted?",
+    description:
+      "A focused single-compound protocol most commonly prescribed as BPC-157 — one of the most studied body-protection compounds for tendon, ligament, and gut repair. 6–12 week protocol.",
+    whyItWorks: [
+      "Accelerates tendon, ligament, and gut tissue repair",
+      "May support inflammation reduction at the injury site",
+      "Daily subcutaneous injection — painless, takes seconds",
+    ],
+    bestFor: [
+      "One specific chronic injury or area of concern",
+      "Isolated tendon issues or focused gut healing",
+    ],
+  },
+  {
+    id: "full-stack",
+    headerClass: "bg-[#3a7fb8]",
+    headerTextClass: "text-white",
+    useFullImage: true,
+    badges: ["Multi-area injuries?", "Strongest protocol"],
+    title: "Full Regenerative\nStack",
+    subtitle: "4-compound stack · daily subcutaneous",
+    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=900&q=80",
+    bulletsHeading: "WHAT YOU GET",
+    bullets: [
+      {
+        icon: FlaskConical,
+        text: "4-compound stack: BPC-157 + TB-500 + KPV + GHK-Cu for deepest healing",
+      },
+      {
+        icon: Target,
+        text: "Targets inflammation, collagen synthesis, and tissue density from four angles",
+      },
+      {
+        icon: ShieldCheck,
+        text: "Clinician-guided 12-week protocol with check-ins included",
+      },
+    ],
+    primaryCta: "Start Full Stack",
+    secondaryCta: "Why Full Stack?",
+    description:
+      "A multi-compound protocol combining BPC-157, TB-500, KPV, and GHK-Cu for systemic recovery — broader anti-inflammatory action, collagen synthesis, and connective tissue density. Skin & hair regeneration may occur as a side benefit.",
+    whyItWorks: [
+      "Hits inflammation, repair, and regeneration from four angles",
+      "Stronger results for multi-area or stubborn injuries",
+      "Supports systemic recovery, not just local repair",
+    ],
+    bestFor: [
+      "Multi-area injuries or chronic systemic inflammation",
+      "Post-surgical recovery or injuries unresponsive to single-compound therapy",
+    ],
+  },
+];
+
+function RecoveryProtocolsSection() {
+  const [expandedA, setExpandedA] = useState(false);
+  const [expandedB, setExpandedB] = useState(false);
+
+  return (
+    <section className="bg-[#f9f9f9] py-10 md:py-14">
+      <div className="mx-auto max-w-[1200px] px-4 md:px-8">
+        <div className="mb-10 md:mb-12">
+          <h2 className="font-title text-3xl font-bold leading-[1.05] tracking-tight text-gray-950 sm:text-4xl lg:text-[2.625rem]">
+            Recovery & repair care
+          </h2>
+          <p className="mt-2 font-playfair text-2xl italic leading-tight text-[#5d62f3] sm:text-3xl">
+            matched to your injury and goals.
+          </p>
+          <p className="mt-5 max-w-3xl text-base leading-7 text-[#474257] md:text-lg">
+            Every treatment is prescribed by U.S.-licensed clinicians, delivered to your door, and backed by ongoing care.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <MedicalPlanCard
+            plan={RECOVERY_PLANS[0]}
+            ctaHref={CTA_HREF}
+            expanded={expandedA}
+            onToggleExpand={() => setExpandedA((p) => !p)}
+          />
+          <MedicalPlanCard
+            plan={RECOVERY_PLANS[1]}
+            ctaHref={CTA_HREF}
+            expanded={expandedB}
+            onToggleExpand={() => setExpandedB((p) => !p)}
+          />
+        </div>
+
+        <div className="mt-8 grid grid-cols-2 gap-4">
+          <div className="flex items-center justify-center">
+            <div className="relative flex items-center">
+              <img src="/images/clean/image.png" alt="" aria-hidden="true" className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24" />
+              <img src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`} alt="Google reviews rating" loading="lazy" className="z-10 -ml-2 -mr-1 h-auto max-h-[60px] max-w-[120px] object-contain mix-blend-multiply sm:-ml-3 sm:-mr-2 sm:max-h-[80px] sm:max-w-none md:max-h-[100px] lg:-ml-5 lg:-mr-3 lg:max-h-[120px]" />
+              <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24" />
+            </div>
+          </div>
+          <div className="flex items-center justify-center">
+            <div className="relative flex items-center">
+              <img src="/images/clean/image.png" alt="" aria-hidden="true" className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24" />
+              <img src="/images/healsend-2k-members-trust.png" alt="HealSend — 2K+ members" loading="lazy" className="z-10 -mx-2 h-auto max-h-[60px] w-auto shrink-0 object-contain sm:-mx-3 sm:max-h-[80px] md:max-h-[100px] lg:-mx-4 lg:max-h-[120px]" />
+              <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className="z-20 h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function RecoveryProductHeroSection() {
   const [activeTab, setActiveTab] = useState("benefits");
   const [openFaq, setOpenFaq] = useState(null);
@@ -312,9 +451,9 @@ function RecoveryProductHeroSection() {
                   <button
                     type="button"
                     onClick={() => setShowPriceFootnote((v) => !v)}
-                    className="mt-1 text-xs text-gray-500 underline decoration-dotted underline-offset-4 hover:text-gray-700"
+                    className="mt-1 text-xs text-gray-500 hover:text-gray-700"
                   >
-                    Full Regenerative Stack from $299/mo
+                    Full Regenerative Stack $299/mo
                   </button>
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-2">
@@ -1074,6 +1213,7 @@ export default function RecoveryLandingPage({ product }) {
       <RecoveryHeroSection />
       <RecoveryProductHeroSection />
       <MediaLogosBanner />
+      <RecoveryProtocolsSection />
       <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="Recovery & Repair Benefits" />
       <RecoveryPainPointsSection />
       <RecoveryAudienceSection />

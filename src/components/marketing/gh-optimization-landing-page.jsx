@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import {
   MinimalMarketingNavbar,
+  ActiveMembersBanner,
   MarketingFooter,
 } from "@/components/marketing/shared";
 import {
@@ -92,10 +93,11 @@ function FadeIn({ children, className = "" }) {
 function GHWillpowerSection() {
   return (
     <section className="relative overflow-hidden bg-[#F1F5F9] px-3 sm:px-5 md:px-6">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 py-6 md:px-[3.25rem] md:py-10 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
-            <div className="mt-5 max-w-[34rem]">
+            <div className="mt-3 max-w-[34rem]">
+              <ActiveMembersBanner />
               <h1 className="text-balance font-title text-4xl font-bold leading-tight tracking-tight text-gray-950 md:text-5xl">
                 Growth hormone that{" "}
                 <span className="font-playfair italic text-[#6D6FFC]">
@@ -250,9 +252,9 @@ function GHProductHeroSection() {
                     type="button"
                     onClick={() => setShowPriceFootnote((v) => !v)}
                     aria-expanded={showPriceFootnote}
-                    className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 underline decoration-dotted underline-offset-4 hover:text-gray-700 md:text-base"
+                    className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 md:text-base"
                   >
-                    then from $249/mo*
+                    then $249/mo*
                   </button>
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-2">

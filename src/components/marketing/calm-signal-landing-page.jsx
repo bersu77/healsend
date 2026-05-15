@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import {
   MinimalMarketingNavbar,
+  ActiveMembersBanner,
   MarketingFooter,
 } from "@/components/marketing/shared";
 import {
@@ -104,10 +105,11 @@ function CountUpStat({ value, prefix = "", suffix = "", label, duration = 1000, 
 function CalmSignalHeroSection() {
   return (
     <section className="relative overflow-hidden bg-[#F1F5F9]">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-10 md:px-[3.25rem] md:py-14 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-6 md:px-[3.25rem] md:py-10 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
-            <div className="mt-5 max-w-[34rem]">
+            <div className="mt-3 max-w-[34rem]">
+              <ActiveMembersBanner />
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -308,7 +310,7 @@ function CalmSignalProductHeroSection() {
                   <button
                     type="button"
                     onClick={() => setShowPriceFootnote((v) => !v)}
-                    className="mt-1 text-xs text-gray-500 underline decoration-dotted underline-offset-4 hover:text-gray-700"
+                    className="mt-1 text-xs text-gray-500 hover:text-gray-700"
                   >
                     Includes clinician review &amp; nasal spray
                   </button>
@@ -535,7 +537,7 @@ function CalmSignalTruthSection() {
                 "Wide awake replaying a conversation from years ago.",
                 "Your body is exhausted. Your mind won't release.",
               ],
-              image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80",
+              image: "https://images.unsplash.com/photo-1515894203077-9cd36032142f?auto=format&fit=crop&w=800&q=80",
             },
             {
               title: "The chest tightening",

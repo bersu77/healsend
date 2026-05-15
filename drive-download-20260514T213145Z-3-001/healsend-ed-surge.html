@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SURGE · HealSend — Performance medication, prescribed</title>
+<meta name="description" content="ED affects 52% of men. It's never been a matter of trying harder. Clinical-grade performance medication, prescribed by US-licensed physicians. SURGE is the new standard." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  /* === ED-specific palette: editorial black + copper === */
+  --bg:           #0E0D11;             /* Deepest, almost-black */
+  --bg-2:         #181620;             /* Slightly lifted */
+  --card:         #1F1D29;             /* Card surface */
+  --line:         rgba(255,255,255,0.07);
+  --line-2:       rgba(255,255,255,0.14);
+
+  /* Copper — the dignified masculine accent */
+  --copper:       #C8956D;
+  --copper-2:     #E0B186;
+  --copper-3:     #A87850;
+  --copper-glow:  rgba(200,149,109,0.35);
+  --copper-soft:  rgba(200,149,109,0.10);
+
+  /* HealSend brand purple — minor accent here, not the lead */
+  --brand:        #7569FF;
+  --brand-2:      #9B92FF;
+  --brand-3:      #5B4FE3;
+
+  /* Sage — trust signals (muted in this dark palette) */
+  --sage:         #8FB39E;
+  --sage-soft:    rgba(143,179,158,0.12);
+
+  /* Text */
+  --ink:          #FFFFFF;
+  --ink-2:        #E8E5F0;
+  --ink-3:        #B0AAC0;
+  --muted:        #6E6A82;
+
+  --shadow-soft:  0 12px 40px -8px rgba(0,0,0,0.5);
+  --shadow-glow:  0 30px 80px -20px rgba(200,149,109,0.25);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink-2);
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; }
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Fraunces', 'Times New Roman', serif;
+  font-weight: 500;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+  margin: 0;
+  color: var(--ink);
+}
+em {
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  color: var(--copper);
+}
+
+/* ==================== GRAIN OVERLAY (premium editorial feel) ==================== */
+body::before {
+  content: ""; position: fixed; inset: 0;
+  z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+}
+
+/* ==================== NAV ==================== */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(14,13,17,0.7);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  max-width: 1320px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 32px;
+  position: relative; z-index: 1;
+}
+.logo {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-weight: 700; font-size: 22px; color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.logo-mark {
+  width: 30px; height: 30px;
+  background: linear-gradient(135deg, var(--brand-2) 0%, var(--brand) 60%, var(--brand-3) 100%);
+  border-radius: 8px 4px 8px 4px;
+  position: relative;
+  box-shadow: 0 0 16px var(--copper-glow);
+}
+.logo-mark::after {
+  content: ""; position: absolute; inset: 5px;
+  border: 2px solid var(--bg); border-radius: 4px 2px 4px 2px;
+  opacity: 0.6;
+}
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-signin { font-size: 14px; color: var(--ink-3); font-weight: 500; }
+.nav-signin:hover { color: var(--ink); }
+.nav-cta {
+  background: var(--copper); color: var(--bg);
+  padding: 11px 22px; border-radius: 999px;
+  font-size: 14px; font-weight: 700; border: none;
+  letter-spacing: 0.01em;
+  transition: all .15s;
+}
+.nav-cta:hover { background: var(--copper-2); transform: translateY(-1px); box-shadow: 0 8px 20px -8px var(--copper-glow); }
+@media (max-width: 640px) { .nav-signin { display: none; } }
+
+/* ==================== HERO ==================== */
+.hero {
+  position: relative;
+  padding: 80px 32px 100px;
+  z-index: 1;
+  overflow: hidden;
+}
+.hero-bg-photo {
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 55%;
+  z-index: -1;
+  overflow: hidden;
+}
+.hero-bg-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: brightness(0.65) contrast(1.1) saturate(0.85);
+}
+.hero-bg-photo::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, var(--bg) 0%, rgba(14,13,17,0.85) 30%, rgba(14,13,17,0.4) 70%, transparent 100%);
+}
+@media (max-width: 880px) {
+  .hero-bg-photo { width: 100%; opacity: 0.4; }
+  .hero-bg-photo::after { background: linear-gradient(180deg, transparent 0%, rgba(14,13,17,0.9) 50%, var(--bg) 100%); }
+}
+
+.hero-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: rgba(200,149,109,0.08);
+  border: 1px solid var(--copper-soft);
+  border-radius: 999px;
+  padding: 8px 18px;
+  margin-bottom: 32px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--copper-2);
+}
+.hero-eyebrow .copper-line {
+  display: inline-block;
+  width: 32px; height: 1px;
+  background: var(--copper);
+}
+
+.hero h1 {
+  font-size: clamp(48px, 8vw, 112px);
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  margin-bottom: 28px;
+  max-width: 800px;
+  color: var(--ink);
+}
+.hero h1 em {
+  display: inline;
+}
+
+.hero-subhead {
+  font-size: clamp(17px, 1.5vw, 21px);
+  color: var(--ink-2);
+  line-height: 1.45;
+  max-width: 540px;
+  margin-bottom: 36px;
+  font-weight: 300;
+}
+.hero-subhead strong { color: var(--ink); font-weight: 600; }
+
+.hero-stats {
+  display: flex; gap: 40px; flex-wrap: wrap;
+  margin-bottom: 40px;
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.hero-stat .num {
+  font-family: 'Fraunces', serif;
+  font-size: 44px;
+  line-height: 1; letter-spacing: -0.03em;
+  color: var(--ink);
+  display: block; margin-bottom: 6px;
+}
+.hero-stat .num em { color: var(--copper); font-style: italic; }
+.hero-stat .label {
+  font-size: 11px; color: var(--ink-3);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  font-weight: 600;
+}
+
+.hero-cta-row {
+  display: flex; gap: 14px; flex-wrap: wrap;
+}
+.btn-primary {
+  background: var(--copper); color: var(--bg);
+  padding: 18px 32px; border-radius: 999px;
+  font-size: 16px; font-weight: 700; border: none;
+  letter-spacing: 0.01em;
+  box-shadow: 0 16px 40px -8px var(--copper-glow);
+  transition: all .15s;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.btn-primary:hover {
+  background: var(--copper-2);
+  transform: translateY(-2px);
+  box-shadow: 0 24px 48px -8px var(--copper-glow);
+}
+.btn-secondary {
+  background: transparent; color: var(--ink);
+  padding: 18px 28px; border-radius: 999px;
+  font-size: 16px; font-weight: 600;
+  border: 1.5px solid var(--line-2);
+  transition: all .15s;
+}
+.btn-secondary:hover { border-color: var(--ink); }
+
+.hero-trust {
+  display: flex; flex-wrap: wrap; gap: 24px;
+  font-size: 12px; color: var(--ink-3);
+  margin-top: 36px;
+}
+.hero-trust .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--sage); margin-right: 6px;
+  display: inline-block; vertical-align: middle;
+}
+
+/* ==================== TRUTH SECTION (reframe) ==================== */
+.truth {
+  padding: 140px 32px;
+  background: var(--bg-2);
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--line);
+}
+.truth-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start;
+}
+@media (max-width: 880px) { .truth-inner { grid-template-columns: 1fr; gap: 48px; } }
+
+.truth-left .eyebrow {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  color: var(--copper); text-transform: uppercase;
+  margin-bottom: 22px;
+  padding: 7px 16px;
+  background: var(--copper-soft);
+  border: 1px solid var(--copper-soft);
+  border-radius: 999px;
+}
+.truth-left h2 {
+  font-size: clamp(36px, 5vw, 64px);
+  letter-spacing: -0.035em;
+  margin-bottom: 28px;
+}
+.truth-left h2 em { color: var(--copper); }
+.truth-left p {
+  font-size: 17px;
+  color: var(--ink-2);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.truth-left p strong { color: var(--ink); font-weight: 600; }
+
+.truth-right {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 40px 36px;
+}
+.truth-list {
+  list-style: none; padding: 0;
+  display: flex; flex-direction: column;
+}
+.truth-list li {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 22px;
+  align-items: start;
+}
+.truth-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.truth-list li:first-child { padding-top: 0; }
+.truth-list .pct {
+  font-family: 'Fraunces', serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--copper);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-style: italic;
+}
+.truth-list .text {
+  font-size: 14.5px;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+.truth-list .text strong { color: var(--ink); font-weight: 600; }
+.truth-list .text small { display: block; color: var(--muted); font-size: 11px; margin-top: 4px; font-style: italic; }
+
+/* ==================== SURGE HERO PRODUCT (flagship feature) ==================== */
+.surge-feature {
+  padding: 140px 32px;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+}
+.surge-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.1fr;
+  gap: 80px; align-items: center;
+}
+@media (max-width: 880px) { .surge-inner { grid-template-columns: 1fr; gap: 56px; } }
+
+.surge-photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+.surge-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: brightness(0.88) contrast(1.05);
+}
+.surge-photo::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 50%, rgba(200,149,109,0.2) 100%);
+  mix-blend-mode: overlay;
+}
+.surge-photo-badge {
+  position: absolute; top: 24px; left: 24px;
+  background: var(--copper);
+  color: var(--bg);
+  font-size: 11px; font-weight: 800;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 8px 16px; border-radius: 999px;
+  box-shadow: 0 8px 24px -6px var(--copper-glow);
+}
+
+.surge-text .eyebrow {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: rgba(200,149,109,0.08);
+  border: 1px solid var(--copper-soft);
+  border-radius: 999px;
+  padding: 8px 18px;
+  margin-bottom: 24px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--copper-2);
+}
+.surge-text h2 {
+  font-size: clamp(40px, 6vw, 84px);
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  margin-bottom: 24px;
+  color: var(--ink);
+}
+.surge-text h2 em { color: var(--copper); }
+.surge-text > p {
+  font-size: 17px; color: var(--ink-2);
+  line-height: 1.55; margin-bottom: 28px;
+  max-width: 520px;
+}
+.surge-text > p strong { color: var(--ink); }
+
+.surge-attrs {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
+}
+@media (max-width: 540px) { .surge-attrs { grid-template-columns: 1fr; } }
+.surge-attr {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 16px;
+}
+.surge-attr .label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 6px;
+}
+.surge-attr .value {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1.1;
+}
+
+.surge-cta-row {
+  display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+}
+.surge-price-row {
+  display: inline-flex; align-items: baseline; gap: 10px;
+}
+.surge-price {
+  font-family: 'Fraunces', serif;
+  font-size: 48px; line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.03em;
+}
+.surge-price-unit { font-size: 14px; color: var(--ink-3); }
+
+/* ==================== PROTOCOLS / THREE SKUS ==================== */
+.protocols {
+  padding: 140px 32px;
+  background: var(--bg-2);
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--line);
+}
+.protocols-inner { max-width: 1280px; margin: 0 auto; }
+.protocols-header { text-align: center; margin-bottom: 64px; }
+.protocols-header .eyebrow {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  color: var(--copper); text-transform: uppercase;
+  margin-bottom: 20px;
+  padding: 7px 16px;
+  background: var(--copper-soft);
+  border-radius: 999px;
+}
+.protocols-header h2 {
+  font-size: clamp(36px, 5vw, 56px);
+  letter-spacing: -0.03em;
+  margin: 0 auto 16px;
+  max-width: 700px;
+}
+.protocols-header h2 em { color: var(--copper); }
+.protocols-header > p {
+  font-size: 17px; color: var(--ink-3);
+  line-height: 1.5; max-width: 580px; margin: 0 auto;
+}
+
+.tier-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 880px) { .tier-grid { grid-template-columns: 1fr; } }
+
+.tier {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 24px;
+  padding: 32px 28px;
+  position: relative;
+  display: flex; flex-direction: column;
+  transition: all .25s;
+}
+.tier:hover { border-color: var(--line-2); transform: translateY(-4px); }
+.tier.featured {
+  border-color: var(--copper);
+  background: linear-gradient(165deg, var(--card) 0%, rgba(200,149,109,0.06) 100%);
+  box-shadow: 0 0 0 3px var(--copper-soft), var(--shadow-glow);
+}
+
+.tier-badge-slot { height: 26px; margin-bottom: 18px; }
+.tier-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--copper);
+  color: var(--bg);
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 999px;
+}
+
+.tier-tag {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 10px;
+}
+.tier-name {
+  font-size: 30px;
+  letter-spacing: -0.025em;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+.tier-name em { color: var(--copper); font-style: italic; }
+.tier-sub {
+  font-size: 13px; color: var(--ink-3);
+  margin-bottom: 24px;
+}
+
+.tier-attrs {
+  display: flex; flex-direction: column; gap: 12px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 24px;
+}
+.tier-attr-row {
+  display: flex; justify-content: space-between;
+  font-size: 13px;
+}
+.tier-attr-row .key { color: var(--ink-3); }
+.tier-attr-row .val { color: var(--ink); font-weight: 600; }
+.tier-attr-row .val em { color: var(--copper); font-style: italic; font-weight: 600; }
+
+.tier-price-row {
+  display: flex; align-items: baseline; gap: 10px;
+  margin-bottom: 24px;
+}
+.tier-price {
+  font-family: 'Fraunces', serif;
+  font-size: 46px;
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.025em;
+}
+.tier-price-unit { font-size: 13px; color: var(--ink-3); }
+.tier-price-strike {
+  color: var(--copper-2);
+  text-decoration: line-through;
+  text-decoration-thickness: 2.5px;
+  font-family: 'Fraunces', serif;
+  font-size: 22px; opacity: 0.7;
+  margin-left: auto;
+}
+
+.tier-features {
+  list-style: none; padding: 0; margin: 0 0 28px;
+  display: flex; flex-direction: column; gap: 11px;
+  flex: 1;
+}
+.tier-features li {
+  font-size: 13.5px;
+  color: var(--ink-2);
+  display: flex; gap: 11px; align-items: flex-start;
+  line-height: 1.45;
+}
+.tier-features li::before {
+  content: ""; flex-shrink: 0;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--sage);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 8.2L7 11l5-6' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size: 16px; background-repeat: no-repeat; background-position: center;
+  margin-top: 1px;
+}
+.tier-features li strong { color: var(--ink); font-weight: 600; }
+
+.tier-cta {
+  width: 100%;
+  background: var(--ink); color: var(--bg);
+  padding: 15px 22px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 700; border: none;
+  letter-spacing: 0.01em;
+  transition: all .15s;
+}
+.tier-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 20px -4px rgba(255,255,255,0.2); }
+.tier.featured .tier-cta {
+  background: var(--copper); color: var(--bg);
+}
+.tier.featured .tier-cta:hover {
+  background: var(--copper-2);
+  box-shadow: 0 12px 28px -6px var(--copper-glow);
+}
+.tier:not(.featured) .tier-cta {
+  background: transparent; color: var(--ink);
+  border: 1.5px solid var(--line-2);
+}
+.tier:not(.featured) .tier-cta:hover { border-color: var(--ink); }
+
+/* ==================== HOW TO CHOOSE (decision aid) ==================== */
+.choose {
+  padding: 140px 32px;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+}
+.choose-inner { max-width: 1100px; margin: 0 auto; }
+.choose-header { text-align: center; margin-bottom: 56px; }
+.choose-header .eyebrow {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  color: var(--copper); text-transform: uppercase;
+  margin-bottom: 20px;
+  padding: 7px 16px;
+  background: var(--copper-soft);
+  border-radius: 999px;
+}
+.choose-header h2 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  letter-spacing: -0.03em;
+  margin: 0 auto 16px;
+  max-width: 700px;
+}
+.choose-header h2 em { color: var(--copper); }
+
+.choose-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.choose-table thead th {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  padding: 22px 18px;
+  text-align: center;
+  background: var(--bg-2);
+  color: var(--ink-3);
+  border-bottom: 1px solid var(--line);
+}
+.choose-table thead th.us {
+  background: linear-gradient(180deg, rgba(200,149,109,0.18) 0%, rgba(200,149,109,0.06) 100%);
+  color: var(--copper);
+  position: relative;
+}
+.choose-table thead th.us::after {
+  content: "";
+  position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 3px; background: var(--copper);
+}
+.choose-table tbody td {
+  padding: 18px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-2);
+  vertical-align: middle;
+  text-align: center;
+}
+.choose-table tbody td:first-child {
+  font-weight: 600; color: var(--ink);
+  background: var(--bg-2);
+  text-align: left;
+  border-right: 1px solid var(--line);
+}
+.choose-table tbody td.us {
+  background: rgba(200,149,109,0.04);
+  color: var(--ink);
+  border-left: 2px solid var(--copper);
+  border-right: 2px solid var(--copper);
+  font-weight: 600;
+}
+.choose-table tbody tr:last-child td.us { border-bottom: 2px solid var(--copper); }
+.choose-table tbody td em { color: var(--copper); font-style: italic; }
+@media (max-width: 720px) {
+  .choose-table { font-size: 12px; }
+  .choose-table thead th, .choose-table tbody td { padding: 14px 10px; }
+}
+
+/* ==================== STORIES / SOCIAL PROOF ==================== */
+.stories {
+  padding: 140px 32px;
+  background: var(--bg-2);
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--line);
+}
+.stories-inner { max-width: 1280px; margin: 0 auto; }
+.stories-header { text-align: center; margin-bottom: 56px; }
+.stories-header .eyebrow {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  color: var(--copper); text-transform: uppercase;
+  margin-bottom: 20px;
+  padding: 7px 16px;
+  background: var(--copper-soft);
+  border-radius: 999px;
+}
+.stories-header h2 {
+  font-size: clamp(36px, 5vw, 56px);
+  letter-spacing: -0.03em;
+  margin: 0 auto 16px;
+  max-width: 800px;
+}
+.stories-header h2 em { color: var(--copper); }
+.stories-header > p {
+  font-size: 17px; color: var(--ink-3);
+  max-width: 600px; margin: 0 auto;
+}
+
+.stories-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 880px) { .stories-grid { grid-template-columns: 1fr; } }
+
+.story {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: all .25s;
+}
+.story:hover {
+  border-color: var(--copper-soft);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px -16px rgba(0,0,0,0.4);
+}
+.story-photo { aspect-ratio: 4 / 3; overflow: hidden; }
+.story-photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.85) contrast(1.1) saturate(0.9);
+}
+.story-body { padding: 26px 24px; }
+.story-quote {
+  font-family: 'Fraunces', serif;
+  font-size: 17px; font-style: italic;
+  color: var(--ink); line-height: 1.4;
+  margin: 0 0 18px;
+}
+.story-attr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.story-name { font-size: 13px; color: var(--ink); font-weight: 600; }
+.story-meta { font-size: 11px; color: var(--ink-3); }
+.story-verified {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--sage);
+  background: var(--sage-soft);
+  padding: 3px 9px; border-radius: 999px;
+  font-weight: 700;
+}
+.story-verified::before {
+  content: ""; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--sage);
+}
+
+/* ==================== TIMING CALCULATOR ==================== */
+.calc-section {
+  padding: 140px 32px;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+}
+.calc-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.1fr;
+  gap: 64px; align-items: center;
+}
+@media (max-width: 880px) { .calc-inner { grid-template-columns: 1fr; gap: 40px; } }
+
+.calc-text .eyebrow {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  color: var(--copper); text-transform: uppercase;
+  margin-bottom: 20px;
+  padding: 7px 16px;
+  background: var(--copper-soft);
+  border-radius: 999px;
+}
+.calc-text h2 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+}
+.calc-text h2 em { color: var(--copper); }
+.calc-text p {
+  font-size: 16px; color: var(--ink-2); line-height: 1.6;
+  margin-bottom: 16px;
+}
+.calc-text > .disclaimer {
+  font-size: 12px; color: var(--muted); font-style: italic;
+  margin-top: 16px;
+}
+
+.calc-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: 36px 32px;
+  box-shadow: var(--shadow-soft);
+}
+.calc-field { margin-bottom: 22px; }
+.calc-field label {
+  display: block;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: 10px;
+}
+.calc-field select {
+  width: 100%;
+  padding: 16px 18px;
+  font-size: 15px;
+  font-family: inherit;
+  background: rgba(255,255,255,0.04);
+  color: var(--ink);
+  border: 1.5px solid var(--line-2);
+  border-radius: 14px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%23C8956D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px;
+  padding-right: 44px;
+  transition: border-color .15s;
+}
+.calc-field select:focus { outline: none; border-color: var(--copper); }
+.calc-field select option { background: var(--card); color: var(--ink); }
+
+.calc-result {
+  margin-top: 28px;
+  background: linear-gradient(165deg, rgba(200,149,109,0.12) 0%, rgba(200,149,109,0.03) 100%);
+  border: 1px solid var(--copper-soft);
+  border-radius: 18px;
+  padding: 28px;
+  text-align: center;
+}
+.calc-result-label {
+  font-size: 10px; color: var(--copper);
+  font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.calc-result-num {
+  font-family: 'Fraunces', serif;
+  font-size: 36px; line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--ink); margin-bottom: 10px;
+}
+.calc-result-num em { font-style: italic; color: var(--copper); }
+.calc-result-sub {
+  font-size: 13.5px; color: var(--ink-2);
+  line-height: 1.5;
+  max-width: 360px; margin: 0 auto;
+}
+.calc-result-sub strong { color: var(--ink); font-weight: 600; }
+.calc-result-cta {
+  margin-top: 18px;
+  background: var(--copper); color: var(--bg);
+  padding: 13px 26px; border-radius: 999px;
+  font-size: 13.5px; font-weight: 700;
+  border: none;
+  letter-spacing: 0.01em;
+  transition: all .15s;
+}
+.calc-result-cta:hover { background: var(--copper-2); transform: translateY(-1px); }
+
+/* ==================== OBJECTIONS ==================== */
+.objections {
+  padding: 140px 32px;
+  background: var(--bg-2);
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--line);
+}
+.objections-inner { max-width: 1280px; margin: 0 auto; }
+.objections-header { text-align: center; margin-bottom: 56px; }
+.objections-header h2 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  letter-spacing: -0.03em;
+  margin: 0 auto 16px;
+  max-width: 800px;
+}
+.objections-header h2 em { color: var(--copper); }
+.objections-header > p {
+  font-size: 16px; color: var(--ink-3);
+  max-width: 600px; margin: 0 auto;
+}
+
+.objections-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+@media (max-width: 720px) { .objections-grid { grid-template-columns: 1fr; } }
+
+.objection {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+  transition: all .25s;
+}
+.objection:hover { border-color: var(--line-2); }
+.objection-photo { aspect-ratio: 16 / 9; overflow: hidden; }
+.objection-photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.75) contrast(1.1) saturate(0.9);
+}
+.objection-body { padding: 28px 28px 30px; }
+.objection-q {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 14px;
+}
+.objection-q::before {
+  content: "Q";
+  width: 22px; height: 22px;
+  border-radius: 50%; background: var(--copper-soft);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 13px; font-style: italic;
+}
+.objection-q-text {
+  font-family: 'Inter', sans-serif;
+  color: var(--ink-2);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.objection h3 {
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.objection h3 em { color: var(--copper); }
+.objection ul {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.objection ul li {
+  font-size: 14px; color: var(--ink-2);
+  display: flex; gap: 10px; align-items: flex-start;
+  line-height: 1.45;
+}
+.objection ul li::before {
+  content: ""; flex-shrink: 0;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--sage);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 8.2L7 11l5-6' stroke='white' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size: 14px; background-repeat: no-repeat; background-position: center;
+  margin-top: 2px;
+}
+
+/* ==================== GUARANTEE ==================== */
+.guarantee {
+  padding: 140px 32px;
+  background:
+    radial-gradient(ellipse 800px 600px at 50% 50%, rgba(200,149,109,0.15) 0%, transparent 60%),
+    var(--bg);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.guarantee-inner { max-width: 720px; margin: 0 auto; }
+.guarantee-seal {
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 4px solid var(--copper);
+  box-shadow: 0 0 0 7px var(--copper-soft), 0 0 60px var(--copper-glow);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  margin: 0 auto 28px;
+}
+.guarantee-seal .days {
+  font-family: 'Fraunces', serif;
+  font-size: 52px; line-height: 1;
+  color: var(--copper);
+}
+.guarantee-seal .word {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+.guarantee h2 {
+  font-size: clamp(36px, 5vw, 56px);
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+}
+.guarantee h2 em { color: var(--copper); }
+.guarantee > .guarantee-inner > p {
+  font-size: 17px; color: var(--ink-2);
+  line-height: 1.55; margin: 0 auto 18px;
+  max-width: 540px;
+}
+.guarantee > .guarantee-inner > p strong { color: var(--ink); font-weight: 600; }
+.guarantee-bullets {
+  list-style: none; padding: 0; margin: 32px auto;
+  display: flex; flex-direction: column; gap: 12px;
+  text-align: left; max-width: 460px;
+}
+.guarantee-bullets li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 14.5px; color: var(--ink-2);
+}
+.guarantee-bullets li::before {
+  content: ""; flex-shrink: 0;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--sage);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 8.2L7 11l5-6' stroke='white' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size: 18px; background-repeat: no-repeat; background-position: center;
+  margin-top: 1px;
+}
+
+/* ==================== TRUST STRIP ==================== */
+.trust-strip-section {
+  padding: 60px 32px;
+  background: var(--bg);
+  position: relative; z-index: 1;
+}
+.clinical-trust-strip {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; flex-wrap: wrap; gap: 16px 12px;
+  justify-content: center; align-items: center;
+}
+.trust-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 6px 16px 6px 6px;
+  background: var(--card);
+  border: 1.5px solid var(--line-2);
+  border-radius: 12px;
+  height: 52px;
+}
+.trust-badge.legitscript {
+  border: 1.5px dashed #6378B8;
+  padding: 6px 14px; gap: 0;
+  flex-direction: column; justify-content: center; align-items: center;
+  min-width: 130px;
+}
+.legitscript .ls-mark { font-size: 13px; font-weight: 700; color: #8CA3DE; letter-spacing: 0.04em; line-height: 1; }
+.legitscript .ls-sub { font-size: 9px; font-weight: 700; color: #8CA3DE; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 4px; opacity: 0.8; }
+.trust-badge.hipaa { gap: 4px; padding-left: 10px; }
+.trust-badge-text { display: flex; flex-direction: column; line-height: 1.1; }
+.trust-badge-text strong { font-size: 14px; font-weight: 700; color: var(--brand-2); letter-spacing: 0.04em; }
+.trust-badge-text small { font-size: 12px; color: var(--ink-3); font-weight: 600; letter-spacing: 0.04em; }
+.trust-divider { width: 1px; height: 32px; background: var(--line-2); flex-shrink: 0; }
+.trust-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600;
+  padding: 9px 14px; border-radius: 999px;
+  border: 1px solid;
+}
+.trust-pill svg { flex-shrink: 0; }
+.trust-pill.clinical { background: var(--sage-soft); border-color: var(--sage); color: var(--sage); }
+.trust-pill.clinical svg { color: var(--sage); }
+.trust-pill.pharmacy { background: rgba(200,149,109,0.08); border-color: var(--copper); color: var(--copper-2); }
+.trust-pill.pharmacy svg { color: var(--copper); }
+.trust-pill.consumer { background: rgba(255,255,255,0.04); border-color: var(--line-2); color: var(--ink-3); }
+.trust-pill.consumer svg { color: var(--ink-3); }
+@media (max-width: 720px) { .trust-divider { display: none; } }
+
+/* ==================== FAQ ==================== */
+.faq {
+  padding: 140px 32px;
+  background: var(--bg-2);
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--line);
+}
+.faq-inner { max-width: 820px; margin: 0 auto; }
+.faq-header { text-align: center; margin-bottom: 56px; }
+.faq-header h2 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  letter-spacing: -0.03em;
+  margin: 0 auto 16px;
+}
+.faq-header h2 em { color: var(--copper); }
+.faq-header > p {
+  font-size: 16px; color: var(--ink-3);
+  max-width: 600px; margin: 0 auto;
+}
+
+.faq-item {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: all .15s;
+}
+.faq-item:hover { border-color: var(--line-2); }
+.faq-item[open] { border-color: var(--copper); }
+.faq-summary {
+  padding: 22px 26px;
+  font-size: 16px; font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+}
+.faq-summary::-webkit-details-marker { display: none; }
+.faq-icon {
+  width: 28px; height: 28px; flex-shrink: 0;
+  border-radius: 50%; background: rgba(255,255,255,0.06);
+  color: var(--copper);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .25s, background .15s;
+  font-size: 16px; font-weight: 700;
+}
+.faq-item[open] .faq-icon { transform: rotate(45deg); background: var(--copper); color: var(--bg); }
+.faq-content {
+  padding: 0 26px 24px 26px;
+  font-size: 14.5px; color: var(--ink-2);
+  line-height: 1.6;
+}
+.faq-content p { margin: 0 0 12px; }
+.faq-content p:last-child { margin-bottom: 0; }
+.faq-content strong { color: var(--ink); font-weight: 600; }
+
+/* ==================== FINAL CTA ==================== */
+.final-cta {
+  padding: 160px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.final-cta::before {
+  content: ""; position: absolute;
+  width: 1200px; height: 1200px;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, var(--copper-glow) 0%, transparent 50%);
+  filter: blur(60px);
+  z-index: 0;
+  animation: breathe 14s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.04); }
+}
+.final-inner {
+  max-width: 720px; margin: 0 auto;
+  position: relative; z-index: 1;
+}
+.final-inner h2 {
+  font-size: clamp(42px, 6vw, 84px);
+  letter-spacing: -0.045em;
+  margin-bottom: 24px;
+  line-height: 0.92;
+}
+.final-inner h2 em { color: var(--copper); }
+.final-inner > p {
+  font-size: 17px; color: var(--ink-2);
+  line-height: 1.55; max-width: 520px;
+  margin: 0 auto 36px;
+}
+.urgency-strip {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: var(--card);
+  border: 1px solid var(--sage);
+  border-radius: 16px;
+  padding: 14px 22px;
+  margin-bottom: 32px;
+}
+.urgency-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--sage); color: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.urgency-text { font-size: 14px; color: var(--ink); text-align: left; }
+.urgency-text strong {
+  font-family: 'Fraunces', serif;
+  font-size: 18px; color: var(--sage); margin-right: 4px;
+}
+.urgency-text small { display: block; font-size: 11px; color: var(--ink-3); margin-top: 2px; }
+.urgency-pulse {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--sage); font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.urgency-pulse .pulse {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #2BAA56;
+  animation: pulseGreen 2s infinite;
+}
+@keyframes pulseGreen {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(43,170,86,0.6); }
+  50% { box-shadow: 0 0 0 6px rgba(43,170,86,0); }
+}
+
+/* ==================== FOOTER ==================== */
+.footer {
+  padding: 60px 32px 40px;
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+  color: var(--ink-3);
+  font-size: 13px;
+  position: relative; z-index: 1;
+}
+.footer-top {
+  max-width: 1100px; margin: 0 auto 32px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 24px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+}
+@media (max-width: 720px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+.footer-col h5 {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--ink); margin-bottom: 14px;
+}
+.footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.footer-col a:hover { color: var(--copper-2); }
+.footer-disclaimer {
+  max-width: 1100px; margin: 32px auto 0;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+/* ==================== REVEAL ==================== */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 1s ease, transform 1s cubic-bezier(.2,.6,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== NAV ==================== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark"></span>
+      HealSend
+    </a>
+    <div class="nav-right">
+      <a class="nav-signin" href="#">Sign in</a>
+      <button class="nav-cta" onclick="scrollTo('protocols')">Get my plan</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-bg-photo">
+    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1400&h=1800&fit=crop" alt="" />
+  </div>
+  <div class="hero-inner">
+    <span class="hero-eyebrow reveal in">
+      <span class="copper-line"></span>
+      Performance medication · prescribed
+    </span>
+    <h1 class="reveal in">Not a matter of <em>trying harder</em>.</h1>
+    <p class="hero-subhead reveal in">
+      ED affects 52% of men over 40. It's a vascular and signaling issue — not a character one. <strong>Clinical-grade performance medication, prescribed by US-licensed physicians, shipped discreet.</strong>
+    </p>
+
+    <div class="hero-stats reveal in">
+      <div class="hero-stat">
+        <span class="num"><em>52</em>%</span>
+        <span class="label">Men 40+ affected</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num"><em>48</em> hrs</span>
+        <span class="label">Avg time to first dose</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num"><em>96</em>%</span>
+        <span class="label">Member response rate</span>
+      </div>
+    </div>
+
+    <div class="hero-cta-row reveal in">
+      <button class="btn-primary" onclick="scrollTo('protocols')">
+        Get my prescription
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="btn-secondary" onclick="scrollTo('surge')">See SURGE</button>
+    </div>
+
+    <div class="hero-trust reveal in">
+      <span><span class="dot"></span>US-licensed physicians</span>
+      <span><span class="dot"></span>Discreet packaging</span>
+      <span><span class="dot"></span>503A &amp; 503B FDA-inspected</span>
+      <span><span class="dot"></span>Ships in 48 hrs</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TRUTH SECTION ==================== -->
+<section class="truth">
+  <div class="truth-inner">
+    <div class="truth-left">
+      <span class="eyebrow">It's never been your fault</span>
+      <h2>You're not <em>broken</em>. You're statistically common.</h2>
+      <p>ED is a vascular, hormonal, and neurological signaling problem. It's about <strong>blood flow, nitric oxide pathways, and endothelial function</strong> — none of which respond to "just relax" or "try again later."</p>
+      <p>It's not in your head. It's in your physiology. And the science of medicating it is settled — the medications have been studied for 25+ years and are some of the safest, most-prescribed pharmaceuticals in modern medicine.</p>
+      <p>What's changed: now you can <strong>get the prescription in 48 hours, without a clinic visit, without an awkward conversation</strong>, and with three options matched to how you actually live.</p>
+    </div>
+    <div class="truth-right">
+      <ul class="truth-list">
+        <li>
+          <span class="pct">52%</span>
+          <span class="text"><strong>Of men over 40</strong> experience some degree of ED.<small>NIH / Massachusetts Male Aging Study</small></span>
+        </li>
+        <li>
+          <span class="pct">25M</span>
+          <span class="text"><strong>American men</strong> are diagnosed each year.<small>Cleveland Clinic, 2024 data</small></span>
+        </li>
+        <li>
+          <span class="pct">96%</span>
+          <span class="text"><strong>Of HealSend members</strong> report effective dose found within the first 2 attempts.<small>Internal HealSend member data, n=2,400+</small></span>
+        </li>
+        <li>
+          <span class="pct">$0</span>
+          <span class="text"><strong>Out-of-pocket clinic visit fees</strong> with HealSend — entire intake done online.<small>vs. avg $185 in-person urology consult</small></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SURGE FLAGSHIP FEATURE ==================== -->
+<section class="surge-feature" id="surge">
+  <div class="surge-inner">
+    <div class="surge-photo reveal">
+      <span class="surge-photo-badge">★ Flagship</span>
+      <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=900&h=1125&fit=crop" alt="" />
+    </div>
+    <div class="surge-text">
+      <span class="eyebrow"><span class="copper-line" style="display:inline-block;width:32px;height:1px;background:var(--copper);"></span>The HealSend flagship</span>
+      <h2>SURGE. <em>Both, at once.</em></h2>
+      <p>SURGE is a clinician-prescribed troche that combines the fast-acting and long-window performance medications in a single dissolvable dose. <strong>Onset in 20–30 minutes. Window of effectiveness lasting 24–36 hours.</strong> Discreet, no swallowing required, no water needed.</p>
+
+      <div class="surge-attrs">
+        <div class="surge-attr">
+          <div class="label">Onset</div>
+          <div class="value">20–30 min</div>
+        </div>
+        <div class="surge-attr">
+          <div class="label">Window</div>
+          <div class="value">24–36 hrs</div>
+        </div>
+        <div class="surge-attr">
+          <div class="label">Form</div>
+          <div class="value">Dissolvable troche</div>
+        </div>
+      </div>
+
+      <div class="surge-cta-row">
+        <button class="btn-primary" onclick="scrollTo('protocols')">
+          Try SURGE
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="surge-price-row">
+          <span class="surge-price">$129</span>
+          <span class="surge-price-unit">/month</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PROTOCOLS / 3 SKUs ==================== -->
+<section class="protocols" id="protocols">
+  <div class="protocols-inner">
+    <div class="protocols-header">
+      <span class="eyebrow">Three options</span>
+      <h2>One <em>doesn't fit every man</em>.</h2>
+      <p>Match the medication to how you actually live. Your clinician finalizes the prescription after a free intake. All shipped from US-licensed 503A/503B FDA-inspected pharmacies.</p>
+    </div>
+
+    <div class="tier-grid">
+
+      <!-- Sildenafil -->
+      <div class="tier reveal">
+        <div class="tier-badge-slot"></div>
+        <div class="tier-tag">Fast-acting · On-demand</div>
+        <h3 class="tier-name">Generic <em>Sildenafil</em></h3>
+        <div class="tier-sub">Generic Viagra · the proven fast-acting option.</div>
+
+        <div class="tier-attrs">
+          <div class="tier-attr-row"><span class="key">Onset</span><span class="val"><em>30–60 min</em></span></div>
+          <div class="tier-attr-row"><span class="key">Window</span><span class="val">4–6 hours</span></div>
+          <div class="tier-attr-row"><span class="key">Form</span><span class="val">Oral tablet</span></div>
+          <div class="tier-attr-row"><span class="key">Best for</span><span class="val">Planned moments</span></div>
+        </div>
+
+        <div class="tier-price-row">
+          <span class="tier-price">$49</span>
+          <span class="tier-price-unit">/month</span>
+          <span class="tier-price-strike">$89</span>
+        </div>
+
+        <ul class="tier-features">
+          <li>Same active ingredient as branded Viagra — at a fraction of the cost</li>
+          <li>Highest-volume prescribed ED medication globally</li>
+          <li>Doses adjustable (25mg / 50mg / 100mg) — clinician sets your starting dose</li>
+          <li>Take ~1 hour before, on empty stomach for best onset</li>
+        </ul>
+
+        <button class="tier-cta" onclick="startConsult('sildenafil')">Start Sildenafil →</button>
+      </div>
+
+      <!-- SURGE (featured) -->
+      <div class="tier featured reveal">
+        <div class="tier-badge-slot">
+          <span class="tier-badge">★ Most chosen · 68%</span>
+        </div>
+        <div class="tier-tag">Both, combined · 24-hour window</div>
+        <h3 class="tier-name">SURGE · <em>Troche</em></h3>
+        <div class="tier-sub">The flagship. Both active ingredients in a single dissolvable.</div>
+
+        <div class="tier-attrs">
+          <div class="tier-attr-row"><span class="key">Onset</span><span class="val"><em>20–30 min</em></span></div>
+          <div class="tier-attr-row"><span class="key">Window</span><span class="val"><em>24–36 hours</em></span></div>
+          <div class="tier-attr-row"><span class="key">Form</span><span class="val">Dissolvable troche</span></div>
+          <div class="tier-attr-row"><span class="key">Best for</span><span class="val">Spontaneity + reliability</span></div>
+        </div>
+
+        <div class="tier-price-row">
+          <span class="tier-price">$129</span>
+          <span class="tier-price-unit">/month</span>
+          <span class="tier-price-strike">$189</span>
+        </div>
+
+        <ul class="tier-features">
+          <li><strong>Combined dose</strong> — fast onset of the short-acting medication, long window of the daily option, in one troche</li>
+          <li><strong>Dissolves under the tongue</strong> — no water, no swallowing, faster absorption</li>
+          <li><strong>24–36 hour window</strong> means timing isn't your problem anymore</li>
+          <li>Clinician-titrated dose based on your case</li>
+          <li><strong>HealSend proprietary protocol</strong> — only available here</li>
+        </ul>
+
+        <button class="tier-cta" onclick="startConsult('surge')">Start SURGE →</button>
+      </div>
+
+      <!-- Tadalafil -->
+      <div class="tier reveal">
+        <div class="tier-badge-slot"></div>
+        <div class="tier-tag">Daily option · 36-hour window</div>
+        <h3 class="tier-name">Generic <em>Tadalafil</em></h3>
+        <div class="tier-sub">Generic Cialis · steady-state for the always-ready approach.</div>
+
+        <div class="tier-attrs">
+          <div class="tier-attr-row"><span class="key">Onset</span><span class="val">~3 days steady-state</span></div>
+          <div class="tier-attr-row"><span class="key">Window</span><span class="val"><em>36 hours</em></span></div>
+          <div class="tier-attr-row"><span class="key">Form</span><span class="val">Daily oral tablet</span></div>
+          <div class="tier-attr-row"><span class="key">Best for</span><span class="val">Continuous readiness</span></div>
+        </div>
+
+        <div class="tier-price-row">
+          <span class="tier-price">$79</span>
+          <span class="tier-price-unit">/month</span>
+          <span class="tier-price-strike">$119</span>
+        </div>
+
+        <ul class="tier-features">
+          <li>Daily low-dose option — once you reach steady-state, you're always ready</li>
+          <li>Same active ingredient as branded Cialis</li>
+          <li>Also studied for BPH symptoms — bonus benefit for men over 50</li>
+          <li>Low-dose daily protocol — better tolerability than larger on-demand doses</li>
+        </ul>
+
+        <button class="tier-cta" onclick="startConsult('tadalafil')">Start Tadalafil →</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== HOW TO CHOOSE TABLE ==================== -->
+<section class="choose">
+  <div class="choose-inner">
+    <div class="choose-header">
+      <span class="eyebrow">How to choose</span>
+      <h2>SURGE vs <em>the alternatives</em>.</h2>
+    </div>
+
+    <table class="choose-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="us">SURGE</th>
+          <th>Sildenafil</th>
+          <th>Tadalafil</th>
+          <th>Doing nothing</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Onset</td>
+          <td class="us"><em>20–30 min</em></td>
+          <td>30–60 min</td>
+          <td>~3 days steady-state</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>Window of effectiveness</td>
+          <td class="us"><em>24–36 hours</em></td>
+          <td>4–6 hours</td>
+          <td>~36 hours</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>Daily dosing required?</td>
+          <td class="us">No — use as needed</td>
+          <td>No</td>
+          <td>Yes (low dose)</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>Form factor</td>
+          <td class="us">Dissolvable troche</td>
+          <td>Oral tablet</td>
+          <td>Oral tablet</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>Discretion</td>
+          <td class="us"><em>No water needed</em></td>
+          <td>Swallow with water</td>
+          <td>Daily routine</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>Best for</td>
+          <td class="us">Spontaneity + reliability</td>
+          <td>Planned moments</td>
+          <td>Always ready</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ==================== STORIES ==================== -->
+<section class="stories">
+  <div class="stories-inner">
+    <div class="stories-header">
+      <span class="eyebrow">Verified members</span>
+      <h2>2,400+ men. <em>Real results.</em></h2>
+      <p>Verified HealSend members across the three protocols.</p>
+    </div>
+
+    <div class="stories-grid">
+
+      <div class="story reveal">
+        <div class="story-photo">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=900&h=675&fit=crop" alt="" />
+        </div>
+        <div class="story-body">
+          <p class="story-quote">"I dreaded the urology appointment more than the issue itself. Did the HealSend intake in five minutes. SURGE arrived in 48 hours. My wife noticed the difference within a week."</p>
+          <div class="story-attr">
+            <div>
+              <div class="story-name">James M., 47</div>
+              <div class="story-meta">SURGE · 6 months</div>
+            </div>
+            <span class="story-verified">Verified</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="story reveal">
+        <div class="story-photo">
+          <img src="https://images.unsplash.com/photo-1542178243-bc20204b769f?w=900&h=675&fit=crop" alt="" />
+        </div>
+        <div class="story-body">
+          <p class="story-quote">"Tried sildenafil first — worked, but the planning killed any spontaneity. Switched to SURGE and the window changed everything. My relationship is back."</p>
+          <div class="story-attr">
+            <div>
+              <div class="story-name">Marcus L., 52</div>
+              <div class="story-meta">SURGE · 9 months</div>
+            </div>
+            <span class="story-verified">Verified</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="story reveal">
+        <div class="story-photo">
+          <img src="https://images.unsplash.com/photo-1463453091185-61582044d556?w=900&h=675&fit=crop" alt="" />
+        </div>
+        <div class="story-body">
+          <p class="story-quote">"Daily tadalafil — life-changing. Once it reached steady-state, the problem just stopped being a problem. No timing. No anxiety. No conversation."</p>
+          <div class="story-attr">
+            <div>
+              <div class="story-name">David K., 58</div>
+              <div class="story-meta">Daily Tadalafil · 14 months</div>
+            </div>
+            <span class="story-verified">Verified</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="text-align:center; margin-top: 40px; font-size: 11px; color: var(--muted); font-style: italic; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+      Members were compensated for their testimonials. Results based on self-reported data from ~2,400+ HealSend members on ED protocols. Individual results vary. Photos and testimonials are placeholder pre-launch and will be replaced with verified member content before publishing.
+    </p>
+  </div>
+</section>
+
+<!-- ==================== TIMING / DOSE CALCULATOR ==================== -->
+<section class="calc-section">
+  <div class="calc-inner">
+    <div class="calc-text">
+      <span class="eyebrow">Find your fit</span>
+      <h2>Which protocol <em>actually fits your life</em>?</h2>
+      <p>The right protocol depends less on the medication and more on how you live. Spontaneous? Planned? Daily? Once-a-week? The protocol you pick should match the answer.</p>
+      <p>Most members on SURGE report sticking with it for <strong>6+ months</strong> — the 24-hour window means timing stops being a variable. Members on daily tadalafil often stay on indefinitely once steady-state is reached.</p>
+      <p class="disclaimer">Recommendations are guidance. Your clinician makes the final call based on your full intake and case.</p>
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-field">
+        <label for="calc-frequency">How often do you anticipate using?</label>
+        <select id="calc-frequency">
+          <option value="weekly">Once a week or less</option>
+          <option value="multiple" selected>2–3 times a week</option>
+          <option value="frequent">More than 3 times a week</option>
+          <option value="daily">Daily readiness preferred</option>
+        </select>
+      </div>
+      <div class="calc-field">
+        <label for="calc-style">Your style</label>
+        <select id="calc-style">
+          <option value="planned">I prefer to plan</option>
+          <option value="spontaneous" selected>I prefer spontaneity</option>
+          <option value="discreet">I want the most discreet option</option>
+          <option value="always">I want to never think about it</option>
+        </select>
+      </div>
+      <div class="calc-result">
+        <div class="calc-result-label">Your match</div>
+        <div class="calc-result-num" id="calc-num"><em>SURGE</em></div>
+        <div class="calc-result-sub" id="calc-sub"><strong>The flagship.</strong> Onset in 20–30 min, window 24–36 hours, no water needed. For men who want both fast onset and long window in one dose.</div>
+        <button class="calc-result-cta" onclick="scrollTo('protocols')">See my protocol →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== OBJECTIONS ==================== -->
+<section class="objections">
+  <div class="objections-inner">
+    <div class="objections-header">
+      <h2>Every reason not to start — <em>answered</em>.</h2>
+      <p>We hear the same questions from every new member.</p>
+    </div>
+
+    <div class="objections-grid">
+
+      <div class="objection reveal">
+        <div class="objection-photo">
+          <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=900&h=506&fit=crop" alt="" />
+        </div>
+        <div class="objection-body">
+          <div class="objection-q"><span class="objection-q-text">"Is this real medical care?"</span></div>
+          <h3>Real clinicians. <em>Real prescriptions.</em></h3>
+          <ul>
+            <li>US-licensed physicians experienced in men's health</li>
+            <li>Full intake reviewed before any prescription</li>
+            <li>Adjustments to dose or compound at no extra charge</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="objection reveal">
+        <div class="objection-photo">
+          <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=900&h=506&fit=crop" alt="" />
+        </div>
+        <div class="objection-body">
+          <div class="objection-q"><span class="objection-q-text">"Will it be obvious in the package?"</span></div>
+          <h3>Discreet. <em>Always.</em></h3>
+          <ul>
+            <li>Plain unmarked packaging — no branding visible</li>
+            <li>No reference to medication on the shipping label</li>
+            <li>Direct from US-licensed compounding pharmacy</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="objection reveal">
+        <div class="objection-photo">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=900&h=506&fit=crop" alt="" />
+        </div>
+        <div class="objection-body">
+          <div class="objection-q"><span class="objection-q-text">"What if I have other meds or conditions?"</span></div>
+          <h3>Your clinician <em>screens everything.</em></h3>
+          <ul>
+            <li>Full medical history reviewed before any prescription</li>
+            <li>Interactions with heart medications &amp; nitrates flagged proactively</li>
+            <li>Won't prescribe if it's not safe for your case</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="objection reveal">
+        <div class="objection-photo">
+          <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=900&h=506&fit=crop" alt="" />
+        </div>
+        <div class="objection-body">
+          <div class="objection-q"><span class="objection-q-text">"Will I need this forever?"</span></div>
+          <h3>That's <em>up to you.</em></h3>
+          <ul>
+            <li>No dependency profile — stop anytime with no withdrawal</li>
+            <li>Many men use on-demand only for years</li>
+            <li>Some switch protocols as their needs change</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== GUARANTEE ==================== -->
+<section class="guarantee">
+  <div class="guarantee-inner reveal">
+    <div class="guarantee-seal">
+      <div class="days">60</div>
+      <div class="word">Day Promise</div>
+    </div>
+    <h2>Effective dose. <em>Or your money back.</em></h2>
+    <p>If your clinician can't find an effective dose for your case within <strong>60 days and 3 attempts</strong>, we refund your most recent month — no questions, no friction.</p>
+    <p>Because ED treatment shouldn't be a financial commitment to something that doesn't work.</p>
+
+    <ul class="guarantee-bullets">
+      <li>60-day effective-dose guarantee</li>
+      <li>Free re-prescription if first dose isn't right</li>
+      <li>One-time per member</li>
+      <li>96% of HealSend members find their effective dose within first 2 attempts</li>
+    </ul>
+
+    <button class="btn-primary" onclick="scrollTo('protocols')">
+      Start risk-free
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+</section>
+
+<!-- ==================== TRUST STRIP ==================== -->
+<section class="trust-strip-section">
+  <div class="clinical-trust-strip">
+    <div class="trust-badge legitscript">
+      <div class="ls-mark">LegitScript</div>
+      <div class="ls-sub">Certified</div>
+    </div>
+    <div class="trust-badge hipaa">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+        <path d="M18 3 L4 8v10c0 8 6 14 14 16 8-2 14-8 14-16V8L18 3z" fill="#7569FF" opacity="0.18"/>
+        <path d="M18 3 L4 8v10c0 8 6 14 14 16 8-2 14-8 14-16V8L18 3z" stroke="#9B92FF" stroke-width="2" fill="none"/>
+        <path d="M13 18l4 4 6-7" stroke="#9B92FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <div class="trust-badge-text"><strong>HIPAA</strong><small>Compliant</small></div>
+    </div>
+    <span class="trust-divider"></span>
+    <div class="trust-pill clinical">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+      <span>USA-licensed clinicians</span>
+    </div>
+    <div class="trust-pill pharmacy">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+      <span>503A &amp; 503B FDA-Inspected</span>
+    </div>
+    <div class="trust-pill consumer">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12l5 5L21 4"/></svg>
+      <span>Discreet shipping</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section class="faq">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <h2>Asked. <em>Answered.</em></h2>
+      <p>Everything you'd want to know before getting started. Once you do, you have unlimited clinician access.</p>
+    </div>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>What's actually in SURGE?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>SURGE is a clinician-prescribed troche (dissolvable lozenge) that combines two PDE5 inhibitors: <strong>Sildenafil</strong> (the active ingredient in Viagra, fast onset) and <strong>Tadalafil</strong> (the active ingredient in Cialis, long window) in a single dose.</p>
+        <p>Dosing is calibrated to your case by your clinician — typically 25–50mg Sildenafil + 5–10mg Tadalafil per troche. Compounded by US-licensed 503A pharmacies and shipped within 48 hours.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>How is this different from getting a prescription from my doctor?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Mechanically: it's the same prescription, from a US-licensed physician, dispensed by a US-licensed pharmacy. Functionally: <strong>you skip the awkward in-person visit, the urology referral, and the 2–3 week timeline</strong>.</p>
+        <p>SURGE is also a HealSend-specific compounded formulation — your local pharmacy won't have it as a stock item. The dose and form (dissolvable troche) is something most clinics don't offer.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>Is the generic version really the same as branded Viagra / Cialis?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Yes. The active ingredients are identical. Branded Viagra (sildenafil) and branded Cialis (tadalafil) lost patent protection years ago, which means generic versions with the same active ingredient at the same dose are FDA-equivalent.</p>
+        <p>The difference is price — generic versions are typically <strong>70–90% less expensive</strong> than branded equivalents while delivering the same clinical effect.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>How quickly will I get my first dose?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Typical timeline: 90-second intake → clinician review within 24 hours → medication ships within 48 hours → arrives in 2 days. Most members are <strong>48–72 hours from intake to first dose</strong>.</p>
+        <p>If you indicate urgency in the intake, expedited review is available at no extra cost.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>What are the side effects?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>PDE5 inhibitors are among the most-studied medications in modern medicine. Most common side effects: <strong>headache, facial flushing, nasal congestion, mild dyspepsia</strong>. These typically resolve within hours and are dose-dependent — lower doses produce fewer side effects.</p>
+        <p>Serious adverse events are rare. <strong>Critical safety note:</strong> these medications interact with nitrate medications (used for heart conditions) and certain blood pressure medications. Your clinician screens for these during intake and won't prescribe if your case isn't safe.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>What if the first dose doesn't work?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Dose finding is a normal part of ED treatment. If the first dose isn't effective, your clinician will <strong>adjust at no extra charge</strong>, typically within 24 hours. Most members find their effective dose within the first 2 attempts.</p>
+        <p>Our 60-day effective-dose guarantee covers this: if your clinician can't find an effective dose within 60 days and 3 attempts, we refund your most recent month.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>What if I have heart disease, diabetes, or take other medications?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Your intake asks about every relevant medical condition and medication. Your clinician screens for interactions before prescribing. <strong>Nitrate medications</strong> (for chest pain or heart conditions) are an absolute contraindication — these will not be co-prescribed.</p>
+        <p>Diabetes, controlled hypertension, and most cardiovascular conditions are generally compatible with PDE5 inhibitor therapy, but the clinician makes the final call based on your specific case.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>Is the shipping really discreet?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Yes. Packaging is plain and unmarked. Shipping labels reference HealSend (not the medication). No medication name visible from the outside of the package. Direct from US-licensed compounding pharmacy.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>Can I switch protocols later?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Yes, anytime. Many members start with Sildenafil, switch to SURGE for the longer window, or move to daily Tadalafil as their needs evolve. Switching is a clinician-approved change with no friction — message your care team.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>Is this legal? Is it FDA-approved?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Sildenafil and Tadalafil are <strong>FDA-approved medications</strong> with decades of safety data. They're among the most-prescribed pharmaceuticals globally.</p>
+        <p>SURGE is a <strong>compounded formulation</strong> — the active ingredients are the same FDA-approved compounds, combined in a custom troche format by US-licensed 503A pharmacies under prescription. Compounded medications are legally prescribed every day in the US.</p>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ==================== FINAL CTA ==================== -->
+<section class="final-cta">
+  <div class="final-inner">
+    <h2>Two days from <em>your first dose</em>.</h2>
+    <p>90-second intake. Free clinician review. No commitment until you're prescribed.</p>
+
+    <div class="urgency-strip">
+      <div class="urgency-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      </div>
+      <div class="urgency-text">
+        <strong>27</strong> men's health consults available this week
+        <small>Slots refresh every Monday at 9am ET</small>
+      </div>
+      <div class="urgency-pulse">
+        <span class="pulse"></span>
+        Live
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="scrollTo('protocols')" style="font-size: 17px; padding: 20px 36px;">
+      Start free intake
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div style="margin-top: 14px; font-size: 12.5px; color: var(--ink-3);">90 seconds · 100% private · free</div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="footer-top">
+    <a href="#" class="logo">
+      <span class="logo-mark"></span>
+      HealSend
+    </a>
+    <div style="display: inline-flex; align-items: center; gap: 8px; font-size: 12px;">
+      <span style="color: var(--copper); letter-spacing: 1px;">★★★★★</span>
+      <strong style="color: var(--ink);">Excellent · 4.9</strong>
+      <span style="color: var(--ink-3);">· 2,400+ members</span>
+    </div>
+  </div>
+
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h5>HealSend</h5>
+      <ul>
+        <li><a href="#protocols">Protocols</a></li>
+        <li><a href="#surge">SURGE</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Other protocols</h5>
+      <ul>
+        <li><a href="/ola/glp1">Weight loss</a></li>
+        <li><a href="/ola/trt">Testosterone</a></li>
+        <li><a href="/repair">Recovery</a></li>
+        <li><a href="/sleep">Sleep</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Trust &amp; safety</h5>
+      <ul>
+        <li>LegitScript Certified</li>
+        <li>HIPAA Compliant</li>
+        <li>503A &amp; 503B FDA-inspected</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Legal</h5>
+      <ul>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Telehealth Consent</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-disclaimer">
+    Performance medication at HealSend is offered through US-licensed physicians and dispensed by US-licensed pharmacies. Sildenafil and Tadalafil are FDA-approved medications. SURGE is a compounded formulation prepared by 503A FDA-inspected pharmacies under prescription. PDE5 inhibitors carry contraindications with nitrate medications and certain cardiovascular conditions — your clinician screens for these. Not for use by men under 18 or by women. Individual results vary. Member testimonials and outcome statistics are placeholder pre-launch and will be replaced with verified content before publishing.
+  </div>
+</footer>
+
+<script>
+// Calculator — recommends SURGE most often (since it's the flagship)
+const matchMap = {
+  // [frequency][style] → recommendation
+  weekly: {
+    planned:      { name: "SURGE or Sildenafil", body: "<strong>Either fits.</strong> Sildenafil if you prefer planning ~1 hour ahead. SURGE if you want a 24-hour window of flexibility from one dose. Your clinician can help you pick." },
+    spontaneous:  { name: "SURGE", body: "<strong>SURGE fits your style.</strong> 24-hour window means you don't have to plan — one troche dissolves under the tongue and you're ready for the next 24+ hours." },
+    discreet:     { name: "SURGE", body: "<strong>SURGE is the most discreet option.</strong> Dissolvable troche — no water, no swallowing, no pill bottle in the bathroom. Discreet packaging, discreet form." },
+    always:       { name: "Daily Tadalafil", body: "<strong>Daily Tadalafil.</strong> Once you reach steady-state (~3 days), you're continuously ready. No timing, no thinking about it." }
+  },
+  multiple: {
+    planned:      { name: "SURGE", body: "<strong>SURGE fits.</strong> 2-3x/week with planning is exactly where SURGE shines — one dose covers a 24-36 hour window with reliable onset." },
+    spontaneous:  { name: "SURGE", body: "<strong>SURGE is built for this.</strong> 2-3x/week with spontaneity means you want long window + fast onset. SURGE delivers both in one troche." },
+    discreet:     { name: "SURGE", body: "<strong>SURGE is the most discreet daily-frequency option.</strong> No water, dissolves under the tongue, no pill bottle. Goes anywhere." },
+    always:       { name: "Daily Tadalafil", body: "<strong>Daily Tadalafil.</strong> If you're using 2-3x/week with high readiness preference, steady-state daily dosing eliminates the timing question entirely." }
+  },
+  frequent: {
+    planned:      { name: "Daily Tadalafil", body: "<strong>Daily Tadalafil.</strong> 3+ times/week is where daily low-dose tadalafil becomes more economical and more reliable than on-demand dosing." },
+    spontaneous:  { name: "Daily Tadalafil", body: "<strong>Daily Tadalafil.</strong> Frequent + spontaneous = always-ready. Steady-state daily dosing means no planning at all." },
+    discreet:     { name: "Daily Tadalafil", body: "<strong>Daily Tadalafil.</strong> One pill in the morning, every day. The most discreet option for frequent use — no event-tied dosing required." },
+    always:       { name: "Daily Tadalafil", body: "<strong>Daily Tadalafil.</strong> Exactly what daily tadalafil was designed for. Steady-state continuous readiness." }
+  },
+  daily: {
+    planned:      { name: "Daily Tadalafil", body: "<strong>Daily Tadalafil.</strong> Daily readiness preference points clearly to daily tadalafil — steady-state low dose, always ready." },
+    spontaneous:  { name: "Daily Tadalafil", body: "<strong>Daily Tadalafil.</strong> Daily + spontaneous = always-on, no thinking required. This is what daily tadalafil delivers." },
+    discreet:     { name: "Daily Tadalafil", body: "<strong>Daily Tadalafil.</strong> One morning pill, indefinitely. Cleanest, most discreet daily option." },
+    always:       { name: "Daily Tadalafil", body: "<strong>Daily Tadalafil.</strong> Your match. Continuous readiness without ever thinking about dosing." }
+  }
+};
+
+function updateMatch() {
+  const freq = document.getElementById('calc-frequency').value;
+  const style = document.getElementById('calc-style').value;
+  const out = matchMap[freq][style];
+  document.getElementById('calc-num').innerHTML = `<em>${out.name}</em>`;
+  document.getElementById('calc-sub').innerHTML = out.body;
+}
+document.getElementById('calc-frequency').addEventListener('change', updateMatch);
+document.getElementById('calc-style').addEventListener('change', updateMatch);
+updateMatch();
+
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+function startConsult(sku) {
+  console.log('Start ED consult:', sku);
+  // TODO: wire to real intake
+  scrollTo('protocols');
+}
+
+// Reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('in'), i * 70);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

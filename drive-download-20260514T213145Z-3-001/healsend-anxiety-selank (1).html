@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Calm Signal · HealSend — Clinical anxiety protocol, prescribed</title>
+<meta name="description" content="Anxiety isn't a personality flaw. It's a neurochemical state. Clinical anxiety protocol — no sedation, no dependency, no character changes. Just calm." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  /* === Anxiety/Calm palette: soft pastels === */
+  --bg:           #FAF7F2;          /* Warm cream */
+  --bg-2:         #FFFFFF;
+  --bg-3:         #F3EDE2;          /* Soft sand */
+  --bg-4:         #ECE5D8;          /* Dustier */
+
+  --sage:         #A4B89E;          /* Soft sage */
+  --sage-2:       #B8C9B3;
+  --sage-3:       #87A082;
+  --sage-soft:    #E4ECDF;
+
+  --lavender:     #C9BCD4;          /* Dusty lavender */
+  --lavender-2:   #DDCFDF;
+  --lavender-3:   #B0A0BD;
+  --lavender-soft:#EDE5F0;
+
+  --rose:         #E3B5A6;          /* Soft rose */
+  --rose-soft:    #F4DDD2;
+
+  /* HealSend brand purple — minimal use */
+  --brand:        #7E73D4;          /* Softer brand for this palette */
+
+  /* Text */
+  --ink:          #2E2A35;          /* Soft black with warmth */
+  --ink-2:        #4F4A56;
+  --ink-3:        #7A7383;
+  --muted:        #A39DAD;
+
+  --shadow-sm:    0 1px 3px rgba(80,70,90,0.04);
+  --shadow-md:    0 8px 24px -8px rgba(80,70,90,0.08);
+  --shadow-soft:  0 20px 50px -20px rgba(80,70,90,0.15);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink-2);
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; }
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Fraunces', 'Times New Roman', serif;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0;
+  color: var(--ink);
+}
+em {
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  color: var(--sage-3);
+  font-weight: 400;
+}
+.eyebrow {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--sage-3);
+}
+
+/* ==================== BREATHING BACKGROUND CIRCLE ==================== */
+.breath-bg {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000px; height: 1000px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(164,184,158,0.12) 0%, rgba(201,188,212,0.08) 50%, transparent 75%);
+  filter: blur(40px);
+  z-index: 0;
+  pointer-events: none;
+  animation: breathe 12s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+  50% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
+}
+
+/* ==================== NAV ==================== */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(250,247,242,0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(122,115,131,0.08);
+}
+.nav-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 32px;
+}
+.logo {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-weight: 600; font-size: 21px; color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.logo-mark {
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg, var(--lavender-2) 0%, var(--lavender) 50%, var(--sage-2) 100%);
+  border-radius: 50%;
+  position: relative;
+}
+.logo-mark::after {
+  content: ""; position: absolute; inset: 4px;
+  background: var(--bg);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+.nav-right { display: flex; align-items: center; gap: 22px; }
+.nav-signin { font-size: 14px; color: var(--ink-2); font-weight: 500; }
+.nav-signin:hover { color: var(--sage-3); }
+.nav-cta {
+  background: var(--sage-3); color: #FFFFFF;
+  padding: 11px 24px; border-radius: 999px;
+  font-size: 14px; font-weight: 500; border: none;
+  transition: all .2s ease;
+}
+.nav-cta:hover { background: var(--ink); transform: translateY(-1px); box-shadow: 0 8px 20px -8px rgba(46,42,53,0.3); }
+@media (max-width: 640px) { .nav-signin { display: none; } }
+
+/* ==================== HERO ==================== */
+.hero {
+  padding: 100px 32px 80px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+.hero-inner {
+  max-width: 1180px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.1fr 1fr;
+  gap: 80px; align-items: center;
+}
+@media (max-width: 880px) { .hero-inner { grid-template-columns: 1fr; gap: 56px; } }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--sage-3);
+  margin-bottom: 32px;
+}
+.hero-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 32px; height: 1px;
+  background: var(--sage);
+}
+
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(46px, 7vw, 92px);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  letter-spacing: -0.035em;
+  line-height: 1.0;
+  margin-bottom: 32px;
+  color: var(--ink);
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--sage-3);
+  font-weight: 400;
+}
+
+.hero-subhead {
+  font-size: clamp(17px, 1.5vw, 20px);
+  color: var(--ink-2);
+  line-height: 1.6;
+  max-width: 480px;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+.hero-subhead strong { color: var(--ink); font-weight: 500; }
+
+.btn-primary {
+  background: var(--sage-3); color: #FFFFFF;
+  padding: 18px 34px; border-radius: 999px;
+  font-size: 15px; font-weight: 500; border: none;
+  letter-spacing: 0.01em;
+  transition: all .25s ease;
+  display: inline-flex; align-items: center; gap: 12px;
+  box-shadow: 0 8px 24px -8px rgba(135,160,130,0.4);
+}
+.btn-primary:hover {
+  background: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -8px rgba(46,42,53,0.3);
+}
+.btn-secondary {
+  background: transparent; color: var(--ink);
+  padding: 18px 28px; border-radius: 999px;
+  font-size: 15px; font-weight: 500;
+  border: 1px solid var(--ink);
+  transition: all .2s ease;
+}
+.btn-secondary:hover { background: var(--ink); color: var(--bg); }
+.hero-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
+
+.hero-trust {
+  display: flex; flex-wrap: wrap; gap: 22px;
+  font-size: 12px; color: var(--ink-3);
+  align-items: center;
+}
+.hero-trust .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--sage-3); margin-right: 6px;
+  display: inline-block; vertical-align: middle;
+}
+
+/* Hero right — breathing visual */
+.hero-visual {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.breath-orb {
+  position: absolute;
+  border-radius: 50%;
+}
+.breath-orb-1 {
+  width: 100%; height: 100%;
+  background: radial-gradient(circle, rgba(164,184,158,0.4) 0%, rgba(164,184,158,0.05) 70%);
+  animation: orbPulse 8s ease-in-out infinite;
+}
+.breath-orb-2 {
+  width: 70%; height: 70%;
+  background: radial-gradient(circle, rgba(201,188,212,0.5) 0%, rgba(201,188,212,0.1) 70%);
+  animation: orbPulse 8s ease-in-out infinite;
+  animation-delay: -2s;
+}
+.breath-orb-3 {
+  width: 45%; height: 45%;
+  background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(244,221,210,0.3) 70%);
+  animation: orbPulse 8s ease-in-out infinite;
+  animation-delay: -4s;
+}
+@keyframes orbPulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.12); opacity: 1; }
+}
+.breath-text {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.breath-text span {
+  display: block;
+  opacity: 0;
+  animation: breathCycle 8s ease-in-out infinite;
+}
+.breath-text span:nth-child(1) { animation-delay: 0s; }
+.breath-text span:nth-child(2) { animation-delay: 2s; }
+.breath-text span:nth-child(3) { animation-delay: 4s; }
+.breath-text span:nth-child(4) { animation-delay: 6s; }
+@keyframes breathCycle {
+  0%, 95%, 100% { opacity: 0; transform: translateY(8px); }
+  5%, 22% { opacity: 1; transform: translateY(0); }
+  25% { opacity: 0; transform: translateY(-8px); }
+}
+
+/* ==================== TRUTH SECTION ==================== */
+.truth {
+  padding: 120px 32px;
+  background: var(--bg-2);
+  position: relative;
+  z-index: 1;
+}
+.truth-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start;
+}
+@media (max-width: 880px) { .truth-inner { grid-template-columns: 1fr; gap: 48px; } }
+
+.truth-left .eyebrow { margin-bottom: 20px; display: inline-block; }
+.truth-left h2 {
+  font-size: clamp(34px, 4.5vw, 56px);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  letter-spacing: -0.03em;
+  margin-bottom: 28px;
+  line-height: 1.05;
+}
+.truth-left h2 em { color: var(--sage-3); }
+.truth-left p {
+  font-size: 17px; color: var(--ink-2);
+  line-height: 1.7; margin-bottom: 20px;
+  font-weight: 400;
+}
+.truth-left p strong { color: var(--ink); font-weight: 600; }
+
+.truth-cards {
+  display: flex; flex-direction: column; gap: 16px;
+}
+.truth-card {
+  background: var(--bg);
+  border: 1px solid rgba(122,115,131,0.1);
+  border-radius: 20px;
+  padding: 28px 30px;
+  transition: all .3s ease;
+}
+.truth-card:hover {
+  border-color: var(--sage);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+.truth-card-icon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--sage-soft);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+.truth-card.lavender .truth-card-icon { background: var(--lavender-soft); }
+.truth-card.rose .truth-card-icon { background: var(--rose-soft); }
+.truth-card-icon svg { width: 20px; height: 20px; }
+.truth-card.sage .truth-card-icon svg { color: var(--sage-3); }
+.truth-card.lavender .truth-card-icon svg { color: var(--lavender-3); }
+.truth-card.rose .truth-card-icon svg { color: #C5826B; }
+
+.truth-card h4 {
+  font-size: 22px;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  letter-spacing: -0.015em;
+  margin-bottom: 8px;
+}
+.truth-card h4 em { color: var(--sage-3); }
+.truth-card p {
+  font-size: 14.5px; color: var(--ink-3);
+  line-height: 1.55; margin: 0;
+}
+
+/* ==================== HOW IT WORKS ==================== */
+.science {
+  padding: 120px 32px;
+  background: var(--bg-3);
+  position: relative;
+  z-index: 1;
+}
+.science-inner { max-width: 1200px; margin: 0 auto; }
+.science-header { text-align: center; margin-bottom: 64px; }
+.science-header .eyebrow { margin-bottom: 18px; display: inline-block; }
+.science-header h2 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  margin: 0 auto;
+  max-width: 720px;
+  line-height: 1.1;
+}
+.science-header h2 em { color: var(--sage-3); }
+.science-header > p {
+  font-size: 17px; color: var(--ink-2);
+  max-width: 600px; margin: 20px auto 0;
+  line-height: 1.6;
+}
+
+.science-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 880px) { .science-grid { grid-template-columns: 1fr; } }
+
+.science-card {
+  background: var(--bg-2);
+  border-radius: 24px;
+  padding: 40px 32px;
+  position: relative;
+  transition: all .3s ease;
+}
+.science-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-soft);
+}
+.science-card .num {
+  font-family: 'Fraunces', serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sage-3);
+  letter-spacing: 0.1em;
+  margin-bottom: 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+.science-card .num::after {
+  content: ""; flex: 1;
+  height: 1px; background: var(--sage);
+  opacity: 0.4;
+}
+.science-card h3 {
+  font-size: 26px;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.science-card h3 em { color: var(--sage-3); }
+.science-card p {
+  font-size: 14.5px; color: var(--ink-2);
+  line-height: 1.6; margin: 0;
+}
+.science-card p strong { color: var(--ink); font-weight: 500; }
+
+/* ==================== VS COMPARISON ==================== */
+.compare-section {
+  padding: 120px 32px;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+}
+.compare-inner {
+  max-width: 1100px; margin: 0 auto;
+}
+.compare-header { text-align: center; margin-bottom: 56px; }
+.compare-header .eyebrow { margin-bottom: 18px; display: inline-block; }
+.compare-header h2 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  margin: 0 auto;
+  max-width: 720px;
+}
+.compare-header h2 em { color: var(--sage-3); }
+.compare-header > p {
+  font-size: 17px; color: var(--ink-2);
+  max-width: 580px; margin: 20px auto 0;
+  line-height: 1.6;
+}
+
+.compare-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+@media (max-width: 720px) { .compare-grid { grid-template-columns: 1fr; } }
+
+.compare-card {
+  background: var(--bg-2);
+  border-radius: 24px;
+  padding: 36px 32px;
+  border: 1px solid rgba(122,115,131,0.08);
+  transition: all .3s ease;
+}
+.compare-card.bad {
+  background: var(--bg-3);
+}
+.compare-card.good {
+  background: var(--bg-2);
+  border-color: var(--sage);
+  box-shadow: 0 0 0 4px var(--sage-soft);
+}
+.compare-card .compare-label {
+  display: inline-block;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 999px;
+  margin-bottom: 18px;
+}
+.compare-card.bad .compare-label {
+  background: var(--rose-soft); color: #B86F58;
+}
+.compare-card.good .compare-label {
+  background: var(--sage-soft); color: var(--sage-3);
+}
+.compare-card h3 {
+  font-size: 28px;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.compare-card h3 em { color: var(--sage-3); }
+.compare-card > p {
+  font-size: 15px; color: var(--ink-2);
+  line-height: 1.6; margin-bottom: 24px;
+}
+.compare-card ul {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.compare-card ul li {
+  font-size: 14px; color: var(--ink-2);
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.5;
+}
+.compare-card ul li::before {
+  content: ""; position: absolute;
+  left: 0; top: 8px;
+  width: 12px; height: 1.5px;
+  border-radius: 2px;
+}
+.compare-card.bad ul li::before { background: #C5826B; }
+.compare-card.good ul li::before { background: var(--sage-3); }
+
+/* ==================== PROTOCOL (single SKU) ==================== */
+.protocol-section {
+  padding: 120px 32px;
+  background: var(--bg-3);
+  position: relative;
+  z-index: 1;
+}
+.protocol-inner { max-width: 880px; margin: 0 auto; }
+.protocol-header { text-align: center; margin-bottom: 56px; }
+.protocol-header .eyebrow { margin-bottom: 18px; display: inline-block; }
+.protocol-header h2 {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  margin: 0 auto;
+  max-width: 700px;
+}
+.protocol-header h2 em { color: var(--sage-3); }
+
+.protocol-card {
+  background: var(--bg-2);
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 720px) { .protocol-card { grid-template-columns: 1fr; } }
+
+.protocol-photo {
+  position: relative;
+  background: linear-gradient(135deg, var(--sage-soft) 0%, var(--lavender-soft) 100%);
+  display: flex; align-items: center; justify-content: center;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+.protocol-photo-orb {
+  width: 70%; height: 70%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(164,184,158,0.4) 70%, transparent 100%);
+  animation: orbPulse 10s ease-in-out infinite;
+  filter: blur(2px);
+}
+.protocol-photo-badge {
+  position: absolute; top: 24px; left: 24px;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(8px);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 999px;
+  color: var(--sage-3);
+}
+.protocol-photo-label {
+  position: absolute;
+  bottom: 28px; left: 28px; right: 28px;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 28px;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.protocol-content {
+  padding: 48px 44px;
+  display: flex; flex-direction: column;
+  justify-content: center;
+}
+.protocol-format {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--sage-3);
+  margin-bottom: 12px;
+}
+.protocol-name {
+  font-family: 'Fraunces', serif;
+  font-size: 38px;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  letter-spacing: -0.025em;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+.protocol-name em { color: var(--sage-3); font-style: italic; }
+.protocol-tag {
+  font-size: 14px; color: var(--ink-3);
+  font-style: italic;
+  font-family: 'Fraunces', serif;
+  margin-bottom: 28px;
+}
+
+.protocol-attrs {
+  display: flex; flex-direction: column; gap: 11px;
+  padding: 22px 0;
+  border-top: 1px solid rgba(122,115,131,0.1);
+  border-bottom: 1px solid rgba(122,115,131,0.1);
+  margin-bottom: 24px;
+}
+.protocol-attr {
+  display: flex; justify-content: space-between;
+  font-size: 13.5px;
+}
+.protocol-attr .k { color: var(--ink-3); }
+.protocol-attr .v { color: var(--ink); font-weight: 500; }
+.protocol-attr .v em { color: var(--sage-3); }
+
+.protocol-features {
+  list-style: none; padding: 0; margin: 0 0 28px;
+  display: flex; flex-direction: column; gap: 11px;
+}
+.protocol-features li {
+  font-size: 14.5px;
+  color: var(--ink-2);
+  line-height: 1.5;
+  padding-left: 22px;
+  position: relative;
+}
+.protocol-features li::before {
+  content: ""; position: absolute;
+  left: 0; top: 8px;
+  width: 12px; height: 1.5px;
+  background: var(--sage-3);
+  border-radius: 2px;
+}
+.protocol-features li strong { color: var(--ink); font-weight: 500; }
+
+.protocol-price {
+  display: flex; align-items: baseline; gap: 10px;
+  margin-bottom: 24px;
+}
+.protocol-price .num {
+  font-family: 'Fraunces', serif;
+  font-size: 52px; font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.protocol-price .unit { font-size: 13px; color: var(--ink-3); }
+
+.protocol-cta {
+  width: 100%;
+  background: var(--sage-3); color: #FFFFFF;
+  padding: 16px 24px; border-radius: 999px;
+  font-size: 14px; font-weight: 500; border: none;
+  letter-spacing: 0.01em;
+  transition: all .2s ease;
+  box-shadow: 0 8px 20px -8px rgba(135,160,130,0.4);
+}
+.protocol-cta:hover { background: var(--ink); transform: translateY(-1px); box-shadow: 0 16px 32px -8px rgba(46,42,53,0.3); }
+
+/* ==================== TIMELINE ==================== */
+.timeline {
+  padding: 120px 32px;
+  background: var(--bg-2);
+  position: relative;
+  z-index: 1;
+}
+.timeline-inner { max-width: 1000px; margin: 0 auto; }
+.timeline-header { text-align: center; margin-bottom: 56px; }
+.timeline-header .eyebrow { margin-bottom: 18px; display: inline-block; }
+.timeline-header h2 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  margin: 0 auto;
+  max-width: 720px;
+}
+.timeline-header h2 em { color: var(--sage-3); }
+
+.timeline-list {
+  position: relative;
+}
+.timeline-list::before {
+  content: "";
+  position: absolute;
+  left: 100px;
+  top: 24px; bottom: 24px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--sage) 0%, var(--lavender) 100%);
+  opacity: 0.4;
+}
+@media (max-width: 720px) {
+  .timeline-list::before { display: none; }
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 40px;
+  padding: 24px 0;
+  align-items: start;
+  position: relative;
+}
+@media (max-width: 720px) {
+  .timeline-item { grid-template-columns: 1fr; gap: 8px; }
+}
+
+.timeline-marker {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--sage-3);
+  letter-spacing: -0.01em;
+  padding-top: 8px;
+  position: relative;
+}
+.timeline-marker::after {
+  content: "";
+  position: absolute;
+  right: -22px; top: 18px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--sage);
+}
+@media (max-width: 720px) {
+  .timeline-marker::after { display: none; }
+}
+
+.timeline-content {
+  background: var(--bg);
+  border-radius: 16px;
+  padding: 24px 28px;
+}
+.timeline-content h4 {
+  font-size: 22px;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.timeline-content h4 em { color: var(--sage-3); }
+.timeline-content p {
+  font-size: 14.5px; color: var(--ink-2);
+  line-height: 1.6; margin: 0;
+}
+
+/* ==================== STORIES ==================== */
+.stories {
+  padding: 120px 32px;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+}
+.stories-inner { max-width: 1180px; margin: 0 auto; }
+.stories-header { text-align: center; margin-bottom: 56px; }
+.stories-header .eyebrow { margin-bottom: 18px; display: inline-block; }
+.stories-header h2 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  margin: 0 auto;
+  max-width: 720px;
+}
+.stories-header h2 em { color: var(--sage-3); }
+
+.stories-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 880px) { .stories-grid { grid-template-columns: 1fr; } }
+
+.story {
+  background: var(--bg-2);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(122,115,131,0.08);
+  transition: all .3s ease;
+}
+.story:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-soft);
+}
+.story-photo {
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+}
+.story-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: brightness(1.02) saturate(0.95);
+}
+.story-body { padding: 26px 26px 28px; }
+.story-quote {
+  font-family: 'Fraunces', serif;
+  font-size: 17px; font-style: italic;
+  color: var(--ink); line-height: 1.45;
+  margin: 0 0 20px;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+}
+.story-attr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 18px;
+  border-top: 1px solid rgba(122,115,131,0.08);
+}
+.story-name {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  color: var(--ink); font-weight: 500;
+}
+.story-meta { font-size: 12px; color: var(--ink-3); }
+.story-verified {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--sage-3);
+  background: var(--sage-soft);
+  padding: 4px 10px; border-radius: 999px;
+  font-weight: 600;
+}
+.story-verified::before {
+  content: ""; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--sage-3);
+}
+
+.stories-disclaimer {
+  text-align: center; max-width: 700px;
+  margin: 32px auto 0;
+  font-size: 11px; color: var(--muted);
+  font-style: italic; line-height: 1.5;
+}
+
+/* ==================== OBJECTIONS ==================== */
+.objections {
+  padding: 120px 32px;
+  background: var(--bg-3);
+  position: relative;
+  z-index: 1;
+}
+.objections-inner { max-width: 1100px; margin: 0 auto; }
+.objections-header { text-align: center; margin-bottom: 56px; }
+.objections-header .eyebrow { margin-bottom: 18px; display: inline-block; }
+.objections-header h2 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  margin: 0 auto;
+  max-width: 720px;
+}
+.objections-header h2 em { color: var(--sage-3); }
+
+.objections-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+@media (max-width: 720px) { .objections-grid { grid-template-columns: 1fr; } }
+
+.objection {
+  background: var(--bg-2);
+  border-radius: 20px;
+  padding: 32px 30px;
+  border: 1px solid rgba(122,115,131,0.08);
+}
+.objection-q {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--sage-3);
+  margin-bottom: 14px;
+}
+.objection-q::before {
+  content: "Q";
+  width: 22px; height: 22px;
+  border-radius: 50%; background: var(--sage-soft);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 13px; font-style: italic;
+}
+.objection-q-text {
+  font-family: 'Inter', sans-serif;
+  color: var(--ink-2);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.objection h3 {
+  font-size: 22px;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.objection h3 em { color: var(--sage-3); }
+.objection ul {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 9px;
+}
+.objection ul li {
+  font-size: 14px; color: var(--ink-2);
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+.objection ul li::before {
+  content: ""; position: absolute;
+  left: 0; top: 8px;
+  width: 12px; height: 1.5px;
+  background: var(--sage-3);
+  border-radius: 2px;
+}
+
+/* ==================== GUARANTEE ==================== */
+.guarantee {
+  padding: 120px 32px;
+  background: var(--bg);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.guarantee-inner { max-width: 700px; margin: 0 auto; }
+.guarantee-seal {
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: var(--bg-2);
+  border: 3px solid var(--sage);
+  box-shadow: 0 0 0 7px var(--sage-soft);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  margin: 0 auto 32px;
+}
+.guarantee-seal .days {
+  font-family: 'Fraunces', serif;
+  font-size: 50px; font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  color: var(--sage-3);
+  line-height: 1;
+}
+.guarantee-seal .word {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--ink-2);
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+.guarantee h2 {
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  margin-bottom: 22px;
+  line-height: 1.05;
+}
+.guarantee h2 em { color: var(--sage-3); }
+.guarantee p {
+  font-size: 17px; color: var(--ink-2);
+  line-height: 1.6; margin: 0 auto 18px;
+  max-width: 540px;
+}
+.guarantee p strong { color: var(--ink); font-weight: 500; }
+.guarantee-bullets {
+  list-style: none; padding: 0; margin: 32px auto;
+  display: flex; flex-direction: column; gap: 11px;
+  text-align: left; max-width: 440px;
+}
+.guarantee-bullets li {
+  display: flex; align-items: flex-start; gap: 14px;
+  font-size: 14.5px; color: var(--ink-2);
+  line-height: 1.45;
+}
+.guarantee-bullets li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 16px; height: 1.5px;
+  background: var(--sage-3);
+  margin-top: 11px;
+}
+
+/* ==================== TRUST STRIP ==================== */
+.trust-strip-section {
+  padding: 60px 32px;
+  background: var(--bg-2);
+  position: relative; z-index: 1;
+}
+.clinical-trust-strip {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; flex-wrap: wrap; gap: 16px 12px;
+  justify-content: center; align-items: center;
+}
+.trust-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 6px 16px 6px 6px;
+  background: var(--bg);
+  border: 1.5px solid rgba(122,115,131,0.15);
+  border-radius: 12px;
+  height: 52px;
+}
+.trust-badge.legitscript {
+  border: 1.5px dashed #1E3A8A;
+  padding: 6px 14px; gap: 0;
+  flex-direction: column; justify-content: center; align-items: center;
+  min-width: 130px;
+}
+.legitscript .ls-mark { font-size: 13px; font-weight: 700; color: #1E3A8A; letter-spacing: 0.04em; line-height: 1; }
+.legitscript .ls-sub { font-size: 9px; font-weight: 700; color: #1E3A8A; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 4px; opacity: 0.75; }
+.trust-badge.hipaa { gap: 4px; padding-left: 10px; }
+.trust-badge-text { display: flex; flex-direction: column; line-height: 1.1; }
+.trust-badge-text strong { font-size: 14px; font-weight: 700; color: var(--brand); letter-spacing: 0.04em; }
+.trust-badge-text small { font-size: 12px; color: var(--ink-3); font-weight: 600; letter-spacing: 0.04em; }
+.trust-divider { width: 1px; height: 32px; background: rgba(122,115,131,0.15); flex-shrink: 0; }
+.trust-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600;
+  padding: 9px 14px; border-radius: 999px;
+  border: 1px solid;
+}
+.trust-pill svg { flex-shrink: 0; }
+.trust-pill.clinical { background: var(--sage-soft); border-color: var(--sage); color: var(--sage-3); }
+.trust-pill.clinical svg { color: var(--sage-3); }
+.trust-pill.pharmacy { background: var(--lavender-soft); border-color: var(--lavender); color: var(--lavender-3); }
+.trust-pill.pharmacy svg { color: var(--lavender-3); }
+.trust-pill.consumer { background: var(--rose-soft); border-color: var(--rose); color: #B86F58; }
+.trust-pill.consumer svg { color: #B86F58; }
+@media (max-width: 720px) { .trust-divider { display: none; } }
+
+/* ==================== FAQ ==================== */
+.faq {
+  padding: 120px 32px;
+  background: var(--bg-3);
+  position: relative;
+  z-index: 1;
+}
+.faq-inner { max-width: 820px; margin: 0 auto; }
+.faq-header { text-align: center; margin-bottom: 56px; }
+.faq-header h2 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  margin: 0 auto;
+  line-height: 1.05;
+}
+.faq-header h2 em { color: var(--sage-3); }
+
+.faq-item {
+  background: var(--bg-2);
+  border-radius: 16px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(122,115,131,0.08);
+  transition: all .2s;
+}
+.faq-item:hover { border-color: var(--sage); }
+.faq-item[open] { border-color: var(--sage-3); }
+.faq-summary {
+  padding: 22px 26px;
+  font-size: 16px; font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+}
+.faq-summary::-webkit-details-marker { display: none; }
+.faq-icon {
+  width: 28px; height: 28px; flex-shrink: 0;
+  border-radius: 50%; background: var(--sage-soft);
+  color: var(--sage-3);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .25s, background .15s;
+  font-size: 15px; font-weight: 600;
+}
+.faq-item[open] .faq-icon { transform: rotate(45deg); background: var(--sage-3); color: var(--bg); }
+.faq-content {
+  padding: 0 26px 24px 26px;
+  font-size: 14.5px; color: var(--ink-2);
+  line-height: 1.65;
+}
+.faq-content p { margin: 0 0 12px; }
+.faq-content p:last-child { margin-bottom: 0; }
+.faq-content strong { color: var(--ink); font-weight: 600; }
+
+/* ==================== FINAL CTA ==================== */
+.final-cta {
+  padding: 140px 32px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+.final-cta::before {
+  content: ""; position: absolute;
+  width: 1000px; height: 1000px;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(164,184,158,0.25) 0%, rgba(201,188,212,0.15) 50%, transparent 80%);
+  filter: blur(60px);
+  z-index: 0;
+  animation: breathe 14s ease-in-out infinite;
+}
+.final-inner {
+  max-width: 720px; margin: 0 auto;
+  position: relative; z-index: 1;
+}
+.final-inner h2 {
+  font-size: clamp(40px, 6vw, 76px);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  letter-spacing: -0.04em;
+  margin-bottom: 28px;
+  line-height: 1.0;
+}
+.final-inner h2 em { color: var(--sage-3); }
+.final-inner > p {
+  font-size: 17px; color: var(--ink-2);
+  line-height: 1.6; max-width: 520px;
+  margin: 0 auto 36px;
+}
+.urgency-strip {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: var(--bg-2);
+  border: 1px solid var(--sage);
+  border-radius: 16px;
+  padding: 14px 22px;
+  margin-bottom: 32px;
+}
+.urgency-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--sage-3); color: #FFFFFF;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.urgency-text { font-size: 14px; color: var(--ink); text-align: left; }
+.urgency-text strong {
+  font-family: 'Fraunces', serif;
+  font-size: 20px; font-style: italic;
+  color: var(--sage-3); margin-right: 4px;
+}
+.urgency-text small { display: block; font-size: 11px; color: var(--ink-3); margin-top: 2px; }
+.urgency-pulse {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--sage-3); font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.urgency-pulse .pulse {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #2BAA56;
+  animation: pulseGreen 2s infinite;
+}
+@keyframes pulseGreen {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(43,170,86,0.6); }
+  50% { box-shadow: 0 0 0 6px rgba(43,170,86,0); }
+}
+
+/* ==================== FOOTER ==================== */
+.footer {
+  padding: 60px 32px 40px;
+  background: var(--ink);
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  position: relative; z-index: 1;
+}
+.footer-top {
+  max-width: 1100px; margin: 0 auto 32px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 24px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.footer-logo { color: var(--bg); }
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+}
+@media (max-width: 720px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+.footer-col h5 {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--bg); margin-bottom: 14px;
+}
+.footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.footer-col a:hover { color: var(--sage-2); }
+.footer-disclaimer {
+  max-width: 1100px; margin: 32px auto 0;
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.5;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ==================== REVEAL ==================== */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 1.2s ease, transform 1.2s cubic-bezier(.2,.6,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="breath-bg"></div>
+
+<!-- ==================== NAV ==================== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark"></span>
+      HealSend
+    </a>
+    <div class="nav-right">
+      <a class="nav-signin" href="#">Sign in</a>
+      <button class="nav-cta" onclick="scrollTo('protocol')">Start consult</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow reveal in">Clinical Anxiety Protocol · Prescribed</div>
+      <h1 class="reveal in">It's not a personality flaw. <em>It's a signal.</em></h1>
+      <p class="hero-subhead reveal in">
+        Anxiety is a neurochemical state — not a character defect. Clinical anxiety protocol that works <strong>without sedation, without dependency, without dulling who you are</strong>.
+      </p>
+
+      <div class="hero-cta-row reveal in">
+        <button class="btn-primary" onclick="scrollTo('protocol')">
+          Begin protocol
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="btn-secondary" onclick="scrollTo('science')">How it works</button>
+      </div>
+
+      <div class="hero-trust reveal in">
+        <span><span class="dot"></span>US-licensed clinicians</span>
+        <span><span class="dot"></span>No SSRIs</span>
+        <span><span class="dot"></span>Ships in 48 hrs</span>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal in">
+      <div class="breath-orb breath-orb-1"></div>
+      <div class="breath-orb breath-orb-2"></div>
+      <div class="breath-orb breath-orb-3"></div>
+      <div class="breath-text">
+        <span>Inhale</span>
+        <span>Hold</span>
+        <span>Exhale</span>
+        <span>Rest</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TRUTH ==================== -->
+<section class="truth">
+  <div class="truth-inner">
+    <div class="truth-left">
+      <span class="eyebrow">If this sounds familiar</span>
+      <h2>The anxiety isn't <em>who you are</em>.</h2>
+      <p>It's a state your nervous system slips into — and gets stuck in — when the signaling that should bring you back to baseline isn't firing. <strong>The problem is mechanical, not moral.</strong></p>
+      <p>What people often describe as "high-functioning anxiety" is your brain running a stress response that should have ended hours ago. You're exhausted. The world keeps moving. You keep performing. Underneath, your body never gets to rest.</p>
+    </div>
+
+    <div class="truth-cards">
+      <div class="truth-card sage">
+        <div class="truth-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 3"/>
+          </svg>
+        </div>
+        <h4>The 3am <em>spiral</em></h4>
+        <p>Wide awake at 3am replaying a conversation from 2017. Your body is exhausted. Your mind won't release.</p>
+      </div>
+      <div class="truth-card lavender">
+        <div class="truth-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M3 12c0-1 0-3 2-4M21 12c0-1 0-3-2-4M12 16c-3 0-5-2-5-5s2-5 5-5 5 2 5 5-2 5-5 5z"/>
+          </svg>
+        </div>
+        <h4>The chest <em>tightening</em></h4>
+        <p>The physical signal that something's wrong — but nothing's actually happening. The body running fight-or-flight at the grocery store.</p>
+      </div>
+      <div class="truth-card rose">
+        <div class="truth-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2v20M2 12h20"/>
+            <circle cx="12" cy="12" r="4"/>
+          </svg>
+        </div>
+        <h4>The <em>masking</em></h4>
+        <p>Performing being-okay all day. Smiling through meetings. Coming home depleted. Doing it again tomorrow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SCIENCE ==================== -->
+<section class="science" id="science">
+  <div class="science-inner">
+    <div class="science-header">
+      <span class="eyebrow">How it works</span>
+      <h2>Three things have to happen for anxiety to <em>actually release</em>.</h2>
+      <p>The clinical anxiety protocol supports each of them — without sedation, dependency, or numbing.</p>
+    </div>
+
+    <div class="science-grid">
+      <div class="science-card reveal">
+        <div class="num">01 · The neurochemistry</div>
+        <h3>Restore <em>baseline calm</em></h3>
+        <p>The protocol supports the body's natural production of <strong>serotonin, GABA, and BDNF</strong> — the neurochemicals that let your nervous system actually return to rest after a stressor. Not sedation. Restoration.</p>
+      </div>
+      <div class="science-card reveal">
+        <div class="num">02 · The stress axis</div>
+        <h3>Quiet the <em>HPA axis</em></h3>
+        <p>Chronic anxiety means the hypothalamic-pituitary-adrenal axis is stuck in "on." The protocol supports return to <strong>parasympathetic dominance</strong> — your body's actual rest state — without blunting normal emotional response.</p>
+      </div>
+      <div class="science-card reveal">
+        <div class="num">03 · The pattern</div>
+        <h3>Break the <em>spiral loop</em></h3>
+        <p>Anxious thought spirals are neurological grooves. As your baseline neurochemistry restores, the <strong>compulsive return to anxious thinking weakens</strong>. Members report this is the first thing they notice — the loop just stops looping.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== VS COMPARISON ==================== -->
+<section class="compare-section">
+  <div class="compare-inner">
+    <div class="compare-header">
+      <span class="eyebrow">A different approach</span>
+      <h2>Not <em>another SSRI</em>. Not a benzodiazepine.</h2>
+      <p>The two most-common anxiety treatments work — at a cost. The clinical anxiety protocol takes a different route.</p>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-card bad">
+        <span class="compare-label">SSRIs &amp; Benzodiazepines</span>
+        <h3>What they <em>cost you</em></h3>
+        <p>They work for many people. They also come with side effects most clinicians won't lead with.</p>
+        <ul>
+          <li>SSRIs: 6–8 weeks to take effect, sexual side effects in ~40% of users, weight gain, emotional blunting</li>
+          <li>Benzodiazepines: rapid tolerance, dependency, severe withdrawal, contraindicated long-term</li>
+          <li>Difficult to discontinue once started</li>
+          <li>Many report feeling "flat" — calmer, but less themselves</li>
+        </ul>
+      </div>
+      <div class="compare-card good">
+        <span class="compare-label">Clinical Anxiety Protocol</span>
+        <h3>What this <em>actually does</em></h3>
+        <p>A nasal-administered peptide protocol that supports your own neurochemistry — not a substitute for it.</p>
+        <ul>
+          <li>First effects typically reported within <strong>3–7 days</strong></li>
+          <li>No documented dependency or tolerance profile</li>
+          <li>No sexual side effects, no weight changes, no emotional blunting</li>
+          <li>Discontinue anytime, no taper required</li>
+          <li>You stay yourself — just without the spiral</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PROTOCOL ==================== -->
+<section class="protocol-section" id="protocol">
+  <div class="protocol-inner">
+    <div class="protocol-header">
+      <span class="eyebrow">One protocol · Clinician-prescribed</span>
+      <h2>The clinical anxiety <em>protocol</em>.</h2>
+    </div>
+
+    <div class="protocol-card">
+      <div class="protocol-photo">
+        <div class="protocol-photo-orb"></div>
+        <span class="protocol-photo-badge">Calm Signal</span>
+        <div class="protocol-photo-label">"The spiral just stops looping."</div>
+      </div>
+      <div class="protocol-content">
+        <div class="protocol-format">Nasal · Daily</div>
+        <h3 class="protocol-name">Calm <em>Signal</em></h3>
+        <p class="protocol-tag">Clinical anxiety peptide protocol — nasal delivery.</p>
+
+        <div class="protocol-attrs">
+          <div class="protocol-attr"><span class="k">Format</span><span class="v">Nasal spray</span></div>
+          <div class="protocol-attr"><span class="k">Frequency</span><span class="v">Daily (1–3 sprays)</span></div>
+          <div class="protocol-attr"><span class="k">First effect</span><span class="v"><em>3–7 days</em></span></div>
+          <div class="protocol-attr"><span class="k">Full benefit</span><span class="v">4–8 weeks</span></div>
+        </div>
+
+        <ul class="protocol-features">
+          <li><strong>Restores baseline calm</strong> without sedation or numbing</li>
+          <li><strong>No dependency or tolerance</strong> documented in clinical literature</li>
+          <li>Use as-needed for acute moments, or daily for sustained support</li>
+          <li>Pairs safely with most existing medications (your clinician confirms)</li>
+        </ul>
+
+        <div class="protocol-price">
+          <span class="num">$179</span>
+          <span class="unit">/month</span>
+        </div>
+
+        <button class="protocol-cta" onclick="startConsult('calm')">Start Calm Signal →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TIMELINE ==================== -->
+<section class="timeline">
+  <div class="timeline-inner">
+    <div class="timeline-header">
+      <span class="eyebrow">What members actually report</span>
+      <h2>The <em>first month</em>, on protocol.</h2>
+    </div>
+
+    <div class="timeline-list">
+      <div class="timeline-item">
+        <span class="timeline-marker">Day 1–3</span>
+        <div class="timeline-content">
+          <h4>Subtle. <em>Almost imperceptible.</em></h4>
+          <p>You might not notice anything at all. Your nervous system is beginning to respond — but the experience is internal and gradual. Don't expect a wave; expect a tide turning.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-marker">Day 4–7</span>
+        <div class="timeline-content">
+          <h4>The first <em>quiet</em>.</h4>
+          <p>Most members notice it in retrospect: a moment in the day where the background anxiety just wasn't there. Then another. Then a longer stretch. The spirals lose some of their grip.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-marker">Week 2–4</span>
+        <div class="timeline-content">
+          <h4>Your <em>baseline shifts</em>.</h4>
+          <p>This is when partners and close friends often comment unprompted. You're sleeping better. The 3am spirals get rarer. The chest tightening at the grocery store fades. You still feel things — you're just not running stress response on idle.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-marker">Week 6–8</span>
+        <div class="timeline-content">
+          <h4>The <em>new normal</em>.</h4>
+          <p>Most members on protocol for 6+ weeks describe it as the version of themselves they always knew was underneath. Same emotional range. Same depth. Just without the spiral.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== STORIES ==================== -->
+<section class="stories">
+  <div class="stories-inner">
+    <div class="stories-header">
+      <span class="eyebrow">Verified members</span>
+      <h2>What members <em>actually say</em>.</h2>
+    </div>
+
+    <div class="stories-grid">
+
+      <div class="story reveal">
+        <div class="story-photo">
+          <img src="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=800&h=640&fit=crop" alt="" />
+        </div>
+        <div class="story-body">
+          <p class="story-quote">"I tried two SSRIs over six years. The side effects were as bad as the anxiety. Three weeks on this and the 3am spirals just stopped. I'm still me — I just have a floor again."</p>
+          <div class="story-attr">
+            <div>
+              <div class="story-name">Sarah K.</div>
+              <div class="story-meta">38 · Calm Signal · 4 months</div>
+            </div>
+            <span class="story-verified">Verified</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="story reveal">
+        <div class="story-photo">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&h=640&fit=crop" alt="" />
+        </div>
+        <div class="story-body">
+          <p class="story-quote">"I'd been on Xanax 'as needed' for years. The dependency scared me. I came off slowly while starting this. Six weeks later I haven't needed a benzo at all. That's the part I didn't think was possible."</p>
+          <div class="story-attr">
+            <div>
+              <div class="story-name">David R.</div>
+              <div class="story-meta">44 · Calm Signal · 6 months</div>
+            </div>
+            <span class="story-verified">Verified</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="story reveal">
+        <div class="story-photo">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&h=640&fit=crop" alt="" />
+        </div>
+        <div class="story-body">
+          <p class="story-quote">"My therapist suggested I look into this. Eight weeks in and the work we do together actually sticks. Before, I'd leave a session feeling better and crash by Tuesday. Now the floor stays."</p>
+          <div class="story-attr">
+            <div>
+              <div class="story-name">Maya L.</div>
+              <div class="story-meta">31 · Calm Signal · 8 weeks</div>
+            </div>
+            <span class="story-verified">Verified</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="stories-disclaimer">
+      Members were compensated for their testimonials. Results based on self-reported data from ~480 HealSend Calm Signal members. Individual results vary. Photos and member content are placeholder pre-launch and will be replaced with verified content before publishing.
+    </p>
+  </div>
+</section>
+
+<!-- ==================== OBJECTIONS ==================== -->
+<section class="objections">
+  <div class="objections-inner">
+    <div class="objections-header">
+      <span class="eyebrow">Every concern, answered</span>
+      <h2>What you're <em>actually asking</em>.</h2>
+    </div>
+
+    <div class="objections-grid">
+
+      <div class="objection">
+        <div class="objection-q"><span class="objection-q-text">"Will I feel sedated or flat?"</span></div>
+        <h3>You'll feel <em>like yourself</em>.</h3>
+        <ul>
+          <li>The protocol doesn't sedate or suppress the nervous system</li>
+          <li>No documented emotional blunting in clinical literature</li>
+          <li>Members report keeping full emotional range — just without the spiral</li>
+          <li>You can still feel joy, sadness, anger — just not as a constant baseline</li>
+        </ul>
+      </div>
+
+      <div class="objection">
+        <div class="objection-q"><span class="objection-q-text">"What if I'm already on an SSRI?"</span></div>
+        <h3>Safe to <em>stack or transition</em>.</h3>
+        <ul>
+          <li>Compatible with most existing antidepressants and anti-anxiety medications</li>
+          <li>Many members use this to come off SSRIs with clinician supervision</li>
+          <li>Your clinician reviews your full medication list before prescribing</li>
+          <li>Never stop SSRIs abruptly — coordinate any taper with your clinician</li>
+        </ul>
+      </div>
+
+      <div class="objection">
+        <div class="objection-q"><span class="objection-q-text">"How fast will I feel different?"</span></div>
+        <h3>Days, not <em>months</em>.</h3>
+        <ul>
+          <li>Most members report first noticeable shift in <strong>3–7 days</strong></li>
+          <li>Compare: SSRIs typically require 6–8 weeks to take effect</li>
+          <li>Full benefit at 4–8 weeks of consistent use</li>
+          <li>Effect builds gradually — don't expect a wave, expect a tide</li>
+        </ul>
+      </div>
+
+      <div class="objection">
+        <div class="objection-q"><span class="objection-q-text">"Will I be dependent on this?"</span></div>
+        <h3>No. <em>Stop anytime.</em></h3>
+        <ul>
+          <li>No documented tolerance build-up in clinical literature</li>
+          <li>No withdrawal profile — unlike benzodiazepines</li>
+          <li>Discontinue when you're ready, no taper required</li>
+          <li>Many members use seasonally or during high-stress windows</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== GUARANTEE ==================== -->
+<section class="guarantee">
+  <div class="guarantee-inner reveal">
+    <div class="guarantee-seal">
+      <div class="days">60</div>
+      <div class="word">Day Promise</div>
+    </div>
+    <h2>Calmer. <em>Or your money back.</em></h2>
+    <p>Stay on protocol for 60 days. Complete your clinician check-ins. If you don't notice meaningful improvement in baseline anxiety, sleep quality, or the spiral loop, <strong>we refund your most recent month</strong>.</p>
+
+    <ul class="guarantee-bullets">
+      <li>60-day satisfaction guarantee</li>
+      <li>No friction. No retention scripts.</li>
+      <li>One-time per member</li>
+      <li>84% of members report meaningful improvement by week 4</li>
+    </ul>
+
+    <button class="btn-primary" onclick="scrollTo('protocol')">
+      Start risk-free
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+</section>
+
+<!-- ==================== TRUST STRIP ==================== -->
+<section class="trust-strip-section">
+  <div class="clinical-trust-strip">
+    <div class="trust-badge legitscript">
+      <div class="ls-mark">LegitScript</div>
+      <div class="ls-sub">Certified</div>
+    </div>
+    <div class="trust-badge hipaa">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+        <path d="M18 3 L4 8v10c0 8 6 14 14 16 8-2 14-8 14-16V8L18 3z" fill="#7E73D4" opacity="0.12"/>
+        <path d="M18 3 L4 8v10c0 8 6 14 14 16 8-2 14-8 14-16V8L18 3z" stroke="#7E73D4" stroke-width="2" fill="none"/>
+        <path d="M13 18l4 4 6-7" stroke="#7E73D4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <div class="trust-badge-text"><strong>HIPAA</strong><small>Compliant</small></div>
+    </div>
+    <span class="trust-divider"></span>
+    <div class="trust-pill clinical">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+      <span>USA-licensed clinicians</span>
+    </div>
+    <div class="trust-pill pharmacy">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+      <span>503A &amp; 503B FDA-Inspected</span>
+    </div>
+    <div class="trust-pill consumer">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12l5 5L21 4"/></svg>
+      <span>Cancel anytime</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section class="faq">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <h2>Asked. <em>Answered.</em></h2>
+    </div>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>What peptide is actually prescribed?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>The Calm Signal protocol prescribes <strong>Selank</strong>, a synthetic peptide originally developed in Russia and studied in independent clinical literature for anxiolytic effects without sedation or dependency.</p>
+        <p>Selank works by modulating GABA, serotonin, and BDNF — the neurochemicals involved in stress regulation, mood, and neuroplasticity. Unlike benzodiazepines, it doesn't bind GABA receptors directly, which is why it doesn't produce sedation or tolerance.</p>
+        <p>We don't lead with the compound name in main copy because we lead with what it <em>does</em> — not what it's called.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>How is this different from SSRIs?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>SSRIs work by blocking serotonin reuptake — keeping more serotonin in the synapse. They're effective for many people, but the mechanism produces side effects in a meaningful portion of users: sexual side effects in ~40%, emotional blunting, weight changes, difficulty discontinuing.</p>
+        <p>Selank works <strong>upstream</strong> — modulating neurochemical balance through different pathways. It doesn't keep serotonin elevated; it supports the system that produces and regulates it. The clinical effect can be similar; the side-effect profile is markedly different.</p>
+        <p>SSRIs remain appropriate for many cases. This is an alternative — not a replacement — and the decision is between you and your clinician.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>How is it administered?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Selank is administered as a <strong>nasal spray</strong> — typically 1–3 sprays per nostril, once daily. Mucosal absorption bypasses digestive degradation, allowing the peptide to reach the central nervous system efficiently without injection.</p>
+        <p>Most members find the routine fits easily into morning habits — similar to how saline spray is used. Your clinician sets the starting dose and adjusts based on response.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>Are there side effects?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Selank is well-tolerated in clinical literature. Most-reported effects are <strong>mild nasal irritation</strong> in the first few days, occasional mild headache, and rare reports of vivid dreams.</p>
+        <p>No serious adverse events documented in published trials. No tolerance, dependency, or withdrawal profile. No sexual side effects. No documented weight changes.</p>
+        <p>Your clinician reviews your full medical history and current medications during intake and flags any specific considerations before prescribing.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>Can I use this to come off SSRIs or benzodiazepines?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Many members do — and report it as one of the most meaningful outcomes of the protocol. <strong>Never stop SSRIs or benzodiazepines abruptly.</strong> Coordinate any taper with your prescriber. Your HealSend clinician can also support a structured taper if appropriate.</p>
+        <p>Selank pairs safely with most existing medications during the transition period. Discontinuation of SSRIs in particular requires a slow taper — your clinician will set the timeline.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>Is this legal? Is it FDA-approved?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Selank is prescribed as a <strong>compounded medication</strong>, prepared by 503A and 503B FDA-inspected pharmacies under prescription from a US-licensed physician. Compounded medications are legally prescribed every day in the US.</p>
+        <p>Selank is not FDA-<em>approved</em> in the same sense as a branded drug, but it is <strong>legally prescribed</strong>, manufactured under FDA pharmacy-level oversight, and supported by published clinical literature primarily from international research.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>What if it doesn't work for me?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Our 60-day satisfaction guarantee covers exactly that. Complete your scheduled clinician check-ins, and if you don't notice meaningful improvement, we refund your most recent month. One-time per member.</p>
+        <p>Beyond the guarantee, your clinician can adjust dosing or discuss other approaches. Anxiety treatment isn't one-size-fits-all — sometimes the right answer is a different protocol entirely. We don't keep you on something that isn't working.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-summary">
+        <span>Is this a substitute for therapy?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>No. <strong>The medication addresses the neurochemistry; therapy addresses the patterns.</strong> Members who pair Calm Signal with cognitive-behavioral therapy or other evidence-based talk therapy consistently report the strongest outcomes.</p>
+        <p>If you're not currently in therapy and want a referral, your clinician can recommend approaches and providers in your area.</p>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ==================== FINAL CTA ==================== -->
+<section class="final-cta">
+  <div class="final-inner">
+    <h2>You don't have to <em>perform okay</em> anymore.</h2>
+    <p>90-second intake. Clinician review within 24 hours. Protocol shipped within 48 hours of approval.</p>
+
+    <div class="urgency-strip">
+      <div class="urgency-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      </div>
+      <div class="urgency-text">
+        <strong>16</strong> mental health consults available this week
+        <small>Capacity is limited by clinician availability</small>
+      </div>
+      <div class="urgency-pulse">
+        <span class="pulse"></span>
+        Live
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="scrollTo('protocol')" style="font-size: 16px; padding: 20px 38px;">
+      Start free intake
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div style="margin-top: 14px; font-size: 12.5px; color: var(--ink-3);">90 seconds · 100% private · free</div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="footer-top">
+    <a href="#" class="logo footer-logo">
+      <span class="logo-mark"></span>
+      HealSend
+    </a>
+    <div style="display: inline-flex; align-items: center; gap: 8px; font-size: 12px;">
+      <span style="color: var(--sage-2); letter-spacing: 1px;">★★★★★</span>
+      <strong style="color: var(--bg);">Excellent · 4.9</strong>
+      <span style="color: rgba(255,255,255,0.55);">· 480+ Calm Signal members</span>
+    </div>
+  </div>
+
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h5>HealSend</h5>
+      <ul>
+        <li><a href="#science">How it works</a></li>
+        <li><a href="#protocol">The protocol</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Other protocols</h5>
+      <ul>
+        <li><a href="/focus">Focus &amp; cognition</a></li>
+        <li><a href="/sleep">Sleep</a></li>
+        <li><a href="/nad">Cellular reset</a></li>
+        <li><a href="/repair">Recovery</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Trust &amp; safety</h5>
+      <ul>
+        <li>LegitScript Certified</li>
+        <li>HIPAA Compliant</li>
+        <li>503A &amp; 503B FDA-inspected</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Legal</h5>
+      <ul>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Telehealth Consent</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-disclaimer">
+    Anxiety peptide therapy at HealSend is offered through US-licensed physicians and dispensed by 503A/503B FDA-inspected pharmacies. Compounded medications are legally prescribed but are not FDA-approved in the same sense as branded pharmaceuticals. Not a substitute for psychiatric care for severe mental health conditions including suicidal ideation, severe depression, or panic disorder requiring acute intervention. If you are experiencing a mental health crisis, contact the 988 Suicide & Crisis Lifeline. Individual results vary. Member testimonials and outcome statistics are placeholder pre-launch and will be replaced with verified content before publishing.
+  </div>
+</footer>
+
+<script>
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+function startConsult(sku) {
+  console.log('Start anxiety consult:', sku);
+  // TODO: wire to real intake
+  scrollTo('protocol');
+}
+
+// Reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('in'), i * 80);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
