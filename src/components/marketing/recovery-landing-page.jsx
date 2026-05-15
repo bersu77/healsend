@@ -24,6 +24,7 @@ import {
   MinimalMarketingNavbar,
   ActiveMembersBanner,
   MarketingFooter,
+  TrustBadgesRow,
 } from "@/components/marketing/shared";
 import {
   WillpowerVerticalColumn,
@@ -356,21 +357,8 @@ function RecoveryProtocolsSection() {
           />
         </div>
 
-        <div className="mt-8 grid grid-cols-2 gap-4">
-          <div className="flex items-center justify-center">
-            <div className="relative flex items-center">
-              <img src="/images/clean/image.png" alt="" aria-hidden="true" className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24" />
-              <img src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`} alt="Google reviews rating" loading="lazy" className="z-10 -ml-2 -mr-1 h-auto max-h-[60px] max-w-[120px] object-contain mix-blend-multiply sm:-ml-3 sm:-mr-2 sm:max-h-[80px] sm:max-w-none md:max-h-[100px] lg:-ml-5 lg:-mr-3 lg:max-h-[120px]" />
-              <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24" />
-            </div>
-          </div>
-          <div className="flex items-center justify-center">
-            <div className="relative flex items-center">
-              <img src="/images/clean/image.png" alt="" aria-hidden="true" className="h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24" />
-              <img src="/images/healsend-2k-members-trust.png" alt="HealSend — 2K+ members" loading="lazy" className="z-10 -mx-2 h-auto max-h-[60px] w-auto shrink-0 object-contain sm:-mx-3 sm:max-h-[80px] md:max-h-[100px] lg:-mx-4 lg:max-h-[120px]" />
-              <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className="z-20 h-12 w-auto shrink-0 object-contain sm:h-16 md:h-20 lg:h-24" />
-            </div>
-          </div>
+        <div className="mt-8 flex justify-center">
+          <TrustBadgesRow />
         </div>
       </div>
     </section>

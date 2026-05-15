@@ -29,6 +29,7 @@ import {
   MinimalMarketingNavbar,
   ActiveMembersBanner,
   MarketingFooter,
+  TrustBadgesRow,
 } from "@/components/marketing/shared";
 import {
   WillpowerVerticalColumn,
@@ -50,6 +51,7 @@ import {
   PricingPlansTable,
   MobileStickyCta,
   BeforeAfterSliderSection,
+  MemberResultsStatsSection,
 } from "@/components/marketing/product-page";
 
 const CTA_HREF = "/funnels/skin-hair";
@@ -524,21 +526,8 @@ function GlowThreeTiersSection() {
               Most members start at Enhanced — the strongest cellular-renewal effect at the most accessible price.
             </p>
           </div>
-          <div className="flex w-full flex-wrap items-center justify-center gap-3 sm:gap-4 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end lg:pt-1">
-            <div className="flex min-w-0 flex-initial items-center justify-center">
-              <div className="relative flex items-center">
-                <img src="/images/clean/image.png" alt="" aria-hidden="true" className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
-                <img src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`} alt="Google reviews rating" loading="lazy" className="z-10 -ml-2 -mr-1 h-auto max-h-[40px] w-[120px] object-contain mix-blend-multiply sm:-ml-3 sm:-mr-2 sm:max-h-[50px] sm:w-[140px] md:max-h-[55px] md:w-[150px] lg:-ml-4 lg:-mr-2 lg:max-h-[60px] lg:w-[160px]" />
-                <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
-              </div>
-            </div>
-            <div className="flex min-w-0 flex-initial items-center justify-center">
-              <div className="relative flex items-center">
-                <img src="/images/clean/image.png" alt="" aria-hidden="true" className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
-                <img src="/images/healsend-2k-members-trust.png" alt="HealSend — 2K+ members" loading="lazy" className="z-10 -mx-5 h-auto max-h-[50px] w-[150px] shrink-0 object-contain sm:-mx-6 sm:max-h-[60px] sm:w-[170px] md:-mx-7 md:max-h-[65px] md:w-[180px] lg:-mx-8 lg:max-h-[70px] lg:w-[200px]" />
-                <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
-              </div>
-            </div>
+          <div className="hidden w-full lg:block lg:w-auto lg:shrink-0 lg:pt-1">
+            <TrustBadgesRow />
           </div>
         </div>
 
@@ -638,24 +627,28 @@ const HOW_STEPS = [
     icon: Zap,
     title: "Daily peptide signal",
     desc: "The protocol delivers a clinically-studied regenerative signal — a peptide that mimics natural growth factors involved in tissue repair and cellular renewal.",
+    img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80",
   },
   {
     n: 2,
     icon: RefreshCw,
     title: "Cells respond & renew faster",
     desc: "Your fibroblasts, keratinocytes, and follicle cells respond to the signal with increased turnover. The cells that make skin and hair regenerate more quickly.",
+    img: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=800&q=80",
   },
   {
     n: 3,
     icon: Activity,
     title: "Repair pathways activate",
     desc: "Collagen synthesis, barrier-function support, and wound-healing pathways activate. This is where the structural change happens — at the matrix level.",
+    img: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=800&q=80",
   },
   {
     n: 4,
     icon: Sparkles,
     title: "Visible glow follows the structure",
     desc: "Better texture, more even tone, improved hair density — the visible result of weeks of cellular-level work. Topicals can't do this. Peptides can.",
+    img: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=800&q=80",
   },
 ];
 
@@ -733,11 +726,22 @@ function GlowHowItWorksSection() {
           ))}
         </div>
 
-        {/* Desktop: single card — diagram left + slider right */}
+        {/* Desktop: image left + slider right */}
         <div className="hidden md:flex">
-          {/* Left — cell diagram */}
-          <div className="relative flex w-[320px] shrink-0 items-center justify-center p-8 lg:w-[420px] lg:p-10">
-            <CellDiagram />
+          {/* Left — step image */}
+          <div className="relative w-[320px] shrink-0 overflow-hidden rounded-2xl lg:w-[420px]">
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={activeStep}
+                src={HOW_STEPS[activeStep].img}
+                alt={HOW_STEPS[activeStep].title}
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                className="h-full w-full object-cover"
+              />
+            </AnimatePresence>
           </div>
 
           {/* Right — step slider */}
@@ -754,9 +758,6 @@ function GlowHowItWorksSection() {
                   <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-[#6D6FFC] to-[#8b8dff] text-white shadow-md shadow-[#6D6FFC]/20">
                     {React.createElement(HOW_STEPS[activeStep].icon, { className: "h-5 w-5", strokeWidth: 2.5 })}
                   </div>
-                  <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.15em] text-[#6D6FFC]/70">
-                    Step {HOW_STEPS[activeStep].n} of {HOW_STEPS.length}
-                  </p>
                   <h3 className="mb-3 font-title text-2xl font-bold leading-tight text-gray-900 lg:text-[1.75rem]">
                     {HOW_STEPS[activeStep].title}
                   </h3>
@@ -1639,6 +1640,7 @@ export default function GlowLandingPage({ product }) {
       <GlowProtocolSupportSection />
       <GlowHowItWorksSection />
       <GlowTestimonialsSection />
+      <MemberResultsStatsSection />
       <BeforeAfterSliderSection category="skin" heading="Real transformations." ctaHref={CTA_HREF} />
       <GlowPainPointsSection />
       <GlowPromiseSection />

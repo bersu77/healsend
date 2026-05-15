@@ -34,6 +34,7 @@ import {
   MinimalMarketingNavbar,
   ActiveMembersBanner,
   MarketingFooter,
+  MEMBER_AVATARS_MEN,
 } from "@/components/marketing/shared";
 import {
   mergeProductContent,
@@ -264,7 +265,7 @@ function EncloWillpowerSection() {
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
             <div className="mt-3 max-w-[34rem]">
-              <ActiveMembersBanner />
+              <ActiveMembersBanner avatars={MEMBER_AVATARS_MEN} />
               <h2 className="text-balance font-title text-4xl font-medium leading-tight tracking-tight text-gray-950 md:text-5xl">
                 Boost testosterone.{" "}
                 <span className="font-playfair italic font-medium text-[#6d6ffc]">
@@ -652,7 +653,7 @@ function AnimatedStat({ from, to, duration, format, label }) {
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <p className="mb-3 font-title text-5xl leading-none md:text-6xl">{format(count)}</p>
+      <p className="mb-3 font-title text-3xl leading-none sm:text-5xl md:text-6xl">{format(count)}</p>
       <p className="text-sm text-white/70">{label}</p>
     </motion.div>
   );
@@ -662,13 +663,13 @@ export function EncoStatBarSection() {
   return (
     <section className="relative overflow-hidden bg-[#101726] py-14 text-white md:py-16">
       <div className="pointer-events-none absolute -right-24 -top-36 h-96 w-96 rounded-full bg-[#6D6FFC]/20 blur-3xl" />
-      <div className="relative mx-auto max-w-[960px] px-4 md:px-8">
+      <div className="relative mx-auto max-w-[1100px] px-4 md:px-8">
         <h2 className="mx-auto mb-3 max-w-[700px] text-center font-title text-3xl font-medium md:text-4xl">
           You&apos;re not imagining it.{" "}
           <span className="font-playfair italic text-[#6D6FFC]">Low T is everywhere.</span>
         </h2>
         <p className="mb-12 text-center text-sm text-white/60">And most men don&apos;t even know they have it.</p>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 text-center">
+        <div className="grid gap-6 grid-cols-2 lg:grid-cols-4 lg:gap-8 text-center">
           <AnimatedStat from={1} to={4} duration={1.5} format={(v) => `1 in ${v}`} label="men over 30 have clinically low testosterone" />
           <AnimatedStat from={0} to={80} duration={1.8} format={(v) => `${v}%`} label="have never had their levels tested" />
           <AnimatedStat from={100} to={40} duration={1.8} format={(v) => `${v}%`} label="of men over 45 are below the optimal range" />
@@ -1913,7 +1914,7 @@ export default function EnclomipheneLandingPage({ product }) {
       <EncloWillpowerSection />
       <EncloProductHeroSection />
       <MediaLogosBanner />
-      <FadeIn><OurTreatmentsSection cards={[TREATMENT_PLAN_CARDS.find(c => c.id === "enclomiphene"), ...TREATMENT_PLAN_CARDS.filter(c => c.id !== "enclomiphene" && c.id !== "glp1")]} /></FadeIn>
+      <FadeIn><OurTreatmentsSection cards={[TREATMENT_PLAN_CARDS.find(c => c.id === "enclomiphene"), ...TREATMENT_PLAN_CARDS.filter(c => c.id !== "enclomiphene" && c.id !== "glp1")]} avatars={MEMBER_AVATARS_MEN} /></FadeIn>
       <RestoredTirzepatideBenefitsCarouselSection productData={productData} isHomepage heading="Enclomiphene Benefits" />
       <FadeIn><EncoHowItWorksSection /></FadeIn>
       <EncoStatBarSection />
@@ -1925,7 +1926,7 @@ export default function EnclomipheneLandingPage({ product }) {
       <FadeIn><EncoTestimonialsSection /></FadeIn>
       <DarkMemberStatsSection />
       <BeforeAfterSliderSection category="fitness" heading="Real transformations." ctaHref={CTA_HREF} />
-      <FadeIn><SimpleSteps productData={productData} /></FadeIn>
+      <FadeIn><SimpleSteps productData={productData} variant="men" /></FadeIn>
       <CleanSimpleEffective productData={productData} />
       <FadeIn><LabTested productData={productData} /></FadeIn>
       <MarketingTrustMarquee items={ENCLO_TRUST_ITEMS} edgeToEdge={false} />

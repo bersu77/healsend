@@ -90,19 +90,24 @@ const MEDIA_LOGOS = [
 
 /** HealSend consultation/marketing portraits — overlapping stack (Willpower stat + testimonials header). */
 const MEMBER_FACE_STACK_IMAGE_SRCS = [
-  "/images/4_Home_Doctors_Online_Consultation-Doctors_02.jpg",
+  "https://images.unsplash.com/photo-1559526323-cb2f2fe2591b?auto=format&fit=facearea&facepad=2&w=96&q=80",
   "/images/4_Home_Doctors_Online_Consultation-Doctors_04.jpg",
   "/images/4_Home_Doctors_Online_Consultation-Avatar.jpg",
+  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=facearea&facepad=2&w=96&q=80",
+  "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=facearea&facepad=2&w=96&q=80",
   "/images/4_Home_Doctors_Online_Consultation-Testimonials_02.jpg",
-  // "/images/slider/Copy of pexels-farhadirani-34650790.jpg",
-  // "/images/slider/Copy of look-studio-S0T98VD2KZs-unsplash.jpg",
-  // "/images/slider/Copy of pexels-tima-miroshnichenko-5928317.jpg",
 ];
 
 const MEMBER_FACE_STACK_IMAGE_SRCS_SIX = [
-  ...MEMBER_FACE_STACK_IMAGE_SRCS,
+  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=facearea&facepad=2&w=96&q=80",
+  "/images/4_Home_Doctors_Online_Consultation-Doctors_04.jpg",
+  "https://images.unsplash.com/photo-1559526323-cb2f2fe2591b?auto=format&fit=facearea&facepad=2&w=96&q=80",
   "/images/4_Home_Doctors_Online_Consultation-Testimonials_02.jpg",
-  "/images/4_Home_Doctors_Online_Consultation-Testimonials_03.jpg",
+  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=facearea&facepad=2&w=96&q=80",
+  "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=facearea&facepad=2&w=96&q=80",
+  "/images/4_Home_Doctors_Online_Consultation-Avatar.jpg",
+  "https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=facearea&facepad=2&w=96&q=80",
+  "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=facearea&facepad=2&w=96&q=80",
 ];
 
 export function MediaLogosBanner() {
@@ -186,18 +191,32 @@ const buildSliderItem = (filename, index) => ({
 });
 
 export const WILLPOWER_LEFT_MARQUEE_ITEMS = [
-  "/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Uses & Benefits(background)/Man-lifting.jpeg",
+  "/images/add.png",
+  "Copy of Gemini_Generated_Image_ctnnloctnnloctnn.png",
+  "240_F_554794353_4b7WK5XeFkemnF1o7RXL2WFt4ITps4jX.jpg",
   "Box_2.png",
+  "Copy of 240_F_1859749441_tdF1skYaEk8hSO9lo4tAYXdwVvq7Km4c.jpg",
+  "Copy of 240_F_1861119733_Y7uOou4SbKCsL0DzOOy5RA0UASKblWIO.jpg",
   "Copy of 240_F_255843378_E2xPB7yqctJZrRIgyeAj8HxXzg5N2mr6.jpg",
-  "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Redefine wellness with science/pexels-ivan-samkov-4164510-scaled-1.jpeg",
+  "Copy of pexels-tima-miroshnichenko-5928317.jpg",
+  "Copy of Gemini_Generated_Image_r1o81rr1o81rr1o8.png",
   "Copy of Gemini_Generated_Image_schuohschuohschu.png",
-  "/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Ready to feel like you again_/Testosterone-Therapy-for-men-1-optimized.jpg",
+  "Copy of happyveganfit-remove-4559326 (1).jpg",
+  "Copy of natali-hordiiuk-OIn0cEu0iQ0-unsplash.jpg",
+  "Copy of pexels-cottonbro-6941311.jpg",
 ].map(buildSliderItem);
 
 export const WILLPOWER_RIGHT_MARQUEE_ITEMS = [
-  "/images/peptides-20260506T071409Z-3-001/peptides/Ready to Buy Peptides Online the Safe Way_Ready to Buy Peptides Online the Safe Way_/424dbc50-9966-4389-a6bd-3e1e201de2cf-e1761771693727.webp",
+  "/images/addslider.jpg",
+  "Copy of pexels-daniel-dan-47825192-7558820.jpg",
+  "Copy of pexels-farhadirani-34650790.jpg",
+  "Copy of pexels-karola-g-4498158.jpg",
+  "Copy of pexels-lara-stratiychuk-1606923648-27536859.jpg",
+  "Copy of pexels-olly-3807548.jpg",
   "Copy of pexels-tima-miroshnichenko-6011604.jpg",
+  "Copy of pexels-tirachard-kumtanom-112571-347135.jpg",
   "Gemini_Generated_Image_n1o1o6n1o1o6n1o1.png",
+  "Copy of look-studio-S0T98VD2KZs-unsplash.jpg",
   "Gemini_Generated_Image_4a1v034a1v034a1v.png",
   "Gemini_Generated_Image_neknhtneknhtnekn.png",
   "PHOTO-2026-03-29-18-10-25(1).jpg",
@@ -3543,7 +3562,31 @@ export function ResearchSplit({ productData }) {
   );
 }
 
-export function SimpleSteps({ productData }) {
+function Step3ImageMale() {
+  return (
+    <div className="relative flex h-full w-full items-end justify-center">
+      <img
+        src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80"
+        alt="Man receiving ongoing care"
+        className="h-full w-full object-cover object-top"
+      />
+      <div className="absolute right-3 top-6 flex items-start gap-2 rounded-2xl bg-white px-4 py-3 shadow-lg md:right-5 md:top-10">
+        <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gray-200">
+          <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=80&q=80" alt="Doctor" className="h-full w-full object-cover" />
+        </div>
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400">Dr. Nguyen</p>
+          <p className="text-sm font-medium text-gray-800">How are you feeling today?</p>
+        </div>
+      </div>
+      <div className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-xl bg-[#6D6FFC] shadow-lg md:bottom-6 md:right-6 md:h-12 md:w-12">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 md:h-6 md:w-6"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      </div>
+    </div>
+  );
+}
+
+export function SimpleSteps({ productData, variant }) {
   const ctaHref = getPrimaryCtaHref(productData);
   const steps = defaultSimpleSteps;
 
@@ -3597,11 +3640,15 @@ export function SimpleSteps({ productData }) {
               </div>
 
               <div className="mt-auto flex w-full items-end justify-center h-[300px] md:h-[360px]">
-                <img
-                  src={step.image}
-                  alt={`Step ${step.step}`}
-                  className={step.imageClass}
-                />
+                {variant === "men" && step.step === 3 ? (
+                  <Step3ImageMale />
+                ) : (
+                  <img
+                    src={step.image}
+                    alt={`Step ${step.step}`}
+                    className={step.imageClass}
+                  />
+                )}
               </div>
             </div>
           ))}
@@ -5464,7 +5511,7 @@ function EncloVsTrtComparisonSection() {
   );
 }
 
-export function OurTreatmentsSection({ cards = MEDICAL_PLANS }) {
+export function OurTreatmentsSection({ cards = MEDICAL_PLANS, avatars }) {
   const [expandedId, setExpandedId] = useState(null);
   const cardElMap = useRef({});
   const [cardMinHeight, setCardMinHeight] = useState(0);
@@ -5509,7 +5556,7 @@ export function OurTreatmentsSection({ cards = MEDICAL_PLANS }) {
           </div>
 
           <div className="hidden w-full lg:block lg:w-auto lg:shrink-0 lg:pt-1">
-            <TrustBadgesRow />
+            <TrustBadgesRow avatars={avatars} />
           </div>
         </div>
 
@@ -5539,7 +5586,7 @@ export function OurTreatmentsSection({ cards = MEDICAL_PLANS }) {
         </div>
 
         <div className="mt-8 lg:hidden">
-          <TrustBadgesRow />
+          <TrustBadgesRow avatars={avatars} />
         </div>
 
       </div>

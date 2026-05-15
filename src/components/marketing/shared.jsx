@@ -1828,18 +1828,31 @@ export function MinimalMarketingNavbar() {
 }
 
 const MEMBER_AVATARS = [
-  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&q=80",
-  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80",
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&q=80",
-  "https://images.unsplash.com/photo-1573497019418-b400bb3ab074?auto=format&fit=crop&w=80&q=80",
-  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&q=80",
+  "https://images.unsplash.com/photo-1559526323-cb2f2fe2591b?auto=format&fit=facearea&facepad=2&w=80&q=80",
+  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=facearea&facepad=2&w=80&q=80",
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&facepad=2&w=80&q=80",
+  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=facearea&facepad=2&w=80&q=80",
+  "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=facearea&facepad=2&w=80&q=80",
+  "https://images.unsplash.com/photo-1573497019418-b400bb3ab074?auto=format&fit=facearea&facepad=2&w=80&q=80",
+  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=facearea&facepad=2&w=80&q=80",
 ];
 
-export function ActiveMembersBanner() {
+export const MEMBER_AVATARS_MEN = [
+  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=facearea&facepad=2&w=80&q=80",
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&facepad=2&w=80&q=80",
+  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=facearea&facepad=2&w=80&q=80",
+  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=2&w=80&q=80",
+  "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=facearea&facepad=2&w=80&q=80",
+  "https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=facearea&facepad=2&w=80&q=80",
+  "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=facearea&facepad=2&w=80&q=80",
+];
+
+export function ActiveMembersBanner({ avatars }) {
+  const pics = avatars || MEMBER_AVATARS;
   return (
     <div className="flex items-center gap-2.5 pt-1">
       <div className="flex -space-x-2">
-        {MEMBER_AVATARS.map((src, i) => (
+        {pics.map((src, i) => (
           <img
             key={i}
             src={src}
@@ -1855,17 +1868,6 @@ export function ActiveMembersBanner() {
     </div>
   );
 }
-
-const TRUST_AVATARS = [
-  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&q=80",
-  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80",
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&q=80",
-  "https://images.unsplash.com/photo-1573497019418-b400bb3ab074?auto=format&fit=crop&w=80&q=80",
-  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&q=80",
-  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=80&q=80",
-  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=80&q=80",
-  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=80&q=80",
-];
 
 function LaurelLeft({ className }) {
   return <img src="/images/clean/image.png" alt="" aria-hidden="true" className={className} />;
@@ -1883,7 +1885,8 @@ function GoogleStar() {
   );
 }
 
-export function TrustBadgesRow() {
+export function TrustBadgesRow({ avatars }) {
+  const pics = avatars || MEMBER_AVATARS;
   return (
     <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5 lg:flex-nowrap lg:justify-end">
       {/* Google Reviews badge */}
@@ -1915,7 +1918,7 @@ export function TrustBadgesRow() {
         <div className="flex flex-col items-center gap-1.5 px-1">
           <span className="text-[11px] font-semibold uppercase tracking-wider text-gray-500">HealSend</span>
           <div className="flex -space-x-1.5">
-            {TRUST_AVATARS.slice(0, 7).map((src, i) => (
+            {pics.slice(0, 7).map((src, i) => (
               <img
                 key={i}
                 src={src}

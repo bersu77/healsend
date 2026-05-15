@@ -26,6 +26,7 @@ import {
   MinimalMarketingNavbar,
   ActiveMembersBanner,
   MarketingFooter,
+  TrustBadgesRow,
 } from "@/components/marketing/shared";
 import {
   WillpowerVerticalColumn,
@@ -88,7 +89,7 @@ function FadeIn({ children, className = "" }) {
 function OralGLP1WillpowerSection() {
   return (
     <section className="relative overflow-hidden bg-[#F1F0FF]">
-      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-6 md:px-[3.25rem] md:py-10 lg:h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:overflow-hidden lg:py-0">
+      <div className="relative mx-auto flex max-w-[1340px] flex-col items-start gap-5 px-4 py-6 md:px-[3.25rem] md:py-10 lg:min-h-[calc(100dvh-60px)] lg:flex-row lg:items-center lg:gap-6 xl:gap-8 lg:py-12">
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
             <div className="max-w-[34rem]">
@@ -152,7 +153,7 @@ function OralGLP1WillpowerSection() {
           <WillpowerHorizontalRow items={WILLPOWER_RIGHT_MARQUEE_ITEMS} reverse />
         </div>
 
-        <div className="relative hidden min-h-0 w-full shrink-0 overflow-hidden lg:block lg:h-[540px] lg:w-[45%] lg:self-center xl:w-[450px]">
+        <div className="relative hidden min-h-0 w-full shrink-0 overflow-hidden lg:block lg:max-h-[600px] lg:min-h-[480px] lg:w-[45%] lg:self-center xl:w-[450px]">
           <div className="grid h-full grid-cols-2 gap-3 lg:gap-4">
             <WillpowerVerticalColumn items={WILLPOWER_LEFT_MARQUEE_ITEMS} />
             <WillpowerVerticalColumn items={WILLPOWER_RIGHT_MARQUEE_ITEMS} reverse />
@@ -674,21 +675,8 @@ function OralGLP1TwoOptionsSection() {
               Both are once-daily oral protocols. Both are clinically guided and provider-prescribed when appropriate.
             </p>
           </div>
-          <div className="flex w-full flex-wrap items-center justify-center gap-3 sm:gap-4 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end lg:pt-1">
-            <div className="flex min-w-0 flex-initial items-center justify-center">
-              <div className="relative flex items-center">
-                <img src="/images/clean/image.png" alt="" aria-hidden="true" className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
-                <img src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`} alt="Google reviews rating" loading="lazy" className="z-10 -ml-2 -mr-1 h-auto max-h-[40px] w-[120px] object-contain mix-blend-multiply sm:-ml-3 sm:-mr-2 sm:max-h-[50px] sm:w-[140px] md:max-h-[55px] md:w-[150px] lg:-ml-4 lg:-mr-2 lg:max-h-[60px] lg:w-[160px]" />
-                <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
-              </div>
-            </div>
-            <div className="flex min-w-0 flex-initial items-center justify-center">
-              <div className="relative flex items-center">
-                <img src="/images/clean/image.png" alt="" aria-hidden="true" className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
-                <img src="/images/healsend-2k-members-trust.png" alt="HealSend — 2K+ members" loading="lazy" className="z-10 -mx-5 h-auto max-h-[50px] w-[150px] shrink-0 object-contain sm:-mx-6 sm:max-h-[60px] sm:w-[170px] md:-mx-7 md:max-h-[65px] md:w-[180px] lg:-mx-8 lg:max-h-[70px] lg:w-[200px]" />
-                <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
-              </div>
-            </div>
+          <div className="hidden w-full lg:block lg:w-auto lg:shrink-0 lg:pt-1">
+            <TrustBadgesRow />
           </div>
         </div>
 

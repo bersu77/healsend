@@ -34,6 +34,7 @@ import {
   MinimalMarketingNavbar,
   ActiveMembersBanner,
   MarketingFooter,
+  TrustBadgesRow,
 } from "@/components/marketing/shared";
 import {
   WillpowerVerticalColumn,
@@ -822,21 +823,8 @@ function GHTwoOptionsSection() {
               Your clinician will help you choose based on your IGF-1 baseline, goals, and health history.
             </p>
           </div>
-          <div className="flex w-full flex-wrap items-center justify-center gap-3 sm:gap-4 lg:w-auto lg:shrink-0 lg:flex-nowrap lg:justify-end lg:pt-1">
-            <div className="flex min-w-0 flex-initial items-center justify-center">
-              <div className="relative flex items-center">
-                <img src="/images/clean/image.png" alt="" aria-hidden="true" className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
-                <img src={`/images/${encodeURIComponent("google_trust_badge_white (1).svg")}`} alt="Google reviews rating" loading="lazy" className="z-10 -ml-2 -mr-1 h-auto max-h-[40px] w-[120px] object-contain mix-blend-multiply sm:-ml-3 sm:-mr-2 sm:max-h-[50px] sm:w-[140px] md:max-h-[55px] md:w-[150px] lg:-ml-4 lg:-mr-2 lg:max-h-[60px] lg:w-[160px]" />
-                <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className="h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
-              </div>
-            </div>
-            <div className="flex min-w-0 flex-initial items-center justify-center">
-              <div className="relative flex items-center">
-                <img src="/images/clean/image.png" alt="" aria-hidden="true" className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
-                <img src="/images/healsend-2k-members-trust.png" alt="HealSend — 2K+ members" loading="lazy" className="z-10 -mx-5 h-auto max-h-[50px] w-[150px] shrink-0 object-contain sm:-mx-6 sm:max-h-[60px] sm:w-[170px] md:-mx-7 md:max-h-[65px] md:w-[180px] lg:-mx-8 lg:max-h-[70px] lg:w-[200px]" />
-                <img src="/images/articles/blogs/image.png" alt="" aria-hidden="true" className="z-20 h-10 w-auto shrink-0 object-contain sm:h-12 md:h-14 lg:h-16" />
-              </div>
-            </div>
+          <div className="hidden w-full lg:block lg:w-auto lg:shrink-0 lg:pt-1">
+            <TrustBadgesRow />
           </div>
         </div>
 

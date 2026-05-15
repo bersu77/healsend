@@ -33,6 +33,7 @@ import {
   MinimalMarketingNavbar,
   ActiveMembersBanner,
   MarketingFooter,
+  MEMBER_AVATARS_MEN,
 } from "@/components/marketing/shared";
 import {
   mergeProductContent,
@@ -245,7 +246,7 @@ function TRTWillpowerSection() {
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
             <div className="mt-3 max-w-[34rem]">
-              <ActiveMembersBanner />
+              <ActiveMembersBanner avatars={MEMBER_AVATARS_MEN} />
               <h2 className="text-balance font-title text-4xl font-medium leading-tight tracking-tight text-gray-950 md:text-5xl">
                 Your low energy isn&apos;t a willpower problem.{" "}
                 <span className="font-playfair italic font-medium text-[#6d6ffc]">
@@ -837,7 +838,7 @@ const SUPPORT_CARDS = [
 function TRTCombinedTreatmentsSection({ cards }) {
   return (
     <>
-      <OurTreatmentsSection cards={cards} />
+      <OurTreatmentsSection cards={cards} avatars={MEMBER_AVATARS_MEN} />
 
       <section className="bg-[#f9f9f9] py-10 md:py-14">
         <div className="mx-auto max-w-[1200px] px-4 md:px-8">
@@ -1570,7 +1571,7 @@ export default function TRTLandingPage({ product }) {
       <TRTStatsSection />
       <BeforeAfterSliderSection category="fitness" heading="Real transformations." ctaHref={CTA_HREF} />
       <FadeIn><TRTEligibilitySection /></FadeIn>
-      <SimpleSteps productData={productData} />
+      <SimpleSteps productData={productData} variant="men" />
       <CleanSimpleEffective productData={productData} />
       <FadeIn><LabTested productData={productData} /></FadeIn>
       <MarketingTrustMarquee items={TRT_TRUST_ITEMS} edgeToEdge={false} />

@@ -23,6 +23,7 @@ import {
   MinimalMarketingNavbar,
   ActiveMembersBanner,
   MarketingFooter,
+  MEMBER_AVATARS_MEN,
 } from "@/components/marketing/shared";
 import {
   WillpowerVerticalColumn,
@@ -109,7 +110,7 @@ function SurgeHeroSection() {
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
             <div className="mt-3 max-w-[34rem]">
-              <ActiveMembersBanner />
+              <ActiveMembersBanner avatars={MEMBER_AVATARS_MEN} />
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -1490,7 +1491,7 @@ export default function SurgeLandingPage({ product }) {
   const productData = mergeProductContent(product);
 
   return (
-    <div className="hs-font-v2 min-h-screen overflow-x-clip bg-[#f9f9f9] selection:bg-[#7b75f0] selection:text-white">
+    <div className="min-h-screen overflow-x-clip bg-[#f9f9f9] selection:bg-[#7b75f0] selection:text-white">
       <MinimalMarketingNavbar />
       <SurgeHeroSection />
       <SurgeProductHeroSection />
@@ -1504,7 +1505,7 @@ export default function SurgeLandingPage({ product }) {
       <SurgeTestimonialsSection />
       <MemberResultsStatsSection />
       <SurgePromiseSection />
-      <SimpleSteps productData={productData} />
+      <SimpleSteps productData={productData} variant="men" />
       <SurgeUpgradeBanner />
       <CleanSimpleEffective productData={null} />
       <LabTested productData={null} />
