@@ -25,6 +25,7 @@ import {
   ActiveMembersBanner,
   MarketingFooter,
   TrustBadgesRow,
+  MEMBER_AVATARS_MIXED,
 } from "@/components/marketing/shared";
 import {
   WillpowerVerticalColumn,
@@ -112,7 +113,7 @@ function RecoveryHeroSection() {
         <div className="w-full min-w-0 shrink-0 lg:w-[55%] lg:max-w-[740px] lg:self-center">
           <div className="w-full max-w-[34rem]">
             <div className="mt-3 max-w-[34rem]">
-              <ActiveMembersBanner />
+              <ActiveMembersBanner avatars={MEMBER_AVATARS_MIXED} />
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -357,8 +358,8 @@ function RecoveryProtocolsSection() {
           />
         </div>
 
-        <div className="mt-8 flex justify-center">
-          <TrustBadgesRow />
+        <div className="mt-8 flex justify-center md:mt-10">
+          <TrustBadgesRow avatars={MEMBER_AVATARS_MIXED} />
         </div>
       </div>
     </section>

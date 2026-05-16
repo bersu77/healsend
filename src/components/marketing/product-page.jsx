@@ -206,6 +206,26 @@ export const WILLPOWER_LEFT_MARQUEE_ITEMS = [
   "Copy of pexels-cottonbro-6941311.jpg",
 ].map(buildSliderItem);
 
+export const RECOVERY_LEFT_MARQUEE_ITEMS = [
+  "/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Uses & Benefits(background)/Man-lifting.jpeg",
+  "Copy of Gemini_Generated_Image_ctnnloctnnloctnn.png",
+  "Copy of 240_F_255843378_E2xPB7yqctJZrRIgyeAj8HxXzg5N2mr6.jpg",
+  "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Redefine wellness with science/pexels-ivan-samkov-4164510-scaled-1.jpeg",
+  "Copy of Gemini_Generated_Image_schuohschuohschu.png",
+  "Copy of pexels-olly-3807548.jpg",
+  "/images/Enclomiphene-20260506T071530Z-3-001/Enclomiphene/Ready to feel like you again_/Testosterone-Therapy-for-men-1-optimized.jpg",
+].map(buildSliderItem);
+
+export const RECOVERY_RIGHT_MARQUEE_ITEMS = [
+  "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Why do people explore Sermorelin therapy_/pexels-julia-larson-6455960-scaled-1-optimized.jpg",
+  "Copy of pexels-tima-miroshnichenko-6011604.jpg",
+  "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Why do people explore Sermorelin therapy_/pexels-dmitry-ovsyannikov-271243380-17542096-scaled-1-optimized.jpg",
+  "Gemini_Generated_Image_n1o1o6n1o1o6n1o1.png",
+  "Copy of pexels-karola-g-4498158.jpg",
+  "/images/energy recovery longevity-20260506T071648Z-3-001/energy recovery longevity/Why do people explore Sermorelin therapy_/pexels-mikhail-nilov-7500425-scaled-1-optimized.jpg",
+  "PHOTO-2026-03-29-18-10-25(1).jpg",
+].map(buildSliderItem);
+
 export const WILLPOWER_RIGHT_MARQUEE_ITEMS = [
   "/images/addslider.jpg",
   "Copy of pexels-daniel-dan-47825192-7558820.jpg",
@@ -3564,25 +3584,11 @@ export function ResearchSplit({ productData }) {
 
 function Step3ImageMale() {
   return (
-    <div className="relative flex h-full w-full items-end justify-center">
-      <img
-        src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80"
-        alt="Man receiving ongoing care"
-        className="h-full w-full object-cover object-top"
-      />
-      <div className="absolute right-3 top-6 flex items-start gap-2 rounded-2xl bg-white px-4 py-3 shadow-lg md:right-5 md:top-10">
-        <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gray-200">
-          <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=80&q=80" alt="Doctor" className="h-full w-full object-cover" />
-        </div>
-        <div>
-          <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-400">Dr. Nguyen</p>
-          <p className="text-sm font-medium text-gray-800">How are you feeling today?</p>
-        </div>
-      </div>
-      <div className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-xl bg-[#6D6FFC] shadow-lg md:bottom-6 md:right-6 md:h-12 md:w-12">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 md:h-6 md:w-6"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-      </div>
-    </div>
+    <img
+      src="/sponsers/ChatGPT Image May 16, 2026, 02_53_29 AM.png"
+      alt="Man receiving ongoing care"
+      className="h-full w-full object-contain object-bottom"
+    />
   );
 }
 
