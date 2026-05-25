@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/auth";
 import { updateGhlContact } from "@/lib/ghl";
 import { isGhlApiEnabled } from "@/lib/integration-settings";
-import { tagSmsOptedIn } from "@/lib/ghl-funnel-tags";
+import { tagSmsOptedIn, tagQuizCompleted } from "@/lib/ghl-funnel-tags";
 import { prisma } from "@/lib/prisma";
 
 export async function POST(request) {
@@ -16,7 +16,7 @@ export async function POST(request) {
   }
 
   const body = await request.json();
-  const { contactInfo, smsOptedIn } = body;
+  const { contactInfo, smsOptedIn, quizCompleted } = body;
 
   try {
     if (contactInfo) {
@@ -32,6 +32,10 @@ export async function POST(request) {
           await updateGhlContact(ghlContact.ghlId, updates);
         }
       }
+    }
+
+    if (quizCompleted) {
+      await tagQuizCompleted(user.id);
     }
 
     if (smsOptedIn) {

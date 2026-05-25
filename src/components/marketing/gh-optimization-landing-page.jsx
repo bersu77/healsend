@@ -67,7 +67,7 @@ const GH_TRUST_ITEMS = [
   { text: "Free & Fast Shipping", Icon: Truck },
   { text: "U.S. Only Certified Pharmacies", Icon: null, svg: "True" },
   { text: "Always On Clinician Support", Icon: Headset },
-  { text: "1,200,000+ prescriptions written", Icon: ClipboardCheck },
+  { text: "1,000,000+ prescriptions written", Icon: ClipboardCheck },
   { text: "FSA & HSA Eligible", Icon: BadgeCheck },
 ];
 
@@ -222,7 +222,7 @@ function GHProductHeroSection() {
                   In Stock
                 </div>
                 <Image
-                  src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200&q=80"
+                  src="/images/wp-media/does-working-out-increase-testosterone.webp"
                   alt="GH Optimization Protocol — in stock"
                   fill
                   sizes="(max-width: 1024px) 100vw, 55vw"
@@ -247,16 +247,8 @@ function GHProductHeroSection() {
                 <div className="min-w-0 shrink">
                   <div className="flex flex-wrap items-baseline gap-2">
                     <span className="text-3xl font-bold text-gray-900 md:text-4xl">$149</span>
-                    <span className="text-lg font-medium text-gray-800 md:text-xl">first month</span>
+                    <span className="text-lg font-medium text-gray-800 md:text-xl">per month</span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setShowPriceFootnote((v) => !v)}
-                    aria-expanded={showPriceFootnote}
-                    className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 md:text-base"
-                  >
-                    then $249/mo*
-                  </button>
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-2">
                   <span className="flex items-center rounded-[0.6rem] bg-[#FFB3C7] px-3 py-1.5">
@@ -268,11 +260,6 @@ function GHProductHeroSection() {
                 </div>
               </div>
 
-              {showPriceFootnote && (
-                <div className="mb-5 rounded-[0.75rem] bg-gray-50 p-3 text-xs leading-5 text-gray-600 md:text-sm">
-                  *$149 applies to the Sermorelin Starter tier first month. GH Optimizer is $249/mo and Elite Stack is $399/mo. Final tier and pricing depends on clinician review and IGF-1 labs. Cancel anytime.
-                </div>
-              )}
 
               <div className="flex w-full flex-col items-stretch gap-3">
                 <Link
@@ -547,7 +534,7 @@ const GH_HOW_STEPS = [
   {
     title: "IGF-1 activates muscle & fat metabolism",
     desc: "IGF-1 signals muscle cells to grow and repair, and signals fat cells to release stored energy. The combined effect: more lean mass, less fat, faster recovery.",
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80",
+    image: "/images/wp-media/focused-bearded-runner-with-earphones-urban-track-healthy-lifestyle-fitness-concept.webp",
   },
   {
     title: "Sleep, skin, and cognition improve",
@@ -724,7 +711,7 @@ const GH_PLAN_CARDS = [
     badges: ["Best First Step", "GH Optimization"],
     title: "Sermorelin\nMonotherapy",
     subtitle: "Single-peptide GHRH analog",
-    image: "/images/marketing/bundle/sermorelin-product.png",
+    image: "/images/wp-media/67b8bc339365c3a3c21c8190_cta_sermorelin.jpg",
     bulletsHeading: "MEMBER RESULTS",
     bullets: [
       { icon: Moon, text: "Better sleep within 3–4 weeks" },
@@ -753,7 +740,7 @@ const GH_PLAN_CARDS = [
     badges: ["Most Popular", "Dual-Peptide Stack"],
     title: "CJC-1295 +\nIpamorelin",
     subtitle: "GHRH + GHRP amplified GH protocol",
-    image: "/images/marketing/bundle/sermorelin-product.png",
+    image: "/images/marketing/bundle/cjc-1295-ipamorelin-product.png",
     bulletsHeading: "MEMBER RESULTS",
     bullets: [
       { icon: Dumbbell, text: "Best for body recomp and lean mass" },
@@ -782,7 +769,7 @@ const GH_PLAN_CARDS = [
     badges: ["Oral Option", "No Injections"],
     title: "MK-677\n(Ibutamoren)",
     subtitle: "Oral GH secretagogue — no needles",
-    image: "/images/marketing/bundle/sermorelin-product.png",
+    image: "/images/marketing/bundle/oral-tirzepatide-product.png",
     bulletsHeading: "MEMBER RESULTS",
     bullets: [
       { icon: Zap, text: "Daily oral dosing — no needles" },
@@ -1204,7 +1191,7 @@ const LAB_OUTCOMES = [
     after: "18.1",
     change: "−19%",
     positive: true,
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80",
+    image: "/images/wp-media/focused-bearded-runner-with-earphones-urban-track-healthy-lifestyle-fitness-concept.webp",
   },
   {
     marker: "Deep Sleep",
@@ -1213,7 +1200,7 @@ const LAB_OUTCOMES = [
     after: "1.6",
     change: "+78%",
     positive: true,
-    image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1520206183501-b80df61043c2?auto=format&fit=crop&w=800&q=80",
   },
 ];
 
@@ -1588,7 +1575,7 @@ const CARE_FEATURES = [
     icon: FlaskConical,
     title: "Quarterly IGF-1 labs",
     desc: "Labs are included in your protocol — not an add-on. Quarterly IGF-1 rechecks keep your dose calibrated throughout your program.",
-    image: "https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?auto=format&fit=crop&w=600&q=80",
+    image: "/images/wp-media/240829-blood-test-stock-aa-1253p-e88212.webp",
   },
   {
     icon: Headset,
@@ -1600,7 +1587,7 @@ const CARE_FEATURES = [
     icon: RefreshCw,
     title: "Auto-refill, zero friction",
     desc: "Your medication ships automatically each month. No refill requests, no clinic visits, no interruption to your protocol.",
-    image: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&w=600&q=80",
   },
 ];
 

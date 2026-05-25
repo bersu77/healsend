@@ -62,7 +62,7 @@ const GLOW_TRUST_ITEMS = [
   { text: "Free & Fast Shipping", Icon: Truck },
   { text: "U.S. Only Certified Pharmacies", Icon: null, svg: "True" },
   { text: "Always On Clinician Support", Icon: Headset },
-  { text: "1,200,000+ prescriptions written", Icon: ClipboardCheck },
+  { text: "1,000,000+ prescriptions written", Icon: ClipboardCheck },
   { text: "FSA & HSA Eligible", Icon: BadgeCheck },
 ];
 
@@ -249,16 +249,8 @@ function GlowProductHeroSection() {
                 <div className="min-w-0 shrink">
                   <div className="flex flex-wrap items-baseline gap-2">
                     <span className="text-3xl font-bold text-gray-900 md:text-4xl">$99</span>
-                    <span className="text-lg font-medium text-gray-800 md:text-xl">first month</span>
+                    <span className="text-lg font-medium text-gray-800 md:text-xl">per month</span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setShowPriceFootnote((v) => !v)}
-                    aria-expanded={showPriceFootnote}
-                    className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 md:text-base"
-                  >
-                    then $179/mo*
-                  </button>
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-2">
                   <span className="flex items-center rounded-[0.6rem] bg-[#FFB3C7] px-3 py-1.5">
@@ -270,11 +262,6 @@ function GlowProductHeroSection() {
                 </div>
               </div>
 
-              {showPriceFootnote && (
-                <div className="mb-5 rounded-[0.75rem] bg-gray-50 p-3 text-xs leading-5 text-gray-600 md:text-sm">
-                  *Enhanced is $179/mo and Advanced Stack is $299/mo. Final tier and pricing depends on clinician review. Cancel anytime.
-                </div>
-              )}
 
               <div className="flex w-full flex-col items-stretch gap-3">
                 <Link
@@ -456,7 +443,7 @@ const GLOW_PLAN_CARDS = [
     badges: ["Most Popular", "Skin & Hair"],
     title: "Enhanced\nSkin & Hair",
     subtitle: "Dual-compound regenerative protocol",
-    image: "/images/marketing/bundle/sermorelin-product.png",
+    image: "/images/wp-media/healsend-beauty-cream-scaled.jpg",
     bulletsHeading: "MEMBER RESULTS",
     bullets: [
       { icon: Sparkles, text: "Visible texture & tone improvement by week 12" },
@@ -485,7 +472,7 @@ const GLOW_PLAN_CARDS = [
     badges: ["Full Stack", "Advanced"],
     title: "Advanced\nRegenerative Stack",
     subtitle: "Triple-compound full regenerative protocol",
-    image: "/images/marketing/bundle/sermorelin-product.png",
+    image: "/images/wp-media/copper-peptide.png",
     bulletsHeading: "MEMBER RESULTS",
     bullets: [
       { icon: Layers, text: "Full cellular-renewal stack — triple compound" },

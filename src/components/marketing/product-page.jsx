@@ -2070,9 +2070,9 @@ export function TestimonialsSection() {
 
 export function PricingPlansTable({ productName, footnote }) {
   const plans = [
-    { name: "12 Month Plan", firstMonth: 0, thenPrice: 249, isBestValue: true },
-    { name: "3 Month Plan", firstMonth: 149, thenPrice: 249, isBestValue: false },
-    { name: "Monthly Plan", firstMonth: 199, thenPrice: 199, isBestValue: false, isMuted: true },
+    { name: "12 Month Plan", price: 249, isBestValue: true },
+    { name: "3 Month Plan", price: 249, isBestValue: false },
+    { name: "Monthly Plan", price: 199, isBestValue: false, isMuted: true },
   ];
   return (
     <div className="space-y-4">
@@ -2095,11 +2095,8 @@ export function PricingPlansTable({ productName, footnote }) {
             </span>
             <div className="text-right">
               <div className={`text-xl font-bold leading-none ${plan.isMuted ? "text-gray-500" : "text-[#00a86b]"}`}>
-                ${plan.firstMonth}{" "}
-                <span className="text-sm font-semibold">first month</span>
-              </div>
-              <div className="mt-1 text-sm font-normal text-gray-500">
-                {plan.name === "Monthly Plan" ? `$${plan.thenPrice}/mo*` : `then $${plan.thenPrice}/mo*`}
+                ${plan.price}{" "}
+                <span className="text-sm font-semibold">per month</span>
               </div>
             </div>
           </div>
@@ -2117,14 +2114,14 @@ const BEFORE_AFTER_PLACEHOLDER_SLIDES = {
     { name: "Michael T.", result: "Lost 41 lbs", before: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80" },
   ],
   fitness: [
-    { name: "James K.", result: "12 week transformation", before: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80" },
-    { name: "Ryan D.", result: "8 week transformation", before: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=600&q=80" },
-    { name: "Alex P.", result: "16 week transformation", before: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=600&q=80" },
+    { name: "James K.", result: "12 week transformation", before: "https://images.unsplash.com/photo-1584466977773-e625c37cdd50?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=80" },
+    { name: "Ryan D.", result: "8 week transformation", before: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=600&q=80" },
+    { name: "Alex P.", result: "16 week transformation", before: "/images/wp-media/does-working-out-increase-testosterone.webp", after: "/images/wp-media/focused-bearded-runner-with-earphones-urban-track-healthy-lifestyle-fitness-concept.webp" },
   ],
   skin: [
-    { name: "Emma L.", result: "12 week glow-up", before: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" },
-    { name: "Olivia W.", result: "8 week results", before: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80" },
-    { name: "Sophia H.", result: "10 week results", before: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80", after: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=600&q=80" },
+    { name: "Emma L.", result: "12 week glow-up", before: "/images/wp-media/Acne.jpg", after: "/images/wp-media/6-Expert-Tips-To-Keep-Your-Skin-Hydrated_dektop_reequil.webp" },
+    { name: "Olivia W.", result: "8 week results", before: "/images/wp-media/Sensitive-Skin-Rosacea-Understanding-Causes-Symptoms-and-Treatment-Options-scaled-1.webp", after: "/images/wp-media/beautiful-woman-with-perfect-brown-shiny-hair-scaled-1.jpg", beforePos: "70% top", afterPos: "right top" },
+    { name: "Sophia H.", result: "10 week results", before: "/images/wp-media/Gen4-Tretinoin-forehead-wrinkles-before-and-after-a-2-3740068279.webp", after: "/images/wp-media/Gen4-Exploring-Retinols-Effects-on-Skin-Tightening-a-2-3240135744.webp", beforePos: "left top", afterPos: "right top" },
   ],
 };
 
@@ -2153,9 +2150,9 @@ function BeforeAfterCard({ slide }) {
           if (e.buttons > 0) handleMove(e.clientX);
         }}
       >
-        <img src={slide.after} alt="After" draggable={false} className="pointer-events-none absolute inset-0 h-full w-full object-cover" />
+        <img src={slide.after} alt="After" draggable={false} className="pointer-events-none absolute inset-0 h-full w-full object-cover" style={{ objectPosition: slide.afterPos || "top" }} />
         <div className="absolute inset-0 overflow-hidden" style={{ width: `${sliderPos}%` }}>
-          <img src={slide.before} alt="Before" draggable={false} className="pointer-events-none absolute inset-0 h-full w-full object-cover" style={{ width: containerRef.current ? `${containerRef.current.offsetWidth}px` : "100vw", maxWidth: "none" }} />
+          <img src={slide.before} alt="Before" draggable={false} className="pointer-events-none absolute inset-0 h-full w-full object-cover" style={{ objectPosition: slide.beforePos || "top", width: containerRef.current ? `${containerRef.current.offsetWidth}px` : "100vw", maxWidth: "none" }} />
         </div>
         <div className="absolute inset-y-0 z-10" style={{ left: `${sliderPos}%`, transform: "translateX(-50%)" }}>
           <div className="flex h-full w-0.5 flex-col items-center bg-white shadow-sm">
@@ -4122,8 +4119,8 @@ const SAME_MED_MARQUEE_ITEMS = [
   { text: "Free & Fast Shipping", Icon: Truck },
   { text: "U.S. Only Certified Pharmacies", Icon: null, svg: "True" },
   { text: "Always On Clinician Support", Icon: Headset },
-  { text: "1,200,000+ prescriptions written", Icon: ClipboardCheck },
-  { text: "250,000+ members", Icon: Users },
+  { text: "1,000,000+ prescriptions written", Icon: ClipboardCheck },
+  { text: "2,000+ members", Icon: Users },
   { text: "FSA & HSA Eligible", Icon: BadgeCheck },
   { text: "No Memberships or Hidden Fees", Icon: Laptop },
   { text: "Personalized Rx Weight Loss Plans", Icon: PillBottle },
@@ -5380,7 +5377,7 @@ export const TREATMENT_PLAN_CARDS = [
     badges: ["For Men", "Testosterone Therapy"],
     title: "TRT —\nTestosterone",
     subtitle: "Testosterone Cypionate Injections",
-    image: "/images/marketing/bundle/sermorelin-product.png",
+    image: "/images/marketing/bundle/semaglutide-injections-product.png",
     bulletsHeading: "WHAT YOU GET",
     bullets: [
       { icon: Zap, text: "Restore energy, strength, and drive with clinician-guided TRT" },

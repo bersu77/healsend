@@ -1,6 +1,10 @@
 import {
+  DollarSign,
   Droplet,
+  ShieldCheck,
+  Stethoscope,
   Syringe,
+  Truck,
   Zap,
 } from "lucide-react";
 import { WORDPRESS_MARKETING_IMAGES } from "@/lib/marketing-images";
@@ -18,28 +22,32 @@ export const productContent = {
   tabs: {
     benefits: [
       {
-        icon: Zap,
-        text: "Restores energy, sharpens focus, and supports recovery at the cellular level.",
+        icon: ShieldCheck,
+        text: "Same price at every dose. No hidden fees.",
       },
       {
-        icon: Syringe,
-        text: "Only $15/shot* — at-home kit included, no clinic visits.",
+        icon: Truck,
+        text: "Free expedited shipping.",
       },
       {
-        icon: Droplet,
-        text: "Full-strength 500–1000mg vials (200mg/mL) from a licensed U.S. pharmacy.",
+        icon: DollarSign,
+        text: "No membership fees.",
+      },
+      {
+        icon: Stethoscope,
+        text: "Doctor-led plans, coaching & active community.",
       },
     ],
     pricing: {
-      title: "Choose the vial size best for you. No hidden fees.",
+      title: "Choose the plan best for you. No hidden fees.",
       sizes: [
         {
           title: "500mg (2.5mL vial)",
           subtitle:
             "Great for those starting slowly\nor using NAD+ 1-3x per week",
           plans: [
-            { name: "3-Month Plan", firstMonthPrice: 119, regularPrice: 186 },
-            { name: "Monthly Plan", firstMonthPrice: 173, regularPrice: 196 },
+            { name: "3-Month Plan", price: 186 },
+            { name: "Monthly Plan", price: 196 },
           ],
         },
         {
@@ -47,31 +55,30 @@ export const productContent = {
           subtitle:
             "Best for those aiming for higher frequency (up to 5x/week)",
           plans: [
-            { name: "3-Month Plan", firstMonthPrice: 145, regularPrice: 226 },
-            { name: "Monthly Plan", firstMonthPrice: 217, regularPrice: 246 },
+            { name: "3-Month Plan", price: 226 },
+            { name: "Monthly Plan", price: 246 },
           ],
         },
       ],
     },
     description:
-      "NAD+ (Nicotinamide Adenine Dinucleotide) injections help replenish a vital coenzyme that declines with age, playing a key role in energy metabolism, DNA repair, and cellular resilience. This therapy is designed for those seeking more natural energy, clearer focus, and support for long-term wellness.",
+      "GLP-1 treatment plans are medically guided and personalized to your health profile to support sustainable weight loss. They may help reduce appetite, support weight loss, and improve blood sugar control as part of a structured care plan. Unlike generic approaches, your treatment includes licensed provider oversight, ongoing adjustments, and continuous support to improve consistency and outcomes. Start your free telehealth consultation to see if a personalized GLP-1 plan is right for you.",
   },
   faqs: [
     {
-      question: "What is NAD+ and why does it matter?",
+      question: "What's included with my plan?",
       answer:
-        "NAD+ is a crucial coenzyme found in every cell of your body. It is essential for cellular energy production and DNA repair.",
+        "Every HealSend plan is personalized to you. After reviewing your health profile, a licensed provider creates your treatment plan. If appropriate, you'll receive a tailored dosing schedule and prescription shipped directly to your door via a state-licensed pharmacy. You also get 24/7 messaging access to your care team for ongoing support.",
     },
     {
-      question: "What are the potential benefits of NAD+ injections?",
+      question: "What treatment options do I have?",
       answer:
-        "Benefits may include increased energy, improved mental clarity, and support for healthy aging.",
+        "You'll be matched to a personalized GLP-1 program based on your goals, medical history, and eligibility. Options may include different medications and dosing plans optimized for weight loss. We're also expanding into oral GLP-1s and peptide-based programs for patients who are not suited for GLP-1s or want more targeted fat-loss support.",
     },
     {
-      question:
-        "What is the difference between oral NAD+ supplements and injections?",
+      question: "What if I need to cancel?",
       answer:
-        "Injections bypass the digestive system for higher absorption directly into the bloodstream.",
+        "You can cancel anytime in your patient portal with no fees or long-term commitments. Cancellation stops future billing, but does not affect orders already sent to the pharmacy. For pending orders, contact care@healsend.com for support.",
     },
   ],
   testimonials: [

@@ -4261,6 +4261,19 @@ export default function DynamicOnboardingClient({
     template?.slug,
   ]);
 
+  const quizCompletedSyncedRef = useRef(false);
+  useEffect(() => {
+    if (!activeStep || !hasHydratedDraft || completed) return;
+    if (activeStep.type === "PLAN_SELECTION" && !quizCompletedSyncedRef.current) {
+      quizCompletedSyncedRef.current = true;
+      fetch("/api/ghl/sync-funnel", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ quizCompleted: true }),
+      }).catch(() => {});
+    }
+  }, [activeStep, hasHydratedDraft, completed]);
+
   const setStepAnswer = useCallback(
     (val) => {
       if (!activeStep) return;

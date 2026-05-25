@@ -83,7 +83,7 @@ const MARKETING_NAV_SECTIONS = [
     promo: {
       eyebrow: "Get started",
       headline: "Personalized GLP-1. Lose weight.",
-      price: "From $129 per month",
+      price: "$129 per month",
       href: "/tirzepatide-injections",
       gradient: "from-[#fbf7ff] via-[#f5f0ff] to-[#eef4ff]",
       image: DESKTOP_NAV_PROMO_IMAGES.weightLoss,
@@ -116,7 +116,7 @@ const MARKETING_NAV_SECTIONS = [
     promo: {
       eyebrow: "Hormone support",
       headline: "Build strength. Recover faster.",
-      price: "From $159 per month",
+      price: "$159 per month",
       href: "/sermorelin-injection-2",
       gradient: "from-[#eef6ff] via-[#f5fbff] to-[#f3f3ff]",
       image: DESKTOP_NAV_PROMO_IMAGES.strengthRecovery,
@@ -152,7 +152,7 @@ const MARKETING_NAV_SECTIONS = [
     promo: {
       eyebrow: "Recovery plans",
       headline: "Recover faster. Perform stronger.",
-      price: "From $159 per month",
+      price: "$159 per month",
       href: ROUTES.strength,
       gradient: "from-[#eef6ff] via-[#f5fbff] to-[#f3f3ff]",
       image: DESKTOP_NAV_PROMO_IMAGES.strengthRecovery,
@@ -187,7 +187,7 @@ const MARKETING_NAV_SECTIONS = [
     promo: {
       eyebrow: "Confidential care",
       headline: "Private support for desire and performance.",
-      price: "From $129 per month",
+      price: "$129 per month",
       href: "/pt-141-nasal-spray",
       gradient: "from-[#fff5f5] via-[#fff9fb] to-[#f5f3ff]",
       image: DESKTOP_NAV_PROMO_IMAGES.sexualHealth,
@@ -239,7 +239,7 @@ const MARKETING_NAV_SECTIONS = [
     promo: {
       eyebrow: "Most popular",
       headline: "Personalized NAD treatments.",
-      price: "From $129 first month*",
+      price: "$129 per month",
       href: ROUTES.nad,
       gradient: "from-[#f7f2ea] via-[#fff8ef] to-[#eef5ff]",
       image: DESKTOP_NAV_PROMO_IMAGES.antiAging,
@@ -265,7 +265,7 @@ const MARKETING_NAV_SECTIONS = [
     promo: {
       eyebrow: "Aesthetics",
       headline: "Skin & Hair with NAD+.",
-      price: "From $129 first month*",
+      price: "$129 per month",
       href: ROUTES.nad,
       gradient: "from-[#fff5f5] via-[#fff9fb] to-[#f5f3ff]",
       image: DESKTOP_NAV_PROMO_IMAGES.antiAging,
@@ -306,7 +306,7 @@ const MARKETING_NAV_SECTIONS = [
     promo: {
       eyebrow: "Cognitive support",
       headline: "Sharper Mind treatments.",
-      price: "From $129 first month*",
+      price: "$129 per month",
       href: ROUTES.nad,
       gradient: "from-[#f7f2ea] via-[#fff8ef] to-[#eef5ff]",
       image: DESKTOP_NAV_PROMO_IMAGES.antiAging,
@@ -331,7 +331,7 @@ const MARKETING_NAV_SECTIONS = [
     promo: {
       eyebrow: "Gut care",
       headline: "Total Gut Reset.",
-      price: "From $129 per month",
+      price: "$129 per month",
       href: ROUTES.shop,
       gradient: "from-[#eef6ff] via-[#f5fbff] to-[#f3f3ff]",
       image: DESKTOP_NAV_PROMO_IMAGES.weightLoss,
@@ -878,7 +878,7 @@ export function MarketingNavbar() {
                   width={164}
                   height={52}
                   priority
-                  className="h-12 w-auto md:h-14"
+                  className="h-10 w-auto object-contain sm:h-12 md:h-14"
                 />
               </Link>
 
@@ -1147,7 +1147,7 @@ export function MarketingNavbar() {
                       Personalized GLP-1 Treatments
                     </p>
                     <span className="inline-block bg-white/20 text-white text-[12px] font-medium rounded-full px-3 py-1">
-                      From $129 first month*
+                      $129 per month
                     </span>
                   </div>
                 </div>
@@ -1531,22 +1531,22 @@ export function MarketingBanner({
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_32%),linear-gradient(180deg,rgba(255,255,255,0.05),transparent_40%)]" />
       </div>
       <div className="relative z-10 mx-auto flex max-w-[960px] flex-col items-center px-5 py-12 text-white sm:px-8 lg:px-10 lg:py-16">
-        <h2 className="[font-family:'Open_Sans',sans-serif] mb-5 text-[2.1rem] font-semibold leading-[1.1] tracking-[-0.03em] sm:text-[2.7rem] lg:text-[40px]">
+        <h2 className="[font-family:'Poppins',sans-serif] mb-5 text-[2.1rem] font-semibold leading-[1.1] tracking-[-0.03em] sm:text-[2.7rem] lg:text-[40px]">
           {title}
         </h2>
         {secondTitle ? (
-          <p className="[font-family:'Open_Sans',sans-serif] mb-4 text-base font-light text-gray-100 sm:text-xl lg:text-[32px]">
+          <p className="[font-family:'Poppins',sans-serif] mb-4 text-base font-light text-gray-100 sm:text-xl lg:text-[32px]">
             {secondTitle}
           </p>
         ) : null}
         <Link
           href={buttonHref}
-          className="[font-family:'Open_Sans',sans-serif] hs-solid-btn mb-5 rounded-full px-8 py-3.5 text-[15px] font-bold transition-all duration-300 hover:-translate-y-0.5 sm:px-9 sm:py-4 sm:text-[17px] lg:text-[22px]"
+          className="[font-family:'Poppins',sans-serif] hs-solid-btn mb-5 rounded-full px-8 py-3.5 text-[15px] font-bold transition-all duration-300 hover:-translate-y-0.5 sm:px-9 sm:py-4 sm:text-[17px] lg:text-[22px]"
         >
           {buttonText}
         </Link>
         {subtitle ? (
-          <p className="[font-family:'Open_Sans',sans-serif] whitespace-pre-line text-[0.98rem] font-light text-gray-100 sm:text-[1.2rem] lg:text-[1.65rem]">
+          <p className="[font-family:'Poppins',sans-serif] whitespace-pre-line text-[0.98rem] font-light text-gray-100 sm:text-[1.2rem] lg:text-[1.65rem]">
             {subtitle}
           </p>
         ) : null}
@@ -1766,7 +1766,7 @@ export function MinimalMarketingNavbar() {
           <div className="flex min-w-0 w-full max-w-full items-center justify-between gap-2 rounded-[1.7rem] sm:gap-3 md:px-5">
             <Link
               href={ROUTES.home}
-              className="flex min-w-0 shrink items-center overflow-hidden"
+              className="flex shrink-0 items-center"
             >
               <Image
                 src="/logo.png"
@@ -1774,7 +1774,7 @@ export function MinimalMarketingNavbar() {
                 width={164}
                 height={52}
                 priority
-                className="h-10 w-auto max-w-[7.5rem] object-contain object-left sm:h-12 sm:max-w-[8.5rem] md:h-14 md:max-w-none"
+                className="h-10 w-auto object-contain sm:h-12 md:h-14"
               />
             </Link>
 

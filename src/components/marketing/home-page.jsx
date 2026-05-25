@@ -66,7 +66,7 @@ const BUNDLE_MARKETING_IMAGES = Object.freeze({
 const defaultWeightLossProducts = [
   {
     title: "Semaglutide Injection",
-    price: "Starting at $149 per month",
+    price: "$149 per month",
     image: BUNDLE_MARKETING_IMAGES.semaglutideInjections,
     href: MARKETING_ROUTES.weightLoss,
     tags: [
@@ -76,7 +76,7 @@ const defaultWeightLossProducts = [
   },
   {
     title: "Tirzepatide Injection",
-    price: "Starting at $199 per month",
+    price: "$199 per month",
     image: BUNDLE_MARKETING_IMAGES.tirzepatideInjections,
     href: MARKETING_ROUTES.weightLoss,
     tags: [
@@ -86,7 +86,7 @@ const defaultWeightLossProducts = [
   },
   {
     title: "Tirzepatide Drops",
-    price: "Starting at $199 per month",
+    price: "$199 per month",
     image: BUNDLE_MARKETING_IMAGES.oralTirzepatide,
     href: MARKETING_ROUTES.weightLoss,
     tags: [
@@ -96,7 +96,7 @@ const defaultWeightLossProducts = [
   },
   {
     title: "Lipotropic Injection",
-    price: "Starting at $99 per month",
+    price: "$99 per month",
     image: BUNDLE_MARKETING_IMAGES.micB12,
     href: MARKETING_ROUTES.weightLoss,
     tags: [{ label: "Rx", bg: "bg-white", text: "text-black" }],
@@ -106,7 +106,7 @@ const defaultWeightLossProducts = [
 const defaultSexualHealthProducts = [
   {
     title: "PT-141 Nasal Spray",
-    price: "Starting at $129 per month",
+    price: "$129 per month",
     image: WORDPRESS_MARKETING_IMAGES.pt141,
     href: MARKETING_ROUTES.sexualHealth,
     tags: [
@@ -137,7 +137,7 @@ const defaultSexualHealthProducts = [
 const defaultEnergyProducts = [
   {
     title: "NAD+ Injection",
-    price: "Starting at $139 per month",
+    price: "$139 per month",
     image: BUNDLE_MARKETING_IMAGES.nadInjections,
     href: MARKETING_ROUTES.nad,
     secondaryHref: MARKETING_ROUTES.nad,
@@ -148,7 +148,7 @@ const defaultEnergyProducts = [
   },
   {
     title: "NAD+ Nasal Spray",
-    price: "Starting at $139 per month",
+    price: "$139 per month",
     image: BUNDLE_MARKETING_IMAGES.nadNasalSpray,
     href: "/nad-nasal-spray",
     secondaryHref: "/nad-nasal-spray",
@@ -159,7 +159,7 @@ const defaultEnergyProducts = [
   },
   {
     title: "NAD+ Patches",
-    price: "Starting at $199 per month",
+    price: "$199 per month",
     image: WORDPRESS_MARKETING_IMAGES.nadPatches,
     href: "/nad-patches",
     secondaryHref: "/nad-patches",
@@ -173,7 +173,7 @@ const defaultEnergyProducts = [
 const defaultStrengthProducts = [
   {
     title: "Sermorelin Injection",
-    price: "Starting at $159 per month",
+    price: "$159 per month",
     image: BUNDLE_MARKETING_IMAGES.sermorelin,
     href: getFunnelPath("growth-hormone-support"),
     secondaryHref: "/sermorelin-injection-2",
@@ -184,7 +184,7 @@ const defaultStrengthProducts = [
   },
   {
     title: "CJC-1295 + Ipamorelin",
-    price: "Starting at $189 per month",
+    price: "$189 per month",
     image: BUNDLE_MARKETING_IMAGES.cjc1295Ipamorelin,
     href: getFunnelPath("growth-hormone-support"),
     secondaryHref: "/cjc-1295-ipamorelin",
@@ -195,7 +195,7 @@ const defaultStrengthProducts = [
   },
   {
     title: "Enclomiphene",
-    price: "Starting at $149 per month",
+    price: "$149 per month",
     image: BUNDLE_MARKETING_IMAGES.enclomiphene,
     href: getFunnelPath("growth-hormone-support"),
     secondaryHref: "/enclomiphene",
@@ -974,7 +974,7 @@ function HeroCategories({ hero = defaultHeroContent }) {
   }, [normalizedHeadlinePhrases.length]);
 
   return (
-    <section className="mx-auto max-w-[1340px] overflow-x-hidden px-4 py-6 sm:py-8 md:px-8 lg:py-10">
+    <section className="mx-auto max-w-[1340px] overflow-x-clip px-4 py-6 sm:py-8 md:px-8 lg:py-10">
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(270px,0.72fr)] lg:items-start lg:gap-8">
         <div>
           <h1 className="[font-family:'Poppins',sans-serif] flex flex-col text-[clamp(1.95rem,9vw,2.8rem)] font-semibold leading-[0.99] tracking-[-0.05em] text-[#1d1d1f] max-[419px]:text-[clamp(1.72rem,8.2vw,2.2rem)] sm:text-6xl sm:leading-[0.97] lg:text-[4.45rem] lg:leading-[0.95]">
@@ -1039,7 +1039,7 @@ function HeroCategories({ hero = defaultHeroContent }) {
             <span>{titleLineTwo}</span>
           </h1>
 
-          <p className="[font-family:'Open_Sans',sans-serif] mt-4 max-w-[34rem] text-lg leading-relaxed text-[#5d6169] sm:text-xl">
+          <p className="[font-family:'Poppins',sans-serif] mt-4 max-w-[34rem] text-lg leading-relaxed text-[#5d6169] sm:text-xl">
             {description === "Personalized Medications for You"
               ? null
               : description}
@@ -1054,7 +1054,7 @@ function HeroCategories({ hero = defaultHeroContent }) {
               return (
                 <div
                   key={point.label}
-                  className="[font-family:'Open_Sans',sans-serif] flex w-full items-center gap-3 text-left text-[0.98rem] leading-relaxed text-[#525764]"
+                  className="[font-family:'Poppins',sans-serif] flex w-full items-center gap-3 text-left text-[0.98rem] leading-relaxed text-[#525764]"
                 >
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[#1d1d1f] shadow-[0_12px_32px_rgba(15,23,42,0.08)]">
                     <Icon className="h-4.5 w-4.5" />
@@ -1073,7 +1073,7 @@ function HeroCategories({ hero = defaultHeroContent }) {
             <Link
               key={`${cat.title}-${cat.href || index}-${index}`}
               href={cat.href}
-              className={`group relative flex min-h-[280px] w-full flex-col justify-between overflow-hidden rounded-[1.9rem] border border-[#afb2ef] bg-[#C8C9FD] p-5 shadow-[0_20px_50px_rgba(15,23,42,0.1)] transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-[#8f93ef] hover:shadow-[0_24px_55px_rgba(109,111,252,0.18)] sm:min-h-[330px] sm:p-7 ${
+              className={`group relative flex min-h-[240px] w-full flex-col justify-between overflow-hidden rounded-[1.9rem] border border-[#afb2ef] bg-[#C8C9FD] p-5 shadow-[0_20px_50px_rgba(15,23,42,0.1)] transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-[#8f93ef] hover:shadow-[0_24px_55px_rgba(109,111,252,0.18)] sm:min-h-[280px] md:min-h-[330px] sm:p-7 ${
                 index === 2 ? "hidden md:flex" : ""
               }`}
             >
@@ -1084,7 +1084,7 @@ function HeroCategories({ hero = defaultHeroContent }) {
                 <h2 className="[font-family:'Poppins',sans-serif] whitespace-pre-line text-[1.42rem] font-semibold leading-[0.95] tracking-[-0.04em] text-[#151824] max-[419px]:text-[1.28rem] sm:text-[1.9rem]">
                   {cat.title}
                 </h2>
-                <p className="[font-family:'Open_Sans',sans-serif] mt-2 max-w-[16rem] text-sm leading-snug text-[#353a48] sm:text-base">
+                <p className="[font-family:'Poppins',sans-serif] mt-2 max-w-[16rem] text-sm leading-snug text-[#353a48] sm:text-base">
                   {cat.subtitle}
                 </p>
               </div>
@@ -1115,7 +1115,7 @@ function HeroCategories({ hero = defaultHeroContent }) {
             <Link
               key={`${cat.title}-${cat.href || index}-${index}`}
               href={cat.href}
-              className={`group relative flex min-h-[108px] items-end justify-between overflow-hidden rounded-[1.65rem] border border-[#afb2ef] bg-[#C8C9FD] p-3.5 shadow-[0_18px_45px_rgba(15,23,42,0.07)] transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-[#8f93ef] hover:shadow-[0_22px_50px_rgba(109,111,252,0.12)] sm:min-h-[120px] md:min-h-[196px] sm:p-5`}
+              className={`group relative flex min-h-[100px] items-end justify-between overflow-hidden rounded-[1.65rem] border border-[#afb2ef] bg-[#C8C9FD] p-3.5 shadow-[0_18px_45px_rgba(15,23,42,0.07)] transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-[#8f93ef] hover:shadow-[0_22px_50px_rgba(109,111,252,0.12)] sm:min-h-[120px] md:min-h-[196px] sm:p-5`}
             >
               <div
                 className={`pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 ${cat.hoverOverlayClass || ""}`}
@@ -1124,7 +1124,7 @@ function HeroCategories({ hero = defaultHeroContent }) {
                 <h3 className="[font-family:'Poppins',sans-serif] text-[1.08rem] font-semibold leading-tight tracking-[-0.03em] text-[#1d1d1f] sm:text-[1.2rem]">
                   {cat.title}
                 </h3>
-                <p className="[font-family:'Open_Sans',sans-serif] mt-2 text-sm leading-snug text-[#616674]">
+                <p className="[font-family:'Poppins',sans-serif] mt-2 text-sm leading-snug text-[#616674]">
                   {cat.subtitle}
                 </p>
               </div>
@@ -1351,7 +1351,7 @@ function HimsTopSection() {
             </div>
 
             <div className="mt-auto pt-10">
-              <span className="[font-family:'Open_Sans',sans-serif] text-[0.7rem] text-white/60">
+              <span className="[font-family:'Poppins',sans-serif] text-[0.7rem] text-white/60">
                 Find your Rx match →
               </span>
             </div>
@@ -1381,7 +1381,7 @@ function HimsTopSection() {
             </div>
 
             <div className="mt-auto pt-10">
-              <span className="[font-family:'Open_Sans',sans-serif] text-[0.7rem] text-white/60">
+              <span className="[font-family:'Poppins',sans-serif] text-[0.7rem] text-white/60">
                 ↓ Lose up to 22%* →
               </span>
             </div>
@@ -1703,16 +1703,16 @@ function SplitFeatures({ section = defaultSplitFeatures }) {
           className="relative flex min-h-[470px] flex-col overflow-hidden rounded-[24px] border border-[#ebe8f5] bg-[#7b68ee] px-8 pb-8 pt-10 text-white shadow-[0_30px_80px_rgba(15,23,42,0.08)] md:min-h-[580px] md:px-10 md:pb-10 md:pt-12"
         >
           <div className="relative z-10 mx-auto max-w-[29rem] text-center">
-            <h2 className="[font-family:'Roboto',sans-serif] text-center text-[2.7rem] font-semibold leading-[0.96] tracking-[-0.05em] text-white sm:text-[3.35rem] md:text-[45px]">
+            <h2 className="[font-family:'Poppins',sans-serif] text-center text-[2.7rem] font-semibold leading-[0.96] tracking-[-0.05em] text-white sm:text-[3.35rem] md:text-[45px]">
               {leftCard?.title}
             </h2>
-            <p className="[font-family:'Open_Sans',sans-serif] mx-auto mt-5 max-w-[64%] text-center text-[1rem] leading-8 text-[#efeaff] md:text-[1.05rem]">
+            <p className="[font-family:'Poppins',sans-serif] mx-auto mt-5 max-w-[64%] text-center text-[1rem] leading-8 text-[#efeaff] md:text-[1.05rem]">
               {leftCard?.description}
             </p>
             <div className="mt-7 flex justify-center">
               <Link
                 href={leftCard?.ctaHref || MARKETING_ROUTES.weightLoss}
-                className="[font-family:'Open_Sans',sans-serif] hs-outline-btn inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5"
+                className="[font-family:'Poppins',sans-serif] hs-outline-btn inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5"
               >
                 {leftCard?.ctaText}
               </Link>
@@ -1733,7 +1733,7 @@ function SplitFeatures({ section = defaultSplitFeatures }) {
           </div>
 
           <div className="relative z-10 mt-auto pt-10">
-            <p className="[font-family:'Roboto',sans-serif] text-center text-[2rem] font-semibold tracking-[-0.045em] text-white md:text-[2.75rem]">
+            <p className="[font-family:'Poppins',sans-serif] text-center text-[2rem] font-semibold tracking-[-0.045em] text-white md:text-[2.75rem]">
               {leftCard?.accentText}
             </p>
           </div>
@@ -1754,13 +1754,13 @@ function SplitFeatures({ section = defaultSplitFeatures }) {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.32),transparent_36%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.12),transparent_34%)]" />
 
           <div className="relative z-10 mx-auto max-w-[15rem] sm:max-w-[17.5rem] md:max-w-[26rem]">
-            <h2 className="[font-family:'Roboto',sans-serif] text-center text-[2.7rem] font-semibold leading-[1.2] tracking-[-0.05em] sm:text-[3.35rem] md:text-[45px]">
+            <h2 className="[font-family:'Poppins',sans-serif] text-center text-[2.7rem] font-semibold leading-[1.2] tracking-[-0.05em] sm:text-[3.35rem] md:text-[45px]">
               <span className="md:hidden">{rightTitleMobile}</span>
               <span className="hidden whitespace-pre-line md:inline">
                 {rightTitle}
               </span>
             </h2>
-            <p className="[font-family:'Open_Sans',sans-serif] mx-auto mt-5 max-w-[15rem] text-center text-[1rem] leading-8 text-white/88 sm:max-w-[17rem] md:max-w-[70%] md:text-[1.05rem]">
+            <p className="[font-family:'Poppins',sans-serif] mx-auto mt-5 max-w-[15rem] text-center text-[1rem] leading-8 text-white/88 sm:max-w-[17rem] md:max-w-[70%] md:text-[1.05rem]">
               {
                 rightCard?.description?.split(
                   "helping you feel happy in your body.",
@@ -1774,7 +1774,7 @@ function SplitFeatures({ section = defaultSplitFeatures }) {
             <div className="mt-7 flex justify-center">
               <Link
                 href={rightCard?.ctaHref || MARKETING_ROUTES.weightLoss}
-                className="[font-family:'Open_Sans',sans-serif] hs-outline-btn inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5"
+                className="[font-family:'Poppins',sans-serif] hs-outline-btn inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5"
               >
                 {rightCard?.ctaText}
               </Link>
@@ -1782,7 +1782,7 @@ function SplitFeatures({ section = defaultSplitFeatures }) {
           </div>
 
           <div className="relative z-10 mt-auto pt-14">
-            <div className="[font-family:'Open_Sans',sans-serif] flex items-center justify-center gap-3 text-center text-sm font-medium text-white/70">
+            <div className="[font-family:'Poppins',sans-serif] flex items-center justify-center gap-3 text-center text-sm font-medium text-white/70">
               <span className="inline-flex h-2.5 w-2.5 rounded-full bg-white/70" />
               Personalized path. Smoother intake. Better follow-through.
             </div>
@@ -1902,7 +1902,7 @@ function ArticleCarousel({ section = defaultArticleCarousel }) {
                         }`}
                       />
                       <div className="absolute inset-0 flex flex-col justify-between p-7 md:p-10">
-                        <h2 className="[font-family:'Open_Sans',sans-serif] max-w-[min(36rem,82%)] text-[1.9rem] font-bold leading-[1.02] tracking-[-0.045em] text-white md:text-[3.35rem]">
+                        <h2 className="[font-family:'Poppins',sans-serif] max-w-[min(36rem,82%)] text-[1.9rem] font-bold leading-[1.02] tracking-[-0.045em] text-white md:text-[3.35rem]">
                           {item.title}
                         </h2>
 
@@ -2007,7 +2007,7 @@ function CategoryGrid({ section = defaultCategoryGrid }) {
                   <h3 className="[font-family:'Poppins',sans-serif] mb-2 text-[1.55rem] font-semibold leading-tight tracking-[-0.035em] md:text-[1.85rem]">
                     {cat.title}
                   </h3>
-                  <p className="[font-family:'Open_Sans',sans-serif] max-w-[16rem] text-sm leading-6 text-white/82 md:text-[0.98rem]">
+                  <p className="[font-family:'Poppins',sans-serif] max-w-[16rem] text-sm leading-6 text-white/82 md:text-[0.98rem]">
                     {cat.subtitle}
                   </p>
                 </div>
@@ -2056,7 +2056,7 @@ function BlogCarousel({ section = defaultBlogCarousel }) {
         <h2 className="[font-family:'Poppins',sans-serif] mb-4 text-3xl font-semibold tracking-[-0.04em] text-black md:text-5xl">
           {section.title || defaultBlogCarousel.title}
         </h2>
-        <p className="[font-family:'Open_Sans',sans-serif] mx-auto max-w-2xl text-sm leading-7 text-gray-600 md:text-base">
+        <p className="[font-family:'Poppins',sans-serif] mx-auto max-w-2xl text-sm leading-7 text-gray-600 md:text-base">
           {section.description || defaultBlogCarousel.description}
         </p>
       </div>
@@ -2091,7 +2091,7 @@ function BlogCarousel({ section = defaultBlogCarousel }) {
 
                 <div className="flex min-w-0 flex-1 flex-col p-5 sm:p-7">
                   <p
-                    className="[font-family:'Open_Sans',sans-serif] mb-4 min-w-0 text-sm leading-6 text-gray-500 sm:leading-7"
+                    className="[font-family:'Poppins',sans-serif] mb-4 min-w-0 text-sm leading-6 text-gray-500 sm:leading-7"
                     style={{
                       display: "-webkit-box",
                       WebkitLineClamp: 3,
@@ -2233,14 +2233,14 @@ function MemberStoriesSection({ section = defaultMemberStoriesSection }) {
                     />
                   ))}
                 </div>
-                <p className="[font-family:'Open_Sans',sans-serif] text-[1.03rem] leading-8 text-[#31343c]">
+                <p className="[font-family:'Poppins',sans-serif] text-[1.03rem] leading-8 text-[#31343c]">
                   "{story.quote}"
                 </p>
                 <div className="mt-6 border-t border-black/5 pt-5">
                   <h3 className="[font-family:'Poppins',sans-serif] text-lg font-semibold text-[#1c1d20]">
                     {story.name}
                   </h3>
-                  <div className="[font-family:'Open_Sans',sans-serif] mt-2 flex items-center gap-2 text-sm text-[#6c7280]">
+                  <div className="[font-family:'Poppins',sans-serif] mt-2 flex items-center gap-2 text-sm text-[#6c7280]">
                     <Image
                       src={REFERENCE_HOME_ASSETS.verifiedBadge}
                       alt=""

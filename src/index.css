@@ -353,64 +353,62 @@
   transform: scale(0.98);
 }
 
-/* ── Global font system: Fraunces + Inter only ──────────────── */
+/* ── Global font system: Poppins + Playfair Display only ──────────────── */
 
-/* Headlines — Fraunces 500 */
+/* Headlines — Poppins 600 */
 .font-headline,
 .font-title {
-  font-family: "Fraunces", serif;
-  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
   letter-spacing: -0.02em;
 }
 
-/* Italic accent — Fraunces 400 italic + brand purple */
+/* Italic accent — Playfair Display italic + brand purple */
 .font-playfair,
 .font-accent {
-  font-family: "Fraunces", serif;
-  font-weight: 400;
+  font-family: "Playfair Display", serif;
+  font-weight: 500;
   font-style: italic;
-  font-variation-settings: "opsz" 144, "SOFT" 100;
   color: var(--brand-purple, #6D6FFC);
 }
 
-/* Body copy — Inter 400 */
+/* Body copy — Poppins 500 */
 .font-body {
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
 }
 
-/* Buttons — Inter 600 */
+/* Buttons — Poppins 600 */
 .font-button {
-  font-family: "Inter", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
 }
 
-/* Labels / tags — Inter 700 uppercase */
+/* Labels / tags — Poppins 700 uppercase */
 .font-label {
-  font-family: "Inter", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
-/* Global base: Inter for all body text, Fraunces for headings */
+/* Global base: Poppins for all body text, Playfair Display for accents */
 body {
-  font-family: "Inter", sans-serif;
+  font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Fraunces", serif;
-  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.05;
 }
 
 em {
-  font-family: "Fraunces", serif;
+  font-family: "Playfair Display", serif;
   font-style: italic;
-  font-weight: 400;
-  font-variation-settings: "opsz" 144, "SOFT" 100;
+  font-weight: 500;
   color: var(--brand-purple, #6D6FFC);
 }
 

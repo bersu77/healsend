@@ -125,8 +125,8 @@ const ENCLO_HERO_BENEFITS = [
 ];
 
 const ENCLO_HERO_PRICING = [
-  { name: "Quarterly Plan", firstMonth: 39, thenPrice: 79, isBestValue: true },
-  { name: "Monthly Plan", firstMonth: 79, thenPrice: 79, isBestValue: false, isMuted: true },
+  { name: "Quarterly Plan", price: 79, isBestValue: true },
+  { name: "Monthly Plan", price: 79, isBestValue: false, isMuted: true },
 ];
 
 const ENCLO_HERO_DESCRIPTION =
@@ -382,20 +382,12 @@ function EncloProductHeroSection() {
                 <div className="min-w-0 shrink">
                   <div className="flex flex-wrap items-baseline gap-2">
                     <span className="text-3xl font-bold text-gray-900 md:text-4xl">
-                      $39
+                      $79
                     </span>
                     <span className="text-lg font-medium text-gray-800 md:text-xl">
-                      first month
+                      per month
                     </span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setShowPriceFootnote((v) => !v)}
-                    aria-expanded={showPriceFootnote}
-                    className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 md:text-base"
-                  >
-                    then $79/mo*
-                  </button>
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-2">
                   <span className="flex items-center rounded-[0.6rem] bg-[#FFB3C7] px-3 py-1.5">
@@ -407,15 +399,6 @@ function EncloProductHeroSection() {
                 </div>
               </div>
 
-              {showPriceFootnote ? (
-                <div className="mb-5 rounded-[0.75rem] bg-gray-50 p-3 text-xs leading-5 text-gray-600 md:text-sm">
-                  *$39 first month covers the clinician visit and initial supply
-                  on the quarterly plan. Recurring billing of $79/month begins at
-                  month two and continues until you cancel. Includes
-                  medication, follow-up care, and shipping. Cancel anytime in
-                  your account.
-                </div>
-              ) : null}
 
               <div className="flex w-full flex-col items-stretch gap-3">
                 <Link
@@ -548,8 +531,8 @@ function EncloProductHeroSection() {
             </h3>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { id: "trt", name: "Testosterone Injections", image: "/images/marketing/bundle/sermorelin-product.png" },
-                { id: "gh-optimization", name: "GH Optimization", image: "/images/marketing/bundle/gh-optimization-product.png" },
+                { id: "trt", name: "Testosterone Injections", image: "/images/marketing/bundle/semaglutide-injections-product.png" },
+                { id: "gh-optimization", name: "GH Optimization", image: "/images/marketing/bundle/cjc-1295-ipamorelin-product.png" },
               ].map((product) => (
                 <Link
                   key={product.id}
@@ -1353,7 +1336,7 @@ const PILLARS = [
     num: "02.",
     title: "Fertility intact",
     desc: "Want kids now or later? Enclomiphene maintains sperm production and testicular size. TRT can't say that.",
-    img: "/images/marketing/bundle/strength-lifestyle.jpg",
+    img: "/images/wp-media/husband-with-pregnant-wife-their-son-park-scaled-e1747298923234.jpg",
   },
   {
     num: "03.",

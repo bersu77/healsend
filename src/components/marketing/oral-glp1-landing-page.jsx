@@ -62,7 +62,7 @@ const ORAL_GLP1_TRUST_ITEMS = [
   { text: "Free & Fast Shipping", Icon: Truck },
   { text: "U.S. Only Certified Pharmacies", Icon: null, svg: "True" },
   { text: "Always On Clinician Support", Icon: Headset },
-  { text: "1,200,000+ prescriptions written", Icon: ClipboardCheck },
+  { text: "1,000,000+ prescriptions written", Icon: ClipboardCheck },
   { text: "FSA & HSA Eligible", Icon: BadgeCheck },
 ];
 
@@ -253,17 +253,9 @@ function OralGLP1ProductHeroSection() {
               <div className="mb-5 flex items-center justify-between gap-4">
                 <div className="min-w-0 shrink">
                   <div className="flex flex-wrap items-baseline gap-2">
-                    <span className="text-3xl font-bold text-gray-900 md:text-4xl">$0</span>
-                    <span className="text-lg font-medium text-gray-800 md:text-xl">first month</span>
+                    <span className="text-3xl font-bold text-gray-900 md:text-4xl">$299</span>
+                    <span className="text-lg font-medium text-gray-800 md:text-xl">per month</span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setShowPriceFootnote((v) => !v)}
-                    aria-expanded={showPriceFootnote}
-                    className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 md:text-base"
-                  >
-                    then $299/mo*
-                  </button>
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-2">
                   <span className="flex items-center rounded-[0.6rem] bg-[#FFB3C7] px-3 py-1.5">
@@ -275,11 +267,6 @@ function OralGLP1ProductHeroSection() {
                 </div>
               </div>
 
-              {showPriceFootnote ? (
-                <div className="mb-5 rounded-[0.75rem] bg-gray-50 p-3 text-xs leading-5 text-gray-600 md:text-sm">
-                  *$0 first month on annual plan. Regular price is $299/mo. Includes medication, clinician follow-up, and shipping. Cancel anytime.
-                </div>
-              ) : null}
 
               <div className="inline-flex w-full flex-col items-center gap-2.5">
                 <Link
@@ -605,7 +592,7 @@ const ORAL_GLP1_PLAN_CARDS = [
     badges: ["2025 · Newest", "Highest Efficacy"],
     title: "Orforglipron\n+ B6",
     subtitle: "Once-daily oral · No food restrictions",
-    image: "/images/marketing/bundle/tirzepatide-injections-product.png",
+    image: "/images/wp-media/oral-tirzepatide-product.png",
     bulletsHeading: "MEMBER RESULTS",
     bullets: [
       { icon: TrendingUp, text: "Up to 12.4% weight loss at 72 weeks (ATTAIN-1 trial)" },
@@ -634,7 +621,7 @@ const ORAL_GLP1_PLAN_CARDS = [
     badges: ["Established", "Best First Step"],
     title: "Semaglutide\nRDT",
     subtitle: "Once-daily rapid-dissolve tablet · Compounded",
-    image: "/images/marketing/bundle/tirzepatide-injections-product.png",
+    image: "/images/wp-media/Semaglutide-Tablet.webp",
     bulletsHeading: "MEMBER RESULTS",
     bullets: [
       { icon: ShieldCheck, text: "Same active compound as Wegovy / Ozempic — oral form" },

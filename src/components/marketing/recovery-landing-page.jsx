@@ -55,7 +55,7 @@ const RECOVERY_TRUST_ITEMS = [
   { text: "Free & Fast Shipping", Icon: Truck },
   { text: "U.S. Only Certified Pharmacies", Icon: null, svg: "True" },
   { text: "Always On Clinician Support", Icon: Headset },
-  { text: "1,200,000+ prescriptions written", Icon: ClipboardCheck },
+  { text: "1,000,000+ prescriptions written", Icon: ClipboardCheck },
   { text: "FSA & HSA Eligible", Icon: BadgeCheck },
 ];
 
@@ -432,10 +432,9 @@ function RecoveryProductHeroSection() {
             <div className="px-6 py-6 md:px-7 md:py-7">
               <div className="mb-5 flex items-end justify-between gap-4">
                 <div>
-                  <p className="mb-1 text-xs font-medium text-gray-500">Starting at</p>
                   <div className="flex items-baseline gap-1.5">
                     <span className="text-4xl font-bold text-gray-900">$179</span>
-                    <span className="text-lg font-medium text-gray-600">/mo</span>
+                    <span className="text-lg font-medium text-gray-600">per month</span>
                   </div>
                   <button
                     type="button"
@@ -597,7 +596,7 @@ function RecoveryProductHeroSection() {
             <h3 className="mb-4 text-base font-medium text-gray-900">Related Products</h3>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { id: "gh-optimization", name: "GH Optimization", image: "/images/marketing/bundle/tirzepatide-injections-product.png" },
+                { id: "gh-optimization", name: "GH Optimization", image: "/images/marketing/bundle/cjc-1295-ipamorelin-product.png" },
                 { id: "healing-peptide-therapy", name: "Healing Peptide Therapy", image: "/images/marketing/semaglutide.webp" },
               ].map((product) => (
                 <Link

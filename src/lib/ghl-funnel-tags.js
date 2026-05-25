@@ -15,6 +15,7 @@ import { prisma } from "@/lib/prisma";
 
 const FUNNEL_TAGS = {
   STARTED: "funnel-started",
+  QUIZ_COMPLETED: "quiz-completed",
   CHECKOUT: "checkout-reached",
   PAID: "paid",
   SMS_OPTED_IN: "sms-opted-in",
@@ -38,6 +39,18 @@ export async function tagFunnelStarted(userId) {
     await addTagToGhlContact(ghlId, FUNNEL_TAGS.STARTED);
   } catch (err) {
     console.error("[GHL Funnel] Failed to tag funnel-started:", err);
+  }
+}
+
+export async function tagQuizCompleted(userId) {
+  if (!isGhlApiEnabled()) return;
+
+  try {
+    const ghlId = await getGhlContactId(userId);
+    if (!ghlId) return;
+    await addTagToGhlContact(ghlId, FUNNEL_TAGS.QUIZ_COMPLETED);
+  } catch (err) {
+    console.error("[GHL Funnel] Failed to tag quiz-completed:", err);
   }
 }
 

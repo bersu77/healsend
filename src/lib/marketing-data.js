@@ -1752,7 +1752,7 @@ function buildCardPrice(product) {
     return "See pricing";
   }
 
-  return `Starting at ${formatUsdCompact(priceSummary.firstMonthPrice)} per month`;
+  return `${formatUsdCompact(priceSummary.firstMonthPrice)} per month`;
 }
 
 const HOMEPAGE_CAROUSEL_IMAGE_BY_SLUG = Object.freeze({

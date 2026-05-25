@@ -53,7 +53,7 @@ const VF_TRUST_ITEMS = [
   { text: "Free & Fast Shipping", Icon: Truck },
   { text: "U.S. Only Certified Pharmacies", Icon: null, svg: "True" },
   { text: "Always On Clinician Support", Icon: Headset },
-  { text: "1,200,000+ prescriptions written", Icon: ClipboardCheck },
+  { text: "1,000,000+ prescriptions written", Icon: ClipboardCheck },
   { text: "FSA & HSA Eligible", Icon: BadgeCheck },
 ];
 
@@ -320,18 +320,10 @@ function VFProductHeroSection() {
             <div className="px-6 py-6 md:px-7 md:py-7">
               <div className="mb-5 flex items-end justify-between gap-4">
                 <div>
-                  <p className="mb-1 text-xs font-medium text-gray-500">Starting at</p>
                   <div className="flex items-baseline gap-1.5">
                     <span className="text-4xl font-bold text-gray-900">$249</span>
-                    <span className="text-lg font-medium text-gray-600">/mo</span>
+                    <span className="text-lg font-medium text-gray-600">per month</span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setShowPriceFootnote((v) => !v)}
-                    className="mt-1 text-xs text-gray-500 hover:text-gray-700"
-                  >
-                    $199 first month on quarterly plan
-                  </button>
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-2">
                   <span className="flex items-center rounded-[0.6rem] bg-[#FFB3C7] px-3 py-1.5">
@@ -346,11 +338,6 @@ function VFProductHeroSection() {
                 </div>
               </div>
 
-              {showPriceFootnote && (
-                <div className="mb-4 rounded-[0.75rem] bg-gray-50 p-3 text-xs leading-5 text-gray-600">
-                  $199 applies to your first month on a quarterly plan. Regular price is $249/month. Cancel anytime.
-                </div>
-              )}
 
               <div className="inline-flex w-full flex-col items-center gap-2.5">
                 <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} transition={{ duration: 0.15 }} className="w-full sm:w-auto">

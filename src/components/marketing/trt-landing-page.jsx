@@ -105,9 +105,9 @@ const TRT_HERO_BENEFITS = [
 ];
 
 const TRT_HERO_PRICING = [
-  { name: "Annual Plan", firstMonth: 0, thenPrice: 129, isBestValue: true },
-  { name: "3 Month Plan", firstMonth: 49, thenPrice: 149, isBestValue: false },
-  { name: "Monthly Plan", firstMonth: 149, thenPrice: 149, isBestValue: false, isMuted: true },
+  { name: "Annual Plan", price: 129, isBestValue: true },
+  { name: "3 Month Plan", price: 149, isBestValue: false },
+  { name: "Monthly Plan", price: 149, isBestValue: false, isMuted: true },
 ];
 
 const TRT_HERO_DESCRIPTION =
@@ -362,20 +362,12 @@ function TRTProductHeroSection() {
                 <div className="min-w-0 shrink">
                   <div className="flex flex-wrap items-baseline gap-2">
                     <span className="text-3xl font-bold text-gray-900 md:text-4xl">
-                      $0
+                      $129
                     </span>
                     <span className="text-lg font-medium text-gray-800 md:text-xl">
-                      first month
+                      per month
                     </span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setShowPriceFootnote((v) => !v)}
-                    aria-expanded={showPriceFootnote}
-                    className="mt-1 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 md:text-base"
-                  >
-                    then $129/mo*
-                  </button>
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-2">
                   <span className="flex items-center rounded-[0.6rem] bg-[#FFB3C7] px-3 py-1.5">
@@ -387,15 +379,6 @@ function TRTProductHeroSection() {
                 </div>
               </div>
 
-              {showPriceFootnote ? (
-                <div className="mb-5 rounded-[0.75rem] bg-gray-50 p-3 text-xs leading-5 text-gray-600 md:text-sm">
-                  *$0 first month covers the clinician visit and initial supply
-                  on the annual plan. Recurring billing of $129/month begins at
-                  month two and continues until you cancel. Includes
-                  medication, follow-up care, and shipping. Cancel anytime in
-                  your account.
-                </div>
-              ) : null}
 
               <div className="flex w-full flex-col items-stretch gap-3">
                 <Link
@@ -606,7 +589,7 @@ const TRT_PLANS = [
     tagAccent: "Recommended starter",
     title: "Standard TRT",
     subtitle: "Testosterone Cypionate · 100mg/week",
-    image: "/images/marketing/bundle/cjc-1295-ipamorelin-product.png",
+    image: "/images/marketing/bundle/semaglutide-injections-product.png",
     features: [
       "Steady total T increase to optimal range (700–1000 ng/dL)",
       "Once-weekly subcutaneous injection your clinician dials in",
@@ -619,7 +602,7 @@ const TRT_PLANS = [
     tagAccent: "Most chosen plan",
     title: "TRT + hCG",
     subtitle: "Cypionate + hCG fertility support",
-    image: "/images/marketing/bundle/sermorelin-product.png",
+    image: "/images/marketing/bundle/tirzepatide-injections-product.png",
     features: [
       "Combines TRT with hCG to preserve testicular function",
       "Great option if you want kids now or in the future",
@@ -632,7 +615,7 @@ const TRT_PLANS = [
     tagAccent: "Premium",
     title: "Optimized TRT",
     subtitle: "TRT + hCG + Anastrozole + Tadalafil",
-    image: "/images/marketing/bundle/glutathione-injection-product.png",
+    image: "/images/marketing/bundle/nad-injections-product.png",
     features: [
       "Full hormone optimization with estrogen control",
       "Tadalafil included free for daily ED + prostate support",

@@ -128,7 +128,7 @@ const EXPERIENCE_MARQUEE_ITEMS = [
   "US-only certified pharmacies",
   "Always-on clinician support",
   "1,000,000+ prescriptions written",
-  "250,000+ members",
+  "2,000+ members",
 ];
 
 const HEALSEND_POINTS = [
@@ -1524,7 +1524,7 @@ function ProjectedLossCalculatorSection() {
 
                 <p className="mx-auto mt-7 max-w-[19rem] text-[0.98rem] leading-7 text-[#4f5c76]">
                   Based on{" "}
-                  <span className="font-semibold text-[#121726]">250,000+</span>{" "}
+                  <span className="font-semibold text-[#121726]">2,000+</span>{" "}
                   average HealSend member results in guided weight-loss care.
                 </p>
               </div>

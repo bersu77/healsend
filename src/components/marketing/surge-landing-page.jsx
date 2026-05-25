@@ -52,7 +52,7 @@ const SURGE_TRUST_ITEMS = [
   { text: "Free & Discreet Shipping", Icon: Truck },
   { text: "U.S. Only Certified Pharmacies", Icon: null, svg: "True" },
   { text: "Always On Clinician Support", Icon: Headset },
-  { text: "1,200,000+ prescriptions written", Icon: ClipboardCheck },
+  { text: "1,000,000+ prescriptions written", Icon: ClipboardCheck },
   { text: "FSA & HSA Eligible", Icon: BadgeCheck },
 ];
 
@@ -307,10 +307,9 @@ function SurgeProductHeroSection() {
             <div className="px-6 py-6 md:px-7 md:py-7">
               <div className="mb-5 flex items-end justify-between gap-4">
                 <div>
-                  <p className="mb-1 text-xs font-medium text-gray-500">Starting at</p>
                   <div className="flex items-baseline gap-1.5">
                     <span className="text-4xl font-bold text-gray-900">$49</span>
-                    <span className="text-lg font-medium text-gray-600">/mo</span>
+                    <span className="text-lg font-medium text-gray-600">per month</span>
                   </div>
                   <button
                     type="button"
@@ -476,7 +475,7 @@ function SurgeProductHeroSection() {
             </h3>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { id: "trt", name: "Testosterone Therapy", image: "/images/marketing/bundle/tirzepatide-injections-product.png" },
+                { id: "trt", name: "Testosterone Therapy", image: "/images/marketing/bundle/semaglutide-injections-product.png" },
                 { id: "healing-peptide-therapy", name: "Healing Peptide Therapy", image: "/images/marketing/semaglutide.webp" },
               ].map((product) => (
                 <Link
@@ -626,7 +625,7 @@ function SurgeFlagshipSection() {
             {
               title: "Dissolvable troche",
               desc: "Dissolves under the tongue — no water, no swallowing, faster absorption. Discreet and effortless.",
-              image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=600&q=80",
+              image: "/images/wp-media/Sermorelin-Troches.webp",
             },
             {
               title: "Clinician-titrated dose",
@@ -1032,12 +1031,12 @@ function SurgePainPointsSection() {
               key={card.title}
               className="w-[72vw] shrink-0 snap-start sm:w-auto sm:shrink flex flex-col overflow-hidden rounded-[1.5rem] border border-[#ebebeb] bg-white shadow-sm"
             >
-              <div className="relative h-48 w-full overflow-hidden bg-[#f5f5f5]">
+              <div className="relative h-56 w-full overflow-hidden bg-[#f5f5f5]">
                 <Image
                   src={card.image}
                   alt={card.title}
                   fill
-                  className="object-cover"
+                  className="object-cover object-top"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
               </div>
